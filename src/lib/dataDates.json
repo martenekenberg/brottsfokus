@@ -1,0 +1,30 @@
+{
+  "bra2005.csv": {
+    "date": "2026-11-13",
+    "sha256": "9d38dd0ae509450ba4645e88a6148fb749f8252fc814117427e9a1c82fa16940"
+  },
+  "bra2021_tabell_b6.csv": {
+    "date": "2026-11-13",
+    "sha256": "2f1f7db0a470b2df41b1596e3810709448edc66c03a85612da874fdcb5f0fec2"
+  },
+  "intagna_medborgarskap.csv": {
+    "date": "2026-11-13",
+    "sha256": "97a6174bd3304a50f396491a91376a59dd0cbee7d13250d1c3dcdbff97e4bec2"
+  },
+  "misstankta_bakgrund_2007_2018.csv": {
+    "date": "2026-11-13",
+    "sha256": "35e1a70fad44f756262704b22bc4a9c951cd255662ecb26294b730d0f957fca9"
+  },
+  "misstankta_ursprung_2015_2018.csv": {
+    "date": "2026-11-13",
+    "sha256": "a61b15110207e3542759956064e1ad2c38d2d3d81775d3db1242a807ac9976b4"
+  },
+  "scb_befolkning.csv": {
+    "date": "2026-11-13",
+    "sha256": "c7a779f30e1bc54b93dcd3fd9a5628573fd08266f72b44046b7f7bba2bc5c1ed"
+  },
+  "valdtakt_domda.csv": {
+    "date": "2026-11-13",
+    "sha256": "2b03a489fd7711242ebe48413739583b4b71c90c9963a45216df9f74d095551a"
+  }
+}

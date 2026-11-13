@@ -13,6 +13,10 @@ interface Props {
   citations?: string[];
   /** Extra structured data for this page, such as a Dataset or BreadcrumbList. */
   jsonLdNodes?: Record<string, unknown>[];
+  /** When the page's content last changed (ISO date). Defaults to the build date. */
+  updated?: string;
+  /** Plain-text copy of this page, announced to tools that look for one. */
+  markdownPath?: string;
 }
 
 const mainCitations = [
@@ -23,7 +27,7 @@ const mainCitations = [
   'https://www.scb.se/hitta-statistik/sverige-i-siffror/manniskorna-i-sverige/utlandska-medborgare-i-sverige/',
 ];
 
-const { title, description, path = '/', citations = mainCitations, jsonLdNodes = [] } = Astro.props;
+const { title, description, path = '/', citations = mainCitations, jsonLdNodes = [], updated = site.updated, markdownPath } = Astro.props;
 const pageUrl = absoluteUrl(path);
 
 // Structured data. Describes only what the page shows: who publishes it, when it
@@ -50,7 +54,7 @@ const jsonLd = {
       name: title,
       description,
       inLanguage: 'sv-SE',
-      dateModified: site.updated,
+      dateModified: updated,
       isPartOf: { '@id': `${site.url}#website` },
       publisher: { '@id': publisher['@id'] },
       primaryImageOfPage: site.shareImage,
@@ -69,6 +73,7 @@ const jsonLd = {
     <title>{title}</title>
     <meta name="description" content={description} />
     <link rel="canonical" href={pageUrl} />
+    {markdownPath && <link rel="alternate" type="text/markdown" href={markdownPath} />}
     <meta name="theme-color" content="#ffffff" />
     <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
 

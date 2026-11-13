@@ -3,12 +3,19 @@ import DataLayout from '../../layouts/DataLayout.astro';
 import { chapter } from '../../lib/chapters';
 import { tablePages, tablesIndexPath } from '../../lib/dataPages';
 import { site } from '../../lib/site';
+import { dataDate } from '../../lib/dataDates';
 
 const title = `Tabeller och CSV-filer | ${site.name}`;
 const description = 'Siffrorna bakom diagrammen på Brottsfokus som tabeller och CSV-filer, med källa och begränsningar för varje tabell.';
 ---
 
-<DataLayout title={title} description={description} path={tablesIndexPath} crumbs={[{ name: 'Tabeller', path: tablesIndexPath }]}>
+<DataLayout
+  title={title}
+  description={description}
+  path={tablesIndexPath}
+  updated={dataDate()}
+  crumbs={[{ name: 'Tabeller', path: tablesIndexPath }]}
+>
   <p class="kicker">Tabeller</p>
   <h1>Tabeller och CSV-filer</h1>
   <p class="lead">
