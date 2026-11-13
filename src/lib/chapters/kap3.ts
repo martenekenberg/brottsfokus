@@ -89,11 +89,11 @@ export function kap3Tables(k: Kap3): DataTable[] {
       rowLabel: 'År',
       rowCsv: 'ar',
       columns: [
-        { kind: 'number', label: 'Nyintagna, alla', csv: 'nyintagna_utan_sv_medb_pct', format: 'pct' },
-        { kind: 'number', label: 'Nyintagna män', csv: 'nyintagna_man_utan_sv_medb_pct', format: 'pct' },
-        { kind: 'number', label: 'Nyintagna kvinnor', csv: 'nyintagna_kvinnor_utan_sv_medb_pct', format: 'pct' },
-        { kind: 'number', label: 'Intagna den 1 oktober', csv: 'intagna_1okt_utan_sv_medb_pct', format: 'pct' },
-        { kind: 'number', label: 'Utländska medborgare i befolkningen', csv: 'befolkning_utlandska_medborgare_pct', format: 'pct1' },
+        { kind: 'number', label: 'Nyintagna, alla', csv: 'nyintagna_utan_sv_medb_pct', decimals: 0 },
+        { kind: 'number', label: 'Nyintagna män', csv: 'nyintagna_man_utan_sv_medb_pct', decimals: 0 },
+        { kind: 'number', label: 'Nyintagna kvinnor', csv: 'nyintagna_kvinnor_utan_sv_medb_pct', decimals: 0 },
+        { kind: 'number', label: 'Intagna den 1 oktober', csv: 'intagna_1okt_utan_sv_medb_pct', decimals: 0 },
+        { kind: 'number', label: 'Utländska medborgare i befolkningen', csv: 'befolkning_utlandska_medborgare_pct', decimals: 1 },
         { kind: 'links', label: 'Källa, Brå', csv: 'kalla_bra' },
       ],
       rows: k.years.map((y) => ({
@@ -114,10 +114,10 @@ export function kap3Tables(k: Kap3): DataTable[] {
       rowLabel: 'År',
       rowCsv: 'ar',
       columns: [
-        { kind: 'number', label: 'Nyintagna, alla', csv: 'nyintagna_antal', format: 'int' },
-        { kind: 'number', label: 'Nyintagna män', csv: 'nyintagna_man_antal', format: 'int' },
-        { kind: 'number', label: 'Nyintagna kvinnor', csv: 'nyintagna_kvinnor_antal', format: 'int' },
-        { kind: 'number', label: 'Intagna den 1 oktober', csv: 'intagna_1okt_antal', format: 'int' },
+        { kind: 'number', label: 'Nyintagna, alla', csv: 'nyintagna_antal', decimals: 0 },
+        { kind: 'number', label: 'Nyintagna män', csv: 'nyintagna_man_antal', decimals: 0 },
+        { kind: 'number', label: 'Nyintagna kvinnor', csv: 'nyintagna_kvinnor_antal', decimals: 0 },
+        { kind: 'number', label: 'Intagna den 1 oktober', csv: 'intagna_1okt_antal', decimals: 0 },
       ],
       rows: countYears.map((y) => ({
         key: String(y),
@@ -130,8 +130,8 @@ export function kap3Tables(k: Kap3): DataTable[] {
       rowLabel: 'År',
       rowCsv: 'ar',
       columns: [
-        { kind: 'number', label: 'Folkmängd', csv: 'folkmangd', format: 'int' },
-        { kind: 'number', label: 'Utländska medborgare', csv: 'utlandska_medborgare', format: 'int' },
+        { kind: 'number', label: 'Folkmängd', csv: 'folkmangd', decimals: 0 },
+        { kind: 'number', label: 'Utländska medborgare', csv: 'utlandska_medborgare', decimals: 0 },
       ],
       rows: k.years.map((y) => ({
         key: String(y),

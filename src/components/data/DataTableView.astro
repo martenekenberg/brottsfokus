@@ -1,61 +1,117 @@
 ---
 // A plain HTML data table. Wide tables scroll sideways inside their own box, never the page.
+// With `collapsed`, the table is folded away under its title and opens on click.
+// Folded tables are still in the HTML, so search engines and screen readers can read them.
 import { formatCell, type DataTable } from '../../lib/tables';
 
 interface Props {
   table: DataTable;
+  collapsed?: boolean;
 }
-const { table } = Astro.props;
+const { table, collapsed = false } = Astro.props;
 const captionId = `tabell-${table.id}`;
+const Wrapper = collapsed ? 'details' : 'div';
+const Title = collapsed ? 'summary' : 'p';
 ---
 
-<!-- The title sits outside the scroll box so it stays readable on phones while the table scrolls. -->
-<p class="table-title" id={captionId}>{table.caption}</p>
-<div class="table-scroll" role="region" aria-labelledby={captionId} tabindex="0">
-  <table id={table.id} aria-labelledby={captionId}>
-    <thead>
-      <tr>
-        <th scope="col">{table.rowLabel}</th>
-        {table.columns.map((c) => <th scope="col" class={c.kind}>{c.label}</th>)}
-      </tr>
-    </thead>
-    <tbody>
-      {
-        table.rows.map((r) => (
-          <tr>
-            <th scope="row">{r.key}</th>
-            {r.cells.map((cell, i) => {
-              const col = table.columns[i];
-              if (Array.isArray(cell) && cell.length > 0) {
-                return (
-                  <td class="links">
-                    {cell.map((l, j) => (
-                      <>
-                        <a href={l.url}>{l.label}</a>
-                        {j < cell.length - 1 ? '; ' : ''}
-                      </>
-                    ))}
-                  </td>
-                );
-              }
-              if (cell === null || Array.isArray(cell) || col.kind !== 'number') {
-                return (
-                  <td class="number missing">
-                    <span aria-hidden="true">–</span>
-                    <span class="visually-hidden">uppgift saknas</span>
-                  </td>
-                );
-              }
-              return <td class="number">{formatCell(cell, col.format)}</td>;
-            })}
-          </tr>
-        ))
-      }
-    </tbody>
-  </table>
-</div>
+<Wrapper class:list={['table-block', { folded: collapsed }]}>
+  {/* The title sits outside the scroll box so it stays readable on phones while the table scrolls. */}
+  <Title class="table-title" id={captionId}>{table.caption}</Title>
+  <div class="table-scroll" role="region" aria-labelledby={captionId} tabindex="0">
+    <table id={table.id} aria-labelledby={captionId}>
+      <thead>
+        <tr>
+          <th scope="col">{table.rowLabel}</th>
+          {table.columns.map((c) => <th scope="col" class={c.kind}>{c.label}</th>)}
+        </tr>
+      </thead>
+      <tbody>
+        {
+          table.rows.map((r) => (
+            <tr>
+              <th scope="row">{r.key}</th>
+              {r.cells.map((cell, i) => {
+                const col = table.columns[i];
+                if (Array.isArray(cell) && cell.length > 0) {
+                  return (
+                    <td class="links">
+                      {cell.map((l, j) => (
+                        <>
+                          <a href={l.url}>{l.label}</a>
+                          {j < cell.length - 1 ? '; ' : ''}
+                        </>
+                      ))}
+                    </td>
+                  );
+                }
+                if (typeof cell === 'string') return <td class="text">{cell}</td>;
+                if (cell === null || Array.isArray(cell) || col.kind !== 'number') {
+                  return (
+                    <td class="number missing">
+                      <span aria-hidden="true">–</span>
+                      <span class="visually-hidden">uppgift saknas</span>
+                    </td>
+                  );
+                }
+                return <td class="number">{formatCell(cell, col.decimals)}</td>;
+              })}
+            </tr>
+          ))
+        }
+      </tbody>
+    </table>
+  </div>
+</Wrapper>
 
 <style>
+  .table-block {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    min-width: 0;
+  }
+  .table-title {
+    margin: 0;
+    font-size: 15px;
+    font-weight: 600;
+    line-height: 1.4;
+  }
+  .folded {
+    display: block;
+    border-top: 1px solid var(--rule);
+  }
+  .folded:last-of-type {
+    border-bottom: 1px solid var(--rule);
+  }
+  .folded summary {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    min-height: 44px;
+    padding: 8px 0;
+    font-weight: 500;
+    cursor: pointer;
+    list-style: none;
+  }
+  .folded summary::-webkit-details-marker {
+    display: none;
+  }
+  .folded summary::before {
+    content: '+';
+    flex: none;
+    width: 14px;
+    font-weight: 600;
+    color: var(--focus);
+  }
+  .folded[open] summary::before {
+    content: '−';
+  }
+  .folded summary:hover {
+    color: var(--focus);
+  }
+  .folded .table-scroll {
+    margin-bottom: 20px;
+  }
   .table-scroll {
     position: relative;
     max-width: 100%;
@@ -68,12 +124,6 @@ const captionId = `tabell-${table.id}`;
     font-size: 14px;
     line-height: 1.4;
     font-variant-numeric: tabular-nums;
-  }
-  .table-title {
-    margin: 0 0 -12px;
-    font-size: 15px;
-    font-weight: 600;
-    line-height: 1.4;
   }
   th,
   td {
@@ -92,13 +142,22 @@ const captionId = `tabell-${table.id}`;
     color: var(--text-muted);
     vertical-align: bottom;
   }
-  thead th.number,
+  thead th.number {
+    text-align: right;
+    min-width: 72px;
+    max-width: 160px;
+  }
   td.number {
     text-align: right;
     white-space: nowrap;
   }
   tbody th {
+    min-width: 180px;
     font-weight: 600;
+  }
+  td.text {
+    min-width: 160px;
+    color: var(--text-body);
   }
   td.missing {
     color: var(--text-muted);
@@ -114,6 +173,9 @@ const captionId = `tabell-${table.id}`;
   @media (max-width: 640px) {
     table {
       font-size: 13px;
+    }
+    tbody th {
+      min-width: 140px;
     }
     th,
     td {

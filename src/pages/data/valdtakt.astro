@@ -1,0 +1,73 @@
+---
+import TablePage from '../../components/data/TablePage.astro';
+import DataTableView from '../../components/data/DataTableView.astro';
+import { loadPopulation, loadRapeStudies } from '../../lib/data';
+import { kap4Tables } from '../../lib/chapters/kap4Tables';
+import { complementPct } from '../../lib/calc';
+import { formatNumber } from '../../lib/format';
+import { SOURCES } from '../../lib/sources';
+
+const rows = loadRapeStudies();
+const t = kap4Tables(rows, loadPopulation());
+const pick = (chart: string, id: string) => {
+  const r = rows.find((x) => x.chart === chart && x.itemId === id);
+  if (!r) throw new Error(`valdtakt_domda.csv: ${chart}/${id} missing`);
+  return r;
+};
+const utr = pick('bakgrund', 'utr');
+const u2 = pick('bakgrund', 'u2');
+const sv2 = pick('kontroll', 'sv2');
+if (sv2.pctControls === null) throw new Error('valdtakt_domda.csv: control share missing');
+---
+
+<TablePage
+  chapterId="kap4"
+  h1="Dömda för våldtäkt efter bakgrund, 2000–2020"
+  shortTitle="Dömda för våldtäkt efter bakgrund 2000–2020: tabell"
+  description="Andel utrikesfödda och personer med utrikesfödda föräldrar bland dömda för våldtäkt i Sverige 2000–2020, jämfört med befolkningen och en matchad kontrollgrupp. Två studier från Lunds universitet. Tabeller och CSV-fil."
+  datasetDescription="Bakgrund bland personer dömda för våldtäkt eller försök till våldtäkt mot en kvinna 18 år eller äldre i Sverige. Andelar efter egen och föräldrarnas födelseland 2000–2015 jämfört med befolkningen enligt SCB, och 2000–2020 jämfört med en matchad kontrollgrupp. Från två registerstudier av Khoshnood m.fl., Lunds universitet."
+  temporalCoverage="2000/2020"
+  keywords={['våldtäkt', 'dömda', 'utrikesfödda', 'utländsk bakgrund', 'Lunds universitet', 'Khoshnood']}
+  variableMeasured={['Andel av de dömda', 'Andel av kontrollgruppen', 'Andel av befolkningen']}
+  sources={[SOURCES.khoshnood2021, SOURCES.khoshnood2026, SOURCES.scbSummary]}
+  credit="studierna från Lunds universitet och SCB"
+>
+  <p slot="lead">
+    Av dem som dömdes för våldtäkt mot en kvinna 2000–2015 var {formatNumber(utr.pct, 1)} procent utrikesfödda och
+    {' '}{formatNumber(u2.pct, 1)} procent inrikesfödda med två utrikesfödda föräldrar, enligt en registerstudie från Lunds
+    universitet. I befolkningen var andelarna i snitt {formatNumber(t.popForeignBorn, 1)} och{' '}
+    {formatNumber(t.popTwoForeignParents, 1)} procent. I en senare studie av dömda 2000–2020 var{' '}
+    {formatNumber(complementPct(sv2.pct), 1)} procent av de dömda och {formatNumber(complementPct(sv2.pctControls), 1)}{' '}
+    procent av en matchad kontrollgrupp utrikesfödda eller hade minst en utrikesfödd förälder.
+  </p>
+  <Fragment slot="note">
+    Studierna gäller dömda, inte alla som begår våldtäkt. De dömda är män 15–60 år, medan befolkningens andel gäller alla
+    åldrar och båda könen (snitt av 2000, 2005, 2010 och 2015). Den första studien anmäldes till Överklagandenämnden för
+    etikprövning. I den senare studien är andelen med utländsk bakgrund uträknad som 100 minus andelen inrikesfödda med
+    två inrikesfödda föräldrar, och omfattar även inrikesfödda med en utrikesfödd förälder. Där minskade sambandet efter
+    justering för bland annat socioekonomi och tidigare brottslighet, men det fanns kvar.
+  </Fragment>
+
+  <h2>Bakgrund bland dömda 2000–2015</h2>
+  <DataTableView table={t.background} />
+  <p class="body">
+    Jämförelsen med befolkningen görs bara för utrikesfödda och inrikesfödda med två utrikesfödda föräldrar. Det är de
+    grupper som går att räkna fram ur SCB:s sammanställning som sidan använder.
+  </p>
+
+  <h2>Dömda och kontrollgrupp 2000–2020</h2>
+  <DataTableView table={t.controls} />
+
+  <h2>Födelseregion</h2>
+  <DataTableView table={t.region} />
+
+  <h2>Tidigare domar och bistånd</h2>
+  <DataTableView table={t.prior} />
+
+  <h2>Befolkningen</h2>
+  <DataTableView table={t.population} />
+  <p class="body">
+    Uträknat: inrikesfödda med två utrikesfödda föräldrar är personer med utländsk bakgrund minus utrikesfödda. Andelen
+    är gruppen delat med folkmängden, gånger 100. Snittet är medelvärdet av de fyra åren, avrundat till en decimal.
+  </p>
+</TablePage>

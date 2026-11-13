@@ -1,0 +1,115 @@
+---
+// Shared frame for a table page: kicker, headline, summary, "Läs så här", tables,
+// download, terms of use, sources, link back to the chart. Adds Dataset markup.
+import DataLayout from '../../layouts/DataLayout.astro';
+import { chapter } from '../../lib/chapters';
+import { tablePage, tablesIndexPath } from '../../lib/dataPages';
+import { site, absoluteUrl, dayMonthYear } from '../../lib/site';
+
+interface Props {
+  chapterId: string;
+  /** Headline: states what the tables show. Also the dataset name. */
+  h1: string;
+  /** Short page title for the browser tab, before " | Brottsfokus". */
+  shortTitle: string;
+  description: string;
+  /** Longer plain description for the Dataset markup (at least 50 characters). */
+  datasetDescription: string;
+  /** e.g. "2014/2025". */
+  temporalCoverage: string;
+  keywords: string[];
+  variableMeasured: string[];
+  sources: { label: string; url: string }[];
+  /** Who to name as source when reusing, e.g. "Brå och SCB". */
+  credit: string;
+}
+
+const p = Astro.props;
+const page = tablePage(p.chapterId);
+const c = chapter(p.chapterId);
+const pageUrl = absoluteUrl(page.path);
+
+const dataset = {
+  '@type': 'Dataset',
+  '@id': `${pageUrl}#dataset`,
+  name: p.h1,
+  description: p.datasetDescription,
+  url: pageUrl,
+  inLanguage: 'sv-SE',
+  keywords: p.keywords,
+  license: site.dataLicense.url,
+  isAccessibleForFree: true,
+  creditText: `${site.name}, efter uppgifter från ${p.credit}`,
+  creator: { '@id': `${site.url}#publisher` },
+  publisher: { '@id': `${site.url}#publisher` },
+  isBasedOn: p.sources.map((s) => s.url),
+  dateModified: site.updated,
+  temporalCoverage: p.temporalCoverage,
+  spatialCoverage: { '@type': 'Place', name: 'Sverige' },
+  variableMeasured: p.variableMeasured,
+  distribution: [{ '@type': 'DataDownload', encodingFormat: 'text/csv', contentUrl: absoluteUrl(page.csvPath) }],
+};
+if (p.datasetDescription.length < 50) throw new Error(`${page.path}: dataset description is too short`);
+---
+
+<DataLayout
+  title={`${p.shortTitle} | ${site.name}`}
+  description={p.description}
+  path={page.path}
+  crumbs={[
+    { name: 'Tabeller', path: tablesIndexPath },
+    { name: page.name, path: page.path },
+  ]}
+  citations={p.sources.map((s) => s.url)}
+  jsonLdNodes={[dataset]}
+>
+  <p class="kicker">Tabell · {c.num} {c.navLabel}</p>
+  <h1>{p.h1}</h1>
+  <div class="lead"><slot name="lead" /></div>
+
+  <div class="note">
+    <strong>Läs så här. </strong>
+    <slot name="note" />
+  </div>
+
+  <slot />
+
+  <h2>Ladda ner</h2>
+  <p class="body">
+    <a href={page.csvPath} download>Alla siffror på sidan som CSV-fil</a>. Teckenkodning UTF-8, kommatecken mellan
+    kolumnerna och punkt som decimaltecken. En tom cell betyder att uppgift saknas.
+  </p>
+
+  <h2>Använda siffrorna</h2>
+  <p class="body">
+    Tabellerna får användas fritt enligt <a href={site.dataLicense.url}>{site.dataLicense.name}</a>. Ange {p.credit} som
+    källa. <slot name="terms" />
+  </p>
+
+  <p class="source">
+    Källor: {
+      p.sources.map((s, i) => (
+        <>
+          <a href={s.url}>{s.label}</a>
+          {i < p.sources.length - 1 ? '; ' : '.'}
+        </>
+      ))
+    } Senast uppdaterad {dayMonthYear(site.updated)}.
+  </p>
+
+  <a class="back" href={`/#${p.chapterId}`}>Till diagrammet i kapitel {Number(c.num)}, {c.navLabel}</a>
+</DataLayout>
+
+<style>
+  .lead :global(p) {
+    margin: 0;
+  }
+  .back {
+    align-self: flex-start;
+    display: inline-flex;
+    align-items: center;
+    min-height: 44px;
+    font-size: 14px;
+    font-weight: 600;
+  }
+</style>

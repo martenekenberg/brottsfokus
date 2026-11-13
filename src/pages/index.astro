@@ -202,6 +202,7 @@ const keyFigures = [
     <main>
       <Chapter
         id="kap1"
+        tableHref={tablePage('kap1').path}
         title={`Sett till alla brott minskade andelen misstänkta i alla fyra grupper mellan ${kap1First} och ${kap1Last}`}
       >
         <p slot="intro">
@@ -224,6 +225,7 @@ const keyFigures = [
 
       <Chapter
         id="kap2"
+        tableHref={tablePage('kap2').path}
         title="Överrisken var störst bland födda i Afrika och Centralasien och nära 1 bland födda i Norden, Västeuropa och Östasien"
       >
         <p slot="intro">
@@ -276,7 +278,7 @@ const keyFigures = [
         </Fragment>
       </Chapter>
 
-      <Chapter id="kap4" title="Utländsk bakgrund var vanligare bland dömda för våldtäkt än i kontrollgrupp och befolkning">
+      <Chapter id="kap4" tableHref={tablePage('kap4').path} title="Utländsk bakgrund var vanligare bland dömda för våldtäkt än i kontrollgrupp och befolkning">
         <p slot="intro">
           Två registerstudier från Lunds universitet av alla som dömts för våldtäkt eller försök till våldtäkt mot en
           kvinna 18 år eller äldre.
@@ -299,7 +301,7 @@ const keyFigures = [
         </Fragment>
       </Chapter>
 
-      <Chapter id="kap5" title="Överrisken för utrikesfödda ökade mellan 1985–89 och 1997–2001">
+      <Chapter id="kap5" tableHref={tablePage('kap5').path} title="Överrisken för utrikesfödda ökade mellan 1985–89 och 1997–2001">
         <p slot="intro">
           Överrisk är andelen misstänkta i gruppen delat med andelen bland inrikesfödda med två inrikesfödda
           föräldrar. Standardiserad överrisk tar hänsyn till kön, ålder, utbildning och förvärvsinkomst.

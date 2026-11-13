@@ -3,14 +3,13 @@
 import { round } from './calc';
 import { formatNumber } from './format';
 
-export type NumberFormat = 'int' | 'pct' | 'pct1';
-
 export interface NumberColumn {
   kind: 'number';
   label: string;
   /** Column name in the CSV file. */
   csv: string;
-  format: NumberFormat;
+  /** Decimals shown, as in the source. */
+  decimals: number;
 }
 
 export interface LinksColumn {
@@ -19,9 +18,15 @@ export interface LinksColumn {
   csv: string;
 }
 
-export type Column = NumberColumn | LinksColumn;
+export interface TextColumn {
+  kind: 'text';
+  label: string;
+  csv: string;
+}
+
+export type Column = NumberColumn | LinksColumn | TextColumn;
 export type Link = { label: string; url: string };
-export type Cell = number | null | Link[];
+export type Cell = number | null | Link[] | string;
 
 export interface Row {
   /** Row heading, e.g. the year. Also the key used to join tables into one CSV file. */
@@ -38,19 +43,17 @@ export interface DataTable {
   rows: Row[];
 }
 
-const decimals: Record<NumberFormat, number> = { int: 0, pct: 0, pct1: 1 };
-
 /** Number as shown in the table, Swedish format. Null is handled by the component. */
-export function formatCell(value: number, format: NumberFormat): string {
-  return formatNumber(value, decimals[format]);
+export function formatCell(value: number, decimals: number): string {
+  return formatNumber(value, decimals);
 }
 
-/** Number as written in the CSV file: dot as decimal separator, no thousands separator. */
-function csvNumber(value: number, format: NumberFormat): string {
-  return round(value, decimals[format]).toFixed(decimals[format]);
+/** Number as written in a CSV file: dot as decimal separator, no thousands separator. */
+export function csvNumber(value: number | null, decimals: number): string {
+  return value === null ? '' : round(value, decimals).toFixed(decimals);
 }
 
-function csvQuote(text: string): string {
+export function csvQuote(text: string): string {
   return /[",\n]/.test(text) ? `"${text.replace(/"/g, '""')}"` : text;
 }
 
@@ -68,7 +71,8 @@ export function tablesToCsv(tables: DataTable[]): string {
         const cell = row ? row.cells[i] : null;
         if (cell === null || cell === undefined) return '';
         if (Array.isArray(cell)) return cell.length === 0 ? '' : csvQuote(cell.map((l) => l.label).join('; '));
-        return col.kind === 'number' ? csvNumber(cell, col.format) : '';
+        if (typeof cell === 'string') return csvQuote(cell);
+        return col.kind === 'number' ? csvNumber(cell, col.decimals) : '';
       });
     });
     return [key, ...cells].join(',');
@@ -76,3 +80,11 @@ export function tablesToCsv(tables: DataTable[]): string {
   return [header.join(','), ...lines].join('\n') + '\n';
 }
 
+
+/**
+ * A CSV file in long format: one row per group and measure, ready for spreadsheets.
+ * Cells are already text (use csvNumber for numbers); empty text = no value.
+ */
+export function longCsv(header: string[], rows: string[][]): string {
+  return [header, ...rows].map((r) => r.map(csvQuote).join(',')).join('\n') + '\n';
+}

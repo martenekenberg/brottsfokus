@@ -2,6 +2,7 @@
 // calculation and formatting code as the site, so the lists cannot drift from it.
 //   docs/sifferkontroll.csv          every number in the default views and in the text
 //   docs/sifferkontroll_menyer.csv   every number reachable through the menus in chapters 1 and 2
+//   docs/sifferkontroll_tabeller.csv every number on the table pages under /data/
 // Run with: npm run sifferkontroll
 import { writeFileSync } from 'node:fs';
 import { foreignCitizenSharePct, populationSharePct, swedishBornTwoForeignParents } from '../src/lib/calc';
@@ -14,6 +15,9 @@ import { buildKap5 } from '../src/lib/chapters/kap5';
 import { barFmt } from '../src/lib/charts/bar';
 import { dotFmt } from '../src/lib/charts/dot';
 import { fmt } from '../src/lib/charts/line';
+import { allTables } from '../src/lib/allTables';
+import { tablePage } from '../src/lib/dataPages';
+import { formatCell } from '../src/lib/tables';
 
 const BRA2021 = 'https://bra.se/rapporter/arkiv/2021-08-25-misstankta-for-brott-bland-personer-med-inrikes-respektive-utrikes-bakgrund';
 const BRA2005 = 'https://www.bra.se/download/18.cba82f7130f475a2f1800012697/2005_17_brottslighet_bland_personer_fodda_sverige_och_utlandet.pdf';
@@ -124,17 +128,6 @@ const kap5 = buildKap5(bra2005);
     if (s.year < first || s.year > last || share === null) continue;
     add(K, 'Diagram, streckad linje', `Utländska medborgare i befolkningen ${s.year}`, formatPct(share, 1), `SCB: ${formatNumber(s.utlandskaMedborgare!)} / ${formatNumber(s.folkmangd)}`, CALC, SCB);
   }
-  // Only on the table page /data/fangelse-medborgarskap/.
-  const T = '03 Fängelse, tabellsidan';
-  for (const r of prison) {
-    if (r.persons === null) continue;
-    add(T, 'Tabell, antal personer', `${name[r.population][r.group]}, ${r.year}, antal personer (alla medborgarskap)`, formatNumber(r.persons), r.source, STATED, r.sourceUrl);
-  }
-  for (const s of population) {
-    if (s.year < first || s.year > last) continue;
-    add(T, 'Tabell, befolkningen', `Folkmängd ${s.year}`, formatNumber(s.folkmangd), s.source, STATED, SCB);
-    if (s.utlandskaMedborgare !== null) add(T, 'Tabell, befolkningen', `Utländska medborgare ${s.year}`, formatNumber(s.utlandskaMedborgare), s.source, STATED, SCB);
-  }
 }
 
 // ---------- Chapter 4 ----------
@@ -212,4 +205,21 @@ for (const view of ['region', 'land', 'moder'] as View[]) {
   }
 }
 writeFileSync('docs/sifferkontroll_menyer.csv', toCsv(menu));
-console.log(`docs/sifferkontroll.csv: ${main.length - 1} rows, docs/sifferkontroll_menyer.csv: ${menu.length - 1} rows`);
+
+// ---------- Every value on the table pages ----------
+const tableRows: string[][] = [['Sida', 'Tabell', 'Rad', 'Kolumn', 'Värde på sidan']];
+for (const { chapterId, tables } of allTables()) {
+  const path = tablePage(chapterId).path;
+  for (const t of tables) {
+    for (const r of t.rows) {
+      r.cells.forEach((cell, i) => {
+        const col = t.columns[i];
+        if (col.kind !== 'number') return;
+        const shown = typeof cell === 'number' ? formatCell(cell, col.decimals) : 'saknas';
+        tableRows.push([path, t.caption, r.key, col.label, shown]);
+      });
+    }
+  }
+}
+writeFileSync('docs/sifferkontroll_tabeller.csv', toCsv(tableRows));
+console.log(`docs/sifferkontroll.csv: ${main.length - 1} rows, docs/sifferkontroll_menyer.csv: ${menu.length - 1} rows, docs/sifferkontroll_tabeller.csv: ${tableRows.length - 1} rows`);

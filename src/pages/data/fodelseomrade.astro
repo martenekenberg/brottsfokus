@@ -1,0 +1,90 @@
+---
+import TablePage from '../../components/data/TablePage.astro';
+import DataTableView from '../../components/data/DataTableView.astro';
+import { loadOrigin, loadSuspectsByBackground, loadTableB6 } from '../../lib/data';
+import { buildKap2Data, smallestGroup } from '../../lib/chapters/kap2';
+import { b6Table, riskTable, totalCrime, TOTAL } from '../../lib/chapters/kap2Tables';
+import { formatNumber } from '../../lib/format';
+import { SOURCES } from '../../lib/sources';
+
+const depthByOrder = new Map(loadSuspectsByBackground().map((r) => [r.crimeOrder, r.depth]));
+const b6 = loadTableB6();
+const data = buildKap2Data(loadOrigin(), depthByOrder, b6);
+
+const regionTotal = totalCrime(data, 'region');
+const sorted = [...regionTotal.units].sort((a, b) => b.risk - a.risk);
+const top = sorted[0];
+const bottom = sorted[sorted.length - 1];
+const utr = b6.find((r) => r.view === 'bakgrund' && r.unit === 'Utrikesfödda');
+const u2 = b6.find((r) => r.view === 'bakgrund' && r.unit === 'Inrikesfödda med två utrikesfödda föräldrar');
+if (!utr || !u2) throw new Error('Table B6: background rows missing');
+const smallestCountry = smallestGroup(data, 'land');
+if (!smallestCountry) throw new Error('Chapter 2: group sizes missing');
+
+const regionOthers = data.region.filter((c) => c.name !== TOTAL);
+const moderOthers = data.moder.filter((c) => c.name !== TOTAL);
+---
+
+<TablePage
+  chapterId="kap2"
+  h1="Misstänkta för brott efter födelseområde och födelseland, 2015–2018"
+  shortTitle="Misstänkta för brott efter födelseområde 2015–2018: tabell"
+  description="Hur ofta personer misstänktes för brott 2015–2018 efter födelseområde, födelseland och moderns födelseområde, jämfört med inrikesfödda med två inrikesfödda föräldrar. Enligt Brå rapport 2021:9. Tabeller och CSV-fil."
+  datasetDescription="Andel misstänkta för brott 2015–2018 bland folkbokförda 15 år och äldre, efter födelseområde, födelseland och, för inrikesfödda med två utrikesfödda föräldrar, moderns födelseområde. Misstänkta per 1 000, överrisk och justerad överrisk jämfört med inrikesfödda med två inrikesfödda föräldrar, samt andel av de misstänkta och av befolkningen. Från Brå rapport 2021:9, tabellbilaga 1."
+  temporalCoverage="2015/2018"
+  keywords={['misstänkta för brott', 'födelseområde', 'födelseland', 'överrisk', 'utrikesfödda', 'Brå 2021:9']}
+  variableMeasured={['Misstänkta per 1 000', 'Överrisk', 'Justerad överrisk', 'Andel av de misstänkta', 'Andel av befolkningen']}
+  sources={[SOURCES.bra2021]}
+  credit="Brå"
+>
+  <p slot="lead">
+    Det var {formatNumber(utr.risk, 1)} gånger så vanligt att utrikesfödda misstänktes för brott någon gång 2015–2018
+    som att inrikesfödda med två inrikesfödda föräldrar gjorde det, enligt Brå. För inrikesfödda med två utrikesfödda
+    föräldrar var det {formatNumber(u2.risk, 1)} gånger så vanligt. Bland födelseområdena var överrisken högst i gruppen ”{top.label}” ({formatNumber(top.risk, 2)}){' '}
+    och lägst i gruppen ”{bottom.label}” ({formatNumber(bottom.risk, 2)}).
+  </p>
+  <Fragment slot="note">
+    Misstänkt är inte samma sak som dömd. Gäller folkbokförda personer 15 år och äldre den 31 december 2014 som
+    misstänktes för brott begångna 2015–2018. Alla som misstänktes någon gång under de fyra åren räknas, därför är
+    talen högre än i kapitel 1. Överrisk är gruppens andel misstänkta delat med andelen bland inrikesfödda med två
+    inrikesfödda föräldrar. Justerad överrisk är Brås beräkning om gruppen haft samma ålder, kön, inkomst och
+    utbildning som jämförelsegruppen, inte en faktisk andel. Vissa grupper är små: det minsta födelselandet,
+    {smallestCountry.label}, har {formatNumber(smallestCountry.n)} personer.
+  </Fragment>
+
+  <h2>Efter bakgrund</h2>
+  <DataTableView table={b6Table(b6, 'bakgrund', 'kap2-bakgrund', 'Brott totalt 2015–2018 efter egen och föräldrarnas bakgrund (Brå tabell B6)')} />
+
+  <h2>Efter födelseområde</h2>
+  <DataTableView table={riskTable(data, 'region', regionTotal, 'kap2-region', 'Brott totalt 2015–2018: utrikesfödda efter födelseområde, högst överrisk först')} />
+  <DataTableView table={b6Table(b6, 'region', 'kap2-region-b6', 'Brott totalt 2015–2018: antal och andelar efter födelseområde (Brå tabell B6)')} />
+
+  <h2>Efter födelseland</h2>
+  <DataTableView table={riskTable(data, 'land', totalCrime(data, 'land'), 'kap2-land', 'Brott totalt 2015–2018: utrikesfödda efter födelseland, högst överrisk först')} />
+  <p class="body">Brå redovisar födelseländerna bara för brott totalt.</p>
+
+  <h2>Efter moderns födelseområde</h2>
+  <DataTableView table={b6Table(b6, 'moder', 'kap2-moder', 'Brott totalt 2015–2018: inrikesfödda med två utrikesfödda föräldrar efter moderns födelseområde (Brå tabell B6)')} />
+
+  <h2>Alla brottstyper efter födelseområde</h2>
+  <p class="body">Klicka på en brottstyp för att visa tabellen.</p>
+  <div>
+    {
+      regionOthers.map((c, i) => (
+        <DataTableView table={riskTable(data, 'region', c, `kap2-region-${i}`, `${c.name}, efter födelseområde`)} collapsed />
+      ))
+    }
+  </div>
+
+  <h2>Alla brottstyper efter moderns födelseområde</h2>
+  <p class="body">Inrikesfödda med två utrikesfödda föräldrar. Klicka på en brottstyp för att visa tabellen.</p>
+  <div>
+    {
+      moderOthers.map((c, i) => (
+        <DataTableView table={riskTable(data, 'moder', c, `kap2-moder-${i}`, `${c.name}, efter moderns födelseområde`)} collapsed />
+      ))
+    }
+  </div>
+
+  <Fragment slot="terms">Brå anger att publicerad forskning ska anges med Brå som källa.</Fragment>
+</TablePage>

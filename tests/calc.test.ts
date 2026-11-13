@@ -75,7 +75,7 @@ test('ratio and complement', () => {
 });
 
 import { yearRanges } from '../src/lib/years';
-import { tablesToCsv, type DataTable } from '../src/lib/tables';
+import { longCsv, tablesToCsv, type DataTable } from '../src/lib/tables';
 
 test('yearRanges groups consecutive years', () => {
   assert.equal(yearRanges([2018, 2019, 2020, 2023, 2024, 2025]), '2018–2020 och 2023–2025');
@@ -87,13 +87,17 @@ test('yearRanges groups consecutive years', () => {
 test('tablesToCsv joins tables by key and keeps gaps empty', () => {
   const a: DataTable = {
     id: 'a', caption: '', rowLabel: 'År', rowCsv: 'ar',
-    columns: [{ kind: 'number', label: 'x', csv: 'x', format: 'pct1' }],
+    columns: [{ kind: 'number', label: 'x', csv: 'x', decimals: 1 }],
     rows: [{ key: '2020', cells: [8] }, { key: '2021', cells: [null] }],
   };
   const b: DataTable = {
     id: 'b', caption: '', rowLabel: 'År', rowCsv: 'ar',
-    columns: [{ kind: 'number', label: 'n', csv: 'n', format: 'int' }],
+    columns: [{ kind: 'number', label: 'n', csv: 'n', decimals: 0 }],
     rows: [{ key: '2021', cells: [12754] }],
   };
   assert.equal(tablesToCsv([a, b]), 'ar,x,n\n2020,8.0,\n2021,,12754\n');
+});
+
+test('longCsv quotes text with commas and keeps empty cells', () => {
+  assert.equal(longCsv(['a', 'b'], [['USA, Kanada', ''], ['x', '1.50']]), 'a,b\n"USA, Kanada",\nx,1.50\n');
 });

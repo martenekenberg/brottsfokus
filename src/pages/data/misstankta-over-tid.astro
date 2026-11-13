@@ -1,0 +1,65 @@
+---
+import TablePage from '../../components/data/TablePage.astro';
+import DataTableView from '../../components/data/DataTableView.astro';
+import { loadSuspectsByBackground } from '../../lib/data';
+import { buildKap1Data, crimeById, GROUPS } from '../../lib/chapters/kap1';
+import { rateTable, ratioTable } from '../../lib/chapters/kap1Tables';
+import { formatNumber } from '../../lib/format';
+import { SOURCES } from '../../lib/sources';
+
+const data = buildKap1Data(loadSuspectsByBackground());
+const first = data.years[0];
+const last = data.years[data.years.length - 1];
+const period = `${first}–${last}`;
+const total = crimeById(data, 'c00');
+const others = data.crimes.filter((c) => c.id !== 'c00');
+
+const at = (g: keyof typeof GROUPS, year: number) => {
+  const v = total.values[g][data.years.indexOf(year)];
+  if (v === null) throw new Error(`Chapter 1 table page: no value for ${g} ${year}`);
+  return v;
+};
+---
+
+<TablePage
+  chapterId="kap1"
+  h1={`Misstänkta för brott per 1 000 invånare efter bakgrund, ${period}`}
+  shortTitle={`Misstänkta för brott efter bakgrund ${period}: tabell`}
+  description={`Andel misstänkta för brott per 1 000 invånare ${period}, efter egen och föräldrarnas födelseland och för ${data.crimes.length} brottstyper, enligt Brå rapport 2021:9. Tabeller och CSV-fil.`}
+  datasetDescription={`Personer 15 år och äldre som misstänktes för minst ett brott under året, per 1 000 invånare, ${period}. Fyra grupper efter egen och föräldrarnas födelseland samt hela befolkningen, för ${data.crimes.length} brottstyper. Från Brå rapport 2021:9, tabellbilaga 2. Inte justerat för ålder eller kön.`}
+  temporalCoverage={`${first}/${last}`}
+  keywords={['misstänkta för brott', 'utrikesfödda', 'utländsk bakgrund', 'brottstyper', 'Brå 2021:9']}
+  variableMeasured={['Misstänkta per 1 000 invånare', 'Jämfört med inrikesfödda med två inrikesfödda föräldrar']}
+  sources={[SOURCES.bra2021]}
+  credit="Brå"
+>
+  <p slot="lead">
+    År {last} misstänktes {formatNumber(at('utr', last), 1)} per 1 000 utrikesfödda för minst ett brott, enligt Brå.
+    Bland inrikesfödda med två utrikesfödda föräldrar var det {formatNumber(at('u2', last), 1)} per 1 000, och bland
+    inrikesfödda med två inrikesfödda föräldrar {formatNumber(at('sv2', last), 1)} per 1 000. År {first} var talen{' '}
+    {formatNumber(at('utr', first), 1)}, {formatNumber(at('u2', first), 1)} och {formatNumber(at('sv2', first), 1)}.
+  </p>
+  <Fragment slot="note">
+    Misstänkt är inte samma sak som dömd. Talen gäller folkbokförda personer 15 år och äldre och är inte justerade för
+    ålder eller kön. Grupperna med utländsk bakgrund har fler unga, som oftare misstänks. Med hänsyn till ålder, kön,
+    inkomst, utbildning och kommuntyp minskar skillnaderna, men de finns kvar. Brå avrundar till två decimaler, så mycket
+    ovanliga brott kan svänga mellan åren. Jämförelsen med två inrikesfödda föräldrar är uträknad från de avrundade
+    talen. Övergrepp i rättssak saknas {first}–2008.
+  </Fragment>
+
+  <h2>Brott totalt</h2>
+  <DataTableView table={rateTable(data, total)} />
+  <DataTableView table={ratioTable(data, total)} />
+  <p class="body">
+    Jämförelsen är uträknad: gruppens tal delat med talet för inrikesfödda med två inrikesfödda föräldrar samma år. 2,0
+    betyder dubbelt så vanligt.
+  </p>
+
+  <h2>Alla brottstyper</h2>
+  <p class="body">Misstänkta per 1 000 invånare för varje brottstyp. Klicka på en brottstyp för att visa tabellen.</p>
+  <div>
+    {others.map((c) => <DataTableView table={rateTable(data, c)} collapsed />)}
+  </div>
+
+  <Fragment slot="terms">Brå anger att publicerad forskning ska anges med Brå som källa.</Fragment>
+</TablePage>

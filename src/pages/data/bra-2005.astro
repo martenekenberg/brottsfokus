@@ -1,0 +1,61 @@
+---
+import TablePage from '../../components/data/TablePage.astro';
+import DataTableView from '../../components/data/DataTableView.astro';
+import { loadBra2005 } from '../../lib/data';
+import { kap5Tables } from '../../lib/chapters/kap5Tables';
+import { formatNumber } from '../../lib/format';
+import { SOURCES } from '../../lib/sources';
+
+const rows = loadBra2005();
+const [period, risk, shares, region, crimes] = kap5Tables(rows);
+const v = (chart: string, id: string, series: string) => {
+  const r = rows.find((x) => x.chart === chart && x.groupId === id && x.series === series);
+  if (!r) throw new Error(`bra2005.csv: ${chart}/${id}/${series} missing`);
+  return r.value;
+};
+---
+
+<TablePage
+  chapterId="kap5"
+  h1="Misstänkta för brott efter bakgrund 1985–89 och 1997–2001, Brå 2005:17"
+  shortTitle="Brå 2005:17, misstänkta efter bakgrund: tabell"
+  description="Överrisk att misstänkas för brott för utrikesfödda och inrikesfödda med utrikesfödda föräldrar 1985–89 och 1997–2001, efter födelseregion och brottstyp. Från Brå rapport 2005:17. Tabeller och CSV-fil."
+  datasetDescription="Siffror ur Brå rapport 2005:17: överrisk att misstänkas för brott 1985–89 och 1997–2001, andel misstänkta ojusterat och standardiserat för kön, ålder, utbildning och förvärvsinkomst, andel av de misstänkta och av befolkningen efter bakgrund och födelseregion, samt andel misstänkta för tio brottstyper. Folkbokförda personer."
+  temporalCoverage="1985/2001"
+  keywords={['misstänkta för brott', 'överrisk', 'utrikesfödda', 'Brå 2005:17', 'födelseregion']}
+  variableMeasured={['Överrisk', 'Standardiserad överrisk', 'Andel misstänkta', 'Andel av de misstänkta', 'Andel av befolkningen', 'Överrepresentation']}
+  sources={[SOURCES.bra2005]}
+  credit="Brå"
+>
+  <p slot="lead">
+    Det var {formatNumber(v('period', 'utr', 'p9701'), 1)} gånger så vanligt att utrikesfödda misstänktes för brott
+    1997–2001 som att inrikesfödda med två inrikesfödda föräldrar gjorde det, enligt Brå. 1985–89 var överrisken
+    {' '}{formatNumber(v('period', 'utr', 'p8589'), 1)}. Med hänsyn till kön, ålder, utbildning och inkomst var överrisken
+    {' '}{formatNumber(v('overrisk', 'utr', 'stand'), 1)} för 1997–2001.
+  </p>
+  <Fragment slot="note">
+    Siffrorna är över 20 år gamla. Misstänkt är inte samma sak som dömd. Överrisk är andelen misstänkta i gruppen delat
+    med andelen bland inrikesfödda med två inrikesfödda föräldrar, som därför har överrisken 1,0. Överrepresentation är
+    gruppens andel av de misstänkta delat med dess andel av befolkningen. Uppgifterna för 1985–89 kommer från Brå 1996
+    och redovisas i tabell 8 i Brå 2005:17. Några brottstyper i Brås tabell 11 gick inte att läsa ur PDF-filen och
+    saknas.
+  </Fragment>
+
+  <h2>Överrisk över tid</h2>
+  <DataTableView table={period} />
+
+  <h2>Ojusterat och standardiserat</h2>
+  <DataTableView table={risk} />
+  <p class="body">Standardiserad betyder att Brå tagit hänsyn till skillnader i kön, ålder, utbildning och förvärvsinkomst.</p>
+
+  <h2>Andel av de misstänkta och av befolkningen</h2>
+  <DataTableView table={shares} />
+
+  <h2>Efter födelseregion</h2>
+  <DataTableView table={region} />
+
+  <h2>Efter brottstyp</h2>
+  <DataTableView table={crimes} />
+
+  <Fragment slot="terms">Brå anger att publicerad forskning ska anges med Brå som källa.</Fragment>
+</TablePage>
