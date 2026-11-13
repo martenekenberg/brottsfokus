@@ -132,8 +132,8 @@ const kap5 = buildKap5(bra2005);
   const yearly = (count: (r: (typeof population)[number]) => number | null) =>
     [2000, 2005, 2010, 2015].map((y) => formatPct(populationSharePct(count(population.find((r) => r.year === y)!), population.find((r) => r.year === y)!.folkmangd)!, 2)).join(', ');
   const [other, utr, u2] = kap4.main.groups;
-  add(K, 'Huvuddiagram', `${other.label}, dömda 2000–2020 / kontrollgrupp`, `${barFmt(other.bars[0].value)} / ${barFmt(other.bars[1].value)}`, `Khoshnood m.fl. 2026, sammanfattningen: ${formatPct(kap4.sv2Convicted, 1)} resp. ${formatPct(kap4.sv2Controls, 1)} är inrikesfödda med två inrikesfödda föräldrar (100 minus)`, CALC, K2026);
-  add(K, 'Läs så här', 'Inrikesfödda med två inrikesfödda föräldrar, dömda 2000–2020 / kontrollgrupp', `${formatNumber(kap4.sv2Convicted, 1)} / ${formatNumber(kap4.sv2Controls, 1)}`, 'Khoshnood m.fl. 2026, sammanfattningen', STATED, K2026);
+  add(K, 'Huvuddiagram', `${other.label}, dömda 2000–2020 / kontrollgrupp`, `${barFmt(other.bars[0].value)} / ${barFmt(other.bars[1].value)}`, `Khoshnood m.fl. 2026, tabell 1: 100 minus ${formatPct(kap4.sv2Convicted, 1)} resp. ${formatPct(kap4.sv2Controls, 1)}. Samma som summan av de tre övriga grupperna: 6,1 + 6,4 + 50,6 resp. 7,7 + 4,8 + 18,0`, CALC, K2026);
+  add(K, 'Läs så här', 'Inrikesfödda med två inrikesfödda föräldrar, dömda 2000–2020 / kontrollgrupp', `${formatNumber(kap4.sv2Convicted, 1)} / ${formatNumber(kap4.sv2Controls, 1)}`, 'Khoshnood m.fl. 2026, tabell 1 (1 488 av 4 032 resp. 14 016 av 20 160)', STATED, K2026);
   const row = (id: string) => rape.find((r) => r.chart === 'bakgrund' && r.itemId === id)!;
   add(K, 'Huvuddiagram', `Utrikesfödda, dömda 2000–2015 (n = ${row('utr').n})`, barFmt(utr.bars[0].value), `Khoshnood m.fl. 2021, ${row('utr').note}`, STATED, K2021);
   add(K, 'Huvuddiagram', 'Utrikesfödda, befolkningen, snitt 2000/2005/2010/2015', barFmt(utr.bars[1].value), `SCB, uträknat: ${yearly((r) => r.utrikesFodda)}`, CALC, SCB);

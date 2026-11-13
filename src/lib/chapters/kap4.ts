@@ -1,6 +1,6 @@
 // Chapter 4: people convicted of rape, two register studies from Lund University.
 import type { PopulationRow, RapeStudyRow } from '../data';
-import { complementPct, studyPopulationSharePct, swedishBornTwoForeignParents } from '../calc';
+import { complementPct, round, studyPopulationSharePct, swedishBornTwoForeignParents } from '../calc';
 import type { BarChartSpec } from '../charts/bar';
 import { formatPct } from '../format';
 
@@ -26,14 +26,16 @@ export interface Kap4 {
 }
 
 export function buildKap4(rows: RapeStudyRow[], population: PopulationRow[]): Kap4 {
-  // The 2000–2020 study reports the share who are Swedish-born with two Swedish-born parents.
-  // Everyone else (foreign-born, or at least one foreign-born parent) is 100 minus that share.
+  // The 2000–2020 study (table 1) has four groups and no "unknown" group. The top bar shows
+  // everyone who is not Swedish-born with two Swedish-born parents: 100 minus that group's share.
   const sv2 = pick(rows, 'kontroll', 'sv2');
   if (sv2.pctControls === null) throw new Error('Missing control group share');
   const control = { period: sv2.period, pct: complementPct(sv2.pct), pctControls: complementPct(sv2.pctControls) };
-  const stated = pick(rows, 'kontroll', 'other');
-  if (stated.pct !== control.pct || stated.pctControls !== control.pctControls) {
-    throw new Error('valdtakt_domda.csv: kontroll/other does not equal 100 minus kontroll/sv2');
+  // Check: the three other groups in table 1 must add up to the same share.
+  const others = ['sv1', 'u2', 'utr'].map((id) => pick(rows, 'kontroll', id));
+  const sum = (f: (r: RapeStudyRow) => number | null) => round(others.reduce((a, r) => a + (f(r) ?? NaN), 0), 1);
+  if (sum((r) => r.pct) !== control.pct || sum((r) => r.pctControls) !== control.pctControls) {
+    throw new Error('valdtakt_domda.csv: the kontroll groups do not add up to 100 percent');
   }
   const utr = pick(rows, 'bakgrund', 'utr');
   const u2 = pick(rows, 'bakgrund', 'u2');
