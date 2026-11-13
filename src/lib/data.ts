@@ -159,3 +159,25 @@ export function loadRapeStudies(): RapeStudyRow[] {
     note: r.note,
   }));
 }
+
+// ---------- bra2005.csv (chapter 5) ----------
+
+export interface Bra2005Row {
+  chart: string;
+  groupId: string;
+  group: string;
+  series: string;
+  value: number;
+  sourceTable: string;
+}
+
+export function loadBra2005(): Bra2005Row[] {
+  return readCsv('bra2005.csv').map((r) => ({
+    chart: r.chart,
+    groupId: r.group_id,
+    group: r.group,
+    series: r.series,
+    value: required(r.value, 'value'),
+    sourceTable: r.source_table,
+  }));
+}

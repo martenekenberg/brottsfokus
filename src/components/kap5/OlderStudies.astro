@@ -1,0 +1,77 @@
+---
+// Chapter 5: excess risk as two small multiples, then share of suspects vs share of
+// population, then crime types as grouped bars.
+import BarChart from '../charts/BarChart.astro';
+import type { Kap5 } from '../../lib/chapters/kap5';
+
+interface Props {
+  kap5: Kap5;
+}
+
+const { kap5 } = Astro.props;
+---
+
+<div class="small-multiples first">
+  <div class="chart-block">
+    <h3 class="small-title">Utrikesfödda</h3>
+    <BarChart spec={kap5.riskForeignBorn} staticWidth={520} />
+  </div>
+  <div class="chart-block">
+    <h3 class="small-title">Inrikesfödda med en eller två utrikesfödda föräldrar</h3>
+    <BarChart spec={kap5.riskSwedishBorn} staticWidth={520} />
+  </div>
+</div>
+
+<div class="chart-block part">
+  <h3 class="small-title">Andel av de misstänkta och andel av befolkningen, 1997–2001</h3>
+  <ul class="legend-list" aria-label="Förklaring">
+    <li><span class="mark bar-swatch" style="background:#1D4E89" aria-hidden="true"></span>Andel av alla misstänkta</li>
+    <li><span class="mark bar-swatch outline" aria-hidden="true"></span>Andel av befolkningen</li>
+  </ul>
+  <BarChart spec={kap5.shares} />
+</div>
+
+<div class="chart-block part">
+  <h3 class="small-title">Andel misstänkta efter brottstyp, 1997–2001</h3>
+  <p class="small-sub">Andel av varje grupp som misstänktes minst en gång under perioden.</p>
+  <ul class="legend-list" aria-label="Förklaring">
+    <li><span class="mark bar-swatch" style="background:#1D4E89" aria-hidden="true"></span>Utrikesfödda</li>
+    <li>
+      <span class="mark bar-swatch" style="background:#C2410C" aria-hidden="true"></span>Inrikesfödda med en eller två
+      utrikesfödda föräldrar
+    </li>
+    <li><span class="mark bar-swatch outline" aria-hidden="true"></span>Inrikesfödda med två inrikesfödda föräldrar</li>
+  </ul>
+  <BarChart spec={kap5.crimes} />
+</div>
+
+<style>
+  .small-multiples {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 32px 48px;
+  }
+  .part {
+    margin-top: 16px;
+    padding-top: 24px;
+    border-top: 1px solid var(--rule);
+  }
+  .small-title {
+    margin: 0;
+    font-size: 15px;
+    font-weight: 600;
+  }
+  .small-sub {
+    margin: -8px 0 0;
+    font-size: 13px;
+    color: var(--text-muted);
+  }
+  .bar-swatch {
+    width: 14px;
+    height: 12px;
+  }
+  .bar-swatch.outline {
+    border: 1.5px solid #5c5c5c;
+    background: #ffffff;
+  }
+</style>

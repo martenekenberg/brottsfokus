@@ -6,17 +6,18 @@ import KeyFigures from '../components/KeyFigures.astro';
 import Chapter from '../components/Chapter.astro';
 import Legend from '../components/Legend.astro';
 import LineChart from '../components/charts/LineChart.astro';
-import ChartPlaceholder from '../components/ChartPlaceholder.astro';
 import SuspectsOverTime from '../components/kap1/SuspectsOverTime.astro';
 import { buildKap1Data } from '../lib/chapters/kap1';
 import OriginDots from '../components/kap2/OriginDots.astro';
 import { buildKap2Data } from '../lib/chapters/kap2';
 import RapeStudies from '../components/kap4/RapeStudies.astro';
 import { buildKap4 } from '../lib/chapters/kap4';
+import OlderStudies from '../components/kap5/OlderStudies.astro';
+import { buildKap5 } from '../lib/chapters/kap5';
 import Method from '../components/Method.astro';
 import Footer from '../components/Footer.astro';
 
-import { loadOrigin, loadPopulation, loadPrison, loadRapeStudies, loadSuspectsByBackground } from '../lib/data';
+import { loadOrigin, loadPopulation, loadPrison, loadRapeStudies, loadSuspectsByBackground, loadBra2005 } from '../lib/data';
 import { foreignCitizenSharePct, prisonSeries, rateRatioVsSv2 } from '../lib/calc';
 import { formatNumber } from '../lib/format';
 import type { LineChartSpec } from '../lib/charts/line';
@@ -132,6 +133,7 @@ const kap1Data = buildKap1Data(suspects);
 const depthByOrder = new Map(suspects.map((r) => [r.crimeOrder, r.depth]));
 const kap2Data = buildKap2Data(loadOrigin(), depthByOrder);
 const kap4 = buildKap4(loadRapeStudies(), population);
+const kap5 = buildKap5(loadBra2005());
 const keyYear = 2018;
 const ratioUtr = rateRatioVsSv2(suspects, keyYear, 'c00', 'utr');
 const ratioU2 = rateRatioVsSv2(suspects, keyYear, 'c00', 'u2');
@@ -268,9 +270,18 @@ const keyFigures = [
           Överrisk är andelen misstänkta i gruppen delat med andelen bland inrikesfödda med två inrikesfödda
           föräldrar. Standardiserad överrisk tar hänsyn till kön, ålder, utbildning och förvärvsinkomst.
         </p>
-        <ChartPlaceholder />
+        <OlderStudies kap5={kap5} />
+        <Fragment slot="note">
+          Siffrorna är över 20 år gamla. En överrisk på 2,0 betyder att det var dubbelt så vanligt att misstänkas som i
+          jämförelsegruppen, inrikesfödda med två inrikesfödda föräldrar. För inrikesfödda med utrikesfödda föräldrar
+          redovisar Brå standardiserad överrisk bara separat: {formatNumber(kap5.standOneParent, 1)} för dem med en och
+          {' '}{formatNumber(kap5.standTwoParents, 1)} för dem med två utrikesfödda föräldrar. Några brottstyper i Brås
+          tabell 11 gick inte att läsa ur PDF-filen och saknas här. Misstänkt är inte detsamma som dömd.
+        </Fragment>
         <Fragment slot="source">
-          Källor: Brå 1996 (perioden 1985–1989) och Brå rapport 2005:17, tabell 8 och 10.
+          Källor: <a href="https://www.bra.se/download/18.cba82f7130f475a2f1800012697/2005_17_brottslighet_bland_personer_fodda_sverige_och_utlandet.pdf">Brå rapport 2005:17</a>,
+          tabell 7–11 och bilaga 4 tabell 1. Uppgifterna för 1985–1989 kommer från Brå 1996 och redovisas i tabell 8 i
+          Brå 2005:17. Folkbokförda, misstänkta minst en gång under perioden.
         </Fragment>
       </Chapter>
 
