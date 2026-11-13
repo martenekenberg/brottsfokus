@@ -1,0 +1,90 @@
+---
+import DataLayout from '../../layouts/DataLayout.astro';
+import { chapter } from '../../lib/chapters';
+import { tablePage, tablePages, tablesIndexPath } from '../../lib/dataPages';
+import { tr, type Lang } from '../../lib/i18n';
+import { site } from '../../lib/site';
+import { dataDate } from '../../lib/dataDates';
+
+interface Props {
+  lang: Lang;
+}
+const { lang } = Astro.props;
+
+const title = tr(lang, `Tabeller och CSV-filer | ${site.name}`, `Tables and CSV files | ${site.name}`);
+const description = tr(
+  lang,
+  'Siffrorna bakom diagrammen på Brottsfokus som tabeller och CSV-filer, med källa och begränsningar för varje tabell.',
+  'The figures behind the charts on Brottsfokus as tables and CSV files, with the source and limits of each table.',
+);
+const path = tablesIndexPath(lang);
+const crumbTables = tr(lang, 'Tabeller', 'Tables');
+---
+
+<DataLayout
+  title={title}
+  description={description}
+  path={path}
+  updated={dataDate()}
+  lang={lang}
+  crumbs={[{ name: crumbTables, path }]}
+>
+  <p class="kicker">{crumbTables}</p>
+  <h1>{tr(lang, 'Tabeller och CSV-filer', 'Tables and CSV files')}</h1>
+  <p class="lead">
+    {
+      tr(
+        lang,
+        'Siffrorna bakom diagrammen, som tabeller och som filer att ladda ner. Varje tabell har sin källa och en ruta om vad siffrorna inte visar.',
+        'The figures behind the charts, as tables and as files to download. Each table has its source and a box on what the figures do not show.',
+      )
+    }
+  </p>
+  <ul class="list">
+    {
+      tablePages.map((p) => {
+        const c = chapter(p.chapterId);
+        const page = tablePage(p.chapterId, lang);
+        return (
+          <li>
+            <span class="num">{c.num}</span>
+            <a href={page.path}>{page.name}</a>
+            <a class="csv" href={page.csvPath} download>CSV</a>
+          </li>
+        );
+      })
+    }
+  </ul>
+</DataLayout>
+
+<style>
+  .list {
+    margin: 0;
+    padding: 0;
+    list-style: none;
+    border-top: 1px solid var(--ink);
+  }
+  .list li {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    border-bottom: 1px solid var(--rule);
+  }
+  .list a {
+    display: inline-flex;
+    align-items: center;
+    min-height: 48px;
+    font-size: 16px;
+    font-weight: 500;
+  }
+  .num {
+    color: var(--second);
+    font-size: 14px;
+    font-weight: 700;
+  }
+  .list .csv {
+    margin-left: auto;
+    font-size: 13px;
+    font-weight: 400;
+  }
+</style>

@@ -2,43 +2,45 @@
 // Chapter 4: main paired bars, then region of birth and prior convictions as two smaller charts.
 import BarChart from '../charts/BarChart.astro';
 import type { Kap4 } from '../../lib/chapters/kap4';
+import { tr, type Lang } from '../../lib/i18n';
 
 interface Props {
   kap4: Kap4;
+  lang: Lang;
 }
 
-const { kap4 } = Astro.props;
+const { kap4, lang } = Astro.props;
 ---
 
 <div class="chart-block">
-  <h3 class="small-title">Dömda och matchad kontrollgrupp, 2000–2020</h3>
-  <p class="small-sub">Kontrollgruppen har samma kön och födelseår som de dömda.</p>
-  <ul class="legend-list" aria-label="Förklaring">
-    <li><span class="mark bar-fill" aria-hidden="true"></span>Dömda för våldtäkt</li>
-    <li><span class="mark bar-outline" aria-hidden="true"></span>Matchad kontrollgrupp</li>
+  <h3 class="small-title">{tr(lang, 'Dömda och matchad kontrollgrupp, 2000–2020', 'Convicted and matched control group, 2000–2020')}</h3>
+  <p class="small-sub">{tr(lang, 'Kontrollgruppen har samma kön och födelseår som de dömda.', 'The control group has the same sex and birth year as the convicted.')}</p>
+  <ul class="legend-list" aria-label={tr(lang, 'Förklaring', 'Key')}>
+    <li><span class="mark bar-fill" aria-hidden="true"></span>{tr(lang, 'Dömda för våldtäkt', 'Convicted for rape')}</li>
+    <li><span class="mark bar-outline" aria-hidden="true"></span>{tr(lang, 'Matchad kontrollgrupp', 'Matched control group')}</li>
   </ul>
   <BarChart spec={kap4.main} />
 </div>
 
 <div class="chart-block part">
-  <h3 class="small-title">Dömda och hela befolkningen, 2000–2015</h3>
-  <p class="small-sub">Befolkningen gäller alla åldrar och båda könen.</p>
-  <ul class="legend-list" aria-label="Förklaring">
-    <li><span class="mark bar-fill" aria-hidden="true"></span>Dömda för våldtäkt</li>
-    <li><span class="mark bar-outline" aria-hidden="true"></span>Befolkningen</li>
+  <h3 class="small-title">{tr(lang, 'Dömda och hela befolkningen, 2000–2015', 'Convicted and the whole population, 2000–2015')}</h3>
+  <p class="small-sub">{tr(lang, 'Befolkningen gäller alla åldrar och båda könen.', 'The population covers all ages and both sexes.')}</p>
+  <ul class="legend-list" aria-label={tr(lang, 'Förklaring', 'Key')}>
+    <li><span class="mark bar-fill" aria-hidden="true"></span>{tr(lang, 'Dömda för våldtäkt', 'Convicted for rape')}</li>
+    <li><span class="mark bar-outline" aria-hidden="true"></span>{tr(lang, 'Befolkningen', 'Population')}</li>
   </ul>
   <BarChart spec={kap4.population2015} />
 </div>
 
 <div class="small-multiples">
   <div class="chart-block">
-    <h3 class="small-title">Födelseregion bland de utrikesfödda dömda, 2000–2015</h3>
-    <p class="small-sub">Andel av de 1 451 utrikesfödda dömda.</p>
+    <h3 class="small-title">{tr(lang, 'Födelseregion bland de utrikesfödda dömda, 2000–2015', 'Birth region among the born-abroad convicted, 2000–2015')}</h3>
+    <p class="small-sub">{tr(lang, 'Andel av de 1 451 utrikesfödda dömda.', 'Share of the 1,451 born-abroad convicted.')}</p>
     <BarChart spec={kap4.region} staticWidth={520} />
   </div>
   <div class="chart-block">
-    <h3 class="small-title">Tidigare domar och ekonomiskt bistånd bland alla dömda, 2000–2015</h3>
-    <p class="small-sub">Andel av alla dömda i studien. Ekonomiskt bistånd är inte ett brott.</p>
+    <h3 class="small-title">{tr(lang, 'Tidigare domar och ekonomiskt bistånd bland alla dömda, 2000–2015', 'Previous convictions and social assistance among all convicted, 2000–2015')}</h3>
+    <p class="small-sub">{tr(lang, 'Andel av alla dömda i studien. Ekonomiskt bistånd är inte ett brott.', 'Share of all convicted people in the study. Social assistance is not a crime.')}</p>
     <BarChart spec={kap4.prior} staticWidth={520} />
   </div>
 </div>

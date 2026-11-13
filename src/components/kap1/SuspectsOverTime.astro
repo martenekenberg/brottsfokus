@@ -2,16 +2,18 @@
 // Chapter 1 chart with its controls: crime type menu and view toggle.
 // Without JavaScript the default view (brott totalt, per 1 000) is shown and the controls stay hidden.
 import LineChart from '../charts/LineChart.astro';
-import { buildKap1Spec, chartHeading, crimeById, GROUPS, type Kap1Data } from '../../lib/chapters/kap1';
+import { buildKap1Spec, chartHeading, crimeById, crimeName, GROUPS, type Kap1Data } from '../../lib/chapters/kap1';
+import { tr, type Lang } from '../../lib/i18n';
 
 interface Props {
   data: Kap1Data;
+  lang: Lang;
 }
 
-const { data } = Astro.props;
+const { data, lang } = Astro.props;
 const defaultCrime = 'c00';
-const spec = buildKap1Spec(data, defaultCrime, 'rate');
-const heading = chartHeading(crimeById(data, defaultCrime), 'rate');
+const spec = buildKap1Spec(data, defaultCrime, 'rate', lang);
+const heading = chartHeading(crimeById(data, defaultCrime), 'rate', lang);
 const indent = (depth: number) => '\u00a0\u00a0'.repeat(depth);
 
 const legend = [
@@ -23,28 +25,28 @@ const legend = [
 ] as const;
 ---
 
-<div class="chart-block" data-kap1>
+<div class="chart-block" data-kap1 data-lang={lang}>
   <div class="controls" data-controls hidden>
     <label class="crime">
-      <span class="control-label">Brottstyp</span>
+      <span class="control-label">{tr(lang, 'Brottstyp', 'Crime type')}</span>
       <select data-crime>
         {
           data.crimes.map((c) => (
             <option value={c.id} selected={c.id === defaultCrime}>
               {indent(c.depth)}
-              {c.name}
+              {crimeName(c, lang)}
             </option>
           ))
         }
       </select>
     </label>
-    <div class="toggle" role="group" aria-label="Visa som">
-      <button type="button" data-mode="rate" aria-pressed="true">Per 1 000 invånare</button>
-      <button type="button" data-mode="ratio" aria-pressed="false">Jämfört med två inrikesfödda föräldrar</button>
+    <div class="toggle" role="group" aria-label={tr(lang, 'Visa som', 'Show as')}>
+      <button type="button" data-mode="rate" aria-pressed="true">{tr(lang, 'Per 1 000 invånare', 'Per 1,000 residents')}</button>
+      <button type="button" data-mode="ratio" aria-pressed="false">{tr(lang, 'Jämfört med två inrikesfödda föräldrar', 'Compared with two Swedish-born parents')}</button>
     </div>
   </div>
 
-  <ul class="legend-list" aria-label="Förklaring">
+  <ul class="legend-list" aria-label={tr(lang, 'Förklaring', 'Key')}>
     {
       legend.map((l) => (
         <li data-modes={l.modes}>
@@ -53,13 +55,13 @@ const legend = [
             style={`border-color:${GROUPS[l.id].color}`}
             aria-hidden="true"
           />
-          {GROUPS[l.id].label}
+          {GROUPS[l.id].label[lang]}
         </li>
       ))
     }
     <li data-modes="ratio" hidden>
       <span class="mark dash" style="border-color:#121212" aria-hidden="true"></span>
-      Inrikesfödda med två inrikesfödda föräldrar = 1
+      {tr(lang, 'Inrikesfödda med två inrikesfödda föräldrar = 1', 'Born in Sweden, two Swedish-born parents = 1')}
     </li>
   </ul>
 
@@ -70,8 +72,10 @@ const legend = [
 
 <script>
   import { buildKap1Spec, chartHeading, crimeById, type Kap1Data, type Mode } from '../../lib/chapters/kap1';
+  import type { Lang } from '../../lib/i18n';
 
   document.querySelectorAll<HTMLElement>('[data-kap1]').forEach((root) => {
+    const lang = (root.dataset.lang ?? 'sv') as Lang;
     const data = JSON.parse(root.querySelector('[data-kap1-data]')?.textContent ?? '{}') as Kap1Data;
     const controls = root.querySelector<HTMLElement>('[data-controls]');
     const select = root.querySelector<HTMLSelectElement>('[data-crime]');
@@ -85,12 +89,12 @@ const legend = [
 
     const update = () => {
       const crime = crimeById(data, select.value);
-      heading.textContent = chartHeading(crime, mode);
+      heading.textContent = chartHeading(crime, mode, lang);
       buttons.forEach((b) => b.setAttribute('aria-pressed', String(b.dataset.mode === mode)));
       root.querySelectorAll<HTMLElement>('[data-modes]').forEach((li) => {
         li.hidden = !(li.dataset.modes ?? '').split(' ').includes(mode);
       });
-      figure.dispatchEvent(new CustomEvent('chart:update', { detail: buildKap1Spec(data, crime.id, mode) }));
+      figure.dispatchEvent(new CustomEvent('chart:update', { detail: buildKap1Spec(data, crime.id, mode, lang) }));
     };
 
     select.addEventListener('change', update);
@@ -102,4 +106,3 @@ const legend = [
     );
   });
 </script>
-

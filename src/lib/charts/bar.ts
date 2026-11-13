@@ -4,6 +4,7 @@
 // Pure function: data + width in, SVG markup out. Runs at build time and in the browser.
 import { scaleLinear } from 'd3';
 import { formatPct, formatTimes } from '../format';
+import type { Lang } from '../i18n';
 import { esc, FONT } from './svg';
 
 export interface Bar {
@@ -33,6 +34,7 @@ export interface BarGroup {
 }
 
 export interface BarChartSpec {
+  lang: Lang;
   groups: BarGroup[];
   ariaLabel: string;
   /** Default pct1 (22,5 %). */
@@ -49,9 +51,9 @@ export interface BarChartSpec {
 export const BAR_NARROW = 560;
 const C = { ink: '#121212', muted: '#5C5C5C', rule: '#E3E3E3' };
 
-export function barFmt(v: number, f: BarFormat = 'pct1'): string {
-  if (f === 'x1') return formatTimes(v, 1);
-  return formatPct(v, f === 'pct2' ? 2 : 1);
+export function barFmt(v: number, f: BarFormat = 'pct1', lang: Lang): string {
+  if (f === 'x1') return formatTimes(v, 1, lang);
+  return formatPct(v, f === 'pct2' ? 2 : 1, lang);
 }
 
 interface Placed {
@@ -174,7 +176,7 @@ export function renderBarChart(spec: BarChartSpec, width: number): string {
       p.push(`<rect x="${L.x0}" y="${b.y}" width="${w.toFixed(1)}" height="${L.barHeight}" fill="${col.fill}"/>`);
     }
     p.push(
-      `<text x="${(L.x0 + w + 8).toFixed(1)}" y="${b.y + 14}" ${FONT} font-size="13" font-weight="${comparison ? 600 : 700}" fill="${col.text}">${esc(barFmt(bar.value, spec.format))}</text>`,
+      `<text x="${(L.x0 + w + 8).toFixed(1)}" y="${b.y + 14}" ${FONT} font-size="13" font-weight="${comparison ? 600 : 700}" fill="${col.text}">${esc(barFmt(bar.value, spec.format, spec.lang))}</text>`,
     );
   }
 

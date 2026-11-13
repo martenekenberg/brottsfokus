@@ -1,8 +1,10 @@
+import type { Lang } from './i18n';
+
 /**
- * Years as short Swedish ranges: [2014, 2015, 2018, 2019, 2020] -> "2014–2015 och 2018–2020".
- * Used in notes that say which years have values.
+ * Years as short ranges: [2014, 2015, 2018, 2019, 2020] -> "2014–2015 och 2018–2020" (sv)
+ * or "2014–2015 and 2018–2020" (en). Used in notes that say which years have values.
  */
-export function yearRanges(years: number[]): string {
+export function yearRanges(years: number[], lang: Lang): string {
   const sorted = [...new Set(years)].sort((a, b) => a - b);
   const parts: string[] = [];
   let start = sorted[0];
@@ -14,5 +16,6 @@ export function yearRanges(years: number[]): string {
     }
   }
   if (parts.length <= 1) return parts.join('');
-  return `${parts.slice(0, -1).join(', ')} och ${parts[parts.length - 1]}`;
+  const and = lang === 'en' ? ' and ' : ' och ';
+  return `${parts.slice(0, -1).join(', ')}${and}${parts[parts.length - 1]}`;
 }

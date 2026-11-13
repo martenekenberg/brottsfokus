@@ -7,6 +7,7 @@ import DataTableView from './DataTableView.astro';
 import { chapter } from '../../lib/chapters';
 import { tablePage, tablePages, tablesIndexPath } from '../../lib/dataPages';
 import { dataDate } from '../../lib/dataDates';
+import { IN_LANGUAGE, localePath, tr, type Lang } from '../../lib/i18n';
 import { site, absoluteUrl, dayMonthYear } from '../../lib/site';
 import type { TablePageContent } from '../../lib/tablePageContent';
 
@@ -15,7 +16,8 @@ interface Props {
 }
 
 const { content: p } = Astro.props;
-const page = tablePage(p.chapterId);
+const lang: Lang = p.lang;
+const page = tablePage(p.chapterId, lang);
 const c = chapter(p.chapterId);
 const pageUrl = absoluteUrl(page.path);
 // The page changes when its data changes, not on every deploy.
@@ -28,23 +30,25 @@ const dataset = {
   name: p.h1,
   description: p.datasetDescription,
   url: pageUrl,
-  inLanguage: 'sv-SE',
+  inLanguage: IN_LANGUAGE[lang],
   keywords: p.keywords,
   license: site.dataLicense.url,
   isAccessibleForFree: true,
-  creditText: `${site.name}, efter uppgifter från ${p.credit}`,
+  creditText: tr(lang, `${site.name}, efter uppgifter från ${p.credit}`, `${site.name}, based on data from ${p.credit}`),
   creator: { '@id': `${site.url}#publisher` },
   publisher: { '@id': `${site.url}#publisher` },
   isBasedOn: p.sources.map((s) => s.url),
   dateModified: updated,
   temporalCoverage: p.temporalCoverage,
-  spatialCoverage: { '@type': 'Place', name: 'Sverige' },
+  spatialCoverage: { '@type': 'Place', name: tr(lang, 'Sverige', 'Sweden') },
   variableMeasured: p.variableMeasured,
   distribution: [
     { '@type': 'DataDownload', encodingFormat: 'text/csv', contentUrl: absoluteUrl(page.csvPath) },
     { '@type': 'DataDownload', encodingFormat: 'text/markdown', contentUrl: absoluteUrl(page.mdPath) },
   ],
 };
+const chartHref = `${localePath(lang, '/')}#${p.chapterId}`;
+const crumbTables = tr(lang, 'Tabeller', 'Tables');
 ---
 
 <DataLayout
@@ -53,19 +57,20 @@ const dataset = {
   path={page.path}
   updated={updated}
   markdownPath={page.mdPath}
+  lang={lang}
   crumbs={[
-    { name: 'Tabeller', path: tablesIndexPath },
+    { name: crumbTables, path: tablesIndexPath(lang) },
     { name: page.name, path: page.path },
   ]}
   citations={p.sources.map((s) => s.url)}
   jsonLdNodes={[dataset]}
 >
-  <p class="kicker">Tabell · {c.num} {c.navLabel}</p>
+  <p class="kicker">{tr(lang, 'Tabell', 'Table')} · {c.num} {c.navLabel[lang]}</p>
   <h1>{p.h1}</h1>
   <p class="lead">{p.lead}</p>
 
   <div class="note">
-    <strong>Läs så här. </strong>
+    <strong>{tr(lang, 'Läs så här. ', 'How to read this. ')}</strong>
     {p.note}
   </div>
 
@@ -75,62 +80,82 @@ const dataset = {
         {s.heading && <h2>{s.heading}</h2>}
         {(s.intro || s.collapsed) && (
           <p class="body">
-            {[s.intro, s.collapsed ? 'Klicka på en brottstyp för att visa tabellen.' : ''].filter(Boolean).join(' ')}
+            {
+              [
+                s.intro,
+                s.collapsed ? tr(lang, 'Klicka på en brottstyp för att visa tabellen.', 'Click a crime type to show its table.') : '',
+              ]
+                .filter(Boolean)
+                .join(' ')
+            }
           </p>
         )}
         {s.collapsed ? (
           <div>
             {s.tables.map((t) => (
-              <DataTableView table={t} collapsed />
+              <DataTableView table={t} collapsed lang={lang} />
             ))}
           </div>
         ) : (
-          s.tables.map((t) => <DataTableView table={t} />)
+          s.tables.map((t) => <DataTableView table={t} lang={lang} />)
         )}
         {s.after && <p class="body">{s.after}</p>}
       </>
     ))
   }
 
-  <h2>Ladda ner</h2>
+  <h2>{tr(lang, 'Ladda ner', 'Download')}</h2>
   <p class="body">
-    <a href={page.csvPath} download>Alla siffror på sidan som CSV-fil</a>. Teckenkodning UTF-8, kommatecken mellan
-    kolumnerna och punkt som decimaltecken. En tom cell betyder att uppgift saknas. Sidan finns också som <a
-      href={page.mdPath}>textfil (Markdown)</a
-    >.
+    <a href={page.csvPath} download>{tr(lang, 'Alla siffror på sidan som CSV-fil', 'All figures on the page as a CSV file')}</a>.{' '}
+    {
+      tr(
+        lang,
+        'Teckenkodning UTF-8, kommatecken mellan kolumnerna och punkt som decimaltecken. En tom cell betyder att uppgift saknas. Sidan finns också som',
+        'UTF-8 encoding, commas between columns and a dot as the decimal point. An empty cell means that no value is available. The page is also available as',
+      )
+    }{' '}
+    <a href={page.mdPath}>{tr(lang, 'textfil (Markdown)', 'a text file (Markdown)')}</a>.
   </p>
 
-  <h2>Använda siffrorna</h2>
+  <h2>{tr(lang, 'Använda siffrorna', 'Using the figures')}</h2>
   <p class="body">
-    Tabellerna får användas fritt enligt <a href={site.dataLicense.url}>{site.dataLicense.name}</a>. Ange {p.credit} som
-    källa.{p.terms ? ` ${p.terms}` : ''}
+    {tr(lang, 'Tabellerna får användas fritt enligt', 'You may use the tables freely under')}{' '}
+    <a href={site.dataLicense.url}>{site.dataLicense.name}</a>.{' '}
+    {tr(lang, `Ange ${p.credit} som källa.`, `Name ${p.credit} as the source.`)}{p.terms ? ` ${p.terms}` : ''}
   </p>
 
   <p class="source">
-    Källor: {
+    {tr(lang, 'Källor:', 'Sources:')}{' '}
+    {
       p.sources.map((s, i) => (
         <>
           <a href={s.url}>{s.label}</a>
           {i < p.sources.length - 1 ? '; ' : '.'}
         </>
       ))
-    } Uppgifterna senast ändrade {dayMonthYear(updated)}.
+    }{' '}
+    {tr(lang, 'Uppgifterna senast ändrade', 'Data last changed')} {dayMonthYear(updated, lang)}.
   </p>
 
-  <a class="back" href={`/#${p.chapterId}`}>Till diagrammet i kapitel {Number(c.num)}, {c.navLabel}</a>
+  <a class="back" href={chartHref}>
+    {tr(lang, `Till diagrammet i kapitel ${Number(c.num)}, ${c.navLabel[lang]}`, `Back to the chart in chapter ${Number(c.num)}, ${c.navLabel[lang]}`)}
+  </a>
 
   <nav class="more" aria-labelledby="fler-tabeller">
-    <h2 id="fler-tabeller">Fler tabeller</h2>
+    <h2 id="fler-tabeller">{tr(lang, 'Fler tabeller', 'More tables')}</h2>
     <ul>
       {
         tablePages
           .filter((x) => x.chapterId !== p.chapterId)
-          .map((x) => (
-            <li>
-              <span class="num">{chapter(x.chapterId).num}</span>
-              <a href={x.path}>{x.name}</a>
-            </li>
-          ))
+          .map((x) => {
+            const other = tablePage(x.chapterId, lang);
+            return (
+              <li>
+                <span class="num">{chapter(x.chapterId).num}</span>
+                <a href={other.path}>{other.name}</a>
+              </li>
+            );
+          })
       }
     </ul>
   </nav>

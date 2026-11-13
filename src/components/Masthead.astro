@@ -1,20 +1,30 @@
 ---
+import { localePath, otherLang, tr, HTML_LANG, type Lang } from '../lib/i18n';
+
 interface Props {
   updated: string;
   sources: string;
+  lang: Lang;
 }
-const { updated, sources } = Astro.props;
+const { updated, sources, lang } = Astro.props;
+const switchLang = otherLang(lang);
 ---
 
 <header class="masthead" id="top">
   <div class="meta">
-    <span class="label">Offentlig statistik och forskning</span>
-    <span>Uppdaterad {updated} · Källor: {sources}</span>
+    <span class="label">{tr(lang, 'Offentlig statistik och forskning', 'Official statistics and research')}</span>
+    <span>{tr(lang, `Uppdaterad ${updated} · Källor: ${sources}`, `Updated ${updated} · Sources: ${sources}`)}</span>
+    <a class="switch" href={localePath(switchLang, '/')} hreflang={HTML_LANG[switchLang]}>{tr(lang, 'English', 'Svenska')}</a>
   </div>
   <h1>Brottsfokus</h1>
   <p class="intro">
-    Vad den officiella statistiken och forskningen visar om misstänkta, dömda och intagna i Sverige efter
-    födelseland, föräldrarnas födelseland och medborgarskap, jämfört med befolkningen.
+    {
+      tr(
+        lang,
+        'Vad den officiella statistiken och forskningen visar om misstänkta, dömda och intagna i Sverige efter födelseland, föräldrarnas födelseland och medborgarskap, jämfört med befolkningen.',
+        'What official statistics and research show about suspects, convicted people and prisoners in Sweden, by country of birth, parents’ country of birth and citizenship, compared with the population.',
+      )
+    }
   </p>
 </header>
 
@@ -46,6 +56,12 @@ const { updated, sources } = Astro.props;
     line-height: 1;
     font-weight: 500;
     letter-spacing: -0.01em;
+  }
+  .switch {
+    display: inline-flex;
+    align-items: center;
+    min-height: 44px;
+    color: var(--ink);
   }
   .intro {
     margin: 0;

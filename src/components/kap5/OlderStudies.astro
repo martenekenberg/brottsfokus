@@ -3,44 +3,45 @@
 // population, then crime types as grouped bars.
 import BarChart from '../charts/BarChart.astro';
 import type { Kap5 } from '../../lib/chapters/kap5';
+import { tr, type Lang } from '../../lib/i18n';
 
 interface Props {
   kap5: Kap5;
+  lang: Lang;
 }
 
-const { kap5 } = Astro.props;
+const { kap5, lang } = Astro.props;
 ---
 
 <div class="small-multiples first">
   <div class="chart-block">
-    <h3 class="small-title">Utrikesfödda</h3>
+    <h3 class="small-title">{tr(lang, 'Utrikesfödda', 'Born abroad')}</h3>
     <BarChart spec={kap5.riskForeignBorn} staticWidth={520} />
   </div>
   <div class="chart-block">
-    <h3 class="small-title">Inrikesfödda med en eller två utrikesfödda föräldrar</h3>
+    <h3 class="small-title">{tr(lang, 'Inrikesfödda med en eller två utrikesfödda föräldrar', 'Born in Sweden, one or two foreign-born parents')}</h3>
     <BarChart spec={kap5.riskSwedishBorn} staticWidth={520} />
   </div>
 </div>
 
 <div class="chart-block part">
-  <h3 class="small-title">Andel av de misstänkta och andel av befolkningen, 1997–2001</h3>
-  <ul class="legend-list" aria-label="Förklaring">
-    <li><span class="mark bar-swatch" style="background:#1D4E89" aria-hidden="true"></span>Andel av alla misstänkta</li>
-    <li><span class="mark bar-swatch outline" aria-hidden="true"></span>Andel av befolkningen</li>
+  <h3 class="small-title">{tr(lang, 'Andel av de misstänkta och andel av befolkningen, 1997–2001', 'Share of suspects and share of population, 1997–2001')}</h3>
+  <ul class="legend-list" aria-label={tr(lang, 'Förklaring', 'Key')}>
+    <li><span class="mark bar-swatch" style="background:#1D4E89" aria-hidden="true"></span>{tr(lang, 'Andel av alla misstänkta', 'Share of all suspects')}</li>
+    <li><span class="mark bar-swatch outline" aria-hidden="true"></span>{tr(lang, 'Andel av befolkningen', 'Share of population')}</li>
   </ul>
   <BarChart spec={kap5.shares} />
 </div>
 
 <div class="chart-block part">
-  <h3 class="small-title">Andel misstänkta efter brottstyp, 1997–2001</h3>
-  <p class="small-sub">Andel av varje grupp som misstänktes minst en gång under perioden.</p>
-  <ul class="legend-list" aria-label="Förklaring">
-    <li><span class="mark bar-swatch" style="background:#1D4E89" aria-hidden="true"></span>Utrikesfödda</li>
+  <h3 class="small-title">{tr(lang, 'Andel misstänkta efter brottstyp, 1997–2001', 'Share of suspects by crime type, 1997–2001')}</h3>
+  <p class="small-sub">{tr(lang, 'Andel av varje grupp som misstänktes minst en gång under perioden.', 'Share of each group that was suspected at least once in the period.')}</p>
+  <ul class="legend-list" aria-label={tr(lang, 'Förklaring', 'Key')}>
+    <li><span class="mark bar-swatch" style="background:#1D4E89" aria-hidden="true"></span>{tr(lang, 'Utrikesfödda', 'Born abroad')}</li>
     <li>
-      <span class="mark bar-swatch" style="background:#C2410C" aria-hidden="true"></span>Inrikesfödda med en eller två
-      utrikesfödda föräldrar
+      <span class="mark bar-swatch" style="background:#C2410C" aria-hidden="true"></span>{tr(lang, 'Inrikesfödda med en eller två utrikesfödda föräldrar', 'Born in Sweden, one or two foreign-born parents')}
     </li>
-    <li><span class="mark bar-swatch outline" aria-hidden="true"></span>Inrikesfödda med två inrikesfödda föräldrar</li>
+    <li><span class="mark bar-swatch outline" aria-hidden="true"></span>{tr(lang, 'Inrikesfödda med två inrikesfödda föräldrar', 'Born in Sweden, two Swedish-born parents')}</li>
   </ul>
   <BarChart spec={kap5.crimes} />
 </div>

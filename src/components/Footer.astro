@@ -1,12 +1,23 @@
 ---
-import { tablesIndexPath } from '../lib/dataPages';
+import { alternatePath, tablesIndexPath } from '../lib/dataPages';
+import { HTML_LANG, localePath, otherLang, tr, type Lang } from '../lib/i18n';
+
+interface Props {
+  lang: Lang;
+  /** This page's path in its language, so the language link can point to the same page in the other one. */
+  path?: string;
+}
+const { lang, path = localePath(lang, '/') } = Astro.props;
+const switchLang = otherLang(lang);
+const switchHref = alternatePath(path, lang);
 ---
 
 <footer class="site-footer">
-  <span>Brottsfokus · Sammanställning av offentlig statistik</span>
+  <span>{tr(lang, 'Brottsfokus · Sammanställning av offentlig statistik', 'Brottsfokus · A compilation of official statistics')}</span>
   <span class="links">
-    <a href={tablesIndexPath}>Tabeller och CSV-filer</a>
-    <a href="#top">Till början ↑</a>
+    <a href={tablesIndexPath(lang)}>{tr(lang, 'Tabeller och CSV-filer', 'Tables and CSV files')}</a>
+    <a href={switchHref} hreflang={HTML_LANG[switchLang]}>{tr(lang, 'English', 'Svenska')}</a>
+    <a href="#top">{tr(lang, 'Till början ↑', 'Back to top ↑')}</a>
   </span>
 </footer>
 

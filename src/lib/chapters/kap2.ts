@@ -3,6 +3,8 @@
 import type { B6Row, OriginRow } from '../data';
 import { dotFmt, type DotChartSpec, type DotRow } from '../charts/dot';
 import { formatNumber } from '../format';
+import { missingText, tr, type Lang } from '../i18n';
+import { dataLabel } from '../labels';
 
 export type View = 'region' | 'land' | 'moder';
 export type Measure = 'risk' | 'rate' | 'share';
@@ -12,6 +14,7 @@ const COMPARISON = 'sv2';
 
 export interface Kap2Unit {
   id: string;
+  /** Swedish name from the data file. Use dataLabel() for the shown name. */
   label: string;
   region: string;
   n: number | null;
@@ -34,13 +37,13 @@ export interface Kap2Crime {
 
 export type Kap2Data = Record<View, Kap2Crime[]>;
 
-export const VIEW_LABEL: Record<View, string> = {
-  region: 'Födelseområde',
-  land: 'Födelseland',
-  moder: 'Moderns födelseområde',
+export const VIEW_LABEL: Record<View, Record<Lang, string>> = {
+  region: { sv: 'Födelseområde', en: 'Birth region' },
+  land: { sv: 'Födelseland', en: 'Birth country' },
+  moder: { sv: 'Moderns födelseområde', en: 'Mother’s birth region' },
 };
 
-const TOTAL = 'Brott totalt';
+export const TOTAL = 'Brott totalt';
 
 /**
  * Build-time: group the CSV rows by view and crime type. `depthByOrder` indents the crime menu.
@@ -121,6 +124,11 @@ export function crimeFor(data: Kap2Data, view: View, name: string): Kap2Crime {
   return data[view].find((c) => c.name === name) ?? data[view][0];
 }
 
+/** The crime type's name in a language. */
+export function crimeLabel(name: string, lang: Lang): string {
+  return dataLabel(name, lang);
+}
+
 function lc(s: string): string {
   return s.charAt(0).toLowerCase() + s.slice(1);
 }
@@ -143,80 +151,119 @@ export function hasAdjusted(crime: Kap2Crime): boolean {
   return crime.units.some((u) => u.riskAdj !== null);
 }
 
-export function chartHeading(view: View, crime: Kap2Crime, measure: Measure): string {
+export function chartHeading(view: View, crime: Kap2Crime, measure: Measure, lang: Lang): string {
   const who =
     view === 'moder'
-      ? 'Inrikesfödda med två utrikesfödda föräldrar, efter moderns födelseområde'
+      ? tr(lang, 'Inrikesfödda med två utrikesfödda föräldrar, efter moderns födelseområde', 'Born in Sweden, two foreign-born parents, by mother’s birth region')
       : view === 'land'
-        ? 'Utrikesfödda efter födelseland'
-        : 'Utrikesfödda efter födelseområde';
+        ? tr(lang, 'Utrikesfödda efter födelseland', 'Born abroad, by birth country')
+        : tr(lang, 'Utrikesfödda efter födelseområde', 'Born abroad, by birth region');
   const what =
     measure === 'risk'
-      ? 'gånger vanligare att misstänkas än inrikesfödda med två inrikesfödda föräldrar'
+      ? tr(
+          lang,
+          'gånger vanligare att misstänkas än inrikesfödda med två inrikesfödda föräldrar',
+          'how many times more likely to be suspected than born in Sweden with two Swedish-born parents',
+        )
       : measure === 'share'
-        ? 'andel av alla misstänkta och andel av befolkningen'
-        : 'misstänkta per 1 000';
-  return `${who}: ${what}, ${lc(crime.name)}, 2015–2018`;
+        ? tr(lang, 'andel av alla misstänkta och andel av befolkningen', 'share of all suspects and share of the population')
+        : tr(lang, 'misstänkta per 1 000', 'suspects per 1,000');
+  return `${who}: ${what}, ${lc(crimeLabel(crime.name, lang))}, 2015–2018`;
 }
 
-function detail(view: View, u: Kap2Unit): string | undefined {
+function detail(view: View, u: Kap2Unit, lang: Lang): string | undefined {
   if (view === 'land') {
-    const size = u.n === null ? '' : `, ${formatNumber(u.n)} personer i gruppen`;
-    return u.region ? `Födelseområde: ${u.region}${size}` : undefined;
+    const size = u.n === null ? '' : tr(lang, `, ${formatNumber(u.n, 0, lang)} personer i gruppen`, `, ${formatNumber(u.n, 0, lang)} people in the group`);
+    return u.region ? tr(lang, `Födelseområde: ${dataLabel(u.region, lang)}${size}`, `Birth region: ${dataLabel(u.region, lang)}${size}`) : undefined;
   }
-  if (view === 'moder') return 'Inrikesfödda med två utrikesfödda föräldrar, modern född här';
+  if (view === 'moder') {
+    return tr(lang, 'Inrikesfödda med två utrikesfödda föräldrar, modern född här', 'Born in Sweden, two foreign-born parents, mother born in this region');
+  }
   return undefined;
 }
 
-export function buildKap2Spec(data: Kap2Data, view: View, crimeName: string, measure: Measure): DotChartSpec {
+export function buildKap2Spec(data: Kap2Data, view: View, crimeName: string, measure: Measure, lang: Lang): DotChartSpec {
   const crime = crimeFor(data, view, crimeName);
   // Highest first, by the value that is shown. (Risk and rate can differ in order by a
   // hair, because Brå rounds both.) The share view keeps the risk order.
   const units = [...crime.units].sort((a, b) =>
     measure === 'rate' ? b.per1000 - a.per1000 || b.risk - a.risk : b.risk - a.risk || b.per1000 - a.per1000,
   );
-  const refLabel = 'Inrikesfödda med två inrikesfödda föräldrar';
+  const refLabel = tr(lang, 'Inrikesfödda med två inrikesfödda föräldrar', 'Born in Sweden, two Swedish-born parents');
+  const heading = chartHeading(view, crime, measure, lang);
   if (measure === 'share' && hasShares(crime)) {
     const rows: DotRow[] = units.map((u) => ({
       id: u.id,
-      label: u.label,
-      detail: detail(view, u),
+      label: dataLabel(u.label, lang),
+      detail: detail(view, u, lang),
       primary: u.suspectsPct as number, // hasShares() has checked that no value is missing
       secondary: u.populationPct,
     }));
+    const pct = (v: number) => tr(lang, `${formatNumber(v, 2, lang)} procent`, `${formatNumber(v, 2, lang)}%`);
     return {
+      lang,
       rows,
-      primaryLabel: 'Andel av alla misstänkta',
-      secondaryLabel: 'Andel av befolkningen',
+      primaryLabel: tr(lang, 'Andel av alla misstänkta', 'Share of all suspects'),
+      secondaryLabel: tr(lang, 'Andel av befolkningen', 'Share of population'),
       secondaryStyle: 'population',
       format: 'pct2',
       ariaLabel:
-        `Punktdiagram. ${chartHeading(view, crime, measure)}. ${rows.length} grupper, sorterade efter överrisk. ` +
-        rows.map((r) => `${r.label}: ${formatNumber(r.primary, 2)} procent av de misstänkta, ${r.secondary === null ? 'uppgift saknas' : formatNumber(r.secondary, 2)} procent av befolkningen`).join('. ') +
+        tr(lang, 'Punktdiagram. ', 'Dot plot. ') +
+        `${heading}. ` +
+        tr(lang, `${rows.length} grupper, sorterade efter överrisk. `, `${rows.length} groups, sorted by excess risk. `) +
+        rows
+          .map((r) =>
+            tr(
+              lang,
+              `${r.label}: ${pct(r.primary)} av de misstänkta, ${r.secondary === null ? missingText(lang) : pct(r.secondary)} av befolkningen`,
+              `${r.label}: ${pct(r.primary)} of the suspects, ${r.secondary === null ? missingText(lang) : pct(r.secondary)} of the population`,
+            ),
+          )
+          .join('. ') +
         '.',
     };
   }
   const adjusted = measure === 'risk' && hasAdjusted(crime);
   const rows: DotRow[] = units.map((u) => ({
     id: u.id,
-    label: u.label,
-    detail: detail(view, u),
+    label: dataLabel(u.label, lang),
+    detail: detail(view, u, lang),
     primary: measure === 'rate' ? u.per1000 : u.risk,
     secondary: adjusted ? u.riskAdj : null,
   }));
+  const refValue = measure === 'rate' ? crime.refPer1000 : 1;
+  const rateFormat = measure === 'rate' ? 'num1' : 'x1';
   return {
+    lang,
     rows,
-    primaryLabel: measure === 'rate' ? 'Misstänkta per 1 000' : 'Ojusterat',
-    secondaryLabel: adjusted ? 'Justerat för ålder, kön, inkomst och utbildning' : undefined,
-    format: measure === 'rate' ? 'num1' : 'x1',
-    ref: { value: measure === 'rate' ? crime.refPer1000 : 1, label: refLabel },
+    primaryLabel:
+      measure === 'rate' ? tr(lang, 'Misstänkta per 1 000', 'Suspects per 1,000') : tr(lang, 'Ojusterat', 'Unadjusted'),
+    secondaryLabel: adjusted
+      ? tr(lang, 'Justerat för ålder, kön, inkomst och utbildning', 'Adjusted for age, sex, income and education')
+      : undefined,
+    format: rateFormat,
+    ref: { value: refValue, label: refLabel },
     ariaLabel:
-      `Punktdiagram. ${chartHeading(view, crime, measure)}. ${rows.length} grupper sorterade med högst värde först. ` +
-      (measure === 'rate' ? `Jämförelsegruppen: ${dotFmt(crime.refPer1000, 'num1')}. ` : '') +
+      tr(lang, 'Punktdiagram. ', 'Dot plot. ') +
+      `${heading}. ` +
+      tr(
+        lang,
+        `${rows.length} grupper sorterade med högst värde först. `,
+        `${rows.length} groups, sorted with the highest value first. `,
+      ) +
+      (measure === 'rate'
+        ? tr(lang, `Jämförelsegruppen: ${dotFmt(crime.refPer1000, 'num1', lang)}. `, `Comparison group: ${dotFmt(crime.refPer1000, 'num1', lang)}. `)
+        : '') +
       rows
         .map((r) => {
-          const first = dotFmt(r.primary, measure === 'rate' ? 'num1' : 'x1');
-          return r.secondary === null ? `${r.label}: ${first}` : `${r.label}: ${first}, justerat ${dotFmt(r.secondary, 'x1')}`;
+          const first = dotFmt(r.primary, rateFormat, lang);
+          return r.secondary === null
+            ? `${r.label}: ${first}`
+            : tr(
+                lang,
+                `${r.label}: ${first}, justerat ${dotFmt(r.secondary, 'x1', lang)}`,
+                `${r.label}: ${first}, adjusted ${dotFmt(r.secondary, 'x1', lang)}`,
+              );
         })
         .join('. ') +
       '.',

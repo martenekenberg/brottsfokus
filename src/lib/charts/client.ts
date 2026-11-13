@@ -1,3 +1,5 @@
+import { chartKeyboardHint, type Lang } from '../i18n';
+
 // Browser side shared by all chart types: redraw at the container's width, swap data on
 // 'chart:update', and show a tooltip for the year or row under the pointer. The same
 // tooltip can be stepped through with the arrow keys, and is then also read out to
@@ -115,7 +117,7 @@ function setup<S>(figure: HTMLElement, kind: ChartKind<S>): void {
   // Keyboard: arrow keys step through the years or rows.
   canvas.tabIndex = 0;
   canvas.setAttribute('role', 'group');
-  canvas.setAttribute('aria-label', 'Diagram. Använd piltangenterna för att läsa värdena ett i taget.');
+  canvas.setAttribute('aria-label', chartKeyboardHint((figure.dataset.lang as Lang) ?? 'sv'));
   canvas.addEventListener('keydown', (ev) => {
     const n = kind.count(spec);
     if (!n) return;

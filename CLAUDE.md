@@ -4,7 +4,7 @@ Instructions for Claude Code. Read this whole file before writing any code.
 
 ## What we are building
 
-A public, static website in Swedish called **Brottsfokus** (formerly "Brott och bakgrund"), at https://brottsfokus.xyz/. It presents official Swedish statistics and research on crime and background (country of birth, parents' country of birth, citizenship) in the style of a quality newspaper's data journalism: minimal, light theme only, factual and neutral.
+A public, static website in Swedish called **Brottsfokus** (formerly "Brott och bakgrund"), at https://brottsfokus.xyz/, with a full English copy at https://brottsfokus.xyz/en/. It presents official Swedish statistics and research on crime and background (country of birth, parents' country of birth, citizenship) in the style of a quality newspaper's data journalism: minimal, light theme only, factual and neutral.
 
 Core principles, in priority order:
 
@@ -91,6 +91,7 @@ Visual grammar, used the same way in every chart:
 - **Newsreader**: h1 (80px desktop / 44px mobile), chapter headlines (40px / 28px), intro text (20–24px).
 - **Inter**: navigation, kickers (13px, uppercase, 0.08em letter spacing, orange), chart labels (12–13px, tabular numbers), sources (12px), body text in notes (14px).
 - Swedish number format: decimal comma, space as thousands separator, `%` with a space before it (`22 %`), multiplier as `2,5×`.
+- English number format (`/en/`): decimal point, comma as thousands separator, no space before `%` (`22%`), multiplier as `2.5×`. Formatting is in `src/lib/format.ts`; every formatter takes the language.
 
 ### Layout
 
@@ -116,7 +117,18 @@ One long page with anchored chapters, matching `design/Main.dc.html`:
    - "Nästa: …" link to the next chapter
 5. **Metod och begrepp**: short definitions in a grid.
 6. **Om sidan**: why the site exists, how data is chosen, who runs it (an anonymous private person), errors and corrections, cookies and visitor statistics (Vercel Web Analytics, no cookies).
-7. **Footer**: site name, "Tabeller och CSV-filer" (link to `/data/`), "Till början ↑".
+7. **Footer**: site name, "Tabeller och CSV-filer" (link to `/data/`), "Till början ↑", and a link to the same page in the other language.
+
+### English version (`/en/`)
+
+The English site has the same pages, charts, tables and CSV files under `/en/`, with English slugs for the table pages (`/en/data/suspects-over-time/` etc., see `src/lib/dataPages.ts`). Rules:
+
+- Copy is written side by side in each file as `tr(lang, sv, en)` (`src/lib/i18n.ts`). Change both languages in the same commit.
+- Labels from the data files (crime types, birth regions, countries, groups) are translated in `src/lib/labels.ts`. `tests/i18n.test.ts` fails if a label in a data file has no English name.
+- The Swedish CSV files keep their Swedish column names. The English CSV files have English column names and the same numbers.
+- Official titles of reports and studies stay in their published form (Swedish titles of Brå reports, for example). Only the wording around them is English.
+- Pages are rendered from `src/components/MainPage.astro` (both languages) and `src/components/data/TablePage.astro`. `/llms.txt` lists the English table pages in an English section; `/sitemap.xml` lists both languages with `hreflang` links.
+- The English copy is a first translation. The owner should read it before it is treated as final.
 
 ### Table pages
 
@@ -163,8 +175,8 @@ A "Källor" list with all links goes in the Metod section.
 
 ## Working rules
 
-- Swedish for all site copy. Code, comments and commit messages in English.
-- No em dashes in site copy. Use commas, colons or full stops.
+- Site copy is in Swedish (`/`) and English (`/en/`). Code, comments and commit messages are in English.
+- No em dashes in site copy, in either language. Use commas, colons or full stops.
 - Don't add new data sources, chapters or claims without asking me first.
 - Keep the build passing and commit in small steps with clear messages.
 - After changing a file in `data/`, run `npm run datadates` and `npm run sifferkontroll`, and commit the results.

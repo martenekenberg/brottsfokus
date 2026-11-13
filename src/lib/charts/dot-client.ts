@@ -2,6 +2,7 @@
 import { mountCharts } from './client';
 import { dotFmt, layoutDotChart, renderDotChart, type DotChartSpec } from './dot';
 import { esc } from './svg';
+import { missingText } from '../i18n';
 
 function tooltipHtml(spec: DotChartSpec, i: number): string {
   const r = spec.rows[i];
@@ -9,16 +10,18 @@ function tooltipHtml(spec: DotChartSpec, i: number): string {
     `<div class="tt-row"><span class="tt-swatch" style="background:${color}"></span><span class="tt-name">${esc(name)}</span><span class="tt-val">${value}</span></div>`;
   let html = `<div class="tt-head">${esc(r.label)}</div>`;
   if (r.detail) html += `<div class="tt-detail">${esc(r.detail)}</div>`;
-  html += row('#1D4E89', spec.primaryLabel, esc(dotFmt(r.primary, spec.format)));
+  html += row('#1D4E89', spec.primaryLabel, esc(dotFmt(r.primary, spec.format, spec.lang)));
   if (spec.secondaryLabel) {
     html += row(
       spec.secondaryStyle === 'population' ? '#FFFFFF;border:2px solid #8A8A8A' : '#C2410C',
       spec.secondaryLabel,
-      r.secondary === null ? '<span class="tt-missing">uppgift saknas</span>' : esc(dotFmt(r.secondary, spec.format)),
+      r.secondary === null
+        ? `<span class="tt-missing">${esc(missingText(spec.lang))}</span>`
+        : esc(dotFmt(r.secondary, spec.format, spec.lang)),
     );
   }
   if (spec.ref) {
-    html += `<div class="tt-row"><span class="tt-swatch tt-dash" style="border-color:#121212"></span><span class="tt-name">${esc(spec.ref.label)}</span><span class="tt-val">${esc(dotFmt(spec.ref.value, spec.format))}</span></div>`;
+    html += `<div class="tt-row"><span class="tt-swatch tt-dash" style="border-color:#121212"></span><span class="tt-name">${esc(spec.ref.label)}</span><span class="tt-val">${esc(dotFmt(spec.ref.value, spec.format, spec.lang))}</span></div>`;
   }
   return html;
 }

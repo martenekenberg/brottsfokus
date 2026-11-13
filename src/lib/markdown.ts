@@ -1,6 +1,7 @@
 // Markdown copies of the table pages and llms.txt. Same text and numbers as the HTML pages.
 import { chapter } from './chapters';
-import { tablePage, type TablePage } from './dataPages';
+import { type TablePageUrls } from './dataPages';
+import { localePath, tr, type Lang } from './i18n';
 import { site, absoluteUrl, dayMonthYear } from './site';
 import { formatCell, type DataTable } from './tables';
 import type { TablePageContent } from './tablePageContent';
@@ -8,7 +9,7 @@ import type { TablePageContent } from './tablePageContent';
 const plain = (s: string) => s.replace(/[  ]/g, ' ');
 const cellText = (s: string) => plain(s).replace(/\|/g, '\\|').replace(/\n/g, ' ');
 
-export function tableToMarkdown(t: DataTable): string {
+export function tableToMarkdown(t: DataTable, lang: Lang): string {
   const head = [t.rowLabel, ...t.columns.map((c) => c.label)];
   const align = ['---', ...t.columns.map((c) => (c.kind === 'number' ? '---:' : '---'))];
   const rows = t.rows.map((r) => [
@@ -18,57 +19,71 @@ export function tableToMarkdown(t: DataTable): string {
       if (typeof cell === 'string') return cell;
       if (Array.isArray(cell)) return cell.length ? cell.map((l) => `[${l.label}](${l.url})`).join('; ') : '–';
       if (cell === null || col.kind !== 'number') return '–';
-      return formatCell(cell, col.decimals);
+      return formatCell(cell, col.decimals, lang);
     }),
   ]);
   return [head, align, ...rows].map((r) => `| ${r.map(cellText).join(' | ')} |`).join('\n');
 }
 
-export function pageToMarkdown(p: TablePageContent, updated: string): string {
-  const page = tablePage(p.chapterId);
+export function pageToMarkdown(p: TablePageContent, page: TablePageUrls, updated: string): string {
+  const lang = p.lang;
   const out: string[] = [
     `# ${p.h1}`,
     '',
     p.lead,
     '',
-    `**Läs så här.** ${p.note}`,
+    `**${tr(lang, 'Läs så här.', 'How to read this.')}** ${p.note}`,
     '',
-    'Streck (–) betyder att uppgift saknas.',
+    tr(lang, 'Streck (–) betyder att uppgift saknas.', 'A dash (–) means that no value is available.'),
   ];
   for (const s of p.sections) {
     if (s.heading) out.push('', `## ${s.heading}`);
     if (s.intro) out.push('', s.intro);
-    for (const t of s.tables) out.push('', `### ${t.caption}`, '', tableToMarkdown(t));
+    for (const t of s.tables) out.push('', `### ${t.caption}`, '', tableToMarkdown(t, lang));
     if (s.after) out.push('', s.after);
   }
   out.push(
     '',
-    '## Använda siffrorna',
+    `## ${tr(lang, 'Använda siffrorna', 'Using the figures')}`,
     '',
-    `Tabellerna får användas fritt enligt ${site.dataLicense.name} (${site.dataLicense.url}). Ange ${p.credit} som källa.${p.terms ? ` ${p.terms}` : ''}`,
+    tr(
+      lang,
+      `Tabellerna får användas fritt enligt ${site.dataLicense.name} (${site.dataLicense.url}). Ange ${p.credit} som källa.${p.terms ? ` ${p.terms}` : ''}`,
+      `You may use the tables freely under ${site.dataLicense.name} (${site.dataLicense.url}). Name ${p.credit} as the source.${p.terms ? ` ${p.terms}` : ''}`,
+    ),
     '',
-    `CSV-fil med alla siffror: ${absoluteUrl(page.csvPath)}`,
+    tr(lang, `CSV-fil med alla siffror: ${absoluteUrl(page.csvPath)}`, `CSV file with all the figures: ${absoluteUrl(page.csvPath)}`),
     '',
-    '## Källor',
+    `## ${tr(lang, 'Källor', 'Sources')}`,
     '',
     ...p.sources.map((s) => `- [${s.label}](${s.url})`),
     '',
     '---',
     '',
-    `Från ${site.name}, ${absoluteUrl(page.path)}. Diagram: ${absoluteUrl(`/#${p.chapterId}`)}. Uppgifterna senast ändrade ${dayMonthYear(updated)}.`,
+    tr(
+      lang,
+      `Från ${site.name}, ${absoluteUrl(page.path)}. Diagram: ${absoluteUrl(`${localePath(lang, '/')}#${p.chapterId}`)}. Uppgifterna senast ändrade ${dayMonthYear(updated, lang)}.`,
+      `From ${site.name}, ${absoluteUrl(page.path)}. Chart: ${absoluteUrl(`${localePath(lang, '/')}#${p.chapterId}`)}. Data last changed ${dayMonthYear(updated, lang)}.`,
+    ),
   );
   return plain(out.join('\n')) + '\n';
 }
 
-/** llms.txt (https://llmstxt.org): what the site is, its caveats, and links to the plain-text pages. */
-export function llmsTxt(pages: { page: TablePage; content: TablePageContent }[]): string {
+/**
+ * llms.txt (https://llmstxt.org): what the site is, its caveats, and links to the plain-text
+ * pages in both languages.
+ */
+export function llmsTxt(
+  sv: { page: TablePageUrls; content: TablePageContent }[],
+  en: { page: TablePageUrls; content: TablePageContent }[],
+): string {
   const out: string[] = [
     `# ${site.name}`,
     '',
-    `> ${site.description}`,
+    `> ${site.description.sv}`,
     '',
     'Sidan sammanställer offentlig statistik och forskning från Brå, SCB och Lunds universitet. Varje siffra har en källa. ' +
-      'Sidan drar inga egna slutsatser och tar inte ställning.',
+      'Sidan drar inga egna slutsatser och tar inte ställning. Det finns också en engelsk version under /en/.',
     '',
     'Viktigt när siffrorna används:',
     '',
@@ -80,12 +95,20 @@ export function llmsTxt(pages: { page: TablePage; content: TablePageContent }[])
     '',
     '## Tabeller',
     '',
-    ...pages.map(({ page, content }) => `- [${content.h1}](${absoluteUrl(page.mdPath)}): ${content.lead}`),
+    ...sv.map(({ page, content }) => `- [${content.h1}](${absoluteUrl(page.mdPath)}): ${content.lead}`),
+    '',
+    '## English',
+    '',
+    'English versions of the same pages, with the same figures and caveats:',
+    '',
+    `- [Front page with all charts](${absoluteUrl('/en/')}): chapters ${sv.map(({ page }) => chapter(page.chapterId).num).join(', ')}, method and about this site.`,
+    ...en.map(({ page, content }) => `- [${content.h1}](${absoluteUrl(page.mdPath)}): ${content.lead}`),
     '',
     '## Optional',
     '',
-    `- [Startsidan med alla diagram](${site.url}): kapitel ${pages.map(({ page }) => chapter(page.chapterId).num).join(', ')}, metod och om sidan.`,
+    `- [Startsidan med alla diagram](${site.url}): kapitel ${sv.map(({ page }) => chapter(page.chapterId).num).join(', ')}, metod och om sidan.`,
     `- [Alla tabeller som webbsidor](${absoluteUrl('/data/')})`,
+    `- [All tables as web pages, in English](${absoluteUrl('/en/data/')})`,
   ];
   return plain(out.join('\n')) + '\n';
 }

@@ -4,11 +4,14 @@ import '@fontsource-variable/newsreader/opsz.css';
 import '../styles/global.css';
 import Analytics from '@vercel/analytics/astro';
 import { site, absoluteUrl } from '../lib/site';
+import { alternatePath } from '../lib/dataPages';
+import { HTML_LANG, IN_LANGUAGE, localePath, OG_LOCALE, otherLang as oppositeLang, tr, type Lang } from '../lib/i18n';
 
 interface Props {
   title: string;
   description: string;
-  /** Path of this page, e.g. "/data/". Defaults to the main page. */
+  lang: Lang;
+  /** Path of this page in its language, e.g. "/data/" or "/en/data/". Defaults to the front page. */
   path?: string;
   /** Sources the page builds on. Defaults to the main page's list. */
   citations?: string[];
@@ -28,23 +31,29 @@ const mainCitations = [
   'https://www.scb.se/hitta-statistik/sverige-i-siffror/manniskorna-i-sverige/utlandska-medborgare-i-sverige/',
 ];
 
-const { title, description, path = '/', citations = mainCitations, jsonLdNodes = [], updated = site.updated, markdownPath } = Astro.props;
+const { title, description, lang, path = localePath(lang, '/'), citations = mainCitations, jsonLdNodes = [], updated = site.updated, markdownPath } = Astro.props;
 const pageUrl = absoluteUrl(path);
+// The same page in the other language, and the Swedish version for search engines that choose by default.
+const otherLang: Lang = oppositeLang(lang);
+const otherUrl = absoluteUrl(alternatePath(path, lang));
+const swedishUrl = lang === 'sv' ? pageUrl : otherUrl;
+const englishUrl = lang === 'en' ? pageUrl : otherUrl;
+const siteName = site.name;
 
 // Structured data. Describes only what the page shows: who publishes it, when it
 // was last updated and which sources it builds on. The publisher is the site
 // itself, since the person behind it is anonymous.
-const publisher = { '@type': 'Organization', '@id': `${site.url}#publisher`, name: site.name, url: site.url };
+const publisher = { '@type': 'Organization', '@id': `${site.url}#publisher`, name: siteName, url: site.url };
 const jsonLd = {
   '@context': 'https://schema.org',
   '@graph': [
     {
       '@type': 'WebSite',
       '@id': `${site.url}#website`,
-      name: site.name,
+      name: siteName,
       alternateName: site.formerName,
       url: site.url,
-      inLanguage: 'sv-SE',
+      inLanguage: [IN_LANGUAGE.sv, IN_LANGUAGE.en],
       publisher: { '@id': publisher['@id'] },
     },
     publisher,
@@ -54,7 +63,7 @@ const jsonLd = {
       url: pageUrl,
       name: title,
       description,
-      inLanguage: 'sv-SE',
+      inLanguage: IN_LANGUAGE[lang],
       dateModified: updated,
       isPartOf: { '@id': `${site.url}#website` },
       publisher: { '@id': publisher['@id'] },
@@ -67,34 +76,41 @@ const jsonLd = {
 ---
 
 <!doctype html>
-<html lang="sv">
+<html lang={HTML_LANG[lang]}>
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <title>{title}</title>
     <meta name="description" content={description} />
     <link rel="canonical" href={pageUrl} />
+    <link rel="alternate" hreflang={HTML_LANG.sv} href={swedishUrl} />
+    <link rel="alternate" hreflang={HTML_LANG.en} href={englishUrl} />
+    <link rel="alternate" hreflang="x-default" href={swedishUrl} />
     {markdownPath && <link rel="alternate" type="text/markdown" href={markdownPath} />}
     <meta name="theme-color" content="#ffffff" />
     <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
 
     <meta property="og:type" content="website" />
-    <meta property="og:site_name" content={site.name} />
-    <meta property="og:locale" content={site.locale} />
+    <meta property="og:site_name" content={siteName} />
+    <meta property="og:locale" content={OG_LOCALE[lang]} />
+    <meta property="og:locale:alternate" content={OG_LOCALE[otherLang]} />
     <meta property="og:url" content={pageUrl} />
     <meta property="og:title" content={title} />
     <meta property="og:description" content={description} />
     <meta property="og:image" content={site.shareImage} />
     <meta property="og:image:width" content="1200" />
     <meta property="og:image:height" content="630" />
-    <meta property="og:image:alt" content={`${site.name}: officiell statistik om brott och bakgrund`} />
+    <meta
+      property="og:image:alt"
+      content={tr(lang, `${siteName}: officiell statistik om brott och bakgrund`, `${siteName}: official statistics on crime and background`)}
+    />
     <meta name="twitter:card" content="summary_large_image" />
 
     <script type="application/ld+json" set:html={JSON.stringify(jsonLd)} />
     <!-- Vercel Web Analytics: page views without cookies (owner's request). Described in Om sidan. -->
     <Analytics />
   </head>
-  <body>
+  <body data-lang={lang}>
     <slot />
   </body>
 </html>

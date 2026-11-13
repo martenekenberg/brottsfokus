@@ -1,6 +1,6 @@
 # Brottsfokus (formerly Brott och bakgrund): handoff for Claude Code
 
-Goal: a static, minimal, newspaper-style site (Swedish) presenting official statistics on crime and background in Sweden, neutral in tone, every number with its source. No dark mode.
+Goal: a static, minimal, newspaper-style site presenting official statistics on crime and background in Sweden, neutral in tone, every number with its source. Swedish at `/`, English at `/en/` (same pages and numbers). No dark mode.
 
 Stack: Astro + D3, data as CSV in `data/`, deploy via GitHub + Vercel.
 

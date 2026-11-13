@@ -7,17 +7,42 @@
 import { writeFileSync } from 'node:fs';
 import { foreignCitizenSharePct, populationSharePct, swedishBornTwoForeignParents } from '../src/lib/calc';
 import { loadBra2005, loadOrigin, loadPopulation, loadPrison, loadRapeStudies, loadSuspectsByBackground, loadTableB6 } from '../src/lib/data';
-import { formatNumber, formatPct, formatTimes } from '../src/lib/format';
-import { buildKap1Data, buildKap1Spec, GROUPS } from '../src/lib/chapters/kap1';
-import { buildKap2Data, buildKap2Spec, smallestGroup, VIEW_LABEL, type View } from '../src/lib/chapters/kap2';
-import { buildKap4 } from '../src/lib/chapters/kap4';
-import { buildKap5 } from '../src/lib/chapters/kap5';
-import { barFmt } from '../src/lib/charts/bar';
-import { dotFmt } from '../src/lib/charts/dot';
-import { fmt } from '../src/lib/charts/line';
-import { tablePageContent } from '../src/lib/tablePageContent';
-import { tablePage, tablePages } from '../src/lib/dataPages';
-import { formatCell } from '../src/lib/tables';
+import { formatNumber as formatNumberIn, formatPct as formatPctIn, formatTimes as formatTimesIn } from '../src/lib/format';
+import { buildKap1Data, buildKap1Spec as buildKap1SpecIn, GROUPS, type Mode } from '../src/lib/chapters/kap1';
+import {
+  buildKap2Data,
+  buildKap2Spec as buildKap2SpecIn,
+  smallestGroup,
+  VIEW_LABEL,
+  type Measure,
+  type View,
+} from '../src/lib/chapters/kap2';
+import { buildKap4 as buildKap4In } from '../src/lib/chapters/kap4';
+import { buildKap5 as buildKap5In } from '../src/lib/chapters/kap5';
+import { barFmt as barFmtIn, type BarFormat } from '../src/lib/charts/bar';
+import { dotFmt as dotFmtIn, type DotFormat } from '../src/lib/charts/dot';
+import { fmt as fmtIn, type ValueFormat } from '../src/lib/charts/line';
+import { tablePageContent as tablePageContentIn } from '../src/lib/tablePageContent';
+import { tablePage as tablePageIn, tablePages } from '../src/lib/dataPages';
+import { formatCell as formatCellIn } from '../src/lib/tables';
+import type { Kap1Data } from '../src/lib/chapters/kap1';
+import type { RapeStudyRow, PopulationRow, Bra2005Row } from '../src/lib/data';
+
+// The checklist is in Swedish, so every formatter and builder below runs with the Swedish language.
+const formatNumber = (value: number, decimals = 0) => formatNumberIn(value, decimals, 'sv');
+const formatPct = (value: number, decimals = 0) => formatPctIn(value, decimals, 'sv');
+const formatTimes = (value: number, decimals = 1) => formatTimesIn(value, decimals, 'sv');
+const barFmt = (value: number, format: BarFormat = 'pct1') => barFmtIn(value, format, 'sv');
+const dotFmt = (value: number, format: DotFormat) => dotFmtIn(value, format, 'sv');
+const fmt = (value: number, format: ValueFormat) => fmtIn(value, format, 'sv');
+const formatCell = (value: number, decimals: number) => formatCellIn(value, decimals, 'sv');
+const buildKap1Spec = (data: Kap1Data, crimeId: string, mode: Mode) => buildKap1SpecIn(data, crimeId, mode, 'sv');
+const buildKap2Spec = (data: Parameters<typeof buildKap2SpecIn>[0], view: View, crimeName: string, measure: Measure) =>
+  buildKap2SpecIn(data, view, crimeName, measure, 'sv');
+const buildKap4 = (rows: RapeStudyRow[], population: PopulationRow[]) => buildKap4In(rows, population, 'sv');
+const buildKap5 = (rows: Bra2005Row[]) => buildKap5In(rows, 'sv');
+const tablePageContent = (chapterId: string) => tablePageContentIn(chapterId, 'sv');
+const tablePage = (chapterId: string) => tablePageIn(chapterId, 'sv');
 
 const BRA2021 = 'https://bra.se/rapporter/arkiv/2021-08-25-misstankta-for-brott-bland-personer-med-inrikes-respektive-utrikes-bakgrund';
 const BRA2005 = 'https://www.bra.se/download/18.cba82f7130f475a2f1800012697/2005_17_brottslighet_bland_personer_fodda_sverige_och_utlandet.pdf';
@@ -206,10 +231,10 @@ for (const view of ['region', 'land', 'moder'] as View[]) {
   for (const c of kap2[view]) {
     const rate = buildKap2Spec(kap2, view, c.name, 'rate');
     const risk = buildKap2Spec(kap2, view, c.name, 'risk');
-    menu.push(['02 Födelseområde', VIEW_LABEL[view], c.name, 'Inrikesfödda med två inrikesfödda föräldrar (jämförelsegrupp)', '2015–2018', dotFmt(c.refPer1000, 'num1'), dotFmt(1, 'x1'), '', 'Brå 2021:9 tabellbilaga 1']);
+    menu.push(['02 Födelseområde', VIEW_LABEL[view].sv, c.name, 'Inrikesfödda med två inrikesfödda föräldrar (jämförelsegrupp)', '2015–2018', dotFmt(c.refPer1000, 'num1'), dotFmt(1, 'x1'), '', 'Brå 2021:9 tabellbilaga 1']);
     for (const row of risk.rows) {
       const per1000 = rate.rows.find((x) => x.id === row.id)!.primary;
-      menu.push(['02 Födelseområde', VIEW_LABEL[view], c.name, row.label, '2015–2018', dotFmt(per1000, 'num1'), dotFmt(row.primary, 'x1'), row.secondary === null ? '' : dotFmt(row.secondary, 'x1'), 'Brå 2021:9 tabellbilaga 1']);
+      menu.push(['02 Födelseområde', VIEW_LABEL[view].sv, c.name, row.label, '2015–2018', dotFmt(per1000, 'num1'), dotFmt(row.primary, 'x1'), row.secondary === null ? '' : dotFmt(row.secondary, 'x1'), 'Brå 2021:9 tabellbilaga 1']);
     }
   }
 }

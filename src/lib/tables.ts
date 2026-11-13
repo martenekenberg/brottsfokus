@@ -2,6 +2,7 @@
 // A table holds raw numbers; formatting happens only when it is shown.
 import { round } from './calc';
 import { formatNumber } from './format';
+import type { Lang } from './i18n';
 
 export interface NumberColumn {
   kind: 'number';
@@ -43,9 +44,9 @@ export interface DataTable {
   rows: Row[];
 }
 
-/** Number as shown in the table, Swedish format. Null is handled by the component. */
-export function formatCell(value: number, decimals: number): string {
-  return formatNumber(value, decimals);
+/** Number as shown in the table, in the page's language. Null is handled by the component. */
+export function formatCell(value: number, decimals: number, lang: Lang): string {
+  return formatNumber(value, decimals, lang);
 }
 
 /** Number as written in a CSV file: dot as decimal separator, no thousands separator. */
@@ -61,8 +62,8 @@ export function csvQuote(text: string): string {
  * One CSV file from one or more tables that share row keys (for example years).
  * Empty cell = no value, as in the site's own data files.
  */
-export function tablesToCsv(tables: DataTable[]): string {
-  const keys = [...new Set(tables.flatMap((t) => t.rows.map((r) => r.key)))].sort((a, b) => a.localeCompare(b, 'sv', { numeric: true }));
+export function tablesToCsv(tables: DataTable[], lang: Lang): string {
+  const keys = [...new Set(tables.flatMap((t) => t.rows.map((r) => r.key)))].sort((a, b) => a.localeCompare(b, lang, { numeric: true }));
   const header = [tables[0].rowCsv, ...tables.flatMap((t) => t.columns.map((c) => c.csv))];
   const lines = keys.map((key) => {
     const cells = tables.flatMap((t) => {

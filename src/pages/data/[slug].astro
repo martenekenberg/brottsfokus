@@ -4,10 +4,10 @@ import { tablePages } from '../../lib/dataPages';
 import { tablePageContent } from '../../lib/tablePageContent';
 
 export function getStaticPaths() {
-  return tablePages.map((p) => ({ params: { slug: p.slug }, props: { chapterId: p.chapterId } }));
+  return tablePages.map((p) => ({ params: { slug: p.slug.sv }, props: { chapterId: p.chapterId } }));
 }
 
 const { chapterId } = Astro.props;
 ---
 
-<TablePage content={tablePageContent(chapterId)} />
+<TablePage content={tablePageContent(chapterId, 'sv')} />

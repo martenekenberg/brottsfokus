@@ -35,12 +35,12 @@ test('round: halves go up, also where binary floats fall just short', () => {
 });
 
 test('format: Swedish style and correct rounding', () => {
-  assert.equal(formatNumber(1234567), '1 234 567');
-  assert.equal(formatNumber(1.95, 1), '2,0');
-  assert.equal(formatPct(7.81, 1), '7,8 %');
-  assert.equal(formatPct(22), '22 %');
-  assert.equal(formatTimes(4.35), '4,4×');
-  assert.equal(formatNumber(-0.5, 1), '−0,5');
+  assert.equal(formatNumber(1234567, 0, 'sv'), '1 234 567');
+  assert.equal(formatNumber(1.95, 1, 'sv'), '2,0');
+  assert.equal(formatPct(7.81, 1, 'sv'), '7,8 %');
+  assert.equal(formatPct(22, 0, 'sv'), '22 %');
+  assert.equal(formatTimes(4.35, 1, 'sv'), '4,4×');
+  assert.equal(formatNumber(-0.5, 1, 'sv'), '−0,5');
 });
 
 test('foreign citizens share: medborgare / folkmangd * 100, one decimal, gap stays a gap', () => {
@@ -78,10 +78,10 @@ import { yearRanges } from '../src/lib/years';
 import { longCsv, tablesToCsv, type DataTable } from '../src/lib/tables';
 
 test('yearRanges groups consecutive years', () => {
-  assert.equal(yearRanges([2018, 2019, 2020, 2023, 2024, 2025]), '2018–2020 och 2023–2025');
-  assert.equal(yearRanges([2016, 2017, 2021]), '2016–2017 och 2021');
-  assert.equal(yearRanges([2014, 2016, 2018]), '2014, 2016 och 2018');
-  assert.equal(yearRanges([2023]), '2023');
+  assert.equal(yearRanges([2018, 2019, 2020, 2023, 2024, 2025], 'sv'), '2018–2020 och 2023–2025');
+  assert.equal(yearRanges([2016, 2017, 2021], 'sv'), '2016–2017 och 2021');
+  assert.equal(yearRanges([2014, 2016, 2018], 'sv'), '2014, 2016 och 2018');
+  assert.equal(yearRanges([2023], 'sv'), '2023');
 });
 
 test('tablesToCsv joins tables by key and keeps gaps empty', () => {
@@ -95,7 +95,7 @@ test('tablesToCsv joins tables by key and keeps gaps empty', () => {
     columns: [{ kind: 'number', label: 'n', csv: 'n', decimals: 0 }],
     rows: [{ key: '2021', cells: [12754] }],
   };
-  assert.equal(tablesToCsv([a, b]), 'ar,x,n\n2020,8.0,\n2021,,12754\n');
+  assert.equal(tablesToCsv([a, b], 'sv'), 'ar,x,n\n2020,8.0,\n2021,,12754\n');
 });
 
 test('longCsv quotes text with commas and keeps empty cells', () => {
@@ -114,5 +114,5 @@ test('tableToMarkdown formats numbers the Swedish way and marks gaps', () => {
     ],
     rows: [{ key: 'A | B', cells: [12754, null, 'Norden'] }],
   };
-  assert.equal(tableToMarkdown(t), '| Grupp | Antal | Andel | Område |\n| --- | ---: | ---: | --- |\n| A \\| B | 12 754 | – | Norden |');
+  assert.equal(tableToMarkdown(t, 'sv'), '| Grupp | Antal | Andel | Område |\n| --- | ---: | ---: | --- |\n| A \\| B | 12 754 | – | Norden |');
 });

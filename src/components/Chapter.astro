@@ -2,15 +2,17 @@
 // Shared chapter pattern: kicker, headline, intro, legend, chart,
 // "Läs så här" box, source line, "Nästa" link.
 import { chapter, nextChapter } from '../lib/chapters';
+import { tr, type Lang } from '../lib/i18n';
 
 interface Props {
   id: string;
   title: string;
   /** Page with the chart's numbers as a table and CSV file. */
   tableHref?: string;
+  lang: Lang;
 }
 
-const { id, title, tableHref } = Astro.props;
+const { id, title, tableHref, lang } = Astro.props;
 const c = chapter(id);
 const next = nextChapter(id);
 const hasLegend = Astro.slots.has('legend');
@@ -19,7 +21,7 @@ const hasControls = Astro.slots.has('controls');
 ---
 
 <section id={id} class="chapter" aria-labelledby={`${id}-h`}>
-  <p class="kicker">{c.num ? `${c.num} · ${c.kicker}` : c.kicker}</p>
+  <p class="kicker">{c.num ? `${c.num} · ${c.kicker[lang]}` : c.kicker[lang]}</p>
   <h2 id={`${id}-h`}>{title}</h2>
   <div class="intro"><slot name="intro" /></div>
   {hasControls && <div class="controls"><slot name="controls" /></div>}
@@ -28,14 +30,14 @@ const hasControls = Astro.slots.has('controls');
   {
     hasNote && (
       <div class="note">
-        <strong>Läs så här. </strong>
+        <strong>{tr(lang, 'Läs så här. ', 'How to read this. ')}</strong>
         <slot name="note" />
       </div>
     )
   }
   <p class="source"><slot name="source" /></p>
-  {tableHref && <a class="table-link" href={tableHref}>Siffrorna i tabell och som CSV-fil</a>}
-  {next && <a class="next" href={`#${next.id}`}>Nästa: {next.nextLabel} →</a>}
+  {tableHref && <a class="table-link" href={tableHref}>{tr(lang, 'Siffrorna i tabell och som CSV-fil', 'The figures as a table and CSV file')}</a>}
+  {next && <a class="next" href={`#${next.id}`}>{tr(lang, 'Nästa: ', 'Next: ')}{next.nextLabel[lang]} →</a>}
 </section>
 
 <style>

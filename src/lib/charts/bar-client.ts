@@ -12,7 +12,7 @@ function tooltipHtml(spec: BarChartSpec, gi: number): string {
           ? '<span class="tt-swatch" style="border:1.5px solid #5C5C5C;border-radius:0"></span>'
           : `<span class="tt-swatch" style="background:${BAR_COLORS[b.kind].fill};border-radius:0"></span>`;
       const name = b.label || g.label;
-      return `<div class="tt-row">${swatch}<span class="tt-name">${esc(name)}</span><span class="tt-val">${esc(barFmt(b.value, spec.format))}</span></div>`;
+      return `<div class="tt-row">${swatch}<span class="tt-name">${esc(name)}</span><span class="tt-val">${esc(barFmt(b.value, spec.format, spec.lang))}</span></div>`;
     })
     .join('');
   const head = g.bars.length > 1 || g.bars[0].label ? `<div class="tt-head">${esc(g.label)}</div>` : '';

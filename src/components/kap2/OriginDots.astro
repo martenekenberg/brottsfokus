@@ -2,75 +2,77 @@
 // Chapter 2 chart with its controls: view (region / country / mother's region),
 // crime type and measure. Without JavaScript the default view is shown and the controls stay hidden.
 import DotChart from '../charts/DotChart.astro';
-import { buildKap2Spec, chartHeading, crimeFor, VIEW_LABEL, type Kap2Data, type View } from '../../lib/chapters/kap2';
+import { buildKap2Spec, chartHeading, crimeFor, crimeLabel, VIEW_LABEL, type Kap2Data, type View } from '../../lib/chapters/kap2';
+import { tr, type Lang } from '../../lib/i18n';
 
 interface Props {
   data: Kap2Data;
+  lang: Lang;
 }
 
-const { data } = Astro.props;
+const { data, lang } = Astro.props;
 const defaultView: View = 'region';
 const defaultCrime = 'Brott totalt';
-const spec = buildKap2Spec(data, defaultView, defaultCrime, 'risk');
-const heading = chartHeading(defaultView, crimeFor(data, defaultView, defaultCrime), 'risk');
+const spec = buildKap2Spec(data, defaultView, defaultCrime, 'risk', lang);
+const heading = chartHeading(defaultView, crimeFor(data, defaultView, defaultCrime), 'risk', lang);
 const indent = (depth: number) => '  '.repeat(depth);
 const views: View[] = ['region', 'land', 'moder'];
 ---
 
-<div class="chart-block" data-kap2>
+<div class="chart-block" data-kap2 data-lang={lang}>
   <div class="controls" data-controls hidden>
     <div class="control-group">
-      <span class="control-label" id="kap2-view-label">Gruppera efter</span>
+      <span class="control-label" id="kap2-view-label">{tr(lang, 'Gruppera efter', 'Group by')}</span>
       <div class="toggle" role="group" aria-labelledby="kap2-view-label">
         {
           views.map((v) => (
             <button type="button" data-view={v} aria-pressed={v === defaultView ? 'true' : 'false'}>
-              {VIEW_LABEL[v]}
+              {VIEW_LABEL[v][lang]}
             </button>
           ))
         }
       </div>
     </div>
     <label class="crime">
-      <span class="control-label">Brottstyp</span>
+      <span class="control-label">{tr(lang, 'Brottstyp', 'Crime type')}</span>
       <select data-crime>
         {
           data[defaultView].map((c) => (
             <option value={c.name} selected={c.name === defaultCrime}>
               {indent(c.depth)}
-              {c.name}
+              {crimeLabel(c.name, lang)}
             </option>
           ))
         }
       </select>
     </label>
     <div class="control-group">
-      <span class="control-label" id="kap2-measure-label">Visa som</span>
+      <span class="control-label" id="kap2-measure-label">{tr(lang, 'Visa som', 'Show as')}</span>
       <div class="toggle" role="group" aria-labelledby="kap2-measure-label">
-        <button type="button" data-measure="risk" aria-pressed="true">Gånger vanligare</button>
-        <button type="button" data-measure="rate" aria-pressed="false">Per 1 000</button>
-        <button type="button" data-measure="share" aria-pressed="false">Andel av misstänkta</button>
+        <button type="button" data-measure="risk" aria-pressed="true">{tr(lang, 'Gånger vanligare', 'Times more likely')}</button>
+        <button type="button" data-measure="rate" aria-pressed="false">{tr(lang, 'Per 1 000', 'Per 1,000')}</button>
+        <button type="button" data-measure="share" aria-pressed="false">{tr(lang, 'Andel av misstänkta', 'Share of suspects')}</button>
       </div>
     </div>
   </div>
   <p class="control-note" data-note hidden></p>
 
-  <ul class="legend-list" aria-label="Förklaring">
+  <ul class="legend-list" aria-label={tr(lang, 'Förklaring', 'Key')}>
     <li data-legend="primary">
       <span class="mark dot" style="background:#1D4E89" aria-hidden="true"></span>
-      <span data-legend-text>Ojusterat</span>
+      <span data-legend-text>{tr(lang, 'Ojusterat', 'Unadjusted')}</span>
     </li>
     <li data-legend="secondary">
       <span class="mark dot" style="background:#C2410C" aria-hidden="true"></span>
-      Justerat för ålder, kön, disponibel inkomst och utbildning
+      {tr(lang, 'Justerat för ålder, kön, disponibel inkomst och utbildning', 'Adjusted for age, sex, disposable income and education')}
     </li>
     <li data-legend="population" hidden>
       <span class="mark dot" style="background:#FFFFFF;border:2px solid #8A8A8A" aria-hidden="true"></span>
-      Andel av befolkningen
+      {tr(lang, 'Andel av befolkningen', 'Share of population')}
     </li>
     <li data-legend="ref">
       <span class="mark dash" style="border-color:#121212" aria-hidden="true"></span>
-      <span data-legend-ref>Inrikesfödda med två inrikesfödda föräldrar = 1</span>
+      <span data-legend-ref>{tr(lang, 'Inrikesfödda med två inrikesfödda föräldrar = 1', 'Born in Sweden, two Swedish-born parents = 1')}</span>
     </li>
   </ul>
 
@@ -84,6 +86,7 @@ const views: View[] = ['region', 'land', 'moder'];
     buildKap2Spec,
     chartHeading,
     crimeFor,
+    crimeLabel,
     hasAdjusted,
     hasShares,
     type Kap2Data,
@@ -91,8 +94,10 @@ const views: View[] = ['region', 'land', 'moder'];
     type View,
   } from '../../lib/chapters/kap2';
   import { dotFmt } from '../../lib/charts/dot';
+  import { tr, type Lang } from '../../lib/i18n';
 
   document.querySelectorAll<HTMLElement>('[data-kap2]').forEach((root) => {
+    const lang = (root.dataset.lang ?? 'sv') as Lang;
     const data = JSON.parse(root.querySelector('[data-kap2-data]')?.textContent ?? '{}') as Kap2Data;
     const controls = root.querySelector<HTMLElement>('[data-controls]');
     const select = root.querySelector<HTMLSelectElement>('[data-crime]');
@@ -121,55 +126,64 @@ const views: View[] = ['region', 'land', 'moder'];
       !shareButton
     )
       return;
-
     controls.hidden = false;
     let view: View = 'region';
     let measure: Measure = 'risk';
-
     const fillCrimes = (keep: string) => {
       const crimes = data[view];
       select.innerHTML = '';
       for (const c of crimes) {
         const o = document.createElement('option');
         o.value = c.name;
-        o.textContent = '  '.repeat(c.depth) + c.name;
+        o.textContent = '  '.repeat(c.depth) + crimeLabel(c.name, lang);
         select.append(o);
       }
       select.value = crimes.some((c) => c.name === keep) ? keep : crimes[0].name;
       select.disabled = crimes.length < 2;
     };
-
     const update = () => {
       const crime = crimeFor(data, view, select.value);
       // Shares of suspects and population exist only for brott totalt (not per country).
       const sharesAvailable = hasShares(crime);
       shareButton.disabled = !sharesAvailable;
-      shareButton.title = sharesAvailable ? '' : 'Finns bara för brott totalt, per födelseområde eller moderns födelseområde';
+      shareButton.title = sharesAvailable
+        ? ''
+        : tr(lang, 'Finns bara för brott totalt, per födelseområde eller moderns födelseområde', 'Only available for all offences, by birth region or mother’s birth region');
       if (measure === 'share' && !sharesAvailable) measure = 'risk';
       viewButtons.forEach((b) => b.setAttribute('aria-pressed', String(b.dataset.view === view)));
       measureButtons.forEach((b) => b.setAttribute('aria-pressed', String(b.dataset.measure === measure)));
-      heading.textContent = chartHeading(view, crime, measure);
-
+      heading.textContent = chartHeading(view, crime, measure, lang);
       const notes: string[] = [];
-      if (view === 'land') notes.push('Per födelseland redovisar Brå bara brott totalt.');
-      if (view === 'moder') notes.push('Per moderns födelseområde redovisar Brå brott totalt och åtta brottstyper, utan justerade värden.');
+      if (view === 'land') {
+        notes.push(tr(lang, 'Per födelseland redovisar Brå bara brott totalt.', 'By birth country, Brå reports all offences only.'));
+      }
+      if (view === 'moder') {
+        notes.push(
+          tr(
+            lang,
+            'Per moderns födelseområde redovisar Brå brott totalt och åtta brottstyper, utan justerade värden.',
+            'By mother’s birth region, Brå reports all offences and eight crime types, without adjusted values.',
+          ),
+        );
+      }
       note.textContent = notes.join(' ');
       note.hidden = notes.length === 0;
-
       const adjusted = measure === 'risk' && hasAdjusted(crime);
       legendSecondary.hidden = !adjusted;
       legendPrimary.textContent =
-        measure === 'risk' ? 'Ojusterat' : measure === 'share' ? 'Andel av alla misstänkta' : 'Misstänkta per 1 000';
+        measure === 'risk'
+          ? tr(lang, 'Ojusterat', 'Unadjusted')
+          : measure === 'share'
+            ? tr(lang, 'Andel av alla misstänkta', 'Share of all suspects')
+            : tr(lang, 'Misstänkta per 1 000', 'Suspects per 1,000');
       legendPopulation.hidden = measure !== 'share';
       legendRefItem.hidden = measure === 'share';
       legendRef.textContent =
         measure === 'risk'
-          ? 'Inrikesfödda med två inrikesfödda föräldrar = 1'
-          : `Inrikesfödda med två inrikesfödda föräldrar: ${dotFmt(crime.refPer1000, 'num1')}`;
-
-      figure.dispatchEvent(new CustomEvent('chart:update', { detail: buildKap2Spec(data, view, crime.name, measure) }));
+          ? tr(lang, 'Inrikesfödda med två inrikesfödda föräldrar = 1', 'Born in Sweden, two Swedish-born parents = 1')
+          : `${tr(lang, 'Inrikesfödda med två inrikesfödda föräldrar', 'Born in Sweden, two Swedish-born parents')}: ${dotFmt(crime.refPer1000, 'num1', lang)}`;
+      figure.dispatchEvent(new CustomEvent('chart:update', { detail: buildKap2Spec(data, view, crime.name, measure, lang) }));
     };
-
     viewButtons.forEach((b) =>
       b.addEventListener('click', () => {
         view = b.dataset.view as View;

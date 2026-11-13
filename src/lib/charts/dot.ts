@@ -2,6 +2,7 @@
 // Pure function: data + width in, SVG markup out. Runs at build time and in the browser.
 import { scaleLinear } from 'd3';
 import { formatNumber, formatPct, formatTimes } from '../format';
+import type { Lang } from '../i18n';
 import { esc, FONT } from './svg';
 
 export type DotFormat = 'x1' | 'x2' | 'num1' | 'pct2';
@@ -19,6 +20,7 @@ export interface DotRow {
 }
 
 export interface DotChartSpec {
+  lang: Lang;
   rows: DotRow[];
   primaryLabel: string;
   /** Omit when no row has a second value. */
@@ -34,11 +36,11 @@ export interface DotChartSpec {
 export const DOT_NARROW = 560;
 const C = { focus: '#1D4E89', second: '#C2410C', ink: '#121212', muted: '#5C5C5C', rule: '#E3E3E3' };
 
-export function dotFmt(v: number, f: DotFormat): string {
-  if (f === 'x1') return formatTimes(v, 1);
-  if (f === 'x2') return formatTimes(v, 2);
-  if (f === 'pct2') return formatPct(v, 2);
-  return formatNumber(v, 1);
+export function dotFmt(v: number, f: DotFormat, lang: Lang): string {
+  if (f === 'x1') return formatTimes(v, 1, lang);
+  if (f === 'x2') return formatTimes(v, 2, lang);
+  if (f === 'pct2') return formatPct(v, 2, lang);
+  return formatNumber(v, 1, lang);
 }
 
 export interface DotLayout {
@@ -89,10 +91,10 @@ export function renderDotChart(spec: DotChartSpec, width: number): string {
   const tickDecimals = Math.max(0, Math.ceil(-Math.log10(step) - 1e-9));
   const tickLabel = (v: number) =>
     spec.format === 'num1'
-      ? formatNumber(v, tickDecimals)
+      ? formatNumber(v, tickDecimals, spec.lang)
       : spec.format === 'pct2'
-        ? formatPct(v, tickDecimals)
-        : formatTimes(v, tickDecimals);
+        ? formatPct(v, tickDecimals, spec.lang)
+        : formatTimes(v, tickDecimals, spec.lang);
   const pop = spec.secondaryStyle === 'population';
   const p: string[] = [];
 
@@ -153,9 +155,9 @@ export function renderDotChart(spec: DotChartSpec, width: number): string {
 
     // Printed values on the right.
     const vx = L.x1 + 14;
-    p.push(`<text x="${vx}" y="${(cy + 4).toFixed(1)}" ${FONT} font-size="13" font-weight="700" fill="${C.focus}">${esc(dotFmt(r.primary, spec.format))}</text>`);
+    p.push(`<text x="${vx}" y="${(cy + 4).toFixed(1)}" ${FONT} font-size="13" font-weight="700" fill="${C.focus}">${esc(dotFmt(r.primary, spec.format, spec.lang))}</text>`);
     if (r.secondary !== null) {
-      p.push(`<text x="${vx + L.oneValue + 4}" y="${(cy + 4).toFixed(1)}" ${FONT} font-size="13" font-weight="600" fill="${pop ? C.muted : C.second}">${esc(dotFmt(r.secondary, spec.format))}</text>`);
+      p.push(`<text x="${vx + L.oneValue + 4}" y="${(cy + 4).toFixed(1)}" ${FONT} font-size="13" font-weight="600" fill="${pop ? C.muted : C.second}">${esc(dotFmt(r.secondary, spec.format, spec.lang))}</text>`);
     }
   });
 

@@ -14,7 +14,7 @@ const staticSvg = renderBarChart(spec, staticWidth);
 const staticNarrow = renderBarChart(spec, 358);
 ---
 
-<figure class="chart" data-bar-chart>
+<figure class="chart" data-bar-chart data-lang={spec.lang}>
   <div class="canvas" data-canvas>
     <div class="static-wide" set:html={staticSvg} />
     <div class="static-narrow" set:html={staticNarrow} />

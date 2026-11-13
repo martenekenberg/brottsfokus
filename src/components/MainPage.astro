@@ -1,0 +1,407 @@
+---
+// The one-page overview: masthead, chapter menu, key figures, chapters 1–5, method and about.
+// Rendered once per language: src/pages/index.astro (Swedish) and src/pages/en/index.astro (English).
+import Base from '../layouts/Base.astro';
+import Masthead from './Masthead.astro';
+import ChapterNav from './ChapterNav.astro';
+import KeyFigures from './KeyFigures.astro';
+import Chapter from './Chapter.astro';
+import Legend from './Legend.astro';
+import LineChart from './charts/LineChart.astro';
+import SuspectsOverTime from './kap1/SuspectsOverTime.astro';
+import OriginDots from './kap2/OriginDots.astro';
+import RapeStudies from './kap4/RapeStudies.astro';
+import OlderStudies from './kap5/OlderStudies.astro';
+import Method from './Method.astro';
+import Footer from './Footer.astro';
+import About from './About.astro';
+import { site, monthYear } from '../lib/site';
+import { localePath, tr, type Lang } from '../lib/i18n';
+import { loadOrigin, loadPopulation, loadPrison, loadRapeStudies, loadSuspectsByBackground, loadBra2005, loadTableB6 } from '../lib/data';
+import { yearsWithValues } from '../lib/calc';
+import { buildKap3, shortReportName } from '../lib/chapters/kap3';
+import { tablePage } from '../lib/dataPages';
+import { formatNumber } from '../lib/format';
+import type { LineChartSpec } from '../lib/charts/line';
+import { buildKap1Data, allGroupsFell } from '../lib/chapters/kap1';
+import { buildKap2Data, smallestGroup } from '../lib/chapters/kap2';
+import { buildKap4 } from '../lib/chapters/kap4';
+import { buildKap5 } from '../lib/chapters/kap5';
+
+interface Props {
+  lang: Lang;
+}
+const { lang } = Astro.props;
+const L = (sv: string, en: string) => tr(lang, sv, en);
+const pageTitle = site.title[lang];
+const pageDescription = site.description[lang];
+const frontPath = localePath(lang, '/');
+
+const C = {
+  ink: '#121212',
+  muted: '#5C5C5C',
+  focus: '#1D4E89',
+  second: '#C2410C',
+  population: '#8A8A8A',
+};
+
+// ---------- Chapter 3: prison and citizenship ----------
+const prison = loadPrison();
+const population = loadPopulation();
+
+const kap3 = buildKap3(prison, population);
+const { popShare, newAll, newMen, newWomen, onOct1, firstYear, lastYear } = kap3;
+const prisonYears = kap3.years;
+const byYear = (m: Map<number, number | null>) => prisonYears.map((y) => m.get(y) ?? null);
+
+const newAllLast = newAll.get(lastYear);
+const popShareLast = popShare.get(lastYear);
+if (newAllLast == null || popShareLast == null) throw new Error(`Missing ${lastYear} values for chapter 3`);
+
+// The headline says the share has fallen since its highest year. Stop the build if the data no longer says so.
+const peakYear = prisonYears.reduce((best, y) => ((newAll.get(y) ?? -1) > (newAll.get(best) ?? -1) ? y : best), firstYear);
+const newAllPeak = newAll.get(peakYear) as number;
+if (!(newAllLast < newAllPeak) || peakYear === lastYear) throw new Error('Chapter 3 headline no longer matches the data');
+
+// Men and women share one colour, so each line is named where it starts.
+const startLabel = (m: Map<number, number | null>, text: string) => {
+  const span = yearsWithValues(m);
+  return span ? [{ year: span.first, text }] : [];
+};
+const prisonMax = Math.max(...[newAll, newMen, newWomen, onOct1].flatMap((m) => [...m.values()].map((v) => v ?? 0)));
+
+const prisonSpec: LineChartSpec = {
+  lang,
+  years: prisonYears,
+  yMax: Math.max(40, Math.ceil(prisonMax / 10) * 10),
+  yTickStep: 10,
+  yFormat: 'pct',
+  ariaLabel: L(
+    'Linjediagram. Andel utan svenskt medborgarskap bland nyintagna i fängelse, totalt och för män och kvinnor, ' +
+      `och bland intagna den 1 oktober, ${firstYear} till ${lastYear}, jämfört med andelen utländska medborgare i befolkningen. ` +
+      `År ${lastYear} var andelen ${formatNumber(newAllLast, 0, 'sv')} procent bland nyintagna och ` +
+      `${formatNumber(popShareLast, 1, 'sv')} procent i befolkningen. År som Brå inte anger saknas.`,
+    `Line chart. Share without Swedish citizenship among new prisoners, in total and for men and women, and among people in prison ` +
+      `on 1 October, ${firstYear} to ${lastYear}, compared with the share of foreign citizens in the population. ` +
+      `In ${lastYear} the share was ${formatNumber(newAllLast, 0, 'en')}% among new prisoners and ` +
+      `${formatNumber(popShareLast, 1, 'en')}% in the population. Years that Brå does not report are missing.`,
+  ),
+  series: [
+    {
+      id: 'ny-alla',
+      label: L('Nyintagna, alla', 'New prisoners, all'),
+      endLabel: L('nyintagna', 'new prisoners'),
+      endLabelShort: L('alla', 'all'),
+      color: C.focus,
+      textColor: C.focus,
+      strokeWidth: 3,
+      dotRadius: 3.5,
+      values: byYear(newAll),
+      annotate: [peakYear],
+      format: 'pct',
+    },
+    {
+      id: 'ny-man',
+      label: L('Nyintagna män', 'New prisoners, men'),
+      endLabel: L('män', 'men'),
+      endLabelShort: L('män', 'men'),
+      color: C.focus,
+      textColor: C.focus,
+      strokeWidth: 1.5,
+      dotRadius: 2.5,
+      values: byYear(newMen),
+      pointLabels: startLabel(newMen, L('män', 'men')),
+      format: 'pct',
+    },
+    {
+      id: 'ny-kvinnor',
+      label: L('Nyintagna kvinnor', 'New prisoners, women'),
+      endLabel: L('kvinnor', 'women'),
+      endLabelShort: L('kvinnor', 'women'),
+      color: C.focus,
+      textColor: C.focus,
+      strokeWidth: 1.5,
+      dotRadius: 2.5,
+      values: byYear(newWomen),
+      pointLabels: startLabel(newWomen, L('kvinnor', 'women')),
+      format: 'pct',
+    },
+    {
+      id: 'okt',
+      label: L('Intagna den 1 oktober', 'Prisoners on 1 October'),
+      endLabel: L('1 oktober', '1 October'),
+      endLabelShort: L('1 okt', '1 Oct'),
+      color: C.second,
+      textColor: C.second,
+      strokeWidth: 2.5,
+      dotRadius: 3.5,
+      values: byYear(onOct1),
+      format: 'pct',
+    },
+    {
+      id: 'bef',
+      label: L('Utländska medborgare i befolkningen', 'Foreign citizens in the population'),
+      endLabel: L('befolkningen', 'population'),
+      endLabelShort: '',
+      color: C.population,
+      textColor: C.muted,
+      strokeWidth: 2,
+      dashed: true,
+      dotRadius: 2.5,
+      values: byYear(popShare),
+      format: 'pct1',
+    },
+  ],
+};
+
+const prisonSources = kap3.sources;
+
+// ---------- Key figures ----------
+const suspects = loadSuspectsByBackground();
+const kap1Data = buildKap1Data(suspects);
+// Chapter 2 uses the same crime list, so its menu is indented the same way.
+const depthByOrder = new Map(suspects.map((r) => [r.crimeOrder, r.depth]));
+const tableB6 = loadTableB6();
+const kap2Data = buildKap2Data(loadOrigin(), depthByOrder, tableB6);
+const kap4 = buildKap4(loadRapeStudies(), population, lang);
+const kap5 = buildKap5(loadBra2005(), lang);
+
+// Headline checks: stop the build if a headline no longer matches the data.
+const kap1First = kap1Data.years[0];
+const kap1Last = kap1Data.years[kap1Data.years.length - 1];
+if (!allGroupsFell(kap1Data, 'c00')) throw new Error('Chapter 1 headline no longer matches the data');
+if (!kap5.foreignBornRiskRose) throw new Error('Chapter 5 headline no longer matches the data');
+
+// Smallest groups in chapter 2, for the note under the chart.
+const smallestCountry = smallestGroup(kap2Data, 'land');
+const smallestMotherRegion = smallestGroup(kap2Data, 'moder');
+if (!smallestCountry || !smallestMotherRegion) throw new Error('Chapter 2: group sizes missing');
+// Key figures use Brå's own risk values for 2015–2018 (table B6), as stated in the report.
+const b6Risk = (unit: string) => {
+  const r = tableB6.find((x) => x.view === 'bakgrund' && x.unit === unit);
+  if (!r) throw new Error(`Table B6: ${unit} missing`);
+  return r.risk;
+};
+const riskUtr = b6Risk('Utrikesfödda');
+const riskU2 = b6Risk('Inrikesfödda med två utrikesfödda föräldrar');
+const n0 = (v: number) => formatNumber(v, 0, lang);
+const n1 = (v: number) => formatNumber(v, 1, lang);
+
+const keyFigures = [
+  {
+    value: n1(riskUtr),
+    unit: '×',
+    text: L(
+      'Så mycket vanligare var det för utrikesfödda att registreras som misstänkta för brott än för inrikesfödda med två inrikesfödda föräldrar.',
+      'How much more likely it was for people born abroad to be registered as suspects of crime than for people born in Sweden with two Swedish-born parents.',
+    ),
+    source: L('Brå rapport 2021:9, 2015–2018', 'Brå report 2021:9, 2015–2018'),
+  },
+  {
+    value: n1(riskU2),
+    unit: '×',
+    text: L(
+      'För inrikesfödda med två utrikesfödda föräldrar var det drygt tre gånger så vanligt.',
+      'For people born in Sweden with two foreign-born parents it was a little over three times as common.',
+    ),
+    source: L('Brå rapport 2021:9, 2015–2018', 'Brå report 2021:9, 2015–2018'),
+  },
+  {
+    value: n0(newAllLast),
+    unit: lang === 'en' ? '%' : ' %',
+    text: L(
+      `av de nyintagna i fängelse ${lastYear} saknade svenskt medborgarskap. I befolkningen var andelen ${n1(popShareLast)} procent.`,
+      `of new prisoners in ${lastYear} did not have Swedish citizenship. In the population the share was ${n1(popShareLast)}%.`,
+    ),
+    source: `Brå ${lastYear}; SCB`,
+  },
+];
+---
+
+<Base title={pageTitle} description={pageDescription} lang={lang} path={frontPath}>
+  <div class="wrap">
+    <Masthead
+      updated={monthYear(site.updated, lang)}
+      sources={L('Brå, SCB, Lunds universitet', 'Brå, SCB, Lund University')}
+      lang={lang}
+    />
+    <ChapterNav lang={lang} />
+    <KeyFigures figures={keyFigures} />
+
+    <main>
+      <Chapter
+        id="kap1"
+        lang={lang}
+        tableHref={tablePage('kap1', lang).path}
+        title={L(
+          `Sett till alla brott minskade andelen misstänkta i alla fyra grupper mellan ${kap1First} och ${kap1Last}`,
+          `Across all crimes, the share suspected fell in all four groups between ${kap1First} and ${kap1Last}`,
+        )}
+      >
+        <p slot="intro">
+          {L(
+            'Andelen av befolkningen, 15 år och äldre, som misstänktes för minst ett brott under året. Grupperna bygger på var personen och personens föräldrar är födda.',
+            'The share of the population aged 15 and over who were suspected of at least one crime during the year. The groups are based on where the person and their parents were born.',
+          )}
+        </p>
+        <SuspectsOverTime data={kap1Data} lang={lang} />
+        <Fragment slot="note">
+          {L(
+            'Inte justerat för ålder eller kön. Grupperna med utländsk bakgrund har fler unga, som oftare misstänks. Med hänsyn till ålder, kön, inkomst, utbildning och kommuntyp minskar skillnaderna, men de finns kvar. Mycket ovanliga brott kan svänga mellan åren eftersom Brå avrundar till två decimaler. Det märks mest i jämförelsen med två inrikesfödda föräldrar, som räknas från de avrundade talen. Rubriken gäller brott totalt, för enskilda brottstyper ser utvecklingen olika ut. Övergrepp i rättssak saknas 2007–2008.',
+            'Not adjusted for age or sex. The groups with a foreign background have more young people, who are more often suspected. When age, sex, income, education and type of municipality are taken into account, the differences get smaller, but they remain. Very rare crimes can vary from year to year, because Brå rounds to two decimals. This shows most clearly in the comparison with two Swedish-born parents, which is calculated from the rounded figures. The headline is about all crimes together; the trend differs for individual crime types. Interference in a judicial matter is missing for 2007–2008.',
+          )}
+        </Fragment>
+        <Fragment slot="source">
+          {L(
+            'Källa: Brå rapport 2021:9, Misstänkta för brott bland personer med inrikes respektive utrikes bakgrund. Folkbokförda personer 15 år och äldre.',
+            'Source: Brå report 2021:9, Misstänkta för brott bland personer med inrikes respektive utrikes bakgrund (suspects of crime by Swedish and foreign background). Registered residents aged 15 and over.',
+          )}
+        </Fragment>
+      </Chapter>
+
+      <Chapter
+        id="kap2"
+        lang={lang}
+        tableHref={tablePage('kap2', lang).path}
+        title={L(
+          'Överrisken var störst bland födda i Afrika och Centralasien och nära 1 bland födda i Norden, Västeuropa och Östasien',
+          'Excess risk was highest among people born in Africa and Central Asia, and close to 1 among those born in the Nordic countries, Western Europe and East Asia',
+        )}
+      >
+        <p slot="intro">
+          {L(
+            'Hur många gånger vanligare det var att misstänkas för brott någon gång 2015–2018 än för inrikesfödda med två inrikesfödda föräldrar. Utrikesfödda efter födelseområde eller födelseland, och inrikesfödda med två utrikesfödda föräldrar efter moderns födelseområde.',
+            'How many times more likely it was to be suspected of crime at any point in 2015–2018 than for people born in Sweden with two Swedish-born parents. People born abroad, by birth region or birth country, and people born in Sweden with two foreign-born parents, by mother’s birth region.',
+          )}
+        </p>
+        <OriginDots data={kap2Data} lang={lang} />
+        <Fragment slot="note">
+          {L(
+            `Orange punkt visar Brås beräkning om gruppen haft samma ålder, kön, inkomst och utbildning som jämförelsegruppen, inte en faktisk andel. Alla som misstänktes någon gång under fyra år räknas, därför är talen högre än i kapitel 1. Vissa grupper är små: det minsta födelselandet har ${n0(smallestCountry.n)} personer och den minsta gruppen efter moderns födelseområde ${n0(smallestMotherRegion.n)}.`,
+            `The orange dot shows Brå’s calculation of what the group would look like with the same age, sex, income and education as the comparison group, not an actual share. Everyone who was suspected at any time during four years is counted, so the figures are higher than in chapter 1. Some groups are small: the smallest birth country has ${n0(smallestCountry.n)} people, and the smallest group by mother’s birth region has ${n0(smallestMotherRegion.n)}.`,
+          )}
+        </Fragment>
+        <Fragment slot="source">
+          {L('Källa: ', 'Source: ')}<a href="https://bra.se/rapporter/arkiv/2021-08-25-misstankta-for-brott-bland-personer-med-inrikes-respektive-utrikes-bakgrund">{L('Brå rapport 2021:9', 'Brå report 2021:9')}</a>{L(
+            ', tabellbilaga 1 (andelar av misstänkta och befolkningen: tabell B6). Folkbokförda 15 år och äldre den 31 december 2014, misstänkta för brott begångna 2015–2018.',
+            ', table appendix 1 (shares of suspects and population: table B6). Registered residents aged 15 and over on 31 December 2014, suspected of crimes committed in 2015–2018.',
+          )}
+        </Fragment>
+      </Chapter>
+
+      <Chapter
+        id="kap3"
+        lang={lang}
+        tableHref={tablePage('kap3', lang).path}
+        title={L(
+          `Andelen utan svenskt medborgarskap bland nyintagna har minskat sedan ${peakYear}`,
+          `The share without Swedish citizenship among new prisoners has fallen since ${peakYear}`,
+        )}
+      >
+        <p slot="intro">
+          {L(
+            `År ${lastYear} saknade ${n0(newAllLast)} procent av dem som togs in i fängelse svenskt medborgarskap. I hela befolkningen var ${n1(popShareLast)} procent utländska medborgare.`,
+            `In ${lastYear}, ${n0(newAllLast)}% of those taken into prison did not have Swedish citizenship. In the whole population, ${n1(popShareLast)}% were foreign citizens.`,
+          )}
+        </p>
+        <Legend
+          slot="legend"
+          items={[
+            { label: L('Nyintagna under året', 'New prisoners during the year'), color: C.focus, mark: 'line' },
+            { label: L('Nyintagna män och kvinnor', 'New prisoners, men and women'), color: C.focus, mark: 'line', thin: true },
+            { label: L('Intagna den 1 oktober', 'Prisoners on 1 October'), color: C.second, mark: 'line' },
+            { label: L('Utländska medborgare i befolkningen', 'Foreign citizens in the population'), color: C.population, mark: 'dash' },
+          ]}
+        />
+        <LineChart spec={prisonSpec} />
+        <Fragment slot="note">
+          {L(
+            'Medborgarskap är inte födelseland. Bland fängelsets utländska medborgare finns personer som inte bor i Sverige och inte räknas i befolkningen. Punkter saknas för år som Brå inte anger.',
+            'Citizenship is not country of birth. Among the foreign citizens in prison are people who do not live in Sweden and are not counted in the population. Points are missing for years that Brå does not report.',
+          )}
+        </Fragment>
+        <Fragment slot="source">
+          {L('Källor: ', 'Sources: ')}
+          {
+            prisonSources.map((s, i) => (
+              <>
+                <a href={s.url}>{shortReportName(s.label)}</a>
+                {i < prisonSources.length - 1 ? ', ' : ''}
+              </>
+            ))
+          }
+          {L('; SCB, befolkningen den 31 december.', '; SCB, population on 31 December.')}
+        </Fragment>
+      </Chapter>
+
+      <Chapter
+        id="kap4"
+        lang={lang}
+        tableHref={tablePage('kap4', lang).path}
+        title={L(
+          'Utländsk bakgrund var vanligare bland dömda för våldtäkt än i kontrollgrupp och befolkning',
+          'Foreign background was more common among people convicted of rape than in the control group and the population',
+        )}
+      >
+        <p slot="intro">
+          {L(
+            'Två registerstudier från Lunds universitet av alla som dömts för våldtäkt eller försök till våldtäkt mot en kvinna 18 år eller äldre.',
+            'Two register studies from Lund University of everyone convicted of rape or attempted rape against a woman aged 18 or older.',
+          )}
+        </p>
+        <RapeStudies kap4={kap4} lang={lang} />
+        <Fragment slot="note">
+          {L(
+            `Studierna gäller dömda, inte alla som begår våldtäkt. De dömda är nästan bara män (${n1(kap4.menPct)} procent i den senare studien), 15–60 år, medan befolkningens andel gäller alla åldrar och båda könen (snitt 2000–2015). Den första studien anmäldes till Överklagandenämnden för etikprövning. Det översta stapelparet är alla utom inrikesfödda med två inrikesfödda föräldrar, som var ${n1(kap4.sv2Convicted)} procent av de dömda och ${n1(kap4.sv2Controls)} procent av kontrollgruppen. I den senare minskade sambandet efter justering för bland annat socioekonomi och tidigare brottslighet, men det fanns kvar.`,
+            `The studies cover people who were convicted, not everyone who commits rape. The convicted are almost all men (${n1(kap4.menPct)}% in the later study), aged 15–60, while the population share covers all ages and both sexes (average 2000–2015). The first study was reported to the Swedish appeals board for ethical review (Överklagandenämnden för etikprövning). The top pair of bars shows everyone except people born in Sweden with two Swedish-born parents, who were ${n1(kap4.sv2Convicted)}% of the convicted and ${n1(kap4.sv2Controls)}% of the control group. In the later study the link weakened after adjusting for socioeconomic factors and earlier crime, among other things, but it remained.`,
+          )}
+        </Fragment>
+        <Fragment slot="source">
+          {L('Källor: ', 'Sources: ')}<a href="https://doi.org/10.1080/20961790.2020.1868681">{L('Khoshnood m.fl. 2021', 'Khoshnood et al. 2021')}</a>{L(
+            ', Forensic Sciences Research, tabell 1 och 2 (dömda 2000–2015); ',
+            ', Forensic Sciences Research, tables 1 and 2 (convicted 2000–2015); ',
+          )}
+          <a href="https://lup.lub.lu.se/record/d9a9d1f6-f428-4b57-abf2-5e0e9c7b84f5">{L('Khoshnood m.fl. 2026', 'Khoshnood et al. 2026')}</a>{L(
+            ', Journal of Interpersonal Violence, tabell 1 (dömda och kontrollgrupp 2000–2020); SCB, befolkningen den 31 december.',
+            ', Journal of Interpersonal Violence, table 1 (convicted and control group 2000–2020); SCB, population on 31 December.',
+          )}
+        </Fragment>
+      </Chapter>
+
+      <Chapter
+        id="kap5"
+        lang={lang}
+        tableHref={tablePage('kap5', lang).path}
+        title={L(
+          'Överrisken för utrikesfödda ökade mellan 1985–89 och 1997–2001',
+          'Excess risk for people born abroad rose between 1985–89 and 1997–2001',
+        )}
+      >
+        <p slot="intro">
+          {L(
+            'Överrisk är andelen misstänkta i gruppen delat med andelen bland inrikesfödda med två inrikesfödda föräldrar. Standardiserad överrisk tar hänsyn till kön, ålder, utbildning och förvärvsinkomst.',
+            'Excess risk is the share of suspects in the group divided by the share among people born in Sweden with two Swedish-born parents. Standardised excess risk takes into account sex, age, education and income.',
+          )}
+        </p>
+        <OlderStudies kap5={kap5} lang={lang} />
+        <Fragment slot="note">
+          {L(
+            `Siffrorna är över 20 år gamla. Standardiserad överrisk finns bara separat för en och två utrikesfödda föräldrar: ${n1(kap5.standOneParent)} och ${n1(kap5.standTwoParents)}. Några brottstyper i Brås tabell 11 gick inte att läsa ur PDF-filen och saknas.`,
+            `The figures are over 20 years old. Standardised excess risk is only given separately for one and for two foreign-born parents: ${n1(kap5.standOneParent)} and ${n1(kap5.standTwoParents)}. Some crime types in Brå’s table 11 could not be read from the PDF file and are missing.`,
+          )}
+        </Fragment>
+        <Fragment slot="source">
+          {L('Källor: ', 'Sources: ')}<a href="https://www.bra.se/download/18.cba82f7130f475a2f1800012697/2005_17_brottslighet_bland_personer_fodda_sverige_och_utlandet.pdf">{L('Brå rapport 2005:17', 'Brå report 2005:17')}</a>{L(
+            ', tabell 7–11 och bilaga 4 tabell 1. Uppgifterna för 1985–1989 kommer från Brå 1996 och redovisas i tabell 8 i Brå 2005:17. Folkbokförda, misstänkta minst en gång under perioden.',
+            ', tables 7–11 and appendix 4, table 1. The figures for 1985–1989 come from Brå 1996 and are shown in table 8 of Brå 2005:17. Registered residents, suspected at least once during the period.',
+          )}
+        </Fragment>
+      </Chapter>
+
+      <Method extraSources={prisonSources} lang={lang} />
+      <About lang={lang} />
+    </main>
+
+    <Footer lang={lang} path={frontPath} />
+  </div>
+</Base>

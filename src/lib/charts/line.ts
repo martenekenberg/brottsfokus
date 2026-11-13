@@ -2,6 +2,7 @@
 // Runs at build time (static fallback) and in the browser (resize + tooltip).
 import { line, scaleLinear } from 'd3';
 import { formatNumber, formatPct, formatTimes } from '../format';
+import type { Lang } from '../i18n';
 import { esc, FONT } from './svg';
 
 /** pct = 22 %, pct1 = 7,8 %, num1 = 14,3, num2 = 0,14, x1 = 2,5× */
@@ -31,6 +32,7 @@ export interface LineSeries {
 }
 
 export interface LineChartSpec {
+  lang: Lang;
   years: number[];
   series: LineSeries[];
   /** Fixed top of the y axis. Omit to fit the data. */
@@ -43,20 +45,20 @@ export interface LineChartSpec {
 
 export const NARROW = 560;
 
-export function fmt(value: number, format: ValueFormat): string {
-  if (format === 'pct') return formatPct(value, 0);
-  if (format === 'pct1') return formatPct(value, 1);
-  if (format === 'num2') return formatNumber(value, 2);
-  if (format === 'x1') return formatTimes(value, 1);
-  return formatNumber(value, 1);
+export function fmt(value: number, format: ValueFormat, lang: Lang): string {
+  if (format === 'pct') return formatPct(value, 0, lang);
+  if (format === 'pct1') return formatPct(value, 1, lang);
+  if (format === 'num2') return formatNumber(value, 2, lang);
+  if (format === 'x1') return formatTimes(value, 1, lang);
+  return formatNumber(value, 1, lang);
 }
 
 /** Axis label: same unit as the data, but only as many decimals as the tick step needs. */
-function axisLabel(value: number, format: ValueFormat, step: number): string {
+function axisLabel(value: number, format: ValueFormat, step: number, lang: Lang): string {
   const decimals = Math.max(0, Math.ceil(-Math.log10(step) - 1e-9));
-  if (format === 'pct' || format === 'pct1') return formatPct(value, decimals);
-  if (format === 'x1') return formatTimes(value, decimals);
-  return formatNumber(value, decimals);
+  if (format === 'pct' || format === 'pct1') return formatPct(value, decimals, lang);
+  if (format === 'x1') return formatTimes(value, decimals, lang);
+  return formatNumber(value, decimals, lang);
 }
 
 /** Y axis top and tick values: fixed if the spec says so, else fitted to the data. */
@@ -90,9 +92,9 @@ export interface LineLayout {
   y: (value: number) => number;
 }
 
-function endText(s: LineSeries, v: number, narrow: boolean): string {
+function endText(s: LineSeries, v: number, narrow: boolean, lang: Lang): string {
   const name = narrow ? s.endLabelShort : s.endLabel;
-  return name ? `${fmt(v, s.format)} ${name}` : fmt(v, s.format);
+  return name ? `${fmt(v, s.format, lang)} ${name}` : fmt(v, s.format, lang);
 }
 
 function lastDefined(s: LineSeries, years: number[]): { year: number; value: number } | null {
@@ -125,7 +127,7 @@ export function layoutLineChart(spec: LineChartSpec, width: number): LineLayout 
   const longest = Math.max(
     ...spec.series.map((s) => {
       const last = lastDefined(s, spec.years);
-      return last ? textWidth(endText(s, last.value, narrow), 13) : 0;
+      return last ? textWidth(endText(s, last.value, narrow, spec.lang), 13) : 0;
     }),
   );
   const left = narrow ? 44 : 48;
@@ -170,7 +172,7 @@ export function renderLineChart(spec: LineChartSpec, width: number): string {
     const yy = y(v).toFixed(1);
     parts.push(`<line x1="${left}" x2="${plotRight}" y1="${yy}" y2="${yy}" stroke="#E3E3E3"/>`);
     parts.push(
-      `<text x="${left - 8}" y="${(y(v) + 4).toFixed(1)}" text-anchor="end" ${font} font-size="12" fill="#5C5C5C">${esc(axisLabel(v, spec.yFormat, yt.step))}</text>`,
+      `<text x="${left - 8}" y="${(y(v) + 4).toFixed(1)}" text-anchor="end" ${font} font-size="12" fill="#5C5C5C">${esc(axisLabel(v, spec.yFormat, yt.step, spec.lang))}</text>`,
     );
   }
 
@@ -203,7 +205,7 @@ export function renderLineChart(spec: LineChartSpec, width: number): string {
       const v = i >= 0 ? s.values[i] : null;
       if (v === null) continue;
       parts.push(
-        `<text x="${x(yr).toFixed(1)}" y="${(y(v) - 10).toFixed(1)}" text-anchor="middle" ${font} font-size="13" font-weight="700" fill="${s.textColor}">${esc(fmt(v, s.format))}</text>`,
+        `<text x="${x(yr).toFixed(1)}" y="${(y(v) - 10).toFixed(1)}" text-anchor="middle" ${font} font-size="13" font-weight="700" fill="${s.textColor}">${esc(fmt(v, s.format, spec.lang))}</text>`,
       );
     }
   }
@@ -232,7 +234,7 @@ export function renderLineChart(spec: LineChartSpec, width: number): string {
   );
   ends.forEach((e, k) => {
     parts.push(
-      `<text x="${(x(e.last.year) + 8).toFixed(1)}" y="${ys[k].toFixed(1)}" ${font} font-size="13" font-weight="700" fill="${e.s.textColor}">${esc(endText(e.s, e.last.value, narrow))}</text>`,
+      `<text x="${(x(e.last.year) + 8).toFixed(1)}" y="${ys[k].toFixed(1)}" ${font} font-size="13" font-weight="700" fill="${e.s.textColor}">${esc(endText(e.s, e.last.value, narrow, spec.lang))}</text>`,
     );
   });
 

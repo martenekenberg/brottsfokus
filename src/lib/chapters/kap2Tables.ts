@@ -1,7 +1,9 @@
 // Tables and CSV for the chapter 2 table page. Build time only.
 import type { B6Row } from '../data';
+import { tr, type Lang } from '../i18n';
+import { dataLabel } from '../labels';
 import { csvNumber, longCsv, type Column, type DataTable } from '../tables';
-import type { Kap2Crime, Kap2Data, View } from './kap2';
+import { crimeLabel, type Kap2Crime, type Kap2Data, type View } from './kap2';
 
 export const TOTAL = 'Brott totalt';
 const COMPARISON_LABEL = 'Inrikesfödda med två inrikesfödda föräldrar';
@@ -21,43 +23,57 @@ function b6For(b6: B6Row[], view: B6Row['view'], unit: string): B6Row {
   return r;
 }
 
-const b6Columns: Column[] = [
-  { kind: 'number', label: 'Antal i befolkningen', csv: 'antal_i_befolkningen', decimals: 0 },
-  { kind: 'number', label: 'Andel av befolkningen (%)', csv: 'andel_av_befolkningen_pct', decimals: 2 },
-  { kind: 'number', label: 'Antal misstänkta', csv: 'antal_misstankta', decimals: 0 },
-  { kind: 'number', label: 'Andel av de misstänkta (%)', csv: 'andel_av_misstankta_pct', decimals: 2 },
-  { kind: 'number', label: 'Andel av gruppen som misstänktes (%)', csv: 'andel_misstankta_i_gruppen_pct', decimals: 2 },
-  { kind: 'number', label: 'Överrisk', csv: 'overrisk', decimals: 2 },
+const b6Columns = (lang: Lang): Column[] => [
+  { kind: 'number', label: tr(lang, 'Antal i befolkningen', 'Number in population'), csv: tr(lang, 'antal_i_befolkningen', 'population_count'), decimals: 0 },
+  { kind: 'number', label: tr(lang, 'Andel av befolkningen (%)', 'Share of population (%)'), csv: tr(lang, 'andel_av_befolkningen_pct', 'share_of_population_pct'), decimals: 2 },
+  { kind: 'number', label: tr(lang, 'Antal misstänkta', 'Number of suspects'), csv: tr(lang, 'antal_misstankta', 'suspects_count'), decimals: 0 },
+  { kind: 'number', label: tr(lang, 'Andel av de misstänkta (%)', 'Share of suspects (%)'), csv: tr(lang, 'andel_av_misstankta_pct', 'share_of_suspects_pct'), decimals: 2 },
+  {
+    kind: 'number',
+    label: tr(lang, 'Andel av gruppen som misstänktes (%)', 'Share of group suspected (%)'),
+    csv: tr(lang, 'andel_misstankta_i_gruppen_pct', 'share_of_group_suspected_pct'),
+    decimals: 2,
+  },
+  { kind: 'number', label: tr(lang, 'Överrisk', 'Excess risk'), csv: tr(lang, 'overrisk', 'excess_risk'), decimals: 2 },
 ];
 
 /** Brå table B6 as published: counts, shares and excess risk, brott totalt. */
-export function b6Table(b6: B6Row[], view: B6Row['view'], id: string, caption: string): DataTable {
+export function b6Table(b6: B6Row[], view: B6Row['view'], id: string, caption: string, lang: Lang): DataTable {
   const rows = b6.filter((r) => r.view === view);
   // Mother's region view: the comparison group is in the background view.
   if (view !== 'bakgrund') rows.unshift(b6For(b6, 'bakgrund', COMPARISON_LABEL));
   return {
     id,
     caption,
-    rowLabel: 'Grupp',
-    rowCsv: 'grupp',
-    columns: b6Columns,
+    rowLabel: tr(lang, 'Grupp', 'Group'),
+    rowCsv: tr(lang, 'grupp', 'group'),
+    columns: b6Columns(lang),
     rows: rows.map((r) => ({
-      key: r.unit,
+      key: dataLabel(r.unit, lang),
       cells: [r.populationN, r.populationPct, r.suspectsN, r.suspectsPct, r.pctSuspected, r.risk],
     })),
   };
 }
 
 /** Per 1,000, excess risk and adjusted excess risk for one crime type, with the comparison group first. */
-export function riskTable(data: Kap2Data, view: View, crime: Kap2Crime, id: string, caption: string): DataTable {
+export function riskTable(view: View, crime: Kap2Crime, id: string, caption: string, lang: Lang): DataTable {
   const adjusted = crime.units.some((u) => u.riskAdj !== null);
   const decimals = view === 'land' ? 1 : 2;
   const columns: Column[] = [
-    ...(view === 'land' ? [{ kind: 'text' as const, label: 'Födelseområde', csv: 'fodelseomrade' }] : []),
-    ...(view === 'land' ? [{ kind: 'number' as const, label: 'Antal i gruppen', csv: 'antal_i_befolkningen', decimals: 0 }] : []),
-    { kind: 'number', label: 'Misstänkta per 1 000', csv: 'misstankta_per1000', decimals },
-    { kind: 'number', label: 'Överrisk', csv: 'overrisk', decimals: 2 },
-    ...(adjusted ? [{ kind: 'number' as const, label: 'Justerad överrisk', csv: 'overrisk_justerad', decimals: 2 }] : []),
+    ...(view === 'land' ? [{ kind: 'text' as const, label: tr(lang, 'Födelseområde', 'Birth region'), csv: tr(lang, 'fodelseomrade', 'birth_region') }] : []),
+    ...(view === 'land'
+      ? [{ kind: 'number' as const, label: tr(lang, 'Antal i gruppen', 'Number in group'), csv: tr(lang, 'antal_i_befolkningen', 'population_count'), decimals: 0 }]
+      : []),
+    {
+      kind: 'number',
+      label: tr(lang, 'Misstänkta per 1 000', 'Suspects per 1,000'),
+      csv: tr(lang, 'misstankta_per1000', 'suspects_per_1000'),
+      decimals,
+    },
+    { kind: 'number', label: tr(lang, 'Överrisk', 'Excess risk'), csv: tr(lang, 'overrisk', 'excess_risk'), decimals: 2 },
+    ...(adjusted
+      ? [{ kind: 'number' as const, label: tr(lang, 'Justerad överrisk', 'Adjusted excess risk'), csv: tr(lang, 'overrisk_justerad', 'excess_risk_adjusted'), decimals: 2 }]
+      : []),
   ];
   const units = [...crime.units].sort(byRisk);
   const ref = [
@@ -69,15 +85,20 @@ export function riskTable(data: Kap2Data, view: View, crime: Kap2Crime, id: stri
   return {
     id,
     caption,
-    rowLabel: view === 'land' ? 'Födelseland' : view === 'moder' ? 'Moderns födelseområde' : 'Födelseområde',
-    rowCsv: 'grupp',
+    rowLabel:
+      view === 'land'
+        ? tr(lang, 'Födelseland', 'Birth country')
+        : view === 'moder'
+          ? tr(lang, 'Moderns födelseområde', 'Mother’s birth region')
+          : tr(lang, 'Födelseområde', 'Birth region'),
+    rowCsv: tr(lang, 'grupp', 'group'),
     columns,
     rows: [
-      { key: `${COMPARISON_LABEL} (jämförelsegrupp)`, cells: ref },
+      { key: tr(lang, `${COMPARISON_LABEL} (jämförelsegrupp)`, 'Born in Sweden, two Swedish-born parents (comparison group)'), cells: ref },
       ...units.map((u) => ({
-        key: u.label,
+        key: dataLabel(u.label, lang),
         cells: [
-          ...(view === 'land' ? [u.region, u.n] : []),
+          ...(view === 'land' ? [dataLabel(u.region, lang), u.n] : []),
           u.per1000,
           u.risk,
           ...(adjusted ? [u.riskAdj] : []),
@@ -87,39 +108,56 @@ export function riskTable(data: Kap2Data, view: View, crime: Kap2Crime, id: stri
   };
 }
 
-const VIEW_CSV: Record<View, string> = { region: 'fodelseomrade', land: 'fodelseland', moder: 'moderns_fodelseomrade' };
+const VIEW_CSV: Record<Lang, Record<View, string>> = {
+  sv: { region: 'fodelseomrade', land: 'fodelseland', moder: 'moderns_fodelseomrade' },
+  en: { region: 'birth_region', land: 'birth_country', moder: 'mother_birth_region' },
+};
 
 /** Everything on the page in one long file: one row per view, crime type and group. */
-export function kap2Csv(data: Kap2Data, b6: B6Row[]): string {
+export function kap2Csv(data: Kap2Data, b6: B6Row[], lang: Lang): string {
   const header = [
-    'vy',
-    'brottstyp',
-    'grupp',
-    'fodelseomrade',
-    'antal_i_befolkningen',
-    'misstankta_per1000',
-    'overrisk',
-    'overrisk_justerad',
-    'antal_misstankta',
-    'andel_av_misstankta_pct',
-    'andel_av_befolkningen_pct',
-    'andel_misstankta_i_gruppen_pct',
+    tr(lang, 'vy', 'view'),
+    tr(lang, 'brottstyp', 'crime_type'),
+    tr(lang, 'grupp', 'group'),
+    tr(lang, 'fodelseomrade', 'birth_region'),
+    tr(lang, 'antal_i_befolkningen', 'population_count'),
+    tr(lang, 'misstankta_per1000', 'suspects_per_1000'),
+    tr(lang, 'overrisk', 'excess_risk'),
+    tr(lang, 'overrisk_justerad', 'excess_risk_adjusted'),
+    tr(lang, 'antal_misstankta', 'suspects_count'),
+    tr(lang, 'andel_av_misstankta_pct', 'share_of_suspects_pct'),
+    tr(lang, 'andel_av_befolkningen_pct', 'share_of_population_pct'),
+    tr(lang, 'andel_misstankta_i_gruppen_pct', 'share_of_group_suspected_pct'),
   ];
+  const comparison = tr(lang, COMPARISON_LABEL, 'Born in Sweden, two Swedish-born parents');
   const rows: string[][] = [];
   for (const r of b6.filter((x) => x.view === 'bakgrund')) {
-    rows.push(['bakgrund', TOTAL, r.unit, '', csvNumber(r.populationN, 0), '', csvNumber(r.risk, 2), '', csvNumber(r.suspectsN, 0), csvNumber(r.suspectsPct, 2), csvNumber(r.populationPct, 2), csvNumber(r.pctSuspected, 2)]);
+    rows.push([
+      tr(lang, 'bakgrund', 'background'),
+      crimeLabel(TOTAL, lang),
+      dataLabel(r.unit, lang),
+      '',
+      csvNumber(r.populationN, 0),
+      '',
+      csvNumber(r.risk, 2),
+      '',
+      csvNumber(r.suspectsN, 0),
+      csvNumber(r.suspectsPct, 2),
+      csvNumber(r.populationPct, 2),
+      csvNumber(r.pctSuspected, 2),
+    ]);
   }
   for (const view of ['region', 'land', 'moder'] as View[]) {
     const d = view === 'land' ? 1 : 2;
     for (const c of data[view]) {
-      rows.push([VIEW_CSV[view], c.name, COMPARISON_LABEL, '', '', csvNumber(c.refPer1000, d), '1.00', '', '', '', '', '']);
+      rows.push([VIEW_CSV[lang][view], crimeLabel(c.name, lang), comparison, '', '', csvNumber(c.refPer1000, d), '1.00', '', '', '', '', '']);
       for (const u of [...c.units].sort(byRisk)) {
         const b = c.name === TOTAL && view !== 'land' ? b6.find((x) => x.view === view && x.unit === u.label) : undefined;
         rows.push([
-          VIEW_CSV[view],
-          c.name,
-          u.label,
-          view === 'land' ? u.region : '',
+          VIEW_CSV[lang][view],
+          crimeLabel(c.name, lang),
+          dataLabel(u.label, lang),
+          view === 'land' ? dataLabel(u.region, lang) : '',
           csvNumber(b?.populationN ?? u.n, 0),
           csvNumber(u.per1000, d),
           csvNumber(u.risk, 2),
@@ -134,3 +172,4 @@ export function kap2Csv(data: Kap2Data, b6: B6Row[]): string {
   }
   return longCsv(header, rows);
 }
+

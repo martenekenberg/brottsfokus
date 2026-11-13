@@ -2,12 +2,13 @@
 import { mountCharts } from './client';
 import { fmt, layoutLineChart, renderLineChart, type LineChartSpec } from './line';
 import { esc } from './svg';
+import { missingText } from '../i18n';
 
 function tooltipHtml(spec: LineChartSpec, i: number): string {
   const rows = spec.series
     .map((s) => {
       const v = s.values[i];
-      const value = v === null ? '<span class="tt-missing">uppgift saknas</span>' : esc(fmt(v, s.format));
+      const value = v === null ? `<span class="tt-missing">${esc(missingText(spec.lang))}</span>` : esc(fmt(v, s.format, spec.lang));
       const swatch = s.dashed
         ? `<span class="tt-swatch tt-dash" style="border-color:${s.color}"></span>`
         : `<span class="tt-swatch" style="background:${s.color}"></span>`;

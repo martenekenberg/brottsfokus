@@ -2,6 +2,7 @@
 // so both always show the same numbers.
 import type { PopulationRow, PrisonRow } from '../data';
 import { foreignCitizenSharePct, prisonSeries } from '../calc';
+import { tr, type Lang } from '../i18n';
 import type { DataTable } from '../tables';
 
 export interface Kap3 {
@@ -77,7 +78,7 @@ export function shortReportName(label: string): string {
 }
 
 /** The tables on the chapter 3 table page, built from the same values as the chart. */
-export function kap3Tables(k: Kap3): DataTable[] {
+export function kap3Tables(k: Kap3, lang: Lang): DataTable[] {
   const v = (m: Map<number, number | null>, y: number) => m.get(y) ?? null;
   const pop = new Map(k.population.map((r) => [r.year, r]));
   const countYears = k.years.filter((y) => [k.countNewAll, k.countNewMen, k.countNewWomen, k.countOct1].some((m) => v(m, y) !== null));
@@ -85,16 +86,20 @@ export function kap3Tables(k: Kap3): DataTable[] {
   return [
     {
       id: 'andel',
-      caption: `Andel utan svenskt medborgarskap bland intagna i fängelse, och andel utländska medborgare i befolkningen, ${k.firstYear}–${k.lastYear}. Procent.`,
-      rowLabel: 'År',
-      rowCsv: 'ar',
+      caption: tr(
+        lang,
+        `Andel utan svenskt medborgarskap bland intagna i fängelse, och andel utländska medborgare i befolkningen, ${k.firstYear}–${k.lastYear}. Procent.`,
+        `Share without Swedish citizenship among people in prison, and share of foreign citizens in the population, ${k.firstYear}–${k.lastYear}. Percent.`,
+      ),
+      rowLabel: tr(lang, 'År', 'Year'),
+      rowCsv: tr(lang, 'ar', 'year'),
       columns: [
-        { kind: 'number', label: 'Nyintagna, alla', csv: 'nyintagna_utan_sv_medb_pct', decimals: 0 },
-        { kind: 'number', label: 'Nyintagna män', csv: 'nyintagna_man_utan_sv_medb_pct', decimals: 0 },
-        { kind: 'number', label: 'Nyintagna kvinnor', csv: 'nyintagna_kvinnor_utan_sv_medb_pct', decimals: 0 },
-        { kind: 'number', label: 'Intagna den 1 oktober', csv: 'intagna_1okt_utan_sv_medb_pct', decimals: 0 },
-        { kind: 'number', label: 'Utländska medborgare i befolkningen', csv: 'befolkning_utlandska_medborgare_pct', decimals: 1 },
-        { kind: 'links', label: 'Källa, Brå', csv: 'kalla_bra' },
+        { kind: 'number', label: tr(lang, 'Nyintagna, alla', 'New prisoners, all'), csv: tr(lang, 'nyintagna_utan_sv_medb_pct', 'new_all_no_swedish_citizenship_pct'), decimals: 0 },
+        { kind: 'number', label: tr(lang, 'Nyintagna män', 'New prisoners, men'), csv: tr(lang, 'nyintagna_man_utan_sv_medb_pct', 'new_men_no_swedish_citizenship_pct'), decimals: 0 },
+        { kind: 'number', label: tr(lang, 'Nyintagna kvinnor', 'New prisoners, women'), csv: tr(lang, 'nyintagna_kvinnor_utan_sv_medb_pct', 'new_women_no_swedish_citizenship_pct'), decimals: 0 },
+        { kind: 'number', label: tr(lang, 'Intagna den 1 oktober', 'Prisoners on 1 October'), csv: tr(lang, 'intagna_1okt_utan_sv_medb_pct', 'prisoners_1oct_no_swedish_citizenship_pct'), decimals: 0 },
+        { kind: 'number', label: tr(lang, 'Utländska medborgare i befolkningen', 'Foreign citizens in the population'), csv: tr(lang, 'befolkning_utlandska_medborgare_pct', 'population_foreign_citizens_pct'), decimals: 1 },
+        { kind: 'links', label: tr(lang, 'Källa, Brå', 'Source, Brå'), csv: tr(lang, 'kalla_bra', 'source_bra') },
       ],
       rows: k.years.map((y) => ({
         key: String(y),
@@ -110,14 +115,18 @@ export function kap3Tables(k: Kap3): DataTable[] {
     },
     {
       id: 'antal',
-      caption: `Antal personer i Brås statistik, ${countYears[0]}–${countYears[countYears.length - 1]}. Alla, med och utan svenskt medborgarskap.`,
-      rowLabel: 'År',
-      rowCsv: 'ar',
+      caption: tr(
+        lang,
+        `Antal personer i Brås statistik, ${countYears[0]}–${countYears[countYears.length - 1]}. Alla, med och utan svenskt medborgarskap.`,
+        `Number of people in Brå’s statistics, ${countYears[0]}–${countYears[countYears.length - 1]}. All, with and without Swedish citizenship.`,
+      ),
+      rowLabel: tr(lang, 'År', 'Year'),
+      rowCsv: tr(lang, 'ar', 'year'),
       columns: [
-        { kind: 'number', label: 'Nyintagna, alla', csv: 'nyintagna_antal', decimals: 0 },
-        { kind: 'number', label: 'Nyintagna män', csv: 'nyintagna_man_antal', decimals: 0 },
-        { kind: 'number', label: 'Nyintagna kvinnor', csv: 'nyintagna_kvinnor_antal', decimals: 0 },
-        { kind: 'number', label: 'Intagna den 1 oktober', csv: 'intagna_1okt_antal', decimals: 0 },
+        { kind: 'number', label: tr(lang, 'Nyintagna, alla', 'New prisoners, all'), csv: tr(lang, 'nyintagna_antal', 'new_all_count'), decimals: 0 },
+        { kind: 'number', label: tr(lang, 'Nyintagna män', 'New prisoners, men'), csv: tr(lang, 'nyintagna_man_antal', 'new_men_count'), decimals: 0 },
+        { kind: 'number', label: tr(lang, 'Nyintagna kvinnor', 'New prisoners, women'), csv: tr(lang, 'nyintagna_kvinnor_antal', 'new_women_count'), decimals: 0 },
+        { kind: 'number', label: tr(lang, 'Intagna den 1 oktober', 'Prisoners on 1 October'), csv: tr(lang, 'intagna_1okt_antal', 'prisoners_1oct_count'), decimals: 0 },
       ],
       rows: countYears.map((y) => ({
         key: String(y),
@@ -126,12 +135,16 @@ export function kap3Tables(k: Kap3): DataTable[] {
     },
     {
       id: 'befolkning',
-      caption: `Befolkningen den 31 december, ${k.firstYear}–${k.lastYear}. Antal personer.`,
-      rowLabel: 'År',
-      rowCsv: 'ar',
+      caption: tr(
+        lang,
+        `Befolkningen den 31 december, ${k.firstYear}–${k.lastYear}. Antal personer.`,
+        `Population on 31 December, ${k.firstYear}–${k.lastYear}. Number of people.`,
+      ),
+      rowLabel: tr(lang, 'År', 'Year'),
+      rowCsv: tr(lang, 'ar', 'year'),
       columns: [
-        { kind: 'number', label: 'Folkmängd', csv: 'folkmangd', decimals: 0 },
-        { kind: 'number', label: 'Utländska medborgare', csv: 'utlandska_medborgare', decimals: 0 },
+        { kind: 'number', label: tr(lang, 'Folkmängd', 'Population'), csv: tr(lang, 'folkmangd', 'population'), decimals: 0 },
+        { kind: 'number', label: tr(lang, 'Utländska medborgare', 'Foreign citizens'), csv: tr(lang, 'utlandska_medborgare', 'foreign_citizens'), decimals: 0 },
       ],
       rows: k.years.map((y) => ({
         key: String(y),

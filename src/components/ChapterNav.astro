@@ -4,22 +4,25 @@
 // so the headline appears to shrink into the bar. The bar never changes height,
 // so the page does not jump.
 import { chapters } from '../lib/chapters';
+import { localePath, type Lang } from '../lib/i18n';
 
 interface Props {
   /** False on pages other than the main page: links point back to it and the small title always shows. */
   home?: boolean;
+  lang: Lang;
 }
-const { home = true } = Astro.props;
-const base = home ? '' : '/';
+const { home = true, lang } = Astro.props;
+const base = home ? '' : localePath(lang, '/');
+const frontPage = localePath(lang, '/');
 ---
 
-<nav aria-label="Kapitel" class:list={['chapter-nav', { 'is-compact': !home }]} data-chapter-nav>
+<nav aria-label={lang === 'en' ? 'Chapters' : 'Kapitel'} class:list={['chapter-nav', { 'is-compact': !home }]} data-chapter-nav>
   <div class="row">
     {
       home ? (
         <a class="mini-title" href="#top" tabindex="-1" aria-hidden="true">Brottsfokus</a>
       ) : (
-        <a class="mini-title" href="/">Brottsfokus</a>
+        <a class="mini-title" href={frontPage}>Brottsfokus</a>
       )
     }
     <ul>
@@ -28,7 +31,7 @@ const base = home ? '' : '/';
           <li>
             <a href={`${base}#${c.id}`}>
               {c.num && <span class="num">{c.num}</span>}
-              {c.navLabel}
+              {c.navLabel[lang]}
             </a>
           </li>
         ))

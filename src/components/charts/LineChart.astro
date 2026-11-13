@@ -12,7 +12,7 @@ const staticSvg = renderLineChart(spec, 1040);
 const staticNarrow = renderLineChart(spec, 358);
 ---
 
-<figure class="chart" data-line-chart>
+<figure class="chart" data-line-chart data-lang={spec.lang}>
   <div class="canvas" data-canvas>
     <div class="static-wide" set:html={staticSvg} />
     <div class="static-narrow" set:html={staticNarrow} />

@@ -1,20 +1,64 @@
-// Chapter list, shared by the nav, the chapter kickers and the "Nästa" links.
+// Chapter list, shared by the nav, the chapter kickers and the "Next" links.
+import type { Lang } from './i18n';
+
 export interface ChapterInfo {
   id: string;
   num: string;
-  navLabel: string;
-  kicker: string;
-  nextLabel: string;
+  navLabel: Record<Lang, string>;
+  kicker: Record<Lang, string>;
+  nextLabel: Record<Lang, string>;
 }
 
 export const chapters: ChapterInfo[] = [
-  { id: 'kap1', num: '01', navLabel: 'Över tid', kicker: 'Misstänkta över tid', nextLabel: 'Över tid' },
-  { id: 'kap2', num: '02', navLabel: 'Födelseområde', kicker: 'Födelseområde', nextLabel: 'Födelseområde' },
-  { id: 'kap3', num: '03', navLabel: 'Fängelse', kicker: 'Fängelse', nextLabel: 'Fängelse' },
-  { id: 'kap4', num: '04', navLabel: 'Våldtäkt', kicker: 'Våldtäkt', nextLabel: 'Våldtäkt' },
-  { id: 'kap5', num: '05', navLabel: 'Äldre studier', kicker: 'Brås äldre studier', nextLabel: 'Brås äldre studier' },
-  { id: 'metod', num: '', navLabel: 'Metod', kicker: 'Metod och begrepp', nextLabel: 'Metod' },
-  { id: 'om', num: '', navLabel: 'Om sidan', kicker: 'Om sidan', nextLabel: 'Om sidan' },
+  {
+    id: 'kap1',
+    num: '01',
+    navLabel: { sv: 'Över tid', en: 'Over time' },
+    kicker: { sv: 'Misstänkta över tid', en: 'Suspects over time' },
+    nextLabel: { sv: 'Över tid', en: 'Over time' },
+  },
+  {
+    id: 'kap2',
+    num: '02',
+    navLabel: { sv: 'Födelseområde', en: 'Birth region' },
+    kicker: { sv: 'Födelseområde', en: 'Birth region' },
+    nextLabel: { sv: 'Födelseområde', en: 'Birth region' },
+  },
+  {
+    id: 'kap3',
+    num: '03',
+    navLabel: { sv: 'Fängelse', en: 'Prison' },
+    kicker: { sv: 'Fängelse', en: 'Prison' },
+    nextLabel: { sv: 'Fängelse', en: 'Prison' },
+  },
+  {
+    id: 'kap4',
+    num: '04',
+    navLabel: { sv: 'Våldtäkt', en: 'Rape' },
+    kicker: { sv: 'Våldtäkt', en: 'Rape' },
+    nextLabel: { sv: 'Våldtäkt', en: 'Rape' },
+  },
+  {
+    id: 'kap5',
+    num: '05',
+    navLabel: { sv: 'Äldre studier', en: 'Older studies' },
+    kicker: { sv: 'Brås äldre studier', en: 'Brå’s older studies' },
+    nextLabel: { sv: 'Brås äldre studier', en: 'Brå’s older studies' },
+  },
+  {
+    id: 'metod',
+    num: '',
+    navLabel: { sv: 'Metod', en: 'Method' },
+    kicker: { sv: 'Metod och begrepp', en: 'Method and terms' },
+    nextLabel: { sv: 'Metod', en: 'Method' },
+  },
+  {
+    id: 'om',
+    num: '',
+    navLabel: { sv: 'Om sidan', en: 'About' },
+    kicker: { sv: 'Om sidan', en: 'About this site' },
+    nextLabel: { sv: 'Om sidan', en: 'About this site' },
+  },
 ];
 
 export function chapter(id: string): ChapterInfo {

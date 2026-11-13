@@ -4,6 +4,7 @@ import Base from './Base.astro';
 import ChapterNav from '../components/ChapterNav.astro';
 import Footer from '../components/Footer.astro';
 import { site, absoluteUrl } from '../lib/site';
+import { localePath, tr, type Lang } from '../lib/i18n';
 
 interface Crumb {
   name: string;
@@ -21,10 +22,11 @@ interface Props {
   /** When the page's data last changed (ISO date). */
   updated: string;
   markdownPath?: string;
+  lang: Lang;
 }
 
-const { title, description, path, crumbs, citations = [], jsonLdNodes = [], updated, markdownPath } = Astro.props;
-const trail: Crumb[] = [{ name: site.name, path: '/' }, ...crumbs];
+const { title, description, path, crumbs, citations = [], jsonLdNodes = [], updated, markdownPath, lang } = Astro.props;
+const trail: Crumb[] = [{ name: site.name, path: localePath(lang, '/') }, ...crumbs];
 const breadcrumbLd = {
   '@type': 'BreadcrumbList',
   itemListElement: trail.map((c, i) => ({ '@type': 'ListItem', position: i + 1, name: c.name, item: absoluteUrl(c.path) })),
@@ -39,11 +41,12 @@ const breadcrumbLd = {
   jsonLdNodes={[breadcrumbLd, ...jsonLdNodes]}
   updated={updated}
   markdownPath={markdownPath}
+  lang={lang}
 >
   <div class="wrap">
     <div id="top"></div>
-    <ChapterNav home={false} />
-    <nav aria-label="Du är här" class="crumbs">
+    <ChapterNav home={false} lang={lang} />
+    <nav aria-label={tr(lang, 'Du är här', 'You are here')} class="crumbs">
       <ol>
         {
           trail.map((c, i) =>
@@ -61,7 +64,7 @@ const breadcrumbLd = {
     <main class="data-main">
       <slot />
     </main>
-    <Footer />
+    <Footer lang={lang} path={path} />
   </div>
 </Base>
 

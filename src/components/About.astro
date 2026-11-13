@@ -2,76 +2,152 @@
 // "Om sidan": who runs the site, why it exists, how data is chosen and how
 // errors are handled. The owner is anonymous, so trust rests on the sources.
 import { site, dayMonthYear } from '../lib/site';
+import { tr, type Lang } from '../lib/i18n';
 
-const updatedText = dayMonthYear(site.updated);
+interface Props {
+  lang: Lang;
+}
+const { lang } = Astro.props;
+const updatedText = dayMonthYear(site.updated, lang);
 ---
-
 <section id="om" class="about" aria-labelledby="om-h">
-  <h2 id="om-h">Om sidan</h2>
-
+  <h2 id="om-h">{tr(lang, 'Om sidan', 'About this site')}</h2>
   <div class="block wide">
-    <h3>Varför sidan finns</h3>
-    <p>
-      Svenska myndigheter och forskare tar fram mycket kunskap om brott och om vilka som misstänks, döms och sitter i
-      fängelse. En stor del av den får lite utrymme i nyheterna och i den offentliga debatten. Rapporterna är ofta långa,
-      de viktigaste siffrorna ligger i bilagor och tabeller, och jämförelser med befolkningen saknas eller är svåra att
-      hitta.
-    </p>
-    <p>
-      Brottsfokus samlar en del av den statistiken på ett ställe och visar den så att den går att läsa utan att man
-      behöver gå igenom hela rapporter. Målet är att fler ska kunna se vad underlaget säger, och vad det inte säger,
-      innan de drar slutsatser.
-    </p>
-    <p>
-      Beslut om lagar, resurser och åtgärder blir bättre när de bygger på kunskap om hur det faktiskt ser ut. Det gäller
-      oavsett vilken slutsats man sedan drar. Sidan tar inte ställning i politiska frågor och föreslår inga åtgärder.
-    </p>
+    <h3>{tr(lang, 'Varför sidan finns', 'Why the site exists')}</h3>
+    {
+      lang === 'en' ? (
+        <>
+          <p>
+            Swedish authorities and researchers produce a great deal of knowledge about crime and about who is suspected, convicted
+            and sent to prison. Much of it gets little space in the news and in public debate. The reports are often long, the most
+            important figures are in appendices and tables, and comparisons with the population are missing or hard to find.
+          </p>
+          <p>
+            Brottsfokus gathers some of those statistics in one place and shows it so that it can be read without going through whole
+            reports. The aim is for more people to see what the material says, and what it does not say, before they draw conclusions.
+          </p>
+          <p>
+            Decisions about laws, resources and measures are better when they are based on knowledge of how things really are. That is
+            true whatever conclusion one then draws. The site takes no position on political questions and proposes no measures.
+          </p>
+        </>
+      ) : (
+        <>
+          <p>
+            Svenska myndigheter och forskare tar fram mycket kunskap om brott och om vilka som misstänks, döms och sitter i
+            fängelse. En stor del av den får lite utrymme i nyheterna och i den offentliga debatten. Rapporterna är ofta långa,
+            de viktigaste siffrorna ligger i bilagor och tabeller, och jämförelser med befolkningen saknas eller är svåra att
+            hitta.
+          </p>
+          <p>
+            Brottsfokus samlar en del av den statistiken på ett ställe och visar den så att den går att läsa utan att man
+            behöver gå igenom hela rapporter. Målet är att fler ska kunna se vad underlaget säger, och vad det inte säger,
+            innan de drar slutsatser.
+          </p>
+          <p>
+            Beslut om lagar, resurser och åtgärder blir bättre när de bygger på kunskap om hur det faktiskt ser ut. Det gäller
+            oavsett vilken slutsats man sedan drar. Sidan tar inte ställning i politiska frågor och föreslår inga åtgärder.
+          </p>
+        </>
+      )
+    }
   </div>
-
   <div class="block">
-    <h3>Så väljs och visas uppgifterna</h3>
+    <h3>{tr(lang, 'Så väljs och visas uppgifterna', 'How the figures are chosen and shown')}</h3>
     <ul>
-      <li>Uppgifterna kommer från myndigheter som Brå och SCB och från vetenskapligt granskad forskning.</li>
-      <li>Siffrorna visas så som källan redovisar dem. Sidan gör inga egna uppskattningar.</li>
-      <li>Saknas en uppgift visas en lucka, inte en gissning.</li>
-      <li>Där det går visas en grupps andel bredvid samma grupps andel av befolkningen.</li>
-      <li>Varje diagram har en källa och en ruta, Läs så här, som beskriver vad siffrorna inte visar.</li>
+      {
+        (lang === 'en'
+          ? [
+              'The figures come from authorities such as Brå and SCB, and from peer-reviewed research.',
+              'Figures are shown as the source reports them. The site makes no estimates of its own.',
+              'If a figure is missing, a gap is shown, not a guess.',
+              'Where possible, a group’s share is shown next to its share of the population.',
+              'Every chart has a source and a box, How to read this, that describes what the figures do not show.',
+            ]
+          : [
+              'Uppgifterna kommer från myndigheter som Brå och SCB och från vetenskapligt granskad forskning.',
+              'Siffrorna visas så som källan redovisar dem. Sidan gör inga egna uppskattningar.',
+              'Saknas en uppgift visas en lucka, inte en gissning.',
+              'Där det går visas en grupps andel bredvid samma grupps andel av befolkningen.',
+              'Varje diagram har en källa och en ruta, Läs så här, som beskriver vad siffrorna inte visar.',
+            ]
+        ).map((t) => <li>{t}</li>)
+      }
     </ul>
   </div>
-
   <div class="block">
-    <h3>Vem står bakom sidan</h3>
+    <h3>{tr(lang, 'Vem står bakom sidan', 'Who runs the site')}</h3>
+    {
+      lang === 'en' ? (
+        <>
+          <p>
+            Brottsfokus is run by a private person who has chosen to be anonymous. The site is independent and not linked to any
+            party, organisation or authority. It has no advertising and no outside funding.
+          </p>
+          <p>
+            Because the publisher is anonymous, no one should have to trust a person. Every figure can be checked against the source
+            linked under the chart.
+          </p>
+        </>
+      ) : (
+        <>
+          <p>
+            Brottsfokus drivs av en privatperson som har valt att vara anonym. Sidan är fristående och inte knuten till något
+            parti, någon organisation eller någon myndighet. Den har inga annonser och ingen finansiering utifrån.
+          </p>
+          <p>
+            Eftersom avsändaren är anonym ska ingen behöva lita på en person. Varje siffra går att kontrollera i källan som
+            länkas under diagrammet.
+          </p>
+        </>
+      )
+    }
+  </div>
+  <div class="block">
+    <h3>{tr(lang, 'Fel och rättelser', 'Errors and corrections')}</h3>
     <p>
-      Brottsfokus drivs av en privatperson som har valt att vara anonym. Sidan är fristående och inte knuten till något
-      parti, någon organisation eller någon myndighet. Den har inga annonser och ingen finansiering utifrån.
-    </p>
-    <p>
-      Eftersom avsändaren är anonym ska ingen behöva lita på en person. Varje siffra går att kontrollera i källan som
-      länkas under diagrammet.
+      {
+        tr(
+          lang,
+          'Det går ännu inte att kontakta sidan. Ett formulär för att rapportera fel är på väg. Fel som rättas redovisas här med datum.',
+          'It is not yet possible to contact the site. A form for reporting errors is on its way. Errors that are corrected will be listed here with the date.',
+        )
+      }
     </p>
   </div>
-
   <div class="block">
-    <h3>Fel och rättelser</h3>
-    <p>
-      Det går ännu inte att kontakta sidan. Ett formulär för att rapportera fel är på väg. Fel som rättas redovisas här
-      med datum.
-    </p>
-  </div>
-
-  <div class="block">
-    <h3>Kakor och besöksstatistik</h3>
-    <p>
-      Sidan räknar besök med Vercel Web Analytics. Det registrerar bland annat vilken sida som visas, vilken sida
-      besökaren kom från, land och ort, webbläsare, operativsystem och typ av enhet. Enligt Vercel är uppgifterna anonyma
-      och kopplas inte till en enskild person eller IP-adress. Besökare skiljs åt med ett tillfälligt värde som tas bort
-      efter 24 timmar.
-    </p>
-    <p>
-      Besöksstatistiken använder inga kakor från tredje part, och sidan sätter inga egna kakor. Mer i
-      <a href="https://vercel.com/docs/analytics/privacy-policy">Vercels beskrivning av besöksstatistiken</a>.
-    </p>
-    <p class="updated">Senast uppdaterad {updatedText}.</p>
+    <h3>{tr(lang, 'Kakor och besöksstatistik', 'Cookies and visitor statistics')}</h3>
+    {
+      lang === 'en' ? (
+        <>
+          <p>
+            The site counts visits with Vercel Web Analytics. It records, among other things, which page is shown, which page the
+            visitor came from, country and city, browser, operating system and type of device. According to Vercel, the data is
+            anonymous and is not linked to a single person or IP address. Visitors are told apart by a temporary value that is
+            deleted after 24 hours.
+          </p>
+          <p>
+            The visitor statistics use no third-party cookies, and the site sets no cookies of its own. More in{' '}
+            <a href="https://vercel.com/docs/analytics/privacy-policy">Vercel’s description of its visitor statistics</a>.
+          </p>
+          <p class="updated">Last updated {updatedText}.</p>
+        </>
+      ) : (
+        <>
+          <p>
+            Sidan räknar besök med Vercel Web Analytics. Det registrerar bland annat vilken sida som visas, vilken sida
+            besökaren kom från, land och ort, webbläsare, operativsystem och typ av enhet. Enligt Vercel är uppgifterna anonyma
+            och kopplas inte till en enskild person eller IP-adress. Besökare skiljs åt med ett tillfälligt värde som tas bort
+            efter 24 timmar.
+          </p>
+          <p>
+            Besöksstatistiken använder inga kakor från tredje part, och sidan sätter inga egna kakor. Mer i
+            <a href="https://vercel.com/docs/analytics/privacy-policy">Vercels beskrivning av besöksstatistiken</a>.
+          </p>
+          <p class="updated">Senast uppdaterad {updatedText}.</p>
+        </>
+      )
+    }
   </div>
 </section>
 

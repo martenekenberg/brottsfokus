@@ -3,12 +3,14 @@
 // With `collapsed`, the table is folded away under its title and opens on click.
 // Folded tables are still in the HTML, so search engines and screen readers can read them.
 import { formatCell, type DataTable } from '../../lib/tables';
+import { missingText, type Lang } from '../../lib/i18n';
 
 interface Props {
   table: DataTable;
   collapsed?: boolean;
+  lang: Lang;
 }
-const { table, collapsed = false } = Astro.props;
+const { table, collapsed = false, lang } = Astro.props;
 const captionId = `tabell-${table.id}`;
 const Wrapper = collapsed ? 'details' : 'div';
 const Title = collapsed ? 'summary' : 'p';
@@ -49,11 +51,11 @@ const Title = collapsed ? 'summary' : 'p';
                   return (
                     <td class="number missing">
                       <span aria-hidden="true">–</span>
-                      <span class="visually-hidden">uppgift saknas</span>
+                      <span class="visually-hidden">{missingText(lang)}</span>
                     </td>
                   );
                 }
-                return <td class="number">{formatCell(cell, col.decimals)}</td>;
+                return <td class="number">{formatCell(cell, col.decimals, lang)}</td>;
               })}
             </tr>
           ))

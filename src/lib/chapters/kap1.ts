@@ -3,12 +3,15 @@
 import type { SuspectsRow } from '../data';
 import { ratioToComparison } from '../calc';
 import { fmt, type LineChartSpec, type LineSeries } from '../charts/line';
+import { tr, missingText, type Lang } from '../i18n';
+import { dataLabel } from '../labels';
 
 export type GroupId = 'sv2' | 'sv1' | 'u2' | 'utr' | 'tot';
 export type Mode = 'rate' | 'ratio';
 
 export interface Kap1Crime {
   id: string;
+  /** Swedish name from the data file (the key). Use crimeName() for the shown name. */
   name: string;
   depth: number;
   /** Rate per 1,000 for each group, one value per year. null = no value. */
@@ -21,8 +24,8 @@ export interface Kap1Data {
 }
 
 interface GroupStyle {
-  label: string;
-  endLabel: string;
+  label: Record<Lang, string>;
+  endLabel: Record<Lang, string>;
   color: string;
   textColor: string;
   strokeWidth: number;
@@ -31,36 +34,36 @@ interface GroupStyle {
 
 export const GROUPS: Record<GroupId, GroupStyle> = {
   u2: {
-    label: 'Inrikesfödda med två utrikesfödda föräldrar',
-    endLabel: 'Inrikesfödda, två utrikesfödda föräldrar',
+    label: { sv: 'Inrikesfödda med två utrikesfödda föräldrar', en: 'Born in Sweden, two foreign-born parents' },
+    endLabel: { sv: 'Inrikesfödda, två utrikesfödda föräldrar', en: 'Born in Sweden, two foreign-born parents' },
     color: '#C2410C',
     textColor: '#C2410C',
     strokeWidth: 2.5,
   },
   utr: {
-    label: 'Utrikesfödda',
-    endLabel: 'Utrikesfödda',
+    label: { sv: 'Utrikesfödda', en: 'Born abroad' },
+    endLabel: { sv: 'Utrikesfödda', en: 'Born abroad' },
     color: '#1D4E89',
     textColor: '#1D4E89',
     strokeWidth: 2.5,
   },
   sv1: {
-    label: 'Inrikesfödda med en utrikesfödd förälder',
-    endLabel: 'Inrikesfödda, en utrikesfödd förälder',
+    label: { sv: 'Inrikesfödda med en utrikesfödd förälder', en: 'Born in Sweden, one foreign-born parent' },
+    endLabel: { sv: 'Inrikesfödda, en utrikesfödd förälder', en: 'Born in Sweden, one foreign-born parent' },
     color: '#6B6B6B',
     textColor: '#6B6B6B',
     strokeWidth: 2,
   },
   sv2: {
-    label: 'Inrikesfödda med två inrikesfödda föräldrar',
-    endLabel: 'Inrikesfödda, två inrikesfödda föräldrar',
+    label: { sv: 'Inrikesfödda med två inrikesfödda föräldrar', en: 'Born in Sweden, two Swedish-born parents' },
+    endLabel: { sv: 'Inrikesfödda, två inrikesfödda föräldrar', en: 'Born in Sweden, two Swedish-born parents' },
     color: '#121212',
     textColor: '#121212',
     strokeWidth: 2,
   },
   tot: {
-    label: 'Hela befolkningen, 15 år och äldre',
-    endLabel: 'Hela befolkningen',
+    label: { sv: 'Hela befolkningen, 15 år och äldre', en: 'Whole population, aged 15 and over' },
+    endLabel: { sv: 'Hela befolkningen', en: 'Whole population' },
     color: '#8A8A8A',
     textColor: '#5C5C5C',
     strokeWidth: 2,
@@ -102,27 +105,40 @@ export function crimeById(data: Kap1Data, id: string): Kap1Crime {
   return c;
 }
 
+/** The crime type's name in a language. */
+export function crimeName(crime: Kap1Crime, lang: Lang): string {
+  return dataLabel(crime.name, lang);
+}
+
 /** Lower-case first letter for use mid-sentence, e.g. "brott totalt". */
 function lc(s: string): string {
   return s.charAt(0).toLowerCase() + s.slice(1);
 }
 
-export function chartHeading(crime: Kap1Crime, mode: Mode): string {
+export function chartHeading(crime: Kap1Crime, mode: Mode, lang: Lang): string {
+  const name = lc(crimeName(crime, lang));
   return mode === 'rate'
-    ? `Misstänkta per 1 000 invånare, ${lc(crime.name)}`
-    : `Andel misstänkta jämfört med inrikesfödda med två inrikesfödda föräldrar, ${lc(crime.name)}`;
+    ? tr(lang, `Misstänkta per 1 000 invånare, ${name}`, `Suspects per 1,000 residents, ${name}`)
+    : tr(
+        lang,
+        `Andel misstänkta jämfört med inrikesfödda med två inrikesfödda föräldrar, ${name}`,
+        `Suspects compared with born in Sweden, two Swedish-born parents, ${name}`,
+      );
 }
 
 /** For screen readers: each group's first and last value, e.g. "Utrikesfödda: 40,1 år 2007 och 35,9 år 2018." */
-function firstAndLast(series: LineSeries[], years: number[]): string {
+function firstAndLast(series: LineSeries[], years: number[], lang: Lang): string {
   return series
     .map((s) => {
       const i = s.values.findIndex((v) => v !== null);
-      if (i < 0) return `${s.label}: uppgift saknas.`;
+      if (i < 0) return `${s.label}: ${missingText(lang)}.`;
       let j = s.values.length - 1;
       while (s.values[j] === null) j--;
-      const a = `${fmt(s.values[i] as number, s.format)} år ${years[i]}`;
-      return i === j ? `${s.label}: ${a}.` : `${s.label}: ${a} och ${fmt(s.values[j] as number, s.format)} år ${years[j]}.`;
+      const at = (v: number, y: number) => tr(lang, `${fmt(v, s.format, lang)} år ${y}`, `${fmt(v, s.format, lang)} in ${y}`);
+      const a = at(s.values[i] as number, years[i]);
+      return i === j
+        ? `${s.label}: ${a}.`
+        : `${s.label}: ${a} ${tr(lang, 'och', 'and')} ${at(s.values[j] as number, years[j])}.`;
     })
     .join(' ');
 }
@@ -138,11 +154,12 @@ export function allGroupsFell(data: Kap1Data, crimeId: string): boolean {
   });
 }
 
-export function buildKap1Spec(data: Kap1Data, crimeId: string, mode: Mode): LineChartSpec {
+export function buildKap1Spec(data: Kap1Data, crimeId: string, mode: Mode, lang: Lang): LineChartSpec {
   const crime = crimeById(data, crimeId);
   const { years } = data;
   const first = years[0];
   const last = years[years.length - 1];
+  const name = lc(crimeName(crime, lang));
 
   if (mode === 'rate') {
     let max = 0;
@@ -150,8 +167,8 @@ export function buildKap1Spec(data: Kap1Data, crimeId: string, mode: Mode): Line
     const format = max < 2 ? 'num2' : 'num1';
     const series: LineSeries[] = RATE_ORDER.map((g) => ({
       id: g,
-      label: GROUPS[g].label,
-      endLabel: GROUPS[g].endLabel,
+      label: GROUPS[g].label[lang],
+      endLabel: GROUPS[g].endLabel[lang],
       endLabelShort: '',
       color: GROUPS[g].color,
       textColor: GROUPS[g].textColor,
@@ -162,20 +179,23 @@ export function buildKap1Spec(data: Kap1Data, crimeId: string, mode: Mode): Line
       format,
     }));
     return {
+      lang,
       years,
       series,
       yFormat: format,
-      ariaLabel:
-        `Linjediagram. Misstänkta per 1 000 invånare, ${lc(crime.name)}, ${first} till ${last}, ` +
-        `efter bakgrund och för hela befolkningen. ${firstAndLast(series, years)}`,
+      ariaLabel: tr(
+        lang,
+        `Linjediagram. Misstänkta per 1 000 invånare, ${name}, ${first} till ${last}, efter bakgrund och för hela befolkningen. `,
+        `Line chart. Suspects per 1,000 residents, ${name}, ${first} to ${last}, by background and for the whole population. `,
+      ) + firstAndLast(series, years, lang),
     };
   }
 
   const base = crime.values.sv2;
   const series: LineSeries[] = RATIO_ORDER.map((g) => ({
     id: g,
-    label: GROUPS[g].label,
-    endLabel: GROUPS[g].endLabel,
+    label: GROUPS[g].label[lang],
+    endLabel: GROUPS[g].endLabel[lang],
     endLabelShort: '',
     color: GROUPS[g].color,
     textColor: GROUPS[g].textColor,
@@ -187,8 +207,8 @@ export function buildKap1Spec(data: Kap1Data, crimeId: string, mode: Mode): Line
   // The comparison group, drawn as the dashed black line at 1.
   series.push({
     id: 'sv2-ref',
-    label: `${GROUPS.sv2.label} (jämförelsegrupp)`,
-    endLabel: 'Två inrikesfödda föräldrar',
+    label: tr(lang, `${GROUPS.sv2.label.sv} (jämförelsegrupp)`, `${GROUPS.sv2.label.en} (comparison group)`),
+    endLabel: tr(lang, 'Två inrikesfödda föräldrar', 'Two Swedish-born parents'),
     endLabelShort: '',
     color: '#121212',
     textColor: '#121212',
@@ -199,12 +219,15 @@ export function buildKap1Spec(data: Kap1Data, crimeId: string, mode: Mode): Line
     format: 'x1',
   });
   return {
+    lang,
     years,
     series,
     yFormat: 'x1',
     ariaLabel:
-      `Linjediagram. Hur många gånger vanligare det var att misstänkas för ${lc(crime.name)} än för ` +
-      `inrikesfödda med två inrikesfödda föräldrar, ${first} till ${last}, efter bakgrund. ` +
-      firstAndLast(series.filter((s) => s.id !== 'sv2-ref'), years),
+      tr(
+        lang,
+        `Linjediagram. Hur många gånger vanligare det var att misstänkas för ${name} än för inrikesfödda med två inrikesfödda föräldrar, ${first} till ${last}, efter bakgrund. `,
+        `Line chart. How many times more likely it was to be suspected of ${name} than for born in Sweden with two Swedish-born parents, ${first} to ${last}, by background. `,
+      ) + firstAndLast(series.filter((s) => s.id !== 'sv2-ref'), years, lang),
   };
 }

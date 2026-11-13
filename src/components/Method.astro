@@ -1,29 +1,49 @@
 ---
 import { tablesIndexPath } from '../lib/dataPages';
+import { tr, type Lang } from '../lib/i18n';
 
-const terms = [
+const terms = (lang: Lang) => [
   {
-    title: 'Misstänkt, inte dömd',
-    text: 'De flesta diagram bygger på personer som polis eller åklagare bedömt som skäligen misstänkta. Det är inte samma sak som en fällande dom.',
+    title: tr(lang, 'Misstänkt, inte dömd', 'Suspected, not convicted'),
+    text: tr(
+      lang,
+      'De flesta diagram bygger på personer som polis eller åklagare bedömt som skäligen misstänkta. Det är inte samma sak som en fällande dom.',
+      'Most charts are based on people whom the police or a prosecutor have judged to be reasonably suspected of a crime. This is not the same as a conviction.',
+    ),
   },
   {
-    title: 'Bakgrund',
-    text: 'Utrikesfödd är född utomlands. Inrikesfödda delas in efter om ingen, en eller båda föräldrarna är födda utomlands.',
+    title: tr(lang, 'Bakgrund', 'Background'),
+    text: tr(
+      lang,
+      'Utrikesfödd är född utomlands. Inrikesfödda delas in efter om ingen, en eller båda föräldrarna är födda utomlands.',
+      'Born abroad means born outside Sweden. People born in Sweden are grouped by whether none, one or both of their parents were born abroad.',
+    ),
   },
   {
-    title: 'Medborgarskap',
-    text: 'Kriminalvårdens statistik redovisar bara svenskt eller utländskt medborgarskap, inte födelseland eller vilket land.',
+    title: tr(lang, 'Medborgarskap', 'Citizenship'),
+    text: tr(
+      lang,
+      'Kriminalvårdens statistik redovisar bara svenskt eller utländskt medborgarskap, inte födelseland eller vilket land.',
+      'The prison service statistics show only Swedish or foreign citizenship, not country of birth or which country.',
+    ),
   },
   {
-    title: 'Överrisk',
-    text: 'Hur många gånger vanligare det är att misstänkas i en grupp än bland inrikesfödda med två inrikesfödda föräldrar. En överrisk på 2,0 betyder dubbelt så vanligt.',
+    title: tr(lang, 'Överrisk', 'Excess risk'),
+    text: tr(
+      lang,
+      'Hur många gånger vanligare det är att misstänkas i en grupp än bland inrikesfödda med två inrikesfödda föräldrar. En överrisk på 2,0 betyder dubbelt så vanligt.',
+      'How many times more likely it is to be suspected in a group than among people born in Sweden with two Swedish-born parents. An excess risk of 2.0 means twice as likely.',
+    ),
   },
   {
-    title: 'Jämförelse med befolkningen',
-    text: 'Där det går visas gruppens andel bredvid dess andel av befolkningen enligt SCB eller Brås egna befolkningsuppgifter.',
+    title: tr(lang, 'Jämförelse med befolkningen', 'Comparison with the population'),
+    text: tr(
+      lang,
+      'Där det går visas gruppens andel bredvid dess andel av befolkningen enligt SCB eller Brås egna befolkningsuppgifter.',
+      'Where possible, a group’s share is shown next to its share of the population, according to SCB or Brå’s own population figures.',
+    ),
   },
 ];
-
 const sources = [
   {
     label: 'Brå rapport 2021:9, Misstänkta för brott bland personer med inrikes respektive utrikes bakgrund',
@@ -54,15 +74,15 @@ const sources = [
 interface Props {
   /** Extra sources, e.g. Brå's yearly prison reports, read from the data files. */
   extraSources?: { label: string; url: string }[];
+  lang: Lang;
 }
-const { extraSources = [] } = Astro.props;
+const { extraSources = [], lang } = Astro.props;
 const allSources = [...sources, ...extraSources];
 ---
-
 <section id="metod" class="method" aria-labelledby="metod-h">
-  <h2 id="metod-h">Metod och begrepp</h2>
+  <h2 id="metod-h">{tr(lang, 'Metod och begrepp', 'Method and terms')}</h2>
   {
-    terms.map((t) => (
+    terms(lang).map((t) => (
       <div class="term">
         <h3>{t.title}</h3>
         <p>{t.text}</p>
@@ -70,8 +90,11 @@ const allSources = [...sources, ...extraSources];
     ))
   }
   <div class="sources">
-    <h3>Källor</h3>
-    <p>Siffror i tabellform och som CSV-filer finns under <a href={tablesIndexPath}>Tabeller</a>.</p>
+    <h3>{tr(lang, 'Källor', 'Sources')}</h3>
+    <p>
+      {tr(lang, 'Siffror i tabellform och som CSV-filer finns under ', 'Figures as tables and CSV files are under ')}
+      <a href={tablesIndexPath(lang)}>{tr(lang, 'Tabeller', 'Tables')}</a>.
+    </p>
     <ul>
       {
         allSources.map((s) => (

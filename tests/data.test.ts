@@ -30,7 +30,7 @@ const kap1 = buildKap1Data(suspects);
 test('chapter 1: a missing value stays a gap in both views', () => {
   for (const crime of kap1.crimes) {
     for (const mode of ['rate', 'ratio'] as const) {
-      const spec = buildKap1Spec(kap1, crime.id, mode);
+      const spec = buildKap1Spec(kap1, crime.id, mode, 'sv');
       for (const s of spec.series) {
         assert.equal(s.values.length, kap1.years.length);
         for (const v of s.values) assert.ok(v === null || Number.isFinite(v), `${crime.name} ${mode} ${s.id}`);
@@ -39,7 +39,7 @@ test('chapter 1: a missing value stays a gap in both views', () => {
   }
   const gap = kap1.crimes.find((c) => c.values.sv2.includes(null));
   assert.ok(gap, 'expected at least one crime type with missing years');
-  const ratio = buildKap1Spec(kap1, gap.id, 'ratio');
+  const ratio = buildKap1Spec(kap1, gap.id, 'ratio', 'sv');
   const i = gap.values.sv2.indexOf(null);
   for (const s of ratio.series) assert.equal(s.values[i], null);
 });
@@ -50,7 +50,7 @@ test('chapter 2: rows are sorted by the value shown, and shares are complete or 
   for (const view of ['region', 'land', 'moder'] as View[]) {
     for (const crime of kap2[view]) {
       for (const measure of ['risk', 'rate', 'share'] as Measure[]) {
-        const spec = buildKap2Spec(kap2, view, crime.name, measure);
+        const spec = buildKap2Spec(kap2, view, crime.name, measure, 'sv');
         if (measure === 'share' && hasShares(crime)) {
           for (const r of spec.rows) assert.ok(r.secondary !== null && Number.isFinite(r.primary));
           continue;
@@ -65,11 +65,11 @@ test('chapter 2: rows are sorted by the value shown, and shares are complete or 
 });
 
 test('chapters 4 and 5 build', () => {
-  const kap4 = buildKap4(loadRapeStudies(), loadPopulation());
+  const kap4 = buildKap4(loadRapeStudies(), loadPopulation(), 'sv');
   assert.equal(kap4.main.groups[0].bars[0].value, 63.1);
   assert.equal(kap4.main.groups[0].bars[1].value, 30.5);
   assert.deepEqual(kap4.main.groups.map((g) => g.bars.map((b) => b.value)), [[63.1, 30.5], [50.6, 18], [6.4, 4.8], [6.1, 7.7]]);
   assert.equal(kap4.population2015.groups[0].bars[1].value, 13.9);
   assert.equal(kap4.menPct, 99.7);
-  assert.ok(buildKap5(loadBra2005()).foreignBornRiskRose);
+  assert.ok(buildKap5(loadBra2005(), 'sv').foreignBornRiskRose);
 });
