@@ -16,6 +16,8 @@ import OlderStudies from '../components/kap5/OlderStudies.astro';
 import { buildKap5 } from '../lib/chapters/kap5';
 import Method from '../components/Method.astro';
 import Footer from '../components/Footer.astro';
+import About from '../components/About.astro';
+import { site, monthYear } from '../lib/site';
 
 import { loadOrigin, loadPopulation, loadPrison, loadRapeStudies, loadSuspectsByBackground, loadBra2005, loadTableB6 } from '../lib/data';
 import { foreignCitizenSharePct, prisonSeries } from '../lib/calc';
@@ -167,11 +169,11 @@ const keyFigures = [
 ---
 
 <Base
-  title="Brott och bakgrund"
-  description="Officiell statistik och forskning om misstänkta, dömda och intagna i Sverige efter födelseland, föräldrarnas födelseland och medborgarskap, jämfört med befolkningen."
+  title={site.title}
+  description={site.description}
 >
   <div class="wrap">
-    <Masthead updated="november 2026" sources="Brå, SCB, Lunds universitet" />
+    <Masthead updated={monthYear(site.updated)} sources="Brå, SCB, Lunds universitet" />
     <ChapterNav />
     <KeyFigures figures={keyFigures} />
 
@@ -286,6 +288,7 @@ const keyFigures = [
       </Chapter>
 
       <Method extraSources={prisonSources} />
+      <About />
     </main>
 
     <Footer />

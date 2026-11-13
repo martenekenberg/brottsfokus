@@ -1,10 +1,10 @@
-# CLAUDE.md: Brott och bakgrund
+# CLAUDE.md: Brottsfokus
 
 Instructions for Claude Code. Read this whole file before writing any code.
 
 ## What we are building
 
-A public, static website in Swedish called **Brott och bakgrund**. It presents official Swedish statistics and research on crime and background (country of birth, parents' country of birth, citizenship) in the style of a quality newspaper's data journalism: minimal, light theme only, factual and neutral.
+A public, static website in Swedish called **Brottsfokus** (formerly "Brott och bakgrund"), at https://brottsfokus.xyz/. It presents official Swedish statistics and research on crime and background (country of birth, parents' country of birth, citizenship) in the style of a quality newspaper's data journalism: minimal, light theme only, factual and neutral.
 
 Core principles, in priority order:
 
@@ -35,6 +35,8 @@ The `.dc.html` files are design mockups in a canvas format. Open them as plain H
 - Fonts from Google Fonts: Newsreader and Inter. Self-hosting via `@fontsource` is fine.
 - Deploy: GitHub repo + Vercel, static build. Ask before creating the repo or connecting Vercel.
 - No tracking, cookies or analytics unless I ask.
+- The owner is anonymous. Never put the owner's name, email address or GitHub account on the site or in its metadata. Keep the repo private and do not link to it.
+- Site name, URL, title, description and last update date live in `src/lib/site.ts`. Change `updated` there when content changes; the masthead, sitemap and structured data read it.
 
 ## First steps
 
@@ -99,8 +101,8 @@ Visual grammar, used the same way in every chart:
 
 One long page with anchored chapters, matching `design/Main.dc.html`:
 
-1. **Masthead**: kicker "Statistik i fokus", date and sources line, h1 "Brott och bakgrund", intro paragraph.
-2. **Chapter nav**: thick top rule, thin bottom rule, links `01 Över tid`, `02 Födelseområde`, `03 Fängelse`, `04 Våldtäkt`, `05 Äldre studier`, `Metod`. Wraps on desktop, one horizontally scrollable row on mobile. Sticky at the top while scrolling; once the big headline has scrolled away, a small site title slides in at the start of the bar (changed at the owner's request). Touch targets at least 44px.
+1. **Masthead**: kicker "Offentlig statistik och forskning", date and sources line, h1 "Brottsfokus", intro paragraph.
+2. **Chapter nav**: thick top rule, thin bottom rule, links `01 Över tid`, `02 Födelseområde`, `03 Fängelse`, `04 Våldtäkt`, `05 Äldre studier`, `Metod`, `Om sidan`. Wraps on desktop, one horizontally scrollable row on mobile. Sticky at the top while scrolling; once the big headline has scrolled away, a small site title slides in at the start of the bar (changed at the owner's request). Touch targets at least 44px.
 3. **Key figures**: three figures in a grid (2,5×, 3×, 22 %), each with a one-line explanation and its source. Copy is in the mockup.
 4. **Chapters 1–5**, each with the same pattern:
    - kicker (`01 · Misstänkta över tid`)
@@ -112,7 +114,8 @@ One long page with anchored chapters, matching `design/Main.dc.html`:
    - source line
    - "Nästa: …" link to the next chapter
 5. **Metod och begrepp**: short definitions in a grid.
-6. **Footer**: site name, "Till början ↑".
+6. **Om sidan**: why the site exists, how data is chosen, who runs it (an anonymous private person), errors and corrections, no cookies or tracking.
+7. **Footer**: site name, "Till början ↑".
 
 ## Chapters
 

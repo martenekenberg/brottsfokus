@@ -1,4 +1,4 @@
-# Brott och bakgrund – handoff for Claude Code
+# Brottsfokus (formerly Brott och bakgrund): handoff for Claude Code
 
 Goal: a static, minimal, newspaper-style site (Swedish) presenting official statistics on crime and background in Sweden, neutral in tone, every number with its source. No dark mode.
 
