@@ -1,0 +1,158 @@
+---
+// Chapter 2 chart with its controls: view (region / country / mother's region),
+// crime type and measure. Without JavaScript the default view is shown and the controls stay hidden.
+import DotChart from '../charts/DotChart.astro';
+import { buildKap2Spec, chartHeading, crimeFor, VIEW_LABEL, type Kap2Data, type View } from '../../lib/chapters/kap2';
+
+interface Props {
+  data: Kap2Data;
+}
+
+const { data } = Astro.props;
+const defaultView: View = 'region';
+const defaultCrime = 'Brott totalt';
+const spec = buildKap2Spec(data, defaultView, defaultCrime, 'risk');
+const heading = chartHeading(defaultView, crimeFor(data, defaultView, defaultCrime), 'risk');
+const indent = (depth: number) => '  '.repeat(depth);
+const views: View[] = ['region', 'land', 'moder'];
+---
+
+<div class="chart-block" data-kap2>
+  <div class="controls" data-controls hidden>
+    <div class="control-group">
+      <span class="control-label" id="kap2-view-label">Gruppera efter</span>
+      <div class="toggle" role="group" aria-labelledby="kap2-view-label">
+        {
+          views.map((v) => (
+            <button type="button" data-view={v} aria-pressed={String(v === defaultView)}>
+              {VIEW_LABEL[v]}
+            </button>
+          ))
+        }
+      </div>
+    </div>
+    <label class="crime">
+      <span class="control-label">Brottstyp</span>
+      <select data-crime>
+        {
+          data[defaultView].map((c) => (
+            <option value={c.name} selected={c.name === defaultCrime}>
+              {indent(c.depth)}
+              {c.name}
+            </option>
+          ))
+        }
+      </select>
+    </label>
+    <div class="control-group">
+      <span class="control-label" id="kap2-measure-label">Visa som</span>
+      <div class="toggle" role="group" aria-labelledby="kap2-measure-label">
+        <button type="button" data-measure="risk" aria-pressed="true">Gånger vanligare</button>
+        <button type="button" data-measure="rate" aria-pressed="false">Per 1 000</button>
+      </div>
+    </div>
+  </div>
+  <p class="control-note" data-note hidden></p>
+
+  <ul class="legend-list" aria-label="Förklaring">
+    <li data-legend="primary">
+      <span class="mark dot" style="background:#1D4E89" aria-hidden="true"></span>
+      <span data-legend-text>Ojusterat</span>
+    </li>
+    <li data-legend="secondary">
+      <span class="mark dot" style="background:#C2410C" aria-hidden="true"></span>
+      Justerat för ålder, kön, disponibel inkomst och utbildning
+    </li>
+    <li>
+      <span class="mark dash" style="border-color:#121212" aria-hidden="true"></span>
+      <span data-legend-ref>Inrikesfödda med två inrikesfödda föräldrar = 1</span>
+    </li>
+  </ul>
+
+  <p class="chart-heading" data-heading aria-live="polite">{heading}</p>
+  <DotChart spec={spec} />
+  <script type="application/json" data-kap2-data set:html={JSON.stringify(data)} />
+</div>
+
+<script>
+  import {
+    buildKap2Spec,
+    chartHeading,
+    crimeFor,
+    hasAdjusted,
+    type Kap2Data,
+    type Measure,
+    type View,
+  } from '../../lib/chapters/kap2';
+  import { dotFmt } from '../../lib/charts/dot';
+
+  document.querySelectorAll<HTMLElement>('[data-kap2]').forEach((root) => {
+    const data = JSON.parse(root.querySelector('[data-kap2-data]')?.textContent ?? '{}') as Kap2Data;
+    const controls = root.querySelector<HTMLElement>('[data-controls]');
+    const select = root.querySelector<HTMLSelectElement>('[data-crime]');
+    const heading = root.querySelector<HTMLElement>('[data-heading]');
+    const note = root.querySelector<HTMLElement>('[data-note]');
+    const figure = root.querySelector<HTMLElement>('[data-dot-chart]');
+    const viewButtons = [...root.querySelectorAll<HTMLButtonElement>('[data-view]')];
+    const measureButtons = [...root.querySelectorAll<HTMLButtonElement>('[data-measure]')];
+    const legendPrimary = root.querySelector<HTMLElement>('[data-legend-text]');
+    const legendSecondary = root.querySelector<HTMLElement>('[data-legend="secondary"]');
+    const legendRef = root.querySelector<HTMLElement>('[data-legend-ref]');
+    if (!controls || !select || !heading || !note || !figure || !legendPrimary || !legendSecondary || !legendRef) return;
+
+    controls.hidden = false;
+    let view: View = 'region';
+    let measure: Measure = 'risk';
+
+    const fillCrimes = (keep: string) => {
+      const crimes = data[view];
+      select.innerHTML = '';
+      for (const c of crimes) {
+        const o = document.createElement('option');
+        o.value = c.name;
+        o.textContent = '  '.repeat(c.depth) + c.name;
+        select.append(o);
+      }
+      select.value = crimes.some((c) => c.name === keep) ? keep : crimes[0].name;
+      select.disabled = crimes.length < 2;
+    };
+
+    const update = () => {
+      const crime = crimeFor(data, view, select.value);
+      viewButtons.forEach((b) => b.setAttribute('aria-pressed', String(b.dataset.view === view)));
+      measureButtons.forEach((b) => b.setAttribute('aria-pressed', String(b.dataset.measure === measure)));
+      heading.textContent = chartHeading(view, crime, measure);
+
+      const notes: string[] = [];
+      if (view === 'land') notes.push('Per födelseland redovisar Brå bara brott totalt.');
+      if (view === 'moder') notes.push('Per moderns födelseområde redovisar Brå åtta brottstyper och inga justerade värden.');
+      note.textContent = notes.join(' ');
+      note.hidden = notes.length === 0;
+
+      const adjusted = measure === 'risk' && hasAdjusted(crime);
+      legendSecondary.hidden = !adjusted;
+      legendPrimary.textContent = measure === 'risk' ? 'Ojusterat' : 'Misstänkta per 1 000';
+      legendRef.textContent =
+        measure === 'risk'
+          ? 'Inrikesfödda med två inrikesfödda föräldrar = 1'
+          : `Inrikesfödda med två inrikesfödda föräldrar: ${dotFmt(crime.refPer1000, 'num1')}`;
+
+      figure.dispatchEvent(new CustomEvent('chart:update', { detail: buildKap2Spec(data, view, crime.name, measure) }));
+    };
+
+    viewButtons.forEach((b) =>
+      b.addEventListener('click', () => {
+        view = b.dataset.view as View;
+        fillCrimes(select.value);
+        update();
+      }),
+    );
+    measureButtons.forEach((b) =>
+      b.addEventListener('click', () => {
+        measure = b.dataset.measure as Measure;
+        update();
+      }),
+    );
+    select.addEventListener('change', update);
+  });
+</script>

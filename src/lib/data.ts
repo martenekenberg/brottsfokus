@@ -99,3 +99,37 @@ export function loadSuspectsByBackground(): SuspectsRow[] {
     per1000: num(r.per1000),
   }));
 }
+
+// ---------- misstankta_ursprung_2015_2018.csv (chapter 2) ----------
+
+export interface OriginRow {
+  /** region = birth region, land = birth country, moder = Swedish-born with two
+   *  foreign-born parents, by the mother's birth region. */
+  view: 'region' | 'land' | 'moder';
+  unitId: string;
+  unit: string;
+  region: string;
+  crime: string;
+  crimeOrder: number;
+  /** Size of the group (country view only). */
+  n: number | null;
+  per1000: number;
+  risk: number;
+  /** Risk standardised for age, sex, disposable income and education (not in the moder view). */
+  riskAdj: number | null;
+}
+
+export function loadOrigin(): OriginRow[] {
+  return readCsv('misstankta_ursprung_2015_2018.csv').map((r) => ({
+    view: r.view as OriginRow['view'],
+    unitId: r.unit_id,
+    unit: r.unit,
+    region: r.region,
+    crime: r.crime,
+    crimeOrder: required(r.crime_order, 'crime_order'),
+    n: num(r.n),
+    per1000: required(r.per1000, 'per1000'),
+    risk: required(r.risk, 'risk'),
+    riskAdj: num(r.risk_adj),
+  }));
+}

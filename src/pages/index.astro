@@ -9,10 +9,12 @@ import LineChart from '../components/charts/LineChart.astro';
 import ChartPlaceholder from '../components/ChartPlaceholder.astro';
 import SuspectsOverTime from '../components/kap1/SuspectsOverTime.astro';
 import { buildKap1Data } from '../lib/chapters/kap1';
+import OriginDots from '../components/kap2/OriginDots.astro';
+import { buildKap2Data } from '../lib/chapters/kap2';
 import Method from '../components/Method.astro';
 import Footer from '../components/Footer.astro';
 
-import { loadPopulation, loadPrison, loadSuspectsByBackground } from '../lib/data';
+import { loadOrigin, loadPopulation, loadPrison, loadSuspectsByBackground } from '../lib/data';
 import { foreignCitizenSharePct, prisonSeries, rateRatioVsSv2 } from '../lib/calc';
 import { formatNumber } from '../lib/format';
 import type { LineChartSpec } from '../lib/charts/line';
@@ -124,6 +126,9 @@ const shortReportName = (label: string) => label.replace(/^Brå /, '');
 // ---------- Key figures ----------
 const suspects = loadSuspectsByBackground();
 const kap1Data = buildKap1Data(suspects);
+// Chapter 2 uses the same crime list, so its menu is indented the same way.
+const depthByOrder = new Map(suspects.map((r) => [r.crimeOrder, r.depth]));
+const kap2Data = buildKap2Data(loadOrigin(), depthByOrder);
 const keyYear = 2018;
 const ratioUtr = rateRatioVsSv2(suspects, keyYear, 'c00', 'utr');
 const ratioU2 = rateRatioVsSv2(suspects, keyYear, 'c00', 'u2');
@@ -178,10 +183,28 @@ const keyFigures = [
         </Fragment>
       </Chapter>
 
-      <Chapter id="kap2" title="Födelseområde">
-        <p slot="intro">Misstänkta efter födelseområde och födelseland, 2015–2018.</p>
-        <ChartPlaceholder />
-        <Fragment slot="source">Källa: Brå rapport 2021:9, bilaga 1.</Fragment>
+      <Chapter
+        id="kap2"
+        title="Överrisken var störst bland födda i Afrika och Centralasien och nära 1 bland födda i Norden, Västeuropa och Östasien"
+      >
+        <p slot="intro">
+          Hur många gånger vanligare det var att misstänkas för brott någon gång 2015–2018 än för inrikesfödda med två
+          inrikesfödda föräldrar. Utrikesfödda efter födelseområde eller födelseland, och inrikesfödda med två
+          utrikesfödda föräldrar efter moderns födelseområde.
+        </p>
+        <OriginDots data={kap2Data} />
+        <Fragment slot="note">
+          En överrisk på 2,0 betyder att det var dubbelt så vanligt att misstänkas som i jämförelsegruppen. Blå punkt är
+          ojusterat. Orange punkt är Brås beräkning av hur det hade sett ut om gruppen haft samma fördelning av ålder,
+          kön, disponibel inkomst och utbildning som jämförelsegruppen. Det är ett tänkt utfall, inte en faktisk andel.
+          Här räknas alla som misstänktes minst en gång under fyra år, så talen per 1 000 är högre än i kapitel 1, som
+          visar ett år i taget. Misstänkt är inte detsamma som dömd. Vissa grupper är små: det minsta födelselandet har
+          under 5 000 personer. Rubriken gäller brott totalt efter födelseområde.
+        </Fragment>
+        <Fragment slot="source">
+          Källa: <a href="https://bra.se/rapporter/arkiv/2021-08-25-misstankta-for-brott-bland-personer-med-inrikes-respektive-utrikes-bakgrund">Brå rapport 2021:9</a>,
+          tabellbilaga 1. Folkbokförda 15 år och äldre den 31 december 2014, misstänkta för brott begångna 2015–2018.
+        </Fragment>
       </Chapter>
 
       <Chapter id="kap3" title="Andelen utan svenskt medborgarskap bland nyintagna har minskat sedan 2015">
