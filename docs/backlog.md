@@ -14,5 +14,5 @@ Items from the SEO audit (November 2026) that are not done yet.
 ## Later, once there is search data
 
 - Give each chapter its own URL, keeping the one-page overview.
-- Markdown copies of the content, `/sitemap.md` and `/llms.txt`, generated at build time from the same data.
+- A Markdown copy of the main page. The table pages and `/llms.txt` have them already.
 - Links from relevant places (data journalists, researchers, newsletters).

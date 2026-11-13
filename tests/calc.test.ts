@@ -101,3 +101,18 @@ test('tablesToCsv joins tables by key and keeps gaps empty', () => {
 test('longCsv quotes text with commas and keeps empty cells', () => {
   assert.equal(longCsv(['a', 'b'], [['USA, Kanada', ''], ['x', '1.50']]), 'a,b\n"USA, Kanada",\nx,1.50\n');
 });
+
+import { tableToMarkdown } from '../src/lib/markdown';
+
+test('tableToMarkdown formats numbers the Swedish way and marks gaps', () => {
+  const t: DataTable = {
+    id: 't', caption: '', rowLabel: 'Grupp', rowCsv: 'grupp',
+    columns: [
+      { kind: 'number', label: 'Antal', csv: 'n', decimals: 0 },
+      { kind: 'number', label: 'Andel', csv: 'p', decimals: 1 },
+      { kind: 'text', label: 'Område', csv: 'o' },
+    ],
+    rows: [{ key: 'A | B', cells: [12754, null, 'Norden'] }],
+  };
+  assert.equal(tableToMarkdown(t), '| Grupp | Antal | Andel | Område |\n| --- | ---: | ---: | --- |\n| A \\| B | 12 754 | – | Norden |');
+});

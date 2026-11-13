@@ -36,7 +36,8 @@ The `.dc.html` files are design mockups in a canvas format. Open them as plain H
 - Deploy: GitHub repo + Vercel, static build. Ask before creating the repo or connecting Vercel.
 - No tracking, cookies or analytics unless I ask.
 - The owner is anonymous. Never put the owner's name, email address or GitHub account on the site or in its metadata. Keep the repo private and do not link to it.
-- Site name, URL, title, description and last update date live in `src/lib/site.ts`. `updated` is the build date; the masthead, sitemap, structured data and Om sidan read it.
+- Site name, URL, title, description and last update date live in `src/lib/site.ts`. `updated` is the build date; the main page's masthead, structured data, sitemap entry and Om sidan read it.
+- The table pages and `/data/` use the date their data last changed instead (`src/lib/dataDates.json`, written by `npm run datadates`), so a deploy without data changes does not mark them as changed. The build stops if a data file changed since its date was recorded.
 
 ## First steps
 
@@ -119,7 +120,7 @@ One long page with anchored chapters, matching `design/Main.dc.html`:
 
 ### Table pages
 
-Each chapter links to a page under `/data/` with its numbers as HTML tables and a CSV file (added at the owner's request, for readers, accessibility and search). `/data/` lists them. Each page has: kicker, factual headline, summary with the key numbers and source, "Läs så här" above the tables, tables, CSV download, terms of use (CC BY 4.0, set in `src/lib/site.ts`), sources, link back to the chart, links to the other table pages, and Dataset markup. Build the tables with the same calculation code as the charts. `npm run sifferkontroll` lists every table value in `docs/sifferkontroll_tabeller.csv`.
+Each chapter links to a page under `/data/` with its numbers as HTML tables and a CSV file (added at the owner's request, for readers, accessibility and search). `/data/` lists them. Each page has: kicker, factual headline, summary with the key numbers and source, "Läs så här" above the tables, tables, CSV download, terms of use (CC BY 4.0, set in `src/lib/site.ts`), sources, link back to the chart, links to the other table pages, and Dataset markup. Build the tables with the same calculation code as the charts. `npm run sifferkontroll` lists every table value in `docs/sifferkontroll_tabeller.csv`. Each page's text and tables are defined once in `src/lib/tablePageContent.ts`; the HTML page, the CSV file and a Markdown copy (`/data/<slug>.md`) are generated from it. `/llms.txt` lists the Markdown copies with each page's summary and the main caveats.
 
 ## Chapters
 
@@ -166,4 +167,5 @@ A "Källor" list with all links goes in the Metod section.
 - No em dashes in site copy. Use commas, colons or full stops.
 - Don't add new data sources, chapters or claims without asking me first.
 - Keep the build passing and commit in small steps with clear messages.
+- After changing a file in `data/`, run `npm run datadates` and `npm run sifferkontroll`, and commit the results.
 - When a decision isn't covered here, pick the simplest option that fits the design and tell me what you chose.
