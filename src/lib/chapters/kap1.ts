@@ -2,7 +2,7 @@
 // Shared by the build (default view) and the browser (crime type and view controls).
 import type { SuspectsRow } from '../data';
 import { ratioToComparison } from '../calc';
-import type { LineChartSpec, LineSeries } from '../charts/line';
+import { fmt, type LineChartSpec, type LineSeries } from '../charts/line';
 
 export type GroupId = 'sv2' | 'sv1' | 'u2' | 'utr' | 'tot';
 export type Mode = 'rate' | 'ratio';
@@ -113,6 +113,31 @@ export function chartHeading(crime: Kap1Crime, mode: Mode): string {
     : `Andel misstänkta jämfört med inrikesfödda med två inrikesfödda föräldrar, ${lc(crime.name)}`;
 }
 
+/** For screen readers: each group's first and last value, e.g. "Utrikesfödda: 40,1 år 2007 och 35,9 år 2018." */
+function firstAndLast(series: LineSeries[], years: number[]): string {
+  return series
+    .map((s) => {
+      const i = s.values.findIndex((v) => v !== null);
+      if (i < 0) return `${s.label}: uppgift saknas.`;
+      let j = s.values.length - 1;
+      while (s.values[j] === null) j--;
+      const a = `${fmt(s.values[i] as number, s.format)} år ${years[i]}`;
+      return i === j ? `${s.label}: ${a}.` : `${s.label}: ${a} och ${fmt(s.values[j] as number, s.format)} år ${years[j]}.`;
+    })
+    .join(' ');
+}
+
+/** True if every background group had a lower rate in the last year than in the first (used to check the headline). */
+export function allGroupsFell(data: Kap1Data, crimeId: string): boolean {
+  const crime = crimeById(data, crimeId);
+  return (['sv2', 'sv1', 'u2', 'utr'] as GroupId[]).every((g) => {
+    const v = crime.values[g];
+    const a = v[0];
+    const b = v[v.length - 1];
+    return a !== null && b !== null && b < a;
+  });
+}
+
 export function buildKap1Spec(data: Kap1Data, crimeId: string, mode: Mode): LineChartSpec {
   const crime = crimeById(data, crimeId);
   const { years } = data;
@@ -142,7 +167,7 @@ export function buildKap1Spec(data: Kap1Data, crimeId: string, mode: Mode): Line
       yFormat: format,
       ariaLabel:
         `Linjediagram. Misstänkta per 1 000 invånare, ${lc(crime.name)}, ${first} till ${last}, ` +
-        'efter bakgrund och för hela befolkningen. Värdena visas i slutet av varje linje.',
+        `efter bakgrund och för hela befolkningen. ${firstAndLast(series, years)}`,
     };
   }
 
@@ -179,6 +204,7 @@ export function buildKap1Spec(data: Kap1Data, crimeId: string, mode: Mode): Line
     yFormat: 'x1',
     ariaLabel:
       `Linjediagram. Hur många gånger vanligare det var att misstänkas för ${lc(crime.name)} än för ` +
-      `inrikesfödda med två inrikesfödda föräldrar, ${first} till ${last}, efter bakgrund.`,
+      `inrikesfödda med två inrikesfödda föräldrar, ${first} till ${last}, efter bakgrund. ` +
+      firstAndLast(series.filter((s) => s.id !== 'sv2-ref'), years),
   };
 }

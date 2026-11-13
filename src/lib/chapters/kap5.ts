@@ -17,6 +17,8 @@ export interface Kap5 {
   /** Standardised excess risk 1997–2001, reported separately for one and two foreign-born parents. */
   standOneParent: number;
   standTwoParents: number;
+  /** True if the excess risk for foreign-born was higher 1997–2001 than 1985–89 (used to check the headline). */
+  foreignBornRiskRose: boolean;
 }
 
 export function buildKap5(rows: Bra2005Row[]): Kap5 {
@@ -109,5 +111,6 @@ export function buildKap5(rows: Bra2005Row[]): Kap5 {
     crimes,
     standOneParent: value(rows, 'overrisk', 'sv1', 'stand'),
     standTwoParents: value(rows, 'overrisk', 'u2', 'stand'),
+    foreignBornRiskRose: utr9701 > utr8589,
   };
 }

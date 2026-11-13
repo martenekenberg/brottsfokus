@@ -1,7 +1,7 @@
 // Chapter 2: suspects by birth region, birth country and mother's birth region,
 // 2015–2018 (Brå 2021:9, appendix 1). Shared by the build and the browser.
 import type { B6Row, OriginRow } from '../data';
-import type { DotChartSpec, DotRow } from '../charts/dot';
+import { dotFmt, type DotChartSpec, type DotRow } from '../charts/dot';
 import { formatNumber } from '../format';
 
 export type View = 'region' | 'land' | 'moder';
@@ -125,8 +125,18 @@ function lc(s: string): string {
   return s.charAt(0).toLowerCase() + s.slice(1);
 }
 
+/** True only when every group has both shares, so a missing value is never drawn as 0. */
 export function hasShares(crime: Kap2Crime): boolean {
-  return crime.units.some((u) => u.suspectsPct !== null);
+  return crime.units.length > 0 && crime.units.every((u) => u.suspectsPct !== null && u.populationPct !== null);
+}
+
+/** Number of people in the smallest group of a view (brott totalt). Null if the file gives no sizes. */
+export function smallestGroup(data: Kap2Data, view: View): { label: string; n: number } | null {
+  let best: { label: string; n: number } | null = null;
+  for (const u of crimeFor(data, view, TOTAL).units) {
+    if (u.n !== null && (best === null || u.n < best.n)) best = { label: u.label, n: u.n };
+  }
+  return best;
 }
 
 export function hasAdjusted(crime: Kap2Crime): boolean {
@@ -160,15 +170,18 @@ function detail(view: View, u: Kap2Unit): string | undefined {
 
 export function buildKap2Spec(data: Kap2Data, view: View, crimeName: string, measure: Measure): DotChartSpec {
   const crime = crimeFor(data, view, crimeName);
-  // Highest first. Risk and rate give the same order, since risk = rate / comparison rate.
-  const units = [...crime.units].sort((a, b) => b.risk - a.risk);
+  // Highest first, by the value that is shown. (Risk and rate can differ in order by a
+  // hair, because Brå rounds both.) The share view keeps the risk order.
+  const units = [...crime.units].sort((a, b) =>
+    measure === 'rate' ? b.per1000 - a.per1000 || b.risk - a.risk : b.risk - a.risk || b.per1000 - a.per1000,
+  );
   const refLabel = 'Inrikesfödda med två inrikesfödda föräldrar';
   if (measure === 'share' && hasShares(crime)) {
     const rows: DotRow[] = units.map((u) => ({
       id: u.id,
       label: u.label,
       detail: detail(view, u),
-      primary: u.suspectsPct ?? 0,
+      primary: u.suspectsPct as number, // hasShares() has checked that no value is missing
       secondary: u.populationPct,
     }));
     return {
@@ -199,6 +212,13 @@ export function buildKap2Spec(data: Kap2Data, view: View, crimeName: string, mea
     ref: { value: measure === 'rate' ? crime.refPer1000 : 1, label: refLabel },
     ariaLabel:
       `Punktdiagram. ${chartHeading(view, crime, measure)}. ${rows.length} grupper sorterade med högst värde först. ` +
-      `Högst: ${rows[0]?.label}. Lägst: ${rows[rows.length - 1]?.label}.`,
+      (measure === 'rate' ? `Jämförelsegruppen: ${dotFmt(crime.refPer1000, 'num1')}. ` : '') +
+      rows
+        .map((r) => {
+          const first = dotFmt(r.primary, measure === 'rate' ? 'num1' : 'x1');
+          return r.secondary === null ? `${r.label}: ${first}` : `${r.label}: ${first}, justerat ${dotFmt(r.secondary, 'x1')}`;
+        })
+        .join('. ') +
+      '.',
   };
 }

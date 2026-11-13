@@ -1,6 +1,6 @@
 // Chapter 4: people convicted of rape, two register studies from Lund University.
 import type { PopulationRow, RapeStudyRow } from '../data';
-import { studyPopulationSharePct, swedishBornTwoForeignParents } from '../calc';
+import { complementPct, studyPopulationSharePct, swedishBornTwoForeignParents } from '../calc';
 import type { BarChartSpec } from '../charts/bar';
 import { formatPct } from '../format';
 
@@ -10,6 +10,9 @@ function pick(rows: RapeStudyRow[], chart: RapeStudyRow['chart'], id: string): R
   return r;
 }
 
+/** Everyone who is not Swedish-born with two Swedish-born parents. */
+const OTHER_LABEL = 'Utrikesfödda eller minst en utrikesfödd förälder';
+
 export interface Kap4 {
   main: BarChartSpec;
   region: BarChartSpec;
@@ -17,11 +20,21 @@ export interface Kap4 {
   /** Values used in the copy. */
   popForeignBorn: number;
   popTwoForeignParents: number;
+  /** Share who are Swedish-born with two Swedish-born parents, 2000–2020: convicted and controls. */
+  sv2Convicted: number;
+  sv2Controls: number;
 }
 
 export function buildKap4(rows: RapeStudyRow[], population: PopulationRow[]): Kap4 {
-  const control = pick(rows, 'kontroll', 'other');
-  if (control.pctControls === null) throw new Error('Missing control group share');
+  // The 2000–2020 study reports the share who are Swedish-born with two Swedish-born parents.
+  // Everyone else (foreign-born, or at least one foreign-born parent) is 100 minus that share.
+  const sv2 = pick(rows, 'kontroll', 'sv2');
+  if (sv2.pctControls === null) throw new Error('Missing control group share');
+  const control = { period: sv2.period, pct: complementPct(sv2.pct), pctControls: complementPct(sv2.pctControls) };
+  const stated = pick(rows, 'kontroll', 'other');
+  if (stated.pct !== control.pct || stated.pctControls !== control.pctControls) {
+    throw new Error('valdtakt_domda.csv: kontroll/other does not equal 100 minus kontroll/sv2');
+  }
   const utr = pick(rows, 'bakgrund', 'utr');
   const u2 = pick(rows, 'bakgrund', 'u2');
   const popForeignBorn = studyPopulationSharePct(population, (r) => r.utrikesFodda);
@@ -30,7 +43,7 @@ export function buildKap4(rows: RapeStudyRow[], population: PopulationRow[]): Ka
   const main: BarChartSpec = {
     groups: [
       {
-        label: 'Utländsk bakgrund',
+        label: OTHER_LABEL,
         bars: [
           { label: `Dömda ${control.period}`, value: control.pct, kind: 'focus' },
           { label: 'Matchad kontrollgrupp', value: control.pctControls, kind: 'comparison' },
@@ -53,7 +66,7 @@ export function buildKap4(rows: RapeStudyRow[], population: PopulationRow[]): Ka
     ],
     ariaLabel:
       'Stapeldiagram. Andel med utländsk bakgrund bland dömda för våldtäkt jämfört med kontrollgrupp och befolkning. ' +
-      `Utländsk bakgrund: ${formatPct(control.pct, 1)} bland dömda ${control.period}, ${formatPct(control.pctControls, 1)} i kontrollgruppen. ` +
+      `${OTHER_LABEL}: ${formatPct(control.pct, 1)} bland dömda ${control.period}, ${formatPct(control.pctControls, 1)} i kontrollgruppen. ` +
       `Utrikesfödda: ${formatPct(utr.pct, 1)} bland dömda ${utr.period}, ${formatPct(popForeignBorn, 1)} i befolkningen. ` +
       `Inrikesfödda med två utrikesfödda föräldrar: ${formatPct(u2.pct, 1)} bland dömda, ${formatPct(popTwoForeignParents, 1)} i befolkningen.`,
   };
@@ -76,5 +89,5 @@ export function buildKap4(rows: RapeStudyRow[], population: PopulationRow[]): Ka
       '.',
   };
 
-  return { main, region, prior, popForeignBorn, popTwoForeignParents };
+  return { main, region, prior, popForeignBorn, popTwoForeignParents, sv2Convicted: sv2.pct, sv2Controls: sv2.pctControls };
 }
