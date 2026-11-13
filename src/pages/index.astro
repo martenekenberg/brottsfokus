@@ -20,7 +20,9 @@ import About from '../components/About.astro';
 import { site, monthYear } from '../lib/site';
 
 import { loadOrigin, loadPopulation, loadPrison, loadRapeStudies, loadSuspectsByBackground, loadBra2005, loadTableB6 } from '../lib/data';
-import { foreignCitizenSharePct, prisonSeries, yearsWithValues } from '../lib/calc';
+import { yearsWithValues } from '../lib/calc';
+import { buildKap3, shortReportName } from '../lib/chapters/kap3';
+import { tablePage } from '../lib/dataPages';
 import { formatNumber } from '../lib/format';
 import type { LineChartSpec } from '../lib/charts/line';
 
@@ -36,16 +38,9 @@ const C = {
 const prison = loadPrison();
 const population = loadPopulation();
 
-const popShare = new Map(population.map((r) => [r.year, foreignCitizenSharePct(r)]));
-const newAll = prisonSeries(prison, 'nyintagna', 'totalt');
-const newMen = prisonSeries(prison, 'nyintagna', 'man');
-const newWomen = prisonSeries(prison, 'nyintagna', 'kvinnor');
-const onOct1 = prisonSeries(prison, '1okt', 'totalt');
-
-// The period comes from the data file, so a new year shows up without code changes.
-const firstYear = Math.min(...prison.map((r) => r.year));
-const lastYear = Math.max(...prison.map((r) => r.year));
-const prisonYears = Array.from({ length: lastYear - firstYear + 1 }, (_, i) => firstYear + i);
+const kap3 = buildKap3(prison, population);
+const { popShare, newAll, newMen, newWomen, onOct1, firstYear, lastYear } = kap3;
+const prisonYears = kap3.years;
 const byYear = (m: Map<number, number | null>) => prisonYears.map((y) => m.get(y) ?? null);
 
 const newAllLast = newAll.get(lastYear);
@@ -142,11 +137,7 @@ const prisonSpec: LineChartSpec = {
   ],
 };
 
-// Brå prison reports, one link per report, in year order.
-const prisonSources = [...new Map(prison.map((r) => [r.sourceUrl, r.source])).entries()]
-  .map(([url, label]) => ({ url, label }))
-  .sort((a, b) => a.label.localeCompare(b.label, 'sv'));
-const shortReportName = (label: string) => label.replace(/^Brå /, '');
+const prisonSources = kap3.sources;
 
 // ---------- Key figures ----------
 const suspects = loadSuspectsByBackground();
@@ -254,7 +245,7 @@ const keyFigures = [
         </Fragment>
       </Chapter>
 
-      <Chapter id="kap3" title={`Andelen utan svenskt medborgarskap bland nyintagna har minskat sedan ${peakYear}`}>
+      <Chapter id="kap3" tableHref={tablePage('kap3').path} title={`Andelen utan svenskt medborgarskap bland nyintagna har minskat sedan ${peakYear}`}>
         <p slot="intro">
           År {lastYear} saknade {formatNumber(newAllLast)} procent av dem som togs in i fängelse svenskt medborgarskap.
           I hela befolkningen var {formatNumber(popShareLast, 1)} procent utländska medborgare.
