@@ -8,11 +8,17 @@ interface Props {
 const { spec } = Astro.props;
 // Static version for readers before (or without) JavaScript.
 const staticSvg = renderDotChart(spec, 1040);
+// Phones get their own version, so the text is readable before the script has run.
+const staticNarrow = renderDotChart(spec, 358);
 ---
 
 <figure class="chart" data-dot-chart>
-  <div class="canvas" data-canvas set:html={staticSvg} />
+  <div class="canvas" data-canvas>
+    <div class="static-wide" set:html={staticSvg} />
+    <div class="static-narrow" set:html={staticNarrow} />
+  </div>
   <div class="tooltip" data-tooltip hidden aria-hidden="true"></div>
+  <div class="visually-hidden" data-live aria-live="polite"></div>
   <script type="application/json" set:html={JSON.stringify(spec)} />
 </figure>
 
