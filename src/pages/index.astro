@@ -183,11 +183,10 @@ const keyFigures = [
         </p>
         <SuspectsOverTime data={kap1Data} />
         <Fragment slot="note">
-          Andelarna är inte justerade för ålder eller kön. Grupperna med utländsk bakgrund har fler unga, och unga
-          misstänks oftare. Brå fann att skillnaderna minskar, men inte försvinner, när hänsyn tas till ålder, kön,
-          inkomst, utbildning och typ av kommun. Misstänkt är inte detsamma som dömd. Rubriken gäller brott totalt.
-          För övergrepp i rättssak anger Brå inga värden för 2007 och 2008. Brå anger värdena med två decimaler. För
-          mycket ovanliga brott, under 0,2 per 1 000, kan linjerna därför se ut att svänga mer än de gör.
+          Inte justerat för ålder eller kön. Grupperna med utländsk bakgrund har fler unga, som oftare misstänks. Med
+          hänsyn till ålder, kön, inkomst, utbildning och kommuntyp minskar skillnaderna, men de finns kvar. Mycket
+          ovanliga brott kan svänga mellan åren eftersom Brå avrundar till två decimaler. Övergrepp i rättssak saknas
+          2007–2008.
         </Fragment>
         <Fragment slot="source">
           Källa: Brå rapport 2021:9, Misstänkta för brott bland personer med inrikes respektive utrikes bakgrund.
@@ -206,13 +205,9 @@ const keyFigures = [
         </p>
         <OriginDots data={kap2Data} />
         <Fragment slot="note">
-          En överrisk på 2,0 betyder att det var dubbelt så vanligt att misstänkas som i jämförelsegruppen. Blå punkt är
-          ojusterat. Orange punkt är Brås beräkning av hur det hade sett ut om gruppen haft samma fördelning av ålder,
-          kön, disponibel inkomst och utbildning som jämförelsegruppen. Det är ett tänkt utfall, inte en faktisk andel.
-          Här räknas alla som misstänktes minst en gång under fyra år, så talen per 1 000 är högre än i kapitel 1, som
-          visar ett år i taget. Misstänkt är inte detsamma som dömd. Vissa grupper är små: det minsta födelselandet har
-          under 5 000 personer. Andel av misstänkta och befolkningen finns bara för brott totalt, per födelseområde och
-          moderns födelseområde. Rubriken gäller brott totalt efter födelseområde.
+          Orange punkt visar Brås beräkning om gruppen haft samma ålder, kön, inkomst och utbildning som
+          jämförelsegruppen, inte en faktisk andel. Alla som misstänktes någon gång under fyra år räknas, därför är talen
+          högre än i kapitel 1. Vissa grupper är små, den minsta under 5 000 personer.
         </Fragment>
         <Fragment slot="source">
           Källa: <a href="https://bra.se/rapporter/arkiv/2021-08-25-misstankta-for-brott-bland-personer-med-inrikes-respektive-utrikes-bakgrund">Brå rapport 2021:9</a>,
@@ -237,9 +232,8 @@ const keyFigures = [
         />
         <LineChart spec={prisonSpec} />
         <Fragment slot="note">
-          Medborgarskap är inte födelseland: många utrikesfödda är svenska medborgare. Bland fängelsets utländska
-          medborgare finns också personer som inte bor i Sverige och därför inte räknas i befolkningen. Punkter saknas
-          för år som Brå inte anger. Uppdelningen på män och kvinnor finns bara för vissa år.
+          Medborgarskap är inte födelseland. Bland fängelsets utländska medborgare finns personer som inte bor i Sverige
+          och inte räknas i befolkningen. Punkter saknas för år som Brå inte anger.
         </Fragment>
         <Fragment slot="source">
           Källor: {
@@ -260,11 +254,10 @@ const keyFigures = [
         </p>
         <RapeStudies kap4={kap4} />
         <Fragment slot="note">
-          Studierna gäller dömda, inte alla som begår våldtäkt. Befolkningens andel gäller alla åldrar och båda könen,
-          medan de dömda är män 15–60 år. Befolkningens andel är ett snitt av åren 2000, 2005, 2010 och 2015. Den
-          första studien anmäldes till Överklagandenämnden för etikprövning. I den senare studien minskade sambandet
-          när hänsyn togs till socioekonomi, missbruk, psykisk sjukdom och tidigare brottslighet, men det fanns kvar.
-          Ekonomiskt bistånd är inte ett brott men redovisas i samma tabell i studien.
+          Studierna gäller dömda, inte alla som begår våldtäkt. De dömda är män 15–60 år, medan befolkningens andel
+          gäller alla åldrar och båda könen (snitt 2000–2015). Den första studien anmäldes till Överklagandenämnden för
+          etikprövning. I den senare minskade sambandet efter justering för bland annat socioekonomi och tidigare
+          brottslighet, men det fanns kvar.
         </Fragment>
         <Fragment slot="source">
           Källor: <a href="https://doi.org/10.1080/20961790.2020.1868681">Khoshnood m.fl. 2021</a>, Forensic Sciences
@@ -281,11 +274,9 @@ const keyFigures = [
         </p>
         <OlderStudies kap5={kap5} />
         <Fragment slot="note">
-          Siffrorna är över 20 år gamla. En överrisk på 2,0 betyder att det var dubbelt så vanligt att misstänkas som i
-          jämförelsegruppen, inrikesfödda med två inrikesfödda föräldrar. För inrikesfödda med utrikesfödda föräldrar
-          redovisar Brå standardiserad överrisk bara separat: {formatNumber(kap5.standOneParent, 1)} för dem med en och
-          {' '}{formatNumber(kap5.standTwoParents, 1)} för dem med två utrikesfödda föräldrar. Några brottstyper i Brås
-          tabell 11 gick inte att läsa ur PDF-filen och saknas här. Misstänkt är inte detsamma som dömd.
+          Siffrorna är över 20 år gamla. Standardiserad överrisk finns bara separat för en och två utrikesfödda
+          föräldrar: {formatNumber(kap5.standOneParent, 1)} och {formatNumber(kap5.standTwoParents, 1)}. Några brottstyper
+          i Brås tabell 11 gick inte att läsa ur PDF-filen och saknas.
         </Fragment>
         <Fragment slot="source">
           Källor: <a href="https://www.bra.se/download/18.cba82f7130f475a2f1800012697/2005_17_brottslighet_bland_personer_fodda_sverige_och_utlandet.pdf">Brå rapport 2005:17</a>,
