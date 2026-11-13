@@ -1,26 +1,108 @@
 ---
+// Chapter menu. Sticks to the top of the screen while scrolling. Once the big
+// headline has scrolled out of view, a small site title slides in at the left,
+// so the headline appears to shrink into the bar. The bar never changes height,
+// so the page does not jump.
 import { chapters } from '../lib/chapters';
 ---
 
-<nav aria-label="Kapitel" class="chapter-nav">
-  <ul>
-    {
-      chapters.map((c) => (
-        <li>
-          <a href={`#${c.id}`}>
-            {c.num && <span class="num">{c.num}</span>}
-            {c.navLabel}
-          </a>
-        </li>
-      ))
-    }
-  </ul>
+<nav aria-label="Kapitel" class="chapter-nav" data-chapter-nav>
+  <div class="row">
+    <a class="mini-title" href="#top" tabindex="-1" aria-hidden="true">Brott och bakgrund</a>
+    <ul>
+      {
+        chapters.map((c) => (
+          <li>
+            <a href={`#${c.id}`}>
+              {c.num && <span class="num">{c.num}</span>}
+              {c.navLabel}
+            </a>
+          </li>
+        ))
+      }
+    </ul>
+  </div>
 </nav>
+
+<script>
+  const nav = document.querySelector<HTMLElement>('[data-chapter-nav]');
+  const headline = document.querySelector<HTMLElement>('.masthead h1');
+  const mini = nav?.querySelector<HTMLAnchorElement>('.mini-title');
+  // Keep jump links landing just below the menu, whatever its height (it can wrap).
+  if (nav && 'ResizeObserver' in window) {
+    new ResizeObserver(() => {
+      document.documentElement.style.setProperty('--sticky-nav-h', `${nav.offsetHeight}px`);
+    }).observe(nav);
+  }
+  if (nav && headline && mini && 'IntersectionObserver' in window) {
+    const setCompact = (on: boolean) => {
+      nav.classList.toggle('is-compact', on);
+      // Only reachable by keyboard and screen readers while it is visible.
+      mini.tabIndex = on ? 0 : -1;
+      mini.setAttribute('aria-hidden', String(!on));
+    };
+    new IntersectionObserver(
+      ([entry]) => {
+        // Compact once the headline has left the top of the screen (not when it is below it).
+        setCompact(!entry.isIntersecting && entry.boundingClientRect.top < 0);
+      },
+      { threshold: 0 },
+    ).observe(headline);
+  }
+</script>
 
 <style>
   .chapter-nav {
+    position: sticky;
+    top: 0;
+    z-index: 20;
+    background: #ffffff;
     border-top: 3px solid var(--ink);
     border-bottom: 1px solid var(--ink);
+  }
+  .row {
+    display: flex;
+    align-items: center;
+  }
+  .mini-title {
+    flex: none;
+    max-width: 0;
+    margin-right: 0;
+    overflow: hidden;
+    white-space: nowrap;
+    opacity: 0;
+    transform: translateY(6px);
+    visibility: hidden;
+    font-family: var(--font-serif);
+    font-size: 21px;
+    font-weight: 500;
+    line-height: 1;
+    /* The serif sits high next to the menu's sans-serif; line it up with the menu text. */
+    padding-top: 3px;
+    color: var(--ink);
+    text-decoration: none;
+    transition:
+      max-width 0.3s ease,
+      margin-right 0.3s ease,
+      opacity 0.25s ease,
+      transform 0.3s ease,
+      visibility 0s linear 0.3s;
+  }
+  .is-compact .mini-title {
+    max-width: 240px;
+    margin-right: 32px;
+    opacity: 1;
+    transform: none;
+    visibility: visible;
+    transition:
+      max-width 0.3s ease,
+      margin-right 0.3s ease,
+      opacity 0.25s ease 0.05s,
+      transform 0.3s ease,
+      visibility 0s;
+  }
+  .mini-title:hover {
+    color: var(--focus);
   }
   ul {
     list-style: none;
@@ -29,8 +111,9 @@ import { chapters } from '../lib/chapters';
     display: flex;
     flex-wrap: wrap;
     gap: 0 32px;
+    min-width: 0;
   }
-  a {
+  ul a {
     display: inline-flex;
     align-items: center;
     gap: 8px;
@@ -41,7 +124,7 @@ import { chapters } from '../lib/chapters';
     color: var(--ink);
     text-decoration: none;
   }
-  a:hover {
+  ul a:hover {
     color: var(--focus);
     text-decoration: underline;
   }
@@ -50,18 +133,37 @@ import { chapters } from '../lib/chapters';
     font-weight: 700;
   }
   @media (max-width: 640px) {
+    /* One row that scrolls sideways; the small title is its first item. */
     .chapter-nav {
       overflow-x: auto;
       -webkit-overflow-scrolling: touch;
       scrollbar-width: none;
+    }
+    .chapter-nav::-webkit-scrollbar {
+      display: none;
+    }
+    .row {
+      width: max-content;
     }
     ul {
       flex-wrap: nowrap;
       gap: 20px;
       white-space: nowrap;
     }
-    a {
+    ul a {
       gap: 6px;
+    }
+    .mini-title {
+      font-size: 18px;
+    }
+    .is-compact .mini-title {
+      margin-right: 20px;
+    }
+  }
+  @media (prefers-reduced-motion: reduce) {
+    .mini-title,
+    .is-compact .mini-title {
+      transition: none;
     }
   }
 </style>

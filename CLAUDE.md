@@ -92,7 +92,7 @@ Visual grammar, used the same way in every chart:
 ### Layout
 
 - Max content width 1120px, side padding 40px desktop / 16px mobile.
-- Intro text at most 680px wide; charts use the full content width.
+- Intro text at most 680px wide, except the masthead intro, which uses the full content width (owner's request); charts use the full content width.
 - Must work from 360px upward. Test at 390px and 1440px.
 
 ## Page structure
@@ -100,7 +100,7 @@ Visual grammar, used the same way in every chart:
 One long page with anchored chapters, matching `design/Main.dc.html`:
 
 1. **Masthead**: kicker "Statistik i fokus", date and sources line, h1 "Brott och bakgrund", intro paragraph.
-2. **Chapter nav**: thick top rule, thin bottom rule, links `01 Över tid`, `02 Födelseområde`, `03 Fängelse`, `04 Våldtäkt`, `05 Äldre studier`, `Metod`. Wraps on desktop, one horizontally scrollable row on mobile. Not sticky. Touch targets at least 44px.
+2. **Chapter nav**: thick top rule, thin bottom rule, links `01 Över tid`, `02 Födelseområde`, `03 Fängelse`, `04 Våldtäkt`, `05 Äldre studier`, `Metod`. Wraps on desktop, one horizontally scrollable row on mobile. Sticky at the top while scrolling; once the big headline has scrolled away, a small site title slides in at the start of the bar (changed at the owner's request). Touch targets at least 44px.
 3. **Key figures**: three figures in a grid (2,5×, 3×, 22 %), each with a one-line explanation and its source. Copy is in the mockup.
 4. **Chapters 1–5**, each with the same pattern:
    - kicker (`01 · Misstänkta över tid`)

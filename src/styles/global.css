@@ -15,6 +15,8 @@
 
   --max-width: 1120px;
   --gutter: 40px;
+  /* Height of the sticky chapter menu, so jump links land just below it. */
+  --sticky-nav-h: 48px;
 
   color-scheme: light;
 }

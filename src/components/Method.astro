@@ -84,7 +84,7 @@ const allSources = [...sources, ...extraSources];
     gap: 32px;
     padding: 64px 0;
     border-top: 3px solid var(--ink);
-    scroll-margin-top: 8px;
+    scroll-margin-top: calc(var(--sticky-nav-h) + 8px);
   }
   h2 {
     grid-column: 1 / -1;

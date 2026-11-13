@@ -42,7 +42,7 @@ const hasControls = Astro.slots.has('controls');
     gap: 20px;
     padding: 64px 0;
     border-top: 1px solid var(--ink);
-    scroll-margin-top: 8px;
+    scroll-margin-top: calc(var(--sticky-nav-h) + 8px);
   }
   h2 {
     margin: 0;
