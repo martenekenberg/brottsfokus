@@ -14,6 +14,7 @@ export const chapters: ChapterInfo[] = [
   { id: 'kap4', num: '04', navLabel: 'Våldtäkt', kicker: 'Våldtäkt', nextLabel: 'Våldtäkt' },
   { id: 'kap5', num: '05', navLabel: 'Äldre studier', kicker: 'Brås äldre studier', nextLabel: 'Brås äldre studier' },
   { id: 'metod', num: '', navLabel: 'Metod', kicker: 'Metod och begrepp', nextLabel: 'Metod' },
+  { id: 'om', num: '', navLabel: 'Om sidan', kicker: 'Om sidan', nextLabel: 'Om sidan' },
 ];
 
 export function chapter(id: string): ChapterInfo {

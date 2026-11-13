@@ -2,6 +2,7 @@
 import '@fontsource-variable/inter';
 import '@fontsource-variable/newsreader/opsz.css';
 import '../styles/global.css';
+import { site } from '../lib/site';
 
 interface Props {
   title: string;
@@ -9,6 +10,45 @@ interface Props {
 }
 
 const { title, description } = Astro.props;
+
+// Structured data. Describes only what the page shows: who publishes it, when it
+// was last updated and which sources it builds on. The publisher is the site
+// itself, since the person behind it is anonymous.
+const publisher = { '@type': 'Organization', '@id': `${site.url}#publisher`, name: site.name, url: site.url };
+const jsonLd = {
+  '@context': 'https://schema.org',
+  '@graph': [
+    {
+      '@type': 'WebSite',
+      '@id': `${site.url}#website`,
+      name: site.name,
+      alternateName: site.formerName,
+      url: site.url,
+      inLanguage: 'sv-SE',
+      publisher: { '@id': publisher['@id'] },
+    },
+    publisher,
+    {
+      '@type': 'WebPage',
+      '@id': `${site.url}#webpage`,
+      url: site.url,
+      name: title,
+      description,
+      inLanguage: 'sv-SE',
+      dateModified: site.updated,
+      isPartOf: { '@id': `${site.url}#website` },
+      publisher: { '@id': publisher['@id'] },
+      primaryImageOfPage: site.shareImage,
+      citation: [
+        'https://bra.se/rapporter/arkiv/2021-08-25-misstankta-for-brott-bland-personer-med-inrikes-respektive-utrikes-bakgrund',
+        'https://www.bra.se/download/18.cba82f7130f475a2f1800012697/2005_17_brottslighet_bland_personer_fodda_sverige_och_utlandet.pdf',
+        'https://doi.org/10.1080/20961790.2020.1868681',
+        'https://lup.lub.lu.se/record/d9a9d1f6-f428-4b57-abf2-5e0e9c7b84f5',
+        'https://www.scb.se/hitta-statistik/sverige-i-siffror/manniskorna-i-sverige/utlandska-medborgare-i-sverige/',
+      ],
+    },
+  ],
+};
 ---
 
 <!doctype html>
@@ -18,8 +58,23 @@ const { title, description } = Astro.props;
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <title>{title}</title>
     <meta name="description" content={description} />
+    <link rel="canonical" href={site.url} />
     <meta name="theme-color" content="#ffffff" />
     <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
+
+    <meta property="og:type" content="website" />
+    <meta property="og:site_name" content={site.name} />
+    <meta property="og:locale" content={site.locale} />
+    <meta property="og:url" content={site.url} />
+    <meta property="og:title" content={title} />
+    <meta property="og:description" content={description} />
+    <meta property="og:image" content={site.shareImage} />
+    <meta property="og:image:width" content="1200" />
+    <meta property="og:image:height" content="630" />
+    <meta property="og:image:alt" content={`${site.name}: officiell statistik om brott och bakgrund`} />
+    <meta name="twitter:card" content="summary_large_image" />
+
+    <script type="application/ld+json" set:html={JSON.stringify(jsonLd)} />
   </head>
   <body>
     <slot />

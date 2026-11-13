@@ -1,0 +1,126 @@
+---
+// "Om sidan": who runs the site, why it exists, how data is chosen and how
+// errors are handled. The owner is anonymous, so trust rests on the sources.
+import { site, dayMonthYear } from '../lib/site';
+
+const updatedText = dayMonthYear(site.updated);
+---
+
+<section id="om" class="about" aria-labelledby="om-h">
+  <h2 id="om-h">Om sidan</h2>
+
+  <div class="block wide">
+    <h3>Varför sidan finns</h3>
+    <p>
+      Svenska myndigheter och forskare tar fram mycket kunskap om brott och om vilka som misstänks, döms och sitter i
+      fängelse. En stor del av den får lite utrymme i nyheterna och i den offentliga debatten. Rapporterna är ofta långa,
+      de viktigaste siffrorna ligger i bilagor och tabeller, och jämförelser med befolkningen saknas eller är svåra att
+      hitta.
+    </p>
+    <p>
+      Brottsfokus samlar en del av den statistiken på ett ställe och visar den så att den går att läsa utan att man
+      behöver gå igenom hela rapporter. Målet är att fler ska kunna se vad underlaget säger, och vad det inte säger,
+      innan de drar slutsatser.
+    </p>
+    <p>
+      Beslut om lagar, resurser och åtgärder blir bättre när de bygger på kunskap om hur det faktiskt ser ut. Det gäller
+      oavsett vilken slutsats man sedan drar. Sidan tar inte ställning i politiska frågor och föreslår inga åtgärder.
+    </p>
+  </div>
+
+  <div class="block">
+    <h3>Så väljs och visas uppgifterna</h3>
+    <ul>
+      <li>Uppgifterna kommer från myndigheter som Brå och SCB och från vetenskapligt granskad forskning.</li>
+      <li>Siffrorna visas så som källan redovisar dem. Sidan gör inga egna uppskattningar.</li>
+      <li>Saknas en uppgift visas en lucka, inte en gissning.</li>
+      <li>Där det går visas en grupps andel bredvid samma grupps andel av befolkningen.</li>
+      <li>Varje diagram har en källa och en ruta, Läs så här, som beskriver vad siffrorna inte visar.</li>
+    </ul>
+  </div>
+
+  <div class="block">
+    <h3>Vem står bakom sidan</h3>
+    <p>
+      Brottsfokus drivs av en privatperson som har valt att vara anonym. Sidan är fristående och inte knuten till något
+      parti, någon organisation eller någon myndighet. Den har inga annonser och ingen finansiering utifrån.
+    </p>
+    <p>
+      Eftersom avsändaren är anonym ska ingen behöva lita på en person. Varje siffra går att kontrollera i källan som
+      länkas under diagrammet.
+    </p>
+  </div>
+
+  <div class="block">
+    <h3>Fel och rättelser</h3>
+    <p>
+      Det går ännu inte att kontakta sidan. Ett formulär för att rapportera fel är på väg. Fel som rättas redovisas här
+      med datum.
+    </p>
+  </div>
+
+  <div class="block">
+    <h3>Kakor och spårning</h3>
+    <p>Sidan använder inga kakor och ingen spårning eller besöksstatistik.</p>
+    <p class="updated">Senast uppdaterad {updatedText}.</p>
+  </div>
+</section>
+
+<style>
+  .about {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+    gap: 32px;
+    padding: 64px 0;
+    border-top: 3px solid var(--ink);
+    scroll-margin-top: calc(var(--sticky-nav-h) + 8px);
+  }
+  h2 {
+    grid-column: 1 / -1;
+    margin: 0;
+    font-family: var(--font-serif);
+    font-size: 32px;
+    font-weight: 500;
+  }
+  .block {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+  }
+  .wide {
+    grid-column: 1 / -1;
+    max-width: 680px;
+  }
+  .wide p {
+    font-family: var(--font-serif);
+    font-size: 18px;
+    line-height: 1.55;
+  }
+  h3 {
+    margin: 0;
+    font-size: 15px;
+    font-weight: 600;
+  }
+  p,
+  ul {
+    margin: 0;
+    font-size: 14px;
+    line-height: 1.6;
+    color: var(--text-body);
+  }
+  ul {
+    padding-left: 18px;
+  }
+  li {
+    padding: 2px 0;
+  }
+  .updated {
+    color: var(--text-muted);
+  }
+  @media (max-width: 640px) {
+    .about {
+      gap: 24px;
+      padding: 40px 0;
+    }
+  }
+</style>
