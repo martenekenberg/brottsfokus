@@ -5995,10 +5995,21 @@ Sida,Tabell,Rad,Kolumn,Värde på sidan
 /data/valdtakt/,"Dömda för våldtäkt 2000–2015 efter bakgrund, jämfört med befolkningen (Khoshnood m.fl. 2021, tabell 1)",Utrikesfödda,Antal dömda,1 451
 /data/valdtakt/,"Dömda för våldtäkt 2000–2015 efter bakgrund, jämfört med befolkningen (Khoshnood m.fl. 2021, tabell 1)",Utrikesfödda,Andel av de dömda (%),"47,8"
 /data/valdtakt/,"Dömda för våldtäkt 2000–2015 efter bakgrund, jämfört med befolkningen (Khoshnood m.fl. 2021, tabell 1)",Utrikesfödda,"Andel av befolkningen, snitt 2000–2015 (%)","13,9"
-/data/valdtakt/,Dömda för våldtäkt 2000–2020 jämfört med en matchad kontrollgrupp (Khoshnood m.fl. 2026),Inrikesfödda med två inrikesfödda föräldrar,Andel av de dömda (%),"36,9"
-/data/valdtakt/,Dömda för våldtäkt 2000–2020 jämfört med en matchad kontrollgrupp (Khoshnood m.fl. 2026),Inrikesfödda med två inrikesfödda föräldrar,Andel av kontrollgruppen (%),"69,5"
-/data/valdtakt/,Dömda för våldtäkt 2000–2020 jämfört med en matchad kontrollgrupp (Khoshnood m.fl. 2026),Utrikesfödda eller minst en utrikesfödd förälder (uträknat),Andel av de dömda (%),"63,1"
-/data/valdtakt/,Dömda för våldtäkt 2000–2020 jämfört med en matchad kontrollgrupp (Khoshnood m.fl. 2026),Utrikesfödda eller minst en utrikesfödd förälder (uträknat),Andel av kontrollgruppen (%),"30,5"
+/data/valdtakt/,"Dömda för våldtäkt 2000–2020 jämfört med en matchad kontrollgrupp (Khoshnood m.fl. 2026, tabell 1)",Inrikesfödda med två inrikesfödda föräldrar,Antal dömda,1 488
+/data/valdtakt/,"Dömda för våldtäkt 2000–2020 jämfört med en matchad kontrollgrupp (Khoshnood m.fl. 2026, tabell 1)",Inrikesfödda med två inrikesfödda föräldrar,Andel av de dömda (%),"36,9"
+/data/valdtakt/,"Dömda för våldtäkt 2000–2020 jämfört med en matchad kontrollgrupp (Khoshnood m.fl. 2026, tabell 1)",Inrikesfödda med två inrikesfödda föräldrar,Andel av kontrollgruppen (%),"69,5"
+/data/valdtakt/,"Dömda för våldtäkt 2000–2020 jämfört med en matchad kontrollgrupp (Khoshnood m.fl. 2026, tabell 1)",Inrikesfödda med en utrikesfödd förälder,Antal dömda,247
+/data/valdtakt/,"Dömda för våldtäkt 2000–2020 jämfört med en matchad kontrollgrupp (Khoshnood m.fl. 2026, tabell 1)",Inrikesfödda med en utrikesfödd förälder,Andel av de dömda (%),"6,1"
+/data/valdtakt/,"Dömda för våldtäkt 2000–2020 jämfört med en matchad kontrollgrupp (Khoshnood m.fl. 2026, tabell 1)",Inrikesfödda med en utrikesfödd förälder,Andel av kontrollgruppen (%),"7,7"
+/data/valdtakt/,"Dömda för våldtäkt 2000–2020 jämfört med en matchad kontrollgrupp (Khoshnood m.fl. 2026, tabell 1)",Inrikesfödda med två utrikesfödda föräldrar,Antal dömda,256
+/data/valdtakt/,"Dömda för våldtäkt 2000–2020 jämfört med en matchad kontrollgrupp (Khoshnood m.fl. 2026, tabell 1)",Inrikesfödda med två utrikesfödda föräldrar,Andel av de dömda (%),"6,4"
+/data/valdtakt/,"Dömda för våldtäkt 2000–2020 jämfört med en matchad kontrollgrupp (Khoshnood m.fl. 2026, tabell 1)",Inrikesfödda med två utrikesfödda föräldrar,Andel av kontrollgruppen (%),"4,8"
+/data/valdtakt/,"Dömda för våldtäkt 2000–2020 jämfört med en matchad kontrollgrupp (Khoshnood m.fl. 2026, tabell 1)",Utrikesfödda,Antal dömda,2 041
+/data/valdtakt/,"Dömda för våldtäkt 2000–2020 jämfört med en matchad kontrollgrupp (Khoshnood m.fl. 2026, tabell 1)",Utrikesfödda,Andel av de dömda (%),"50,6"
+/data/valdtakt/,"Dömda för våldtäkt 2000–2020 jämfört med en matchad kontrollgrupp (Khoshnood m.fl. 2026, tabell 1)",Utrikesfödda,Andel av kontrollgruppen (%),"18,0"
+/data/valdtakt/,"Dömda för våldtäkt 2000–2020 jämfört med en matchad kontrollgrupp (Khoshnood m.fl. 2026, tabell 1)",Utrikesfödda eller minst en utrikesfödd förälder (uträknat),Antal dömda,saknas
+/data/valdtakt/,"Dömda för våldtäkt 2000–2020 jämfört med en matchad kontrollgrupp (Khoshnood m.fl. 2026, tabell 1)",Utrikesfödda eller minst en utrikesfödd förälder (uträknat),Andel av de dömda (%),"63,1"
+/data/valdtakt/,"Dömda för våldtäkt 2000–2020 jämfört med en matchad kontrollgrupp (Khoshnood m.fl. 2026, tabell 1)",Utrikesfödda eller minst en utrikesfödd förälder (uträknat),Andel av kontrollgruppen (%),"30,5"
 /data/valdtakt/,"Utrikesfödda dömda för våldtäkt 2000–2015 efter födelseregion (Khoshnood m.fl. 2021, tabell 2)",Mellanöstern och Nordafrika,Andel av de utrikesfödda dömda (%),"34,5"
 /data/valdtakt/,"Utrikesfödda dömda för våldtäkt 2000–2015 efter födelseregion (Khoshnood m.fl. 2021, tabell 2)",Afrika utom Nordafrika,Andel av de utrikesfödda dömda (%),"19,1"
 /data/valdtakt/,"Utrikesfödda dömda för våldtäkt 2000–2015 efter födelseregion (Khoshnood m.fl. 2021, tabell 2)",Östeuropa,Andel av de utrikesfödda dömda (%),"15,0"

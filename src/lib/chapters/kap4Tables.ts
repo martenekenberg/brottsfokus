@@ -41,20 +41,27 @@ export function kap4Tables(rows: RapeStudyRow[], population: PopulationRow[]): K
     rows: bg.map((r) => ({ key: r.item, cells: [r.n, r.pct, popShare[r.itemId] ?? null] })),
   };
 
-  const sv2 = rows.find((r) => r.chart === 'kontroll' && r.itemId === 'sv2');
-  if (!sv2 || sv2.pctControls === null) throw new Error('valdtakt_domda.csv: kontroll/sv2 missing');
+  // 2000–2020 study, table 1: the four groups (the "man" row is the share of men, not a group).
+  const ctrl = ['sv2', 'sv1', 'u2', 'utr'].map((id) => {
+    const r = rows.find((x) => x.chart === 'kontroll' && x.itemId === id);
+    if (!r || r.pctControls === null) throw new Error(`valdtakt_domda.csv: kontroll/${id} missing`);
+    return r;
+  });
+  const sv2 = ctrl[0];
+  const sv2Controls = sv2.pctControls as number;
   const controls: DataTable = {
     id: 'kap4-kontroll',
-    caption: `Dömda för våldtäkt ${sv2.period} jämfört med en matchad kontrollgrupp (Khoshnood m.fl. 2026)`,
+    caption: `Dömda för våldtäkt ${sv2.period} jämfört med en matchad kontrollgrupp (Khoshnood m.fl. 2026, tabell 1)`,
     rowLabel: 'Grupp',
     rowCsv: 'grupp',
     columns: [
+      { kind: 'number', label: 'Antal dömda', csv: 'antal', decimals: 0 },
       { kind: 'number', label: 'Andel av de dömda (%)', csv: 'andel_pct', decimals: 1 },
       { kind: 'number', label: 'Andel av kontrollgruppen (%)', csv: 'andel_kontrollgrupp_pct', decimals: 1 },
     ],
     rows: [
-      { key: sv2.item, cells: [sv2.pct, sv2.pctControls] },
-      { key: `${OTHER_LABEL} (uträknat)`, cells: [complementPct(sv2.pct), complementPct(sv2.pctControls)] },
+      ...ctrl.map((r) => ({ key: r.item, cells: [r.n, r.pct, r.pctControls] })),
+      { key: `${OTHER_LABEL} (uträknat)`, cells: [null, complementPct(sv2.pct), complementPct(sv2Controls)] },
     ],
   };
 
@@ -114,8 +121,8 @@ export function kap4Tables(rows: RapeStudyRow[], population: PopulationRow[]): K
   const header = ['tabell', 'grupp', 'period', 'antal', 'andel_pct', 'andel_kontrollgrupp_pct', 'andel_befolkning_snitt_pct'];
   const csvRows: string[][] = [
     ...bg.map((r) => ['bakgrund', r.item, r.period, csvNumber(r.n, 0), csvNumber(r.pct, 1), '', csvNumber(popShare[r.itemId] ?? null, 1)]),
-    ['kontrollgrupp', sv2.item, sv2.period, '', csvNumber(sv2.pct, 1), csvNumber(sv2.pctControls, 1), ''],
-    ['kontrollgrupp', OTHER_LABEL, sv2.period, '', csvNumber(complementPct(sv2.pct), 1), csvNumber(complementPct(sv2.pctControls), 1), ''],
+    ...ctrl.map((r) => ['kontrollgrupp', r.item, r.period, csvNumber(r.n, 0), csvNumber(r.pct, 1), csvNumber(r.pctControls, 1), '']),
+    ['kontrollgrupp', `${OTHER_LABEL} (uträknat)`, sv2.period, '', csvNumber(complementPct(sv2.pct), 1), csvNumber(complementPct(sv2Controls), 1), ''],
     ...rowsOf(rows, 'region').map((r) => ['fodelseregion_utrikesfodda', r.item, r.period, '', csvNumber(r.pct, 1), '', '']),
     ...rowsOf(rows, 'ovrigt').map((r) => ['tidigare_domar_och_bistand', r.item, r.period, csvNumber(r.n, 0), csvNumber(r.pct, 1), '', '']),
   ];
