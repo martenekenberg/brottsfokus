@@ -1,0 +1,99 @@
+chart,group_id,group,series,value,source_table
+overrisk,sv1,En utrikesfödd förälder,ostand,1.4,Tabell 7
+overrisk,u2,Två utrikesfödda föräldrar,ostand,2.0,Tabell 7
+overrisk,utr,Utrikesfödda,ostand,2.5,Tabell 7
+overrisk,sv1,En utrikesfödd förälder,stand,1.3,Tabell 10
+overrisk,u2,Två utrikesfödda föräldrar,stand,1.5,Tabell 10
+overrisk,utr,Utrikesfödda,stand,2.1,Tabell 10
+andel,sv2,Två inrikesfödda föräldrar,ostand,5,Tabell 7
+andel,sv1,En utrikesfödd förälder,ostand,7,Tabell 7
+andel,u2,Två utrikesfödda föräldrar,ostand,10,Tabell 7
+andel,utr,Utrikesfödda,ostand,12,Tabell 7
+andel,sv2,Två inrikesfödda föräldrar,stand,5,Tabell 10
+andel,sv1,En utrikesfödd förälder,stand,7,Tabell 10
+andel,u2,Två utrikesfödda föräldrar,stand,8,Tabell 10
+andel,utr,Utrikesfödda,stand,10,Tabell 10
+period,sv12,Inrikesfödda med en eller två utrikesfödda föräldrar,p8589,1.5,Tabell 8
+period,utr,Utrikesfödda,p8589,2.1,Tabell 8
+period,sv12,Inrikesfödda med en eller två utrikesfödda föräldrar,p9701,1.6,Tabell 8
+period,utr,Utrikesfödda,p9701,2.5,Tabell 8
+region,nord,Norden utom Sverige,overrep,1.4,Tabell 9
+region,eu15,EU15 utom Danmark och Finland,overrep,1.1,Tabell 9
+region,eu10,Nya EU-länder (10),overrep,1.8,Tabell 9
+region,oeur,Övriga Europa inkl. Turkiet och Cypern,overrep,2.1,Tabell 9
+region,usa,"USA, Kanada, Australien, Nya Zeeland",overrep,0.9,Tabell 9
+region,cam,"Övriga Nordamerika, Centralamerika m.fl.",overrep,2.6,Tabell 9
+region,sam,Sydamerika,overrep,2.6,Tabell 9
+region,wasia,Västasien,overrep,3.0,Tabell 9
+region,scasia,Södra Centralasien,overrep,2.5,Tabell 9
+region,seasia,Sydostasien,overrep,1.7,Tabell 9
+region,easia,Östasien,overrep,0.8,Tabell 9
+region,nafr,Nordafrika,overrep,3.7,Tabell 9
+region,eafr,Östafrika,overrep,2.8,Tabell 9
+region,oafr,Övriga Afrika,overrep,4.2,Tabell 9
+brott,all,Samtliga brott,sv2,5.00,Tabell 11
+brott,all,Samtliga brott,barn,7.90,Tabell 11
+brott,all,Samtliga brott,utr,12.40,Tabell 11
+brott,dod,"Dödligt våld, försök till mord eller dråp",sv2,0.04,Tabell 11
+brott,dod,"Dödligt våld, försök till mord eller dråp",barn,0.09,Tabell 11
+brott,dod,"Dödligt våld, försök till mord eller dråp",utr,0.15,Tabell 11
+brott,mh,"Misshandel, grov misshandel",sv2,1.40,Tabell 11
+brott,mh,"Misshandel, grov misshandel",barn,2.40,Tabell 11
+brott,mh,"Misshandel, grov misshandel",utr,4.10,Tabell 11
+brott,hot,Olaga hot,sv2,0.25,Tabell 11
+brott,hot,Olaga hot,barn,0.46,Tabell 11
+brott,hot,Olaga hot,utr,0.50,Tabell 11
+brott,ofr,Ofredande,sv2,0.70,Tabell 11
+brott,ofr,Ofredande,barn,1.40,Tabell 11
+brott,ofr,Ofredande,utr,2.70,Tabell 11
+brott,butik,Stöld i butik eller varuhus,sv2,0.70,Tabell 11
+brott,butik,Stöld i butik eller varuhus,barn,1.30,Tabell 11
+brott,butik,Stöld i butik eller varuhus,utr,2.70,Tabell 11
+brott,bedr,Bedrägeri,sv2,1.00,Tabell 11
+brott,bedr,Bedrägeri,barn,1.70,Tabell 11
+brott,bedr,Bedrägeri,utr,2.50,Tabell 11
+brott,skad,Skadegörelse,sv2,0.60,Tabell 11
+brott,skad,Skadegörelse,barn,1.10,Tabell 11
+brott,skad,Skadegörelse,utr,1.00,Tabell 11
+brott,trafik,Trafikbrott utom rattfylleri,sv2,0.70,Tabell 11
+brott,trafik,Trafikbrott utom rattfylleri,barn,1.30,Tabell 11
+brott,trafik,Trafikbrott utom rattfylleri,utr,1.90,Tabell 11
+brott,nark,Narkotikabrott,sv2,0.80,Tabell 11
+brott,nark,Narkotikabrott,barn,1.20,Tabell 11
+brott,nark,Narkotikabrott,utr,1.10,Tabell 11
+andel_misst,sv2,Två inrikesfödda föräldrar,misst,58.9,"Tabell 9"
+andel_misst,sv1,En utrikesfödd förälder,misst,10.4,"Tabell 9"
+andel_misst,u2,Två utrikesfödda föräldrar,misst,5.2,"Tabell 9"
+andel_misst,utr,Utrikesfödda,misst,25.6,"Tabell 9"
+befolkning,sv2,Två inrikesfödda föräldrar,bef,74.5,"Bilaga 4 tabell 1 (3 273 856 personer)"
+befolkning,sv1,En utrikesfödd förälder,bef,9.3,"Bilaga 4 tabell 1 (406 976 personer)"
+befolkning,u2,Två utrikesfödda föräldrar,bef,3.2,"Bilaga 4 tabell 1 (141 579 personer)"
+befolkning,utr,Utrikesfödda,bef,13.1,"Bilaga 4 tabell 1 (574 781 personer)"
+region_misst,nord,Norden utom Sverige,misst,4.7,Tabell 9
+region_bef,nord,Norden utom Sverige,bef,3.4,Bilaga 4 tabell 1
+region_misst,eu15,EU15 utom Danmark och Finland,misst,1.2,Tabell 9
+region_bef,eu15,EU15 utom Danmark och Finland,bef,1.0,Bilaga 4 tabell 1
+region_misst,eu10,Nya EU-länder (10),misst,1.6,Tabell 9
+region_bef,eu10,Nya EU-länder (10),bef,0.9,Bilaga 4 tabell 1
+region_misst,oeur,Övriga Europa inkl. Turkiet och Cypern,misst,5.4,Tabell 9
+region_bef,oeur,Övriga Europa inkl. Turkiet och Cypern,bef,2.6,Bilaga 4 tabell 1
+region_misst,usa,"USA, Kanada, Australien, Nya Zeeland",misst,0.2,Tabell 9
+region_bef,usa,"USA, Kanada, Australien, Nya Zeeland",bef,0.3,Bilaga 4 tabell 1
+region_misst,cam,"Övriga Nordamerika, Centralamerika m.fl.",misst,0.3,Tabell 9
+region_bef,cam,"Övriga Nordamerika, Centralamerika m.fl.",bef,0.1,Bilaga 4 tabell 1
+region_misst,sam,Sydamerika,misst,2.0,Tabell 9
+region_bef,sam,Sydamerika,bef,0.8,Bilaga 4 tabell 1
+region_misst,wasia,Västasien,misst,3.4,Tabell 9
+region_bef,wasia,Västasien,bef,1.1,Bilaga 4 tabell 1
+region_misst,scasia,Södra Centralasien,misst,3.0,Tabell 9
+region_bef,scasia,Södra Centralasien,bef,1.2,Bilaga 4 tabell 1
+region_misst,seasia,Sydostasien,misst,0.8,Tabell 9
+region_bef,seasia,Sydostasien,bef,0.5,Bilaga 4 tabell 1
+region_misst,easia,Östasien,misst,0.2,Tabell 9
+region_bef,easia,Östasien,bef,0.3,Bilaga 4 tabell 1
+region_misst,nafr,Nordafrika,misst,0.7,Tabell 9
+region_bef,nafr,Nordafrika,bef,0.2,Bilaga 4 tabell 1
+region_misst,eafr,Östafrika,misst,1.5,Tabell 9
+region_bef,eafr,Östafrika,bef,0.5,Bilaga 4 tabell 1
+region_misst,oafr,Övriga Afrika,misst,0.6,Tabell 9
+region_bef,oafr,Övriga Afrika,bef,0.1,Bilaga 4 tabell 1

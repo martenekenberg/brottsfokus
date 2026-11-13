@@ -1,0 +1,17 @@
+chart,item_id,item,period,n,pct,pct_controls,note
+bakgrund,sv2,Inrikesfödda med två inrikesfödda föräldrar,2000–2015,1239,40.7,,Tabell 1 (i texten 40.8 %)
+bakgrund,sv1,Inrikesfödda med en utrikesfödd förälder,2000–2015,172,5.7,,Tabell 1
+bakgrund,u2,Inrikesfödda med två utrikesfödda föräldrar,2000–2015,177,5.8,,Tabell 1
+bakgrund,utr,Utrikesfödda,2000–2015,1451,47.8,,Tabell 1 (i sammanfattningen 47.7 %)
+region,mena,Mellanöstern och Nordafrika,2000–2015,,34.5,,Andel av de 1 451 utrikesfödda. Tabell 2
+region,afr,Afrika utom Nordafrika,2000–2015,,19.1,,Tabell 2
+region,oeu,Östeuropa,2000–2015,,15.0,,Tabell 2
+region,asi,Asien utom Mellanöstern samt Oceanien,2000–2015,,14.4,,Tabell 2
+region,lat,Latinamerika och Karibien,2000–2015,,9.7,,Tabell 2
+region,west,Västländer,2000–2015,,7.3,,Tabell 2
+kontroll,sv2,Inrikesfödda med två inrikesfödda föräldrar,2000–2020,,36.9,69.5,Dömda jämfört med matchad kontrollgrupp
+kontroll,other,Utländsk bakgrund (övriga),2000–2020,,63.1,30.5,100 minus raden ovan
+ovrigt,vald,Tidigare dömd för våldsbrott,2000–2015,1402,46.1,,Tabell 1
+ovrigt,egendom,Tidigare dömd för egendomsbrott,2000–2015,1119,36.8,,Tabell 1
+ovrigt,ekobrott,Tidigare dömd för ekonomisk brottslighet,2000–2015,528,17.4,,Tabell 1
+ovrigt,soc,Har haft ekonomiskt bistånd (socialbidrag),2000–2015,989,32.5,,Tabell 1
