@@ -94,7 +94,7 @@ Visual grammar, used the same way in every chart:
 ### Layout
 
 - Max content width 1120px, side padding 40px desktop / 16px mobile.
-- Intro text at most 680px wide, except the masthead intro, which uses the full content width (owner's request); charts use the full content width.
+- All text (headlines, intros, notes, Om sidan) and charts use the full content width (owner's request). No narrower max-width on text blocks.
 - Must work from 360px upward. Test at 390px and 1440px.
 
 ## Page structure
