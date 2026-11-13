@@ -1,0 +1,71 @@
+---
+interface Props {
+  updated: string;
+  sources: string;
+}
+const { updated, sources } = Astro.props;
+---
+
+<header class="masthead" id="top">
+  <div class="meta">
+    <span class="label">Statistik i fokus</span>
+    <span>Uppdaterad {updated} · Källor: {sources}</span>
+  </div>
+  <h1>Brott och bakgrund</h1>
+  <p class="intro">
+    Vad den officiella statistiken och forskningen visar om misstänkta, dömda och intagna i Sverige efter
+    födelseland, föräldrarnas födelseland och medborgarskap, jämfört med befolkningen.
+  </p>
+</header>
+
+<style>
+  .masthead {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+    padding: 48px 0 32px;
+  }
+  .meta {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    gap: 8px;
+    font-size: 13px;
+    color: var(--text-muted);
+  }
+  .label {
+    font-weight: 600;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--ink);
+  }
+  h1 {
+    margin: 0;
+    font-family: var(--font-serif);
+    font-size: 80px;
+    line-height: 1;
+    font-weight: 500;
+    letter-spacing: -0.01em;
+  }
+  .intro {
+    margin: 0;
+    max-width: 680px;
+    font-family: var(--font-serif);
+    font-size: 24px;
+    line-height: 1.45;
+    color: var(--text-body);
+  }
+  @media (max-width: 640px) {
+    .masthead {
+      gap: 10px;
+      padding: 28px 0 24px;
+    }
+    h1 {
+      font-size: 44px;
+      line-height: 1.02;
+    }
+    .intro {
+      font-size: 20px;
+    }
+  }
+</style>

@@ -1,0 +1,90 @@
+/* Design tokens. See CLAUDE.md "Design system". Light theme only. */
+:root {
+  --ink: #121212;
+  --text-muted: #5c5c5c;
+  --text-body: #333333;
+  --rule: #e3e3e3;
+  --panel: #f3f4f6;
+  --focus: #1d4e89;
+  --focus-hover: #123461;
+  --second: #c2410c;
+  --population: #8a8a8a;
+
+  --font-serif: 'Newsreader Variable', Newsreader, Georgia, serif;
+  --font-sans: 'Inter Variable', Inter, Arial, sans-serif;
+
+  --max-width: 1120px;
+  --gutter: 40px;
+
+  color-scheme: light;
+}
+
+@media (max-width: 640px) {
+  :root {
+    --gutter: 16px;
+  }
+}
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+html {
+  -webkit-text-size-adjust: 100%;
+  scroll-behavior: smooth;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+}
+
+body {
+  margin: 0;
+  background: #ffffff;
+  color: var(--ink);
+  font-family: var(--font-sans);
+  font-size: 16px;
+  line-height: 1.5;
+}
+
+a {
+  color: var(--focus);
+}
+
+a:hover {
+  color: var(--focus-hover);
+}
+
+:focus-visible {
+  outline: 2px solid var(--focus);
+  outline-offset: 2px;
+}
+
+.wrap {
+  max-width: var(--max-width);
+  margin: 0 auto;
+  padding: 0 var(--gutter);
+}
+
+.kicker {
+  margin: 0;
+  font-family: var(--font-sans);
+  font-size: 13px;
+  font-weight: 600;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--second);
+}
+
+.visually-hidden {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+  clip: rect(0 0 0 0);
+  white-space: nowrap;
+}

@@ -1,0 +1,67 @@
+---
+import { chapters } from '../lib/chapters';
+---
+
+<nav aria-label="Kapitel" class="chapter-nav">
+  <ul>
+    {
+      chapters.map((c) => (
+        <li>
+          <a href={`#${c.id}`}>
+            {c.num && <span class="num">{c.num}</span>}
+            {c.navLabel}
+          </a>
+        </li>
+      ))
+    }
+  </ul>
+</nav>
+
+<style>
+  .chapter-nav {
+    border-top: 3px solid var(--ink);
+    border-bottom: 1px solid var(--ink);
+  }
+  ul {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0 32px;
+  }
+  a {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    min-height: 44px;
+    padding: 0;
+    font-size: 14px;
+    font-weight: 500;
+    color: var(--ink);
+    text-decoration: none;
+  }
+  a:hover {
+    color: var(--focus);
+    text-decoration: underline;
+  }
+  .num {
+    color: var(--second);
+    font-weight: 700;
+  }
+  @media (max-width: 640px) {
+    .chapter-nav {
+      overflow-x: auto;
+      -webkit-overflow-scrolling: touch;
+      scrollbar-width: none;
+    }
+    ul {
+      flex-wrap: nowrap;
+      gap: 20px;
+      white-space: nowrap;
+    }
+    a {
+      gap: 6px;
+    }
+  }
+</style>

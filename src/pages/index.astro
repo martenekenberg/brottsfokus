@@ -1,0 +1,248 @@
+---
+import Base from '../layouts/Base.astro';
+import Masthead from '../components/Masthead.astro';
+import ChapterNav from '../components/ChapterNav.astro';
+import KeyFigures from '../components/KeyFigures.astro';
+import Chapter from '../components/Chapter.astro';
+import Legend from '../components/Legend.astro';
+import LineChart from '../components/charts/LineChart.astro';
+import ChartPlaceholder from '../components/ChartPlaceholder.astro';
+import Method from '../components/Method.astro';
+import Footer from '../components/Footer.astro';
+
+import { loadPopulation, loadPrison, loadSuspectsByBackground } from '../lib/data';
+import { foreignCitizenSharePct, prisonSeries, rateRatioVsSv2 } from '../lib/calc';
+import { formatNumber } from '../lib/format';
+import type { LineChartSpec } from '../lib/charts/line';
+
+const C = {
+  ink: '#121212',
+  muted: '#5C5C5C',
+  focus: '#1D4E89',
+  second: '#C2410C',
+  population: '#8A8A8A',
+};
+
+// ---------- Chapter 3: prison and citizenship ----------
+const prison = loadPrison();
+const population = loadPopulation();
+
+const prisonYears = Array.from({ length: 2025 - 2014 + 1 }, (_, i) => 2014 + i);
+const byYear = (m: Map<number, number | null>) => prisonYears.map((y) => m.get(y) ?? null);
+
+const popShare = new Map(population.map((r) => [r.year, foreignCitizenSharePct(r)]));
+const newAll = prisonSeries(prison, 'nyintagna', 'totalt');
+const lastYear = 2025;
+const newAllLast = newAll.get(lastYear);
+const popShareLast = popShare.get(lastYear);
+if (newAllLast == null || popShareLast == null) throw new Error('Missing 2025 values for chapter 3');
+
+const prisonSpec: LineChartSpec = {
+  years: prisonYears,
+  yMax: 40,
+  yTickStep: 10,
+  yFormat: 'pct',
+  ariaLabel:
+    'Linjediagram. Andel utan svenskt medborgarskap bland nyintagna i fängelse, totalt och för män och kvinnor, ' +
+    'och bland intagna den 1 oktober, 2014 till 2025, jämfört med andelen utländska medborgare i befolkningen. ' +
+    `År ${lastYear} var andelen ${formatNumber(newAllLast)} procent bland nyintagna och ` +
+    `${formatNumber(popShareLast, 1)} procent i befolkningen. År som Brå inte anger saknas.`,
+  series: [
+    {
+      id: 'ny-alla',
+      label: 'Nyintagna, alla',
+      endLabel: 'nyintagna',
+      endLabelShort: 'alla',
+      color: C.focus,
+      textColor: C.focus,
+      strokeWidth: 3,
+      dotRadius: 3.5,
+      values: byYear(newAll),
+      annotate: [2015],
+      format: 'pct',
+    },
+    {
+      id: 'ny-man',
+      label: 'Nyintagna män',
+      endLabel: 'män',
+      endLabelShort: 'män',
+      color: C.focus,
+      textColor: C.focus,
+      strokeWidth: 1.5,
+      dotRadius: 2.5,
+      values: byYear(prisonSeries(prison, 'nyintagna', 'man')),
+      format: 'pct',
+    },
+    {
+      id: 'ny-kvinnor',
+      label: 'Nyintagna kvinnor',
+      endLabel: 'kvinnor',
+      endLabelShort: 'kvinnor',
+      color: C.focus,
+      textColor: C.focus,
+      strokeWidth: 1.5,
+      dotRadius: 2.5,
+      values: byYear(prisonSeries(prison, 'nyintagna', 'kvinnor')),
+      format: 'pct',
+    },
+    {
+      id: 'okt',
+      label: 'Intagna den 1 oktober',
+      endLabel: '1 oktober',
+      endLabelShort: '1 okt',
+      color: C.second,
+      textColor: C.second,
+      strokeWidth: 2.5,
+      dotRadius: 3.5,
+      values: byYear(prisonSeries(prison, '1okt', 'totalt')),
+      format: 'pct',
+    },
+    {
+      id: 'bef',
+      label: 'Utländska medborgare i befolkningen',
+      endLabel: 'befolkningen',
+      endLabelShort: '',
+      color: C.population,
+      textColor: C.muted,
+      strokeWidth: 2,
+      dashed: true,
+      dotRadius: 2.5,
+      values: byYear(popShare),
+      format: 'pct1',
+    },
+  ],
+};
+
+// Brå prison reports, one link per report, in year order.
+const prisonSources = [...new Map(prison.map((r) => [r.sourceUrl, r.source])).entries()]
+  .map(([url, label]) => ({ url, label }))
+  .sort((a, b) => a.label.localeCompare(b.label, 'sv'));
+const shortReportName = (label: string) => label.replace(/^Brå /, '');
+
+// ---------- Key figures ----------
+const suspects = loadSuspectsByBackground();
+const keyYear = 2018;
+const ratioUtr = rateRatioVsSv2(suspects, keyYear, 'c00', 'utr');
+const ratioU2 = rateRatioVsSv2(suspects, keyYear, 'c00', 'u2');
+
+const keyFigures = [
+  {
+    value: formatNumber(ratioUtr, 1),
+    unit: '×',
+    text: 'Så mycket vanligare var det för utrikesfödda att registreras som misstänkta för brott än för inrikesfödda med två inrikesfödda föräldrar.',
+    source: `Brå rapport 2021:9, år ${keyYear}`,
+  },
+  {
+    value: formatNumber(Math.floor(ratioU2)),
+    unit: '×',
+    text: 'För inrikesfödda med två utrikesfödda föräldrar var det drygt tre gånger så vanligt.',
+    source: `Brå rapport 2021:9, år ${keyYear}`,
+  },
+  {
+    value: formatNumber(newAllLast),
+    unit: ' %',
+    text: `av de nyintagna i fängelse ${lastYear} saknade svenskt medborgarskap. I befolkningen var andelen ${formatNumber(popShareLast, 1)} procent.`,
+    source: `Brå ${lastYear}; SCB`,
+  },
+];
+---
+
+<Base
+  title="Brott och bakgrund"
+  description="Officiell statistik och forskning om misstänkta, dömda och intagna i Sverige efter födelseland, föräldrarnas födelseland och medborgarskap, jämfört med befolkningen."
+>
+  <div class="wrap">
+    <Masthead updated="november 2026" sources="Brå, SCB, Lunds universitet" />
+    <ChapterNav />
+    <KeyFigures figures={keyFigures} />
+
+    <main>
+      <Chapter id="kap1" title="Andelen misstänkta minskade i alla fyra grupper mellan 2007 och 2018">
+        <p slot="intro">
+          Andelen av befolkningen, 15 år och äldre, som misstänktes för minst ett brott under året. Grupperna bygger
+          på var personen och personens föräldrar är födda.
+        </p>
+        <ChartPlaceholder />
+        <Fragment slot="note">
+          Andelarna är inte justerade för ålder eller kön. Grupperna med utländsk bakgrund har fler unga, och unga
+          misstänks oftare. Brå fann att skillnaderna minskar, men inte försvinner, när hänsyn tas till ålder, kön,
+          inkomst, utbildning och typ av kommun.
+        </Fragment>
+        <Fragment slot="source">
+          Källa: Brå rapport 2021:9, Misstänkta för brott bland personer med inrikes respektive utrikes bakgrund.
+          Folkbokförda personer 15 år och äldre.
+        </Fragment>
+      </Chapter>
+
+      <Chapter id="kap2" title="Födelseområde">
+        <p slot="intro">Misstänkta efter födelseområde och födelseland, 2015–2018.</p>
+        <ChartPlaceholder />
+        <Fragment slot="source">Källa: Brå rapport 2021:9, bilaga 1.</Fragment>
+      </Chapter>
+
+      <Chapter id="kap3" title="Andelen utan svenskt medborgarskap bland nyintagna har minskat sedan 2015">
+        <p slot="intro">
+          År {lastYear} saknade {formatNumber(newAllLast)} procent av dem som togs in i fängelse svenskt medborgarskap.
+          I hela befolkningen var {formatNumber(popShareLast, 1)} procent utländska medborgare.
+        </p>
+        <Legend
+          slot="legend"
+          items={[
+            { label: 'Nyintagna under året', color: C.focus, mark: 'line' },
+            { label: 'Nyintagna män och kvinnor', color: C.focus, mark: 'line', thin: true },
+            { label: 'Intagna den 1 oktober', color: C.second, mark: 'line' },
+            { label: 'Utländska medborgare i befolkningen', color: C.population, mark: 'dash' },
+          ]}
+        />
+        <LineChart spec={prisonSpec} />
+        <Fragment slot="note">
+          Medborgarskap är inte födelseland: många utrikesfödda är svenska medborgare. Bland fängelsets utländska
+          medborgare finns också personer som inte bor i Sverige och därför inte räknas i befolkningen. Punkter saknas
+          för år som Brå inte anger. Uppdelningen på män och kvinnor finns bara för vissa år.
+        </Fragment>
+        <Fragment slot="source">
+          Källor: {
+            prisonSources.map((s, i) => (
+              <>
+                <a href={s.url}>{shortReportName(s.label)}</a>
+                {i < prisonSources.length - 1 ? ', ' : ''}
+              </>
+            ))
+          }; SCB, befolkningen den 31 december.
+        </Fragment>
+      </Chapter>
+
+      <Chapter id="kap4" title="Utländsk bakgrund var vanligare bland dömda för våldtäkt än i befolkningen">
+        <p slot="intro">
+          Två registerstudier från Lunds universitet av alla som dömts för våldtäkt eller försök till våldtäkt mot en
+          kvinna 18 år eller äldre.
+        </p>
+        <ChartPlaceholder />
+        <Fragment slot="note">
+          Studierna gäller dömda, inte alla som begår våldtäkt. Befolkningens andel gäller alla åldrar och båda könen,
+          medan de dömda är män 15–60 år. I den senare studien minskade sambandet när hänsyn togs till socioekonomi,
+          missbruk, psykisk sjukdom och tidigare brottslighet, men det fanns kvar.
+        </Fragment>
+        <Fragment slot="source">
+          Källor: Khoshnood m.fl. 2021, Forensic Sciences Research; Khoshnood m.fl. 2026, Journal of Interpersonal
+          Violence; SCB.
+        </Fragment>
+      </Chapter>
+
+      <Chapter id="kap5" title="Överrisken för utrikesfödda ökade mellan 1985–89 och 1997–2001">
+        <p slot="intro">
+          Överrisk är andelen misstänkta i gruppen delat med andelen bland inrikesfödda med två inrikesfödda
+          föräldrar. Standardiserad överrisk tar hänsyn till kön, ålder, utbildning och förvärvsinkomst.
+        </p>
+        <ChartPlaceholder />
+        <Fragment slot="source">
+          Källor: Brå 1996 (perioden 1985–1989) och Brå rapport 2005:17, tabell 8 och 10.
+        </Fragment>
+      </Chapter>
+
+      <Method extraSources={prisonSources} />
+    </main>
+
+    <Footer />
+  </div>
+</Base>

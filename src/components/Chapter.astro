@@ -1,0 +1,108 @@
+---
+// Shared chapter pattern: kicker, headline, intro, legend, chart,
+// "Läs så här" box, source line, "Nästa" link.
+import { chapter, nextChapter } from '../lib/chapters';
+
+interface Props {
+  id: string;
+  title: string;
+}
+
+const { id, title } = Astro.props;
+const c = chapter(id);
+const next = nextChapter(id);
+const hasLegend = Astro.slots.has('legend');
+const hasNote = Astro.slots.has('note');
+const hasControls = Astro.slots.has('controls');
+---
+
+<section id={id} class="chapter" aria-labelledby={`${id}-h`}>
+  <p class="kicker">{c.num ? `${c.num} · ${c.kicker}` : c.kicker}</p>
+  <h2 id={`${id}-h`}>{title}</h2>
+  <div class="intro"><slot name="intro" /></div>
+  {hasControls && <div class="controls"><slot name="controls" /></div>}
+  {hasLegend && <div class="legend"><slot name="legend" /></div>}
+  <slot />
+  {
+    hasNote && (
+      <div class="note">
+        <strong>Läs så här. </strong>
+        <slot name="note" />
+      </div>
+    )
+  }
+  <p class="source"><slot name="source" /></p>
+  {next && <a class="next" href={`#${next.id}`}>Nästa: {next.nextLabel} →</a>}
+</section>
+
+<style>
+  .chapter {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    padding: 64px 0;
+    border-top: 1px solid var(--ink);
+    scroll-margin-top: 8px;
+  }
+  h2 {
+    margin: 0;
+    max-width: 820px;
+    font-family: var(--font-serif);
+    font-size: 40px;
+    line-height: 1.12;
+    font-weight: 500;
+  }
+  .intro {
+    max-width: 680px;
+    font-family: var(--font-serif);
+    font-size: 20px;
+    line-height: 1.5;
+    color: var(--text-body);
+  }
+  .intro :global(p) {
+    margin: 0;
+  }
+  .note {
+    background: var(--panel);
+    padding: 16px 20px;
+    font-size: 14px;
+    line-height: 1.55;
+  }
+  .note strong {
+    font-weight: 600;
+  }
+  .source {
+    margin: 0;
+    padding-top: 12px;
+    border-top: 1px solid var(--rule);
+    font-size: 12px;
+    line-height: 1.5;
+    color: var(--text-muted);
+  }
+  .source :global(a) {
+    color: var(--text-muted);
+  }
+  .next {
+    align-self: flex-start;
+    font-size: 14px;
+    font-weight: 600;
+    text-decoration: none;
+    padding: 12px 0;
+  }
+  .next:hover {
+    text-decoration: underline;
+  }
+  @media (max-width: 640px) {
+    .chapter {
+      gap: 14px;
+      padding: 40px 0;
+    }
+    h2 {
+      font-size: 28px;
+      line-height: 1.15;
+    }
+    .intro {
+      font-size: 18px;
+    }
+  }
+</style>

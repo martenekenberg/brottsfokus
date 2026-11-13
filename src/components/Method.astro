@@ -1,0 +1,138 @@
+---
+const terms = [
+  {
+    title: 'Misstänkt, inte dömd',
+    text: 'De flesta diagram bygger på personer som polis eller åklagare bedömt som skäligen misstänkta. Det är inte samma sak som en fällande dom.',
+  },
+  {
+    title: 'Bakgrund',
+    text: 'Utrikesfödd är född utomlands. Inrikesfödda delas in efter om ingen, en eller båda föräldrarna är födda utomlands.',
+  },
+  {
+    title: 'Medborgarskap',
+    text: 'Kriminalvårdens statistik redovisar bara svenskt eller utländskt medborgarskap, inte födelseland eller vilket land.',
+  },
+  {
+    title: 'Jämförelse med befolkningen',
+    text: 'Där det går visas gruppens andel bredvid dess andel av befolkningen enligt SCB eller Brås egna befolkningsuppgifter.',
+  },
+];
+
+const sources = [
+  {
+    label: 'Brå rapport 2021:9, Misstänkta för brott bland personer med inrikes respektive utrikes bakgrund',
+    url: 'https://bra.se/rapporter/arkiv/2021-08-25-misstankta-for-brott-bland-personer-med-inrikes-respektive-utrikes-bakgrund',
+  },
+  {
+    label: 'Brå rapport 2005:17, Brottslighet bland personer födda i Sverige och i utlandet',
+    url: 'https://www.bra.se/download/18.cba82f7130f475a2f1800012697/2005_17_brottslighet_bland_personer_fodda_sverige_och_utlandet.pdf',
+  },
+  {
+    label: 'Khoshnood m.fl. 2021, Forensic Sciences Research',
+    url: 'https://doi.org/10.1080/20961790.2020.1868681',
+  },
+  {
+    label: 'Khoshnood m.fl. 2026, Journal of Interpersonal Violence',
+    url: 'https://lup.lub.lu.se/record/d9a9d1f6-f428-4b57-abf2-5e0e9c7b84f5',
+  },
+  {
+    label: 'SCB, Sveriges befolkning i sammandrag 1960–2025',
+    url: 'https://www.scb.se/hitta-statistik/statistik-efter-amne/befolkning-och-levnadsforhallanden/befolkningens-sammansattning-och-utveckling/befolkningsstatistik/pong/tabell-och-diagram/sveriges-befolkning-i-sammandrag-1960-2025-korrigerad-2026-06-18/',
+  },
+  {
+    label: 'SCB, Utländska medborgare i Sverige',
+    url: 'https://www.scb.se/hitta-statistik/sverige-i-siffror/manniskorna-i-sverige/utlandska-medborgare-i-sverige/',
+  },
+];
+
+interface Props {
+  /** Extra sources, e.g. Brå's yearly prison reports, read from the data files. */
+  extraSources?: { label: string; url: string }[];
+}
+const { extraSources = [] } = Astro.props;
+const allSources = [...sources, ...extraSources];
+---
+
+<section id="metod" class="method" aria-labelledby="metod-h">
+  <h2 id="metod-h">Metod och begrepp</h2>
+  {
+    terms.map((t) => (
+      <div class="term">
+        <h3>{t.title}</h3>
+        <p>{t.text}</p>
+      </div>
+    ))
+  }
+  <div class="sources">
+    <h3>Källor</h3>
+    <ul>
+      {
+        allSources.map((s) => (
+          <li>
+            <a href={s.url}>{s.label}</a>
+          </li>
+        ))
+      }
+    </ul>
+  </div>
+</section>
+
+<style>
+  .method {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+    gap: 32px;
+    padding: 64px 0;
+    border-top: 3px solid var(--ink);
+    scroll-margin-top: 8px;
+  }
+  h2 {
+    grid-column: 1 / -1;
+    margin: 0;
+    font-family: var(--font-serif);
+    font-size: 32px;
+    font-weight: 500;
+  }
+  .term {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+  }
+  h3 {
+    margin: 0;
+    font-size: 15px;
+    font-weight: 600;
+  }
+  p {
+    margin: 0;
+    font-size: 14px;
+    line-height: 1.6;
+    color: var(--text-body);
+  }
+  .sources {
+    grid-column: 1 / -1;
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    padding-top: 16px;
+    border-top: 1px solid var(--rule);
+  }
+  ul {
+    margin: 0;
+    padding-left: 18px;
+    font-size: 14px;
+    line-height: 1.6;
+    columns: 2 360px;
+    column-gap: 32px;
+  }
+  li {
+    break-inside: avoid;
+    padding: 2px 0;
+  }
+  @media (max-width: 640px) {
+    .method {
+      gap: 24px;
+      padding: 40px 0;
+    }
+  }
+</style>
