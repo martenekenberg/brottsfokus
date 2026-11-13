@@ -2,6 +2,7 @@
 import '@fontsource-variable/inter';
 import '@fontsource-variable/newsreader/opsz.css';
 import '../styles/global.css';
+import Analytics from '@vercel/analytics/astro';
 import { site, absoluteUrl } from '../lib/site';
 
 interface Props {
@@ -90,6 +91,8 @@ const jsonLd = {
     <meta name="twitter:card" content="summary_large_image" />
 
     <script type="application/ld+json" set:html={JSON.stringify(jsonLd)} />
+    <!-- Vercel Web Analytics: page views without cookies (owner's request). Described in Om sidan. -->
+    <Analytics />
   </head>
   <body>
     <slot />
