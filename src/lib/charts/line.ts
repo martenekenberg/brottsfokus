@@ -1,9 +1,10 @@
 // Reusable line chart. Pure function: data + width in, SVG markup out.
 // Runs at build time (static fallback) and in the browser (resize + tooltip).
 import { line, scaleLinear } from 'd3';
-import { formatNumber, formatPct } from '../format';
+import { formatNumber, formatPct, formatTimes } from '../format';
 
-export type ValueFormat = 'pct' | 'pct1' | 'num1';
+/** pct = 22 %, pct1 = 7,8 %, num1 = 14,3, num2 = 0,14, x1 = 2,5× */
+export type ValueFormat = 'pct' | 'pct1' | 'num1' | 'num2' | 'x1';
 
 export interface LineSeries {
   id: string;
@@ -29,8 +30,10 @@ export interface LineSeries {
 export interface LineChartSpec {
   years: number[];
   series: LineSeries[];
-  yMax: number;
-  yTickStep: number;
+  /** Fixed top of the y axis. Omit to fit the data. */
+  yMax?: number;
+  /** Fixed gap between y gridlines. Omit to choose automatically. */
+  yTickStep?: number;
   yFormat: ValueFormat;
   ariaLabel: string;
 }
@@ -40,7 +43,32 @@ export const NARROW = 560;
 export function fmt(value: number, format: ValueFormat): string {
   if (format === 'pct') return formatPct(value, 0);
   if (format === 'pct1') return formatPct(value, 1);
+  if (format === 'num2') return formatNumber(value, 2);
+  if (format === 'x1') return formatTimes(value, 1);
   return formatNumber(value, 1);
+}
+
+/** Axis label: same unit as the data, but only as many decimals as the tick step needs. */
+function axisLabel(value: number, format: ValueFormat, step: number): string {
+  const decimals = Math.max(0, Math.ceil(-Math.log10(step) - 1e-9));
+  if (format === 'pct' || format === 'pct1') return formatPct(value, decimals);
+  if (format === 'x1') return formatTimes(value, decimals);
+  return formatNumber(value, decimals);
+}
+
+/** Y axis top and tick values: fixed if the spec says so, else fitted to the data. */
+export function yTicks(spec: LineChartSpec): { max: number; step: number; ticks: number[] } {
+  if (spec.yMax !== undefined && spec.yTickStep !== undefined) {
+    const ticks: number[] = [];
+    for (let v = 0; v <= spec.yMax + 1e-9; v += spec.yTickStep) ticks.push(v);
+    return { max: spec.yMax, step: spec.yTickStep, ticks };
+  }
+  let dataMax = 0;
+  for (const s of spec.series) for (const v of s.values) if (v !== null && v > dataMax) dataMax = v;
+  const scale = scaleLinear().domain([0, dataMax || 1]).nice(5);
+  const ticks = scale.ticks(5);
+  const step = ticks.length > 1 ? ticks[1] - ticks[0] : 1;
+  return { max: scale.domain()[1], step, ticks };
 }
 
 function esc(s: string): string {
@@ -108,7 +136,7 @@ export function layoutLineChart(spec: LineChartSpec, width: number): LineLayout 
   const x0 = spec.years[0];
   const x1 = spec.years[spec.years.length - 1];
   const x = scaleLinear().domain([x0, x1]).range([left, width - right]);
-  const y = scaleLinear().domain([0, spec.yMax]).range([height - bottom, top]);
+  const y = scaleLinear().domain([0, yTicks(spec).max]).range([height - bottom, top]);
   return { width, height, left, right, top, bottom, x, y };
 }
 
@@ -138,11 +166,12 @@ export function renderLineChart(spec: LineChartSpec, width: number): string {
   );
 
   // Grid and y axis.
-  for (let v = 0; v <= spec.yMax + 1e-9; v += spec.yTickStep) {
+  const yt = yTicks(spec);
+  for (const v of yt.ticks) {
     const yy = y(v).toFixed(1);
     parts.push(`<line x1="${left}" x2="${plotRight}" y1="${yy}" y2="${yy}" stroke="#E3E3E3"/>`);
     parts.push(
-      `<text x="${left - 8}" y="${(y(v) + 4).toFixed(1)}" text-anchor="end" ${font} font-size="12" fill="#5C5C5C">${esc(fmt(v, spec.yFormat === 'pct1' ? 'pct' : spec.yFormat))}</text>`,
+      `<text x="${left - 8}" y="${(y(v) + 4).toFixed(1)}" text-anchor="end" ${font} font-size="12" fill="#5C5C5C">${esc(axisLabel(v, spec.yFormat, yt.step))}</text>`,
     );
   }
 
@@ -167,7 +196,7 @@ export function renderLineChart(spec: LineChartSpec, width: number): string {
       );
     }
     for (const p of pts) {
-      if (p.v === null) continue;
+      if (p.v === null || s.dotRadius === 0) continue;
       parts.push(`<circle cx="${x(p.yr).toFixed(1)}" cy="${y(p.v).toFixed(1)}" r="${s.dotRadius}" fill="${s.color}"/>`);
     }
     for (const yr of s.annotate ?? []) {

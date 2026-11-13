@@ -7,6 +7,8 @@ import Chapter from '../components/Chapter.astro';
 import Legend from '../components/Legend.astro';
 import LineChart from '../components/charts/LineChart.astro';
 import ChartPlaceholder from '../components/ChartPlaceholder.astro';
+import SuspectsOverTime from '../components/kap1/SuspectsOverTime.astro';
+import { buildKap1Data } from '../lib/chapters/kap1';
 import Method from '../components/Method.astro';
 import Footer from '../components/Footer.astro';
 
@@ -121,6 +123,7 @@ const shortReportName = (label: string) => label.replace(/^Brå /, '');
 
 // ---------- Key figures ----------
 const suspects = loadSuspectsByBackground();
+const kap1Data = buildKap1Data(suspects);
 const keyYear = 2018;
 const ratioUtr = rateRatioVsSv2(suspects, keyYear, 'c00', 'utr');
 const ratioU2 = rateRatioVsSv2(suspects, keyYear, 'c00', 'u2');
@@ -162,11 +165,12 @@ const keyFigures = [
           Andelen av befolkningen, 15 år och äldre, som misstänktes för minst ett brott under året. Grupperna bygger
           på var personen och personens föräldrar är födda.
         </p>
-        <ChartPlaceholder />
+        <SuspectsOverTime data={kap1Data} />
         <Fragment slot="note">
           Andelarna är inte justerade för ålder eller kön. Grupperna med utländsk bakgrund har fler unga, och unga
           misstänks oftare. Brå fann att skillnaderna minskar, men inte försvinner, när hänsyn tas till ålder, kön,
-          inkomst, utbildning och typ av kommun.
+          inkomst, utbildning och typ av kommun. Misstänkt är inte detsamma som dömd. Rubriken gäller brott totalt.
+          För övergrepp i rättssak anger Brå inga värden för 2007 och 2008.
         </Fragment>
         <Fragment slot="source">
           Källa: Brå rapport 2021:9, Misstänkta för brott bland personer med inrikes respektive utrikes bakgrund.

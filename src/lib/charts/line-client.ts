@@ -25,9 +25,13 @@ function setup(figure: HTMLElement): void {
   const canvas = figure.querySelector<HTMLElement>('[data-canvas]');
   const tip = figure.querySelector<HTMLElement>('[data-tooltip]');
   if (!dataEl || !canvas || !tip) return;
-  const spec = JSON.parse(dataEl.textContent ?? '{}') as LineChartSpec;
+  let spec = JSON.parse(dataEl.textContent ?? '{}') as LineChartSpec;
 
   let width = 0;
+  const hide = () => {
+    tip.hidden = true;
+    canvas.querySelector('[data-guide]')?.setAttribute('visibility', 'hidden');
+  };
   const draw = () => {
     const w = Math.round(canvas.clientWidth);
     if (!w || w === width) return;
@@ -47,10 +51,14 @@ function setup(figure: HTMLElement): void {
   draw();
   new ResizeObserver(draw).observe(canvas);
 
-  const hide = () => {
-    tip.hidden = true;
-    canvas.querySelector('[data-guide]')?.setAttribute('visibility', 'hidden');
-  };
+  // Other scripts swap the data with: figure.dispatchEvent(new CustomEvent('chart:update', { detail: spec }))
+  figure.addEventListener('chart:update', (ev) => {
+    spec = (ev as CustomEvent<LineChartSpec>).detail;
+    width = 0;
+    hide();
+    draw();
+  });
+
 
   const show = (ev: PointerEvent) => {
     const L = layoutLineChart(spec, width);

@@ -72,3 +72,12 @@ export function rateRatioVsSv2(
   };
   return pick(group) / pick('sv2');
 }
+
+/**
+ * A group's rate relative to the comparison group's rate in the same year.
+ * Rule: value / base. Null if either is missing, so a gap stays a gap.
+ */
+export function ratioToComparison(value: number | null, base: number | null): number | null {
+  if (value === null || base === null || base === 0) return null;
+  return value / base;
+}
