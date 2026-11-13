@@ -24,7 +24,7 @@ const views: View[] = ['region', 'land', 'moder'];
       <div class="toggle" role="group" aria-labelledby="kap2-view-label">
         {
           views.map((v) => (
-            <button type="button" data-view={v} aria-pressed={String(v === defaultView)}>
+            <button type="button" data-view={v} aria-pressed={v === defaultView ? 'true' : 'false'}>
               {VIEW_LABEL[v]}
             </button>
           ))
@@ -144,7 +144,7 @@ const views: View[] = ['region', 'land', 'moder'];
       // Shares of suspects and population exist only for brott totalt (not per country).
       const sharesAvailable = hasShares(crime);
       shareButton.disabled = !sharesAvailable;
-      shareButton.title = sharesAvailable ? '' : 'Finns bara för brott totalt, per födelseområde';
+      shareButton.title = sharesAvailable ? '' : 'Finns bara för brott totalt, per födelseområde eller moderns födelseområde';
       if (measure === 'share' && !sharesAvailable) measure = 'risk';
       viewButtons.forEach((b) => b.setAttribute('aria-pressed', String(b.dataset.view === view)));
       measureButtons.forEach((b) => b.setAttribute('aria-pressed', String(b.dataset.measure === measure)));

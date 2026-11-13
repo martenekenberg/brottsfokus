@@ -2,6 +2,7 @@
 // Pure function: data + width in, SVG markup out. Runs at build time and in the browser.
 import { scaleLinear } from 'd3';
 import { formatNumber, formatPct, formatTimes } from '../format';
+import { esc, FONT } from './svg';
 
 export type DotFormat = 'x1' | 'x2' | 'num1' | 'pct2';
 
@@ -32,17 +33,12 @@ export interface DotChartSpec {
 
 export const DOT_NARROW = 560;
 const C = { focus: '#1D4E89', second: '#C2410C', ink: '#121212', muted: '#5C5C5C', rule: '#E3E3E3' };
-const FONT = 'font-family="Inter Variable, Inter, Arial, sans-serif"';
 
 export function dotFmt(v: number, f: DotFormat): string {
   if (f === 'x1') return formatTimes(v, 1);
   if (f === 'x2') return formatTimes(v, 2);
   if (f === 'pct2') return formatPct(v, 2);
   return formatNumber(v, 1);
-}
-
-function esc(s: string): string {
-  return s.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;');
 }
 
 export interface DotLayout {
@@ -79,7 +75,7 @@ export function layoutDotChart(spec: DotChartSpec, width: number): DotLayout {
   for (const r of spec.rows) {
     max = Math.max(max, r.primary, r.secondary ?? 0);
   }
-  const scale = scaleLinear().domain([0, max]).nice(narrow ? 4 : 6).range([x0, x1]);
+  const scale = scaleLinear().domain([0, max || 1]).nice(narrow ? 4 : 6).range([x0, x1]);
   const ticks = scale.ticks(narrow ? 4 : 6);
   const height = top + spec.rows.length * rowHeight + 8;
   const rowY = (i: number) => top + i * rowHeight + (narrow ? 30 : rowHeight / 2);

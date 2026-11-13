@@ -36,7 +36,7 @@ The `.dc.html` files are design mockups in a canvas format. Open them as plain H
 - Deploy: GitHub repo + Vercel, static build. Ask before creating the repo or connecting Vercel.
 - No tracking, cookies or analytics unless I ask.
 - The owner is anonymous. Never put the owner's name, email address or GitHub account on the site or in its metadata. Keep the repo private and do not link to it.
-- Site name, URL, title, description and last update date live in `src/lib/site.ts`. Change `updated` there when content changes; the masthead, sitemap and structured data read it.
+- Site name, URL, title, description and last update date live in `src/lib/site.ts`. `updated` is the build date; the masthead, sitemap, structured data and Om sidan read it.
 
 ## First steps
 

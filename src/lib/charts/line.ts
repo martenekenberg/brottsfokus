@@ -2,6 +2,7 @@
 // Runs at build time (static fallback) and in the browser (resize + tooltip).
 import { line, scaleLinear } from 'd3';
 import { formatNumber, formatPct, formatTimes } from '../format';
+import { esc, FONT } from './svg';
 
 /** pct = 22 %, pct1 = 7,8 %, num1 = 14,3, num2 = 0,14, x1 = 2,5× */
 export type ValueFormat = 'pct' | 'pct1' | 'num1' | 'num2' | 'x1';
@@ -24,6 +25,8 @@ export interface LineSeries {
   values: (number | null)[];
   /** Years where the value is also printed next to the point. */
   annotate?: number[];
+  /** Short text printed above a point, e.g. to name a line where a segment starts. */
+  pointLabels?: { year: number; text: string }[];
   format: ValueFormat;
 }
 
@@ -69,10 +72,6 @@ export function yTicks(spec: LineChartSpec): { max: number; step: number; ticks:
   const ticks = scale.ticks(5);
   const step = ticks.length > 1 ? ticks[1] - ticks[0] : 1;
   return { max: scale.domain()[1], step, ticks };
-}
-
-function esc(s: string): string {
-  return s.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;');
 }
 
 /** Rough text width for Inter at 12–13px. Good enough for layout margins. */
@@ -158,7 +157,7 @@ export function renderLineChart(spec: LineChartSpec, width: number): string {
   const L = layoutLineChart(spec, width);
   const { height, left, top, bottom, x, y } = L;
   const plotRight = width - L.right;
-  const font = 'font-family="Inter Variable, Inter, Arial, sans-serif"';
+  const font = FONT;
   const parts: string[] = [];
 
   parts.push(
@@ -205,6 +204,18 @@ export function renderLineChart(spec: LineChartSpec, width: number): string {
       if (v === null) continue;
       parts.push(
         `<text x="${x(yr).toFixed(1)}" y="${(y(v) - 10).toFixed(1)}" text-anchor="middle" ${font} font-size="13" font-weight="700" fill="${s.textColor}">${esc(fmt(v, s.format))}</text>`,
+      );
+    }
+  }
+
+  // Names printed at chosen points, on top of the lines.
+  for (const s of spec.series) {
+    for (const pl of s.pointLabels ?? []) {
+      const i = spec.years.indexOf(pl.year);
+      const v = i >= 0 ? s.values[i] : null;
+      if (v === null) continue;
+      parts.push(
+        `<text x="${x(pl.year).toFixed(1)}" y="${(y(v) - 9).toFixed(1)}" text-anchor="middle" ${font} font-size="12" font-weight="600" fill="${s.textColor}" stroke="#FFFFFF" stroke-width="3" paint-order="stroke">${esc(pl.text)}</text>`,
       );
     }
   }

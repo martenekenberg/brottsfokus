@@ -4,6 +4,7 @@
 // Pure function: data + width in, SVG markup out. Runs at build time and in the browser.
 import { scaleLinear } from 'd3';
 import { formatPct, formatTimes } from '../format';
+import { esc, FONT } from './svg';
 
 export interface Bar {
   /** Shown beside the bar. Empty when the group has a single bar. */
@@ -46,16 +47,11 @@ export interface BarChartSpec {
 }
 
 export const BAR_NARROW = 560;
-const C = { focus: '#1D4E89', ink: '#121212', muted: '#5C5C5C', rule: '#E3E3E3' };
-const FONT = 'font-family="Inter Variable, Inter, Arial, sans-serif"';
+const C = { ink: '#121212', muted: '#5C5C5C', rule: '#E3E3E3' };
 
 export function barFmt(v: number, f: BarFormat = 'pct1'): string {
   if (f === 'x1') return formatTimes(v, 1);
   return formatPct(v, f === 'pct2' ? 2 : 1);
-}
-
-function esc(s: string): string {
-  return s.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;');
 }
 
 interface Placed {

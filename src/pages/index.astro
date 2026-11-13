@@ -7,9 +7,9 @@ import Chapter from '../components/Chapter.astro';
 import Legend from '../components/Legend.astro';
 import LineChart from '../components/charts/LineChart.astro';
 import SuspectsOverTime from '../components/kap1/SuspectsOverTime.astro';
-import { buildKap1Data } from '../lib/chapters/kap1';
+import { allGroupsFell, buildKap1Data } from '../lib/chapters/kap1';
 import OriginDots from '../components/kap2/OriginDots.astro';
-import { buildKap2Data } from '../lib/chapters/kap2';
+import { buildKap2Data, smallestGroup } from '../lib/chapters/kap2';
 import RapeStudies from '../components/kap4/RapeStudies.astro';
 import { buildKap4 } from '../lib/chapters/kap4';
 import OlderStudies from '../components/kap5/OlderStudies.astro';
@@ -20,7 +20,7 @@ import About from '../components/About.astro';
 import { site, monthYear } from '../lib/site';
 
 import { loadOrigin, loadPopulation, loadPrison, loadRapeStudies, loadSuspectsByBackground, loadBra2005, loadTableB6 } from '../lib/data';
-import { foreignCitizenSharePct, prisonSeries } from '../lib/calc';
+import { foreignCitizenSharePct, prisonSeries, yearsWithValues } from '../lib/calc';
 import { formatNumber } from '../lib/format';
 import type { LineChartSpec } from '../lib/charts/line';
 
@@ -36,24 +36,42 @@ const C = {
 const prison = loadPrison();
 const population = loadPopulation();
 
-const prisonYears = Array.from({ length: 2025 - 2014 + 1 }, (_, i) => 2014 + i);
-const byYear = (m: Map<number, number | null>) => prisonYears.map((y) => m.get(y) ?? null);
-
 const popShare = new Map(population.map((r) => [r.year, foreignCitizenSharePct(r)]));
 const newAll = prisonSeries(prison, 'nyintagna', 'totalt');
-const lastYear = 2025;
+const newMen = prisonSeries(prison, 'nyintagna', 'man');
+const newWomen = prisonSeries(prison, 'nyintagna', 'kvinnor');
+const onOct1 = prisonSeries(prison, '1okt', 'totalt');
+
+// The period comes from the data file, so a new year shows up without code changes.
+const firstYear = Math.min(...prison.map((r) => r.year));
+const lastYear = Math.max(...prison.map((r) => r.year));
+const prisonYears = Array.from({ length: lastYear - firstYear + 1 }, (_, i) => firstYear + i);
+const byYear = (m: Map<number, number | null>) => prisonYears.map((y) => m.get(y) ?? null);
+
 const newAllLast = newAll.get(lastYear);
 const popShareLast = popShare.get(lastYear);
-if (newAllLast == null || popShareLast == null) throw new Error('Missing 2025 values for chapter 3');
+if (newAllLast == null || popShareLast == null) throw new Error(`Missing ${lastYear} values for chapter 3`);
+
+// The headline says the share has fallen since its highest year. Stop the build if the data no longer says so.
+const peakYear = prisonYears.reduce((best, y) => ((newAll.get(y) ?? -1) > (newAll.get(best) ?? -1) ? y : best), firstYear);
+const newAllPeak = newAll.get(peakYear) as number;
+if (!(newAllLast < newAllPeak) || peakYear === lastYear) throw new Error('Chapter 3 headline no longer matches the data');
+
+// Men and women share one colour, so each line is named where it starts.
+const startLabel = (m: Map<number, number | null>, text: string) => {
+  const span = yearsWithValues(m);
+  return span ? [{ year: span.first, text }] : [];
+};
+const prisonMax = Math.max(...[newAll, newMen, newWomen, onOct1].flatMap((m) => [...m.values()].map((v) => v ?? 0)));
 
 const prisonSpec: LineChartSpec = {
   years: prisonYears,
-  yMax: 40,
+  yMax: Math.max(40, Math.ceil(prisonMax / 10) * 10),
   yTickStep: 10,
   yFormat: 'pct',
   ariaLabel:
     'Linjediagram. Andel utan svenskt medborgarskap bland nyintagna i fängelse, totalt och för män och kvinnor, ' +
-    'och bland intagna den 1 oktober, 2014 till 2025, jämfört med andelen utländska medborgare i befolkningen. ' +
+    `och bland intagna den 1 oktober, ${firstYear} till ${lastYear}, jämfört med andelen utländska medborgare i befolkningen. ` +
     `År ${lastYear} var andelen ${formatNumber(newAllLast)} procent bland nyintagna och ` +
     `${formatNumber(popShareLast, 1)} procent i befolkningen. År som Brå inte anger saknas.`,
   series: [
@@ -67,7 +85,7 @@ const prisonSpec: LineChartSpec = {
       strokeWidth: 3,
       dotRadius: 3.5,
       values: byYear(newAll),
-      annotate: [2015],
+      annotate: [peakYear],
       format: 'pct',
     },
     {
@@ -79,7 +97,8 @@ const prisonSpec: LineChartSpec = {
       textColor: C.focus,
       strokeWidth: 1.5,
       dotRadius: 2.5,
-      values: byYear(prisonSeries(prison, 'nyintagna', 'man')),
+      values: byYear(newMen),
+      pointLabels: startLabel(newMen, 'män'),
       format: 'pct',
     },
     {
@@ -91,7 +110,8 @@ const prisonSpec: LineChartSpec = {
       textColor: C.focus,
       strokeWidth: 1.5,
       dotRadius: 2.5,
-      values: byYear(prisonSeries(prison, 'nyintagna', 'kvinnor')),
+      values: byYear(newWomen),
+      pointLabels: startLabel(newWomen, 'kvinnor'),
       format: 'pct',
     },
     {
@@ -103,7 +123,7 @@ const prisonSpec: LineChartSpec = {
       textColor: C.second,
       strokeWidth: 2.5,
       dotRadius: 3.5,
-      values: byYear(prisonSeries(prison, '1okt', 'totalt')),
+      values: byYear(onOct1),
       format: 'pct',
     },
     {
@@ -137,6 +157,17 @@ const tableB6 = loadTableB6();
 const kap2Data = buildKap2Data(loadOrigin(), depthByOrder, tableB6);
 const kap4 = buildKap4(loadRapeStudies(), population);
 const kap5 = buildKap5(loadBra2005());
+
+// Headline checks: stop the build if a headline no longer matches the data.
+const kap1First = kap1Data.years[0];
+const kap1Last = kap1Data.years[kap1Data.years.length - 1];
+if (!allGroupsFell(kap1Data, 'c00')) throw new Error('Chapter 1 headline no longer matches the data');
+if (!kap5.foreignBornRiskRose) throw new Error('Chapter 5 headline no longer matches the data');
+
+// Smallest groups in chapter 2, for the note under the chart.
+const smallestCountry = smallestGroup(kap2Data, 'land');
+const smallestMotherRegion = smallestGroup(kap2Data, 'moder');
+if (!smallestCountry || !smallestMotherRegion) throw new Error('Chapter 2: group sizes missing');
 // Key figures use Brå's own risk values for 2015–2018 (table B6), as stated in the report.
 const b6Risk = (unit: string) => {
   const r = tableB6.find((x) => x.view === 'bakgrund' && x.unit === unit);
@@ -178,7 +209,10 @@ const keyFigures = [
     <KeyFigures figures={keyFigures} />
 
     <main>
-      <Chapter id="kap1" title="Andelen misstänkta minskade i alla fyra grupper mellan 2007 och 2018">
+      <Chapter
+        id="kap1"
+        title={`Sett till alla brott minskade andelen misstänkta i alla fyra grupper mellan ${kap1First} och ${kap1Last}`}
+      >
         <p slot="intro">
           Andelen av befolkningen, 15 år och äldre, som misstänktes för minst ett brott under året. Grupperna bygger
           på var personen och personens föräldrar är födda.
@@ -187,8 +221,9 @@ const keyFigures = [
         <Fragment slot="note">
           Inte justerat för ålder eller kön. Grupperna med utländsk bakgrund har fler unga, som oftare misstänks. Med
           hänsyn till ålder, kön, inkomst, utbildning och kommuntyp minskar skillnaderna, men de finns kvar. Mycket
-          ovanliga brott kan svänga mellan åren eftersom Brå avrundar till två decimaler. Övergrepp i rättssak saknas
-          2007–2008.
+          ovanliga brott kan svänga mellan åren eftersom Brå avrundar till två decimaler. Det märks mest i jämförelsen
+          med två inrikesfödda föräldrar, som räknas från de avrundade talen. Rubriken gäller brott totalt, för enskilda
+          brottstyper ser utvecklingen olika ut. Övergrepp i rättssak saknas 2007–2008.
         </Fragment>
         <Fragment slot="source">
           Källa: Brå rapport 2021:9, Misstänkta för brott bland personer med inrikes respektive utrikes bakgrund.
@@ -209,7 +244,8 @@ const keyFigures = [
         <Fragment slot="note">
           Orange punkt visar Brås beräkning om gruppen haft samma ålder, kön, inkomst och utbildning som
           jämförelsegruppen, inte en faktisk andel. Alla som misstänktes någon gång under fyra år räknas, därför är talen
-          högre än i kapitel 1. Vissa grupper är små, den minsta under 5 000 personer.
+          högre än i kapitel 1. Vissa grupper är små: det minsta födelselandet har {formatNumber(smallestCountry.n)}
+          personer och den minsta gruppen efter moderns födelseområde {formatNumber(smallestMotherRegion.n)}.
         </Fragment>
         <Fragment slot="source">
           Källa: <a href="https://bra.se/rapporter/arkiv/2021-08-25-misstankta-for-brott-bland-personer-med-inrikes-respektive-utrikes-bakgrund">Brå rapport 2021:9</a>,
@@ -218,7 +254,7 @@ const keyFigures = [
         </Fragment>
       </Chapter>
 
-      <Chapter id="kap3" title="Andelen utan svenskt medborgarskap bland nyintagna har minskat sedan 2015">
+      <Chapter id="kap3" title={`Andelen utan svenskt medborgarskap bland nyintagna har minskat sedan ${peakYear}`}>
         <p slot="intro">
           År {lastYear} saknade {formatNumber(newAllLast)} procent av dem som togs in i fängelse svenskt medborgarskap.
           I hela befolkningen var {formatNumber(popShareLast, 1)} procent utländska medborgare.
@@ -249,7 +285,7 @@ const keyFigures = [
         </Fragment>
       </Chapter>
 
-      <Chapter id="kap4" title="Utländsk bakgrund var vanligare bland dömda för våldtäkt än i befolkningen">
+      <Chapter id="kap4" title="Utländsk bakgrund var vanligare bland dömda för våldtäkt än i kontrollgrupp och befolkning">
         <p slot="intro">
           Två registerstudier från Lunds universitet av alla som dömts för våldtäkt eller försök till våldtäkt mot en
           kvinna 18 år eller äldre.
@@ -258,7 +294,10 @@ const keyFigures = [
         <Fragment slot="note">
           Studierna gäller dömda, inte alla som begår våldtäkt. De dömda är män 15–60 år, medan befolkningens andel
           gäller alla åldrar och båda könen (snitt 2000–2015). Den första studien anmäldes till Överklagandenämnden för
-          etikprövning. I den senare minskade sambandet efter justering för bland annat socioekonomi och tidigare
+          etikprövning. Det översta stapelparet är uträknat: den senare studien anger andelen inrikesfödda med två
+          inrikesfödda föräldrar ({formatNumber(kap4.sv2Convicted, 1)} procent av de dömda och
+          {formatNumber(kap4.sv2Controls, 1)} procent av kontrollgruppen), resten är alla övriga, även inrikesfödda med
+          en utrikesfödd förälder. I den senare minskade sambandet efter justering för bland annat socioekonomi och tidigare
           brottslighet, men det fanns kvar.
         </Fragment>
         <Fragment slot="source">
