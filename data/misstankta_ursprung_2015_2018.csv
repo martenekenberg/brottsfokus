@@ -1,0 +1,943 @@
+view,unit_id,unit,region,crime,crime_order,n,per1000,risk,risk_adj
+region,sv2,Inrikesfödda med två inrikesfödda föräldrar,,Brott totalt,0,,31.75,1.0,1.0
+region,r01,Norden utom Sverige,Norden utom Sverige,Brott totalt,0,,33.47,1.05,1.18
+region,r02,EU15 och Västeuropa utom Norden,EU15 och Västeuropa utom Norden,Brott totalt,0,,34.03,1.07,0.92
+region,r03,Nya EU-länder,Nya EU-länder,Brott totalt,0,,67.77,2.13,1.72
+region,r04,Övriga Europa,Övriga Europa,Brott totalt,0,,83.38,2.63,1.95
+region,r05,"USA, Kanada, Australien och Nya Zeeland","USA, Kanada, Australien och Nya Zeeland",Brott totalt,0,,36.0,1.13,0.88
+region,r06,Centralamerika och Karibiska öarna,Centralamerika och Karibiska öarna,Brott totalt,0,,101.21,3.19,2.02
+region,r07,Sydamerika,Sydamerika,Brott totalt,0,,92.0,2.9,2.12
+region,r08,Västasien,Västasien,Brott totalt,0,,119.14,3.75,2.43
+region,r09,Centralasien,Centralasien,Brott totalt,0,,158.29,4.99,2.9
+region,r10,Sydasien,Sydasien,Brott totalt,0,,61.53,1.94,1.47
+region,r11,Sydostasien och Övriga Oceanien,Sydostasien och Övriga Oceanien,Brott totalt,0,,56.85,1.79,1.27
+region,r12,Östasien,Östasien,Brott totalt,0,,32.96,1.04,0.81
+region,r13,Nordafrika,Nordafrika,Brott totalt,0,,147.82,4.66,3.02
+region,r14,Östafrika,Östafrika,Brott totalt,0,,128.9,4.06,2.22
+region,r15,Övriga Afrika,Övriga Afrika,Brott totalt,0,,187.28,5.9,3.18
+region,sv2,Inrikesfödda med två inrikesfödda föräldrar,,Brott mot brottsbalken,1,,21.27,1.0,1.0
+region,r01,Norden utom Sverige,Norden utom Sverige,Brott mot brottsbalken,1,,23.41,1.1,1.2
+region,r02,EU15 och Västeuropa utom Norden,EU15 och Västeuropa utom Norden,Brott mot brottsbalken,1,,25.03,1.18,0.97
+region,r03,Nya EU-länder,Nya EU-länder,Brott mot brottsbalken,1,,51.41,2.42,1.9
+region,r04,Övriga Europa,Övriga Europa,Brott mot brottsbalken,1,,63.25,2.97,2.15
+region,r05,"USA, Kanada, Australien och Nya Zeeland","USA, Kanada, Australien och Nya Zeeland",Brott mot brottsbalken,1,,22.73,1.07,0.78
+region,r06,Centralamerika och Karibiska öarna,Centralamerika och Karibiska öarna,Brott mot brottsbalken,1,,76.39,3.59,2.33
+region,r07,Sydamerika,Sydamerika,Brott mot brottsbalken,1,,68.05,3.2,2.29
+region,r08,Västasien,Västasien,Brott mot brottsbalken,1,,92.51,4.35,2.81
+region,r09,Centralasien,Centralasien,Brott mot brottsbalken,1,,123.85,5.82,3.62
+region,r10,Sydasien,Sydasien,Brott mot brottsbalken,1,,49.25,2.32,1.74
+region,r11,Sydostasien och Övriga Oceanien,Sydostasien och Övriga Oceanien,Brott mot brottsbalken,1,,43.08,2.03,1.38
+region,r12,Östasien,Östasien,Brott mot brottsbalken,1,,24.23,1.14,0.87
+region,r13,Nordafrika,Nordafrika,Brott mot brottsbalken,1,,121.98,5.73,3.56
+region,r14,Östafrika,Östafrika,Brott mot brottsbalken,1,,93.99,4.42,2.39
+region,r15,Övriga Afrika,Övriga Afrika,Brott mot brottsbalken,1,,146.92,6.91,3.66
+region,sv2,Inrikesfödda med två inrikesfödda föräldrar,,Brott mot person (BrB kap. 3–7),2,,13.27,1.0,1.0
+region,r01,Norden utom Sverige,Norden utom Sverige,Brott mot person (BrB kap. 3–7),2,,14.54,1.1,1.2
+region,r02,EU15 och Västeuropa utom Norden,EU15 och Västeuropa utom Norden,Brott mot person (BrB kap. 3–7),2,,15.58,1.17,0.96
+region,r03,Nya EU-länder,Nya EU-länder,Brott mot person (BrB kap. 3–7),2,,27.98,2.11,1.65
+region,r04,Övriga Europa,Övriga Europa,Brott mot person (BrB kap. 3–7),2,,38.3,2.89,2.08
+region,r05,"USA, Kanada, Australien och Nya Zeeland","USA, Kanada, Australien och Nya Zeeland",Brott mot person (BrB kap. 3–7),2,,14.97,1.13,0.79
+region,r06,Centralamerika och Karibiska öarna,Centralamerika och Karibiska öarna,Brott mot person (BrB kap. 3–7),2,,53.76,4.05,2.39
+region,r07,Sydamerika,Sydamerika,Brott mot person (BrB kap. 3–7),2,,45.97,3.46,2.38
+region,r08,Västasien,Västasien,Brott mot person (BrB kap. 3–7),2,,65.13,4.91,3.03
+region,r09,Centralasien,Centralasien,Brott mot person (BrB kap. 3–7),2,,89.74,6.76,3.96
+region,r10,Sydasien,Sydasien,Brott mot person (BrB kap. 3–7),2,,34.65,2.61,1.89
+region,r11,Sydostasien och Övriga Oceanien,Sydostasien och Övriga Oceanien,Brott mot person (BrB kap. 3–7),2,,28.0,2.11,1.34
+region,r12,Östasien,Östasien,Brott mot person (BrB kap. 3–7),2,,14.55,1.1,0.79
+region,r13,Nordafrika,Nordafrika,Brott mot person (BrB kap. 3–7),2,,85.73,6.46,4.05
+region,r14,Östafrika,Östafrika,Brott mot person (BrB kap. 3–7),2,,70.16,5.29,2.78
+region,r15,Övriga Afrika,Övriga Afrika,Brott mot person (BrB kap. 3–7),2,,107.71,8.12,4.26
+region,sv2,Inrikesfödda med två inrikesfödda föräldrar,,Brott mot liv hälsa (BrB kap. 3),3,,8.11,1.0,1.0
+region,r01,Norden utom Sverige,Norden utom Sverige,Brott mot liv hälsa (BrB kap. 3),3,,8.78,1.08,1.25
+region,r02,EU15 och Västeuropa utom Norden,EU15 och Västeuropa utom Norden,Brott mot liv hälsa (BrB kap. 3),3,,9.61,1.18,0.97
+region,r03,Nya EU-länder,Nya EU-länder,Brott mot liv hälsa (BrB kap. 3),3,,18.34,2.26,1.71
+region,r04,Övriga Europa,Övriga Europa,Brott mot liv hälsa (BrB kap. 3),3,,24.36,3.0,2.12
+region,r05,"USA, Kanada, Australien och Nya Zeeland","USA, Kanada, Australien och Nya Zeeland",Brott mot liv hälsa (BrB kap. 3),3,,9.0,1.11,0.73
+region,r06,Centralamerika och Karibiska öarna,Centralamerika och Karibiska öarna,Brott mot liv hälsa (BrB kap. 3),3,,34.49,4.25,2.32
+region,r07,Sydamerika,Sydamerika,Brott mot liv hälsa (BrB kap. 3),3,,30.25,3.73,2.47
+region,r08,Västasien,Västasien,Brott mot liv hälsa (BrB kap. 3),3,,42.13,5.19,3.02
+region,r09,Centralasien,Centralasien,Brott mot liv hälsa (BrB kap. 3),3,,62.02,7.65,4.09
+region,r10,Sydasien,Sydasien,Brott mot liv hälsa (BrB kap. 3),3,,21.23,2.62,1.83
+region,r11,Sydostasien och Övriga Oceanien,Sydostasien och Övriga Oceanien,Brott mot liv hälsa (BrB kap. 3),3,,19.32,2.38,1.39
+region,r12,Östasien,Östasien,Brott mot liv hälsa (BrB kap. 3),3,,10.26,1.27,0.91
+region,r13,Nordafrika,Nordafrika,Brott mot liv hälsa (BrB kap. 3),3,,56.81,7.0,4.34
+region,r14,Östafrika,Östafrika,Brott mot liv hälsa (BrB kap. 3),3,,48.98,6.04,2.92
+region,r15,Övriga Afrika,Övriga Afrika,Brott mot liv hälsa (BrB kap. 3),3,,78.06,9.63,4.9
+region,sv2,Inrikesfödda med två inrikesfödda föräldrar,,Dödligt våld inkl. försök till mord eller dråp,4,,0.19,1.0,1.0
+region,r01,Norden utom Sverige,Norden utom Sverige,Dödligt våld inkl. försök till mord eller dråp,4,,0.19,1.0,0.89
+region,r02,EU15 och Västeuropa utom Norden,EU15 och Västeuropa utom Norden,Dödligt våld inkl. försök till mord eller dråp,4,,0.14,0.74,0.53
+region,r03,Nya EU-länder,Nya EU-länder,Dödligt våld inkl. försök till mord eller dråp,4,,0.3,1.58,1.42
+region,r04,Övriga Europa,Övriga Europa,Dödligt våld inkl. försök till mord eller dråp,4,,0.77,4.05,3.37
+region,r05,"USA, Kanada, Australien och Nya Zeeland","USA, Kanada, Australien och Nya Zeeland",Dödligt våld inkl. försök till mord eller dråp,4,,0.12,0.63,0.47
+region,r06,Centralamerika och Karibiska öarna,Centralamerika och Karibiska öarna,Dödligt våld inkl. försök till mord eller dråp,4,,1.01,5.32,2.47
+region,r07,Sydamerika,Sydamerika,Dödligt våld inkl. försök till mord eller dråp,4,,0.62,3.26,1.58
+region,r08,Västasien,Västasien,Dödligt våld inkl. försök till mord eller dråp,4,,1.58,8.32,4.0
+region,r09,Centralasien,Centralasien,Dödligt våld inkl. försök till mord eller dråp,4,,1.53,8.05,3.11
+region,r10,Sydasien,Sydasien,Dödligt våld inkl. försök till mord eller dråp,4,,0.22,1.16,1.26
+region,r11,Sydostasien och Övriga Oceanien,Sydostasien och Övriga Oceanien,Dödligt våld inkl. försök till mord eller dråp,4,,0.31,1.63,0.89
+region,r12,Östasien,Östasien,Dödligt våld inkl. försök till mord eller dråp,4,,0.13,0.68,0.47
+region,r13,Nordafrika,Nordafrika,Dödligt våld inkl. försök till mord eller dråp,4,,0.77,4.05,2.32
+region,r14,Östafrika,Östafrika,Dödligt våld inkl. försök till mord eller dråp,4,,1.76,9.26,3.16
+region,r15,Övriga Afrika,Övriga Afrika,Dödligt våld inkl. försök till mord eller dråp,4,,1.73,9.11,5.58
+region,sv2,Inrikesfödda med två inrikesfödda föräldrar,,"Misshandel inkl. grov, ej med dödlig utgång (5, 6 §)",5,,7.77,1.0,1.0
+region,r01,Norden utom Sverige,Norden utom Sverige,"Misshandel inkl. grov, ej med dödlig utgång (5, 6 §)",5,,8.4,1.08,1.26
+region,r02,EU15 och Västeuropa utom Norden,EU15 och Västeuropa utom Norden,"Misshandel inkl. grov, ej med dödlig utgång (5, 6 §)",5,,9.27,1.19,0.96
+region,r03,Nya EU-länder,Nya EU-länder,"Misshandel inkl. grov, ej med dödlig utgång (5, 6 §)",5,,17.92,2.31,1.73
+region,r04,Övriga Europa,Övriga Europa,"Misshandel inkl. grov, ej med dödlig utgång (5, 6 §)",5,,23.67,3.05,2.14
+region,r05,"USA, Kanada, Australien och Nya Zeeland","USA, Kanada, Australien och Nya Zeeland","Misshandel inkl. grov, ej med dödlig utgång (5, 6 §)",5,,8.71,1.12,0.73
+region,r06,Centralamerika och Karibiska öarna,Centralamerika och Karibiska öarna,"Misshandel inkl. grov, ej med dödlig utgång (5, 6 §)",5,,33.65,4.33,2.35
+region,r07,Sydamerika,Sydamerika,"Misshandel inkl. grov, ej med dödlig utgång (5, 6 §)",5,,29.52,3.8,2.5
+region,r08,Västasien,Västasien,"Misshandel inkl. grov, ej med dödlig utgång (5, 6 §)",5,,41.03,5.28,3.07
+region,r09,Centralasien,Centralasien,"Misshandel inkl. grov, ej med dödlig utgång (5, 6 §)",5,,61.0,7.85,4.18
+region,r10,Sydasien,Sydasien,"Misshandel inkl. grov, ej med dödlig utgång (5, 6 §)",5,,20.88,2.69,1.86
+region,r11,Sydostasien och Övriga Oceanien,Sydostasien och Övriga Oceanien,"Misshandel inkl. grov, ej med dödlig utgång (5, 6 §)",5,,19.04,2.45,1.42
+region,r12,Östasien,Östasien,"Misshandel inkl. grov, ej med dödlig utgång (5, 6 §)",5,,9.94,1.28,0.91
+region,r13,Nordafrika,Nordafrika,"Misshandel inkl. grov, ej med dödlig utgång (5, 6 §)",5,,55.96,7.2,4.46
+region,r14,Östafrika,Östafrika,"Misshandel inkl. grov, ej med dödlig utgång (5, 6 §)",5,,47.9,6.16,2.97
+region,r15,Övriga Afrika,Övriga Afrika,"Misshandel inkl. grov, ej med dödlig utgång (5, 6 §)",5,,76.85,9.89,5.02
+region,sv2,Inrikesfödda med två inrikesfödda föräldrar,,Brott mot frihet och frid (BrB kap. 4),6,,6.84,1.0,1.0
+region,r01,Norden utom Sverige,Norden utom Sverige,Brott mot frihet och frid (BrB kap. 4),6,,8.3,1.21,1.23
+region,r02,EU15 och Västeuropa utom Norden,EU15 och Västeuropa utom Norden,Brott mot frihet och frid (BrB kap. 4),6,,8.1,1.18,0.93
+region,r03,Nya EU-länder,Nya EU-länder,Brott mot frihet och frid (BrB kap. 4),6,,14.8,2.16,1.69
+region,r04,Övriga Europa,Övriga Europa,Brott mot frihet och frid (BrB kap. 4),6,,21.44,3.13,2.22
+region,r05,"USA, Kanada, Australien och Nya Zeeland","USA, Kanada, Australien och Nya Zeeland",Brott mot frihet och frid (BrB kap. 4),6,,7.26,1.06,0.76
+region,r06,Centralamerika och Karibiska öarna,Centralamerika och Karibiska öarna,Brott mot frihet och frid (BrB kap. 4),6,,28.52,4.17,2.37
+region,r07,Sydamerika,Sydamerika,Brott mot frihet och frid (BrB kap. 4),6,,22.17,3.24,2.05
+region,r08,Västasien,Västasien,Brott mot frihet och frid (BrB kap. 4),6,,37.07,5.42,3.31
+region,r09,Centralasien,Centralasien,Brott mot frihet och frid (BrB kap. 4),6,,40.93,5.98,3.68
+region,r10,Sydasien,Sydasien,Brott mot frihet och frid (BrB kap. 4),6,,16.87,2.47,1.66
+region,r11,Sydostasien och Övriga Oceanien,Sydostasien och Övriga Oceanien,Brott mot frihet och frid (BrB kap. 4),6,,11.87,1.74,1.16
+region,r12,Östasien,Östasien,Brott mot frihet och frid (BrB kap. 4),6,,6.27,0.92,0.66
+region,r13,Nordafrika,Nordafrika,Brott mot frihet och frid (BrB kap. 4),6,,48.37,7.07,4.27
+region,r14,Östafrika,Östafrika,Brott mot frihet och frid (BrB kap. 4),6,,34.22,5.0,2.51
+region,r15,Övriga Afrika,Övriga Afrika,Brott mot frihet och frid (BrB kap. 4),6,,53.75,7.86,4.11
+region,sv2,Inrikesfödda med två inrikesfödda föräldrar,,Grov kvinnofridskränkning,7,,0.24,1.0,1.0
+region,r01,Norden utom Sverige,Norden utom Sverige,Grov kvinnofridskränkning,7,,0.31,1.29,1.54
+region,r02,EU15 och Västeuropa utom Norden,EU15 och Västeuropa utom Norden,Grov kvinnofridskränkning,7,,0.38,1.58,1.04
+region,r03,Nya EU-länder,Nya EU-länder,Grov kvinnofridskränkning,7,,0.81,3.38,2.33
+region,r04,Övriga Europa,Övriga Europa,Grov kvinnofridskränkning,7,,1.06,4.42,2.54
+region,r05,"USA, Kanada, Australien och Nya Zeeland","USA, Kanada, Australien och Nya Zeeland",Grov kvinnofridskränkning,7,,0.33,1.38,0.71
+region,r06,Centralamerika och Karibiska öarna,Centralamerika och Karibiska öarna,Grov kvinnofridskränkning,7,,2.02,8.42,4.08
+region,r07,Sydamerika,Sydamerika,Grov kvinnofridskränkning,7,,1.31,5.46,3.04
+region,r08,Västasien,Västasien,Grov kvinnofridskränkning,7,,1.91,7.96,4.58
+region,r09,Centralasien,Centralasien,Grov kvinnofridskränkning,7,,2.93,12.21,6.67
+region,r10,Sydasien,Sydasien,Grov kvinnofridskränkning,7,,1.18,4.92,3.08
+region,r11,Sydostasien och Övriga Oceanien,Sydostasien och Övriga Oceanien,Grov kvinnofridskränkning,7,,0.18,0.75,0.54
+region,r12,Östasien,Östasien,Grov kvinnofridskränkning,7,,0.13,0.54,0.63
+region,r13,Nordafrika,Nordafrika,Grov kvinnofridskränkning,7,,2.5,10.42,4.88
+region,r14,Östafrika,Östafrika,Grov kvinnofridskränkning,7,,0.86,3.58,2.67
+region,r15,Övriga Afrika,Övriga Afrika,Grov kvinnofridskränkning,7,,2.16,9.0,2.67
+region,sv2,Inrikesfödda med två inrikesfödda föräldrar,,Olaga hot,8,,3.85,1.0,1.0
+region,r01,Norden utom Sverige,Norden utom Sverige,Olaga hot,8,,4.99,1.3,1.32
+region,r02,EU15 och Västeuropa utom Norden,EU15 och Västeuropa utom Norden,Olaga hot,8,,4.67,1.21,0.93
+region,r03,Nya EU-länder,Nya EU-länder,Olaga hot,8,,8.97,2.33,1.77
+region,r04,Övriga Europa,Övriga Europa,Olaga hot,8,,14.5,3.77,2.54
+region,r05,"USA, Kanada, Australien och Nya Zeeland","USA, Kanada, Australien och Nya Zeeland",Olaga hot,8,,4.11,1.07,0.77
+region,r06,Centralamerika och Karibiska öarna,Centralamerika och Karibiska öarna,Olaga hot,8,,17.08,4.44,2.36
+region,r07,Sydamerika,Sydamerika,Olaga hot,8,,12.89,3.35,2.03
+region,r08,Västasien,Västasien,Olaga hot,8,,25.67,6.67,3.86
+region,r09,Centralasien,Centralasien,Olaga hot,8,,26.44,6.87,3.25
+region,r10,Sydasien,Sydasien,Olaga hot,8,,9.48,2.46,1.73
+region,r11,Sydostasien och Övriga Oceanien,Sydostasien och Övriga Oceanien,Olaga hot,8,,6.85,1.78,1.24
+region,r12,Östasien,Östasien,Olaga hot,8,,2.93,0.76,0.56
+region,r13,Nordafrika,Nordafrika,Olaga hot,8,,32.93,8.55,4.99
+region,r14,Östafrika,Östafrika,Olaga hot,8,,22.7,5.9,2.87
+region,r15,Övriga Afrika,Övriga Afrika,Olaga hot,8,,32.98,8.57,4.28
+region,sv2,Inrikesfödda med två inrikesfödda föräldrar,,"Hemfridsbrott, olaga intrång",9,,1.1,1.0,1.0
+region,r01,Norden utom Sverige,Norden utom Sverige,"Hemfridsbrott, olaga intrång",9,,1.2,1.09,1.03
+region,r02,EU15 och Västeuropa utom Norden,EU15 och Västeuropa utom Norden,"Hemfridsbrott, olaga intrång",9,,0.81,0.74,0.6
+region,r03,Nya EU-länder,Nya EU-länder,"Hemfridsbrott, olaga intrång",9,,1.71,1.55,1.07
+region,r04,Övriga Europa,Övriga Europa,"Hemfridsbrott, olaga intrång",9,,1.9,1.73,1.22
+region,r05,"USA, Kanada, Australien och Nya Zeeland","USA, Kanada, Australien och Nya Zeeland","Hemfridsbrott, olaga intrång",9,,0.62,0.56,0.44
+region,r06,Centralamerika och Karibiska öarna,Centralamerika och Karibiska öarna,"Hemfridsbrott, olaga intrång",9,,2.61,2.37,1.03
+region,r07,Sydamerika,Sydamerika,"Hemfridsbrott, olaga intrång",9,,1.95,1.77,1.26
+region,r08,Västasien,Västasien,"Hemfridsbrott, olaga intrång",9,,2.32,2.11,1.4
+region,r09,Centralasien,Centralasien,"Hemfridsbrott, olaga intrång",9,,2.93,2.66,1.1
+region,r10,Sydasien,Sydasien,"Hemfridsbrott, olaga intrång",9,,1.11,1.01,0.56
+region,r11,Sydostasien och Övriga Oceanien,Sydostasien och Övriga Oceanien,"Hemfridsbrott, olaga intrång",9,,0.74,0.67,0.49
+region,r12,Östasien,Östasien,"Hemfridsbrott, olaga intrång",9,,0.55,0.5,0.31
+region,r13,Nordafrika,Nordafrika,"Hemfridsbrott, olaga intrång",9,,3.47,3.15,1.71
+region,r14,Östafrika,Östafrika,"Hemfridsbrott, olaga intrång",9,,3.28,2.98,0.97
+region,r15,Övriga Afrika,Övriga Afrika,"Hemfridsbrott, olaga intrång",9,,4.32,3.93,1.47
+region,sv2,Inrikesfödda med två inrikesfödda föräldrar,,Ofredande,10,,2.86,1.0,1.0
+region,r01,Norden utom Sverige,Norden utom Sverige,Ofredande,10,,3.42,1.2,1.19
+region,r02,EU15 och Västeuropa utom Norden,EU15 och Västeuropa utom Norden,Ofredande,10,,3.32,1.16,0.95
+region,r03,Nya EU-länder,Nya EU-länder,Ofredande,10,,5.68,1.99,1.62
+region,r04,Övriga Europa,Övriga Europa,Ofredande,10,,7.37,2.58,1.95
+region,r05,"USA, Kanada, Australien och Nya Zeeland","USA, Kanada, Australien och Nya Zeeland",Ofredande,10,,3.53,1.23,0.86
+region,r06,Centralamerika och Karibiska öarna,Centralamerika och Karibiska öarna,Ofredande,10,,11.78,4.12,2.08
+region,r07,Sydamerika,Sydamerika,Ofredande,10,,9.28,3.24,2.01
+region,r08,Västasien,Västasien,Ofredande,10,,11.96,4.18,2.64
+region,r09,Centralasien,Centralasien,Ofredande,10,,12.91,4.51,3.29
+region,r10,Sydasien,Sydasien,Ofredande,10,,6.72,2.35,1.58
+region,r11,Sydostasien och Övriga Oceanien,Sydostasien och Övriga Oceanien,Ofredande,10,,3.59,1.26,0.85
+region,r12,Östasien,Östasien,Ofredande,10,,2.82,0.99,0.68
+region,r13,Nordafrika,Nordafrika,Ofredande,10,,18.02,6.3,4.13
+region,r14,Östafrika,Östafrika,Ofredande,10,,10.35,3.62,1.87
+region,r15,Övriga Afrika,Övriga Afrika,Ofredande,10,,18.56,6.49,3.61
+region,sv2,Inrikesfödda med två inrikesfödda föräldrar,,Sexualbrott (BrB kap. 6),11,,1.56,1.0,1.0
+region,r01,Norden utom Sverige,Norden utom Sverige,Sexualbrott (BrB kap. 6),11,,1.31,0.84,1.05
+region,r02,EU15 och Västeuropa utom Norden,EU15 och Västeuropa utom Norden,Sexualbrott (BrB kap. 6),11,,1.81,1.16,0.92
+region,r03,Nya EU-länder,Nya EU-länder,Sexualbrott (BrB kap. 6),11,,2.21,1.42,1.16
+region,r04,Övriga Europa,Övriga Europa,Sexualbrott (BrB kap. 6),11,,3.64,2.33,1.72
+region,r05,"USA, Kanada, Australien och Nya Zeeland","USA, Kanada, Australien och Nya Zeeland",Sexualbrott (BrB kap. 6),11,,1.78,1.14,0.8
+region,r06,Centralamerika och Karibiska öarna,Centralamerika och Karibiska öarna,Sexualbrott (BrB kap. 6),11,,8.33,5.34,3.66
+region,r07,Sydamerika,Sydamerika,Sexualbrott (BrB kap. 6),11,,6.87,4.4,3.46
+region,r08,Västasien,Västasien,Sexualbrott (BrB kap. 6),11,,7.37,4.72,3.12
+region,r09,Centralasien,Centralasien,Sexualbrott (BrB kap. 6),11,,14.67,9.4,5.59
+region,r10,Sydasien,Sydasien,Sexualbrott (BrB kap. 6),11,,5.39,3.46,2.63
+region,r11,Sydostasien och Övriga Oceanien,Sydostasien och Övriga Oceanien,Sexualbrott (BrB kap. 6),11,,2.47,1.58,1.32
+region,r12,Östasien,Östasien,Sexualbrott (BrB kap. 6),11,,1.05,0.67,0.52
+region,r13,Nordafrika,Nordafrika,Sexualbrott (BrB kap. 6),11,,10.51,6.74,3.82
+region,r14,Östafrika,Östafrika,Sexualbrott (BrB kap. 6),11,,9.22,5.91,3.46
+region,r15,Övriga Afrika,Övriga Afrika,Sexualbrott (BrB kap. 6),11,,11.87,7.61,3.52
+region,sv2,Inrikesfödda med två inrikesfödda föräldrar,,"Våldtäkt (inkl. grov, inkl. försök)",12,,0.67,1.0,1.0
+region,r01,Norden utom Sverige,Norden utom Sverige,"Våldtäkt (inkl. grov, inkl. försök)",12,,0.49,0.73,1.13
+region,r02,EU15 och Västeuropa utom Norden,EU15 och Västeuropa utom Norden,"Våldtäkt (inkl. grov, inkl. försök)",12,,0.64,0.96,0.73
+region,r03,Nya EU-länder,Nya EU-länder,"Våldtäkt (inkl. grov, inkl. försök)",12,,0.92,1.37,1.15
+region,r04,Övriga Europa,Övriga Europa,"Våldtäkt (inkl. grov, inkl. försök)",12,,1.62,2.42,1.78
+region,r05,"USA, Kanada, Australien och Nya Zeeland","USA, Kanada, Australien och Nya Zeeland","Våldtäkt (inkl. grov, inkl. försök)",12,,0.83,1.24,0.84
+region,r06,Centralamerika och Karibiska öarna,Centralamerika och Karibiska öarna,"Våldtäkt (inkl. grov, inkl. försök)",12,,4.63,6.91,4.28
+region,r07,Sydamerika,Sydamerika,"Våldtäkt (inkl. grov, inkl. försök)",12,,3.44,5.13,4.12
+region,r08,Västasien,Västasien,"Våldtäkt (inkl. grov, inkl. försök)",12,,3.47,5.18,3.03
+region,r09,Centralasien,Centralasien,"Våldtäkt (inkl. grov, inkl. försök)",12,,7.19,10.73,4.09
+region,r10,Sydasien,Sydasien,"Våldtäkt (inkl. grov, inkl. försök)",12,,2.23,3.33,2.18
+region,r11,Sydostasien och Övriga Oceanien,Sydostasien och Övriga Oceanien,"Våldtäkt (inkl. grov, inkl. försök)",12,,0.83,1.24,1.06
+region,r12,Östasien,Östasien,"Våldtäkt (inkl. grov, inkl. försök)",12,,0.42,0.63,0.51
+region,r13,Nordafrika,Nordafrika,"Våldtäkt (inkl. grov, inkl. försök)",12,,4.78,7.13,3.85
+region,r14,Östafrika,Östafrika,"Våldtäkt (inkl. grov, inkl. försök)",12,,4.55,6.79,3.57
+region,r15,Övriga Afrika,Övriga Afrika,"Våldtäkt (inkl. grov, inkl. försök)",12,,7.64,11.4,5.45
+region,sv2,Inrikesfödda med två inrikesfödda föräldrar,,Sexuellt ofredande,13,,0.73,1.0,1.0
+region,r01,Norden utom Sverige,Norden utom Sverige,Sexuellt ofredande,13,,0.71,0.97,1.03
+region,r02,EU15 och Västeuropa utom Norden,EU15 och Västeuropa utom Norden,Sexuellt ofredande,13,,0.92,1.26,1.03
+region,r03,Nya EU-länder,Nya EU-länder,Sexuellt ofredande,13,,1.03,1.41,1.12
+region,r04,Övriga Europa,Övriga Europa,Sexuellt ofredande,13,,1.69,2.32,1.75
+region,r05,"USA, Kanada, Australien och Nya Zeeland","USA, Kanada, Australien och Nya Zeeland",Sexuellt ofredande,13,,0.62,0.85,0.6
+region,r06,Centralamerika och Karibiska öarna,Centralamerika och Karibiska öarna,Sexuellt ofredande,13,,3.53,4.84,3.33
+region,r07,Sydamerika,Sydamerika,Sexuellt ofredande,13,,2.92,4.0,2.99
+region,r08,Västasien,Västasien,Sexuellt ofredande,13,,3.39,4.64,3.32
+region,r09,Centralasien,Centralasien,Sexuellt ofredande,13,,6.71,9.19,7.99
+region,r10,Sydasien,Sydasien,Sexuellt ofredande,13,,2.31,3.16,2.73
+region,r11,Sydostasien och Övriga Oceanien,Sydostasien och Övriga Oceanien,Sexuellt ofredande,13,,1.14,1.56,1.4
+region,r12,Östasien,Östasien,Sexuellt ofredande,13,,0.4,0.55,0.38
+region,r13,Nordafrika,Nordafrika,Sexuellt ofredande,13,,5.28,7.23,4.26
+region,r14,Östafrika,Östafrika,Sexuellt ofredande,13,,4.41,6.04,3.53
+region,r15,Övriga Afrika,Övriga Afrika,Sexuellt ofredande,13,,3.97,5.44,2.55
+region,sv2,Inrikesfödda med två inrikesfödda föräldrar,,Brott mot förmögenhet (BrB kap. 8–12),14,,9.63,1.0,1.0
+region,r01,Norden utom Sverige,Norden utom Sverige,Brott mot förmögenhet (BrB kap. 8–12),14,,10.53,1.09,1.18
+region,r02,EU15 och Västeuropa utom Norden,EU15 och Västeuropa utom Norden,Brott mot förmögenhet (BrB kap. 8–12),14,,10.73,1.11,0.9
+region,r03,Nya EU-länder,Nya EU-länder,Brott mot förmögenhet (BrB kap. 8–12),14,,27.03,2.81,2.13
+region,r04,Övriga Europa,Övriga Europa,Brott mot förmögenhet (BrB kap. 8–12),14,,30.25,3.14,2.21
+region,r05,"USA, Kanada, Australien och Nya Zeeland","USA, Kanada, Australien och Nya Zeeland",Brott mot förmögenhet (BrB kap. 8–12),14,,8.75,0.91,0.68
+region,r06,Centralamerika och Karibiska öarna,Centralamerika och Karibiska öarna,Brott mot förmögenhet (BrB kap. 8–12),14,,27.85,2.89,2.13
+region,r07,Sydamerika,Sydamerika,Brott mot förmögenhet (BrB kap. 8–12),14,,27.89,2.9,2.09
+region,r08,Västasien,Västasien,Brott mot förmögenhet (BrB kap. 8–12),14,,36.34,3.77,2.49
+region,r09,Centralasien,Centralasien,Brott mot förmögenhet (BrB kap. 8–12),14,,46.14,4.79,2.59
+region,r10,Sydasien,Sydasien,Brott mot förmögenhet (BrB kap. 8–12),14,,17.92,1.86,1.38
+region,r11,Sydostasien och Övriga Oceanien,Sydostasien och Övriga Oceanien,Brott mot förmögenhet (BrB kap. 8–12),14,,16.87,1.75,1.29
+region,r12,Östasien,Östasien,Brott mot förmögenhet (BrB kap. 8–12),14,,10.57,1.1,0.87
+region,r13,Nordafrika,Nordafrika,Brott mot förmögenhet (BrB kap. 8–12),14,,52.11,5.41,3.4
+region,r14,Östafrika,Östafrika,Brott mot förmögenhet (BrB kap. 8–12),14,,35.05,3.64,1.78
+region,r15,Övriga Afrika,Övriga Afrika,Brott mot förmögenhet (BrB kap. 8–12),14,,54.92,5.7,2.78
+region,sv2,Inrikesfödda med två inrikesfödda föräldrar,,Stöld- och tillgreppsbrott (BrB kap. 8),15,,5.43,1.0,1.0
+region,r01,Norden utom Sverige,Norden utom Sverige,Stöld- och tillgreppsbrott (BrB kap. 8),15,,6.11,1.13,1.13
+region,r02,EU15 och Västeuropa utom Norden,EU15 och Västeuropa utom Norden,Stöld- och tillgreppsbrott (BrB kap. 8),15,,6.27,1.15,0.94
+region,r03,Nya EU-länder,Nya EU-länder,Stöld- och tillgreppsbrott (BrB kap. 8),15,,17.35,3.2,2.44
+region,r04,Övriga Europa,Övriga Europa,Stöld- och tillgreppsbrott (BrB kap. 8),15,,20.0,3.68,2.61
+region,r05,"USA, Kanada, Australien och Nya Zeeland","USA, Kanada, Australien och Nya Zeeland",Stöld- och tillgreppsbrott (BrB kap. 8),15,,4.56,0.84,0.63
+region,r06,Centralamerika och Karibiska öarna,Centralamerika och Karibiska öarna,Stöld- och tillgreppsbrott (BrB kap. 8),15,,18.0,3.31,2.5
+region,r07,Sydamerika,Sydamerika,Stöld- och tillgreppsbrott (BrB kap. 8),15,,16.4,3.02,2.16
+region,r08,Västasien,Västasien,Stöld- och tillgreppsbrott (BrB kap. 8),15,,20.96,3.86,2.53
+region,r09,Centralasien,Centralasien,Stöld- och tillgreppsbrott (BrB kap. 8),15,,30.69,5.65,2.98
+region,r10,Sydasien,Sydasien,Stöld- och tillgreppsbrott (BrB kap. 8),15,,9.59,1.77,1.32
+region,r11,Sydostasien och Övriga Oceanien,Sydostasien och Övriga Oceanien,Stöld- och tillgreppsbrott (BrB kap. 8),15,,9.77,1.8,1.36
+region,r12,Östasien,Östasien,Stöld- och tillgreppsbrott (BrB kap. 8),15,,5.54,1.02,0.79
+region,r13,Nordafrika,Nordafrika,Stöld- och tillgreppsbrott (BrB kap. 8),15,,34.66,6.38,3.81
+region,r14,Östafrika,Östafrika,Stöld- och tillgreppsbrott (BrB kap. 8),15,,23.7,4.36,1.91
+region,r15,Övriga Afrika,Övriga Afrika,Stöld- och tillgreppsbrott (BrB kap. 8),15,,31.82,5.86,2.75
+region,sv2,Inrikesfödda med två inrikesfödda föräldrar,,Inbrottsstöld,16,,1.02,1.0,1.0
+region,r01,Norden utom Sverige,Norden utom Sverige,Inbrottsstöld,16,,0.89,0.87,0.9
+region,r02,EU15 och Västeuropa utom Norden,EU15 och Västeuropa utom Norden,Inbrottsstöld,16,,0.75,0.74,0.44
+region,r03,Nya EU-länder,Nya EU-länder,Inbrottsstöld,16,,1.75,1.72,1.25
+region,r04,Övriga Europa,Övriga Europa,Inbrottsstöld,16,,2.04,2.0,1.25
+region,r05,"USA, Kanada, Australien och Nya Zeeland","USA, Kanada, Australien och Nya Zeeland",Inbrottsstöld,16,,0.41,0.4,0.19
+region,r06,Centralamerika och Karibiska öarna,Centralamerika och Karibiska öarna,Inbrottsstöld,16,,1.35,1.32,0.53
+region,r07,Sydamerika,Sydamerika,Inbrottsstöld,16,,1.48,1.45,0.87
+region,r08,Västasien,Västasien,Inbrottsstöld,16,,2.07,2.03,0.93
+region,r09,Centralasien,Centralasien,Inbrottsstöld,16,,1.71,1.68,0.53
+region,r10,Sydasien,Sydasien,Inbrottsstöld,16,,0.73,0.72,0.5
+region,r11,Sydostasien och Övriga Oceanien,Sydostasien och Övriga Oceanien,Inbrottsstöld,16,,0.64,0.63,0.32
+region,r12,Östasien,Östasien,Inbrottsstöld,16,,0.21,0.21,0.11
+region,r13,Nordafrika,Nordafrika,Inbrottsstöld,16,,2.81,2.75,1.79
+region,r14,Östafrika,Östafrika,Inbrottsstöld,16,,2.56,2.51,0.75
+region,r15,Övriga Afrika,Övriga Afrika,Inbrottsstöld,16,,2.46,2.41,0.75
+region,sv2,Inrikesfödda med två inrikesfödda föräldrar,,Inbrottsstöld i bostad,17,,0.33,1.0,1.0
+region,r01,Norden utom Sverige,Norden utom Sverige,Inbrottsstöld i bostad,17,,0.27,0.82,0.82
+region,r02,EU15 och Västeuropa utom Norden,EU15 och Västeuropa utom Norden,Inbrottsstöld i bostad,17,,0.33,1.0,0.52
+region,r03,Nya EU-länder,Nya EU-länder,Inbrottsstöld i bostad,17,,0.66,2.0,1.45
+region,r04,Övriga Europa,Övriga Europa,Inbrottsstöld i bostad,17,,0.66,2.0,1.06
+region,r05,"USA, Kanada, Australien och Nya Zeeland","USA, Kanada, Australien och Nya Zeeland",Inbrottsstöld i bostad,17,,0.17,0.52,0.18
+region,r06,Centralamerika och Karibiska öarna,Centralamerika och Karibiska öarna,Inbrottsstöld i bostad,17,,0.76,2.3,0.82
+region,r07,Sydamerika,Sydamerika,Inbrottsstöld i bostad,17,,0.62,1.88,1.15
+region,r08,Västasien,Västasien,Inbrottsstöld i bostad,17,,0.68,2.06,0.82
+region,r09,Centralasien,Centralasien,Inbrottsstöld i bostad,17,,0.6,1.82,0.79
+region,r10,Sydasien,Sydasien,Inbrottsstöld i bostad,17,,0.2,0.61,0.3
+region,r11,Sydostasien och Övriga Oceanien,Sydostasien och Övriga Oceanien,Inbrottsstöld i bostad,17,,0.15,0.45,0.24
+region,r12,Östasien,Östasien,Inbrottsstöld i bostad,17,,0.08,0.24,0.06
+region,r13,Nordafrika,Nordafrika,Inbrottsstöld i bostad,17,,1.08,3.27,2.61
+region,r14,Östafrika,Östafrika,Inbrottsstöld i bostad,17,,1.05,3.18,0.88
+region,r15,Övriga Afrika,Övriga Afrika,Inbrottsstöld i bostad,17,,1.21,3.67,1.39
+region,sv2,Inrikesfödda med två inrikesfödda föräldrar,,"Stöld i butik, varuhus",18,,3.19,1.0,1.0
+region,r01,Norden utom Sverige,Norden utom Sverige,"Stöld i butik, varuhus",18,,3.89,1.22,1.08
+region,r02,EU15 och Västeuropa utom Norden,EU15 och Västeuropa utom Norden,"Stöld i butik, varuhus",18,,4.21,1.32,1.1
+region,r03,Nya EU-länder,Nya EU-länder,"Stöld i butik, varuhus",18,,12.87,4.03,3.05
+region,r04,Övriga Europa,Övriga Europa,"Stöld i butik, varuhus",18,,14.08,4.41,3.19
+region,r05,"USA, Kanada, Australien och Nya Zeeland","USA, Kanada, Australien och Nya Zeeland","Stöld i butik, varuhus",18,,3.15,0.99,0.75
+region,r06,Centralamerika och Karibiska öarna,Centralamerika och Karibiska öarna,"Stöld i butik, varuhus",18,,11.69,3.66,2.84
+region,r07,Sydamerika,Sydamerika,"Stöld i butik, varuhus",18,,10.7,3.35,2.48
+region,r08,Västasien,Västasien,"Stöld i butik, varuhus",18,,12.64,3.96,2.85
+region,r09,Centralasien,Centralasien,"Stöld i butik, varuhus",18,,21.29,6.67,3.92
+region,r10,Sydasien,Sydasien,"Stöld i butik, varuhus",18,,5.96,1.87,1.47
+region,r11,Sydostasien och Övriga Oceanien,Sydostasien och Övriga Oceanien,"Stöld i butik, varuhus",18,,6.95,2.18,1.77
+region,r12,Östasien,Östasien,"Stöld i butik, varuhus",18,,4.43,1.39,1.03
+region,r13,Nordafrika,Nordafrika,"Stöld i butik, varuhus",18,,23.19,7.27,4.12
+region,r14,Östafrika,Östafrika,"Stöld i butik, varuhus",18,,14.42,4.52,1.97
+region,r15,Övriga Afrika,Övriga Afrika,"Stöld i butik, varuhus",18,,18.0,5.64,2.53
+region,sv2,Inrikesfödda med två inrikesfödda föräldrar,,Rån (inkl. grovt),19,,0.41,1.0,1.0
+region,r01,Norden utom Sverige,Norden utom Sverige,Rån (inkl. grovt),19,,0.29,0.71,1.29
+region,r02,EU15 och Västeuropa utom Norden,EU15 och Västeuropa utom Norden,Rån (inkl. grovt),19,,0.45,1.1,0.88
+region,r03,Nya EU-länder,Nya EU-länder,Rån (inkl. grovt),19,,0.68,1.66,1.29
+region,r04,Övriga Europa,Övriga Europa,Rån (inkl. grovt),19,,1.15,2.8,2.12
+region,r05,"USA, Kanada, Australien och Nya Zeeland","USA, Kanada, Australien och Nya Zeeland",Rån (inkl. grovt),19,,0.21,0.51,0.32
+region,r06,Centralamerika och Karibiska öarna,Centralamerika och Karibiska öarna,Rån (inkl. grovt),19,,1.51,3.68,2.54
+region,r07,Sydamerika,Sydamerika,Rån (inkl. grovt),19,,1.19,2.9,2.1
+region,r08,Västasien,Västasien,Rån (inkl. grovt),19,,2.62,6.39,3.41
+region,r09,Centralasien,Centralasien,Rån (inkl. grovt),19,,2.52,6.15,1.24
+region,r10,Sydasien,Sydasien,Rån (inkl. grovt),19,,0.45,1.1,0.9
+region,r11,Sydostasien och Övriga Oceanien,Sydostasien och Övriga Oceanien,Rån (inkl. grovt),19,,0.43,1.05,0.61
+region,r12,Östasien,Östasien,Rån (inkl. grovt),19,,0.11,0.27,0.24
+region,r13,Nordafrika,Nordafrika,Rån (inkl. grovt),19,,3.31,8.07,4.93
+region,r14,Östafrika,Östafrika,Rån (inkl. grovt),19,,4.95,12.07,3.76
+region,r15,Övriga Afrika,Övriga Afrika,Rån (inkl. grovt),19,,4.32,10.54,3.71
+region,sv2,Inrikesfödda med två inrikesfödda föräldrar,,Tillgrepp av bil,20,,0.51,1.0,1.0
+region,r01,Norden utom Sverige,Norden utom Sverige,Tillgrepp av bil,20,,0.36,0.71,0.78
+region,r02,EU15 och Västeuropa utom Norden,EU15 och Västeuropa utom Norden,Tillgrepp av bil,20,,0.23,0.45,0.27
+region,r03,Nya EU-länder,Nya EU-länder,Tillgrepp av bil,20,,0.6,1.18,0.76
+region,r04,Övriga Europa,Övriga Europa,Tillgrepp av bil,20,,0.67,1.31,0.9
+region,r05,"USA, Kanada, Australien och Nya Zeeland","USA, Kanada, Australien och Nya Zeeland",Tillgrepp av bil,20,,0.08,0.16,0.04
+region,r06,Centralamerika och Karibiska öarna,Centralamerika och Karibiska öarna,Tillgrepp av bil,20,,0.59,1.16,1.02
+region,r07,Sydamerika,Sydamerika,Tillgrepp av bil,20,,0.73,1.43,0.71
+region,r08,Västasien,Västasien,Tillgrepp av bil,20,,0.9,1.76,0.9
+region,r09,Centralasien,Centralasien,Tillgrepp av bil,20,,0.63,1.24,0.41
+region,r10,Sydasien,Sydasien,Tillgrepp av bil,20,,0.18,0.35,0.12
+region,r11,Sydostasien och Övriga Oceanien,Sydostasien och Övriga Oceanien,Tillgrepp av bil,20,,0.34,0.67,0.39
+region,r12,Östasien,Östasien,Tillgrepp av bil,20,,0.03,0.06,0.08
+region,r13,Nordafrika,Nordafrika,Tillgrepp av bil,20,,1.27,2.49,1.84
+region,r14,Östafrika,Östafrika,Tillgrepp av bil,20,,1.45,2.84,0.9
+region,r15,Övriga Afrika,Övriga Afrika,Tillgrepp av bil,20,,1.12,2.2,0.71
+region,sv2,Inrikesfödda med två inrikesfödda föräldrar,,Bedrägeribrott (BrB kap. 9),21,,2.52,1.0,1.0
+region,r01,Norden utom Sverige,Norden utom Sverige,Bedrägeribrott (BrB kap. 9),21,,2.37,0.94,1.08
+region,r02,EU15 och Västeuropa utom Norden,EU15 och Västeuropa utom Norden,Bedrägeribrott (BrB kap. 9),21,,2.51,1.0,0.7
+region,r03,Nya EU-länder,Nya EU-länder,Bedrägeribrott (BrB kap. 9),21,,5.95,2.36,1.56
+region,r04,Övriga Europa,Övriga Europa,Bedrägeribrott (BrB kap. 9),21,,7.59,3.01,2.02
+region,r05,"USA, Kanada, Australien och Nya Zeeland","USA, Kanada, Australien och Nya Zeeland",Bedrägeribrott (BrB kap. 9),21,,1.49,0.59,0.42
+region,r06,Centralamerika och Karibiska öarna,Centralamerika och Karibiska öarna,Bedrägeribrott (BrB kap. 9),21,,6.23,2.47,1.59
+region,r07,Sydamerika,Sydamerika,Bedrägeribrott (BrB kap. 9),21,,6.49,2.58,1.7
+region,r08,Västasien,Västasien,Bedrägeribrott (BrB kap. 9),21,,10.53,4.18,2.4
+region,r09,Centralasien,Centralasien,Bedrägeribrott (BrB kap. 9),21,,10.03,3.98,2.03
+region,r10,Sydasien,Sydasien,Bedrägeribrott (BrB kap. 9),21,,4.72,1.87,1.11
+region,r11,Sydostasien och Övriga Oceanien,Sydostasien och Övriga Oceanien,Bedrägeribrott (BrB kap. 9),21,,3.86,1.53,1.04
+region,r12,Östasien,Östasien,Bedrägeribrott (BrB kap. 9),21,,2.06,0.82,0.59
+region,r13,Nordafrika,Nordafrika,Bedrägeribrott (BrB kap. 9),21,,14.75,5.85,3.58
+region,r14,Östafrika,Östafrika,Bedrägeribrott (BrB kap. 9),21,,9.06,3.6,1.79
+region,r15,Övriga Afrika,Övriga Afrika,Bedrägeribrott (BrB kap. 9),21,,18.82,7.47,3.73
+region,sv2,Inrikesfödda med två inrikesfödda föräldrar,,Förskingring och annan trolöshet (BrB kap. 10),22,,0.83,1.0,1.0
+region,r01,Norden utom Sverige,Norden utom Sverige,Förskingring och annan trolöshet (BrB kap. 10),22,,0.9,1.08,1.08
+region,r02,EU15 och Västeuropa utom Norden,EU15 och Västeuropa utom Norden,Förskingring och annan trolöshet (BrB kap. 10),22,,0.84,1.01,0.77
+region,r03,Nya EU-länder,Nya EU-länder,Förskingring och annan trolöshet (BrB kap. 10),22,,1.74,2.1,1.49
+region,r04,Övriga Europa,Övriga Europa,Förskingring och annan trolöshet (BrB kap. 10),22,,1.82,2.19,1.43
+region,r05,"USA, Kanada, Australien och Nya Zeeland","USA, Kanada, Australien och Nya Zeeland",Förskingring och annan trolöshet (BrB kap. 10),22,,0.58,0.7,0.6
+region,r06,Centralamerika och Karibiska öarna,Centralamerika och Karibiska öarna,Förskingring och annan trolöshet (BrB kap. 10),22,,1.68,2.02,0.81
+region,r07,Sydamerika,Sydamerika,Förskingring och annan trolöshet (BrB kap. 10),22,,2.27,2.73,1.94
+region,r08,Västasien,Västasien,Förskingring och annan trolöshet (BrB kap. 10),22,,2.76,3.33,2.2
+region,r09,Centralasien,Centralasien,Förskingring och annan trolöshet (BrB kap. 10),22,,3.05,3.67,1.98
+region,r10,Sydasien,Sydasien,Förskingring och annan trolöshet (BrB kap. 10),22,,1.6,1.93,1.49
+region,r11,Sydostasien och Övriga Oceanien,Sydostasien och Övriga Oceanien,Förskingring och annan trolöshet (BrB kap. 10),22,,1.28,1.54,1.04
+region,r12,Östasien,Östasien,Förskingring och annan trolöshet (BrB kap. 10),22,,0.76,0.92,0.72
+region,r13,Nordafrika,Nordafrika,Förskingring och annan trolöshet (BrB kap. 10),22,,4.81,5.8,4.81
+region,r14,Östafrika,Östafrika,Förskingring och annan trolöshet (BrB kap. 10),22,,2.82,3.4,1.95
+region,r15,Övriga Afrika,Övriga Afrika,Förskingring och annan trolöshet (BrB kap. 10),22,,5.05,6.08,3.18
+region,sv2,Inrikesfödda med två inrikesfödda föräldrar,,Brott mot borgenärer m.m. (BrB kap. 11),23,,0.98,1.0,1.0
+region,r01,Norden utom Sverige,Norden utom Sverige,Brott mot borgenärer m.m. (BrB kap. 11),23,,1.35,1.38,1.45
+region,r02,EU15 och Västeuropa utom Norden,EU15 och Västeuropa utom Norden,Brott mot borgenärer m.m. (BrB kap. 11),23,,1.45,1.48,1.09
+region,r03,Nya EU-länder,Nya EU-länder,Brott mot borgenärer m.m. (BrB kap. 11),23,,3.71,3.79,2.74
+region,r04,Övriga Europa,Övriga Europa,Brott mot borgenärer m.m. (BrB kap. 11),23,,2.9,2.96,1.95
+region,r05,"USA, Kanada, Australien och Nya Zeeland","USA, Kanada, Australien och Nya Zeeland",Brott mot borgenärer m.m. (BrB kap. 11),23,,1.82,1.86,1.41
+region,r06,Centralamerika och Karibiska öarna,Centralamerika och Karibiska öarna,Brott mot borgenärer m.m. (BrB kap. 11),23,,2.1,2.14,1.15
+region,r07,Sydamerika,Sydamerika,Brott mot borgenärer m.m. (BrB kap. 11),23,,3.06,3.12,2.18
+region,r08,Västasien,Västasien,Brott mot borgenärer m.m. (BrB kap. 11),23,,3.64,3.71,2.82
+region,r09,Centralasien,Centralasien,Brott mot borgenärer m.m. (BrB kap. 11),23,,1.83,1.87,1.37
+region,r10,Sydasien,Sydasien,Brott mot borgenärer m.m. (BrB kap. 11),23,,3.16,3.22,2.55
+region,r11,Sydostasien och Övriga Oceanien,Sydostasien och Övriga Oceanien,Brott mot borgenärer m.m. (BrB kap. 11),23,,1.87,1.91,1.38
+region,r12,Östasien,Östasien,Brott mot borgenärer m.m. (BrB kap. 11),23,,1.82,1.86,1.86
+region,r13,Nordafrika,Nordafrika,Brott mot borgenärer m.m. (BrB kap. 11),23,,3.24,3.31,2.22
+region,r14,Östafrika,Östafrika,Brott mot borgenärer m.m. (BrB kap. 11),23,,1.51,1.54,1.43
+region,r15,Övriga Afrika,Övriga Afrika,Brott mot borgenärer m.m. (BrB kap. 11),23,,2.72,2.78,1.19
+region,sv2,Inrikesfödda med två inrikesfödda föräldrar,,Skadegörelsebrott (BrB kap. 12),24,,2.61,1.0,1.0
+region,r01,Norden utom Sverige,Norden utom Sverige,Skadegörelsebrott (BrB kap. 12),24,,2.38,0.91,0.95
+region,r02,EU15 och Västeuropa utom Norden,EU15 och Västeuropa utom Norden,Skadegörelsebrott (BrB kap. 12),24,,1.92,0.74,0.58
+region,r03,Nya EU-länder,Nya EU-länder,Skadegörelsebrott (BrB kap. 12),24,,3.7,1.42,1.08
+region,r04,Övriga Europa,Övriga Europa,Skadegörelsebrott (BrB kap. 12),24,,3.99,1.53,1.07
+region,r05,"USA, Kanada, Australien och Nya Zeeland","USA, Kanada, Australien och Nya Zeeland",Skadegörelsebrott (BrB kap. 12),24,,1.41,0.54,0.34
+region,r06,Centralamerika och Karibiska öarna,Centralamerika och Karibiska öarna,Skadegörelsebrott (BrB kap. 12),24,,5.64,2.16,1.58
+region,r07,Sydamerika,Sydamerika,Skadegörelsebrott (BrB kap. 12),24,,5.74,2.2,1.54
+region,r08,Västasien,Västasien,Skadegörelsebrott (BrB kap. 12),24,,6.68,2.56,1.48
+region,r09,Centralasien,Centralasien,Skadegörelsebrott (BrB kap. 12),24,,9.16,3.51,1.34
+region,r10,Sydasien,Sydasien,Skadegörelsebrott (BrB kap. 12),24,,2.47,0.95,0.66
+region,r11,Sydostasien och Övriga Oceanien,Sydostasien och Övriga Oceanien,Skadegörelsebrott (BrB kap. 12),24,,2.55,0.98,0.67
+region,r12,Östasien,Östasien,Skadegörelsebrott (BrB kap. 12),24,,1.42,0.54,0.39
+region,r13,Nordafrika,Nordafrika,Skadegörelsebrott (BrB kap. 12),24,,8.59,3.29,2.24
+region,r14,Östafrika,Östafrika,Skadegörelsebrott (BrB kap. 12),24,,8.6,3.3,1.24
+region,r15,Övriga Afrika,Övriga Afrika,Skadegörelsebrott (BrB kap. 12),24,,10.71,4.1,2.07
+region,sv2,Inrikesfödda med två inrikesfödda föräldrar,,Övriga brott mot BrB (BrB kap. 13–22),25,,4.1,1.0,1.0
+region,r01,Norden utom Sverige,Norden utom Sverige,Övriga brott mot BrB (BrB kap. 13–22),25,,4.33,1.06,1.16
+region,r02,EU15 och Västeuropa utom Norden,EU15 och Västeuropa utom Norden,Övriga brott mot BrB (BrB kap. 13–22),25,,4.21,1.03,0.78
+region,r03,Nya EU-länder,Nya EU-länder,Övriga brott mot BrB (BrB kap. 13–22),25,,8.35,2.04,1.54
+region,r04,Övriga Europa,Övriga Europa,Övriga brott mot BrB (BrB kap. 13–22),25,,10.15,2.48,1.66
+region,r05,"USA, Kanada, Australien och Nya Zeeland","USA, Kanada, Australien och Nya Zeeland",Övriga brott mot BrB (BrB kap. 13–22),25,,3.36,0.82,0.58
+region,r06,Centralamerika och Karibiska öarna,Centralamerika och Karibiska öarna,Övriga brott mot BrB (BrB kap. 13–22),25,,13.55,3.3,1.97
+region,r07,Sydamerika,Sydamerika,Övriga brott mot BrB (BrB kap. 13–22),25,,12.28,3.0,2.02
+region,r08,Västasien,Västasien,Övriga brott mot BrB (BrB kap. 13–22),25,,17.41,4.25,2.43
+region,r09,Centralasien,Centralasien,Övriga brott mot BrB (BrB kap. 13–22),25,,20.27,4.94,3.1
+region,r10,Sydasien,Sydasien,Övriga brott mot BrB (BrB kap. 13–22),25,,6.92,1.69,1.22
+region,r11,Sydostasien och Övriga Oceanien,Sydostasien och Övriga Oceanien,Övriga brott mot BrB (BrB kap. 13–22),25,,4.66,1.14,0.81
+region,r12,Östasien,Östasien,Övriga brott mot BrB (BrB kap. 13–22),25,,2.85,0.7,0.51
+region,r13,Nordafrika,Nordafrika,Övriga brott mot BrB (BrB kap. 13–22),25,,20.8,5.07,2.8
+region,r14,Östafrika,Östafrika,Övriga brott mot BrB (BrB kap. 13–22),25,,19.9,4.85,2.27
+region,r15,Övriga Afrika,Övriga Afrika,Övriga brott mot BrB (BrB kap. 13–22),25,,31.0,7.56,3.69
+region,sv2,Inrikesfödda med två inrikesfödda föräldrar,,Brott mot allmänheten (BrB kap. 13–15),26,,1.3,1.0,1.0
+region,r01,Norden utom Sverige,Norden utom Sverige,Brott mot allmänheten (BrB kap. 13–15),26,,1.48,1.14,1.04
+region,r02,EU15 och Västeuropa utom Norden,EU15 och Västeuropa utom Norden,Brott mot allmänheten (BrB kap. 13–15),26,,1.58,1.22,0.99
+region,r03,Nya EU-länder,Nya EU-länder,Brott mot allmänheten (BrB kap. 13–15),26,,3.61,2.78,2.05
+region,r04,Övriga Europa,Övriga Europa,Brott mot allmänheten (BrB kap. 13–15),26,,3.89,2.99,1.87
+region,r05,"USA, Kanada, Australien och Nya Zeeland","USA, Kanada, Australien och Nya Zeeland",Brott mot allmänheten (BrB kap. 13–15),26,,1.2,0.92,0.69
+region,r06,Centralamerika och Karibiska öarna,Centralamerika och Karibiska öarna,Brott mot allmänheten (BrB kap. 13–15),26,,2.27,1.75,1.01
+region,r07,Sydamerika,Sydamerika,Brott mot allmänheten (BrB kap. 13–15),26,,3.43,2.64,1.61
+region,r08,Västasien,Västasien,Brott mot allmänheten (BrB kap. 13–15),26,,7.05,5.42,3.09
+region,r09,Centralasien,Centralasien,Brott mot allmänheten (BrB kap. 13–15),26,,5.9,4.54,5.3
+region,r10,Sydasien,Sydasien,Brott mot allmänheten (BrB kap. 13–15),26,,3.56,2.74,2.14
+region,r11,Sydostasien och Övriga Oceanien,Sydostasien och Övriga Oceanien,Brott mot allmänheten (BrB kap. 13–15),26,,2.32,1.78,1.32
+region,r12,Östasien,Östasien,Brott mot allmänheten (BrB kap. 13–15),26,,1.34,1.03,0.75
+region,r13,Nordafrika,Nordafrika,Brott mot allmänheten (BrB kap. 13–15),26,,7.36,5.66,3.43
+region,r14,Östafrika,Östafrika,Brott mot allmänheten (BrB kap. 13–15),26,,7.8,6.0,2.97
+region,r15,Övriga Afrika,Övriga Afrika,Brott mot allmänheten (BrB kap. 13–15),26,,12.0,9.23,4.23
+region,sv2,Inrikesfödda med två inrikesfödda föräldrar,,Allmänfarliga brott (BrB kap. 13),27,,0.5,1.0,1.0
+region,r01,Norden utom Sverige,Norden utom Sverige,Allmänfarliga brott (BrB kap. 13),27,,0.72,1.44,1.04
+region,r02,EU15 och Västeuropa utom Norden,EU15 och Västeuropa utom Norden,Allmänfarliga brott (BrB kap. 13),27,,0.6,1.2,1.06
+region,r03,Nya EU-länder,Nya EU-länder,Allmänfarliga brott (BrB kap. 13),27,,0.85,1.7,1.54
+region,r04,Övriga Europa,Övriga Europa,Allmänfarliga brott (BrB kap. 13),27,,0.8,1.6,1.22
+region,r05,"USA, Kanada, Australien och Nya Zeeland","USA, Kanada, Australien och Nya Zeeland",Allmänfarliga brott (BrB kap. 13),27,,0.46,0.92,0.78
+region,r06,Centralamerika och Karibiska öarna,Centralamerika och Karibiska öarna,Allmänfarliga brott (BrB kap. 13),27,,0.59,1.18,0.88
+region,r07,Sydamerika,Sydamerika,Allmänfarliga brott (BrB kap. 13),27,,0.99,1.98,1.16
+region,r08,Västasien,Västasien,Allmänfarliga brott (BrB kap. 13),27,,1.52,3.04,1.9
+region,r09,Centralasien,Centralasien,Allmänfarliga brott (BrB kap. 13),27,,1.11,2.22,0.96
+region,r10,Sydasien,Sydasien,Allmänfarliga brott (BrB kap. 13),27,,0.62,1.24,0.82
+region,r11,Sydostasien och Övriga Oceanien,Sydostasien och Övriga Oceanien,Allmänfarliga brott (BrB kap. 13),27,,1.04,2.08,1.72
+region,r12,Östasien,Östasien,Allmänfarliga brott (BrB kap. 13),27,,0.37,0.74,0.8
+region,r13,Nordafrika,Nordafrika,Allmänfarliga brott (BrB kap. 13),27,,1.69,3.38,2.72
+region,r14,Östafrika,Östafrika,Allmänfarliga brott (BrB kap. 13),27,,1.91,3.82,1.8
+region,r15,Övriga Afrika,Övriga Afrika,Allmänfarliga brott (BrB kap. 13),27,,2.07,4.14,2.66
+region,sv2,Inrikesfödda med två inrikesfödda föräldrar,,Förfalskningsbrott (BrB kap. 14),28,,0.44,1.0,1.0
+region,r01,Norden utom Sverige,Norden utom Sverige,Förfalskningsbrott (BrB kap. 14),28,,0.53,1.2,1.3
+region,r02,EU15 och Västeuropa utom Norden,EU15 och Västeuropa utom Norden,Förfalskningsbrott (BrB kap. 14),28,,0.59,1.34,0.86
+region,r03,Nya EU-länder,Nya EU-länder,Förfalskningsbrott (BrB kap. 14),28,,2.22,5.05,3.09
+region,r04,Övriga Europa,Övriga Europa,Förfalskningsbrott (BrB kap. 14),28,,2.39,5.43,3.05
+region,r05,"USA, Kanada, Australien och Nya Zeeland","USA, Kanada, Australien och Nya Zeeland",Förfalskningsbrott (BrB kap. 14),28,,0.29,0.66,0.34
+region,r06,Centralamerika och Karibiska öarna,Centralamerika och Karibiska öarna,Förfalskningsbrott (BrB kap. 14),28,,1.09,2.48,1.25
+region,r07,Sydamerika,Sydamerika,Förfalskningsbrott (BrB kap. 14),28,,1.53,3.48,1.89
+region,r08,Västasien,Västasien,Förfalskningsbrott (BrB kap. 14),28,,3.85,8.75,4.3
+region,r09,Centralasien,Centralasien,Förfalskningsbrott (BrB kap. 14),28,,2.7,6.14,2.02
+region,r10,Sydasien,Sydasien,Förfalskningsbrott (BrB kap. 14),28,,2.11,4.8,3.59
+region,r11,Sydostasien och Övriga Oceanien,Sydostasien och Övriga Oceanien,Förfalskningsbrott (BrB kap. 14),28,,0.76,1.73,1.27
+region,r12,Östasien,Östasien,Förfalskningsbrott (BrB kap. 14),28,,0.74,1.68,1.05
+region,r13,Nordafrika,Nordafrika,Förfalskningsbrott (BrB kap. 14),28,,4.12,9.36,4.93
+region,r14,Östafrika,Östafrika,Förfalskningsbrott (BrB kap. 14),28,,3.17,7.2,3.91
+region,r15,Övriga Afrika,Övriga Afrika,Förfalskningsbrott (BrB kap. 14),28,,7.34,16.68,7.48
+region,sv2,Inrikesfödda med två inrikesfödda föräldrar,,"Urkundsförfalskning m.m. (1–4, 10 §)",29,,0.25,1.0,1.0
+region,r01,Norden utom Sverige,Norden utom Sverige,"Urkundsförfalskning m.m. (1–4, 10 §)",29,,0.3,1.2,1.32
+region,r02,EU15 och Västeuropa utom Norden,EU15 och Västeuropa utom Norden,"Urkundsförfalskning m.m. (1–4, 10 §)",29,,0.48,1.92,1.24
+region,r03,Nya EU-länder,Nya EU-länder,"Urkundsförfalskning m.m. (1–4, 10 §)",29,,1.53,6.12,3.56
+region,r04,Övriga Europa,Övriga Europa,"Urkundsförfalskning m.m. (1–4, 10 §)",29,,2.02,8.08,4.24
+region,r05,"USA, Kanada, Australien och Nya Zeeland","USA, Kanada, Australien och Nya Zeeland","Urkundsförfalskning m.m. (1–4, 10 §)",29,,0.08,0.32,0.2
+region,r06,Centralamerika och Karibiska öarna,Centralamerika och Karibiska öarna,"Urkundsförfalskning m.m. (1–4, 10 §)",29,,1.01,4.04,1.96
+region,r07,Sydamerika,Sydamerika,"Urkundsförfalskning m.m. (1–4, 10 §)",29,,1.37,5.48,3.0
+region,r08,Västasien,Västasien,"Urkundsförfalskning m.m. (1–4, 10 §)",29,,3.43,13.72,6.56
+region,r09,Centralasien,Centralasien,"Urkundsförfalskning m.m. (1–4, 10 §)",29,,2.37,9.48,3.04
+region,r10,Sydasien,Sydasien,"Urkundsförfalskning m.m. (1–4, 10 §)",29,,1.94,7.76,5.88
+region,r11,Sydostasien och Övriga Oceanien,Sydostasien och Övriga Oceanien,"Urkundsförfalskning m.m. (1–4, 10 §)",29,,0.55,2.2,1.52
+region,r12,Östasien,Östasien,"Urkundsförfalskning m.m. (1–4, 10 §)",29,,0.55,2.2,1.2
+region,r13,Nordafrika,Nordafrika,"Urkundsförfalskning m.m. (1–4, 10 §)",29,,3.7,14.8,8.12
+region,r14,Östafrika,Östafrika,"Urkundsförfalskning m.m. (1–4, 10 §)",29,,2.76,11.04,6.4
+region,r15,Övriga Afrika,Övriga Afrika,"Urkundsförfalskning m.m. (1–4, 10 §)",29,,6.61,26.44,11.96
+region,sv2,Inrikesfödda med två inrikesfödda föräldrar,,"Mened, falskt åtal m.m. (BrB kap. 15)",30,,0.39,1.0,1.0
+region,r01,Norden utom Sverige,Norden utom Sverige,"Mened, falskt åtal m.m. (BrB kap. 15)",30,,0.26,0.67,0.72
+region,r02,EU15 och Västeuropa utom Norden,EU15 och Västeuropa utom Norden,"Mened, falskt åtal m.m. (BrB kap. 15)",30,,0.41,1.05,1.0
+region,r03,Nya EU-länder,Nya EU-länder,"Mened, falskt åtal m.m. (BrB kap. 15)",30,,0.65,1.67,1.56
+region,r04,Övriga Europa,Övriga Europa,"Mened, falskt åtal m.m. (BrB kap. 15)",30,,0.83,2.13,1.41
+region,r05,"USA, Kanada, Australien och Nya Zeeland","USA, Kanada, Australien och Nya Zeeland","Mened, falskt åtal m.m. (BrB kap. 15)",30,,0.46,1.18,0.95
+region,r06,Centralamerika och Karibiska öarna,Centralamerika och Karibiska öarna,"Mened, falskt åtal m.m. (BrB kap. 15)",30,,0.59,1.51,0.85
+region,r07,Sydamerika,Sydamerika,"Mened, falskt åtal m.m. (BrB kap. 15)",30,,1.02,2.62,1.9
+region,r08,Västasien,Västasien,"Mened, falskt åtal m.m. (BrB kap. 15)",30,,1.92,4.92,3.21
+region,r09,Centralasien,Centralasien,"Mened, falskt åtal m.m. (BrB kap. 15)",30,,2.34,6.0,14.33
+region,r10,Sydasien,Sydasien,"Mened, falskt åtal m.m. (BrB kap. 15)",30,,0.96,2.46,2.23
+region,r11,Sydostasien och Övriga Oceanien,Sydostasien och Övriga Oceanien,"Mened, falskt åtal m.m. (BrB kap. 15)",30,,0.59,1.51,0.87
+region,r12,Östasien,Östasien,"Mened, falskt åtal m.m. (BrB kap. 15)",30,,0.26,0.67,0.31
+region,r13,Nordafrika,Nordafrika,"Mened, falskt åtal m.m. (BrB kap. 15)",30,,1.89,4.85,3.36
+region,r14,Östafrika,Östafrika,"Mened, falskt åtal m.m. (BrB kap. 15)",30,,2.92,7.49,3.38
+region,r15,Övriga Afrika,Övriga Afrika,"Mened, falskt åtal m.m. (BrB kap. 15)",30,,2.94,7.54,2.72
+region,sv2,Inrikesfödda med två inrikesfödda föräldrar,,Brott mot staten (BrB 16–20 kap.),31,,2.97,1.0,1.0
+region,r01,Norden utom Sverige,Norden utom Sverige,Brott mot staten (BrB 16–20 kap.),31,,2.99,1.01,1.18
+region,r02,EU15 och Västeuropa utom Norden,EU15 och Västeuropa utom Norden,Brott mot staten (BrB 16–20 kap.),31,,2.75,0.93,0.66
+region,r03,Nya EU-länder,Nya EU-länder,Brott mot staten (BrB 16–20 kap.),31,,5.13,1.73,1.33
+region,r04,Övriga Europa,Övriga Europa,Brott mot staten (BrB 16–20 kap.),31,,6.81,2.29,1.6
+region,r05,"USA, Kanada, Australien och Nya Zeeland","USA, Kanada, Australien och Nya Zeeland",Brott mot staten (BrB 16–20 kap.),31,,2.28,0.77,0.52
+region,r06,Centralamerika och Karibiska öarna,Centralamerika och Karibiska öarna,Brott mot staten (BrB 16–20 kap.),31,,11.53,3.88,2.36
+region,r07,Sydamerika,Sydamerika,Brott mot staten (BrB 16–20 kap.),31,,9.26,3.12,2.18
+region,r08,Västasien,Västasien,Brott mot staten (BrB 16–20 kap.),31,,11.36,3.82,2.16
+region,r09,Centralasien,Centralasien,Brott mot staten (BrB 16–20 kap.),31,,15.18,5.11,2.07
+region,r10,Sydasien,Sydasien,Brott mot staten (BrB 16–20 kap.),31,,3.85,1.3,0.86
+region,r11,Sydostasien och Övriga Oceanien,Sydostasien och Övriga Oceanien,Brott mot staten (BrB 16–20 kap.),31,,2.5,0.84,0.57
+region,r12,Östasien,Östasien,Brott mot staten (BrB 16–20 kap.),31,,1.61,0.54,0.4
+region,r13,Nordafrika,Nordafrika,Brott mot staten (BrB 16–20 kap.),31,,14.56,4.9,2.58
+region,r14,Östafrika,Östafrika,Brott mot staten (BrB 16–20 kap.),31,,13.21,4.45,1.94
+region,r15,Övriga Afrika,Övriga Afrika,Brott mot staten (BrB 16–20 kap.),31,,20.64,6.95,3.47
+region,sv2,Inrikesfödda med två inrikesfödda föräldrar,,Brott mot allmän ordning (BrB kap. 16),32,,0.66,1.0,1.0
+region,r01,Norden utom Sverige,Norden utom Sverige,Brott mot allmän ordning (BrB kap. 16),32,,0.67,1.02,0.91
+region,r02,EU15 och Västeuropa utom Norden,EU15 och Västeuropa utom Norden,Brott mot allmän ordning (BrB kap. 16),32,,0.63,0.95,0.71
+region,r03,Nya EU-länder,Nya EU-länder,Brott mot allmän ordning (BrB kap. 16),32,,0.66,1.0,0.82
+region,r04,Övriga Europa,Övriga Europa,Brott mot allmän ordning (BrB kap. 16),32,,0.62,0.94,0.71
+region,r05,"USA, Kanada, Australien och Nya Zeeland","USA, Kanada, Australien och Nya Zeeland",Brott mot allmän ordning (BrB kap. 16),32,,0.58,0.88,0.45
+region,r06,Centralamerika och Karibiska öarna,Centralamerika och Karibiska öarna,Brott mot allmän ordning (BrB kap. 16),32,,0.67,1.02,1.26
+region,r07,Sydamerika,Sydamerika,Brott mot allmän ordning (BrB kap. 16),32,,1.07,1.62,1.18
+region,r08,Västasien,Västasien,Brott mot allmän ordning (BrB kap. 16),32,,0.86,1.3,0.74
+region,r09,Centralasien,Centralasien,Brott mot allmän ordning (BrB kap. 16),32,,0.84,1.27,0.59
+region,r10,Sydasien,Sydasien,Brott mot allmän ordning (BrB kap. 16),32,,0.58,0.88,0.55
+region,r11,Sydostasien och Övriga Oceanien,Sydostasien och Övriga Oceanien,Brott mot allmän ordning (BrB kap. 16),32,,0.53,0.8,0.68
+region,r12,Östasien,Östasien,Brott mot allmän ordning (BrB kap. 16),32,,0.37,0.56,0.65
+region,r13,Nordafrika,Nordafrika,Brott mot allmän ordning (BrB kap. 16),32,,0.85,1.29,0.42
+region,r14,Östafrika,Östafrika,Brott mot allmän ordning (BrB kap. 16),32,,0.69,1.05,0.44
+region,r15,Övriga Afrika,Övriga Afrika,Brott mot allmän ordning (BrB kap. 16),32,,1.08,1.64,0.79
+region,sv2,Inrikesfödda med två inrikesfödda föräldrar,,Brott mot allmän verksamhet (BrB kap. 17),33,,2.29,1.0,1.0
+region,r01,Norden utom Sverige,Norden utom Sverige,Brott mot allmän verksamhet (BrB kap. 17),33,,2.32,1.01,1.25
+region,r02,EU15 och Västeuropa utom Norden,EU15 och Västeuropa utom Norden,Brott mot allmän verksamhet (BrB kap. 17),33,,2.12,0.93,0.64
+region,r03,Nya EU-länder,Nya EU-länder,Brott mot allmän verksamhet (BrB kap. 17),33,,4.46,1.95,1.47
+region,r04,Övriga Europa,Övriga Europa,Brott mot allmän verksamhet (BrB kap. 17),33,,6.22,2.72,1.85
+region,r05,"USA, Kanada, Australien och Nya Zeeland","USA, Kanada, Australien och Nya Zeeland",Brott mot allmän verksamhet (BrB kap. 17),33,,1.7,0.74,0.52
+region,r06,Centralamerika och Karibiska öarna,Centralamerika och Karibiska öarna,Brott mot allmän verksamhet (BrB kap. 17),33,,10.68,4.66,2.65
+region,r07,Sydamerika,Sydamerika,Brott mot allmän verksamhet (BrB kap. 17),33,,8.28,3.62,2.47
+region,r08,Västasien,Västasien,Brott mot allmän verksamhet (BrB kap. 17),33,,10.51,4.59,2.55
+region,r09,Centralasien,Centralasien,Brott mot allmän verksamhet (BrB kap. 17),33,,14.31,6.25,2.45
+region,r10,Sydasien,Sydasien,Brott mot allmän verksamhet (BrB kap. 17),33,,3.27,1.43,0.92
+region,r11,Sydostasien och Övriga Oceanien,Sydostasien och Övriga Oceanien,Brott mot allmän verksamhet (BrB kap. 17),33,,1.93,0.84,0.52
+region,r12,Östasien,Östasien,Brott mot allmän verksamhet (BrB kap. 17),33,,1.21,0.53,0.32
+region,r13,Nordafrika,Nordafrika,Brott mot allmän verksamhet (BrB kap. 17),33,,13.87,6.06,3.19
+region,r14,Östafrika,Östafrika,Brott mot allmän verksamhet (BrB kap. 17),33,,12.78,5.58,2.43
+region,r15,Övriga Afrika,Övriga Afrika,Brott mot allmän verksamhet (BrB kap. 17),33,,19.51,8.52,4.24
+region,sv2,Inrikesfödda med två inrikesfödda föräldrar,,"Våld mot tjänsteman (1, 5 §)",34,,0.74,1.0,1.0
+region,r01,Norden utom Sverige,Norden utom Sverige,"Våld mot tjänsteman (1, 5 §)",34,,0.75,1.01,1.31
+region,r02,EU15 och Västeuropa utom Norden,EU15 och Västeuropa utom Norden,"Våld mot tjänsteman (1, 5 §)",34,,0.66,0.89,0.68
+region,r03,Nya EU-länder,Nya EU-länder,"Våld mot tjänsteman (1, 5 §)",34,,1.33,1.8,1.38
+region,r04,Övriga Europa,Övriga Europa,"Våld mot tjänsteman (1, 5 §)",34,,1.32,1.78,1.51
+region,r05,"USA, Kanada, Australien och Nya Zeeland","USA, Kanada, Australien och Nya Zeeland","Våld mot tjänsteman (1, 5 §)",34,,0.71,0.96,0.73
+region,r06,Centralamerika och Karibiska öarna,Centralamerika och Karibiska öarna,"Våld mot tjänsteman (1, 5 §)",34,,4.37,5.91,3.15
+region,r07,Sydamerika,Sydamerika,"Våld mot tjänsteman (1, 5 §)",34,,3.26,4.41,3.09
+region,r08,Västasien,Västasien,"Våld mot tjänsteman (1, 5 §)",34,,2.05,2.77,1.61
+region,r09,Centralasien,Centralasien,"Våld mot tjänsteman (1, 5 §)",34,,3.08,4.16,2.04
+region,r10,Sydasien,Sydasien,"Våld mot tjänsteman (1, 5 §)",34,,0.65,0.88,0.61
+region,r11,Sydostasien och Övriga Oceanien,Sydostasien och Övriga Oceanien,"Våld mot tjänsteman (1, 5 §)",34,,0.71,0.96,0.51
+region,r12,Östasien,Östasien,"Våld mot tjänsteman (1, 5 §)",34,,0.4,0.54,0.24
+region,r13,Nordafrika,Nordafrika,"Våld mot tjänsteman (1, 5 §)",34,,3.85,5.2,3.54
+region,r14,Östafrika,Östafrika,"Våld mot tjänsteman (1, 5 §)",34,,4.11,5.55,2.46
+region,r15,Övriga Afrika,Övriga Afrika,"Våld mot tjänsteman (1, 5 §)",34,,6.78,9.16,5.62
+region,sv2,Inrikesfödda med två inrikesfödda föräldrar,,Övergrepp i rättssak (10 §),35,,0.55,1.0,1.0
+region,r01,Norden utom Sverige,Norden utom Sverige,Övergrepp i rättssak (10 §),35,,0.58,1.05,1.22
+region,r02,EU15 och Västeuropa utom Norden,EU15 och Västeuropa utom Norden,Övergrepp i rättssak (10 §),35,,0.62,1.13,0.71
+region,r03,Nya EU-länder,Nya EU-länder,Övergrepp i rättssak (10 §),35,,1.24,2.25,1.89
+region,r04,Övriga Europa,Övriga Europa,Övergrepp i rättssak (10 §),35,,2.45,4.45,2.75
+region,r05,"USA, Kanada, Australien och Nya Zeeland","USA, Kanada, Australien och Nya Zeeland",Övergrepp i rättssak (10 §),35,,0.33,0.6,0.35
+region,r06,Centralamerika och Karibiska öarna,Centralamerika och Karibiska öarna,Övergrepp i rättssak (10 §),35,,2.52,4.58,1.85
+region,r07,Sydamerika,Sydamerika,Övergrepp i rättssak (10 §),35,,1.79,3.25,2.11
+region,r08,Västasien,Västasien,Övergrepp i rättssak (10 §),35,,4.84,8.8,4.75
+region,r09,Centralasien,Centralasien,Övergrepp i rättssak (10 §),35,,5.09,9.25,3.75
+region,r10,Sydasien,Sydasien,Övergrepp i rättssak (10 §),35,,1.6,2.91,2.31
+region,r11,Sydostasien och Övriga Oceanien,Sydostasien och Övriga Oceanien,Övergrepp i rättssak (10 §),35,,0.46,0.84,0.65
+region,r12,Östasien,Östasien,Övergrepp i rättssak (10 §),35,,0.32,0.58,0.45
+region,r13,Nordafrika,Nordafrika,Övergrepp i rättssak (10 §),35,,5.05,9.18,3.47
+region,r14,Östafrika,Östafrika,Övergrepp i rättssak (10 §),35,,4.05,7.36,2.47
+region,r15,Övriga Afrika,Övriga Afrika,Övergrepp i rättssak (10 §),35,,3.93,7.15,2.84
+region,sv2,Inrikesfödda med två inrikesfödda föräldrar,,Brott mot specialstraffrättsliga författningar,36,,16.69,1.0,1.0
+region,r01,Norden utom Sverige,Norden utom Sverige,Brott mot specialstraffrättsliga författningar,36,,16.04,0.96,1.14
+region,r02,EU15 och Västeuropa utom Norden,EU15 och Västeuropa utom Norden,Brott mot specialstraffrättsliga författningar,36,,14.32,0.86,0.76
+region,r03,Nya EU-länder,Nya EU-länder,Brott mot specialstraffrättsliga författningar,36,,29.64,1.78,1.43
+region,r04,Övriga Europa,Övriga Europa,Brott mot specialstraffrättsliga författningar,36,,36.17,2.17,1.59
+region,r05,"USA, Kanada, Australien och Nya Zeeland","USA, Kanada, Australien och Nya Zeeland",Brott mot specialstraffrättsliga författningar,36,,17.96,1.08,0.86
+region,r06,Centralamerika och Karibiska öarna,Centralamerika och Karibiska öarna,Brott mot specialstraffrättsliga författningar,36,,44.76,2.68,1.55
+region,r07,Sydamerika,Sydamerika,Brott mot specialstraffrättsliga författningar,36,,41.74,2.5,1.81
+region,r08,Västasien,Västasien,Brott mot specialstraffrättsliga författningar,36,,50.56,3.03,1.81
+region,r09,Centralasien,Centralasien,Brott mot specialstraffrättsliga författningar,36,,65.19,3.91,1.6
+region,r10,Sydasien,Sydasien,Brott mot specialstraffrättsliga författningar,36,,21.83,1.31,0.93
+region,r11,Sydostasien och Övriga Oceanien,Sydostasien och Övriga Oceanien,Brott mot specialstraffrättsliga författningar,36,,21.07,1.26,0.93
+region,r12,Östasien,Östasien,Brott mot specialstraffrättsliga författningar,36,,11.94,0.72,0.6
+region,r13,Nordafrika,Nordafrika,Brott mot specialstraffrättsliga författningar,36,,56.73,3.4,2.2
+region,r14,Östafrika,Östafrika,Brott mot specialstraffrättsliga författningar,36,,63.94,3.83,1.91
+region,r15,Övriga Afrika,Övriga Afrika,Brott mot specialstraffrättsliga författningar,36,,83.24,4.99,2.56
+region,sv2,Inrikesfödda med två inrikesfödda föräldrar,,Brott mot trafikbrottslagen,37,,8.08,1.0,1.0
+region,r01,Norden utom Sverige,Norden utom Sverige,Brott mot trafikbrottslagen,37,,9.77,1.21,1.26
+region,r02,EU15 och Västeuropa utom Norden,EU15 och Västeuropa utom Norden,Brott mot trafikbrottslagen,37,,7.01,0.87,0.74
+region,r03,Nya EU-länder,Nya EU-länder,Brott mot trafikbrottslagen,37,,16.87,2.09,1.58
+region,r04,Övriga Europa,Övriga Europa,Brott mot trafikbrottslagen,37,,19.95,2.47,1.78
+region,r05,"USA, Kanada, Australien och Nya Zeeland","USA, Kanada, Australien och Nya Zeeland",Brott mot trafikbrottslagen,37,,9.25,1.14,0.9
+region,r06,Centralamerika och Karibiska öarna,Centralamerika och Karibiska öarna,Brott mot trafikbrottslagen,37,,19.27,2.38,1.37
+region,r07,Sydamerika,Sydamerika,Brott mot trafikbrottslagen,37,,21.0,2.6,1.81
+region,r08,Västasien,Västasien,Brott mot trafikbrottslagen,37,,25.74,3.19,1.89
+region,r09,Centralasien,Centralasien,Brott mot trafikbrottslagen,37,,35.54,4.4,1.86
+region,r10,Sydasien,Sydasien,Brott mot trafikbrottslagen,37,,11.24,1.39,0.96
+region,r11,Sydostasien och Övriga Oceanien,Sydostasien och Övriga Oceanien,Brott mot trafikbrottslagen,37,,9.13,1.13,0.87
+region,r12,Östasien,Östasien,Brott mot trafikbrottslagen,37,,6.09,0.75,0.62
+region,r13,Nordafrika,Nordafrika,Brott mot trafikbrottslagen,37,,26.04,3.22,2.02
+region,r14,Östafrika,Östafrika,Brott mot trafikbrottslagen,37,,34.89,4.32,2.26
+region,r15,Övriga Afrika,Övriga Afrika,Brott mot trafikbrottslagen,37,,34.41,4.26,2.22
+region,sv2,Inrikesfödda med två inrikesfödda föräldrar,,"Rattfylleri, grovt rattfylleri (4, 4 a §)",38,,3.68,1.0,1.0
+region,r01,Norden utom Sverige,Norden utom Sverige,"Rattfylleri, grovt rattfylleri (4, 4 a §)",38,,5.13,1.39,1.39
+region,r02,EU15 och Västeuropa utom Norden,EU15 och Västeuropa utom Norden,"Rattfylleri, grovt rattfylleri (4, 4 a §)",38,,2.73,0.74,0.63
+region,r03,Nya EU-länder,Nya EU-länder,"Rattfylleri, grovt rattfylleri (4, 4 a §)",38,,7.46,2.03,1.51
+region,r04,Övriga Europa,Övriga Europa,"Rattfylleri, grovt rattfylleri (4, 4 a §)",38,,4.53,1.23,0.98
+region,r05,"USA, Kanada, Australien och Nya Zeeland","USA, Kanada, Australien och Nya Zeeland","Rattfylleri, grovt rattfylleri (4, 4 a §)",38,,2.82,0.77,0.62
+region,r06,Centralamerika och Karibiska öarna,Centralamerika och Karibiska öarna,"Rattfylleri, grovt rattfylleri (4, 4 a §)",38,,5.47,1.49,0.89
+region,r07,Sydamerika,Sydamerika,"Rattfylleri, grovt rattfylleri (4, 4 a §)",38,,5.3,1.44,1.05
+region,r08,Västasien,Västasien,"Rattfylleri, grovt rattfylleri (4, 4 a §)",38,,3.55,0.96,0.65
+region,r09,Centralasien,Centralasien,"Rattfylleri, grovt rattfylleri (4, 4 a §)",38,,5.66,1.54,1.1
+region,r10,Sydasien,Sydasien,"Rattfylleri, grovt rattfylleri (4, 4 a §)",38,,2.83,0.77,0.76
+region,r11,Sydostasien och Övriga Oceanien,Sydostasien och Övriga Oceanien,"Rattfylleri, grovt rattfylleri (4, 4 a §)",38,,2.18,0.59,0.47
+region,r12,Östasien,Östasien,"Rattfylleri, grovt rattfylleri (4, 4 a §)",38,,0.84,0.23,0.25
+region,r13,Nordafrika,Nordafrika,"Rattfylleri, grovt rattfylleri (4, 4 a §)",38,,4.51,1.23,0.72
+region,r14,Östafrika,Östafrika,"Rattfylleri, grovt rattfylleri (4, 4 a §)",38,,5.39,1.46,1.06
+region,r15,Övriga Afrika,Övriga Afrika,"Rattfylleri, grovt rattfylleri (4, 4 a §)",38,,8.12,2.21,1.26
+region,sv2,Inrikesfödda med två inrikesfödda föräldrar,,Rattfylleri under påverkan av narkotika (4 § 2 st.),39,,2.53,1.0,1.0
+region,r01,Norden utom Sverige,Norden utom Sverige,Rattfylleri under påverkan av narkotika (4 § 2 st.),39,,2.0,0.79,1.01
+region,r02,EU15 och Västeuropa utom Norden,EU15 och Västeuropa utom Norden,Rattfylleri under påverkan av narkotika (4 § 2 st.),39,,1.9,0.75,0.65
+region,r03,Nya EU-länder,Nya EU-länder,Rattfylleri under påverkan av narkotika (4 § 2 st.),39,,3.24,1.28,1.07
+region,r04,Övriga Europa,Övriga Europa,Rattfylleri under påverkan av narkotika (4 § 2 st.),39,,5.59,2.21,1.7
+region,r05,"USA, Kanada, Australien och Nya Zeeland","USA, Kanada, Australien och Nya Zeeland",Rattfylleri under påverkan av narkotika (4 § 2 st.),39,,0.95,0.38,0.36
+region,r06,Centralamerika och Karibiska öarna,Centralamerika och Karibiska öarna,Rattfylleri under påverkan av narkotika (4 § 2 st.),39,,2.94,1.16,0.5
+region,r07,Sydamerika,Sydamerika,Rattfylleri under påverkan av narkotika (4 § 2 st.),39,,4.45,1.76,1.17
+region,r08,Västasien,Västasien,Rattfylleri under påverkan av narkotika (4 § 2 st.),39,,8.67,3.43,2.12
+region,r09,Centralasien,Centralasien,Rattfylleri under påverkan av narkotika (4 § 2 st.),39,,7.94,3.14,0.86
+region,r10,Sydasien,Sydasien,Rattfylleri under påverkan av narkotika (4 § 2 st.),39,,1.91,0.75,0.47
+region,r11,Sydostasien och Övriga Oceanien,Sydostasien och Övriga Oceanien,Rattfylleri under påverkan av narkotika (4 § 2 st.),39,,2.11,0.83,0.79
+region,r12,Östasien,Östasien,Rattfylleri under påverkan av narkotika (4 § 2 st.),39,,0.76,0.3,0.26
+region,r13,Nordafrika,Nordafrika,Rattfylleri under påverkan av narkotika (4 § 2 st.),39,,6.43,2.54,1.61
+region,r14,Östafrika,Östafrika,Rattfylleri under påverkan av narkotika (4 § 2 st.),39,,7.71,3.05,1.33
+region,r15,Övriga Afrika,Övriga Afrika,Rattfylleri under påverkan av narkotika (4 § 2 st.),39,,6.99,2.76,1.32
+region,sv2,Inrikesfödda med två inrikesfödda föräldrar,,Brott mot narkotikastrafflagen,40,,9.02,1.0,1.0
+region,r01,Norden utom Sverige,Norden utom Sverige,Brott mot narkotikastrafflagen,40,,5.76,0.64,0.98
+region,r02,EU15 och Västeuropa utom Norden,EU15 och Västeuropa utom Norden,Brott mot narkotikastrafflagen,40,,6.39,0.71,0.66
+region,r03,Nya EU-länder,Nya EU-länder,Brott mot narkotikastrafflagen,40,,10.65,1.18,1.04
+region,r04,Övriga Europa,Övriga Europa,Brott mot narkotikastrafflagen,40,,14.28,1.58,1.27
+region,r05,"USA, Kanada, Australien och Nya Zeeland","USA, Kanada, Australien och Nya Zeeland",Brott mot narkotikastrafflagen,40,,7.42,0.82,0.7
+region,r06,Centralamerika och Karibiska öarna,Centralamerika och Karibiska öarna,Brott mot narkotikastrafflagen,40,,22.55,2.5,1.49
+region,r07,Sydamerika,Sydamerika,Brott mot narkotikastrafflagen,40,,20.32,2.25,1.68
+region,r08,Västasien,Västasien,Brott mot narkotikastrafflagen,40,,21.76,2.41,1.42
+region,r09,Centralasien,Centralasien,Brott mot narkotikastrafflagen,40,,29.82,3.31,0.92
+region,r10,Sydasien,Sydasien,Brott mot narkotikastrafflagen,40,,7.39,0.82,0.58
+region,r11,Sydostasien och Övriga Oceanien,Sydostasien och Övriga Oceanien,Brott mot narkotikastrafflagen,40,,9.74,1.08,0.8
+region,r12,Östasien,Östasien,Brott mot narkotikastrafflagen,40,,3.48,0.39,0.33
+region,r13,Nordafrika,Nordafrika,Brott mot narkotikastrafflagen,40,,27.46,3.04,2.14
+region,r14,Östafrika,Östafrika,Brott mot narkotikastrafflagen,40,,31.47,3.49,1.48
+region,r15,Övriga Afrika,Övriga Afrika,Brott mot narkotikastrafflagen,40,,42.18,4.68,2.29
+region,sv2,Inrikesfödda med två inrikesfödda föräldrar,,Brott mot miljöbalken (29 kap.),41,,0.19,1.0,1.0
+region,r01,Norden utom Sverige,Norden utom Sverige,Brott mot miljöbalken (29 kap.),41,,0.11,0.58,0.74
+region,r02,EU15 och Västeuropa utom Norden,EU15 och Västeuropa utom Norden,Brott mot miljöbalken (29 kap.),41,,0.2,1.05,1.0
+region,r03,Nya EU-länder,Nya EU-länder,Brott mot miljöbalken (29 kap.),41,,0.21,1.11,0.89
+region,r04,Övriga Europa,Övriga Europa,Brott mot miljöbalken (29 kap.),41,,0.21,1.11,0.63
+region,r05,"USA, Kanada, Australien och Nya Zeeland","USA, Kanada, Australien och Nya Zeeland",Brott mot miljöbalken (29 kap.),41,,0.08,0.42,0.32
+region,r06,Centralamerika och Karibiska öarna,Centralamerika och Karibiska öarna,Brott mot miljöbalken (29 kap.),41,,0.0,0.0,0.0
+region,r07,Sydamerika,Sydamerika,Brott mot miljöbalken (29 kap.),41,,0.12,0.63,0.37
+region,r08,Västasien,Västasien,Brott mot miljöbalken (29 kap.),41,,0.27,1.42,0.53
+region,r09,Centralasien,Centralasien,Brott mot miljöbalken (29 kap.),41,,0.3,1.58,0.53
+region,r10,Sydasien,Sydasien,Brott mot miljöbalken (29 kap.),41,,0.13,0.68,0.74
+region,r11,Sydostasien och Övriga Oceanien,Sydostasien och Övriga Oceanien,Brott mot miljöbalken (29 kap.),41,,0.04,0.21,0.16
+region,r12,Östasien,Östasien,Brott mot miljöbalken (29 kap.),41,,0.03,0.16,0.05
+region,r13,Nordafrika,Nordafrika,Brott mot miljöbalken (29 kap.),41,,0.31,1.63,0.79
+region,r14,Östafrika,Östafrika,Brott mot miljöbalken (29 kap.),41,,0.05,0.26,0.11
+region,r15,Övriga Afrika,Övriga Afrika,Brott mot miljöbalken (29 kap.),41,,0.43,2.26,1.84
+region,sv2,Inrikesfödda med två inrikesfödda föräldrar,,Brott mot skattebrottslagen (2–10 §),42,,0.4,1.0,1.0
+region,r01,Norden utom Sverige,Norden utom Sverige,Brott mot skattebrottslagen (2–10 §),42,,0.53,1.33,1.25
+region,r02,EU15 och Västeuropa utom Norden,EU15 och Västeuropa utom Norden,Brott mot skattebrottslagen (2–10 §),42,,0.7,1.75,1.4
+region,r03,Nya EU-länder,Nya EU-länder,Brott mot skattebrottslagen (2–10 §),42,,1.61,4.03,2.88
+region,r04,Övriga Europa,Övriga Europa,Brott mot skattebrottslagen (2–10 §),42,,1.49,3.73,2.75
+region,r05,"USA, Kanada, Australien och Nya Zeeland","USA, Kanada, Australien och Nya Zeeland",Brott mot skattebrottslagen (2–10 §),42,,0.21,0.53,0.45
+region,r06,Centralamerika och Karibiska öarna,Centralamerika och Karibiska öarna,Brott mot skattebrottslagen (2–10 §),42,,1.09,2.73,0.93
+region,r07,Sydamerika,Sydamerika,Brott mot skattebrottslagen (2–10 §),42,,1.57,3.93,2.8
+region,r08,Västasien,Västasien,Brott mot skattebrottslagen (2–10 §),42,,2.19,5.48,4.33
+region,r09,Centralasien,Centralasien,Brott mot skattebrottslagen (2–10 §),42,,1.29,3.23,3.45
+region,r10,Sydasien,Sydasien,Brott mot skattebrottslagen (2–10 §),42,,1.29,3.23,2.35
+region,r11,Sydostasien och Övriga Oceanien,Sydostasien och Övriga Oceanien,Brott mot skattebrottslagen (2–10 §),42,,0.89,2.23,1.68
+region,r12,Östasien,Östasien,Brott mot skattebrottslagen (2–10 §),42,,0.55,1.38,1.68
+region,r13,Nordafrika,Nordafrika,Brott mot skattebrottslagen (2–10 §),42,,2.27,5.68,3.5
+region,r14,Östafrika,Östafrika,Brott mot skattebrottslagen (2–10 §),42,,0.67,1.68,1.25
+region,r15,Övriga Afrika,Övriga Afrika,Brott mot skattebrottslagen (2–10 §),42,,1.08,2.7,1.05
+region,sv2,Inrikesfödda med två inrikesfödda föräldrar,,Brott mot bidragsbrottslagen,43,,0.34,1.0,1.0
+region,r01,Norden utom Sverige,Norden utom Sverige,Brott mot bidragsbrottslagen,43,,0.25,0.74,0.97
+region,r02,EU15 och Västeuropa utom Norden,EU15 och Västeuropa utom Norden,Brott mot bidragsbrottslagen,43,,0.42,1.24,1.15
+region,r03,Nya EU-länder,Nya EU-länder,Brott mot bidragsbrottslagen,43,,0.82,2.41,1.68
+region,r04,Övriga Europa,Övriga Europa,Brott mot bidragsbrottslagen,43,,1.76,5.18,3.03
+region,r05,"USA, Kanada, Australien och Nya Zeeland","USA, Kanada, Australien och Nya Zeeland",Brott mot bidragsbrottslagen,43,,0.12,0.35,0.26
+region,r06,Centralamerika och Karibiska öarna,Centralamerika och Karibiska öarna,Brott mot bidragsbrottslagen,43,,1.77,5.21,2.71
+region,r07,Sydamerika,Sydamerika,Brott mot bidragsbrottslagen,43,,1.9,5.59,3.47
+region,r08,Västasien,Västasien,Brott mot bidragsbrottslagen,43,,2.71,7.97,4.09
+region,r09,Centralasien,Centralasien,Brott mot bidragsbrottslagen,43,,2.07,6.09,3.38
+region,r10,Sydasien,Sydasien,Brott mot bidragsbrottslagen,43,,1.27,3.74,2.53
+region,r11,Sydostasien och Övriga Oceanien,Sydostasien och Övriga Oceanien,Brott mot bidragsbrottslagen,43,,1.1,3.24,1.79
+region,r12,Östasien,Östasien,Brott mot bidragsbrottslagen,43,,0.74,2.18,1.12
+region,r13,Nordafrika,Nordafrika,Brott mot bidragsbrottslagen,43,,2.66,7.82,3.32
+region,r14,Östafrika,Östafrika,Brott mot bidragsbrottslagen,43,,3.42,10.06,5.35
+region,r15,Övriga Afrika,Övriga Afrika,Brott mot bidragsbrottslagen,43,,4.71,13.85,6.35
+region,sv2,Inrikesfödda med två inrikesfödda föräldrar,,Smugglingslagen (3–13 §),44,,0.28,1.0,1.0
+region,r01,Norden utom Sverige,Norden utom Sverige,Smugglingslagen (3–13 §),44,,0.45,1.61,1.96
+region,r02,EU15 och Västeuropa utom Norden,EU15 och Västeuropa utom Norden,Smugglingslagen (3–13 §),44,,0.46,1.64,1.11
+region,r03,Nya EU-länder,Nya EU-länder,Smugglingslagen (3–13 §),44,,0.97,3.46,2.86
+region,r04,Övriga Europa,Övriga Europa,Smugglingslagen (3–13 §),44,,1.95,6.96,4.18
+region,r05,"USA, Kanada, Australien och Nya Zeeland","USA, Kanada, Australien och Nya Zeeland",Smugglingslagen (3–13 §),44,,0.37,1.32,0.82
+region,r06,Centralamerika och Karibiska öarna,Centralamerika och Karibiska öarna,Smugglingslagen (3–13 §),44,,1.51,5.39,2.43
+region,r07,Sydamerika,Sydamerika,Smugglingslagen (3–13 §),44,,0.8,2.86,2.0
+region,r08,Västasien,Västasien,Smugglingslagen (3–13 §),44,,2.06,7.36,4.18
+region,r09,Centralasien,Centralasien,Smugglingslagen (3–13 §),44,,1.44,5.14,1.68
+region,r10,Sydasien,Sydasien,Smugglingslagen (3–13 §),44,,0.27,0.96,0.21
+region,r11,Sydostasien och Övriga Oceanien,Sydostasien och Övriga Oceanien,Smugglingslagen (3–13 §),44,,0.8,2.86,1.5
+region,r12,Östasien,Östasien,Smugglingslagen (3–13 §),44,,0.03,0.11,0.07
+region,r13,Nordafrika,Nordafrika,Smugglingslagen (3–13 §),44,,1.16,4.14,2.11
+region,r14,Östafrika,Östafrika,Smugglingslagen (3–13 §),44,,1.45,5.18,2.36
+region,r15,Övriga Afrika,Övriga Afrika,Smugglingslagen (3–13 §),44,,2.07,7.39,2.89
+region,sv2,Inrikesfödda med två inrikesfödda föräldrar,,Vapenlagen (9 kap. 1–3 §),45,,1.22,1.0,1.0
+region,r01,Norden utom Sverige,Norden utom Sverige,Vapenlagen (9 kap. 1–3 §),45,,1.33,1.09,1.25
+region,r02,EU15 och Västeuropa utom Norden,EU15 och Västeuropa utom Norden,Vapenlagen (9 kap. 1–3 §),45,,0.92,0.75,0.6
+region,r03,Nya EU-länder,Nya EU-länder,Vapenlagen (9 kap. 1–3 §),45,,1.82,1.49,1.22
+region,r04,Övriga Europa,Övriga Europa,Vapenlagen (9 kap. 1–3 §),45,,2.64,2.16,1.43
+region,r05,"USA, Kanada, Australien och Nya Zeeland","USA, Kanada, Australien och Nya Zeeland",Vapenlagen (9 kap. 1–3 §),45,,0.79,0.65,0.37
+region,r06,Centralamerika och Karibiska öarna,Centralamerika och Karibiska öarna,Vapenlagen (9 kap. 1–3 §),45,,2.44,2.0,1.3
+region,r07,Sydamerika,Sydamerika,Vapenlagen (9 kap. 1–3 §),45,,2.02,1.66,0.96
+region,r08,Västasien,Västasien,Vapenlagen (9 kap. 1–3 §),45,,4.18,3.43,1.89
+region,r09,Centralasien,Centralasien,Vapenlagen (9 kap. 1–3 §),45,,2.04,1.67,0.72
+region,r10,Sydasien,Sydasien,Vapenlagen (9 kap. 1–3 §),45,,0.93,0.76,0.48
+region,r11,Sydostasien och Övriga Oceanien,Sydostasien och Övriga Oceanien,Vapenlagen (9 kap. 1–3 §),45,,1.11,0.91,0.73
+region,r12,Östasien,Östasien,Vapenlagen (9 kap. 1–3 §),45,,0.5,0.41,0.36
+region,r13,Nordafrika,Nordafrika,Vapenlagen (9 kap. 1–3 §),45,,3.2,2.62,1.6
+region,r14,Östafrika,Östafrika,Vapenlagen (9 kap. 1–3 §),45,,2.79,2.29,0.97
+region,r15,Övriga Afrika,Övriga Afrika,Vapenlagen (9 kap. 1–3 §),45,,3.84,3.15,1.65
+region,sv2,Inrikesfödda med två inrikesfödda föräldrar,,"Lagen om förbud betr. knivar m.m. (1, 2, 4 §)",46,,1.74,1.0,1.0
+region,r01,Norden utom Sverige,Norden utom Sverige,"Lagen om förbud betr. knivar m.m. (1, 2, 4 §)",46,,1.7,0.98,0.97
+region,r02,EU15 och Västeuropa utom Norden,EU15 och Västeuropa utom Norden,"Lagen om förbud betr. knivar m.m. (1, 2, 4 §)",46,,1.19,0.68,0.51
+region,r03,Nya EU-länder,Nya EU-länder,"Lagen om förbud betr. knivar m.m. (1, 2, 4 §)",46,,2.91,1.67,1.25
+region,r04,Övriga Europa,Övriga Europa,"Lagen om förbud betr. knivar m.m. (1, 2, 4 §)",46,,3.15,1.81,1.19
+region,r05,"USA, Kanada, Australien och Nya Zeeland","USA, Kanada, Australien och Nya Zeeland","Lagen om förbud betr. knivar m.m. (1, 2, 4 §)",46,,0.79,0.45,0.22
+region,r06,Centralamerika och Karibiska öarna,Centralamerika och Karibiska öarna,"Lagen om förbud betr. knivar m.m. (1, 2, 4 §)",46,,4.71,2.71,1.52
+region,r07,Sydamerika,Sydamerika,"Lagen om förbud betr. knivar m.m. (1, 2, 4 §)",46,,3.72,2.14,1.29
+region,r08,Västasien,Västasien,"Lagen om förbud betr. knivar m.m. (1, 2, 4 §)",46,,4.78,2.75,1.34
+region,r09,Centralasien,Centralasien,"Lagen om förbud betr. knivar m.m. (1, 2, 4 §)",46,,4.4,2.53,0.9
+region,r10,Sydasien,Sydasien,"Lagen om förbud betr. knivar m.m. (1, 2, 4 §)",46,,1.13,0.65,0.32
+region,r11,Sydostasien och Övriga Oceanien,Sydostasien och Övriga Oceanien,"Lagen om förbud betr. knivar m.m. (1, 2, 4 §)",46,,1.49,0.86,0.49
+region,r12,Östasien,Östasien,"Lagen om förbud betr. knivar m.m. (1, 2, 4 §)",46,,0.53,0.3,0.18
+region,r13,Nordafrika,Nordafrika,"Lagen om förbud betr. knivar m.m. (1, 2, 4 §)",46,,6.12,3.52,1.98
+region,r14,Östafrika,Östafrika,"Lagen om förbud betr. knivar m.m. (1, 2, 4 §)",46,,4.76,2.74,0.86
+region,r15,Övriga Afrika,Övriga Afrika,"Lagen om förbud betr. knivar m.m. (1, 2, 4 §)",46,,6.86,3.94,1.77
+region,sv2,Inrikesfödda med två inrikesfödda föräldrar,,Brott mot övriga författningar,47,,0.73,1.0,1.0
+region,r01,Norden utom Sverige,Norden utom Sverige,Brott mot övriga författningar,47,,0.6,0.82,0.78
+region,r02,EU15 och Västeuropa utom Norden,EU15 och Västeuropa utom Norden,Brott mot övriga författningar,47,,0.58,0.79,0.68
+region,r03,Nya EU-länder,Nya EU-länder,Brott mot övriga författningar,47,,0.92,1.26,0.99
+region,r04,Övriga Europa,Övriga Europa,Brott mot övriga författningar,47,,1.59,2.18,1.63
+region,r05,"USA, Kanada, Australien och Nya Zeeland","USA, Kanada, Australien och Nya Zeeland",Brott mot övriga författningar,47,,0.62,0.85,0.77
+region,r06,Centralamerika och Karibiska öarna,Centralamerika och Karibiska öarna,Brott mot övriga författningar,47,,0.59,0.81,0.25
+region,r07,Sydamerika,Sydamerika,Brott mot övriga författningar,47,,1.17,1.6,1.3
+region,r08,Västasien,Västasien,Brott mot övriga författningar,47,,2.26,3.1,1.89
+region,r09,Centralasien,Centralasien,Brott mot övriga författningar,47,,1.02,1.4,0.79
+region,r10,Sydasien,Sydasien,Brott mot övriga författningar,47,,0.85,1.16,0.77
+region,r11,Sydostasien och Övriga Oceanien,Sydostasien och Övriga Oceanien,Brott mot övriga författningar,47,,0.61,0.84,0.68
+region,r12,Östasien,Östasien,Brott mot övriga författningar,47,,0.55,0.75,0.9
+region,r13,Nordafrika,Nordafrika,Brott mot övriga författningar,47,,1.46,2.0,0.99
+region,r14,Östafrika,Östafrika,Brott mot övriga författningar,47,,1.05,1.44,0.66
+region,r15,Övriga Afrika,Övriga Afrika,Brott mot övriga författningar,47,,2.07,2.84,1.95
+moder,sv2,Inrikesfödda med två inrikesfödda föräldrar,,Brott mot liv hälsa (BrB kap. 3),3,,8.11,1.0,
+moder,r01,Norden utom Sverige,Norden utom Sverige,Brott mot liv hälsa (BrB kap. 3),3,,24.18,2.98,
+moder,r02,EU15 och Västeuropa utom Norden,EU15 och Västeuropa utom Norden,Brott mot liv hälsa (BrB kap. 3),3,,16.25,2.0,
+moder,r03,Nya EU-länder,Nya EU-länder,Brott mot liv hälsa (BrB kap. 3),3,,21.03,2.59,
+moder,r04,Övriga Europa,Övriga Europa,Brott mot liv hälsa (BrB kap. 3),3,,33.61,4.14,
+moder,r05,"USA, Kanada, Australien och Nya Zeeland","USA, Kanada, Australien och Nya Zeeland",Brott mot liv hälsa (BrB kap. 3),3,,10.56,1.3,
+moder,r06,Centralamerika och Karibiska öarna,Centralamerika och Karibiska öarna,Brott mot liv hälsa (BrB kap. 3),3,,43.8,5.4,
+moder,r07,Sydamerika,Sydamerika,Brott mot liv hälsa (BrB kap. 3),3,,42.69,5.26,
+moder,r08,Västasien,Västasien,Brott mot liv hälsa (BrB kap. 3),3,,50.57,6.24,
+moder,r09,Centralasien,Centralasien,Brott mot liv hälsa (BrB kap. 3),3,,38.14,4.7,
+moder,r10,Sydasien,Sydasien,Brott mot liv hälsa (BrB kap. 3),3,,22.64,2.79,
+moder,r11,Sydostasien och Övriga Oceanien,Sydostasien och Övriga Oceanien,Brott mot liv hälsa (BrB kap. 3),3,,13.95,1.72,
+moder,r12,Östasien,Östasien,Brott mot liv hälsa (BrB kap. 3),3,,10.89,1.34,
+moder,r13,Nordafrika,Nordafrika,Brott mot liv hälsa (BrB kap. 3),3,,71.24,8.78,
+moder,r14,Östafrika,Östafrika,Brott mot liv hälsa (BrB kap. 3),3,,61.85,7.63,
+moder,r15,Övriga Afrika,Övriga Afrika,Brott mot liv hälsa (BrB kap. 3),3,,72.08,8.89,
+moder,sv2,Inrikesfödda med två inrikesfödda föräldrar,,Brott mot frihet och frid (BrB kap. 4),6,,6.84,1.0,
+moder,r01,Norden utom Sverige,Norden utom Sverige,Brott mot frihet och frid (BrB kap. 4),6,,21.38,3.13,
+moder,r02,EU15 och Västeuropa utom Norden,EU15 och Västeuropa utom Norden,Brott mot frihet och frid (BrB kap. 4),6,,14.76,2.16,
+moder,r03,Nya EU-länder,Nya EU-länder,Brott mot frihet och frid (BrB kap. 4),6,,20.16,2.95,
+moder,r04,Övriga Europa,Övriga Europa,Brott mot frihet och frid (BrB kap. 4),6,,26.72,3.91,
+moder,r05,"USA, Kanada, Australien och Nya Zeeland","USA, Kanada, Australien och Nya Zeeland",Brott mot frihet och frid (BrB kap. 4),6,,10.56,1.54,
+moder,r06,Centralamerika och Karibiska öarna,Centralamerika och Karibiska öarna,Brott mot frihet och frid (BrB kap. 4),6,,20.86,3.05,
+moder,r07,Sydamerika,Sydamerika,Brott mot frihet och frid (BrB kap. 4),6,,27.03,3.95,
+moder,r08,Västasien,Västasien,Brott mot frihet och frid (BrB kap. 4),6,,38.14,5.58,
+moder,r09,Centralasien,Centralasien,Brott mot frihet och frid (BrB kap. 4),6,,24.88,3.64,
+moder,r10,Sydasien,Sydasien,Brott mot frihet och frid (BrB kap. 4),6,,19.62,2.87,
+moder,r11,Sydostasien och Övriga Oceanien,Sydostasien och Övriga Oceanien,Brott mot frihet och frid (BrB kap. 4),6,,12.32,1.8,
+moder,r12,Östasien,Östasien,Brott mot frihet och frid (BrB kap. 4),6,,7.42,1.08,
+moder,r13,Nordafrika,Nordafrika,Brott mot frihet och frid (BrB kap. 4),6,,63.8,9.33,
+moder,r14,Östafrika,Östafrika,Brott mot frihet och frid (BrB kap. 4),6,,46.18,6.75,
+moder,r15,Övriga Afrika,Övriga Afrika,Brott mot frihet och frid (BrB kap. 4),6,,49.2,7.19,
+moder,sv2,Inrikesfödda med två inrikesfödda föräldrar,,Sexualbrott (BrB kap. 6),11,,1.56,1.0,
+moder,r01,Norden utom Sverige,Norden utom Sverige,Sexualbrott (BrB kap. 6),11,,3.15,2.02,
+moder,r02,EU15 och Västeuropa utom Norden,EU15 och Västeuropa utom Norden,Sexualbrott (BrB kap. 6),11,,2.76,1.77,
+moder,r03,Nya EU-länder,Nya EU-länder,Sexualbrott (BrB kap. 6),11,,2.94,1.88,
+moder,r04,Övriga Europa,Övriga Europa,Sexualbrott (BrB kap. 6),11,,4.75,3.04,
+moder,r05,"USA, Kanada, Australien och Nya Zeeland","USA, Kanada, Australien och Nya Zeeland",Sexualbrott (BrB kap. 6),11,,1.51,0.97,
+moder,r06,Centralamerika och Karibiska öarna,Centralamerika och Karibiska öarna,Sexualbrott (BrB kap. 6),11,,6.26,4.01,
+moder,r07,Sydamerika,Sydamerika,Sexualbrott (BrB kap. 6),11,,6.76,4.33,
+moder,r08,Västasien,Västasien,Sexualbrott (BrB kap. 6),11,,7.33,4.7,
+moder,r09,Centralasien,Centralasien,Sexualbrott (BrB kap. 6),11,,3.32,2.13,
+moder,r10,Sydasien,Sydasien,Sexualbrott (BrB kap. 6),11,,5.17,3.31,
+moder,r11,Sydostasien och Övriga Oceanien,Sydostasien och Övriga Oceanien,Sexualbrott (BrB kap. 6),11,,3.08,1.97,
+moder,r12,Östasien,Östasien,Sexualbrott (BrB kap. 6),11,,1.98,1.27,
+moder,r13,Nordafrika,Nordafrika,Sexualbrott (BrB kap. 6),11,,10.26,6.58,
+moder,r14,Östafrika,Östafrika,Sexualbrott (BrB kap. 6),11,,7.52,4.82,
+moder,r15,Övriga Afrika,Övriga Afrika,Sexualbrott (BrB kap. 6),11,,10.87,6.97,
+moder,sv2,Inrikesfödda med två inrikesfödda föräldrar,,Stöld- och tillgreppsbrott (BrB kap. 8),15,,5.43,1.0,
+moder,r01,Norden utom Sverige,Norden utom Sverige,Stöld- och tillgreppsbrott (BrB kap. 8),15,,16.15,2.97,
+moder,r02,EU15 och Västeuropa utom Norden,EU15 och Västeuropa utom Norden,Stöld- och tillgreppsbrott (BrB kap. 8),15,,12.74,2.35,
+moder,r03,Nya EU-länder,Nya EU-länder,Stöld- och tillgreppsbrott (BrB kap. 8),15,,23.44,4.32,
+moder,r04,Övriga Europa,Övriga Europa,Stöld- och tillgreppsbrott (BrB kap. 8),15,,23.24,4.28,
+moder,r05,"USA, Kanada, Australien och Nya Zeeland","USA, Kanada, Australien och Nya Zeeland",Stöld- och tillgreppsbrott (BrB kap. 8),15,,7.54,1.39,
+moder,r06,Centralamerika och Karibiska öarna,Centralamerika och Karibiska öarna,Stöld- och tillgreppsbrott (BrB kap. 8),15,,30.24,5.57,
+moder,r07,Sydamerika,Sydamerika,Stöld- och tillgreppsbrott (BrB kap. 8),15,,23.01,4.24,
+moder,r08,Västasien,Västasien,Stöld- och tillgreppsbrott (BrB kap. 8),15,,39.14,7.21,
+moder,r09,Centralasien,Centralasien,Stöld- och tillgreppsbrott (BrB kap. 8),15,,29.85,5.5,
+moder,r10,Sydasien,Sydasien,Stöld- och tillgreppsbrott (BrB kap. 8),15,,13.8,2.54,
+moder,r11,Sydostasien och Övriga Oceanien,Sydostasien och Övriga Oceanien,Stöld- och tillgreppsbrott (BrB kap. 8),15,,14.13,2.6,
+moder,r12,Östasien,Östasien,Stöld- och tillgreppsbrott (BrB kap. 8),15,,9.9,1.82,
+moder,r13,Nordafrika,Nordafrika,Stöld- och tillgreppsbrott (BrB kap. 8),15,,65.2,12.01,
+moder,r14,Östafrika,Östafrika,Stöld- och tillgreppsbrott (BrB kap. 8),15,,58.5,10.77,
+moder,r15,Övriga Afrika,Övriga Afrika,Stöld- och tillgreppsbrott (BrB kap. 8),15,,65.22,12.01,
+moder,sv2,Inrikesfödda med två inrikesfödda föräldrar,,Bedrägeribrott (BrB kap. 9),21,,2.52,1.0,
+moder,r01,Norden utom Sverige,Norden utom Sverige,Bedrägeribrott (BrB kap. 9),21,,8.07,3.2,
+moder,r02,EU15 och Västeuropa utom Norden,EU15 och Västeuropa utom Norden,Bedrägeribrott (BrB kap. 9),21,,6.64,2.63,
+moder,r03,Nya EU-länder,Nya EU-länder,Bedrägeribrott (BrB kap. 9),21,,14.23,5.65,
+moder,r04,Övriga Europa,Övriga Europa,Bedrägeribrott (BrB kap. 9),21,,14.22,5.64,
+moder,r05,"USA, Kanada, Australien och Nya Zeeland","USA, Kanada, Australien och Nya Zeeland",Bedrägeribrott (BrB kap. 9),21,,7.54,2.99,
+moder,r06,Centralamerika och Karibiska öarna,Centralamerika och Karibiska öarna,Bedrägeribrott (BrB kap. 9),21,,10.43,4.14,
+moder,r07,Sydamerika,Sydamerika,Bedrägeribrott (BrB kap. 9),21,,14.59,5.79,
+moder,r08,Västasien,Västasien,Bedrägeribrott (BrB kap. 9),21,,23.15,9.19,
+moder,r09,Centralasien,Centralasien,Bedrägeribrott (BrB kap. 9),21,,14.93,5.92,
+moder,r10,Sydasien,Sydasien,Bedrägeribrott (BrB kap. 9),21,,6.25,2.48,
+moder,r11,Sydostasien och Övriga Oceanien,Sydostasien och Övriga Oceanien,Bedrägeribrott (BrB kap. 9),21,,7.61,3.02,
+moder,r12,Östasien,Östasien,Bedrägeribrott (BrB kap. 9),21,,2.47,0.98,
+moder,r13,Nordafrika,Nordafrika,Bedrägeribrott (BrB kap. 9),21,,35.42,14.06,
+moder,r14,Östafrika,Östafrika,Bedrägeribrott (BrB kap. 9),21,,29.77,11.81,
+moder,r15,Övriga Afrika,Övriga Afrika,Bedrägeribrott (BrB kap. 9),21,,28.03,11.12,
+moder,sv2,Inrikesfödda med två inrikesfödda föräldrar,,Skadegörelsebrott (BrB kap. 12),24,,2.61,1.0,
+moder,r01,Norden utom Sverige,Norden utom Sverige,Skadegörelsebrott (BrB kap. 12),24,,9.06,3.47,
+moder,r02,EU15 och Västeuropa utom Norden,EU15 och Västeuropa utom Norden,Skadegörelsebrott (BrB kap. 12),24,,4.19,1.61,
+moder,r03,Nya EU-länder,Nya EU-länder,Skadegörelsebrott (BrB kap. 12),24,,7.3,2.8,
+moder,r04,Övriga Europa,Övriga Europa,Skadegörelsebrott (BrB kap. 12),24,,7.8,2.99,
+moder,r05,"USA, Kanada, Australien och Nya Zeeland","USA, Kanada, Australien och Nya Zeeland",Skadegörelsebrott (BrB kap. 12),24,,4.52,1.73,
+moder,r06,Centralamerika och Karibiska öarna,Centralamerika och Karibiska öarna,Skadegörelsebrott (BrB kap. 12),24,,9.38,3.59,
+moder,r07,Sydamerika,Sydamerika,Skadegörelsebrott (BrB kap. 12),24,,12.83,4.92,
+moder,r08,Västasien,Västasien,Skadegörelsebrott (BrB kap. 12),24,,13.56,5.2,
+moder,r09,Centralasien,Centralasien,Skadegörelsebrott (BrB kap. 12),24,,9.95,3.81,
+moder,r10,Sydasien,Sydasien,Skadegörelsebrott (BrB kap. 12),24,,3.67,1.41,
+moder,r11,Sydostasien och Övriga Oceanien,Sydostasien och Övriga Oceanien,Skadegörelsebrott (BrB kap. 12),24,,4.35,1.67,
+moder,r12,Östasien,Östasien,Skadegörelsebrott (BrB kap. 12),24,,1.98,0.76,
+moder,r13,Nordafrika,Nordafrika,Skadegörelsebrott (BrB kap. 12),24,,20.93,8.02,
+moder,r14,Östafrika,Östafrika,Skadegörelsebrott (BrB kap. 12),24,,17.13,6.56,
+moder,r15,Övriga Afrika,Övriga Afrika,Skadegörelsebrott (BrB kap. 12),24,,17.16,6.57,
+moder,sv2,Inrikesfödda med två inrikesfödda föräldrar,,Brott mot trafikbrottslagen,37,,8.08,1.0,
+moder,r01,Norden utom Sverige,Norden utom Sverige,Brott mot trafikbrottslagen,37,,19.7,2.44,
+moder,r02,EU15 och Västeuropa utom Norden,EU15 och Västeuropa utom Norden,Brott mot trafikbrottslagen,37,,12.37,1.53,
+moder,r03,Nya EU-länder,Nya EU-länder,Brott mot trafikbrottslagen,37,,19.58,2.42,
+moder,r04,Övriga Europa,Övriga Europa,Brott mot trafikbrottslagen,37,,30.13,3.73,
+moder,r05,"USA, Kanada, Australien och Nya Zeeland","USA, Kanada, Australien och Nya Zeeland",Brott mot trafikbrottslagen,37,,9.05,1.12,
+moder,r06,Centralamerika och Karibiska öarna,Centralamerika och Karibiska öarna,Brott mot trafikbrottslagen,37,,22.94,2.84,
+moder,r07,Sydamerika,Sydamerika,Brott mot trafikbrottslagen,37,,28.69,3.55,
+moder,r08,Västasien,Västasien,Brott mot trafikbrottslagen,37,,47.32,5.86,
+moder,r09,Centralasien,Centralasien,Brott mot trafikbrottslagen,37,,44.78,5.54,
+moder,r10,Sydasien,Sydasien,Brott mot trafikbrottslagen,37,,14.66,1.81,
+moder,r11,Sydostasien och Övriga Oceanien,Sydostasien och Övriga Oceanien,Brott mot trafikbrottslagen,37,,11.42,1.41,
+moder,r12,Östasien,Östasien,Brott mot trafikbrottslagen,37,,3.46,0.43,
+moder,r13,Nordafrika,Nordafrika,Brott mot trafikbrottslagen,37,,61.18,7.57,
+moder,r14,Östafrika,Östafrika,Brott mot trafikbrottslagen,37,,47.53,5.88,
+moder,r15,Övriga Afrika,Övriga Afrika,Brott mot trafikbrottslagen,37,,45.77,5.66,
+moder,sv2,Inrikesfödda med två inrikesfödda föräldrar,,Brott mot narkotikastrafflagen,40,,9.02,1.0,
+moder,r01,Norden utom Sverige,Norden utom Sverige,Brott mot narkotikastrafflagen,40,,25.09,2.78,
+moder,r02,EU15 och Västeuropa utom Norden,EU15 och Västeuropa utom Norden,Brott mot narkotikastrafflagen,40,,14.76,1.64,
+moder,r03,Nya EU-länder,Nya EU-länder,Brott mot narkotikastrafflagen,40,,29.99,3.32,
+moder,r04,Övriga Europa,Övriga Europa,Brott mot narkotikastrafflagen,40,,44.42,4.92,
+moder,r05,"USA, Kanada, Australien och Nya Zeeland","USA, Kanada, Australien och Nya Zeeland",Brott mot narkotikastrafflagen,40,,24.13,2.68,
+moder,r06,Centralamerika och Karibiska öarna,Centralamerika och Karibiska öarna,Brott mot narkotikastrafflagen,40,,63.61,7.05,
+moder,r07,Sydamerika,Sydamerika,Brott mot narkotikastrafflagen,40,,64.53,7.15,
+moder,r08,Västasien,Västasien,Brott mot narkotikastrafflagen,40,,76.51,8.48,
+moder,r09,Centralasien,Centralasien,Brott mot narkotikastrafflagen,40,,63.02,6.99,
+moder,r10,Sydasien,Sydasien,Brott mot narkotikastrafflagen,40,,26.52,2.94,
+moder,r11,Sydostasien och Övriga Oceanien,Sydostasien och Övriga Oceanien,Brott mot narkotikastrafflagen,40,,29.53,3.27,
+moder,r12,Östasien,Östasien,Brott mot narkotikastrafflagen,40,,7.92,0.88,
+moder,r13,Nordafrika,Nordafrika,Brott mot narkotikastrafflagen,40,,105.25,11.67,
+moder,r14,Östafrika,Östafrika,Brott mot narkotikastrafflagen,40,,106.77,11.84,
+moder,r15,Övriga Afrika,Övriga Afrika,Brott mot narkotikastrafflagen,40,,103.55,11.48,
+land,sv2,Inrikesfödda med två inrikesfödda föräldrar,,Brott totalt,0,5821794,31.8,1.0,1.0
+land,c_danmark,Danmark,Norden utom Sverige,Brott totalt,0,39477,37.5,1.18,1.08
+land,c_finland,Finland,Norden utom Sverige,Brott totalt,0,157238,31.4,0.99,1.23
+land,c_norge,Norge,Norden utom Sverige,Brott totalt,0,38953,36.4,1.14,1.17
+land,c_island,Island,Norden utom Sverige,Brott totalt,0,4611,44.0,1.38,1.17
+land,c_grekland,Grekland,EU15 och Västeuropa utom Norden,Brott totalt,0,13963,39.7,1.25,1.17
+land,c_storbritannienoc,Storbritannien och Nordirland,EU15 och Västeuropa utom Norden,Brott totalt,0,21189,35.3,1.11,0.8
+land,c_tyskland,Tyskland,EU15 och Västeuropa utom Norden,Brott totalt,0,45995,29.3,0.92,0.94
+land,c_ovrigaeuochvaste,Övriga EU15 och Västeuropa utom Norden,EU15 och Västeuropa utom Norden,Brott totalt,0,50837,36.2,1.14,0.93
+land,c_polen,Polen,Nya EU-länder,Brott totalt,0,75956,75.7,2.38,1.92
+land,c_rumanien,Rumänien,Nya EU-länder,Brott totalt,0,23269,69.1,2.17,1.78
+land,c_ungern,Ungern,Nya EU-länder,Brott totalt,0,15380,48.6,1.53,1.4
+land,c_ovriganyaeulande,Övriga Nya EU-länder,Nya EU-länder,Brott totalt,0,49750,60.9,1.92,1.5
+land,c_bosnienhercegovi,Bosnien-Hercegovina,Övriga Europa,Brott totalt,0,56789,58.8,1.85,1.68
+land,c_jugoslavien,Jugoslavien,Övriga Europa,Brott totalt,0,67770,81.4,2.56,2.21
+land,c_ryssland,Ryssland,Övriga Europa,Brott totalt,0,17201,81.6,2.57,1.96
+land,c_turkiet,Turkiet,Övriga Europa,Brott totalt,0,44761,85.5,2.69,1.83
+land,c_ovrigalanderieur,Övriga länder i Europa,Övriga Europa,Brott totalt,0,49051,113.3,3.56,2.33
+land,c_usa,USA,"USA, Kanada, Australien och Nya Zeeland",Brott totalt,0,16519,38.3,1.2,0.94
+land,c_ovrigakanadaaust,"Övriga (Kanada, Australien, Nya Zeeland)","USA, Kanada, Australien och Nya Zeeland",Brott totalt,0,7593,30.9,0.97,0.74
+land,c_centralamerikaoc,Centralamerika och Karibiska öarna,Centralamerika och Karibiska öarna,Brott totalt,0,11886,101.2,3.18,2.02
+land,c_chile,Chile,Sydamerika,Brott totalt,0,27863,89.1,2.8,2.19
+land,c_colombia,Colombia,Sydamerika,Brott totalt,0,10454,112.3,3.53,1.99
+land,c_ovrigasydamerika,Övriga Sydamerika,Sydamerika,Brott totalt,0,26446,87.0,2.74,2.0
+land,c_irak,Irak,Västasien,Brott totalt,0,120185,124.9,3.93,2.42
+land,c_iran,Iran,Västasien,Brott totalt,0,66303,96.5,3.03,2.5
+land,c_libanon,Libanon,Västasien,Brott totalt,0,25002,122.0,3.84,2.27
+land,c_syrien,Syrien,Västasien,Brott totalt,0,54767,122.2,3.84,2.39
+land,c_ovrigavastasien,Övriga Västasien,Västasien,Brott totalt,0,16346,154.3,4.85,2.6
+land,c_afghanistan,Afghanistan,Centralasien,Brott totalt,0,25422,163.4,5.14,2.66
+land,c_ovrigacentralasi,Övriga Centralasien,Centralasien,Brott totalt,0,7973,142.1,4.47,2.79
+land,c_indien,Indien,Sydasien,Brott totalt,0,20055,44.7,1.41,1.28
+land,c_pakistan,Pakistan,Sydasien,Brott totalt,0,10345,71.1,2.24,1.52
+land,c_ovrigasydasien,Övriga Sydasien,Sydasien,Brott totalt,0,14534,77.9,2.45,1.68
+land,c_filippinerna,Filippinerna,Sydostasien och Övriga Oceanien,Brott totalt,0,10966,51.4,1.62,1.35
+land,c_thailand,Thailand,Sydostasien och Övriga Oceanien,Brott totalt,0,34091,57.4,1.81,1.23
+land,c_vietnam,Vietnam,Sydostasien och Övriga Oceanien,Brott totalt,0,12512,72.3,2.27,1.31
+land,c_ovrigasydostasie,Övriga Sydostasien och Övriga Oceanien,Sydostasien och Övriga Oceanien,Brott totalt,0,9764,41.4,1.3,0.95
+land,c_kina,Kina,Östasien,Brott totalt,0,23963,31.4,0.99,0.75
+land,c_ovrigaostasien,Övriga Östasien,Östasien,Brott totalt,0,13966,35.6,1.12,0.96
+land,c_nordafrika,Nordafrika,Nordafrika,Brott totalt,0,25964,147.8,4.65,3.02
+land,c_eritrea,Eritrea,Östafrika,Brott totalt,0,19697,128.5,4.04,2.2
+land,c_etiopien,Etiopien,Östafrika,Brott totalt,0,14902,88.6,2.79,1.87
+land,c_somalia,Somalia,Östafrika,Brott totalt,0,45218,142.4,4.48,2.29
+land,c_ovrigaostafrika,Övriga Östafrika,Östafrika,Brott totalt,0,12883,128.6,4.04,2.39
+land,c_ovrigaafrika,Övriga Afrika,Övriga Afrika,Brott totalt,0,23163,187.3,5.89,3.18
