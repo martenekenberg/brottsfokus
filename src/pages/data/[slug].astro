@@ -1,0 +1,13 @@
+---
+import TablePage from '../../components/data/TablePage.astro';
+import { tablePages } from '../../lib/dataPages';
+import { tablePageContent } from '../../lib/tablePageContent';
+
+export function getStaticPaths() {
+  return tablePages.map((p) => ({ params: { slug: p.slug }, props: { chapterId: p.chapterId } }));
+}
+
+const { chapterId } = Astro.props;
+---
+
+<TablePage content={tablePageContent(chapterId)} />

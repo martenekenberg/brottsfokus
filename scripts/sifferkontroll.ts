@@ -15,8 +15,8 @@ import { buildKap5 } from '../src/lib/chapters/kap5';
 import { barFmt } from '../src/lib/charts/bar';
 import { dotFmt } from '../src/lib/charts/dot';
 import { fmt } from '../src/lib/charts/line';
-import { allTables } from '../src/lib/allTables';
-import { tablePage } from '../src/lib/dataPages';
+import { tablePageContent } from '../src/lib/tablePageContent';
+import { tablePage, tablePages } from '../src/lib/dataPages';
 import { formatCell } from '../src/lib/tables';
 
 const BRA2021 = 'https://bra.se/rapporter/arkiv/2021-08-25-misstankta-for-brott-bland-personer-med-inrikes-respektive-utrikes-bakgrund';
@@ -217,7 +217,8 @@ writeFileSync('docs/sifferkontroll_menyer.csv', toCsv(menu));
 
 // ---------- Every value on the table pages ----------
 const tableRows: string[][] = [['Sida', 'Tabell', 'Rad', 'Kolumn', 'Värde på sidan']];
-for (const { chapterId, tables } of allTables()) {
+for (const { chapterId } of tablePages) {
+  const tables = tablePageContent(chapterId).sections.flatMap((s) => s.tables);
   const path = tablePage(chapterId).path;
   for (const t of tables) {
     for (const r of t.rows) {

@@ -18,9 +18,12 @@ interface Props {
   crumbs: Crumb[];
   citations?: string[];
   jsonLdNodes?: Record<string, unknown>[];
+  /** When the page's data last changed (ISO date). */
+  updated: string;
+  markdownPath?: string;
 }
 
-const { title, description, path, crumbs, citations = [], jsonLdNodes = [] } = Astro.props;
+const { title, description, path, crumbs, citations = [], jsonLdNodes = [], updated, markdownPath } = Astro.props;
 const trail: Crumb[] = [{ name: site.name, path: '/' }, ...crumbs];
 const breadcrumbLd = {
   '@type': 'BreadcrumbList',
@@ -28,7 +31,15 @@ const breadcrumbLd = {
 };
 ---
 
-<Base title={title} description={description} path={path} citations={citations} jsonLdNodes={[breadcrumbLd, ...jsonLdNodes]}>
+<Base
+  title={title}
+  description={description}
+  path={path}
+  citations={citations}
+  jsonLdNodes={[breadcrumbLd, ...jsonLdNodes]}
+  updated={updated}
+  markdownPath={markdownPath}
+>
   <div class="wrap">
     <div id="top"></div>
     <ChapterNav home={false} />
@@ -91,7 +102,6 @@ const breadcrumbLd = {
   }
   .data-main :global(h1) {
     margin: 0;
-    max-width: 860px;
     font-family: var(--font-serif);
     font-size: 44px;
     line-height: 1.1;
@@ -99,7 +109,6 @@ const breadcrumbLd = {
     text-wrap: balance;
   }
   .data-main :global(.lead) {
-    max-width: 680px;
     margin: 0;
     font-family: var(--font-serif);
     font-size: 20px;
@@ -114,14 +123,12 @@ const breadcrumbLd = {
     font-weight: 500;
   }
   .data-main :global(.note) {
-    max-width: 820px;
     background: var(--panel);
     padding: 16px 20px;
     font-size: 14px;
     line-height: 1.55;
   }
   .data-main :global(.body) {
-    max-width: 680px;
     margin: 0;
     font-size: 14px;
     line-height: 1.6;

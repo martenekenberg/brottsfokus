@@ -1,34 +1,27 @@
 ---
 // Shared frame for a table page: kicker, headline, summary, "Läs så här", tables,
-// download, terms of use, sources, link back to the chart. Adds Dataset markup.
+// download, terms of use, sources, link back to the chart, links to the other
+// table pages. Adds Dataset markup.
 import DataLayout from '../../layouts/DataLayout.astro';
+import DataTableView from './DataTableView.astro';
 import { chapter } from '../../lib/chapters';
 import { tablePage, tablePages, tablesIndexPath } from '../../lib/dataPages';
+import { dataDate } from '../../lib/dataDates';
 import { site, absoluteUrl, dayMonthYear } from '../../lib/site';
+import type { TablePageContent } from '../../lib/tablePageContent';
 
 interface Props {
-  chapterId: string;
-  /** Headline: states what the tables show. Also the dataset name. */
-  h1: string;
-  /** Short page title for the browser tab, before " | Brottsfokus". */
-  shortTitle: string;
-  description: string;
-  /** Longer plain description for the Dataset markup (at least 50 characters). */
-  datasetDescription: string;
-  /** e.g. "2014/2025". */
-  temporalCoverage: string;
-  keywords: string[];
-  variableMeasured: string[];
-  sources: { label: string; url: string }[];
-  /** Who to name as source when reusing, e.g. "Brå och SCB". */
-  credit: string;
+  content: TablePageContent;
 }
 
-const p = Astro.props;
+const { content: p } = Astro.props;
 const page = tablePage(p.chapterId);
 const c = chapter(p.chapterId);
 const pageUrl = absoluteUrl(page.path);
+// The page changes when its data changes, not on every deploy.
+const updated = dataDate(p.dataFiles);
 
+if (p.datasetDescription.length < 50) throw new Error(`${page.path}: dataset description is too short`);
 const dataset = {
   '@type': 'Dataset',
   '@id': `${pageUrl}#dataset`,
@@ -43,19 +36,23 @@ const dataset = {
   creator: { '@id': `${site.url}#publisher` },
   publisher: { '@id': `${site.url}#publisher` },
   isBasedOn: p.sources.map((s) => s.url),
-  dateModified: site.updated,
+  dateModified: updated,
   temporalCoverage: p.temporalCoverage,
   spatialCoverage: { '@type': 'Place', name: 'Sverige' },
   variableMeasured: p.variableMeasured,
-  distribution: [{ '@type': 'DataDownload', encodingFormat: 'text/csv', contentUrl: absoluteUrl(page.csvPath) }],
+  distribution: [
+    { '@type': 'DataDownload', encodingFormat: 'text/csv', contentUrl: absoluteUrl(page.csvPath) },
+    { '@type': 'DataDownload', encodingFormat: 'text/markdown', contentUrl: absoluteUrl(page.mdPath) },
+  ],
 };
-if (p.datasetDescription.length < 50) throw new Error(`${page.path}: dataset description is too short`);
 ---
 
 <DataLayout
   title={`${p.shortTitle} | ${site.name}`}
   description={p.description}
   path={page.path}
+  updated={updated}
+  markdownPath={page.mdPath}
   crumbs={[
     { name: 'Tabeller', path: tablesIndexPath },
     { name: page.name, path: page.path },
@@ -65,25 +62,48 @@ if (p.datasetDescription.length < 50) throw new Error(`${page.path}: dataset des
 >
   <p class="kicker">Tabell · {c.num} {c.navLabel}</p>
   <h1>{p.h1}</h1>
-  <div class="lead"><slot name="lead" /></div>
+  <p class="lead">{p.lead}</p>
 
   <div class="note">
     <strong>Läs så här. </strong>
-    <slot name="note" />
+    {p.note}
   </div>
 
-  <slot />
+  {
+    p.sections.map((s) => (
+      <>
+        {s.heading && <h2>{s.heading}</h2>}
+        {(s.intro || s.collapsed) && (
+          <p class="body">
+            {[s.intro, s.collapsed ? 'Klicka på en brottstyp för att visa tabellen.' : ''].filter(Boolean).join(' ')}
+          </p>
+        )}
+        {s.collapsed ? (
+          <div>
+            {s.tables.map((t) => (
+              <DataTableView table={t} collapsed />
+            ))}
+          </div>
+        ) : (
+          s.tables.map((t) => <DataTableView table={t} />)
+        )}
+        {s.after && <p class="body">{s.after}</p>}
+      </>
+    ))
+  }
 
   <h2>Ladda ner</h2>
   <p class="body">
     <a href={page.csvPath} download>Alla siffror på sidan som CSV-fil</a>. Teckenkodning UTF-8, kommatecken mellan
-    kolumnerna och punkt som decimaltecken. En tom cell betyder att uppgift saknas.
+    kolumnerna och punkt som decimaltecken. En tom cell betyder att uppgift saknas. Sidan finns också som <a
+      href={page.mdPath}>textfil (Markdown)</a
+    >.
   </p>
 
   <h2>Använda siffrorna</h2>
   <p class="body">
     Tabellerna får användas fritt enligt <a href={site.dataLicense.url}>{site.dataLicense.name}</a>. Ange {p.credit} som
-    källa. <slot name="terms" />
+    källa.{p.terms ? ` ${p.terms}` : ''}
   </p>
 
   <p class="source">
@@ -94,7 +114,7 @@ if (p.datasetDescription.length < 50) throw new Error(`${page.path}: dataset des
           {i < p.sources.length - 1 ? '; ' : '.'}
         </>
       ))
-    } Senast uppdaterad {dayMonthYear(site.updated)}.
+    } Uppgifterna senast ändrade {dayMonthYear(updated)}.
   </p>
 
   <a class="back" href={`/#${p.chapterId}`}>Till diagrammet i kapitel {Number(c.num)}, {c.navLabel}</a>
@@ -117,9 +137,6 @@ if (p.datasetDescription.length < 50) throw new Error(`${page.path}: dataset des
 </DataLayout>
 
 <style>
-  .lead :global(p) {
-    margin: 0;
-  }
   .more ul {
     margin: 0;
     padding: 0;
