@@ -1,4 +1,6 @@
 ---
+import { tablesIndexPath } from '../lib/dataPages';
+
 const terms = [
   {
     title: 'Misstänkt, inte dömd',
@@ -69,6 +71,7 @@ const allSources = [...sources, ...extraSources];
   }
   <div class="sources">
     <h3>Källor</h3>
+    <p>Siffror i tabellform och som CSV-filer finns under <a href={tablesIndexPath}>Tabeller</a>.</p>
     <ul>
       {
         allSources.map((s) => (

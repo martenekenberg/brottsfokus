@@ -1,0 +1,151 @@
+---
+import DataLayout from '../../layouts/DataLayout.astro';
+import DataTableView from '../../components/data/DataTableView.astro';
+import { loadPopulation, loadPrison } from '../../lib/data';
+import { buildKap3, kap3Tables, shortReportName } from '../../lib/chapters/kap3';
+import { tablePage, tablesIndexPath } from '../../lib/dataPages';
+import { formatNumber } from '../../lib/format';
+import { site, absoluteUrl, dayMonthYear } from '../../lib/site';
+import { yearRanges } from '../../lib/years';
+
+const page = tablePage('kap3');
+const k = buildKap3(loadPrison(), loadPopulation());
+const tables = kap3Tables(k);
+const [shareTable, countTable, popTable] = tables;
+
+const last = k.lastYear;
+const newAllLast = k.newAll.get(last);
+const oct1Last = k.onOct1.get(last);
+const popLast = k.popShare.get(last);
+if (newAllLast == null || oct1Last == null || popLast == null) throw new Error(`Missing ${last} values for the chapter 3 table page`);
+
+const withValue = (m: Map<number, number | null>) => k.years.filter((y) => m.get(y) != null);
+const missingAll = k.years.filter((y) => k.newAll.get(y) == null);
+
+const scbSources = [
+  {
+    label: 'SCB, Sveriges befolkning i sammandrag 1960–2025',
+    url: 'https://www.scb.se/hitta-statistik/statistik-efter-amne/befolkning-och-levnadsforhallanden/befolkningens-sammansattning-och-utveckling/befolkningsstatistik/pong/tabell-och-diagram/sveriges-befolkning-i-sammandrag-1960-2025-korrigerad-2026-06-18/',
+  },
+  {
+    label: 'SCB, Utländska medborgare i Sverige',
+    url: 'https://www.scb.se/hitta-statistik/sverige-i-siffror/manniskorna-i-sverige/utlandska-medborgare-i-sverige/',
+  },
+];
+const allSources = [...k.sources.map((s) => ({ label: s.label, url: s.url })), ...scbSources];
+
+const period = `${k.firstYear}–${k.lastYear}`;
+const title = `Fängelse och medborgarskap ${period}: tabell | ${site.name}`;
+const h1 = `Andel utan svenskt medborgarskap bland intagna i fängelse, ${period}`;
+const description =
+  `Andel utan svenskt medborgarskap bland nyintagna och intagna i fängelse ${period} enligt Brå, ` +
+  'jämfört med andelen utländska medborgare i befolkningen enligt SCB. Tabell och CSV-fil.';
+
+const pageUrl = absoluteUrl(page.path);
+const dataset = {
+  '@type': 'Dataset',
+  '@id': `${pageUrl}#dataset`,
+  name: `Andel utan svenskt medborgarskap bland intagna i fängelse, ${period}`,
+  description:
+    `Andel utan svenskt medborgarskap bland nyintagna i fängelse (alla, män och kvinnor) och bland intagna den 1 oktober, ${period}, ` +
+    'enligt Brås statistik över kriminalvård. Jämförs med andelen utländska medborgare i befolkningen den 31 december enligt SCB. ' +
+    'Medborgarskap är inte födelseland. År som Brå inte anger saknas och är tomma i filen.',
+  url: pageUrl,
+  inLanguage: 'sv-SE',
+  keywords: ['fängelse', 'kriminalvård', 'medborgarskap', 'utländska medborgare', 'nyintagna', 'Brå', 'SCB'],
+  license: site.dataLicense.url,
+  isAccessibleForFree: true,
+  creditText: 'Brottsfokus, efter uppgifter från Brå och SCB',
+  creator: { '@id': `${site.url}#publisher` },
+  publisher: { '@id': `${site.url}#publisher` },
+  isBasedOn: allSources.map((s) => s.url),
+  dateModified: site.updated,
+  temporalCoverage: `${k.firstYear}/${k.lastYear}`,
+  spatialCoverage: { '@type': 'Place', name: 'Sverige' },
+  variableMeasured: [...shareTable.columns, ...countTable.columns, ...popTable.columns]
+    .filter((c) => c.kind === 'number')
+    .map((c) => c.label)
+    .filter((v, i, a) => a.indexOf(v) === i),
+  distribution: [{ '@type': 'DataDownload', encodingFormat: 'text/csv', contentUrl: absoluteUrl(page.csvPath) }],
+};
+---
+
+<DataLayout
+  title={title}
+  description={description}
+  path={page.path}
+  crumbs={[
+    { name: 'Tabeller', path: tablesIndexPath },
+    { name: page.name, path: page.path },
+  ]}
+  citations={allSources.map((s) => s.url)}
+  jsonLdNodes={[dataset]}
+>
+  <p class="kicker">Tabell · 03 Fängelse</p>
+  <h1>{h1}</h1>
+  <p class="lead">
+    År {last} saknade {formatNumber(newAllLast)} procent av dem som togs in i fängelse svenskt medborgarskap, enligt
+    Brå. Bland dem som satt i fängelse den 1 oktober {last} var andelen {formatNumber(oct1Last)} procent. I hela
+    befolkningen var {formatNumber(popLast, 1)} procent utländska medborgare, enligt SCB.
+  </p>
+
+  <div class="note">
+    <strong>Läs så här. </strong>
+    Medborgarskap är inte födelseland. Bland fängelsets utländska medborgare finns personer som inte bor i Sverige och
+    inte räknas i befolkningen. Brå anger andelarna i hela procent. Streck (–) betyder att Brå inte anger något värde
+    för året. För alla nyintagna saknas {yearRanges(missingAll)}. Andelar för män och kvinnor finns för {yearRanges(withValue(k.newMen))}{' '}
+    och för intagna den 1 oktober för {yearRanges(withValue(k.onOct1))}.
+  </div>
+
+  <DataTableView table={shareTable} />
+  <p class="body">
+    Andelen utländska medborgare i befolkningen är uträknad: utländska medborgare delat med folkmängden, gånger 100,
+    avrundat till en decimal. Underlaget finns i tabellen över befolkningen nedan.
+  </p>
+
+  <h2>Antal personer</h2>
+  <DataTableView table={countTable} />
+  <p class="body">
+    Antalen gäller alla i gruppen, både med och utan svenskt medborgarskap. Här visas de för {yearRanges(withValue(k.countNewAll))}.
+  </p>
+
+  <h2>Befolkningen</h2>
+  <DataTableView table={popTable} />
+
+  <h2>Ladda ner</h2>
+  <p class="body">
+    <a href={page.csvPath} download>Alla tre tabellerna som CSV-fil</a>. Teckenkodning UTF-8, kommatecken mellan
+    kolumnerna och punkt som decimaltecken. En tom cell betyder att uppgift saknas.
+  </p>
+
+  <h2>Använda siffrorna</h2>
+  <p class="body">
+    Tabellerna får användas fritt enligt <a href={site.dataLicense.url}>{site.dataLicense.name}</a>. Ange Brå och SCB
+    som källor. Brås statistik får enligt Brå användas fritt om Brå anges som källa. SCB:s material får användas om SCB
+    anges som källa.
+  </p>
+
+  <p class="source">
+    Källor: {
+      allSources.map((s, i) => (
+        <>
+          <a href={s.url}>{s.label.startsWith('Brå') ? `Brå, ${shortReportName(s.label)}` : s.label}</a>
+          {i < allSources.length - 1 ? '; ' : '.'}
+        </>
+      ))
+    } Senast uppdaterad {dayMonthYear(site.updated)}.
+  </p>
+
+  <a class="back" href="/#kap3">Till diagrammet i kapitel 3, Fängelse</a>
+</DataLayout>
+
+<style>
+  .back {
+    align-self: flex-start;
+    display: inline-flex;
+    align-items: center;
+    min-height: 44px;
+    font-size: 14px;
+    font-weight: 600;
+  }
+</style>

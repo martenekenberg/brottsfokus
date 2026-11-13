@@ -73,3 +73,27 @@ test('ratio and complement', () => {
   assert.equal(complementPct(36.9), 63.1);
   assert.equal(complementPct(69.5), 30.5);
 });
+
+import { yearRanges } from '../src/lib/years';
+import { tablesToCsv, type DataTable } from '../src/lib/tables';
+
+test('yearRanges groups consecutive years', () => {
+  assert.equal(yearRanges([2018, 2019, 2020, 2023, 2024, 2025]), '2018–2020 och 2023–2025');
+  assert.equal(yearRanges([2016, 2017, 2021]), '2016–2017 och 2021');
+  assert.equal(yearRanges([2014, 2016, 2018]), '2014, 2016 och 2018');
+  assert.equal(yearRanges([2023]), '2023');
+});
+
+test('tablesToCsv joins tables by key and keeps gaps empty', () => {
+  const a: DataTable = {
+    id: 'a', caption: '', rowLabel: 'År', rowCsv: 'ar',
+    columns: [{ kind: 'number', label: 'x', csv: 'x', format: 'pct1' }],
+    rows: [{ key: '2020', cells: [8] }, { key: '2021', cells: [null] }],
+  };
+  const b: DataTable = {
+    id: 'b', caption: '', rowLabel: 'År', rowCsv: 'ar',
+    columns: [{ kind: 'number', label: 'n', csv: 'n', format: 'int' }],
+    rows: [{ key: '2021', cells: [12754] }],
+  };
+  assert.equal(tablesToCsv([a, b]), 'ar,x,n\n2020,8.0,\n2021,,12754\n');
+});

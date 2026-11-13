@@ -1,0 +1,123 @@
+---
+// A plain HTML data table. Wide tables scroll sideways inside their own box, never the page.
+import { formatCell, type DataTable } from '../../lib/tables';
+
+interface Props {
+  table: DataTable;
+}
+const { table } = Astro.props;
+const captionId = `tabell-${table.id}`;
+---
+
+<!-- The title sits outside the scroll box so it stays readable on phones while the table scrolls. -->
+<p class="table-title" id={captionId}>{table.caption}</p>
+<div class="table-scroll" role="region" aria-labelledby={captionId} tabindex="0">
+  <table id={table.id} aria-labelledby={captionId}>
+    <thead>
+      <tr>
+        <th scope="col">{table.rowLabel}</th>
+        {table.columns.map((c) => <th scope="col" class={c.kind}>{c.label}</th>)}
+      </tr>
+    </thead>
+    <tbody>
+      {
+        table.rows.map((r) => (
+          <tr>
+            <th scope="row">{r.key}</th>
+            {r.cells.map((cell, i) => {
+              const col = table.columns[i];
+              if (Array.isArray(cell) && cell.length > 0) {
+                return (
+                  <td class="links">
+                    {cell.map((l, j) => (
+                      <>
+                        <a href={l.url}>{l.label}</a>
+                        {j < cell.length - 1 ? '; ' : ''}
+                      </>
+                    ))}
+                  </td>
+                );
+              }
+              if (cell === null || Array.isArray(cell) || col.kind !== 'number') {
+                return (
+                  <td class="number missing">
+                    <span aria-hidden="true">–</span>
+                    <span class="visually-hidden">uppgift saknas</span>
+                  </td>
+                );
+              }
+              return <td class="number">{formatCell(cell, col.format)}</td>;
+            })}
+          </tr>
+        ))
+      }
+    </tbody>
+  </table>
+</div>
+
+<style>
+  .table-scroll {
+    position: relative;
+    max-width: 100%;
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+  }
+  table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 14px;
+    line-height: 1.4;
+    font-variant-numeric: tabular-nums;
+  }
+  .table-title {
+    margin: 0 0 -12px;
+    font-size: 15px;
+    font-weight: 600;
+    line-height: 1.4;
+  }
+  th,
+  td {
+    padding: 10px 12px;
+    border-bottom: 1px solid var(--rule);
+    text-align: left;
+    vertical-align: top;
+  }
+  th:first-child {
+    padding-left: 0;
+  }
+  thead th {
+    border-bottom: 2px solid var(--ink);
+    font-size: 12px;
+    font-weight: 600;
+    color: var(--text-muted);
+    vertical-align: bottom;
+  }
+  thead th.number,
+  td.number {
+    text-align: right;
+    white-space: nowrap;
+  }
+  tbody th {
+    font-weight: 600;
+  }
+  td.missing {
+    color: var(--text-muted);
+  }
+  td.links {
+    white-space: nowrap;
+    font-size: 12px;
+    color: var(--text-muted);
+  }
+  td.links a {
+    color: var(--text-muted);
+  }
+  @media (max-width: 640px) {
+    table {
+      font-size: 13px;
+    }
+    th,
+    td {
+      padding: 8px;
+    }
+  }
+</style>

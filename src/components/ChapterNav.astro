@@ -4,16 +4,29 @@
 // so the headline appears to shrink into the bar. The bar never changes height,
 // so the page does not jump.
 import { chapters } from '../lib/chapters';
+
+interface Props {
+  /** False on pages other than the main page: links point back to it and the small title always shows. */
+  home?: boolean;
+}
+const { home = true } = Astro.props;
+const base = home ? '' : '/';
 ---
 
-<nav aria-label="Kapitel" class="chapter-nav" data-chapter-nav>
+<nav aria-label="Kapitel" class:list={['chapter-nav', { 'is-compact': !home }]} data-chapter-nav>
   <div class="row">
-    <a class="mini-title" href="#top" tabindex="-1" aria-hidden="true">Brottsfokus</a>
+    {
+      home ? (
+        <a class="mini-title" href="#top" tabindex="-1" aria-hidden="true">Brottsfokus</a>
+      ) : (
+        <a class="mini-title" href="/">Brottsfokus</a>
+      )
+    }
     <ul>
       {
         chapters.map((c) => (
           <li>
-            <a href={`#${c.id}`}>
+            <a href={`${base}#${c.id}`}>
               {c.num && <span class="num">{c.num}</span>}
               {c.navLabel}
             </a>

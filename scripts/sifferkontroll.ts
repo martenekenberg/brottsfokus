@@ -124,6 +124,17 @@ const kap5 = buildKap5(bra2005);
     if (s.year < first || s.year > last || share === null) continue;
     add(K, 'Diagram, streckad linje', `Utländska medborgare i befolkningen ${s.year}`, formatPct(share, 1), `SCB: ${formatNumber(s.utlandskaMedborgare!)} / ${formatNumber(s.folkmangd)}`, CALC, SCB);
   }
+  // Only on the table page /data/fangelse-medborgarskap/.
+  const T = '03 Fängelse, tabellsidan';
+  for (const r of prison) {
+    if (r.persons === null) continue;
+    add(T, 'Tabell, antal personer', `${name[r.population][r.group]}, ${r.year}, antal personer (alla medborgarskap)`, formatNumber(r.persons), r.source, STATED, r.sourceUrl);
+  }
+  for (const s of population) {
+    if (s.year < first || s.year > last) continue;
+    add(T, 'Tabell, befolkningen', `Folkmängd ${s.year}`, formatNumber(s.folkmangd), s.source, STATED, SCB);
+    if (s.utlandskaMedborgare !== null) add(T, 'Tabell, befolkningen', `Utländska medborgare ${s.year}`, formatNumber(s.utlandskaMedborgare), s.source, STATED, SCB);
+  }
 }
 
 // ---------- Chapter 4 ----------

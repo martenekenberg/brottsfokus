@@ -2,14 +2,29 @@
 import '@fontsource-variable/inter';
 import '@fontsource-variable/newsreader/opsz.css';
 import '../styles/global.css';
-import { site } from '../lib/site';
+import { site, absoluteUrl } from '../lib/site';
 
 interface Props {
   title: string;
   description: string;
+  /** Path of this page, e.g. "/data/". Defaults to the main page. */
+  path?: string;
+  /** Sources the page builds on. Defaults to the main page's list. */
+  citations?: string[];
+  /** Extra structured data for this page, such as a Dataset or BreadcrumbList. */
+  jsonLdNodes?: Record<string, unknown>[];
 }
 
-const { title, description } = Astro.props;
+const mainCitations = [
+  'https://bra.se/rapporter/arkiv/2021-08-25-misstankta-for-brott-bland-personer-med-inrikes-respektive-utrikes-bakgrund',
+  'https://www.bra.se/download/18.cba82f7130f475a2f1800012697/2005_17_brottslighet_bland_personer_fodda_sverige_och_utlandet.pdf',
+  'https://doi.org/10.1080/20961790.2020.1868681',
+  'https://lup.lub.lu.se/record/d9a9d1f6-f428-4b57-abf2-5e0e9c7b84f5',
+  'https://www.scb.se/hitta-statistik/sverige-i-siffror/manniskorna-i-sverige/utlandska-medborgare-i-sverige/',
+];
+
+const { title, description, path = '/', citations = mainCitations, jsonLdNodes = [] } = Astro.props;
+const pageUrl = absoluteUrl(path);
 
 // Structured data. Describes only what the page shows: who publishes it, when it
 // was last updated and which sources it builds on. The publisher is the site
@@ -30,8 +45,8 @@ const jsonLd = {
     publisher,
     {
       '@type': 'WebPage',
-      '@id': `${site.url}#webpage`,
-      url: site.url,
+      '@id': `${pageUrl}#webpage`,
+      url: pageUrl,
       name: title,
       description,
       inLanguage: 'sv-SE',
@@ -39,14 +54,9 @@ const jsonLd = {
       isPartOf: { '@id': `${site.url}#website` },
       publisher: { '@id': publisher['@id'] },
       primaryImageOfPage: site.shareImage,
-      citation: [
-        'https://bra.se/rapporter/arkiv/2021-08-25-misstankta-for-brott-bland-personer-med-inrikes-respektive-utrikes-bakgrund',
-        'https://www.bra.se/download/18.cba82f7130f475a2f1800012697/2005_17_brottslighet_bland_personer_fodda_sverige_och_utlandet.pdf',
-        'https://doi.org/10.1080/20961790.2020.1868681',
-        'https://lup.lub.lu.se/record/d9a9d1f6-f428-4b57-abf2-5e0e9c7b84f5',
-        'https://www.scb.se/hitta-statistik/sverige-i-siffror/manniskorna-i-sverige/utlandska-medborgare-i-sverige/',
-      ],
+      citation: citations,
     },
+    ...jsonLdNodes,
   ],
 };
 ---
@@ -58,14 +68,14 @@ const jsonLd = {
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <title>{title}</title>
     <meta name="description" content={description} />
-    <link rel="canonical" href={site.url} />
+    <link rel="canonical" href={pageUrl} />
     <meta name="theme-color" content="#ffffff" />
     <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
 
     <meta property="og:type" content="website" />
     <meta property="og:site_name" content={site.name} />
     <meta property="og:locale" content={site.locale} />
-    <meta property="og:url" content={site.url} />
+    <meta property="og:url" content={pageUrl} />
     <meta property="og:title" content={title} />
     <meta property="og:description" content={description} />
     <meta property="og:image" content={site.shareImage} />

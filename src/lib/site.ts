@@ -11,7 +11,18 @@ export const site = {
   // Build date in Swedish time (ISO, e.g. "2026-11-13"). The masthead shows month and year.
   updated: new Intl.DateTimeFormat('sv-SE', { timeZone: 'Europe/Stockholm' }).format(new Date()),
   shareImage: 'https://brottsfokus.xyz/og.png',
+  // Terms for the tables and CSV files the site publishes. Brå lets its statistics be reused
+  // freely if Brå is named; SCB publishes under CC BY 4.0. CC BY 4.0 keeps both requirements.
+  dataLicense: {
+    name: 'CC BY 4.0',
+    url: 'https://creativecommons.org/licenses/by/4.0/deed.sv',
+  },
 };
+
+/** Absolute URL for a path on the site, e.g. "/data/" -> "https://brottsfokus.xyz/data/". */
+export function absoluteUrl(path: string): string {
+  return new URL(path, site.url).href;
+}
 
 const months = ['januari', 'februari', 'mars', 'april', 'maj', 'juni', 'juli', 'augusti', 'september', 'oktober', 'november', 'december'];
 

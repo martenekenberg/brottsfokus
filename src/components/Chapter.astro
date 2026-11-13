@@ -6,9 +6,11 @@ import { chapter, nextChapter } from '../lib/chapters';
 interface Props {
   id: string;
   title: string;
+  /** Page with the chart's numbers as a table and CSV file. */
+  tableHref?: string;
 }
 
-const { id, title } = Astro.props;
+const { id, title, tableHref } = Astro.props;
 const c = chapter(id);
 const next = nextChapter(id);
 const hasLegend = Astro.slots.has('legend');
@@ -32,6 +34,7 @@ const hasControls = Astro.slots.has('controls');
     )
   }
   <p class="source"><slot name="source" /></p>
+  {tableHref && <a class="table-link" href={tableHref}>Siffrorna i tabell och som CSV-fil</a>}
   {next && <a class="next" href={`#${next.id}`}>Nästa: {next.nextLabel} →</a>}
 </section>
 
@@ -81,6 +84,14 @@ const hasControls = Astro.slots.has('controls');
   }
   .source :global(a) {
     color: var(--text-muted);
+  }
+  .table-link {
+    align-self: flex-start;
+    display: inline-flex;
+    align-items: center;
+    min-height: 44px;
+    margin-top: -12px;
+    font-size: 13px;
   }
   .next {
     align-self: flex-start;
