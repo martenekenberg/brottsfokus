@@ -293,11 +293,12 @@ const keyFigures = [
         </p>
         <RapeStudies kap4={kap4} />
         <Fragment slot="note">
-          Studierna gäller dömda, inte alla som begår våldtäkt. De dömda är män 15–60 år, medan befolkningens andel
+          Studierna gäller dömda, inte alla som begår våldtäkt. De dömda är nästan bara män
+          ({formatNumber(kap4.menPct, 1)} procent i den senare studien), 15–60 år, medan befolkningens andel
           gäller alla åldrar och båda könen (snitt 2000–2015). Den första studien anmäldes till Överklagandenämnden för
           etikprövning. Det översta stapelparet är alla utom inrikesfödda med två inrikesfödda föräldrar, som var
           {formatNumber(kap4.sv2Convicted, 1)} procent av de dömda och {formatNumber(kap4.sv2Controls, 1)} procent av
-          kontrollgruppen. Kontrollgruppen har samma kön och födelseår som de dömda. I den senare minskade sambandet efter justering för bland annat socioekonomi och tidigare
+          kontrollgruppen. I den senare minskade sambandet efter justering för bland annat socioekonomi och tidigare
           brottslighet, men det fanns kvar.
         </Fragment>
         <Fragment slot="source">

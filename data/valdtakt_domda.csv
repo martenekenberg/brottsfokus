@@ -13,6 +13,7 @@ kontroll,sv2,Inrikesfödda med två inrikesfödda föräldrar,2000–2020,1488,3
 kontroll,sv1,Inrikesfödda med en utrikesfödd förälder,2000–2020,247,6.1,7.7,Tabell 1 (kontroller n = 1 549)
 kontroll,u2,Inrikesfödda med två utrikesfödda föräldrar,2000–2020,256,6.4,4.8,Tabell 1 (kontroller n = 976)
 kontroll,utr,Utrikesfödda,2000–2020,2041,50.6,18.0,Tabell 1 (kontroller n = 3 619)
+kontroll,man,Män bland de dömda,2000–2020,4019,99.7,,Tabell 1
 ovrigt,vald,Tidigare dömd för våldsbrott,2000–2015,1402,46.1,,Tabell 1
 ovrigt,egendom,Tidigare dömd för egendomsbrott,2000–2015,1119,36.8,,Tabell 1
 ovrigt,ekobrott,Tidigare dömd för ekonomisk brottslighet,2000–2015,528,17.4,,Tabell 1

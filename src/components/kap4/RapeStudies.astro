@@ -11,11 +11,23 @@ const { kap4 } = Astro.props;
 ---
 
 <div class="chart-block">
+  <h3 class="small-title">Dömda och matchad kontrollgrupp, 2000–2020</h3>
+  <p class="small-sub">Kontrollgruppen har samma kön och födelseår som de dömda.</p>
   <ul class="legend-list" aria-label="Förklaring">
     <li><span class="mark bar-fill" aria-hidden="true"></span>Dömda för våldtäkt</li>
-    <li><span class="mark bar-outline" aria-hidden="true"></span>Jämförelse: matchad kontrollgrupp eller befolkningen</li>
+    <li><span class="mark bar-outline" aria-hidden="true"></span>Matchad kontrollgrupp</li>
   </ul>
   <BarChart spec={kap4.main} />
+</div>
+
+<div class="chart-block part">
+  <h3 class="small-title">Dömda och hela befolkningen, 2000–2015</h3>
+  <p class="small-sub">Befolkningen gäller alla åldrar och båda könen.</p>
+  <ul class="legend-list" aria-label="Förklaring">
+    <li><span class="mark bar-fill" aria-hidden="true"></span>Dömda för våldtäkt</li>
+    <li><span class="mark bar-outline" aria-hidden="true"></span>Befolkningen</li>
+  </ul>
+  <BarChart spec={kap4.population2015} />
 </div>
 
 <div class="small-multiples">
@@ -36,6 +48,11 @@ const { kap4 } = Astro.props;
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
     gap: 32px 48px;
+    margin-top: 16px;
+    padding-top: 24px;
+    border-top: 1px solid var(--rule);
+  }
+  .part {
     margin-top: 16px;
     padding-top: 24px;
     border-top: 1px solid var(--rule);

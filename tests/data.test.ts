@@ -68,6 +68,8 @@ test('chapters 4 and 5 build', () => {
   const kap4 = buildKap4(loadRapeStudies(), loadPopulation());
   assert.equal(kap4.main.groups[0].bars[0].value, 63.1);
   assert.equal(kap4.main.groups[0].bars[1].value, 30.5);
-  assert.equal(kap4.popForeignBorn, 13.9);
+  assert.deepEqual(kap4.main.groups.map((g) => g.bars.map((b) => b.value)), [[63.1, 30.5], [50.6, 18], [6.4, 4.8], [6.1, 7.7]]);
+  assert.equal(kap4.population2015.groups[0].bars[1].value, 13.9);
+  assert.equal(kap4.menPct, 99.7);
   assert.ok(buildKap5(loadBra2005()).foreignBornRiskRose);
 });

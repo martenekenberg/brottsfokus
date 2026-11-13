@@ -14,7 +14,10 @@ function pick(rows: RapeStudyRow[], chart: RapeStudyRow['chart'], id: string): R
 const OTHER_LABEL = 'Utrikesfödda eller minst en utrikesfödd förälder';
 
 export interface Kap4 {
+  /** 2000–2020: convicted and matched controls. */
   main: BarChartSpec;
+  /** 2000–2015: convicted and the whole population. */
+  population2015: BarChartSpec;
   region: BarChartSpec;
   prior: BarChartSpec;
   /** Values used in the copy. */
@@ -23,6 +26,8 @@ export interface Kap4 {
   /** Share who are Swedish-born with two Swedish-born parents, 2000–2020: convicted and controls. */
   sv2Convicted: number;
   sv2Controls: number;
+  /** Share of men among the convicted 2000–2020. */
+  menPct: number;
 }
 
 export function buildKap4(rows: RapeStudyRow[], population: PopulationRow[]): Kap4 {
@@ -42,34 +47,50 @@ export function buildKap4(rows: RapeStudyRow[], population: PopulationRow[]): Ka
   const popForeignBorn = studyPopulationSharePct(population, (r) => r.utrikesFodda);
   const popTwoForeignParents = studyPopulationSharePct(population, swedishBornTwoForeignParents);
 
+  // 2000–2020: each group among the convicted and among controls of the same sex and birth year.
+  const pair = (label: string, pct: number, pctControls: number | null) => {
+    if (pctControls === null) throw new Error(`Missing control group share for ${label}`);
+    return {
+      label,
+      bars: [
+        { label: `Dömda ${sv2.period}`, value: pct, kind: 'focus' as const },
+        { label: 'Matchad kontrollgrupp', value: pctControls, kind: 'comparison' as const },
+      ],
+    };
+  };
+  const [sv1c, u2c, utrc] = others;
   const main: BarChartSpec = {
     groups: [
-      {
-        label: OTHER_LABEL,
-        bars: [
-          { label: `Dömda ${control.period}`, value: control.pct, kind: 'focus' },
-          { label: 'Matchad kontrollgrupp', value: control.pctControls, kind: 'comparison' },
-        ],
-      },
-      {
-        label: 'Utrikesfödda',
-        bars: [
-          { label: `Dömda ${utr.period}`, value: utr.pct, kind: 'focus' },
-          { label: 'Befolkningen, snitt 2000–2015', value: popForeignBorn, kind: 'comparison' },
-        ],
-      },
-      {
-        label: 'Inrikesfödda, två utrikesfödda föräldrar',
-        bars: [
-          { label: `Dömda ${u2.period}`, value: u2.pct, kind: 'focus' },
-          { label: 'Befolkningen, snitt 2000–2015', value: popTwoForeignParents, kind: 'comparison' },
-        ],
-      },
+      pair(OTHER_LABEL, control.pct, control.pctControls),
+      pair('Utrikesfödda', utrc.pct, utrc.pctControls),
+      pair('Inrikesfödda, två utrikesfödda föräldrar', u2c.pct, u2c.pctControls),
+      pair('Inrikesfödda, en utrikesfödd förälder', sv1c.pct, sv1c.pctControls),
+    ],
+    ariaLabel: '',
+  };
+  main.ariaLabel =
+    `Stapeldiagram. Bakgrund bland dömda för våldtäkt ${sv2.period} jämfört med en matchad kontrollgrupp. ` +
+    main.groups.map((g) => `${g.label}: ${formatPct(g.bars[0].value, 1)} bland dömda, ${formatPct(g.bars[1].value, 1)} i kontrollgruppen`).join('. ') +
+    '.';
+
+  // 2000–2015: the convicted compared with the whole population.
+  const popPair = (label: string, row: RapeStudyRow, pop: number) => ({
+    label,
+    bars: [
+      { label: `Dömda ${row.period}`, value: row.pct, kind: 'focus' as const },
+      { label: 'Befolkningen, snitt 2000–2015', value: pop, kind: 'comparison' as const },
+    ],
+  });
+  const population2015: BarChartSpec = {
+    // Same scale as the chart above, so the bars can be compared.
+    xMax: Math.max(...main.groups.flatMap((g) => g.bars.map((x) => x.value))),
+    groups: [
+      popPair('Utrikesfödda', utr, popForeignBorn),
+      popPair('Inrikesfödda, två utrikesfödda föräldrar', u2, popTwoForeignParents),
     ],
     ariaLabel:
-      'Stapeldiagram. Andel med utländsk bakgrund bland dömda för våldtäkt jämfört med kontrollgrupp och befolkning. ' +
-      `${OTHER_LABEL}: ${formatPct(control.pct, 1)} bland dömda ${control.period}, ${formatPct(control.pctControls, 1)} i kontrollgruppen. ` +
-      `Utrikesfödda: ${formatPct(utr.pct, 1)} bland dömda ${utr.period}, ${formatPct(popForeignBorn, 1)} i befolkningen. ` +
+      'Stapeldiagram. Bakgrund bland dömda för våldtäkt 2000–2015 jämfört med hela befolkningen. ' +
+      `Utrikesfödda: ${formatPct(utr.pct, 1)} bland dömda, ${formatPct(popForeignBorn, 1)} i befolkningen. ` +
       `Inrikesfödda med två utrikesfödda föräldrar: ${formatPct(u2.pct, 1)} bland dömda, ${formatPct(popTwoForeignParents, 1)} i befolkningen.`,
   };
 
@@ -91,5 +112,5 @@ export function buildKap4(rows: RapeStudyRow[], population: PopulationRow[]): Ka
       '.',
   };
 
-  return { main, region, prior, popForeignBorn, popTwoForeignParents, sv2Convicted: sv2.pct, sv2Controls: sv2.pctControls };
+  return { main, population2015, menPct: pick(rows, 'kontroll', 'man').pct, region, prior, popForeignBorn, popTwoForeignParents, sv2Convicted: sv2.pct, sv2Controls: sv2.pctControls };
 }

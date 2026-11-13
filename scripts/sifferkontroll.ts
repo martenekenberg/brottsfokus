@@ -131,14 +131,23 @@ const kap5 = buildKap5(bra2005);
   const K = '04 Våldtäkt';
   const yearly = (count: (r: (typeof population)[number]) => number | null) =>
     [2000, 2005, 2010, 2015].map((y) => formatPct(populationSharePct(count(population.find((r) => r.year === y)!), population.find((r) => r.year === y)!.folkmangd)!, 2)).join(', ');
-  const [other, utr, u2] = kap4.main.groups;
-  add(K, 'Huvuddiagram', `${other.label}, dömda 2000–2020 / kontrollgrupp`, `${barFmt(other.bars[0].value)} / ${barFmt(other.bars[1].value)}`, `Khoshnood m.fl. 2026, tabell 1: 100 minus ${formatPct(kap4.sv2Convicted, 1)} resp. ${formatPct(kap4.sv2Controls, 1)}. Samma som summan av de tre övriga grupperna: 6,1 + 6,4 + 50,6 resp. 7,7 + 4,8 + 18,0`, CALC, K2026);
+  const D = 'Diagram, dömda och kontrollgrupp 2000–2020';
+  const P = 'Diagram, dömda och befolkningen 2000–2015';
+  const [other, ...stated] = kap4.main.groups;
+  add(K, D, `${other.label}, dömda / kontrollgrupp`, `${barFmt(other.bars[0].value)} / ${barFmt(other.bars[1].value)}`, `Khoshnood m.fl. 2026, tabell 1: 100 minus ${formatPct(kap4.sv2Convicted, 1)} resp. ${formatPct(kap4.sv2Controls, 1)}. Samma som summan av de tre övriga grupperna`, CALC, K2026);
+  const ctrl = (id: string) => rape.find((r) => r.chart === 'kontroll' && r.itemId === id)!;
+  ['utr', 'u2', 'sv1'].forEach((id, i) => {
+    const g = stated[i];
+    add(K, D, `${g.label}, dömda (n = ${formatNumber(ctrl(id).n!)}) / kontrollgrupp`, `${barFmt(g.bars[0].value)} / ${barFmt(g.bars[1].value)}`, `Khoshnood m.fl. 2026, ${ctrl(id).note}`, STATED, K2026);
+  });
   add(K, 'Läs så här', 'Inrikesfödda med två inrikesfödda föräldrar, dömda 2000–2020 / kontrollgrupp', `${formatNumber(kap4.sv2Convicted, 1)} / ${formatNumber(kap4.sv2Controls, 1)}`, 'Khoshnood m.fl. 2026, tabell 1 (1 488 av 4 032 resp. 14 016 av 20 160)', STATED, K2026);
+  add(K, 'Läs så här', `Män bland de dömda 2000–2020 (n = ${formatNumber(ctrl('man').n!)})`, formatNumber(kap4.menPct, 1), 'Khoshnood m.fl. 2026, tabell 1', STATED, K2026);
+  const [utr, u2] = kap4.population2015.groups;
   const row = (id: string) => rape.find((r) => r.chart === 'bakgrund' && r.itemId === id)!;
-  add(K, 'Huvuddiagram', `Utrikesfödda, dömda 2000–2015 (n = ${row('utr').n})`, barFmt(utr.bars[0].value), `Khoshnood m.fl. 2021, ${row('utr').note}`, STATED, K2021);
-  add(K, 'Huvuddiagram', 'Utrikesfödda, befolkningen, snitt 2000/2005/2010/2015', barFmt(utr.bars[1].value), `SCB, uträknat: ${yearly((r) => r.utrikesFodda)}`, CALC, SCB);
-  add(K, 'Huvuddiagram', `Inrikesfödda med två utrikesfödda föräldrar, dömda 2000–2015 (n = ${row('u2').n})`, barFmt(u2.bars[0].value), `Khoshnood m.fl. 2021, ${row('u2').note}`, STATED, K2021);
-  add(K, 'Huvuddiagram', 'Inrikesfödda med två utrikesfödda föräldrar, befolkningen, snitt 2000/2005/2010/2015', barFmt(u2.bars[1].value), `SCB, uträknat: ${yearly(swedishBornTwoForeignParents)}`, CALC, SCB);
+  add(K, P, `Utrikesfödda, dömda 2000–2015 (n = ${row('utr').n})`, barFmt(utr.bars[0].value), `Khoshnood m.fl. 2021, ${row('utr').note}`, STATED, K2021);
+  add(K, P, 'Utrikesfödda, befolkningen, snitt 2000/2005/2010/2015', barFmt(utr.bars[1].value), `SCB, uträknat: ${yearly((r) => r.utrikesFodda)}`, CALC, SCB);
+  add(K, P, `Inrikesfödda med två utrikesfödda föräldrar, dömda 2000–2015 (n = ${row('u2').n})`, barFmt(u2.bars[0].value), `Khoshnood m.fl. 2021, ${row('u2').note}`, STATED, K2021);
+  add(K, P, 'Inrikesfödda med två utrikesfödda föräldrar, befolkningen, snitt 2000/2005/2010/2015', barFmt(u2.bars[1].value), `SCB, uträknat: ${yearly(swedishBornTwoForeignParents)}`, CALC, SCB);
   for (const r of rape.filter((x) => x.chart === 'region').sort((a, b) => b.pct - a.pct)) {
     add(K, 'Mindre diagram', r.item, barFmt(r.pct), `Khoshnood m.fl. 2021, ${r.note}`, STATED, K2021);
   }
