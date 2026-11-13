@@ -1,0 +1,64 @@
+---
+// Chapter 4: main paired bars, then region of birth and prior convictions as two smaller charts.
+import BarChart from '../charts/BarChart.astro';
+import type { Kap4 } from '../../lib/chapters/kap4';
+
+interface Props {
+  kap4: Kap4;
+}
+
+const { kap4 } = Astro.props;
+---
+
+<div class="chart-block">
+  <ul class="legend-list" aria-label="Förklaring">
+    <li><span class="mark bar-fill" aria-hidden="true"></span>Dömda för våldtäkt</li>
+    <li><span class="mark bar-outline" aria-hidden="true"></span>Jämförelse: matchad kontrollgrupp eller befolkningen</li>
+  </ul>
+  <BarChart spec={kap4.main} />
+</div>
+
+<div class="small-multiples">
+  <div class="chart-block">
+    <h3 class="small-title">Födelseregion bland de utrikesfödda dömda, 2000–2015</h3>
+    <p class="small-sub">Andel av de 1 451 utrikesfödda dömda.</p>
+    <BarChart spec={kap4.region} staticWidth={520} />
+  </div>
+  <div class="chart-block">
+    <h3 class="small-title">Tidigare domar och ekonomiskt bistånd bland alla dömda, 2000–2015</h3>
+    <p class="small-sub">Andel av alla dömda i studien.</p>
+    <BarChart spec={kap4.prior} staticWidth={520} />
+  </div>
+</div>
+
+<style>
+  .small-multiples {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 32px 48px;
+    margin-top: 16px;
+    padding-top: 24px;
+    border-top: 1px solid var(--rule);
+  }
+  .small-title {
+    margin: 0;
+    font-size: 15px;
+    font-weight: 600;
+  }
+  .small-sub {
+    margin: -8px 0 0;
+    font-size: 13px;
+    color: var(--text-muted);
+  }
+  .bar-fill {
+    width: 14px;
+    height: 12px;
+    background: #1d4e89;
+  }
+  .bar-outline {
+    width: 14px;
+    height: 12px;
+    border: 1.5px solid #5c5c5c;
+    background: #ffffff;
+  }
+</style>

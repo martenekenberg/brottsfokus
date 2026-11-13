@@ -11,10 +11,12 @@ import SuspectsOverTime from '../components/kap1/SuspectsOverTime.astro';
 import { buildKap1Data } from '../lib/chapters/kap1';
 import OriginDots from '../components/kap2/OriginDots.astro';
 import { buildKap2Data } from '../lib/chapters/kap2';
+import RapeStudies from '../components/kap4/RapeStudies.astro';
+import { buildKap4 } from '../lib/chapters/kap4';
 import Method from '../components/Method.astro';
 import Footer from '../components/Footer.astro';
 
-import { loadOrigin, loadPopulation, loadPrison, loadSuspectsByBackground } from '../lib/data';
+import { loadOrigin, loadPopulation, loadPrison, loadRapeStudies, loadSuspectsByBackground } from '../lib/data';
 import { foreignCitizenSharePct, prisonSeries, rateRatioVsSv2 } from '../lib/calc';
 import { formatNumber } from '../lib/format';
 import type { LineChartSpec } from '../lib/charts/line';
@@ -129,6 +131,7 @@ const kap1Data = buildKap1Data(suspects);
 // Chapter 2 uses the same crime list, so its menu is indented the same way.
 const depthByOrder = new Map(suspects.map((r) => [r.crimeOrder, r.depth]));
 const kap2Data = buildKap2Data(loadOrigin(), depthByOrder);
+const kap4 = buildKap4(loadRapeStudies(), population);
 const keyYear = 2018;
 const ratioUtr = rateRatioVsSv2(suspects, keyYear, 'c00', 'utr');
 const ratioU2 = rateRatioVsSv2(suspects, keyYear, 'c00', 'u2');
@@ -244,15 +247,19 @@ const keyFigures = [
           Två registerstudier från Lunds universitet av alla som dömts för våldtäkt eller försök till våldtäkt mot en
           kvinna 18 år eller äldre.
         </p>
-        <ChartPlaceholder />
+        <RapeStudies kap4={kap4} />
         <Fragment slot="note">
           Studierna gäller dömda, inte alla som begår våldtäkt. Befolkningens andel gäller alla åldrar och båda könen,
-          medan de dömda är män 15–60 år. I den senare studien minskade sambandet när hänsyn togs till socioekonomi,
-          missbruk, psykisk sjukdom och tidigare brottslighet, men det fanns kvar.
+          medan de dömda är män 15–60 år. Befolkningens andel är ett snitt av åren 2000, 2005, 2010 och 2015. Den
+          första studien anmäldes till Överklagandenämnden för etikprövning. I den senare studien minskade sambandet
+          när hänsyn togs till socioekonomi, missbruk, psykisk sjukdom och tidigare brottslighet, men det fanns kvar.
+          Ekonomiskt bistånd är inte ett brott men redovisas i samma tabell i studien.
         </Fragment>
         <Fragment slot="source">
-          Källor: Khoshnood m.fl. 2021, Forensic Sciences Research; Khoshnood m.fl. 2026, Journal of Interpersonal
-          Violence; SCB.
+          Källor: <a href="https://doi.org/10.1080/20961790.2020.1868681">Khoshnood m.fl. 2021</a>, Forensic Sciences
+          Research, tabell 1 och 2 (dömda 2000–2015);
+          <a href="https://lup.lub.lu.se/record/d9a9d1f6-f428-4b57-abf2-5e0e9c7b84f5">Khoshnood m.fl. 2026</a>, Journal
+          of Interpersonal Violence (dömda och kontrollgrupp 2000–2020); SCB, befolkningen den 31 december.
         </Fragment>
       </Chapter>
 

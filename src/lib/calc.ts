@@ -81,3 +81,21 @@ export function ratioToComparison(value: number | null, base: number | null): nu
   if (value === null || base === null || base === 0) return null;
   return value / base;
 }
+
+/** A count's share of the whole population in one year, in percent. */
+export function populationSharePct(count: number | null, folkmangd: number): number | null {
+  return count === null ? null : (count / folkmangd) * 100;
+}
+
+/**
+ * Share of the population for the rape study comparison, 2000–2015.
+ * Rule: the mean of the yearly shares for 2000, 2005, 2010 and 2015, one decimal.
+ * `count` picks the group from a population row, e.g. foreign-born.
+ */
+export function studyPopulationSharePct(
+  rows: PopulationRow[],
+  count: (row: PopulationRow) => number | null,
+): number {
+  const shares = new Map(rows.map((r) => [r.year, populationSharePct(count(r), r.folkmangd)]));
+  return round(meanOfStudyYears(shares), 1);
+}

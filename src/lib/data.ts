@@ -133,3 +133,29 @@ export function loadOrigin(): OriginRow[] {
     riskAdj: num(r.risk_adj),
   }));
 }
+
+// ---------- valdtakt_domda.csv (chapter 4) ----------
+
+export interface RapeStudyRow {
+  chart: 'bakgrund' | 'region' | 'kontroll' | 'ovrigt';
+  itemId: string;
+  item: string;
+  period: string;
+  n: number | null;
+  pct: number;
+  pctControls: number | null;
+  note: string;
+}
+
+export function loadRapeStudies(): RapeStudyRow[] {
+  return readCsv('valdtakt_domda.csv').map((r) => ({
+    chart: r.chart as RapeStudyRow['chart'],
+    itemId: r.item_id,
+    item: r.item,
+    period: r.period,
+    n: num(r.n),
+    pct: required(r.pct, 'pct'),
+    pctControls: num(r.pct_controls),
+    note: r.note,
+  }));
+}

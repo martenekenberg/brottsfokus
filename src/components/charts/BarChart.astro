@@ -1,0 +1,23 @@
+---
+import { renderBarChart, type BarChartSpec } from '../../lib/charts/bar';
+
+interface Props {
+  spec: BarChartSpec;
+  /** Width used for the static version drawn at build time. */
+  staticWidth?: number;
+}
+
+const { spec, staticWidth = 1040 } = Astro.props;
+// Static version for readers before (or without) JavaScript.
+const staticSvg = renderBarChart(spec, staticWidth);
+---
+
+<figure class="chart" data-bar-chart>
+  <div class="canvas" data-canvas set:html={staticSvg} />
+  <div class="tooltip" data-tooltip hidden aria-hidden="true"></div>
+  <script type="application/json" set:html={JSON.stringify(spec)} />
+</figure>
+
+<script>
+  import '../../lib/charts/bar-client';
+</script>
