@@ -115,7 +115,11 @@ One long page with anchored chapters, matching `design/Main.dc.html`:
    - "Nästa: …" link to the next chapter
 5. **Metod och begrepp**: short definitions in a grid.
 6. **Om sidan**: why the site exists, how data is chosen, who runs it (an anonymous private person), errors and corrections, no cookies or tracking.
-7. **Footer**: site name, "Till början ↑".
+7. **Footer**: site name, "Tabeller och CSV-filer" (link to `/data/`), "Till början ↑".
+
+### Table pages
+
+Each chapter links to a page under `/data/` with its numbers as HTML tables and a CSV file (added at the owner's request, for readers, accessibility and search). `/data/` lists them. Each page has: kicker, factual headline, summary with the key numbers and source, "Läs så här" above the tables, tables, CSV download, terms of use (CC BY 4.0, set in `src/lib/site.ts`), sources, link back to the chart, links to the other table pages, and Dataset markup. Build the tables with the same calculation code as the charts. `npm run sifferkontroll` lists every table value in `docs/sifferkontroll_tabeller.csv`.
 
 ## Chapters
 

@@ -3,7 +3,7 @@
 // download, terms of use, sources, link back to the chart. Adds Dataset markup.
 import DataLayout from '../../layouts/DataLayout.astro';
 import { chapter } from '../../lib/chapters';
-import { tablePage, tablesIndexPath } from '../../lib/dataPages';
+import { tablePage, tablePages, tablesIndexPath } from '../../lib/dataPages';
 import { site, absoluteUrl, dayMonthYear } from '../../lib/site';
 
 interface Props {
@@ -98,11 +98,49 @@ if (p.datasetDescription.length < 50) throw new Error(`${page.path}: dataset des
   </p>
 
   <a class="back" href={`/#${p.chapterId}`}>Till diagrammet i kapitel {Number(c.num)}, {c.navLabel}</a>
+
+  <nav class="more" aria-labelledby="fler-tabeller">
+    <h2 id="fler-tabeller">Fler tabeller</h2>
+    <ul>
+      {
+        tablePages
+          .filter((x) => x.chapterId !== p.chapterId)
+          .map((x) => (
+            <li>
+              <span class="num">{chapter(x.chapterId).num}</span>
+              <a href={x.path}>{x.name}</a>
+            </li>
+          ))
+      }
+    </ul>
+  </nav>
 </DataLayout>
 
 <style>
   .lead :global(p) {
     margin: 0;
+  }
+  .more ul {
+    margin: 0;
+    padding: 0;
+    list-style: none;
+    border-top: 1px solid var(--ink);
+  }
+  .more li {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    border-bottom: 1px solid var(--rule);
+  }
+  .more a {
+    display: inline-flex;
+    align-items: center;
+    min-height: 44px;
+  }
+  .more .num {
+    color: var(--second);
+    font-size: 14px;
+    font-weight: 700;
   }
   .back {
     align-self: flex-start;
