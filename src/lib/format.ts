@@ -1,10 +1,13 @@
 // Swedish number formatting. Decimal comma, space as thousands separator,
 // a non-breaking space before "%", and "×" for multipliers.
 
+import { round } from './calc';
+
 const NBSP = ' ';
 
 function fixed(value: number, decimals: number): string {
-  const parts = value.toFixed(decimals).split('.');
+  // Round first: toFixed alone turns 1.95 into "1.9".
+  const parts = round(value, decimals).toFixed(decimals).split('.');
   const int = parts[0].replace(/\B(?=(\d{3})+(?!\d))/g, NBSP);
   const sign = int.startsWith('-') ? '−' : '';
   const body = sign ? int.slice(1) : int;
