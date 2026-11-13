@@ -271,3 +271,7 @@ a:hover {
   flex-direction: column;
   gap: 4px;
 }
+.chart-block .toggle button:disabled {
+  color: #8a8a8a;
+  cursor: not-allowed;
+}

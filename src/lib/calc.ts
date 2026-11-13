@@ -1,6 +1,6 @@
 // Every calculated value on the site comes from one small, named function here,
 // so each one can be checked against the rules in CLAUDE.md.
-import type { PopulationRow, PrisonRow, SuspectsRow } from './data';
+import type { PopulationRow, PrisonRow } from './data';
 
 /** Round to a fixed number of decimals (half away from zero). */
 export function round(value: number, decimals: number): number {
@@ -54,24 +54,6 @@ export function prisonSeries(
   return out;
 }
 
-/**
- * How many times more common it was for `group` to be registered as suspected
- * than for the comparison group (Swedish-born with two Swedish-born parents, sv2),
- * for one year and crime type. Rule: per1000(group) / per1000(sv2).
- */
-export function rateRatioVsSv2(
-  rows: SuspectsRow[],
-  year: number,
-  crimeId: string,
-  group: SuspectsRow['group'],
-): number {
-  const pick = (g: SuspectsRow['group']) => {
-    const r = rows.find((x) => x.year === year && x.crimeId === crimeId && x.group === g);
-    if (!r || r.per1000 === null) throw new Error(`No rate for ${year} ${crimeId} ${g}`);
-    return r.per1000;
-  };
-  return pick(group) / pick('sv2');
-}
 
 /**
  * A group's rate relative to the comparison group's rate in the same year.

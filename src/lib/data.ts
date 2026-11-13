@@ -181,3 +181,32 @@ export function loadBra2005(): Bra2005Row[] {
     sourceTable: r.source_table,
   }));
 }
+
+// ---------- bra2021_tabell_b6.csv (chapter 2 population shares, key figures) ----------
+// Copied from Brå 2021:9 appendix 1, table B6 (brott totalt, 2015–2018).
+
+export interface B6Row {
+  view: 'bakgrund' | 'region' | 'moder';
+  unit: string;
+  populationN: number;
+  populationPct: number;
+  suspectsN: number;
+  suspectsPct: number;
+  overrepresentation: number;
+  pctSuspected: number;
+  risk: number;
+}
+
+export function loadTableB6(): B6Row[] {
+  return readCsv('bra2021_tabell_b6.csv').map((r) => ({
+    view: r.view as B6Row['view'],
+    unit: r.unit,
+    populationN: required(r.population_n, 'population_n'),
+    populationPct: required(r.population_pct, 'population_pct'),
+    suspectsN: required(r.suspects_n, 'suspects_n'),
+    suspectsPct: required(r.suspects_pct, 'suspects_pct'),
+    overrepresentation: required(r.overrepresentation, 'overrepresentation'),
+    pctSuspected: required(r.pct_suspected, 'pct_suspected'),
+    risk: required(r.risk, 'risk'),
+  }));
+}

@@ -17,8 +17,8 @@ import { buildKap5 } from '../lib/chapters/kap5';
 import Method from '../components/Method.astro';
 import Footer from '../components/Footer.astro';
 
-import { loadOrigin, loadPopulation, loadPrison, loadRapeStudies, loadSuspectsByBackground, loadBra2005 } from '../lib/data';
-import { foreignCitizenSharePct, prisonSeries, rateRatioVsSv2 } from '../lib/calc';
+import { loadOrigin, loadPopulation, loadPrison, loadRapeStudies, loadSuspectsByBackground, loadBra2005, loadTableB6 } from '../lib/data';
+import { foreignCitizenSharePct, prisonSeries } from '../lib/calc';
 import { formatNumber } from '../lib/format';
 import type { LineChartSpec } from '../lib/charts/line';
 
@@ -131,25 +131,31 @@ const suspects = loadSuspectsByBackground();
 const kap1Data = buildKap1Data(suspects);
 // Chapter 2 uses the same crime list, so its menu is indented the same way.
 const depthByOrder = new Map(suspects.map((r) => [r.crimeOrder, r.depth]));
-const kap2Data = buildKap2Data(loadOrigin(), depthByOrder);
+const tableB6 = loadTableB6();
+const kap2Data = buildKap2Data(loadOrigin(), depthByOrder, tableB6);
 const kap4 = buildKap4(loadRapeStudies(), population);
 const kap5 = buildKap5(loadBra2005());
-const keyYear = 2018;
-const ratioUtr = rateRatioVsSv2(suspects, keyYear, 'c00', 'utr');
-const ratioU2 = rateRatioVsSv2(suspects, keyYear, 'c00', 'u2');
+// Key figures use Brå's own risk values for 2015–2018 (table B6), as stated in the report.
+const b6Risk = (unit: string) => {
+  const r = tableB6.find((x) => x.view === 'bakgrund' && x.unit === unit);
+  if (!r) throw new Error(`Table B6: ${unit} missing`);
+  return r.risk;
+};
+const riskUtr = b6Risk('Utrikesfödda');
+const riskU2 = b6Risk('Inrikesfödda med två utrikesfödda föräldrar');
 
 const keyFigures = [
   {
-    value: formatNumber(ratioUtr, 1),
+    value: formatNumber(riskUtr, 1),
     unit: '×',
     text: 'Så mycket vanligare var det för utrikesfödda att registreras som misstänkta för brott än för inrikesfödda med två inrikesfödda föräldrar.',
-    source: `Brå rapport 2021:9, år ${keyYear}`,
+    source: 'Brå rapport 2021:9, 2015–2018',
   },
   {
-    value: formatNumber(Math.floor(ratioU2)),
+    value: formatNumber(riskU2, 1),
     unit: '×',
     text: 'För inrikesfödda med två utrikesfödda föräldrar var det drygt tre gånger så vanligt.',
-    source: `Brå rapport 2021:9, år ${keyYear}`,
+    source: 'Brå rapport 2021:9, 2015–2018',
   },
   {
     value: formatNumber(newAllLast),
@@ -180,7 +186,8 @@ const keyFigures = [
           Andelarna är inte justerade för ålder eller kön. Grupperna med utländsk bakgrund har fler unga, och unga
           misstänks oftare. Brå fann att skillnaderna minskar, men inte försvinner, när hänsyn tas till ålder, kön,
           inkomst, utbildning och typ av kommun. Misstänkt är inte detsamma som dömd. Rubriken gäller brott totalt.
-          För övergrepp i rättssak anger Brå inga värden för 2007 och 2008.
+          För övergrepp i rättssak anger Brå inga värden för 2007 och 2008. Brå anger värdena med två decimaler. För
+          mycket ovanliga brott, under 0,2 per 1 000, kan linjerna därför se ut att svänga mer än de gör.
         </Fragment>
         <Fragment slot="source">
           Källa: Brå rapport 2021:9, Misstänkta för brott bland personer med inrikes respektive utrikes bakgrund.
@@ -204,11 +211,13 @@ const keyFigures = [
           kön, disponibel inkomst och utbildning som jämförelsegruppen. Det är ett tänkt utfall, inte en faktisk andel.
           Här räknas alla som misstänktes minst en gång under fyra år, så talen per 1 000 är högre än i kapitel 1, som
           visar ett år i taget. Misstänkt är inte detsamma som dömd. Vissa grupper är små: det minsta födelselandet har
-          under 5 000 personer. Rubriken gäller brott totalt efter födelseområde.
+          under 5 000 personer. Andel av misstänkta och befolkningen finns bara för brott totalt, per födelseområde och
+          moderns födelseområde. Rubriken gäller brott totalt efter födelseområde.
         </Fragment>
         <Fragment slot="source">
           Källa: <a href="https://bra.se/rapporter/arkiv/2021-08-25-misstankta-for-brott-bland-personer-med-inrikes-respektive-utrikes-bakgrund">Brå rapport 2021:9</a>,
-          tabellbilaga 1. Folkbokförda 15 år och äldre den 31 december 2014, misstänkta för brott begångna 2015–2018.
+          tabellbilaga 1 (andelar av misstänkta och befolkningen: tabell B6). Folkbokförda 15 år och äldre den 31
+          december 2014, misstänkta för brott begångna 2015–2018.
         </Fragment>
       </Chapter>
 

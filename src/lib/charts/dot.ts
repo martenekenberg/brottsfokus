@@ -1,9 +1,9 @@
 // Reusable dot plot: one row per group, sorted by the caller.
 // Pure function: data + width in, SVG markup out. Runs at build time and in the browser.
 import { scaleLinear } from 'd3';
-import { formatNumber, formatTimes } from '../format';
+import { formatNumber, formatPct, formatTimes } from '../format';
 
-export type DotFormat = 'x1' | 'x2' | 'num1';
+export type DotFormat = 'x1' | 'x2' | 'num1' | 'pct2';
 
 export interface DotRow {
   id: string;
@@ -12,7 +12,8 @@ export interface DotRow {
   detail?: string;
   /** The group's own value: filled blue dot. */
   primary: number;
-  /** Optional second value, e.g. adjusted risk: orange dot. null = not available. */
+  /** Optional second value: orange dot (e.g. adjusted risk), or hollow grey dot when
+   *  `secondaryStyle` is 'population'. null = not available. */
   secondary: number | null;
 }
 
@@ -22,8 +23,10 @@ export interface DotChartSpec {
   /** Omit when no row has a second value. */
   secondaryLabel?: string;
   format: DotFormat;
-  /** The comparison group, drawn as a dashed black line. */
-  ref: { value: number; label: string };
+  /** 'second' (default): filled orange dot. 'population': hollow grey dot. */
+  secondaryStyle?: 'second' | 'population';
+  /** The comparison group, drawn as a dashed black line. Omit for none. */
+  ref?: { value: number; label: string };
   ariaLabel: string;
 }
 
@@ -34,6 +37,7 @@ const FONT = 'font-family="Inter Variable, Inter, Arial, sans-serif"';
 export function dotFmt(v: number, f: DotFormat): string {
   if (f === 'x1') return formatTimes(v, 1);
   if (f === 'x2') return formatTimes(v, 2);
+  if (f === 'pct2') return formatPct(v, 2);
   return formatNumber(v, 1);
 }
 
@@ -55,19 +59,23 @@ export interface DotLayout {
   rowY: (i: number) => number;
   x: (v: number) => number;
   ticks: number[];
+  /** Width reserved for one printed value. */
+  oneValue: number;
 }
 
 export function layoutDotChart(spec: DotChartSpec, width: number): DotLayout {
   const narrow = width < DOT_NARROW;
   const hasSecondary = spec.rows.some((r) => r.secondary !== null);
-  const valueCol = hasSecondary ? (narrow ? 84 : 104) : narrow ? 44 : 56;
+  // Width of one printed value; percentages with two decimals need more room.
+  const oneValue = spec.format === 'pct2' ? (narrow ? 50 : 60) : narrow ? 42 : 52;
+  const valueCol = hasSecondary ? oneValue * 2 + 4 : oneValue + 4;
   const labelCol = narrow ? 0 : Math.min(300, Math.round(width * 0.32));
   const rowHeight = narrow ? 44 : 30;
   const top = 34;
-  const x0 = labelCol + (narrow ? 12 : 12);
+  const x0 = labelCol + (narrow ? 20 : 16);
   const x1 = width - valueCol - 12;
 
-  let max = spec.ref.value;
+  let max = spec.ref?.value ?? 0;
   for (const r of spec.rows) {
     max = Math.max(max, r.primary, r.secondary ?? 0);
   }
@@ -75,7 +83,7 @@ export function layoutDotChart(spec: DotChartSpec, width: number): DotLayout {
   const ticks = scale.ticks(narrow ? 4 : 6);
   const height = top + spec.rows.length * rowHeight + 8;
   const rowY = (i: number) => top + i * rowHeight + (narrow ? 30 : rowHeight / 2);
-  return { width, height, narrow, x0, x1, top, rowHeight, rowY, x: scale, ticks };
+  return { width, height, narrow, x0, x1, top, rowHeight, rowY, x: scale, ticks, oneValue };
 }
 
 export function renderDotChart(spec: DotChartSpec, width: number): string {
@@ -84,7 +92,12 @@ export function renderDotChart(spec: DotChartSpec, width: number): string {
   const step = L.ticks.length > 1 ? L.ticks[1] - L.ticks[0] : 1;
   const tickDecimals = Math.max(0, Math.ceil(-Math.log10(step) - 1e-9));
   const tickLabel = (v: number) =>
-    spec.format === 'num1' ? formatNumber(v, tickDecimals) : formatTimes(v, tickDecimals);
+    spec.format === 'num1'
+      ? formatNumber(v, tickDecimals)
+      : spec.format === 'pct2'
+        ? formatPct(v, tickDecimals)
+        : formatTimes(v, tickDecimals);
+  const pop = spec.secondaryStyle === 'population';
   const p: string[] = [];
 
   p.push(
@@ -121,7 +134,7 @@ export function renderDotChart(spec: DotChartSpec, width: number): string {
   }
 
   // Comparison group: dashed black line.
-  vline(x(spec.ref.value).toFixed(1), `stroke="${C.ink}" stroke-width="1.5" stroke-dasharray="4 3"`);
+  if (spec.ref) vline(x(spec.ref.value).toFixed(1), `stroke="${C.ink}" stroke-width="1.5" stroke-dasharray="4 3"`);
 
   spec.rows.forEach((r, i) => {
     const cy = rowY(i);
@@ -134,7 +147,11 @@ export function renderDotChart(spec: DotChartSpec, width: number): string {
     const b = r.secondary === null ? null : x(r.secondary);
     if (b !== null) {
       p.push(`<line x1="${Math.min(a, b).toFixed(1)}" x2="${Math.max(a, b).toFixed(1)}" y1="${cy.toFixed(1)}" y2="${cy.toFixed(1)}" stroke="#B8B8B8" stroke-width="1.5"/>`);
-      p.push(`<circle cx="${b.toFixed(1)}" cy="${cy.toFixed(1)}" r="5" fill="${C.second}"/>`);
+      p.push(
+        pop
+          ? `<circle cx="${b.toFixed(1)}" cy="${cy.toFixed(1)}" r="5" fill="#FFFFFF" stroke="#8A8A8A" stroke-width="2"/>`
+          : `<circle cx="${b.toFixed(1)}" cy="${cy.toFixed(1)}" r="5" fill="${C.second}"/>`,
+      );
     }
     p.push(`<circle cx="${a.toFixed(1)}" cy="${cy.toFixed(1)}" r="6" fill="${C.focus}"/>`);
 
@@ -142,7 +159,7 @@ export function renderDotChart(spec: DotChartSpec, width: number): string {
     const vx = L.x1 + 14;
     p.push(`<text x="${vx}" y="${(cy + 4).toFixed(1)}" ${FONT} font-size="13" font-weight="700" fill="${C.focus}">${esc(dotFmt(r.primary, spec.format))}</text>`);
     if (r.secondary !== null) {
-      p.push(`<text x="${vx + (narrow ? 42 : 52)}" y="${(cy + 4).toFixed(1)}" ${FONT} font-size="13" font-weight="600" fill="${C.second}">${esc(dotFmt(r.secondary, spec.format))}</text>`);
+      p.push(`<text x="${vx + L.oneValue + 4}" y="${(cy + 4).toFixed(1)}" ${FONT} font-size="13" font-weight="600" fill="${pop ? C.muted : C.second}">${esc(dotFmt(r.secondary, spec.format))}</text>`);
     }
   });
 

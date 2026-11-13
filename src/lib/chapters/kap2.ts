@@ -1,11 +1,11 @@
 // Chapter 2: suspects by birth region, birth country and mother's birth region,
 // 2015–2018 (Brå 2021:9, appendix 1). Shared by the build and the browser.
-import type { OriginRow } from '../data';
+import type { B6Row, OriginRow } from '../data';
 import type { DotChartSpec, DotRow } from '../charts/dot';
 import { formatNumber } from '../format';
 
 export type View = 'region' | 'land' | 'moder';
-export type Measure = 'risk' | 'rate';
+export type Measure = 'risk' | 'rate' | 'share';
 
 /** The comparison group's id in the file. */
 const COMPARISON = 'sv2';
@@ -18,6 +18,9 @@ export interface Kap2Unit {
   per1000: number;
   risk: number;
   riskAdj: number | null;
+  /** Share of all suspects and share of the population, in percent (brott totalt only, table B6). */
+  suspectsPct: number | null;
+  populationPct: number | null;
 }
 
 export interface Kap2Crime {
@@ -37,8 +40,14 @@ export const VIEW_LABEL: Record<View, string> = {
   moder: 'Moderns födelseområde',
 };
 
-/** Build-time: group the CSV rows by view and crime type. `depthByOrder` indents the crime menu. */
-export function buildKap2Data(rows: OriginRow[], depthByOrder: Map<number, number>): Kap2Data {
+const TOTAL = 'Brott totalt';
+
+/**
+ * Build-time: group the CSV rows by view and crime type. `depthByOrder` indents the crime menu.
+ * `b6` (Brå table B6) adds each group's share of suspects and of the population for brott totalt,
+ * and brott totalt for the mother's-region view, which the appendix 1 file does not include.
+ */
+export function buildKap2Data(rows: OriginRow[], depthByOrder: Map<number, number>, b6: B6Row[]): Kap2Data {
   const out: Kap2Data = { region: [], land: [], moder: [] };
   for (const view of ['region', 'land', 'moder'] as View[]) {
     const crimes = new Map<string, Kap2Crime>();
@@ -61,7 +70,44 @@ export function buildKap2Data(rows: OriginRow[], depthByOrder: Map<number, numbe
         per1000: r.per1000,
         risk: r.risk,
         riskAdj: r.riskAdj,
+        suspectsPct: null,
+        populationPct: null,
       });
+    }
+    if (view === 'moder' && !crimes.has(TOTAL)) {
+      // Brott totalt by mother's birth region comes from table B6 only.
+      const ids = new Map(rows.filter((r) => r.view === 'moder').map((r) => [r.unit, r.unitId]));
+      const sv2 = b6.find((r) => r.view === 'bakgrund' && r.unit === 'Inrikesfödda med två inrikesfödda föräldrar');
+      if (!sv2) throw new Error('Table B6: comparison group missing');
+      crimes.set(TOTAL, {
+        name: TOTAL,
+        order: 0,
+        depth: 0,
+        refPer1000: sv2.pctSuspected * 10,
+        units: b6
+          .filter((r) => r.view === 'moder')
+          .map((r) => ({
+            id: ids.get(r.unit) ?? r.unit,
+            label: r.unit,
+            region: r.unit,
+            n: r.populationN,
+            per1000: r.pctSuspected * 10,
+            risk: r.risk,
+            riskAdj: null,
+            suspectsPct: null,
+            populationPct: null,
+          })),
+      });
+    }
+    // Shares of suspects and population (brott totalt, region and mother's region views).
+    const total = crimes.get(TOTAL);
+    if (total && view !== 'land') {
+      for (const u of total.units) {
+        const b = b6.find((r) => r.view === view && r.unit === u.label);
+        if (!b) throw new Error(`Table B6: no row for ${view} / ${u.label}`);
+        u.suspectsPct = b.suspectsPct;
+        u.populationPct = b.populationPct;
+      }
     }
     for (const c of crimes.values()) {
       if (Number.isNaN(c.refPer1000)) throw new Error(`No comparison group for ${view} / ${c.name}`);
@@ -79,6 +125,10 @@ function lc(s: string): string {
   return s.charAt(0).toLowerCase() + s.slice(1);
 }
 
+export function hasShares(crime: Kap2Crime): boolean {
+  return crime.units.some((u) => u.suspectsPct !== null);
+}
+
 export function hasAdjusted(crime: Kap2Crime): boolean {
   return crime.units.some((u) => u.riskAdj !== null);
 }
@@ -93,7 +143,9 @@ export function chartHeading(view: View, crime: Kap2Crime, measure: Measure): st
   const what =
     measure === 'risk'
       ? 'gånger vanligare att misstänkas än inrikesfödda med två inrikesfödda föräldrar'
-      : 'misstänkta per 1 000';
+      : measure === 'share'
+        ? 'andel av alla misstänkta och andel av befolkningen'
+        : 'misstänkta per 1 000';
   return `${who}: ${what}, ${lc(crime.name)}, 2015–2018`;
 }
 
@@ -110,21 +162,41 @@ export function buildKap2Spec(data: Kap2Data, view: View, crimeName: string, mea
   const crime = crimeFor(data, view, crimeName);
   // Highest first. Risk and rate give the same order, since risk = rate / comparison rate.
   const units = [...crime.units].sort((a, b) => b.risk - a.risk);
+  const refLabel = 'Inrikesfödda med två inrikesfödda föräldrar';
+  if (measure === 'share' && hasShares(crime)) {
+    const rows: DotRow[] = units.map((u) => ({
+      id: u.id,
+      label: u.label,
+      detail: detail(view, u),
+      primary: u.suspectsPct ?? 0,
+      secondary: u.populationPct,
+    }));
+    return {
+      rows,
+      primaryLabel: 'Andel av alla misstänkta',
+      secondaryLabel: 'Andel av befolkningen',
+      secondaryStyle: 'population',
+      format: 'pct2',
+      ariaLabel:
+        `Punktdiagram. ${chartHeading(view, crime, measure)}. ${rows.length} grupper, sorterade efter överrisk. ` +
+        rows.map((r) => `${r.label}: ${formatNumber(r.primary, 2)} procent av de misstänkta, ${r.secondary === null ? 'uppgift saknas' : formatNumber(r.secondary, 2)} procent av befolkningen`).join('. ') +
+        '.',
+    };
+  }
   const adjusted = measure === 'risk' && hasAdjusted(crime);
   const rows: DotRow[] = units.map((u) => ({
     id: u.id,
     label: u.label,
     detail: detail(view, u),
-    primary: measure === 'risk' ? u.risk : u.per1000,
+    primary: measure === 'rate' ? u.per1000 : u.risk,
     secondary: adjusted ? u.riskAdj : null,
   }));
-  const refLabel = 'Inrikesfödda med två inrikesfödda föräldrar';
   return {
     rows,
-    primaryLabel: measure === 'risk' ? 'Ojusterat' : 'Misstänkta per 1 000',
+    primaryLabel: measure === 'rate' ? 'Misstänkta per 1 000' : 'Ojusterat',
     secondaryLabel: adjusted ? 'Justerat för ålder, kön, inkomst och utbildning' : undefined,
-    format: measure === 'risk' ? 'x1' : 'num1',
-    ref: { value: measure === 'risk' ? 1 : crime.refPer1000, label: refLabel },
+    format: measure === 'rate' ? 'num1' : 'x1',
+    ref: { value: measure === 'rate' ? crime.refPer1000 : 1, label: refLabel },
     ariaLabel:
       `Punktdiagram. ${chartHeading(view, crime, measure)}. ${rows.length} grupper sorterade med högst värde först. ` +
       `Högst: ${rows[0]?.label}. Lägst: ${rows[rows.length - 1]?.label}.`,

@@ -15,12 +15,14 @@ function tooltipHtml(spec: DotChartSpec, i: number): string {
   html += row('#1D4E89', spec.primaryLabel, esc(dotFmt(r.primary, spec.format)));
   if (spec.secondaryLabel) {
     html += row(
-      '#C2410C',
+      spec.secondaryStyle === 'population' ? '#FFFFFF;border:2px solid #8A8A8A' : '#C2410C',
       spec.secondaryLabel,
       r.secondary === null ? '<span class="tt-missing">uppgift saknas</span>' : esc(dotFmt(r.secondary, spec.format)),
     );
   }
-  html += `<div class="tt-row"><span class="tt-swatch tt-dash" style="border-color:#121212"></span><span class="tt-name">${esc(spec.ref.label)}</span><span class="tt-val">${esc(dotFmt(spec.ref.value, spec.format))}</span></div>`;
+  if (spec.ref) {
+    html += `<div class="tt-row"><span class="tt-swatch tt-dash" style="border-color:#121212"></span><span class="tt-name">${esc(spec.ref.label)}</span><span class="tt-val">${esc(dotFmt(spec.ref.value, spec.format))}</span></div>`;
+  }
   return html;
 }
 
