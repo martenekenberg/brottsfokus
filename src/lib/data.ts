@@ -246,3 +246,54 @@ export function loadTableB6(): B6Row[] {
   }));
   return unique(rows, (r) => `${r.view}/${r.unit}`, file);
 }
+
+// ---------- bra2021_brottsmisstankar.csv (chapter 1, second chart) ----------
+// Copied from Brå 2021:9 appendix 3, tables D1 (number of registered suspicions) and D2 (share, %).
+// Every suspicion is counted, not every person, including suspicions against people not registered in Sweden.
+
+export const SUSPICION_GROUPS = ['sv2', 'sv1', 'u2', 'utr', 'ej'] as const;
+export type SuspicionGroup = (typeof SUSPICION_GROUPS)[number];
+
+export interface SuspicionRow {
+  year: number;
+  groupId: SuspicionGroup;
+  group: string;
+  suspicions: number;
+  /** Brå's own share in table D2, kept to check the share calculated from the counts. */
+  pctBra: number;
+}
+
+export function loadSuspicionShares(): SuspicionRow[] {
+  const file = 'bra2021_brottsmisstankar.csv';
+  const rows = readCsv(file, ['year', 'group_id', 'group', 'suspicions', 'pct_bra', 'source']).map((r) => ({
+    year: required(r.year, 'year'),
+    groupId: oneOf(r.group_id, SUSPICION_GROUPS, `${file} group_id`),
+    group: r.group,
+    suspicions: required(r.suspicions, 'suspicions'),
+    pctBra: required(r.pct_bra, 'pct_bra'),
+  }));
+  return unique(rows, (r) => `${r.year}/${r.groupId}`, file);
+}
+
+// ---------- bra2021_riskfaktorer.csv (chapter 2, second chart) ----------
+// Excess risks for other factors, stated in the text of Brå 2021:9 (p. 54–55), 2015–2018.
+
+export interface RiskFactorRow {
+  factorId: string;
+  factor: string;
+  comparison: string;
+  risk: number;
+  source: string;
+}
+
+export function loadRiskFactors(): RiskFactorRow[] {
+  const file = 'bra2021_riskfaktorer.csv';
+  const rows = readCsv(file, ['factor_id', 'factor', 'comparison', 'risk', 'source']).map((r) => ({
+    factorId: r.factor_id,
+    factor: r.factor,
+    comparison: r.comparison,
+    risk: required(r.risk, 'risk'),
+    source: r.source,
+  }));
+  return unique(rows, (r) => r.factorId, file);
+}

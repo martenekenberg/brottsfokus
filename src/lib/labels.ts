@@ -66,6 +66,15 @@ const EN: Record<string, string> = {
   'Totalt': 'Everyone',
   'Totalt i populationen': 'Total population',
   'Oklassificerad': 'Unclassified',
+  'Icke folkbokförda': 'Not registered as living in Sweden',
+
+  // Other risk factors (Brå 2021:9, p. 54–55).
+  'Familjen fick försörjningsstöd': 'Family received social assistance',
+  'Familjen fick inte försörjningsstöd': 'Family did not receive social assistance',
+  'Endast förgymnasial utbildning': 'Compulsory school only',
+  'Minst tre års eftergymnasial utbildning': 'At least three years of higher education',
+  'Män': 'Men',
+  'Kvinnor': 'Women',
   'Två inrikesfödda föräldrar': 'Two Swedish-born parents',
   'Två utrikesfödda föräldrar': 'Two foreign-born parents',
   'En utrikesfödd förälder': 'One foreign-born parent',

@@ -9,12 +9,17 @@ import {
   loadRapeStudies,
   loadSuspectsByBackground,
   loadTableB6,
+  loadSuspicionShares,
+  loadRiskFactors,
 } from './data';
 import { buildKap1Data, crimeById, crimeName, type GroupId } from './chapters/kap1';
 import { kap1Csv, rateTable, ratioTable } from './chapters/kap1Tables';
 import { buildKap2Data, smallestGroup } from './chapters/kap2';
 import { b6Table, kap2Csv, riskTable, totalCrime, TOTAL } from './chapters/kap2Tables';
 import { buildKap3, kap3Tables, shortReportName } from './chapters/kap3';
+import { buildSuspicionShares, sharesTables, shareGroup } from './chapters/kap1Shares';
+import { buildRiskFactors, factorsTable } from './chapters/kap2Factors';
+import { round } from './calc';
 import { kap4Tables } from './chapters/kap4Tables';
 import { kap5Csv, kap5Tables } from './chapters/kap5Tables';
 import { formatNumber } from './format';
@@ -65,6 +70,10 @@ function kap1(lang: Lang): TablePageContent {
   const T = <X,>(sv: X, en: X): X => tr(lang, sv, en);
   const n = (v: number, d = 1) => formatNumber(v, d, lang);
   const data = buildKap1Data(loadSuspectsByBackground());
+  const shares = buildSuspicionShares(loadSuspicionShares());
+  const ej = shareGroup(shares, 'ej');
+  const sharesFirst = shares.years[0];
+  const sharesLast = shares.years[shares.years.length - 1];
   const first = data.years[0];
   const last = data.years[data.years.length - 1];
   const period = `${first}–${last}`;
@@ -101,8 +110,8 @@ function kap1(lang: Lang): TablePageContent {
       ['suspected of crime', 'born abroad', 'foreign background', 'crime types', 'Brå 2021:9'],
     ),
     variableMeasured: T(
-      ['Misstänkta per 1 000 invånare', 'Jämfört med inrikesfödda med två inrikesfödda föräldrar'],
-      ['Suspects per 1,000 residents', 'Compared with born in Sweden, two Swedish-born parents'],
+      ['Misstänkta per 1 000 invånare', 'Jämfört med inrikesfödda med två inrikesfödda föräldrar', 'Antal registrerade brottsmisstankar', 'Andel av alla brottsmisstankar'],
+      ['Suspects per 1,000 residents', 'Compared with born in Sweden, two Swedish-born parents', 'Number of registered crime suspicions', 'Share of all crime suspicions'],
     ),
     sources: [SOURCES.bra2021],
     credit: 'Brå',
@@ -152,9 +161,25 @@ function kap1(lang: Lang): TablePageContent {
         tables: data.crimes.filter((c) => c.id !== 'c00').map((c) => rateTable(data, c, lang)),
         collapsed: true,
       },
+      {
+        heading: T('Andel av alla registrerade brottsmisstankar', 'Share of all registered crime suspicions'),
+        intro: T(
+          `Här räknas brottsmisstankar, inte personer: en person kan misstänkas för flera brott. Även misstankar mot personer som inte är folkbokförda i Sverige är med. De stod för ${n(round(ej.shares[0], 1))} procent av misstankarna ${sharesFirst} och ${n(round(ej.shares[ej.shares.length - 1], 1))} procent ${sharesLast}. Från Brå rapport 2021:9, tabellbilaga 3.`,
+          `Suspicions are counted here, not people: one person can be suspected of several crimes. Suspicions against people not registered as living in Sweden are included. They accounted for ${n(round(ej.shares[0], 1))}% of suspicions in ${sharesFirst} and ${n(round(ej.shares[ej.shares.length - 1], 1))}% in ${sharesLast}. From Brå report 2021:9, table appendix 3.`,
+        ),
+        tables: sharesTables(shares, lang),
+        after: T(
+          'Andelen är uträknad: gruppens antal misstankar delat med alla misstankar samma år, gånger 100. Den stämmer med Brås egen tabell D2. ' +
+            'Icke folkbokförda är personer med tillfällig vistelse i Sverige, och misstankar där det inte gått att se om personen var folkbokförd. ' +
+            'De finns inte i befolkningsstatistiken, så deras andel kan inte jämföras med en andel av befolkningen.',
+          'The share is calculated: the group’s number of suspicions divided by all suspicions the same year, times 100. It matches Brå’s own table D2. ' +
+            'People not registered as living in Sweden are people staying in Sweden temporarily, plus suspicions where it was not possible to tell whether the person was registered. ' +
+            'They are not in the population statistics, so their share cannot be compared with a share of the population.',
+        ),
+      },
     ],
-    csv: kap1Csv(data, lang),
-    dataFiles: ['misstankta_bakgrund_2007_2018.csv'],
+    csv: kap1Csv(data, shares, lang),
+    dataFiles: ['misstankta_bakgrund_2007_2018.csv', 'bra2021_brottsmisstankar.csv'],
   };
 }
 
@@ -164,6 +189,7 @@ function kap2(lang: Lang): TablePageContent {
   const depthByOrder = new Map(loadSuspectsByBackground().map((r) => [r.crimeOrder, r.depth]));
   const b6 = loadTableB6();
   const data = buildKap2Data(loadOrigin(), depthByOrder, b6);
+  const factors = buildRiskFactors(loadRiskFactors(), b6);
   const regionTotal = totalCrime(data, 'region');
   const sorted = [...regionTotal.units].sort((a, b) => b.risk - a.risk);
   const top = sorted[0];
@@ -202,8 +228,8 @@ function kap2(lang: Lang): TablePageContent {
       ['suspected of crime', 'birth region', 'birth country', 'excess risk', 'born abroad', 'Brå 2021:9'],
     ),
     variableMeasured: T(
-      ['Misstänkta per 1 000', 'Överrisk', 'Justerad överrisk', 'Andel av de misstänkta', 'Andel av befolkningen'],
-      ['Suspects per 1,000', 'Excess risk', 'Adjusted excess risk', 'Share of suspects', 'Share of population'],
+      ['Misstänkta per 1 000', 'Överrisk', 'Justerad överrisk', 'Andel av de misstänkta', 'Andel av befolkningen', 'Överrisk för andra faktorer'],
+      ['Suspects per 1,000', 'Excess risk', 'Adjusted excess risk', 'Share of suspects', 'Share of population', 'Excess risk for other factors'],
     ),
     sources: [SOURCES.bra2021],
     credit: 'Brå',
@@ -247,6 +273,20 @@ function kap2(lang: Lang): TablePageContent {
             lang,
           ),
         ],
+      },
+      {
+        heading: T('Bakgrund och andra faktorer', 'Background and other factors'),
+        intro: T(
+          'Brå jämför i samma rapport överriskerna efter bakgrund med andra faktorer. Varje rad jämför en grupp med sin egen jämförelsegrupp.',
+          'In the same report, Brå compares the excess risks by background with other factors. Each row compares one group with its own comparison group.',
+        ),
+        tables: [factorsTable(factors, lang)],
+        after: T(
+          'Varje faktor är mätt för sig. Faktorerna hänger ihop, så de kan inte läggas ihop. Ingen av siffrorna är justerad för ålder. ' +
+            'Försörjningsstöd gäller om familjen fick det någon gång 2014. Brå anger överriskerna för försörjningsstöd, utbildning och kön i rapportens text, inte i en tabell.',
+          'Each factor is measured on its own. The factors are linked, so they cannot be added together. None of the figures is adjusted for age. ' +
+            'Social assistance means the family received it at some point in 2014. Brå gives the excess risks for social assistance, education and sex in the text of the report, not in a table.',
+        ),
       },
       {
         heading: T('Efter födelseområde', 'By birth region'),
@@ -339,8 +379,8 @@ function kap2(lang: Lang): TablePageContent {
         collapsed: true,
       },
     ],
-    csv: kap2Csv(data, b6, lang),
-    dataFiles: ['misstankta_ursprung_2015_2018.csv', 'bra2021_tabell_b6.csv'],
+    csv: kap2Csv(data, b6, factors, lang),
+    dataFiles: ['misstankta_ursprung_2015_2018.csv', 'bra2021_tabell_b6.csv', 'bra2021_riskfaktorer.csv'],
   };
 }
 

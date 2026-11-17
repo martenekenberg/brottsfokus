@@ -187,7 +187,10 @@ export function renderBarChart(spec: BarChartSpec, width: number): string {
     for (const b of L.bars) {
       p.push(`<line x1="${rx}" x2="${rx}" y1="${b.y - 3}" y2="${b.y + L.barHeight + 3}" stroke="${C.ink}" stroke-width="1.5" stroke-dasharray="4 3"/>`);
     }
-    p.push(`<text x="${rx}" y="${L.height - 4}" text-anchor="middle" ${FONT} font-size="12" fill="${C.ink}">${esc(spec.ref.label)}</text>`);
+    // Centred under the line, but moved in so it never runs off the left edge.
+    const half = (spec.ref.label.length * 12 * 0.58) / 2;
+    const atEdge = Number(rx) - half < 0;
+    p.push(`<text x="${atEdge ? 0 : rx}" y="${L.height - 4}" text-anchor="${atEdge ? 'start' : 'middle'}" ${FONT} font-size="12" fill="${C.ink}">${esc(spec.ref.label)}</text>`);
   }
 
   p.push('</svg>');

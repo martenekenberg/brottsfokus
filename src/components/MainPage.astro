@@ -12,21 +12,36 @@ import SuspectsOverTime from './kap1/SuspectsOverTime.astro';
 import OriginDots from './kap2/OriginDots.astro';
 import RapeStudies from './kap4/RapeStudies.astro';
 import OlderStudies from './kap5/OlderStudies.astro';
+import SubChart from './SubChart.astro';
+import BarChart from './charts/BarChart.astro';
 import Method from './Method.astro';
 import Footer from './Footer.astro';
 import About from './About.astro';
 import { site, monthYear } from '../lib/site';
 import { localePath, tr, type Lang } from '../lib/i18n';
-import { loadOrigin, loadPopulation, loadPrison, loadRapeStudies, loadSuspectsByBackground, loadBra2005, loadTableB6 } from '../lib/data';
+import {
+  loadOrigin,
+  loadPopulation,
+  loadPrison,
+  loadRapeStudies,
+  loadSuspectsByBackground,
+  loadBra2005,
+  loadTableB6,
+  loadSuspicionShares,
+  loadRiskFactors,
+} from '../lib/data';
 import { yearsWithValues } from '../lib/calc';
 import { buildKap3, shortReportName } from '../lib/chapters/kap3';
 import { tablePage } from '../lib/dataPages';
-import { formatNumber } from '../lib/format';
+import { formatNumber, formatPct } from '../lib/format';
 import type { LineChartSpec } from '../lib/charts/line';
 import { buildKap1Data, allGroupsFell } from '../lib/chapters/kap1';
 import { buildKap2Data, smallestGroup } from '../lib/chapters/kap2';
 import { buildKap4 } from '../lib/chapters/kap4';
 import { buildKap5 } from '../lib/chapters/kap5';
+import { buildSharesSpec, buildSuspicionShares, peakYear as sharePeakYear, shareGroup } from '../lib/chapters/kap1Shares';
+import { buildFactorsSpec, buildRiskFactors } from '../lib/chapters/kap2Factors';
+import { round } from '../lib/calc';
 
 interface Props {
   lang: Lang;
@@ -187,6 +202,33 @@ const riskU2 = b6Risk('Inrikesfödda med två utrikesfödda föräldrar');
 const n0 = (v: number) => formatNumber(v, 0, lang);
 const n1 = (v: number) => formatNumber(v, 1, lang);
 
+// ---------- Chapter 1, second chart: shares of all registered suspicions ----------
+const shares = buildSuspicionShares(loadSuspicionShares());
+const sharesSpec = buildSharesSpec(shares, lang);
+const sharesFirst = shares.years[0];
+const sharesLast = shares.years[shares.years.length - 1];
+const ej = shareGroup(shares, 'ej');
+const ejFirst = round(ej.shares[0], 1);
+const ejLast = round(ej.shares[ej.shares.length - 1], 1);
+const ejPeakYear = sharePeakYear(shares, 'ej');
+const ejPeak = round(ej.shares[shares.years.indexOf(ejPeakYear)], 1);
+// Population shares on 31 December 2014 (table B6), as the comparison in the note.
+const b6Pop = (unit: string) => {
+  const r = tableB6.find((x) => x.view === 'bakgrund' && x.unit === unit);
+  if (!r) throw new Error(`Table B6: ${unit} missing`);
+  return formatPct(r.populationPct, 1, lang);
+};
+
+// ---------- Chapter 2, second chart: background next to other factors ----------
+const factors = buildRiskFactors(loadRiskFactors(), tableB6);
+const factorsSpec = buildFactorsSpec(factors, lang);
+const highestBackground = Math.max(...factors.filter((f) => f.kind === 'bakgrund').map((f) => f.risk));
+const largerFactors = factors.filter((f) => f.kind === 'faktor' && f.risk > highestBackground);
+// The headline names welfare and education as larger than every background group. Stop the build if that changes.
+if (largerFactors.map((f) => f.name).join('|') !== 'Familjen fick försörjningsstöd|Endast förgymnasial utbildning') {
+  throw new Error('Chapter 2 second chart: headline no longer matches the data');
+}
+
 const keyFigures = [
   {
     value: n1(riskUtr),
@@ -257,6 +299,39 @@ const keyFigures = [
             'Source: Brå report 2021:9, Misstänkta för brott bland personer med inrikes respektive utrikes bakgrund (suspects of crime by Swedish and foreign background). Registered residents aged 15 and over.',
           )}
         </Fragment>
+        <SubChart
+          slot="after"
+          id="kap1-misstankar"
+          lang={lang}
+          title={L(
+            `Personer som inte är folkbokförda i Sverige stod för ${n1(ejFirst)} procent av brottsmisstankarna ${sharesFirst} och ${n1(ejLast)} procent ${sharesLast}`,
+            `People not registered as living in Sweden accounted for ${n1(ejFirst)}% of crime suspicions in ${sharesFirst} and ${n1(ejLast)}% in ${sharesLast}`,
+          )}
+        >
+          <Fragment slot="intro">
+            {L(
+              'Varje grupps andel av alla brottsmisstankar som registrerades under året. Här räknas misstankarna, inte personerna: en person kan misstänkas för flera brott. Även misstankar mot personer som inte är folkbokförda i Sverige är med.',
+              'Each group’s share of all crime suspicions registered during the year. Suspicions are counted here, not people: one person can be suspected of several crimes. Suspicions against people who are not registered as living in Sweden are included.',
+            )}
+          </Fragment>
+          <Legend
+            slot="legend"
+            items={sharesSpec.series.map((s) => ({ label: s.label, color: s.color, mark: 'line' as const }))}
+          />
+          <LineChart spec={sharesSpec} />
+          <Fragment slot="note">
+            {L(
+              `Icke folkbokförda är personer med tillfällig vistelse i Sverige. Hit räknas också misstankar där det inte gått att se om personen var folkbokförd, till exempel för att personnumret är ofullständigt. Andelen var som högst ${ejPeakYear}, ${n1(ejPeak)} procent. De icke folkbokförda finns inte i befolkningsstatistiken, så deras andel kan inte jämföras med en andel av befolkningen. Som jämförelse för de övriga: av de folkbokförda 15 år och äldre den 31 december 2014 var ${b6Pop('Inrikesfödda med två inrikesfödda föräldrar')} inrikesfödda med två inrikesfödda föräldrar, ${b6Pop('Utrikesfödda')} utrikesfödda, ${b6Pop('Inrikesfödda med två utrikesfödda föräldrar')} inrikesfödda med två utrikesfödda föräldrar och ${b6Pop('Inrikesfödda med en inrikes- och en utrikesfödd förälder')} inrikesfödda med en utrikesfödd förälder. Antalet misstankar beror också på hur många brott varje misstänkt registreras för. Inte justerat för ålder eller kön.`,
+              `People not registered as living in Sweden are people staying in Sweden temporarily. The group also includes suspicions where it was not possible to tell whether the person was registered, for example because the personal identity number is incomplete. The share was highest in ${ejPeakYear}, at ${n1(ejPeak)}%. People who are not registered are not in the population statistics, so their share cannot be compared with a share of the population. As a comparison for the other groups: of registered residents aged 15 and over on 31 December 2014, ${b6Pop('Inrikesfödda med två inrikesfödda föräldrar')} were born in Sweden with two Swedish-born parents, ${b6Pop('Utrikesfödda')} were born abroad, ${b6Pop('Inrikesfödda med två utrikesfödda föräldrar')} were born in Sweden with two foreign-born parents and ${b6Pop('Inrikesfödda med en inrikes- och en utrikesfödd förälder')} were born in Sweden with one foreign-born parent. The number of suspicions also depends on how many crimes each suspect is registered for. Not adjusted for age or sex.`,
+            )}
+          </Fragment>
+          <Fragment slot="source">
+            {L('Källa: ', 'Source: ')}<a href="https://bra.se/rapporter/arkiv/2021-08-25-misstankta-for-brott-bland-personer-med-inrikes-respektive-utrikes-bakgrund">{L('Brå rapport 2021:9', 'Brå report 2021:9')}</a>{L(
+              ', tabellbilaga 3 (tabell D1 och D2): alla registrerade brottsmisstankar per år, efter om den misstänkta var folkbokförd vid brottet. Befolkningens andelar: tabellbilaga 1, tabell B6.',
+              ', table appendix 3 (tables D1 and D2): all registered crime suspicions per year, by whether the suspect was registered as living in Sweden at the time of the crime. Population shares: table appendix 1, table B6.',
+            )}
+          </Fragment>
+        </SubChart>
       </Chapter>
 
       <Chapter
@@ -287,6 +362,49 @@ const keyFigures = [
             ', table appendix 1 (shares of suspects and population: table B6). Registered residents aged 15 and over on 31 December 2014, suspected of crimes committed in 2015–2018.',
           )}
         </Fragment>
+        <SubChart
+          slot="after"
+          id="kap2-faktorer"
+          lang={lang}
+          title={L(
+            'Överrisken var större för försörjningsstöd och kort utbildning än för någon av grupperna efter bakgrund',
+            'Excess risk was larger for social assistance and short education than for any of the background groups',
+          )}
+        >
+          <Fragment slot="intro">
+            {L(
+              'Brå jämför i samma rapport överriskerna efter bakgrund med andra faktorer, för att sätta dem i perspektiv. Varje stapel jämför en grupp med sin egen jämförelsegrupp, 2015–2018.',
+              'In the same report, Brå compares the excess risks by background with other factors, to put them in perspective. Each bar compares one group with its own comparison group, 2015–2018.',
+            )}
+          </Fragment>
+          <ul slot="legend" class="legend-list" aria-label={L('Förklaring', 'Key')}>
+            <li>
+              <span class="mark bar-swatch" style="background:#1D4E89" aria-hidden="true"></span>{L(
+                'Bakgrund, jämfört med inrikesfödda med två inrikesfödda föräldrar',
+                'Background, compared with born in Sweden with two Swedish-born parents',
+              )}
+            </li>
+            <li>
+              <span class="mark bar-swatch" style="background:#C2410C" aria-hidden="true"></span>{L(
+                'Annan faktor, jämfört med motsatt grupp (se Läs så här)',
+                'Other factor, compared with the opposite group (see How to read this)',
+              )}
+            </li>
+          </ul>
+          <BarChart spec={factorsSpec} />
+          <Fragment slot="note">
+            {L(
+              'Jämförelserna är: familjen fick försörjningsstöd någon gång 2014 jämfört med inte, endast förgymnasial utbildning jämfört med minst tre års eftergymnasial utbildning, och män jämfört med kvinnor. Varje faktor är mätt för sig. Faktorerna hänger ihop, så de kan inte läggas ihop. Ingen av siffrorna är justerad för ålder. Brå anger överriskerna för försörjningsstöd, utbildning och kön i rapportens text, inte i en tabell. Gäller folkbokförda 15 år och äldre den 31 december 2014, misstänkta för brott begångna 2015–2018.',
+              'The comparisons are: the family received social assistance at some point in 2014 compared with not, compulsory school only compared with at least three years of higher education, and men compared with women. Each factor is measured on its own. The factors are linked, so they cannot be added together. None of the figures is adjusted for age. Brå gives the excess risks for social assistance, education and sex in the text of the report, not in a table. Covers registered residents aged 15 and over on 31 December 2014, suspected of crimes committed in 2015–2018.',
+            )}
+          </Fragment>
+          <Fragment slot="source">
+            {L('Källa: ', 'Source: ')}<a href="https://bra.se/rapporter/arkiv/2021-08-25-misstankta-for-brott-bland-personer-med-inrikes-respektive-utrikes-bakgrund">{L('Brå rapport 2021:9', 'Brå report 2021:9')}</a>{L(
+              '. Bakgrund: tabellbilaga 1, tabell B6. Försörjningsstöd, utbildning och kön: rapportens text, s. 54–55.',
+              '. Background: table appendix 1, table B6. Social assistance, education and sex: the text of the report, p. 54–55.',
+            )}
+          </Fragment>
+        </SubChart>
       </Chapter>
 
       <Chapter

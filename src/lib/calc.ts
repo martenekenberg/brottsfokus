@@ -103,3 +103,14 @@ export function studyPopulationSharePct(
   const shares = new Map(rows.map((r) => [r.year, populationSharePct(count(r), r.folkmangd)]));
   return round(meanOfStudyYears(shares), 1);
 }
+
+/**
+ * One group's share of a whole, in percent (not rounded; round when shown).
+ * Rule: part / sum of all parts * 100. Used for each group's share of all registered
+ * suspicions in a year (Brå 2021:9, table D1), where the parts add up to Brå's total.
+ */
+export function shareOfTotalPct(part: number, parts: number[]): number {
+  const total = parts.reduce((a, b) => a + b, 0);
+  if (total <= 0) throw new Error('shareOfTotalPct: total must be positive');
+  return (part / total) * 100;
+}

@@ -3,6 +3,14 @@
     "date": "2026-11-13",
     "sha256": "9d38dd0ae509450ba4645e88a6148fb749f8252fc814117427e9a1c82fa16940"
   },
+  "bra2021_brottsmisstankar.csv": {
+    "date": "2026-11-17",
+    "sha256": "374daecf15dd40a7091fb85fd00e007eb12ba272960f494963c05070580974d2"
+  },
+  "bra2021_riskfaktorer.csv": {
+    "date": "2026-11-17",
+    "sha256": "9d4f59e431b3f585297cc340bae4071b42ad10c3ad3e4511965b834c680f8c3b"
+  },
   "bra2021_tabell_b6.csv": {
     "date": "2026-11-13",
     "sha256": "2f1f7db0a470b2df41b1596e3810709448edc66c03a85612da874fdcb5f0fec2"
