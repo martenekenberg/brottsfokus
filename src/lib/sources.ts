@@ -4,6 +4,10 @@ export const SOURCES = {
     label: 'Brå rapport 2021:9, Misstänkta för brott bland personer med inrikes respektive utrikes bakgrund',
     url: 'https://bra.se/rapporter/arkiv/2021-08-25-misstankta-for-brott-bland-personer-med-inrikes-respektive-utrikes-bakgrund',
   },
+  ntu2024: {
+    label: 'Brå, NTU Kortanalys 2/2024, Utsatthet för brott bland personer med utländsk bakgrund',
+    url: 'https://bra.se/rapporter/arkiv/2024-05-21-utsatthet-for-brott-bland-personer-med-utlandsk-bakgrund',
+  },
   bra2005: {
     label: 'Brå rapport 2005:17, Brottslighet bland personer födda i Sverige och i utlandet',
     url: 'https://www.bra.se/download/18.cba82f7130f475a2f1800012697/2005_17_brottslighet_bland_personer_fodda_sverige_och_utlandet.pdf',

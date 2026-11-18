@@ -11,6 +11,7 @@ import {
   loadTableB6,
   loadSuspicionShares,
   loadRiskFactors,
+  loadNtu,
 } from './data';
 import { buildKap1Data, crimeById, crimeName, type GroupId } from './chapters/kap1';
 import { kap1Csv, rateTable, ratioTable } from './chapters/kap1Tables';
@@ -20,6 +21,7 @@ import { buildKap3, kap3Tables, shortReportName } from './chapters/kap3';
 import { buildSuspicionShares, sharesTables, shareGroup } from './chapters/kap1Shares';
 import { buildRiskFactors, factorsTable } from './chapters/kap2Factors';
 import { round } from './calc';
+import { backgroundTables, flagged, kap6Csv, pooled, regionTables, yearTables } from './chapters/kap6';
 import { kap4Tables } from './chapters/kap4Tables';
 import { kap5Csv, kap5Tables } from './chapters/kap5Tables';
 import { formatNumber } from './format';
@@ -647,7 +649,87 @@ function kap5(lang: Lang): TablePageContent {
   };
 }
 
-const BUILDERS: Record<string, (lang: Lang) => TablePageContent> = { kap1, kap2, kap3, kap4, kap5 };
+function kap6(lang: Lang): TablePageContent {
+  const T = <X,>(sv: X, en: X): X => tr(lang, sv, en);
+  const rows = loadNtu();
+  const p = (crime: string, sex: 'man' | 'kvinnor', g: string) => {
+    const v = pooled(rows, crime, sex, g).pct;
+    if (v === null) throw new Error(`NTU: no value for ${crime} ${sex} ${g}`);
+    return T(`${formatNumber(v, 1, 'sv')} procent`, `${formatNumber(v, 1, 'en')}%`);
+  };
+  const hidden = flagged(rows);
+  const count = (list: typeof hidden, flag: 'x' | '.') => {
+    const n = list.filter((r) => r.flag === flag).length;
+    return T(n === 1 ? 'ett värde' : `${n} värden`, n === 1 ? 'one value is' : `${n} values are`);
+  };
+
+  return {
+    chapterId: 'kap6',
+    lang,
+    h1: T('Utsatta för brott efter utländsk och svensk bakgrund, 2016–2022', 'Victims of crime by foreign and Swedish background, 2016–2022'),
+    shortTitle: T('Utsatta för brott efter bakgrund 2016–2022: tabell', 'Victims of crime by background 2016–2022: table'),
+    description: T(
+      'Andel som uppger att de utsatts för nio typer av brott, efter utländsk och svensk bakgrund, kön och världsdel, enligt Brås Nationella trygghetsundersökning 2017–2023. Tabeller och CSV-fil.',
+      'Share who say they were victims of nine types of crime, by foreign and Swedish background, sex and world region, according to Brå’s Swedish Crime Survey 2017–2023. Tables and CSV file.',
+    ),
+    datasetDescription: T(
+      'Självrapporterad utsatthet för brott bland personer 16–84 år, enligt Nationella trygghetsundersökningen (NTU) 2017–2023. Andel (%) utsatta med 95 procents konfidensintervall, efter utländsk och svensk bakgrund, kön och världsdel, alla år sammanslagna och per år. Från Brå, NTU Kortanalys 2/2024, tabellbilaga.',
+      'Self-reported victimisation among people aged 16–84, according to the Swedish Crime Survey (NTU) 2017–2023. Share (%) who were victims, with 95 percent confidence intervals, by foreign and Swedish background, sex and world region, all years pooled and by year. From Brå, NTU Kortanalys 2/2024, table appendix.',
+    ),
+    temporalCoverage: '2016/2022',
+    keywords: T(
+      ['utsatthet för brott', 'brottsoffer', 'NTU', 'utländsk bakgrund', 'Brå'],
+      ['victimisation', 'crime victims', 'NTU', 'foreign background', 'Brå'],
+    ),
+    variableMeasured: T(['Andel utsatta för brott', 'Konfidensintervall (95 %)'], ['Share who were victims of crime', 'Confidence interval (95%)']),
+    sources: [SOURCES.ntu2024],
+    credit: 'Brå',
+    terms: BRA_TERMS(lang),
+    lead: T(
+      `Bland män med utländsk bakgrund uppgav ${p('misshandel', 'man', 'utlandsk')} att de utsatts för misshandel under ett år, ` +
+        `jämfört med ${p('misshandel', 'man', 'svensk')} bland män med svensk bakgrund, enligt Brås trygghetsundersökning 2016–2022. ` +
+        `För sexualbrott mot kvinnor var det omvänt: ${p('sexualbrott', 'kvinnor', 'utlandsk')} bland kvinnor med utländsk bakgrund och ` +
+        `${p('sexualbrott', 'kvinnor', 'svensk')} bland kvinnor med svensk bakgrund.`,
+      `Among men with a foreign background, ${p('misshandel', 'man', 'utlandsk')} said they had been assaulted during a year, ` +
+        `compared with ${p('misshandel', 'man', 'svensk')} among men with a Swedish background, according to Brå’s crime survey 2016–2022. ` +
+        `For sexual offences against women it was the other way round: ${p('sexualbrott', 'kvinnor', 'utlandsk')} among women with a ` +
+        `foreign background and ${p('sexualbrott', 'kvinnor', 'svensk')} among women with a Swedish background.`,
+    ),
+    note: T(
+      'Svaren kommer från en enkät och gäller även brott som aldrig anmälts. Utländsk bakgrund betyder här att personen själv eller ' +
+        'en eller båda föräldrarna är födda utomlands, vilket skiljer sig från sidans andra kapitel. Inte justerat för ålder eller ' +
+        'andra skillnader mellan grupperna. Alla tillfrågade svarar inte, och Brå väger svaren så att de ska spegla befolkningen. ' +
+        'Lägre och övre gräns är ett 95 procents konfidensintervall. Trakasserier gäller 2019–2022. ' +
+        `I tabellerna efter världsdel saknas ${count(hidden, 'x')} därför att gruppen hade färre än 100 svarande, som Brå inte redovisar, ` +
+        `och ${count(hidden, '.')} därför att inga fall fanns. De visas med streck.`,
+      'The answers come from a survey and include crimes that were never reported. Foreign background here means that the person, ' +
+        'or one or both parents, was born abroad, which differs from the site’s other chapters. Not adjusted for age or other ' +
+        'differences between the groups. Not everyone who is asked answers, and Brå weights the answers so that they reflect the ' +
+        'population. Lower and upper limit is a 95 percent confidence interval. Harassment covers 2019–2022. ' +
+        `In the tables by world region, ${count(hidden, 'x')} missing because the group had fewer than 100 respondents, which Brå does not report, ` +
+        `and ${count(hidden, '.')} missing because there were no cases. They are shown as a dash.`,
+    ),
+    sections: [
+      { heading: T('Utländsk och svensk bakgrund', 'Foreign and Swedish background'), tables: backgroundTables(rows, lang) },
+      {
+        heading: T('Efter världsdel', 'By world region'),
+        intro: T(
+          'Världsdel för personens eget födelseland, eller för den utrikesfödda förälderns, eller moderns om båda är födda utomlands. ' +
+            'Sovjetunionen avser länder i före detta Sovjetunionen. Alla år sammanslagna.',
+          'World region of the person’s own birth country, or of the foreign-born parent’s, or the mother’s if both were born abroad. ' +
+            'Former Soviet Union means countries of the former Soviet Union. All years pooled.',
+        ),
+        tables: regionTables(rows, lang),
+        collapsed: true,
+      },
+      { heading: T('Per år', 'By year'), tables: yearTables(rows, lang), collapsed: true },
+    ],
+    csv: kap6Csv(rows, lang),
+    dataFiles: ['ntu_utsatthet.csv'],
+  };
+}
+
+const BUILDERS: Record<string, (lang: Lang) => TablePageContent> = { kap1, kap2, kap3, kap4, kap5, kap6 };
 const cache = new Map<string, TablePageContent>();
 
 /** The text and tables for one table page in one language. */

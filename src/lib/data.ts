@@ -297,3 +297,49 @@ export function loadRiskFactors(): RiskFactorRow[] {
   }));
   return unique(rows, (r) => r.factorId, file);
 }
+
+// ---------- ntu_utsatthet.csv (chapter 6) ----------
+// Copied from Brå, NTU Kortanalys 2/2024, table appendix (tables 1A–9B). Self-reported victimisation, share (%).
+// view: bakgrund = Swedish/foreign background, all years pooled; varldsdel = world region of background, pooled;
+// ar = one value per year. flag: x = too few respondents to report, . = no cases (Brå's own markers).
+
+export const NTU_SEX = ['samtliga', 'man', 'kvinnor'] as const;
+export type NtuSex = (typeof NTU_SEX)[number];
+
+export interface NtuRow {
+  view: 'bakgrund' | 'varldsdel' | 'ar';
+  crimeId: string;
+  crime: string;
+  sex: NtuSex;
+  group: string;
+  period: string;
+  pct: number | null;
+  ciLow: number | null;
+  ciHigh: number | null;
+  flag: '' | 'x' | '.';
+  sourceTable: string;
+}
+
+export function loadNtu(): NtuRow[] {
+  const file = 'ntu_utsatthet.csv';
+  const cols = ['view', 'crime_id', 'crime', 'sex', 'group', 'period', 'pct', 'ci_low', 'ci_high', 'flag', 'source_table'];
+  const rows = readCsv(file, cols).map((r) => {
+    const flag = oneOf(r.flag, ['', 'x', '.'] as const, `${file} flag`);
+    const pct = num(r.pct);
+    if ((pct === null) !== (flag !== '')) throw new Error(`${file}: a value must be empty exactly when it is flagged (${r.crime_id} ${r.group})`);
+    return {
+      view: oneOf(r.view, ['bakgrund', 'varldsdel', 'ar'] as const, `${file} view`),
+      crimeId: r.crime_id,
+      crime: r.crime,
+      sex: oneOf(r.sex, NTU_SEX, `${file} sex`),
+      group: r.group,
+      period: r.period,
+      pct,
+      ciLow: num(r.ci_low),
+      ciHigh: num(r.ci_high),
+      flag,
+      sourceTable: r.source_table,
+    };
+  });
+  return unique(rows, (r) => `${r.view}/${r.crimeId}/${r.sex}/${r.group}/${r.period}`, file);
+}

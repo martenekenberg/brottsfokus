@@ -1,0 +1,57 @@
+---
+// Chapter 6: share who say they were victims of crime, foreign vs Swedish background,
+// as two small multiples (men, women) on one shared scale.
+import BarChart from '../charts/BarChart.astro';
+import { buildKap6Spec, sharedMax, GROUP_LABEL } from '../../lib/chapters/kap6';
+import type { NtuRow } from '../../lib/data';
+import { tr, type Lang } from '../../lib/i18n';
+
+interface Props {
+  rows: NtuRow[];
+  lang: Lang;
+}
+
+const { rows, lang } = Astro.props;
+const xMax = sharedMax(rows);
+const men = buildKap6Spec(rows, 'man', xMax, lang);
+const women = buildKap6Spec(rows, 'kvinnor', xMax, lang);
+---
+
+<div class="chart-block">
+<ul class="legend-list" aria-label={tr(lang, 'Förklaring', 'Key')}>
+  <li><span class="mark bar-swatch" style="background:#1D4E89" aria-hidden="true"></span>{GROUP_LABEL.utlandsk[lang]}</li>
+  <li><span class="mark bar-swatch outline" aria-hidden="true"></span>{GROUP_LABEL.svensk[lang]}</li>
+</ul>
+</div>
+
+<div class="small-multiples">
+  <div class="chart-block">
+    <h3 class="small-title">{tr(lang, 'Män', 'Men')}</h3>
+    <BarChart spec={men} staticWidth={520} />
+  </div>
+  <div class="chart-block">
+    <h3 class="small-title">{tr(lang, 'Kvinnor', 'Women')}</h3>
+    <BarChart spec={women} staticWidth={520} />
+  </div>
+</div>
+
+<style>
+  .small-multiples {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 32px 48px;
+  }
+  .small-title {
+    margin: 0;
+    font-size: 15px;
+    font-weight: 600;
+  }
+  .bar-swatch {
+    width: 14px;
+    height: 12px;
+  }
+  .bar-swatch.outline {
+    border: 1.5px solid #5c5c5c;
+    background: #ffffff;
+  }
+</style>

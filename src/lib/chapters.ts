@@ -46,6 +46,13 @@ export const chapters: ChapterInfo[] = [
     nextLabel: { sv: 'Brås äldre studier', en: 'Brå’s older studies' },
   },
   {
+    id: 'kap6',
+    num: '06',
+    navLabel: { sv: 'Brottsoffer', en: 'Victims' },
+    kicker: { sv: 'Utsatta för brott', en: 'Victims of crime' },
+    nextLabel: { sv: 'Utsatta för brott', en: 'Victims of crime' },
+  },
+  {
     id: 'metod',
     num: '',
     navLabel: { sv: 'Metod', en: 'Method' },

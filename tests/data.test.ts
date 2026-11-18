@@ -16,6 +16,8 @@ import {
 import { round } from '../src/lib/calc';
 import { buildSuspicionShares, peakYear } from '../src/lib/chapters/kap1Shares';
 import { buildRiskFactors } from '../src/lib/chapters/kap2Factors';
+import { crimes as ntuCrimes, pooled, swedishHigher, regionTables } from '../src/lib/chapters/kap6';
+import { loadNtu } from '../src/lib/data';
 import { buildKap1Data, buildKap1Spec } from '../src/lib/chapters/kap1';
 import { buildKap2Data, buildKap2Spec, hasShares, type Measure, type View } from '../src/lib/chapters/kap2';
 import { buildKap4 } from '../src/lib/chapters/kap4';
@@ -121,4 +123,23 @@ test('chapter 2, second chart: background and other factors, highest first', () 
       ['Inrikesfödda med en inrikes- och en utrikesfödd förälder', 1.86],
     ],
   );
+});
+
+test('chapter 6: NTU values as in Brå’s report, gaps stay gaps', () => {
+  const rows = loadNtu();
+  assert.equal(ntuCrimes(rows).length, 9);
+  // Numbers printed in the text of NTU Kortanalys 2/2024.
+  const one = (crime: string, sex: 'man' | 'kvinnor', g: string) => round(pooled(rows, crime, sex, g).pct!, 1);
+  assert.equal(one('misshandel', 'man', 'utlandsk'), 4.2);
+  assert.equal(one('misshandel', 'man', 'svensk'), 3.8);
+  assert.equal(one('hot', 'kvinnor', 'utlandsk'), 9.2);
+  assert.equal(one('sexualbrott', 'kvinnor', 'utlandsk'), 7.7);
+  assert.equal(one('sexualbrott', 'kvinnor', 'svensk'), 9.2);
+  assert.deepEqual(swedishHigher(rows), [{ crimeId: 'sexualbrott', sex: 'kvinnor' }]);
+  // Brå's markers become empty cells, never 0.
+  const soviet = pooled(rows, 'sexualbrott', 'man', 'Sovjetunionen');
+  assert.equal(soviet.pct, null);
+  assert.equal(soviet.flag, '.');
+  const t = regionTables(rows, 'sv').find((x) => x.id === 'kap6-region-sexualbrott')!;
+  assert.equal(t.rows.find((r) => r.key === 'Sovjetunionen')!.cells[1], null);
 });

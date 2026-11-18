@@ -47,6 +47,11 @@ export const tablePages: TablePage[] = [
     slug: { sv: 'bra-2005', en: 'bra-2005' },
     name: { sv: 'Brås äldre studier', en: 'Brå’s older studies' },
   },
+  {
+    chapterId: 'kap6',
+    slug: { sv: 'utsatta-for-brott', en: 'crime-victims' },
+    name: { sv: 'Utsatta för brott', en: 'Victims of crime' },
+  },
 ];
 
 /** The table index page: /data/ in Swedish, /en/data/ in English. */

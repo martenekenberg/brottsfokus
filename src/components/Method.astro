@@ -15,8 +15,8 @@ const terms = (lang: Lang) => [
     title: tr(lang, 'Bakgrund', 'Background'),
     text: tr(
       lang,
-      'Utrikesfödd är född utomlands. Inrikesfödda delas in efter om ingen, en eller båda föräldrarna är födda utomlands.',
-      'Born abroad means born outside Sweden. People born in Sweden are grouped by whether none, one or both of their parents were born abroad.',
+      'Utrikesfödd är född utomlands. Inrikesfödda delas in efter om ingen, en eller båda föräldrarna är födda utomlands. I kapitel 6 räknar Brå alla som själva eller vars ena eller båda föräldrar är födda utomlands som utländsk bakgrund.',
+      'Born abroad means born outside Sweden. People born in Sweden are grouped by whether none, one or both of their parents were born abroad. In chapter 6, Brå counts everyone who was born abroad or has one or two parents born abroad as having a foreign background.',
     ),
   },
   {
@@ -33,6 +33,14 @@ const terms = (lang: Lang) => [
       lang,
       'Kriminalvårdens statistik redovisar bara svenskt eller utländskt medborgarskap, inte födelseland eller vilket land.',
       'The prison service statistics show only Swedish or foreign citizenship, not country of birth or which country.',
+    ),
+  },
+  {
+    title: tr(lang, 'Utsatt för brott', 'Victim of crime'),
+    text: tr(
+      lang,
+      'Kapitel 6 bygger på Brås Nationella trygghetsundersökning (NTU), en årlig enkät där personer 16–84 år svarar på om de utsatts för brott. Den fångar även brott som inte anmäls.',
+      'Chapter 6 is based on Brå’s Swedish Crime Survey (NTU), a yearly survey in which people aged 16–84 say whether they have been victims of crime. It also captures crimes that are not reported.',
     ),
   },
   {
@@ -56,6 +64,10 @@ const sources = [
   {
     label: 'Brå rapport 2021:9, Misstänkta för brott bland personer med inrikes respektive utrikes bakgrund',
     url: 'https://bra.se/rapporter/arkiv/2021-08-25-misstankta-for-brott-bland-personer-med-inrikes-respektive-utrikes-bakgrund',
+  },
+  {
+    label: 'Brå, NTU Kortanalys 2/2024, Utsatthet för brott bland personer med utländsk bakgrund',
+    url: 'https://bra.se/rapporter/arkiv/2024-05-21-utsatthet-for-brott-bland-personer-med-utlandsk-bakgrund',
   },
   {
     label: 'Brå rapport 2005:17, Brottslighet bland personer födda i Sverige och i utlandet',

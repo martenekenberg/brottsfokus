@@ -10,6 +10,8 @@ import { loadBra2005, loadOrigin, loadPopulation, loadPrison, loadRapeStudies, l
 import { buildSuspicionShares, groupLabel, peakYear } from '../src/lib/chapters/kap1Shares';
 import { buildRiskFactors, itemLabel } from '../src/lib/chapters/kap2Factors';
 import { round } from '../src/lib/calc';
+import { crimes as ntuCrimes, pooled as ntuPooled } from '../src/lib/chapters/kap6';
+import { loadNtu } from '../src/lib/data';
 import { formatNumber as formatNumberIn, formatPct as formatPctIn, formatTimes as formatTimesIn } from '../src/lib/format';
 import { buildKap1Data, buildKap1Spec as buildKap1SpecIn, GROUPS, type Mode } from '../src/lib/chapters/kap1';
 import {
@@ -235,6 +237,21 @@ const kap5 = buildKap5(bra2005);
   });
   for (const g of kap5.crimes.groups) {
     add(K, 'Brottstyper', `${g.label}: utrikesfödda / en eller två utrikesfödda föräldrar / två inrikesfödda föräldrar`, g.bars.map((b) => barFmt(b.value, 'pct2')).join(' / '), 'Brå 2005:17, Tabell 11', STATED, BRA2005);
+  }
+}
+
+// ---------- Chapter 6 ----------
+{
+  const K = '06 Utsatta för brott';
+  const NTU = 'https://bra.se/rapporter/arkiv/2024-05-21-utsatthet-for-brott-bland-personer-med-utlandsk-bakgrund';
+  const ntu = loadNtu();
+  for (const c of ntuCrimes(ntu)) {
+    for (const [sex, who] of [['man', 'Män'], ['kvinnor', 'Kvinnor']] as const) {
+      for (const [g, name] of [['utlandsk', 'utländsk bakgrund'], ['svensk', 'svensk bakgrund']] as const) {
+        const r = ntuPooled(ntu, c.id, sex, g);
+        add(K, `Diagram, ${who.toLowerCase()}`, `${c.name} ${c.period}, ${who.toLowerCase()} med ${name}`, barFmt(r.pct!, 'pct1'), `Brå NTU Kortanalys 2/2024, tabellbilaga ${r.sourceTable.toLowerCase()} (${formatNumber(r.pct!, 3)})`, STATED, NTU);
+      }
+    }
   }
 }
 

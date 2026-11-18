@@ -27,6 +27,10 @@
     "date": "2026-11-13",
     "sha256": "a61b15110207e3542759956064e1ad2c38d2d3d81775d3db1242a807ac9976b4"
   },
+  "ntu_utsatthet.csv": {
+    "date": "2026-11-18",
+    "sha256": "c21b9a5822a6b51f56fc8ccb86d22c389967ed4949d4ae8b666ae0af5ddb9a92"
+  },
   "scb_befolkning.csv": {
     "date": "2026-11-13",
     "sha256": "c7a779f30e1bc54b93dcd3fd9a5628573fd08266f72b44046b7f7bba2bc5c1ed"

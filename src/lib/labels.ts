@@ -68,6 +68,25 @@ const EN: Record<string, string> = {
   'Oklassificerad': 'Unclassified',
   'Icke folkbokförda': 'Not registered as living in Sweden',
 
+  // Crime types in Brå's crime survey (NTU).
+  'Misshandel': 'Assault',
+  'Hot': 'Threats',
+  'Sexualbrott': 'Sexual offences',
+  'Personrån': 'Robbery',
+  'Fickstöld': 'Pickpocketing',
+  'Försäljningsbedrägeri': 'Fraud when buying goods or services',
+  'Kort- och kreditbedrägeri': 'Card and credit fraud',
+  'Nätkränkning': 'Online abuse',
+  'Trakasserier': 'Harassment',
+
+  // World regions of background in NTU (Brå's grouping, based on the UN's).
+  'Afrika': 'Africa',
+  'Asien': 'Asia',
+  'Europa': 'Europe',
+  'Nordamerika': 'North America',
+  'Oceanien': 'Oceania',
+  'Sovjetunionen': 'Former Soviet Union',
+
   // Other risk factors (Brå 2021:9, p. 54–55).
   'Familjen fick försörjningsstöd': 'Family received social assistance',
   'Familjen fick inte försörjningsstöd': 'Family did not receive social assistance',
