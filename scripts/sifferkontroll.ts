@@ -11,7 +11,7 @@ import { buildSuspicionShares, groupLabel, peakYear } from '../src/lib/chapters/
 import { buildRiskFactors, itemLabel } from '../src/lib/chapters/kap2Factors';
 import { round } from '../src/lib/calc';
 import { crimes as ntuCrimes, pooled as ntuPooled } from '../src/lib/chapters/kap6';
-import { loadNtu, loadDeportation, loadDeportationFacts } from '../src/lib/data';
+import { loadNtu, loadDeportation, loadDeportationFacts, loadHomicide } from '../src/lib/data';
 import { citizenshipGroups, offenceGroups, totalRow as deportTotalRow } from '../src/lib/chapters/kap7';
 import { formatNumber as formatNumberIn, formatPct as formatPctIn, formatTimes as formatTimesIn } from '../src/lib/format';
 import { buildKap1Data, buildKap1Spec as buildKap1SpecIn, GROUPS, type Mode } from '../src/lib/chapters/kap1';
@@ -275,6 +275,18 @@ const kap5 = buildKap5(bra2005);
   for (const r of offenceGroups(rows)) {
     add(K, 'Andra diagrammet, huvudbrott', `${r.group}: utvisade / lagförda för nya brott`, `${barFmt(r.pctDeported!, 'pct1')} / ${barFmt(r.pctReconvicted!, 'pct1')}`, 'Brå 2026:15 tabell B1', STATED, URL);
   }
+}
+
+// ---------- Chapter 8 ----------
+{
+  const K = '08 Dödligt våld';
+  const URL = 'https://bra.se/download/18.4dd364db195b26cb24b107f4/1742814210786/2025_5_Offer%20och%20g%C3%A4rningspersoner%20vid%20d%C3%B6dligt%20v%C3%A5ld.pdf';
+  const f = (v: number | null) => (v === null ? 'anges inte' : formatNumber(v, Number.isInteger(v) ? 0 : 1));
+  for (const r of loadHomicide()) {
+    add(K, r.chart === 'bakgrund' ? 'Diagram/text, bakgrund' : 'Andra diagrammet', `${r.item}: offer / gärningspersoner / befolkningen`, `${f(r.victims)} / ${f(r.perpetrators)} / ${f(r.population)}`, r.source, STATED, URL);
+  }
+  add(K, 'Källrad', 'Antal offer och gärningspersoner 2005–2021', '1 521 / 1 175', 'Brå 2025:5 s. 7', STATED, URL);
+  add(K, 'Läs så här', 'Andel ouppklarade fall i kriminell miljö', 'omkring 70 %', 'Brå 2025:5 s. 8', STATED, URL);
 }
 
 writeFileSync('docs/sifferkontroll.csv', toCsv(main));

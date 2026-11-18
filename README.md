@@ -22,6 +22,7 @@ Stack: Astro + D3, data as CSV in `data/`, deploy via GitHub + Vercel.
 | data/ntu_utsatthet.csv | Self-reported victimisation by foreign/Swedish background, sex and world region, 2016–2022 (pooled and per year, with confidence intervals) | Brå NTU Kortanalys 2/2024, table appendix |
 | data/utvisning_b1.csv | People with a deportation order in a prison sentence who left prison 2013–2023: share deported, share convicted of new crimes, by sex, age, offence and citizenship | Brå 2026:15 appendix 1, table B1 |
 | data/utvisning_text.csv | Figures Brå 2026:15 states only in the text (share deported within a year for some years, counts) | Brå 2026:15, p. 5 and 36 |
+| data/dodligt_vald.csv | Homicide victims, perpetrators and the population 2005–2021: background, income, work, housing area, earlier convictions (shares Brå states in the text or prints on a figure) | Brå 2025:5, p. 9–14 and 76–79 |
 
 All files are in place. Copies of some of the Brå prison reports are kept in `docs/kallor/` for spot-checking; the build does not use them.
 

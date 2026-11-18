@@ -12,6 +12,10 @@ export const SOURCES = {
     label: 'Brå rapport 2026:15, Utvisningsdömda i brottmål',
     url: 'https://bra.se/download/18.5d0a8fbf19ddcaf2a6cccb2/1777972068717/2026_15_Utvisningsd%C3%B6mda%20i%20brottm%C3%A5l.pdf',
   },
+  bra2025dodligt: {
+    label: 'Brå rapport 2025:5, Offer och gärningspersoner vid dödligt våld',
+    url: 'https://bra.se/rapporter/arkiv/2025-03-25-offer-och-garningspersoner-vid-dodligt-vald',
+  },
   bra2005: {
     label: 'Brå rapport 2005:17, Brottslighet bland personer födda i Sverige och i utlandet',
     url: 'https://www.bra.se/download/18.cba82f7130f475a2f1800012697/2005_17_brottslighet_bland_personer_fodda_sverige_och_utlandet.pdf',

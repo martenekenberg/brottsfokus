@@ -33,6 +33,7 @@ import {
   loadNtu,
   loadDeportation,
   loadDeportationFacts,
+  loadHomicide,
 } from '../lib/data';
 import { yearsWithValues } from '../lib/calc';
 import { buildKap3, shortReportName } from '../lib/chapters/kap3';
@@ -47,6 +48,7 @@ import { buildSharesSpec, buildSuspicionShares, peakYear as sharePeakYear, share
 import { buildFactorsSpec, buildRiskFactors } from '../lib/chapters/kap2Factors';
 import { round } from '../lib/calc';
 import { swedishHigher } from '../lib/chapters/kap6';
+import { buildBackgroundSpec, buildSocioSpec, homicideItem, moreThanTwiceForeign, SERIES, worseOnAll } from '../lib/chapters/kap8';
 import { buildCitizenshipSpec, buildOffenceSpec, fact, MIN_GROUP, offenceGroups, totalRow } from '../lib/chapters/kap7';
 
 interface Props {
@@ -203,6 +205,21 @@ if (!(deportPct < 50)) throw new Error('Chapter 7 headline no longer matches the
 const topOffence = offenceGroups(deport)[0];
 if (topOffence.group !== 'Narkotikabrott/smuggling') throw new Error('Chapter 7 second chart: headline no longer matches the data');
 const yr = (y: number) => fact(deportFacts, 'verkstalld_inom_1_ar', y);
+// ---------- Chapter 8: homicide ----------
+const homicide = loadHomicide();
+if (!moreThanTwiceForeign(homicide)) throw new Error('Chapter 8 headline no longer matches the data');
+if (!worseOnAll(homicide)) throw new Error('Chapter 8 second chart: headline no longer matches the data');
+const hUtl = homicideItem(homicide, 'utl');
+const hMiljo = homicideItem(homicide, 'kriminell_miljo');
+const hWeighted = homicideItem(homicide, 'viktat');
+const hLagford = homicideItem(homicide, 'lagford');
+const homicideLegend = (
+  [
+    ['victims', '#1D4E89', false],
+    ['perpetrators', '#C2410C', false],
+    ['population', '', true],
+  ] as const
+).map(([k, color, outline]) => ({ label: SERIES[k][lang], color, outline }));
 // The chapter 6 headline names one exception: sexual offences against women. Stop the build if the data says otherwise.
 if (JSON.stringify(swedishHigher(ntu)) !== JSON.stringify([{ crimeId: 'sexualbrott', sex: 'kvinnor' }])) {
   throw new Error('Chapter 6 headline no longer matches the data');
@@ -629,6 +646,84 @@ const keyFigures = [
               ', bilaga 1 tabell B1 och s. 5.',
               ', appendix 1 table B1 and p. 5.',
             )}
+          </Fragment>
+        </SubChart>
+      </Chapter>
+
+      <Chapter
+        id="kap8"
+        lang={lang}
+        tableHref={tablePage('kap8', lang).path}
+        title={L(
+          'Andelen med utländsk bakgrund var mer än dubbelt så stor bland offer och gärningspersoner vid dödligt våld som i befolkningen',
+          'The share with a foreign background was more than twice as large among homicide victims and perpetrators as in the population',
+        )}
+      >
+        <p slot="intro">
+          {L(
+            `Alla offer och identifierade gärningspersoner vid dödligt våld i Sverige 2005–2021, jämfört med befolkningen under samma år. ${n0(hUtl.victims as number)} procent av offren och ${n0(hUtl.perpetrators as number)} procent av gärningspersonerna hade utländsk bakgrund, mot ${n0(hUtl.population as number)} procent i befolkningen.`,
+            `All homicide victims and identified perpetrators in Sweden in 2005–2021, compared with the population in the same years. ${n0(hUtl.victims as number)}% of victims and ${n0(hUtl.perpetrators as number)}% of perpetrators had a foreign background, against ${n0(hUtl.population as number)}% of the population.`,
+          )}
+        </p>
+        <div class="chart-block">
+          <ul class="legend-list" aria-label={L('Förklaring', 'Key')}>
+            {
+              homicideLegend.map((l) => (
+                <li>
+                  <span class="mark bar-swatch" style={`width:14px;height:12px;${l.outline ? 'border:1.5px solid #5C5C5C;background:#FFFFFF' : `background:${l.color}`}`} aria-hidden="true" />
+                  {l.label}
+                </li>
+              ))
+            }
+          </ul>
+          <BarChart spec={buildBackgroundSpec(homicide, lang)} />
+        </div>
+        <Fragment slot="note">
+          {L(
+            `Utländsk bakgrund betyder här utrikes född eller inrikes född med två utrikes födda föräldrar, som i kapitel 1 och 2. Omkring 70 procent av fallen i kriminell miljö är ouppklarade, och där saknas gärningspersoner. Brå har därför också räknat med viktade värden: då hade ${n0(hWeighted.perpetrators as number)} procent av gärningspersonerna utländsk bakgrund. Bara personer med svenskt personnummer ingår. Andelen med utländsk bakgrund var störst vid dödligt våld i kriminell miljö, ${n0(hMiljo.victims as number)} procent av offren och ${n0(hMiljo.perpetrators as number)} procent av gärningspersonerna. Inte justerat för ålder eller kön. Offer och gärningspersoner är oftare unga män än befolkningen i stort. Befolkningens andel är ett snitt för 2005–2021.`,
+            `Foreign background here means born abroad, or born in Sweden with two foreign-born parents, as in chapters 1 and 2. About 70% of the cases in criminal milieus are unsolved and have no identified perpetrator. Brå therefore also calculated weighted values: with them, ${n0(hWeighted.perpetrators as number)}% of perpetrators had a foreign background. Only people with a Swedish personal identity number are included. The share with a foreign background was highest for homicides in criminal milieus: ${n0(hMiljo.victims as number)}% of victims and ${n0(hMiljo.perpetrators as number)}% of perpetrators. Not adjusted for age or sex. Victims and perpetrators are more often young men than the population as a whole. The population share is an average for 2005–2021.`,
+          )}
+        </Fragment>
+        <Fragment slot="source">
+          {L('Källa: ', 'Source: ')}<a href="https://bra.se/rapporter/arkiv/2025-03-25-offer-och-garningspersoner-vid-dodligt-vald">{L('Brå rapport 2025:5', 'Brå report 2025:5')}</a>{L(
+            ', Offer och gärningspersoner vid dödligt våld, s. 13, 76–79. 1 521 offer och 1 175 gärningspersoner 2005–2021.',
+            ', Offer och gärningspersoner vid dödligt våld (homicide victims and perpetrators), p. 13, 76–79. 1,521 victims and 1,175 perpetrators, 2005–2021.',
+          )}
+        </Fragment>
+        <SubChart
+          slot="after"
+          id="kap8-socioekonomi"
+          lang={lang}
+          title={L(
+            'Offer och gärningspersoner hade lägre inkomst, arbetade mer sällan och var oftare lagförda än befolkningen',
+            'Victims and perpetrators had lower incomes, were less often in work and had more often been convicted than the population',
+          )}
+        >
+          <Fragment slot="intro">
+            {L(
+              `Brå jämför också offrens och gärningspersonernas inkomst, arbete, boende och tidigare brott med befolkningen. ${n0(hLagford.victims as number)} procent av offren och ${n0(hLagford.perpetrators as number)} procent av gärningspersonerna hade lagförts för brott året före, mot ${n1(hLagford.population as number)} procent i befolkningen.`,
+              `Brå also compares the victims’ and perpetrators’ income, work, housing and earlier crimes with the population. ${n0(hLagford.victims as number)}% of victims and ${n0(hLagford.perpetrators as number)}% of perpetrators had been convicted of a crime in the year before, against ${n1(hLagford.population as number)}% of the population.`,
+            )}
+          </Fragment>
+          <ul slot="legend" class="legend-list" aria-label={L('Förklaring', 'Key')}>
+            {
+              homicideLegend.map((l) => (
+                <li>
+                  <span class="mark bar-swatch" style={`width:14px;height:12px;${l.outline ? 'border:1.5px solid #5C5C5C;background:#FFFFFF' : `background:${l.color}`}`} aria-hidden="true" />
+                  {l.label}
+                </li>
+              ))
+            }
+          </ul>
+          <BarChart spec={buildSocioSpec(homicide, lang)} />
+          <Fragment slot="note">
+            {L(
+              `Inkomsterna bygger på deklarerade inkomster, så inkomster från brott syns inte. Befolkningens andel i den lägsta inkomsttiondelen är per definition en tiondel. Lagförda året före gäller offer och gärningspersoner. För befolkningen är det ett snitt för personer 15 år och äldre 2004–2020 (${n1(hLagford.population as number)} procent). Förvärvsarbete gäller november året före. Utsatt område är det Brå kallar område med stora socioekonomiska utmaningar. Brå anger hela procent utom för befolkningens lagföringar.`,
+              `Incomes are based on declared income, so income from crime does not show. The population’s share in the lowest income tenth is one tenth by definition. Convicted in the year before applies to victims and perpetrators. For the population it is an average for people aged 15 and over in 2004–2020 (${n1(hLagford.population as number)}%). Employment refers to November of the year before. A deprived area is what Brå calls an area with major socio-economic challenges. Brå gives whole percentages except for the population’s convictions.`,
+            )}
+          </Fragment>
+          <Fragment slot="source">
+            {L('Källa: ', 'Source: ')}<a href="https://bra.se/rapporter/arkiv/2025-03-25-offer-och-garningspersoner-vid-dodligt-vald">{L('Brå rapport 2025:5', 'Brå report 2025:5')}</a>{L(', sammanfattningen s. 9–14.', ', summary p. 9–14.')}
           </Fragment>
         </SubChart>
       </Chapter>

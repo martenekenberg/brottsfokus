@@ -26,7 +26,8 @@ export const BAR_COLORS: Record<BarKind, { fill: string; text: string }> = {
   comparison: { fill: '#FFFFFF', text: '#5C5C5C' },
 };
 
-export type BarFormat = 'pct1' | 'pct2' | 'x1';
+/** pct1 = 22,5 %, pct2 = 0,14 %, x1 = 2,5×, pctSource = as many decimals as the source gives (22 %, 1,2 %). */
+export type BarFormat = 'pct1' | 'pct2' | 'x1' | 'pctSource';
 
 export interface BarGroup {
   label: string;
@@ -53,6 +54,7 @@ const C = { ink: '#121212', muted: '#5C5C5C', rule: '#E3E3E3' };
 
 export function barFmt(v: number, f: BarFormat = 'pct1', lang: Lang): string {
   if (f === 'x1') return formatTimes(v, 1, lang);
+  if (f === 'pctSource') return formatPct(v, Number.isInteger(v) ? 0 : 1, lang);
   return formatPct(v, f === 'pct2' ? 2 : 1, lang);
 }
 

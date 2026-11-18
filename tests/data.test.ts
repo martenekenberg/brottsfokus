@@ -17,7 +17,8 @@ import { round } from '../src/lib/calc';
 import { buildSuspicionShares, peakYear } from '../src/lib/chapters/kap1Shares';
 import { buildRiskFactors } from '../src/lib/chapters/kap2Factors';
 import { crimes as ntuCrimes, pooled, swedishHigher, regionTables } from '../src/lib/chapters/kap6';
-import { loadNtu, loadDeportation } from '../src/lib/data';
+import { loadNtu, loadDeportation, loadHomicide } from '../src/lib/data';
+import { moreThanTwiceForeign, worseOnAll, homicideItem } from '../src/lib/chapters/kap8';
 import { citizenshipGroups, offenceGroups, totalRow } from '../src/lib/chapters/kap7';
 import { buildKap1Data, buildKap1Spec } from '../src/lib/chapters/kap1';
 import { buildKap2Data, buildKap2Spec, hasShares, type Measure, type View } from '../src/lib/chapters/kap2';
@@ -158,4 +159,16 @@ test('chapter 7: table B1 adds up, hidden values stay empty', () => {
   assert.equal(citizenshipGroups(rows)[0].group, 'Västeuropa');
   assert.ok(citizenshipGroups(rows).every((r) => (r.n ?? 0) >= 50));
   assert.equal(offenceGroups(rows)[0].group, 'Narkotikabrott/smuggling');
+});
+
+test('chapter 8: homicide figures as stated by Brå', () => {
+  const rows = loadHomicide();
+  const utl = homicideItem(rows, 'utl');
+  assert.deepEqual([utl.victims, utl.perpetrators, utl.population], [49, 43, 21]);
+  // Swedish-born with Swedish-born parents plus born abroad never exceed 100.
+  const sv2 = homicideItem(rows, 'sv2');
+  const utr = homicideItem(rows, 'utr');
+  for (const k of ['victims', 'perpetrators', 'population'] as const) assert.ok(sv2[k]! + utr[k]! <= 100);
+  assert.ok(moreThanTwiceForeign(rows));
+  assert.ok(worseOnAll(rows));
 });

@@ -397,3 +397,31 @@ export function loadDeportationFacts(): DeportFact[] {
   }));
   return unique(rows, (r) => `${r.id}/${r.year}`, file);
 }
+
+// ---------- dodligt_vald.csv (chapter 8) ----------
+// Brå 2025:5, Offer och gärningspersoner vid dödligt våld. Shares (%) among homicide victims, perpetrators
+// and the population, 2005–2021, as Brå states them in the text or prints them on a figure. Empty = not given.
+
+export interface HomicideRow {
+  chart: 'bakgrund' | 'socioekonomi';
+  itemId: string;
+  item: string;
+  victims: number | null;
+  perpetrators: number | null;
+  population: number | null;
+  source: string;
+}
+
+export function loadHomicide(): HomicideRow[] {
+  const file = 'dodligt_vald.csv';
+  const rows = readCsv(file, ['chart', 'item_id', 'item', 'victims', 'perpetrators', 'population', 'source']).map((r) => ({
+    chart: oneOf(r.chart, ['bakgrund', 'socioekonomi'] as const, `${file} chart`),
+    itemId: r.item_id,
+    item: r.item,
+    victims: num(r.victims),
+    perpetrators: num(r.perpetrators),
+    population: num(r.population),
+    source: r.source,
+  }));
+  return unique(rows, (r) => `${r.chart}/${r.itemId}`, file);
+}

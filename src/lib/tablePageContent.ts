@@ -14,6 +14,7 @@ import {
   loadNtu,
   loadDeportation,
   loadDeportationFacts,
+  loadHomicide,
 } from './data';
 import { buildKap1Data, crimeById, crimeName, type GroupId } from './chapters/kap1';
 import { kap1Csv, rateTable, ratioTable } from './chapters/kap1Tables';
@@ -23,6 +24,7 @@ import { buildKap3, kap3Tables, shortReportName } from './chapters/kap3';
 import { buildSuspicionShares, sharesTables, shareGroup } from './chapters/kap1Shares';
 import { buildRiskFactors, factorsTable } from './chapters/kap2Factors';
 import { round } from './calc';
+import { homicideItem, homicideTables, kap8Csv } from './chapters/kap8';
 import { deportTables, fact, kap7Csv, suppressedGroups, totalRow } from './chapters/kap7';
 import { backgroundTables, flagged, kap6Csv, pooled, regionTables, yearTables } from './chapters/kap6';
 import { kap4Tables } from './chapters/kap4Tables';
@@ -792,7 +794,60 @@ function kap7(lang: Lang): TablePageContent {
   };
 }
 
-const BUILDERS: Record<string, (lang: Lang) => TablePageContent> = { kap1, kap2, kap3, kap4, kap5, kap6, kap7 };
+function kap8(lang: Lang): TablePageContent {
+  const T = <X,>(sv: X, en: X): X => tr(lang, sv, en);
+  const n = (v: number | null, d = 0) => formatNumber(v as number, d, lang);
+  const rows = loadHomicide();
+  const utl = homicideItem(rows, 'utl');
+  const lag = homicideItem(rows, 'lagford');
+
+  return {
+    chapterId: 'kap8',
+    lang,
+    h1: T('Offer och gärningspersoner vid dödligt våld jämfört med befolkningen, 2005–2021', 'Homicide victims and perpetrators compared with the population, 2005–2021'),
+    shortTitle: T('Dödligt våld 2005–2021, offer och gärningspersoner: tabell', 'Homicide 2005–2021, victims and perpetrators: table'),
+    description: T(
+      'Bakgrund, inkomst, arbete, boende och tidigare lagföringar bland offer och gärningspersoner vid dödligt våld 2005–2021, jämfört med befolkningen, enligt Brå rapport 2025:5. Tabeller och CSV-fil.',
+      'Background, income, work, housing and earlier convictions among homicide victims and perpetrators in 2005–2021, compared with the population, according to Brå report 2025:5. Tables and CSV file.',
+    ),
+    datasetDescription: T(
+      'Andelar (%) bland 1 521 offer och 1 175 gärningspersoner vid dödligt våld i Sverige 2005–2021 och i befolkningen: utländsk bakgrund, utrikes födda, inrikes födda med två inrikes födda föräldrar, lagförda för brott året före, inkomst i lägsta tiondelen, boende i område med stora socioekonomiska utmaningar, ensamstående med barn och förvärvsarbetande. Uppgifter som Brå anger i texten eller på figurer i rapport 2025:5.',
+      'Shares (%) among 1,521 victims and 1,175 perpetrators of homicide in Sweden in 2005–2021 and in the population: foreign background, born abroad, born in Sweden with two Swedish-born parents, convicted of a crime in the year before, income in the lowest tenth, living in an area with major socio-economic challenges, single parents and people in employment. Figures that Brå gives in the text or on figures in report 2025:5.',
+    ),
+    temporalCoverage: '2005/2021',
+    keywords: T(
+      ['dödligt våld', 'brottsoffer', 'gärningspersoner', 'utländsk bakgrund', 'socioekonomi', 'Brå 2025:5'],
+      ['homicide', 'crime victims', 'perpetrators', 'foreign background', 'socio-economic', 'Brå 2025:5'],
+    ),
+    variableMeasured: T(['Andel bland offer', 'Andel bland gärningspersoner', 'Andel i befolkningen'], ['Share among victims', 'Share among perpetrators', 'Share in the population']),
+    sources: [SOURCES.bra2025dodligt],
+    credit: 'Brå',
+    terms: BRA_TERMS(lang),
+    lead: T(
+      `Av offren för dödligt våld i Sverige 2005–2021 hade ${n(utl.victims)} procent utländsk bakgrund, och av gärningspersonerna ${n(utl.perpetrators)} procent, ` +
+        `enligt Brå. I befolkningen var andelen ${n(utl.population)} procent. ${n(lag.victims)} procent av offren och ${n(lag.perpetrators)} procent av ` +
+        `gärningspersonerna hade lagförts för brott året före, mot ${n(lag.population, 1)} procent i befolkningen.`,
+      `Of homicide victims in Sweden in 2005–2021, ${n(utl.victims)}% had a foreign background, and of perpetrators ${n(utl.perpetrators)}%, according to Brå. ` +
+        `In the population the share was ${n(utl.population)}%. ${n(lag.victims)}% of victims and ${n(lag.perpetrators)}% of perpetrators had been convicted of ` +
+        `a crime in the year before, against ${n(lag.population, 1)}% of the population.`,
+    ),
+    note: T(
+      'Utländsk bakgrund betyder utrikes född eller inrikes född med två utrikes födda föräldrar. Gärningspersoner finns bara för uppklarade fall, och ' +
+        'omkring 70 procent av fallen i kriminell miljö är ouppklarade. Bara personer med svenskt personnummer ingår. Inte justerat för ålder eller kön. ' +
+        'Inkomster från brott syns inte i registren. Befolkningens andel är ett snitt för perioden. Brå anger hela procent utom för befolkningens ' +
+        'lagföringar, och tabellen visar en decimal. Brå redovisar resten av resultaten i diagram utan siffror, så de finns inte här.',
+      'Foreign background means born abroad, or born in Sweden with two foreign-born parents. Perpetrators are only known for solved cases, and about 70% of ' +
+        'cases in criminal milieus are unsolved. Only people with a Swedish personal identity number are included. Not adjusted for age or sex. Income from crime ' +
+        'does not show in the registers. The population share is an average for the period. Brå gives whole percentages except for the population’s ' +
+        'convictions, and the table shows one decimal. Brå shows the rest of its results in charts without numbers, so they are not included here.',
+    ),
+    sections: [{ tables: homicideTables(rows, lang) }],
+    csv: kap8Csv(rows, lang),
+    dataFiles: ['dodligt_vald.csv'],
+  };
+}
+
+const BUILDERS: Record<string, (lang: Lang) => TablePageContent> = { kap1, kap2, kap3, kap4, kap5, kap6, kap7, kap8 };
 const cache = new Map<string, TablePageContent>();
 
 /** The text and tables for one table page in one language. */

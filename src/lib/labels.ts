@@ -113,6 +113,18 @@ const EN: Record<string, string> = {
   'Brott mot allmänhet och stat': 'Offences against the public and the state',
   'Trafikbrott': 'Traffic offences',
 
+  // Homicide victims and perpetrators (Brå 2025:5).
+  'Utländsk bakgrund': 'Foreign background',
+  'Utrikes födda': 'Born abroad',
+  'Inrikes födda med två inrikes födda föräldrar': 'Born in Sweden, two Swedish-born parents',
+  'Utländsk bakgrund vid dödligt våld i kriminell miljö': 'Foreign background, homicide in criminal milieus',
+  'Utländsk bakgrund med viktade värden för gärningspersonerna': 'Foreign background, weighted values for perpetrators',
+  'Lagförda för brott året före det dödliga våldet': 'Convicted of a crime in the year before the homicide',
+  'Inkomst i befolkningens lägsta tiondel': 'Income in the lowest tenth of the population',
+  'Bodde i socioekonomiskt utsatt område': 'Lived in a socio-economically deprived area',
+  'Ensamstående med barn': 'Single parent household',
+  'Förvärvsarbetande': 'In employment',
+
   // Other risk factors (Brå 2021:9, p. 54–55).
   'Familjen fick försörjningsstöd': 'Family received social assistance',
   'Familjen fick inte försörjningsstöd': 'Family did not receive social assistance',
