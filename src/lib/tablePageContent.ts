@@ -16,6 +16,7 @@ import {
   loadDeportationFacts,
   loadHomicide,
   loadCohorts,
+  loadBirthCohorts,
 } from './data';
 import { buildKap1Data, crimeById, crimeName, type GroupId } from './chapters/kap1';
 import { kap1Csv, rateTable, ratioTable } from './chapters/kap1Tables';
@@ -25,6 +26,7 @@ import { buildKap3, kap3Tables, shortReportName } from './chapters/kap3';
 import { buildSuspicionShares, sharesTables, shareGroup } from './chapters/kap1Shares';
 import { buildRiskFactors, factorsTable } from './chapters/kap2Factors';
 import { round } from './calc';
+import { birthYears, firstBackgroundYear, kap10Csv, kohortTables, kohortValue } from './chapters/kap10';
 import { cell as cohortCell, cohortTables, cohorts as cohortList, kap9Csv } from './chapters/kap9';
 import { homicideItem, homicideTables, kap8Csv } from './chapters/kap8';
 import { deportTables, fact, kap7Csv, suppressedGroups, totalRow } from './chapters/kap7';
@@ -909,7 +911,61 @@ function kap9(lang: Lang): TablePageContent {
   };
 }
 
-const BUILDERS: Record<string, (lang: Lang) => TablePageContent> = { kap1, kap2, kap3, kap4, kap5, kap6, kap7, kap8, kap9 };
+function kap10(lang: Lang): TablePageContent {
+  const T = <X,>(sv: X, en: X): X => tr(lang, sv, en);
+  const rows = loadBirthCohorts();
+  const years = birthYears(rows, 'fore25');
+  const bg = firstBackgroundYear(rows, 'fore25');
+  const last = years[years.length - 1];
+  const v = (g: 'alla' | 'I20' | 'Utr' | 'I02', y: number) => formatNumber(kohortValue(rows, 'fore25', 'samtliga', g, y) as number, 1, lang);
+  const tables = kohortTables(rows, lang);
+
+  return {
+    chapterId: 'kap10',
+    lang,
+    h1: T(`Lagförda före 25 och 20 års ålder efter födelseår och bakgrund, födda ${years[0]}–2003`, `Convicted before age 25 and 20 by birth year and background, born ${years[0]}–2003`),
+    shortTitle: T('Lagförda efter födelseår: tabell', 'Convicted by birth year: table'),
+    description: T(
+      'Andel av varje födelseår som lagförts för brott före 25 och före 20 års ålder, efter kön och födelsebakgrund, enligt Brås officiella födelsekohortstatistik (rapport 2025:21). Tabeller och CSV-fil.',
+      'Share of each birth year convicted of a crime before age 25 and before age 20, by sex and birth background, according to Brå’s official birth cohort statistics (report 2025:21). Tables and CSV file.',
+    ),
+    datasetDescription: T(
+      'Andel (%) av alla folkbokförda födda ett visst år som lagförts för brott minst en gång före 25 års ålder (födda 1958–1998) och före 20 års ålder (födda 1958–2003), för kvinnor och män tillsammans och var för sig. Efter födelsebakgrund för födda från 1984: inrikesfödda med två, en eller ingen inrikesfödd förälder samt utrikesfödda. Brå rapport 2025:21, tabell 1 och tabell 4.',
+      'Share (%) of everyone registered in Sweden and born in a given year who was convicted of a crime at least once before age 25 (born 1958–1998) and before age 20 (born 1958–2003), for women and men together and separately. By birth background for those born from 1984: born in Sweden with two, one or no Swedish-born parents, and born abroad. Brå report 2025:21, table 1 and table 4.',
+    ),
+    temporalCoverage: '1958/2023',
+    keywords: T(
+      ['födelsekohort', 'lagförda', 'unga', 'utrikesfödda', 'födelsebakgrund', 'Brå 2025:21'],
+      ['birth cohort', 'convicted', 'young people', 'born abroad', 'birth background', 'Brå 2025:21'],
+    ),
+    variableMeasured: T(['Andel lagförda före 25 års ålder', 'Andel lagförda före 20 års ålder'], ['Share convicted before age 25', 'Share convicted before age 20']),
+    sources: [SOURCES.bra2025kohort],
+    credit: 'Brå',
+    terms: BRA_TERMS(lang),
+    lead: T(
+      `Av dem som föddes ${years[0]} hade ${v('alla', years[0])} procent lagförts för brott före 25 års ålder, och av dem som föddes ${last} ${v('alla', last)} procent, ` +
+        `enligt Brå. För födda ${bg} var andelen ${v('Utr', bg)} procent bland utrikesfödda och ${v('I20', bg)} procent bland inrikesfödda med två ` +
+        `inrikesfödda föräldrar. För födda ${last} var andelarna ${v('Utr', last)} och ${v('I20', last)} procent.`,
+      `Of those born in ${years[0]}, ${v('alla', years[0])}% had been convicted of a crime before age 25, and of those born in ${last}, ${v('alla', last)}%, ` +
+        `according to Brå. For those born in ${bg}, the share was ${v('Utr', bg)}% among people born abroad and ${v('I20', bg)}% among people born in ` +
+        `Sweden with two Swedish-born parents. For those born in ${last}, the shares were ${v('Utr', last)}% and ${v('I20', last)}%.`,
+    ),
+    note: T(
+      `Lagförd betyder dom, strafföreläggande eller åtalsunderlåtelse. Siffror efter födelsebakgrund finns bara för födda från ${bg}, eftersom ` +
+        'Brå saknar folkmängd efter bakgrund för tidigare år. Tomma celler betyder att uppgift saknas. Inte justerat för till exempel familjens inkomst.',
+      `Convicted means a court sentence, a summary penalty or a waiver of prosecution. Figures by birth background only exist for those born from ${bg}, ` +
+        'because Brå has no population figures by background for earlier years. Empty cells mean no value. Not adjusted for, for example, family income.',
+    ),
+    sections: [
+      { heading: T('Före 25 års ålder', 'Before age 25'), tables: tables.filter((t) => t.id.startsWith('kap10-fore25')) },
+      { heading: T('Före 20 års ålder', 'Before age 20'), tables: tables.filter((t) => t.id.startsWith('kap10-fore20')), collapsed: true },
+    ],
+    csv: kap10Csv(rows, lang),
+    dataFiles: ['bra_fodelsekohorter.csv'],
+  };
+}
+
+const BUILDERS: Record<string, (lang: Lang) => TablePageContent> = { kap1, kap2, kap3, kap4, kap5, kap6, kap7, kap8, kap9, kap10 };
 const cache = new Map<string, TablePageContent>();
 
 /** The text and tables for one table page in one language. */

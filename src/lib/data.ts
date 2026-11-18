@@ -460,3 +460,31 @@ export function loadCohorts(): CohortRow[] {
   }));
   return unique(rows, (r) => `${r.table}/${r.sex}/${r.cohort}/${r.measure}/${r.group}`, file);
 }
+
+// ---------- bra_fodelsekohorter.csv (chapter 10) ----------
+// Brå 2025:21, Födelsekohortstatistik (official statistics), table 1 (share of each birth year convicted at least
+// once by age 25) and table 4, column 20 years (by age 20). group: alla = everyone; I20, I11, I02 = born in Sweden
+// with two, one or no Swedish-born parents; Utr = born abroad. By background only for birth years from 1984.
+
+export const KOHORT_GROUPS = ['alla', 'I20', 'I11', 'I02', 'Utr'] as const;
+export type KohortGroup = (typeof KOHORT_GROUPS)[number];
+
+export interface KohortRow {
+  measure: 'fore25' | 'fore20';
+  birthYear: number;
+  sex: 'samtliga' | 'kvinnor' | 'man';
+  group: KohortGroup;
+  pct: number;
+}
+
+export function loadBirthCohorts(): KohortRow[] {
+  const file = 'bra_fodelsekohorter.csv';
+  const rows = readCsv(file, ['measure', 'birth_year', 'sex', 'group', 'pct', 'source']).map((r) => ({
+    measure: oneOf(r.measure, ['fore25', 'fore20'] as const, `${file} measure`),
+    birthYear: required(r.birth_year, 'birth_year'),
+    sex: oneOf(r.sex, ['samtliga', 'kvinnor', 'man'] as const, `${file} sex`),
+    group: oneOf(r.group, KOHORT_GROUPS, `${file} group`),
+    pct: required(r.pct, 'pct'),
+  }));
+  return unique(rows, (r) => `${r.measure}/${r.birthYear}/${r.sex}/${r.group}`, file);
+}

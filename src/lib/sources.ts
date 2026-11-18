@@ -20,6 +20,10 @@ export const SOURCES = {
     label: 'Bäckman, Estrada, Nilsson och Sivertsson 2021, Criminal convictions and immigrant background 1973–2017 in Sweden, Nordic Journal of Criminology',
     url: 'https://doi.org/10.1080/2578983X.2021.1900038',
   },
+  bra2025kohort: {
+    label: 'Brå rapport 2025:21, Födelsekohortstatistik. Lagföringsbeslut bland personer folkbokförda i Sverige födda 1958–2007',
+    url: 'https://bra.se/rapporter/arkiv/2025-12-02-fodelsekohortstatistik',
+  },
   bra2005: {
     label: 'Brå rapport 2005:17, Brottslighet bland personer födda i Sverige och i utlandet',
     url: 'https://www.bra.se/download/18.cba82f7130f475a2f1800012697/2005_17_brottslighet_bland_personer_fodda_sverige_och_utlandet.pdf',

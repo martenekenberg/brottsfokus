@@ -17,7 +17,8 @@ import { round } from '../src/lib/calc';
 import { buildSuspicionShares, peakYear } from '../src/lib/chapters/kap1Shares';
 import { buildRiskFactors } from '../src/lib/chapters/kap2Factors';
 import { crimes as ntuCrimes, pooled, swedishHigher, regionTables } from '../src/lib/chapters/kap6';
-import { loadNtu, loadDeportation, loadHomicide, loadCohorts } from '../src/lib/data';
+import { loadNtu, loadDeportation, loadHomicide, loadCohorts, loadBirthCohorts } from '../src/lib/data';
+import { birthYears, fellInAllGroups, kohortValue } from '../src/lib/chapters/kap10';
 import { allFell, smallerInLowIncome } from '../src/lib/chapters/kap9';
 import { moreThanTwiceForeign, worseOnAll, homicideItem } from '../src/lib/chapters/kap8';
 import { citizenshipGroups, offenceGroups, totalRow } from '../src/lib/chapters/kap7';
@@ -190,4 +191,24 @@ test('chapter 9: tables 1 and 2 are complete and the printed relative risks fit 
   }
   assert.ok(allFell(rows));
   assert.ok(smallerInLowIncome(rows));
+});
+
+test('chapter 10: Brå birth cohort series are complete, values as in table 1', () => {
+  const rows = loadBirthCohorts();
+  assert.deepEqual([birthYears(rows, 'fore25')[0], birthYears(rows, 'fore25').at(-1)], [1958, 1998]);
+  assert.deepEqual([birthYears(rows, 'fore20')[0], birthYears(rows, 'fore20').at(-1)], [1958, 2003]);
+  // Background groups from 1984, every year and sex present.
+  for (const m of ['fore25', 'fore20'] as const) {
+    for (const y of birthYears(rows, m).filter((y) => y >= 1984)) {
+      for (const sex of ['samtliga', 'man', 'kvinnor'] as const) {
+        for (const g of ['alla', 'I20', 'I11', 'I02', 'Utr'] as const) assert.notEqual(kohortValue(rows, m, sex, g, y), null, `${m} ${y} ${sex} ${g}`);
+      }
+    }
+    assert.equal(kohortValue(rows, m, 'samtliga', 'Utr', 1983), null);
+  }
+  // Brå's own report text: born abroad 26.3 (1984), born in Sweden with two Swedish-born parents 10.2 (1998).
+  assert.equal(kohortValue(rows, 'fore25', 'samtliga', 'Utr', 1984), 26.3);
+  assert.equal(kohortValue(rows, 'fore25', 'samtliga', 'I20', 1998), 10.2);
+  assert.ok(fellInAllGroups(rows, 'fore25', 1984, 1998));
+  assert.ok(fellInAllGroups(rows, 'fore20', 1998, 2003));
 });

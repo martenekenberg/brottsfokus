@@ -11,7 +11,7 @@ import { buildSuspicionShares, groupLabel, peakYear } from '../src/lib/chapters/
 import { buildRiskFactors, itemLabel } from '../src/lib/chapters/kap2Factors';
 import { round } from '../src/lib/calc';
 import { crimes as ntuCrimes, pooled as ntuPooled } from '../src/lib/chapters/kap6';
-import { loadNtu, loadDeportation, loadDeportationFacts, loadHomicide, loadCohorts } from '../src/lib/data';
+import { loadNtu, loadDeportation, loadDeportationFacts, loadHomicide, loadCohorts, loadBirthCohorts } from '../src/lib/data';
 import { citizenshipGroups, offenceGroups, totalRow as deportTotalRow } from '../src/lib/chapters/kap7';
 import { formatNumber as formatNumberIn, formatPct as formatPctIn, formatTimes as formatTimesIn } from '../src/lib/format';
 import { buildKap1Data, buildKap1Spec as buildKap1SpecIn, GROUPS, type Mode } from '../src/lib/chapters/kap1';
@@ -297,6 +297,17 @@ const kap5 = buildKap5(bra2005);
   for (const r of loadCohorts().filter((x) => x.measure === 'minst1')) {
     const where = r.table === 'alla' ? 'Diagram, alla' : 'Andra diagrammet, lägst inkomster';
     add(K, where, `${r.sex === 'man' ? 'Män' : 'Kvinnor'} födda ${r.cohort}, ${name[r.group]}`, barFmt(r.pct, 'pct1'), `Bäckman m.fl. 2021, tabell ${r.table === 'alla' ? 1 : 2}`, STATED, URL);
+  }
+}
+
+// ---------- Chapter 10 ----------
+{
+  const K = '10 Födelseår';
+  const URL = 'https://bra.se/rapporter/arkiv/2025-12-02-fodelsekohortstatistik';
+  const name = { alla: 'alla', I20: 'två inrikesfödda föräldrar', I11: 'en utrikesfödd förälder', I02: 'två utrikesfödda föräldrar', Utr: 'utrikesfödda' } as const;
+  for (const r of loadBirthCohorts().filter((x) => x.sex === 'samtliga')) {
+    const where = r.measure === 'fore25' ? 'Diagram, före 25 år' : 'Andra diagrammet, före 20 år';
+    add(K, where, `Födda ${r.birthYear}, ${name[r.group]}`, fmt(r.pct, 'pct1'), `Brå 2025:21 tabell ${r.measure === 'fore25' ? '1' : '4 (kolumnen 20 år)'}`, STATED, URL);
   }
 }
 

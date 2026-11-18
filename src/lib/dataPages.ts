@@ -67,6 +67,11 @@ export const tablePages: TablePage[] = [
     slug: { sv: 'lagforda-fore-25', en: 'convicted-before-25' },
     name: { sv: 'Lagförda före 25 års ålder', en: 'Convicted before age 25' },
   },
+  {
+    chapterId: 'kap10',
+    slug: { sv: 'fodelsear', en: 'birth-year' },
+    name: { sv: 'Lagförda efter födelseår', en: 'Convicted by birth year' },
+  },
 ];
 
 /** The table index page: /data/ in Swedish, /en/data/ in English. */
