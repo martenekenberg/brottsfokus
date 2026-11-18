@@ -11,7 +11,7 @@ import { buildSuspicionShares, groupLabel, peakYear } from '../src/lib/chapters/
 import { buildRiskFactors, itemLabel } from '../src/lib/chapters/kap2Factors';
 import { round } from '../src/lib/calc';
 import { crimes as ntuCrimes, pooled as ntuPooled } from '../src/lib/chapters/kap6';
-import { loadNtu, loadDeportation, loadDeportationFacts, loadHomicide } from '../src/lib/data';
+import { loadNtu, loadDeportation, loadDeportationFacts, loadHomicide, loadCohorts } from '../src/lib/data';
 import { citizenshipGroups, offenceGroups, totalRow as deportTotalRow } from '../src/lib/chapters/kap7';
 import { formatNumber as formatNumberIn, formatPct as formatPctIn, formatTimes as formatTimesIn } from '../src/lib/format';
 import { buildKap1Data, buildKap1Spec as buildKap1SpecIn, GROUPS, type Mode } from '../src/lib/chapters/kap1';
@@ -287,6 +287,17 @@ const kap5 = buildKap5(bra2005);
   }
   add(K, 'Källrad', 'Antal offer och gärningspersoner 2005–2021', '1 521 / 1 175', 'Brå 2025:5 s. 7', STATED, URL);
   add(K, 'Läs så här', 'Andel ouppklarade fall i kriminell miljö', 'omkring 70 %', 'Brå 2025:5 s. 8', STATED, URL);
+}
+
+// ---------- Chapter 9 ----------
+{
+  const K = '09 Lagförda före 25';
+  const URL = 'https://doi.org/10.1080/2578983X.2021.1900038';
+  const name = { utrikesfodd: 'utrikes födda', andra_gen: 'två utrikes födda föräldrar', native: 'minst en inrikes född förälder' } as const;
+  for (const r of loadCohorts().filter((x) => x.measure === 'minst1')) {
+    const where = r.table === 'alla' ? 'Diagram, alla' : 'Andra diagrammet, lägst inkomster';
+    add(K, where, `${r.sex === 'man' ? 'Män' : 'Kvinnor'} födda ${r.cohort}, ${name[r.group]}`, barFmt(r.pct, 'pct1'), `Bäckman m.fl. 2021, tabell ${r.table === 'alla' ? 1 : 2}`, STATED, URL);
+  }
 }
 
 writeFileSync('docs/sifferkontroll.csv', toCsv(main));

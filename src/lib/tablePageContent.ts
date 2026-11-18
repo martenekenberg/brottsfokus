@@ -15,6 +15,7 @@ import {
   loadDeportation,
   loadDeportationFacts,
   loadHomicide,
+  loadCohorts,
 } from './data';
 import { buildKap1Data, crimeById, crimeName, type GroupId } from './chapters/kap1';
 import { kap1Csv, rateTable, ratioTable } from './chapters/kap1Tables';
@@ -24,6 +25,7 @@ import { buildKap3, kap3Tables, shortReportName } from './chapters/kap3';
 import { buildSuspicionShares, sharesTables, shareGroup } from './chapters/kap1Shares';
 import { buildRiskFactors, factorsTable } from './chapters/kap2Factors';
 import { round } from './calc';
+import { cell as cohortCell, cohortTables, cohorts as cohortList, kap9Csv } from './chapters/kap9';
 import { homicideItem, homicideTables, kap8Csv } from './chapters/kap8';
 import { deportTables, fact, kap7Csv, suppressedGroups, totalRow } from './chapters/kap7';
 import { backgroundTables, flagged, kap6Csv, pooled, regionTables, yearTables } from './chapters/kap6';
@@ -847,7 +849,67 @@ function kap8(lang: Lang): TablePageContent {
   };
 }
 
-const BUILDERS: Record<string, (lang: Lang) => TablePageContent> = { kap1, kap2, kap3, kap4, kap5, kap6, kap7, kap8 };
+function kap9(lang: Lang): TablePageContent {
+  const T = <X,>(sv: X, en: X): X => tr(lang, sv, en);
+  const rows = loadCohorts();
+  const list = cohortList(rows);
+  const first = list[0];
+  const last = list[list.length - 1];
+  const v = (c: string, g: 'utrikesfodd' | 'andra_gen' | 'native') => formatNumber(cohortCell(rows, 'alla', 'man', c, g).pct, 1, lang);
+
+  return {
+    chapterId: 'kap9',
+    lang,
+    h1: T('Lagförda före 25 års ålder efter bakgrund, födda 1966–1993', 'Convicted before age 25 by background, born 1966–1993'),
+    shortTitle: T('Lagförda före 25 år, födda 1966–1993: tabell', 'Convicted before 25, born 1966–1993: table'),
+    description: T(
+      'Andel som lagförts för brott före 25 års ålder bland alla födda 1966–1993, efter bakgrund, kön och födelseår, och bland dem som växte upp i familjer med lägst inkomster. Från Bäckman m.fl. 2021. Tabeller och CSV-fil.',
+      'Share convicted of a crime before age 25 among everyone born in 1966–1993, by background, sex and birth year, and among those who grew up in the lowest-income families. From Bäckman et al. 2021. Tables and CSV file.',
+    ),
+    datasetDescription: T(
+      'Alla födda 1966–1993 som var folkbokförda i Sverige från 15 till 24 års ålder, i grupper om fyra födelseår: andel (%) som lagförts minst en gång respektive upprepat före 25 års ålder, relativ risk jämfört med inrikes födda med minst en inrikes född förälder, och antal personer. För alla och för dem som växte upp i den tiondel av familjerna som hade lägst inkomster. Tabell 1 och 2 i Bäckman, Estrada, Nilsson och Sivertsson 2021, Nordic Journal of Criminology (CC BY 4.0).',
+      'Everyone born in 1966–1993 who was registered as living in Sweden from age 15 to 24, in groups of four birth years: share (%) convicted at least once and repeatedly before age 25, relative risk compared with people born in Sweden with at least one Swedish-born parent, and number of people. For everyone and for those who grew up in the tenth of families with the lowest incomes. Tables 1 and 2 in Bäckman, Estrada, Nilsson and Sivertsson 2021, Nordic Journal of Criminology (CC BY 4.0).',
+    ),
+    temporalCoverage: '1990/2017',
+    keywords: T(
+      ['lagförda', 'unga', 'utrikes födda', 'andra generationen', 'låg inkomst', 'födelsekohorter'],
+      ['convicted', 'young people', 'born abroad', 'second generation', 'low income', 'birth cohorts'],
+    ),
+    variableMeasured: T(['Andel lagförda före 25 års ålder', 'Relativ risk', 'Antal personer'], ['Share convicted before age 25', 'Relative risk', 'Number of people']),
+    sources: [SOURCES.backman2021],
+    credit: T('Bäckman, Estrada, Nilsson och Sivertsson 2021', 'Bäckman, Estrada, Nilsson and Sivertsson 2021'),
+    terms: T('Artikeln är publicerad med öppen tillgång under CC BY 4.0.', 'The article is published open access under CC BY 4.0.'),
+    lead: T(
+      `Av männen födda ${last} hade ${v(last, 'utrikesfodd')} procent av de utrikes födda, ${v(last, 'andra_gen')} procent av de inrikes födda med två utrikes ` +
+        `födda föräldrar och ${v(last, 'native')} procent av övriga lagförts för brott före 25 års ålder, enligt en studie från Stockholms universitet. ` +
+        `Bland männen födda ${first} var andelarna ${v(first, 'utrikesfodd')}, ${v(first, 'andra_gen')} och ${v(first, 'native')} procent.`,
+      `Of men born in ${last}, ${v(last, 'utrikesfodd')}% of those born abroad, ${v(last, 'andra_gen')}% of those born in Sweden with two foreign-born parents ` +
+        `and ${v(last, 'native')}% of the others had been convicted of a crime before age 25, according to a study from Stockholm University. ` +
+        `Among men born in ${first}, the shares were ${v(first, 'utrikesfodd')}%, ${v(first, 'andra_gen')}% and ${v(first, 'native')}%.`,
+    ),
+    note: T(
+      'Varje grupp följs från 15 till 24 års ålder. Bara personer som var folkbokförda i Sverige hela den tiden ingår. Lagförd betyder dom, ' +
+        'strafföreläggande eller åtalsunderlåtelse. Upprepat betyder minst fyra lagföringar för män och minst två för kvinnor, som i artikeln. ' +
+        'Relativ risk är artikelns egen, uträknad från oavrundade andelar, så den kan skilja sig något från en kvot av de avrundade andelarna. ' +
+        'Lägst inkomster: föräldrarnas sammanlagda arbetsinkomst låg i den lägsta tiondelen minst två av tre år när personen var 15–17 år.',
+      'Each group is followed from age 15 to 24. Only people registered as living in Sweden for that whole time are included. Convicted means a court ' +
+        'sentence, a summary penalty or a waiver of prosecution. Repeatedly means at least four convictions for men and at least two for women, as in the ' +
+        'article. Relative risk is the article’s own, calculated from unrounded shares, so it can differ slightly from a ratio of the rounded shares. ' +
+        'Lowest incomes: the parents’ combined income from work was in the lowest tenth in at least two of three years when the person was 15–17.',
+    ),
+    sections: [
+      { heading: T('Alla', 'Everyone'), tables: cohortTables(rows, lang).filter((t) => t.id.startsWith('kap9-alla')) },
+      {
+        heading: T('Familjer med lägst inkomster', 'Lowest-income families'),
+        tables: cohortTables(rows, lang).filter((t) => t.id.startsWith('kap9-laginkomst')),
+      },
+    ],
+    csv: kap9Csv(rows, lang),
+    dataFiles: ['backman_lagforda_fore_25.csv'],
+  };
+}
+
+const BUILDERS: Record<string, (lang: Lang) => TablePageContent> = { kap1, kap2, kap3, kap4, kap5, kap6, kap7, kap8, kap9 };
 const cache = new Map<string, TablePageContent>();
 
 /** The text and tables for one table page in one language. */

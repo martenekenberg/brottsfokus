@@ -7282,3 +7282,451 @@ Sida,Tabell,Rad,Kolumn,Värde på sidan
 /data/dodligt-vald/,"Socioekonomisk situation och tidigare lagföringar, 2005–2021",Förvärvsarbetande,Offer (%),"33,0"
 /data/dodligt-vald/,"Socioekonomisk situation och tidigare lagföringar, 2005–2021",Förvärvsarbetande,Gärningspersoner (%),"29,0"
 /data/dodligt-vald/,"Socioekonomisk situation och tidigare lagföringar, 2005–2021",Förvärvsarbetande,Befolkningen (%),"65,0"
+/data/lagforda-fore-25/,"Män, alla: minst en lagföring före 25 års ålder",1966–69,Inrikes födda med minst en inrikes född förälder (%),"28,4"
+/data/lagforda-fore-25/,"Män, alla: minst en lagföring före 25 års ålder",1966–69,Inrikes födda med två utrikes födda föräldrar (%),"38,8"
+/data/lagforda-fore-25/,"Män, alla: minst en lagföring före 25 års ålder",1966–69,Relativ risk,"1,4"
+/data/lagforda-fore-25/,"Män, alla: minst en lagföring före 25 års ålder",1966–69,Utrikes födda (%),"43,6"
+/data/lagforda-fore-25/,"Män, alla: minst en lagföring före 25 års ålder",1966–69,Relativ risk,"1,5"
+/data/lagforda-fore-25/,"Män, alla: minst en lagföring före 25 års ålder",1966–69,"Antal, inrikes födda med minst en inrikes född förälder",217 162
+/data/lagforda-fore-25/,"Män, alla: minst en lagföring före 25 års ålder",1966–69,"Antal, inrikes födda med två utrikes födda föräldrar",9 183
+/data/lagforda-fore-25/,"Män, alla: minst en lagföring före 25 års ålder",1966–69,"Antal, utrikes födda",9 285
+/data/lagforda-fore-25/,"Män, alla: minst en lagföring före 25 års ålder",1970–73,Inrikes födda med minst en inrikes född förälder (%),"22,8"
+/data/lagforda-fore-25/,"Män, alla: minst en lagföring före 25 års ålder",1970–73,Inrikes födda med två utrikes födda föräldrar (%),"35,4"
+/data/lagforda-fore-25/,"Män, alla: minst en lagföring före 25 års ålder",1970–73,Relativ risk,"1,6"
+/data/lagforda-fore-25/,"Män, alla: minst en lagföring före 25 års ålder",1970–73,Utrikes födda (%),"39,5"
+/data/lagforda-fore-25/,"Män, alla: minst en lagföring före 25 års ålder",1970–73,Relativ risk,"1,7"
+/data/lagforda-fore-25/,"Män, alla: minst en lagföring före 25 års ålder",1970–73,"Antal, inrikes födda med minst en inrikes född förälder",205 557
+/data/lagforda-fore-25/,"Män, alla: minst en lagföring före 25 års ålder",1970–73,"Antal, inrikes födda med två utrikes födda föräldrar",10 409
+/data/lagforda-fore-25/,"Män, alla: minst en lagföring före 25 års ålder",1970–73,"Antal, utrikes födda",9 235
+/data/lagforda-fore-25/,"Män, alla: minst en lagföring före 25 års ålder",1974–77,Inrikes födda med minst en inrikes född förälder (%),"18,9"
+/data/lagforda-fore-25/,"Män, alla: minst en lagföring före 25 års ålder",1974–77,Inrikes födda med två utrikes födda föräldrar (%),"31,0"
+/data/lagforda-fore-25/,"Män, alla: minst en lagföring före 25 års ålder",1974–77,Relativ risk,"1,6"
+/data/lagforda-fore-25/,"Män, alla: minst en lagföring före 25 års ålder",1974–77,Utrikes födda (%),"35,9"
+/data/lagforda-fore-25/,"Män, alla: minst en lagföring före 25 års ålder",1974–77,Relativ risk,"1,9"
+/data/lagforda-fore-25/,"Män, alla: minst en lagföring före 25 års ålder",1974–77,"Antal, inrikes födda med minst en inrikes född förälder",187 862
+/data/lagforda-fore-25/,"Män, alla: minst en lagföring före 25 års ålder",1974–77,"Antal, inrikes födda med två utrikes födda föräldrar",9 239
+/data/lagforda-fore-25/,"Män, alla: minst en lagföring före 25 års ålder",1974–77,"Antal, utrikes födda",12 127
+/data/lagforda-fore-25/,"Män, alla: minst en lagföring före 25 års ålder",1978–81,Inrikes födda med minst en inrikes född förälder (%),"16,8"
+/data/lagforda-fore-25/,"Män, alla: minst en lagföring före 25 års ålder",1978–81,Inrikes födda med två utrikes födda föräldrar (%),"28,7"
+/data/lagforda-fore-25/,"Män, alla: minst en lagföring före 25 års ålder",1978–81,Relativ risk,"1,7"
+/data/lagforda-fore-25/,"Män, alla: minst en lagföring före 25 års ålder",1978–81,Utrikes födda (%),"34,6"
+/data/lagforda-fore-25/,"Män, alla: minst en lagföring före 25 års ålder",1978–81,Relativ risk,"2,1"
+/data/lagforda-fore-25/,"Män, alla: minst en lagföring före 25 års ålder",1978–81,"Antal, inrikes födda med minst en inrikes född förälder",172 582
+/data/lagforda-fore-25/,"Män, alla: minst en lagföring före 25 års ålder",1978–81,"Antal, inrikes födda med två utrikes födda föräldrar",10 174
+/data/lagforda-fore-25/,"Män, alla: minst en lagföring före 25 års ålder",1978–81,"Antal, utrikes födda",15 856
+/data/lagforda-fore-25/,"Män, alla: minst en lagföring före 25 års ålder",1982–85,Inrikes födda med minst en inrikes född förälder (%),"15,5"
+/data/lagforda-fore-25/,"Män, alla: minst en lagföring före 25 års ålder",1982–85,Inrikes födda med två utrikes födda föräldrar (%),"26,3"
+/data/lagforda-fore-25/,"Män, alla: minst en lagföring före 25 års ålder",1982–85,Relativ risk,"1,7"
+/data/lagforda-fore-25/,"Män, alla: minst en lagföring före 25 års ålder",1982–85,Utrikes födda (%),"31,2"
+/data/lagforda-fore-25/,"Män, alla: minst en lagföring före 25 års ålder",1982–85,Relativ risk,"2,0"
+/data/lagforda-fore-25/,"Män, alla: minst en lagföring före 25 års ålder",1982–85,"Antal, inrikes födda med minst en inrikes född förälder",173 024
+/data/lagforda-fore-25/,"Män, alla: minst en lagföring före 25 års ålder",1982–85,"Antal, inrikes födda med två utrikes födda föräldrar",10 307
+/data/lagforda-fore-25/,"Män, alla: minst en lagföring före 25 års ålder",1982–85,"Antal, utrikes födda",19 198
+/data/lagforda-fore-25/,"Män, alla: minst en lagföring före 25 års ålder",1986–89,Inrikes födda med minst en inrikes född förälder (%),"15,5"
+/data/lagforda-fore-25/,"Män, alla: minst en lagföring före 25 års ålder",1986–89,Inrikes födda med två utrikes födda föräldrar (%),"26,1"
+/data/lagforda-fore-25/,"Män, alla: minst en lagföring före 25 års ålder",1986–89,Relativ risk,"1,7"
+/data/lagforda-fore-25/,"Män, alla: minst en lagföring före 25 års ålder",1986–89,Utrikes födda (%),"29,9"
+/data/lagforda-fore-25/,"Män, alla: minst en lagföring före 25 års ålder",1986–89,Relativ risk,"1,9"
+/data/lagforda-fore-25/,"Män, alla: minst en lagföring före 25 års ålder",1986–89,"Antal, inrikes födda med minst en inrikes född förälder",196 771
+/data/lagforda-fore-25/,"Män, alla: minst en lagföring före 25 års ålder",1986–89,"Antal, inrikes födda med två utrikes födda föräldrar",13 216
+/data/lagforda-fore-25/,"Män, alla: minst en lagföring före 25 års ålder",1986–89,"Antal, utrikes födda",19 365
+/data/lagforda-fore-25/,"Män, alla: minst en lagföring före 25 års ålder",1990–93,Inrikes födda med minst en inrikes född förälder (%),"15,1"
+/data/lagforda-fore-25/,"Män, alla: minst en lagföring före 25 års ålder",1990–93,Inrikes födda med två utrikes födda föräldrar (%),"26,1"
+/data/lagforda-fore-25/,"Män, alla: minst en lagföring före 25 års ålder",1990–93,Relativ risk,"1,7"
+/data/lagforda-fore-25/,"Män, alla: minst en lagföring före 25 års ålder",1990–93,Utrikes födda (%),"28,2"
+/data/lagforda-fore-25/,"Män, alla: minst en lagföring före 25 års ålder",1990–93,Relativ risk,"1,9"
+/data/lagforda-fore-25/,"Män, alla: minst en lagföring före 25 års ålder",1990–93,"Antal, inrikes födda med minst en inrikes född förälder",216 655
+/data/lagforda-fore-25/,"Män, alla: minst en lagföring före 25 års ålder",1990–93,"Antal, inrikes födda med två utrikes födda föräldrar",19 220
+/data/lagforda-fore-25/,"Män, alla: minst en lagföring före 25 års ålder",1990–93,"Antal, utrikes födda",17 707
+/data/lagforda-fore-25/,"Män, alla: minst fyra lagföringar före 25 års ålder",1966–69,Inrikes födda med minst en inrikes född förälder (%),"3,7"
+/data/lagforda-fore-25/,"Män, alla: minst fyra lagföringar före 25 års ålder",1966–69,Inrikes födda med två utrikes födda föräldrar (%),"7,8"
+/data/lagforda-fore-25/,"Män, alla: minst fyra lagföringar före 25 års ålder",1966–69,Relativ risk,"2,1"
+/data/lagforda-fore-25/,"Män, alla: minst fyra lagföringar före 25 års ålder",1966–69,Utrikes födda (%),"10,6"
+/data/lagforda-fore-25/,"Män, alla: minst fyra lagföringar före 25 års ålder",1966–69,Relativ risk,"2,9"
+/data/lagforda-fore-25/,"Män, alla: minst fyra lagföringar före 25 års ålder",1966–69,"Antal, inrikes födda med minst en inrikes född förälder",217 162
+/data/lagforda-fore-25/,"Män, alla: minst fyra lagföringar före 25 års ålder",1966–69,"Antal, inrikes födda med två utrikes födda föräldrar",9 183
+/data/lagforda-fore-25/,"Män, alla: minst fyra lagföringar före 25 års ålder",1966–69,"Antal, utrikes födda",9 285
+/data/lagforda-fore-25/,"Män, alla: minst fyra lagföringar före 25 års ålder",1970–73,Inrikes födda med minst en inrikes född förälder (%),"2,5"
+/data/lagforda-fore-25/,"Män, alla: minst fyra lagföringar före 25 års ålder",1970–73,Inrikes födda med två utrikes födda föräldrar (%),"6,2"
+/data/lagforda-fore-25/,"Män, alla: minst fyra lagföringar före 25 års ålder",1970–73,Relativ risk,"2,4"
+/data/lagforda-fore-25/,"Män, alla: minst fyra lagföringar före 25 års ålder",1970–73,Utrikes födda (%),"8,4"
+/data/lagforda-fore-25/,"Män, alla: minst fyra lagföringar före 25 års ålder",1970–73,Relativ risk,"3,3"
+/data/lagforda-fore-25/,"Män, alla: minst fyra lagföringar före 25 års ålder",1970–73,"Antal, inrikes födda med minst en inrikes född förälder",205 557
+/data/lagforda-fore-25/,"Män, alla: minst fyra lagföringar före 25 års ålder",1970–73,"Antal, inrikes födda med två utrikes födda föräldrar",10 409
+/data/lagforda-fore-25/,"Män, alla: minst fyra lagföringar före 25 års ålder",1970–73,"Antal, utrikes födda",9 235
+/data/lagforda-fore-25/,"Män, alla: minst fyra lagföringar före 25 års ålder",1974–77,Inrikes födda med minst en inrikes född förälder (%),"2,2"
+/data/lagforda-fore-25/,"Män, alla: minst fyra lagföringar före 25 års ålder",1974–77,Inrikes födda med två utrikes födda föräldrar (%),"5,9"
+/data/lagforda-fore-25/,"Män, alla: minst fyra lagföringar före 25 års ålder",1974–77,Relativ risk,"2,6"
+/data/lagforda-fore-25/,"Män, alla: minst fyra lagföringar före 25 års ålder",1974–77,Utrikes födda (%),"7,3"
+/data/lagforda-fore-25/,"Män, alla: minst fyra lagföringar före 25 års ålder",1974–77,Relativ risk,"3,2"
+/data/lagforda-fore-25/,"Män, alla: minst fyra lagföringar före 25 års ålder",1974–77,"Antal, inrikes födda med minst en inrikes född förälder",187 862
+/data/lagforda-fore-25/,"Män, alla: minst fyra lagföringar före 25 års ålder",1974–77,"Antal, inrikes födda med två utrikes födda föräldrar",9 239
+/data/lagforda-fore-25/,"Män, alla: minst fyra lagföringar före 25 års ålder",1974–77,"Antal, utrikes födda",12 127
+/data/lagforda-fore-25/,"Män, alla: minst fyra lagföringar före 25 års ålder",1978–81,Inrikes födda med minst en inrikes född förälder (%),"2,1"
+/data/lagforda-fore-25/,"Män, alla: minst fyra lagföringar före 25 års ålder",1978–81,Inrikes födda med två utrikes födda föräldrar (%),"6,3"
+/data/lagforda-fore-25/,"Män, alla: minst fyra lagföringar före 25 års ålder",1978–81,Relativ risk,"3,0"
+/data/lagforda-fore-25/,"Män, alla: minst fyra lagföringar före 25 års ålder",1978–81,Utrikes födda (%),"7,4"
+/data/lagforda-fore-25/,"Män, alla: minst fyra lagföringar före 25 års ålder",1978–81,Relativ risk,"3,5"
+/data/lagforda-fore-25/,"Män, alla: minst fyra lagföringar före 25 års ålder",1978–81,"Antal, inrikes födda med minst en inrikes född förälder",172 582
+/data/lagforda-fore-25/,"Män, alla: minst fyra lagföringar före 25 års ålder",1978–81,"Antal, inrikes födda med två utrikes födda föräldrar",10 174
+/data/lagforda-fore-25/,"Män, alla: minst fyra lagföringar före 25 års ålder",1978–81,"Antal, utrikes födda",15 856
+/data/lagforda-fore-25/,"Män, alla: minst fyra lagföringar före 25 års ålder",1982–85,Inrikes födda med minst en inrikes född förälder (%),"2,1"
+/data/lagforda-fore-25/,"Män, alla: minst fyra lagföringar före 25 års ålder",1982–85,Inrikes födda med två utrikes födda föräldrar (%),"5,7"
+/data/lagforda-fore-25/,"Män, alla: minst fyra lagföringar före 25 års ålder",1982–85,Relativ risk,"2,8"
+/data/lagforda-fore-25/,"Män, alla: minst fyra lagföringar före 25 års ålder",1982–85,Utrikes födda (%),"6,7"
+/data/lagforda-fore-25/,"Män, alla: minst fyra lagföringar före 25 års ålder",1982–85,Relativ risk,"3,2"
+/data/lagforda-fore-25/,"Män, alla: minst fyra lagföringar före 25 års ålder",1982–85,"Antal, inrikes födda med minst en inrikes född förälder",173 024
+/data/lagforda-fore-25/,"Män, alla: minst fyra lagföringar före 25 års ålder",1982–85,"Antal, inrikes födda med två utrikes födda föräldrar",10 307
+/data/lagforda-fore-25/,"Män, alla: minst fyra lagföringar före 25 års ålder",1982–85,"Antal, utrikes födda",19 198
+/data/lagforda-fore-25/,"Män, alla: minst fyra lagföringar före 25 års ålder",1986–89,Inrikes födda med minst en inrikes född förälder (%),"2,1"
+/data/lagforda-fore-25/,"Män, alla: minst fyra lagföringar före 25 års ålder",1986–89,Inrikes födda med två utrikes födda föräldrar (%),"5,7"
+/data/lagforda-fore-25/,"Män, alla: minst fyra lagföringar före 25 års ålder",1986–89,Relativ risk,"2,7"
+/data/lagforda-fore-25/,"Män, alla: minst fyra lagföringar före 25 års ålder",1986–89,Utrikes födda (%),"6,5"
+/data/lagforda-fore-25/,"Män, alla: minst fyra lagföringar före 25 års ålder",1986–89,Relativ risk,"3,1"
+/data/lagforda-fore-25/,"Män, alla: minst fyra lagföringar före 25 års ålder",1986–89,"Antal, inrikes födda med minst en inrikes född förälder",196 771
+/data/lagforda-fore-25/,"Män, alla: minst fyra lagföringar före 25 års ålder",1986–89,"Antal, inrikes födda med två utrikes födda föräldrar",13 216
+/data/lagforda-fore-25/,"Män, alla: minst fyra lagföringar före 25 års ålder",1986–89,"Antal, utrikes födda",19 365
+/data/lagforda-fore-25/,"Män, alla: minst fyra lagföringar före 25 års ålder",1990–93,Inrikes födda med minst en inrikes född förälder (%),"2,0"
+/data/lagforda-fore-25/,"Män, alla: minst fyra lagföringar före 25 års ålder",1990–93,Inrikes födda med två utrikes födda föräldrar (%),"6,1"
+/data/lagforda-fore-25/,"Män, alla: minst fyra lagföringar före 25 års ålder",1990–93,Relativ risk,"3,0"
+/data/lagforda-fore-25/,"Män, alla: minst fyra lagföringar före 25 års ålder",1990–93,Utrikes födda (%),"6,1"
+/data/lagforda-fore-25/,"Män, alla: minst fyra lagföringar före 25 års ålder",1990–93,Relativ risk,"3,0"
+/data/lagforda-fore-25/,"Män, alla: minst fyra lagföringar före 25 års ålder",1990–93,"Antal, inrikes födda med minst en inrikes född förälder",216 655
+/data/lagforda-fore-25/,"Män, alla: minst fyra lagföringar före 25 års ålder",1990–93,"Antal, inrikes födda med två utrikes födda föräldrar",19 220
+/data/lagforda-fore-25/,"Män, alla: minst fyra lagföringar före 25 års ålder",1990–93,"Antal, utrikes födda",17 707
+/data/lagforda-fore-25/,"Kvinnor, alla: minst en lagföring före 25 års ålder",1966–69,Inrikes födda med minst en inrikes född förälder (%),"7,4"
+/data/lagforda-fore-25/,"Kvinnor, alla: minst en lagföring före 25 års ålder",1966–69,Inrikes födda med två utrikes födda föräldrar (%),"10,7"
+/data/lagforda-fore-25/,"Kvinnor, alla: minst en lagföring före 25 års ålder",1966–69,Relativ risk,"1,4"
+/data/lagforda-fore-25/,"Kvinnor, alla: minst en lagföring före 25 års ålder",1966–69,Utrikes födda (%),"13,7"
+/data/lagforda-fore-25/,"Kvinnor, alla: minst en lagföring före 25 års ålder",1966–69,Relativ risk,"1,8"
+/data/lagforda-fore-25/,"Kvinnor, alla: minst en lagföring före 25 års ålder",1966–69,"Antal, inrikes födda med minst en inrikes född förälder",204 711
+/data/lagforda-fore-25/,"Kvinnor, alla: minst en lagföring före 25 års ålder",1966–69,"Antal, inrikes födda med två utrikes födda föräldrar",8 569
+/data/lagforda-fore-25/,"Kvinnor, alla: minst en lagföring före 25 års ålder",1966–69,"Antal, utrikes födda",9 592
+/data/lagforda-fore-25/,"Kvinnor, alla: minst en lagföring före 25 års ålder",1970–73,Inrikes födda med minst en inrikes född förälder (%),"5,7"
+/data/lagforda-fore-25/,"Kvinnor, alla: minst en lagföring före 25 års ålder",1970–73,Inrikes födda med två utrikes födda föräldrar (%),"8,8"
+/data/lagforda-fore-25/,"Kvinnor, alla: minst en lagföring före 25 års ålder",1970–73,Relativ risk,"1,6"
+/data/lagforda-fore-25/,"Kvinnor, alla: minst en lagföring före 25 års ålder",1970–73,Utrikes födda (%),"10,9"
+/data/lagforda-fore-25/,"Kvinnor, alla: minst en lagföring före 25 års ålder",1970–73,Relativ risk,"1,9"
+/data/lagforda-fore-25/,"Kvinnor, alla: minst en lagföring före 25 års ålder",1970–73,"Antal, inrikes födda med minst en inrikes född förälder",193 745
+/data/lagforda-fore-25/,"Kvinnor, alla: minst en lagföring före 25 års ålder",1970–73,"Antal, inrikes födda med två utrikes födda föräldrar",9 670
+/data/lagforda-fore-25/,"Kvinnor, alla: minst en lagföring före 25 års ålder",1970–73,"Antal, utrikes födda",10 030
+/data/lagforda-fore-25/,"Kvinnor, alla: minst en lagföring före 25 års ålder",1974–77,Inrikes födda med minst en inrikes född förälder (%),"5,1"
+/data/lagforda-fore-25/,"Kvinnor, alla: minst en lagföring före 25 års ålder",1974–77,Inrikes födda med två utrikes födda föräldrar (%),"8,3"
+/data/lagforda-fore-25/,"Kvinnor, alla: minst en lagföring före 25 års ålder",1974–77,Relativ risk,"1,6"
+/data/lagforda-fore-25/,"Kvinnor, alla: minst en lagföring före 25 års ålder",1974–77,Utrikes födda (%),"10,9"
+/data/lagforda-fore-25/,"Kvinnor, alla: minst en lagföring före 25 års ålder",1974–77,Relativ risk,"2,1"
+/data/lagforda-fore-25/,"Kvinnor, alla: minst en lagföring före 25 års ålder",1974–77,"Antal, inrikes födda med minst en inrikes född förälder",176 088
+/data/lagforda-fore-25/,"Kvinnor, alla: minst en lagföring före 25 års ålder",1974–77,"Antal, inrikes födda med två utrikes födda föräldrar",8 681
+/data/lagforda-fore-25/,"Kvinnor, alla: minst en lagföring före 25 års ålder",1974–77,"Antal, utrikes födda",12 107
+/data/lagforda-fore-25/,"Kvinnor, alla: minst en lagföring före 25 års ålder",1978–81,Inrikes födda med minst en inrikes född förälder (%),"6,0"
+/data/lagforda-fore-25/,"Kvinnor, alla: minst en lagföring före 25 års ålder",1978–81,Inrikes födda med två utrikes födda föräldrar (%),"9,4"
+/data/lagforda-fore-25/,"Kvinnor, alla: minst en lagföring före 25 års ålder",1978–81,Relativ risk,"1,6"
+/data/lagforda-fore-25/,"Kvinnor, alla: minst en lagföring före 25 års ålder",1978–81,Utrikes födda (%),"11,5"
+/data/lagforda-fore-25/,"Kvinnor, alla: minst en lagföring före 25 års ålder",1978–81,Relativ risk,"1,9"
+/data/lagforda-fore-25/,"Kvinnor, alla: minst en lagföring före 25 års ålder",1978–81,"Antal, inrikes födda med minst en inrikes född förälder",162 234
+/data/lagforda-fore-25/,"Kvinnor, alla: minst en lagföring före 25 års ålder",1978–81,"Antal, inrikes födda med två utrikes födda föräldrar",9 440
+/data/lagforda-fore-25/,"Kvinnor, alla: minst en lagföring före 25 års ålder",1978–81,"Antal, utrikes födda",15 126
+/data/lagforda-fore-25/,"Kvinnor, alla: minst en lagföring före 25 års ålder",1982–85,Inrikes födda med minst en inrikes född förälder (%),"5,6"
+/data/lagforda-fore-25/,"Kvinnor, alla: minst en lagföring före 25 års ålder",1982–85,Inrikes födda med två utrikes födda föräldrar (%),"8,7"
+/data/lagforda-fore-25/,"Kvinnor, alla: minst en lagföring före 25 års ålder",1982–85,Relativ risk,"1,6"
+/data/lagforda-fore-25/,"Kvinnor, alla: minst en lagföring före 25 års ålder",1982–85,Utrikes födda (%),"9,6"
+/data/lagforda-fore-25/,"Kvinnor, alla: minst en lagföring före 25 års ålder",1982–85,Relativ risk,"1,7"
+/data/lagforda-fore-25/,"Kvinnor, alla: minst en lagföring före 25 års ålder",1982–85,"Antal, inrikes födda med minst en inrikes född förälder",161 259
+/data/lagforda-fore-25/,"Kvinnor, alla: minst en lagföring före 25 års ålder",1982–85,"Antal, inrikes födda med två utrikes födda föräldrar",9 620
+/data/lagforda-fore-25/,"Kvinnor, alla: minst en lagföring före 25 års ålder",1982–85,"Antal, utrikes födda",17 747
+/data/lagforda-fore-25/,"Kvinnor, alla: minst en lagföring före 25 års ålder",1986–89,Inrikes födda med minst en inrikes född förälder (%),"6,2"
+/data/lagforda-fore-25/,"Kvinnor, alla: minst en lagföring före 25 års ålder",1986–89,Inrikes födda med två utrikes födda föräldrar (%),"9,6"
+/data/lagforda-fore-25/,"Kvinnor, alla: minst en lagföring före 25 års ålder",1986–89,Relativ risk,"1,5"
+/data/lagforda-fore-25/,"Kvinnor, alla: minst en lagföring före 25 års ålder",1986–89,Utrikes födda (%),"10,0"
+/data/lagforda-fore-25/,"Kvinnor, alla: minst en lagföring före 25 års ålder",1986–89,Relativ risk,"1,6"
+/data/lagforda-fore-25/,"Kvinnor, alla: minst en lagföring före 25 års ålder",1986–89,"Antal, inrikes födda med minst en inrikes född förälder",185 182
+/data/lagforda-fore-25/,"Kvinnor, alla: minst en lagföring före 25 års ålder",1986–89,"Antal, inrikes födda med två utrikes födda föräldrar",12 474
+/data/lagforda-fore-25/,"Kvinnor, alla: minst en lagföring före 25 års ålder",1986–89,"Antal, utrikes födda",17 846
+/data/lagforda-fore-25/,"Kvinnor, alla: minst en lagföring före 25 års ålder",1990–93,Inrikes födda med minst en inrikes född förälder (%),"5,9"
+/data/lagforda-fore-25/,"Kvinnor, alla: minst en lagföring före 25 års ålder",1990–93,Inrikes födda med två utrikes födda föräldrar (%),"8,7"
+/data/lagforda-fore-25/,"Kvinnor, alla: minst en lagföring före 25 års ålder",1990–93,Relativ risk,"1,5"
+/data/lagforda-fore-25/,"Kvinnor, alla: minst en lagföring före 25 års ålder",1990–93,Utrikes födda (%),"9,5"
+/data/lagforda-fore-25/,"Kvinnor, alla: minst en lagföring före 25 års ålder",1990–93,Relativ risk,"1,6"
+/data/lagforda-fore-25/,"Kvinnor, alla: minst en lagföring före 25 års ålder",1990–93,"Antal, inrikes födda med minst en inrikes född förälder",204 166
+/data/lagforda-fore-25/,"Kvinnor, alla: minst en lagföring före 25 års ålder",1990–93,"Antal, inrikes födda med två utrikes födda föräldrar",17 827
+/data/lagforda-fore-25/,"Kvinnor, alla: minst en lagföring före 25 års ålder",1990–93,"Antal, utrikes födda",16 254
+/data/lagforda-fore-25/,"Kvinnor, alla: minst två lagföringar före 25 års ålder",1966–69,Inrikes födda med minst en inrikes född förälder (%),"1,3"
+/data/lagforda-fore-25/,"Kvinnor, alla: minst två lagföringar före 25 års ålder",1966–69,Inrikes födda med två utrikes födda föräldrar (%),"2,7"
+/data/lagforda-fore-25/,"Kvinnor, alla: minst två lagföringar före 25 års ålder",1966–69,Relativ risk,"2,0"
+/data/lagforda-fore-25/,"Kvinnor, alla: minst två lagföringar före 25 års ålder",1966–69,Utrikes födda (%),"3,6"
+/data/lagforda-fore-25/,"Kvinnor, alla: minst två lagföringar före 25 års ålder",1966–69,Relativ risk,"2,7"
+/data/lagforda-fore-25/,"Kvinnor, alla: minst två lagföringar före 25 års ålder",1966–69,"Antal, inrikes födda med minst en inrikes född förälder",204 711
+/data/lagforda-fore-25/,"Kvinnor, alla: minst två lagföringar före 25 års ålder",1966–69,"Antal, inrikes födda med två utrikes födda föräldrar",8 569
+/data/lagforda-fore-25/,"Kvinnor, alla: minst två lagföringar före 25 års ålder",1966–69,"Antal, utrikes födda",9 592
+/data/lagforda-fore-25/,"Kvinnor, alla: minst två lagföringar före 25 års ålder",1970–73,Inrikes födda med minst en inrikes född förälder (%),"0,9"
+/data/lagforda-fore-25/,"Kvinnor, alla: minst två lagföringar före 25 års ålder",1970–73,Inrikes födda med två utrikes födda föräldrar (%),"2,3"
+/data/lagforda-fore-25/,"Kvinnor, alla: minst två lagföringar före 25 års ålder",1970–73,Relativ risk,"2,6"
+/data/lagforda-fore-25/,"Kvinnor, alla: minst två lagföringar före 25 års ålder",1970–73,Utrikes födda (%),"2,7"
+/data/lagforda-fore-25/,"Kvinnor, alla: minst två lagföringar före 25 års ålder",1970–73,Relativ risk,"3,1"
+/data/lagforda-fore-25/,"Kvinnor, alla: minst två lagföringar före 25 års ålder",1970–73,"Antal, inrikes födda med minst en inrikes född förälder",193 745
+/data/lagforda-fore-25/,"Kvinnor, alla: minst två lagföringar före 25 års ålder",1970–73,"Antal, inrikes födda med två utrikes födda föräldrar",9 670
+/data/lagforda-fore-25/,"Kvinnor, alla: minst två lagföringar före 25 års ålder",1970–73,"Antal, utrikes födda",10 030
+/data/lagforda-fore-25/,"Kvinnor, alla: minst två lagföringar före 25 års ålder",1974–77,Inrikes födda med minst en inrikes född förälder (%),"0,8"
+/data/lagforda-fore-25/,"Kvinnor, alla: minst två lagföringar före 25 års ålder",1974–77,Inrikes födda med två utrikes födda föräldrar (%),"2,2"
+/data/lagforda-fore-25/,"Kvinnor, alla: minst två lagföringar före 25 års ålder",1974–77,Relativ risk,"2,7"
+/data/lagforda-fore-25/,"Kvinnor, alla: minst två lagföringar före 25 års ålder",1974–77,Utrikes födda (%),"2,5"
+/data/lagforda-fore-25/,"Kvinnor, alla: minst två lagföringar före 25 års ålder",1974–77,Relativ risk,"3,2"
+/data/lagforda-fore-25/,"Kvinnor, alla: minst två lagföringar före 25 års ålder",1974–77,"Antal, inrikes födda med minst en inrikes född förälder",176 088
+/data/lagforda-fore-25/,"Kvinnor, alla: minst två lagföringar före 25 års ålder",1974–77,"Antal, inrikes födda med två utrikes födda föräldrar",8 681
+/data/lagforda-fore-25/,"Kvinnor, alla: minst två lagföringar före 25 års ålder",1974–77,"Antal, utrikes födda",12 107
+/data/lagforda-fore-25/,"Kvinnor, alla: minst två lagföringar före 25 års ålder",1978–81,Inrikes födda med minst en inrikes född förälder (%),"1,0"
+/data/lagforda-fore-25/,"Kvinnor, alla: minst två lagföringar före 25 års ålder",1978–81,Inrikes födda med två utrikes födda föräldrar (%),"2,1"
+/data/lagforda-fore-25/,"Kvinnor, alla: minst två lagföringar före 25 års ålder",1978–81,Relativ risk,"2,1"
+/data/lagforda-fore-25/,"Kvinnor, alla: minst två lagföringar före 25 års ålder",1978–81,Utrikes födda (%),"2,7"
+/data/lagforda-fore-25/,"Kvinnor, alla: minst två lagföringar före 25 års ålder",1978–81,Relativ risk,"2,7"
+/data/lagforda-fore-25/,"Kvinnor, alla: minst två lagföringar före 25 års ålder",1978–81,"Antal, inrikes födda med minst en inrikes född förälder",162 234
+/data/lagforda-fore-25/,"Kvinnor, alla: minst två lagföringar före 25 års ålder",1978–81,"Antal, inrikes födda med två utrikes födda föräldrar",9 440
+/data/lagforda-fore-25/,"Kvinnor, alla: minst två lagföringar före 25 års ålder",1978–81,"Antal, utrikes födda",15 126
+/data/lagforda-fore-25/,"Kvinnor, alla: minst två lagföringar före 25 års ålder",1982–85,Inrikes födda med minst en inrikes född förälder (%),"1,1"
+/data/lagforda-fore-25/,"Kvinnor, alla: minst två lagföringar före 25 års ålder",1982–85,Inrikes födda med två utrikes födda föräldrar (%),"2,3"
+/data/lagforda-fore-25/,"Kvinnor, alla: minst två lagföringar före 25 års ålder",1982–85,Relativ risk,"2,0"
+/data/lagforda-fore-25/,"Kvinnor, alla: minst två lagföringar före 25 års ålder",1982–85,Utrikes födda (%),"2,2"
+/data/lagforda-fore-25/,"Kvinnor, alla: minst två lagföringar före 25 års ålder",1982–85,Relativ risk,"1,9"
+/data/lagforda-fore-25/,"Kvinnor, alla: minst två lagföringar före 25 års ålder",1982–85,"Antal, inrikes födda med minst en inrikes född förälder",161 259
+/data/lagforda-fore-25/,"Kvinnor, alla: minst två lagföringar före 25 års ålder",1982–85,"Antal, inrikes födda med två utrikes födda föräldrar",9 620
+/data/lagforda-fore-25/,"Kvinnor, alla: minst två lagföringar före 25 års ålder",1982–85,"Antal, utrikes födda",17 747
+/data/lagforda-fore-25/,"Kvinnor, alla: minst två lagföringar före 25 års ålder",1986–89,Inrikes födda med minst en inrikes född förälder (%),"1,3"
+/data/lagforda-fore-25/,"Kvinnor, alla: minst två lagföringar före 25 års ålder",1986–89,Inrikes födda med två utrikes födda föräldrar (%),"2,4"
+/data/lagforda-fore-25/,"Kvinnor, alla: minst två lagföringar före 25 års ålder",1986–89,Relativ risk,"1,8"
+/data/lagforda-fore-25/,"Kvinnor, alla: minst två lagföringar före 25 års ålder",1986–89,Utrikes födda (%),"2,3"
+/data/lagforda-fore-25/,"Kvinnor, alla: minst två lagföringar före 25 års ålder",1986–89,Relativ risk,"1,7"
+/data/lagforda-fore-25/,"Kvinnor, alla: minst två lagföringar före 25 års ålder",1986–89,"Antal, inrikes födda med minst en inrikes född förälder",185 182
+/data/lagforda-fore-25/,"Kvinnor, alla: minst två lagföringar före 25 års ålder",1986–89,"Antal, inrikes födda med två utrikes födda föräldrar",12 474
+/data/lagforda-fore-25/,"Kvinnor, alla: minst två lagföringar före 25 års ålder",1986–89,"Antal, utrikes födda",17 846
+/data/lagforda-fore-25/,"Kvinnor, alla: minst två lagföringar före 25 års ålder",1990–93,Inrikes födda med minst en inrikes född förälder (%),"1,3"
+/data/lagforda-fore-25/,"Kvinnor, alla: minst två lagföringar före 25 års ålder",1990–93,Inrikes födda med två utrikes födda föräldrar (%),"2,1"
+/data/lagforda-fore-25/,"Kvinnor, alla: minst två lagföringar före 25 års ålder",1990–93,Relativ risk,"1,7"
+/data/lagforda-fore-25/,"Kvinnor, alla: minst två lagföringar före 25 års ålder",1990–93,Utrikes födda (%),"2,1"
+/data/lagforda-fore-25/,"Kvinnor, alla: minst två lagföringar före 25 års ålder",1990–93,Relativ risk,"1,7"
+/data/lagforda-fore-25/,"Kvinnor, alla: minst två lagföringar före 25 års ålder",1990–93,"Antal, inrikes födda med minst en inrikes född förälder",204 166
+/data/lagforda-fore-25/,"Kvinnor, alla: minst två lagföringar före 25 års ålder",1990–93,"Antal, inrikes födda med två utrikes födda föräldrar",17 827
+/data/lagforda-fore-25/,"Kvinnor, alla: minst två lagföringar före 25 års ålder",1990–93,"Antal, utrikes födda",16 254
+/data/lagforda-fore-25/,"Män, familjer med lägst inkomster: minst en lagföring före 25 års ålder",1966–69,Inrikes födda med minst en inrikes född förälder (%),"36,3"
+/data/lagforda-fore-25/,"Män, familjer med lägst inkomster: minst en lagföring före 25 års ålder",1966–69,Inrikes födda med två utrikes födda föräldrar (%),"47,6"
+/data/lagforda-fore-25/,"Män, familjer med lägst inkomster: minst en lagföring före 25 års ålder",1966–69,Relativ risk,"1,3"
+/data/lagforda-fore-25/,"Män, familjer med lägst inkomster: minst en lagföring före 25 års ålder",1966–69,Utrikes födda (%),"49,6"
+/data/lagforda-fore-25/,"Män, familjer med lägst inkomster: minst en lagföring före 25 års ålder",1966–69,Relativ risk,"1,4"
+/data/lagforda-fore-25/,"Män, familjer med lägst inkomster: minst en lagföring före 25 års ålder",1966–69,"Antal, inrikes födda med minst en inrikes född förälder",17 668
+/data/lagforda-fore-25/,"Män, familjer med lägst inkomster: minst en lagföring före 25 års ålder",1966–69,"Antal, inrikes födda med två utrikes födda föräldrar",1 310
+/data/lagforda-fore-25/,"Män, familjer med lägst inkomster: minst en lagföring före 25 års ålder",1966–69,"Antal, utrikes födda",2 450
+/data/lagforda-fore-25/,"Män, familjer med lägst inkomster: minst en lagföring före 25 års ålder",1970–73,Inrikes födda med minst en inrikes född förälder (%),"33,4"
+/data/lagforda-fore-25/,"Män, familjer med lägst inkomster: minst en lagföring före 25 års ålder",1970–73,Inrikes födda med två utrikes födda föräldrar (%),"44,7"
+/data/lagforda-fore-25/,"Män, familjer med lägst inkomster: minst en lagföring före 25 års ålder",1970–73,Relativ risk,"1,3"
+/data/lagforda-fore-25/,"Män, familjer med lägst inkomster: minst en lagföring före 25 års ålder",1970–73,Utrikes födda (%),"45,3"
+/data/lagforda-fore-25/,"Män, familjer med lägst inkomster: minst en lagföring före 25 års ålder",1970–73,Relativ risk,"1,4"
+/data/lagforda-fore-25/,"Män, familjer med lägst inkomster: minst en lagföring före 25 års ålder",1970–73,"Antal, inrikes födda med minst en inrikes född förälder",14 587
+/data/lagforda-fore-25/,"Män, familjer med lägst inkomster: minst en lagföring före 25 års ålder",1970–73,"Antal, inrikes födda med två utrikes födda föräldrar",1 853
+/data/lagforda-fore-25/,"Män, familjer med lägst inkomster: minst en lagföring före 25 års ålder",1970–73,"Antal, utrikes födda",3 238
+/data/lagforda-fore-25/,"Män, familjer med lägst inkomster: minst en lagföring före 25 års ålder",1974–77,Inrikes födda med minst en inrikes född förälder (%),"34,1"
+/data/lagforda-fore-25/,"Män, familjer med lägst inkomster: minst en lagföring före 25 års ålder",1974–77,Inrikes födda med två utrikes födda föräldrar (%),"39,1"
+/data/lagforda-fore-25/,"Män, familjer med lägst inkomster: minst en lagföring före 25 års ålder",1974–77,Relativ risk,"1,1"
+/data/lagforda-fore-25/,"Män, familjer med lägst inkomster: minst en lagföring före 25 års ålder",1974–77,Utrikes födda (%),"42,5"
+/data/lagforda-fore-25/,"Män, familjer med lägst inkomster: minst en lagföring före 25 års ålder",1974–77,Relativ risk,"1,2"
+/data/lagforda-fore-25/,"Män, familjer med lägst inkomster: minst en lagföring före 25 års ålder",1974–77,"Antal, inrikes födda med minst en inrikes född förälder",10 808
+/data/lagforda-fore-25/,"Män, familjer med lägst inkomster: minst en lagföring före 25 års ålder",1974–77,"Antal, inrikes födda med två utrikes födda föräldrar",2 253
+/data/lagforda-fore-25/,"Män, familjer med lägst inkomster: minst en lagföring före 25 års ålder",1974–77,"Antal, utrikes födda",4 572
+/data/lagforda-fore-25/,"Män, familjer med lägst inkomster: minst en lagföring före 25 års ålder",1978–81,Inrikes födda med minst en inrikes född förälder (%),"34,0"
+/data/lagforda-fore-25/,"Män, familjer med lägst inkomster: minst en lagföring före 25 års ålder",1978–81,Inrikes födda med två utrikes födda föräldrar (%),"37,4"
+/data/lagforda-fore-25/,"Män, familjer med lägst inkomster: minst en lagföring före 25 års ålder",1978–81,Relativ risk,"1,1"
+/data/lagforda-fore-25/,"Män, familjer med lägst inkomster: minst en lagföring före 25 års ålder",1978–81,Utrikes födda (%),"40,4"
+/data/lagforda-fore-25/,"Män, familjer med lägst inkomster: minst en lagföring före 25 års ålder",1978–81,Relativ risk,"1,2"
+/data/lagforda-fore-25/,"Män, familjer med lägst inkomster: minst en lagföring före 25 års ålder",1978–81,"Antal, inrikes födda med minst en inrikes född förälder",7 788
+/data/lagforda-fore-25/,"Män, familjer med lägst inkomster: minst en lagföring före 25 års ålder",1978–81,"Antal, inrikes födda med två utrikes födda föräldrar",2 309
+/data/lagforda-fore-25/,"Män, familjer med lägst inkomster: minst en lagföring före 25 års ålder",1978–81,"Antal, utrikes födda",7 356
+/data/lagforda-fore-25/,"Män, familjer med lägst inkomster: minst en lagföring före 25 års ålder",1982–85,Inrikes födda med minst en inrikes född förälder (%),"32,4"
+/data/lagforda-fore-25/,"Män, familjer med lägst inkomster: minst en lagföring före 25 års ålder",1982–85,Inrikes födda med två utrikes födda föräldrar (%),"35,2"
+/data/lagforda-fore-25/,"Män, familjer med lägst inkomster: minst en lagföring före 25 års ålder",1982–85,Relativ risk,"1,1"
+/data/lagforda-fore-25/,"Män, familjer med lägst inkomster: minst en lagföring före 25 års ålder",1982–85,Utrikes födda (%),"38,9"
+/data/lagforda-fore-25/,"Män, familjer med lägst inkomster: minst en lagföring före 25 års ålder",1982–85,Relativ risk,"1,2"
+/data/lagforda-fore-25/,"Män, familjer med lägst inkomster: minst en lagföring före 25 års ålder",1982–85,"Antal, inrikes födda med minst en inrikes född förälder",7 659
+/data/lagforda-fore-25/,"Män, familjer med lägst inkomster: minst en lagföring före 25 års ålder",1982–85,"Antal, inrikes födda med två utrikes födda föräldrar",2 340
+/data/lagforda-fore-25/,"Män, familjer med lägst inkomster: minst en lagföring före 25 års ålder",1982–85,"Antal, utrikes födda",7 342
+/data/lagforda-fore-25/,"Män, familjer med lägst inkomster: minst en lagföring före 25 års ålder",1986–89,Inrikes födda med minst en inrikes född förälder (%),"31,1"
+/data/lagforda-fore-25/,"Män, familjer med lägst inkomster: minst en lagföring före 25 års ålder",1986–89,Inrikes födda med två utrikes födda föräldrar (%),"35,3"
+/data/lagforda-fore-25/,"Män, familjer med lägst inkomster: minst en lagföring före 25 års ålder",1986–89,Relativ risk,"1,1"
+/data/lagforda-fore-25/,"Män, familjer med lägst inkomster: minst en lagföring före 25 års ålder",1986–89,Utrikes födda (%),"37,4"
+/data/lagforda-fore-25/,"Män, familjer med lägst inkomster: minst en lagföring före 25 års ålder",1986–89,Relativ risk,"1,2"
+/data/lagforda-fore-25/,"Män, familjer med lägst inkomster: minst en lagföring före 25 års ålder",1986–89,"Antal, inrikes födda med minst en inrikes född förälder",9 613
+/data/lagforda-fore-25/,"Män, familjer med lägst inkomster: minst en lagföring före 25 års ålder",1986–89,"Antal, inrikes födda med två utrikes födda föräldrar",3 122
+/data/lagforda-fore-25/,"Män, familjer med lägst inkomster: minst en lagföring före 25 års ålder",1986–89,"Antal, utrikes födda",6 927
+/data/lagforda-fore-25/,"Män, familjer med lägst inkomster: minst en lagföring före 25 års ålder",1990–93,Inrikes födda med minst en inrikes född förälder (%),"29,8"
+/data/lagforda-fore-25/,"Män, familjer med lägst inkomster: minst en lagföring före 25 års ålder",1990–93,Inrikes födda med två utrikes födda föräldrar (%),"45,6"
+/data/lagforda-fore-25/,"Män, familjer med lägst inkomster: minst en lagföring före 25 års ålder",1990–93,Relativ risk,"1,5"
+/data/lagforda-fore-25/,"Män, familjer med lägst inkomster: minst en lagföring före 25 års ålder",1990–93,Utrikes födda (%),"43,1"
+/data/lagforda-fore-25/,"Män, familjer med lägst inkomster: minst en lagföring före 25 års ålder",1990–93,Relativ risk,"1,4"
+/data/lagforda-fore-25/,"Män, familjer med lägst inkomster: minst en lagföring före 25 års ålder",1990–93,"Antal, inrikes födda med minst en inrikes född förälder",9 761
+/data/lagforda-fore-25/,"Män, familjer med lägst inkomster: minst en lagföring före 25 års ålder",1990–93,"Antal, inrikes födda med två utrikes födda föräldrar",3 585
+/data/lagforda-fore-25/,"Män, familjer med lägst inkomster: minst en lagföring före 25 års ålder",1990–93,"Antal, utrikes födda",5 366
+/data/lagforda-fore-25/,"Män, familjer med lägst inkomster: minst fyra lagföringar före 25 års ålder",1966–69,Inrikes födda med minst en inrikes född förälder (%),"7,5"
+/data/lagforda-fore-25/,"Män, familjer med lägst inkomster: minst fyra lagföringar före 25 års ålder",1966–69,Inrikes födda med två utrikes födda föräldrar (%),"12,9"
+/data/lagforda-fore-25/,"Män, familjer med lägst inkomster: minst fyra lagföringar före 25 års ålder",1966–69,Relativ risk,"1,7"
+/data/lagforda-fore-25/,"Män, familjer med lägst inkomster: minst fyra lagföringar före 25 års ålder",1966–69,Utrikes födda (%),"15,0"
+/data/lagforda-fore-25/,"Män, familjer med lägst inkomster: minst fyra lagföringar före 25 års ålder",1966–69,Relativ risk,"2,0"
+/data/lagforda-fore-25/,"Män, familjer med lägst inkomster: minst fyra lagföringar före 25 års ålder",1966–69,"Antal, inrikes födda med minst en inrikes född förälder",17 668
+/data/lagforda-fore-25/,"Män, familjer med lägst inkomster: minst fyra lagföringar före 25 års ålder",1966–69,"Antal, inrikes födda med två utrikes födda föräldrar",1 310
+/data/lagforda-fore-25/,"Män, familjer med lägst inkomster: minst fyra lagföringar före 25 års ålder",1966–69,"Antal, utrikes födda",2 450
+/data/lagforda-fore-25/,"Män, familjer med lägst inkomster: minst fyra lagföringar före 25 års ålder",1970–73,Inrikes födda med minst en inrikes född förälder (%),"6,4"
+/data/lagforda-fore-25/,"Män, familjer med lägst inkomster: minst fyra lagföringar före 25 års ålder",1970–73,Inrikes födda med två utrikes födda föräldrar (%),"10,6"
+/data/lagforda-fore-25/,"Män, familjer med lägst inkomster: minst fyra lagföringar före 25 års ålder",1970–73,Relativ risk,"1,7"
+/data/lagforda-fore-25/,"Män, familjer med lägst inkomster: minst fyra lagföringar före 25 års ålder",1970–73,Utrikes födda (%),"11,6"
+/data/lagforda-fore-25/,"Män, familjer med lägst inkomster: minst fyra lagföringar före 25 års ålder",1970–73,Relativ risk,"1,8"
+/data/lagforda-fore-25/,"Män, familjer med lägst inkomster: minst fyra lagföringar före 25 års ålder",1970–73,"Antal, inrikes födda med minst en inrikes född förälder",14 587
+/data/lagforda-fore-25/,"Män, familjer med lägst inkomster: minst fyra lagföringar före 25 års ålder",1970–73,"Antal, inrikes födda med två utrikes födda föräldrar",1 853
+/data/lagforda-fore-25/,"Män, familjer med lägst inkomster: minst fyra lagföringar före 25 års ålder",1970–73,"Antal, utrikes födda",3 238
+/data/lagforda-fore-25/,"Män, familjer med lägst inkomster: minst fyra lagföringar före 25 års ålder",1974–77,Inrikes födda med minst en inrikes född förälder (%),"7,7"
+/data/lagforda-fore-25/,"Män, familjer med lägst inkomster: minst fyra lagföringar före 25 års ålder",1974–77,Inrikes födda med två utrikes födda föräldrar (%),"10,3"
+/data/lagforda-fore-25/,"Män, familjer med lägst inkomster: minst fyra lagföringar före 25 års ålder",1974–77,Relativ risk,"1,3"
+/data/lagforda-fore-25/,"Män, familjer med lägst inkomster: minst fyra lagföringar före 25 års ålder",1974–77,Utrikes födda (%),"9,9"
+/data/lagforda-fore-25/,"Män, familjer med lägst inkomster: minst fyra lagföringar före 25 års ålder",1974–77,Relativ risk,"1,3"
+/data/lagforda-fore-25/,"Män, familjer med lägst inkomster: minst fyra lagföringar före 25 års ålder",1974–77,"Antal, inrikes födda med minst en inrikes född förälder",10 808
+/data/lagforda-fore-25/,"Män, familjer med lägst inkomster: minst fyra lagföringar före 25 års ålder",1974–77,"Antal, inrikes födda med två utrikes födda föräldrar",2 253
+/data/lagforda-fore-25/,"Män, familjer med lägst inkomster: minst fyra lagföringar före 25 års ålder",1974–77,"Antal, utrikes födda",4 572
+/data/lagforda-fore-25/,"Män, familjer med lägst inkomster: minst fyra lagföringar före 25 års ålder",1978–81,Inrikes födda med minst en inrikes född förälder (%),"8,5"
+/data/lagforda-fore-25/,"Män, familjer med lägst inkomster: minst fyra lagföringar före 25 års ålder",1978–81,Inrikes födda med två utrikes födda föräldrar (%),"10,5"
+/data/lagforda-fore-25/,"Män, familjer med lägst inkomster: minst fyra lagföringar före 25 års ålder",1978–81,Relativ risk,"1,2"
+/data/lagforda-fore-25/,"Män, familjer med lägst inkomster: minst fyra lagföringar före 25 års ålder",1978–81,Utrikes födda (%),"9,5"
+/data/lagforda-fore-25/,"Män, familjer med lägst inkomster: minst fyra lagföringar före 25 års ålder",1978–81,Relativ risk,"1,1"
+/data/lagforda-fore-25/,"Män, familjer med lägst inkomster: minst fyra lagföringar före 25 års ålder",1978–81,"Antal, inrikes födda med minst en inrikes född förälder",7 788
+/data/lagforda-fore-25/,"Män, familjer med lägst inkomster: minst fyra lagföringar före 25 års ålder",1978–81,"Antal, inrikes födda med två utrikes födda föräldrar",2 309
+/data/lagforda-fore-25/,"Män, familjer med lägst inkomster: minst fyra lagföringar före 25 års ålder",1978–81,"Antal, utrikes födda",7 356
+/data/lagforda-fore-25/,"Män, familjer med lägst inkomster: minst fyra lagföringar före 25 års ålder",1982–85,Inrikes födda med minst en inrikes född förälder (%),"8,7"
+/data/lagforda-fore-25/,"Män, familjer med lägst inkomster: minst fyra lagföringar före 25 års ålder",1982–85,Inrikes födda med två utrikes födda föräldrar (%),"10,6"
+/data/lagforda-fore-25/,"Män, familjer med lägst inkomster: minst fyra lagföringar före 25 års ålder",1982–85,Relativ risk,"1,2"
+/data/lagforda-fore-25/,"Män, familjer med lägst inkomster: minst fyra lagföringar före 25 års ålder",1982–85,Utrikes födda (%),"9,7"
+/data/lagforda-fore-25/,"Män, familjer med lägst inkomster: minst fyra lagföringar före 25 års ålder",1982–85,Relativ risk,"1,1"
+/data/lagforda-fore-25/,"Män, familjer med lägst inkomster: minst fyra lagföringar före 25 års ålder",1982–85,"Antal, inrikes födda med minst en inrikes född förälder",7 659
+/data/lagforda-fore-25/,"Män, familjer med lägst inkomster: minst fyra lagföringar före 25 års ålder",1982–85,"Antal, inrikes födda med två utrikes födda föräldrar",2 340
+/data/lagforda-fore-25/,"Män, familjer med lägst inkomster: minst fyra lagföringar före 25 års ålder",1982–85,"Antal, utrikes födda",7 342
+/data/lagforda-fore-25/,"Män, familjer med lägst inkomster: minst fyra lagföringar före 25 års ålder",1986–89,Inrikes födda med minst en inrikes född förälder (%),"7,7"
+/data/lagforda-fore-25/,"Män, familjer med lägst inkomster: minst fyra lagföringar före 25 års ålder",1986–89,Inrikes födda med två utrikes födda föräldrar (%),"10,1"
+/data/lagforda-fore-25/,"Män, familjer med lägst inkomster: minst fyra lagföringar före 25 års ålder",1986–89,Relativ risk,"1,3"
+/data/lagforda-fore-25/,"Män, familjer med lägst inkomster: minst fyra lagföringar före 25 års ålder",1986–89,Utrikes födda (%),"9,2"
+/data/lagforda-fore-25/,"Män, familjer med lägst inkomster: minst fyra lagföringar före 25 års ålder",1986–89,Relativ risk,"1,2"
+/data/lagforda-fore-25/,"Män, familjer med lägst inkomster: minst fyra lagföringar före 25 års ålder",1986–89,"Antal, inrikes födda med minst en inrikes född förälder",9 613
+/data/lagforda-fore-25/,"Män, familjer med lägst inkomster: minst fyra lagföringar före 25 års ålder",1986–89,"Antal, inrikes födda med två utrikes födda föräldrar",3 122
+/data/lagforda-fore-25/,"Män, familjer med lägst inkomster: minst fyra lagföringar före 25 års ålder",1986–89,"Antal, utrikes födda",6 927
+/data/lagforda-fore-25/,"Män, familjer med lägst inkomster: minst fyra lagföringar före 25 års ålder",1990–93,Inrikes födda med minst en inrikes född förälder (%),"8,0"
+/data/lagforda-fore-25/,"Män, familjer med lägst inkomster: minst fyra lagföringar före 25 års ålder",1990–93,Inrikes födda med två utrikes födda föräldrar (%),"13,8"
+/data/lagforda-fore-25/,"Män, familjer med lägst inkomster: minst fyra lagföringar före 25 års ålder",1990–93,Relativ risk,"1,7"
+/data/lagforda-fore-25/,"Män, familjer med lägst inkomster: minst fyra lagföringar före 25 års ålder",1990–93,Utrikes födda (%),"10,4"
+/data/lagforda-fore-25/,"Män, familjer med lägst inkomster: minst fyra lagföringar före 25 års ålder",1990–93,Relativ risk,"1,3"
+/data/lagforda-fore-25/,"Män, familjer med lägst inkomster: minst fyra lagföringar före 25 års ålder",1990–93,"Antal, inrikes födda med minst en inrikes född förälder",9 761
+/data/lagforda-fore-25/,"Män, familjer med lägst inkomster: minst fyra lagföringar före 25 års ålder",1990–93,"Antal, inrikes födda med två utrikes födda föräldrar",3 585
+/data/lagforda-fore-25/,"Män, familjer med lägst inkomster: minst fyra lagföringar före 25 års ålder",1990–93,"Antal, utrikes födda",5 366
+/data/lagforda-fore-25/,"Kvinnor, familjer med lägst inkomster: minst en lagföring före 25 års ålder",1966–69,Inrikes födda med minst en inrikes född förälder (%),"10,8"
+/data/lagforda-fore-25/,"Kvinnor, familjer med lägst inkomster: minst en lagföring före 25 års ålder",1966–69,Inrikes födda med två utrikes födda föräldrar (%),"16,6"
+/data/lagforda-fore-25/,"Kvinnor, familjer med lägst inkomster: minst en lagföring före 25 års ålder",1966–69,Relativ risk,"1,5"
+/data/lagforda-fore-25/,"Kvinnor, familjer med lägst inkomster: minst en lagföring före 25 års ålder",1966–69,Utrikes födda (%),"18,4"
+/data/lagforda-fore-25/,"Kvinnor, familjer med lägst inkomster: minst en lagföring före 25 års ålder",1966–69,Relativ risk,"1,7"
+/data/lagforda-fore-25/,"Kvinnor, familjer med lägst inkomster: minst en lagföring före 25 års ålder",1966–69,"Antal, inrikes födda med minst en inrikes född förälder",16 441
+/data/lagforda-fore-25/,"Kvinnor, familjer med lägst inkomster: minst en lagföring före 25 års ålder",1966–69,"Antal, inrikes födda med två utrikes födda föräldrar",1 184
+/data/lagforda-fore-25/,"Kvinnor, familjer med lägst inkomster: minst en lagföring före 25 års ålder",1966–69,"Antal, utrikes födda",2 403
+/data/lagforda-fore-25/,"Kvinnor, familjer med lägst inkomster: minst en lagföring före 25 års ålder",1970–73,Inrikes födda med minst en inrikes född förälder (%),"9,5"
+/data/lagforda-fore-25/,"Kvinnor, familjer med lägst inkomster: minst en lagföring före 25 års ålder",1970–73,Inrikes födda med två utrikes födda föräldrar (%),"12,6"
+/data/lagforda-fore-25/,"Kvinnor, familjer med lägst inkomster: minst en lagföring före 25 års ålder",1970–73,Relativ risk,"1,3"
+/data/lagforda-fore-25/,"Kvinnor, familjer med lägst inkomster: minst en lagföring före 25 års ålder",1970–73,Utrikes födda (%),"13,4"
+/data/lagforda-fore-25/,"Kvinnor, familjer med lägst inkomster: minst en lagföring före 25 års ålder",1970–73,Relativ risk,"1,4"
+/data/lagforda-fore-25/,"Kvinnor, familjer med lägst inkomster: minst en lagföring före 25 års ålder",1970–73,"Antal, inrikes födda med minst en inrikes född förälder",13 629
+/data/lagforda-fore-25/,"Kvinnor, familjer med lägst inkomster: minst en lagföring före 25 års ålder",1970–73,"Antal, inrikes födda med två utrikes födda föräldrar",1 738
+/data/lagforda-fore-25/,"Kvinnor, familjer med lägst inkomster: minst en lagföring före 25 års ålder",1970–73,"Antal, utrikes födda",3 033
+/data/lagforda-fore-25/,"Kvinnor, familjer med lägst inkomster: minst en lagföring före 25 års ålder",1974–77,Inrikes födda med minst en inrikes född förälder (%),"9,5"
+/data/lagforda-fore-25/,"Kvinnor, familjer med lägst inkomster: minst en lagföring före 25 års ålder",1974–77,Inrikes födda med två utrikes födda föräldrar (%),"12,3"
+/data/lagforda-fore-25/,"Kvinnor, familjer med lägst inkomster: minst en lagföring före 25 års ålder",1974–77,Relativ risk,"1,3"
+/data/lagforda-fore-25/,"Kvinnor, familjer med lägst inkomster: minst en lagföring före 25 års ålder",1974–77,Utrikes födda (%),"13,7"
+/data/lagforda-fore-25/,"Kvinnor, familjer med lägst inkomster: minst en lagföring före 25 års ålder",1974–77,Relativ risk,"1,4"
+/data/lagforda-fore-25/,"Kvinnor, familjer med lägst inkomster: minst en lagföring före 25 års ålder",1974–77,"Antal, inrikes födda med minst en inrikes född förälder",10 126
+/data/lagforda-fore-25/,"Kvinnor, familjer med lägst inkomster: minst en lagföring före 25 års ålder",1974–77,"Antal, inrikes födda med två utrikes födda föräldrar",2 107
+/data/lagforda-fore-25/,"Kvinnor, familjer med lägst inkomster: minst en lagföring före 25 års ålder",1974–77,"Antal, utrikes födda",4 066
+/data/lagforda-fore-25/,"Kvinnor, familjer med lägst inkomster: minst en lagföring före 25 års ålder",1978–81,Inrikes födda med minst en inrikes född förälder (%),"12,8"
+/data/lagforda-fore-25/,"Kvinnor, familjer med lägst inkomster: minst en lagföring före 25 års ålder",1978–81,Inrikes födda med två utrikes födda föräldrar (%),"13,1"
+/data/lagforda-fore-25/,"Kvinnor, familjer med lägst inkomster: minst en lagföring före 25 års ålder",1978–81,Relativ risk,"1,0"
+/data/lagforda-fore-25/,"Kvinnor, familjer med lägst inkomster: minst en lagföring före 25 års ålder",1978–81,Utrikes födda (%),"12,5"
+/data/lagforda-fore-25/,"Kvinnor, familjer med lägst inkomster: minst en lagföring före 25 års ålder",1978–81,Relativ risk,"1,0"
+/data/lagforda-fore-25/,"Kvinnor, familjer med lägst inkomster: minst en lagföring före 25 års ålder",1978–81,"Antal, inrikes födda med minst en inrikes född förälder",7 429
+/data/lagforda-fore-25/,"Kvinnor, familjer med lägst inkomster: minst en lagföring före 25 års ålder",1978–81,"Antal, inrikes födda med två utrikes födda föräldrar",2 189
+/data/lagforda-fore-25/,"Kvinnor, familjer med lägst inkomster: minst en lagföring före 25 års ålder",1978–81,"Antal, utrikes födda",6 506
+/data/lagforda-fore-25/,"Kvinnor, familjer med lägst inkomster: minst en lagföring före 25 års ålder",1982–85,Inrikes födda med minst en inrikes född förälder (%),"12,6"
+/data/lagforda-fore-25/,"Kvinnor, familjer med lägst inkomster: minst en lagföring före 25 års ålder",1982–85,Inrikes födda med två utrikes födda föräldrar (%),"13,1"
+/data/lagforda-fore-25/,"Kvinnor, familjer med lägst inkomster: minst en lagföring före 25 års ålder",1982–85,Relativ risk,"1,0"
+/data/lagforda-fore-25/,"Kvinnor, familjer med lägst inkomster: minst en lagföring före 25 års ålder",1982–85,Utrikes födda (%),"11,4"
+/data/lagforda-fore-25/,"Kvinnor, familjer med lägst inkomster: minst en lagföring före 25 års ålder",1982–85,Relativ risk,"0,9"
+/data/lagforda-fore-25/,"Kvinnor, familjer med lägst inkomster: minst en lagföring före 25 års ålder",1982–85,"Antal, inrikes födda med minst en inrikes född förälder",7 227
+/data/lagforda-fore-25/,"Kvinnor, familjer med lägst inkomster: minst en lagföring före 25 års ålder",1982–85,"Antal, inrikes födda med två utrikes födda föräldrar",2 191
+/data/lagforda-fore-25/,"Kvinnor, familjer med lägst inkomster: minst en lagföring före 25 års ålder",1982–85,"Antal, utrikes födda",6 592
+/data/lagforda-fore-25/,"Kvinnor, familjer med lägst inkomster: minst en lagföring före 25 års ålder",1986–89,Inrikes födda med minst en inrikes född förälder (%),"13,3"
+/data/lagforda-fore-25/,"Kvinnor, familjer med lägst inkomster: minst en lagföring före 25 års ålder",1986–89,Inrikes födda med två utrikes födda föräldrar (%),"14,8"
+/data/lagforda-fore-25/,"Kvinnor, familjer med lägst inkomster: minst en lagföring före 25 års ålder",1986–89,Relativ risk,"1,1"
+/data/lagforda-fore-25/,"Kvinnor, familjer med lägst inkomster: minst en lagföring före 25 års ålder",1986–89,Utrikes födda (%),"12,3"
+/data/lagforda-fore-25/,"Kvinnor, familjer med lägst inkomster: minst en lagföring före 25 års ålder",1986–89,Relativ risk,"0,9"
+/data/lagforda-fore-25/,"Kvinnor, familjer med lägst inkomster: minst en lagföring före 25 års ålder",1986–89,"Antal, inrikes födda med minst en inrikes född förälder",9 149
+/data/lagforda-fore-25/,"Kvinnor, familjer med lägst inkomster: minst en lagföring före 25 års ålder",1986–89,"Antal, inrikes födda med två utrikes födda föräldrar",2 923
+/data/lagforda-fore-25/,"Kvinnor, familjer med lägst inkomster: minst en lagföring före 25 års ålder",1986–89,"Antal, utrikes födda",6 172
+/data/lagforda-fore-25/,"Kvinnor, familjer med lägst inkomster: minst en lagföring före 25 års ålder",1990–93,Inrikes födda med minst en inrikes född förälder (%),"14,3"
+/data/lagforda-fore-25/,"Kvinnor, familjer med lägst inkomster: minst en lagföring före 25 års ålder",1990–93,Inrikes födda med två utrikes födda föräldrar (%),"12,4"
+/data/lagforda-fore-25/,"Kvinnor, familjer med lägst inkomster: minst en lagföring före 25 års ålder",1990–93,Relativ risk,"0,9"
+/data/lagforda-fore-25/,"Kvinnor, familjer med lägst inkomster: minst en lagföring före 25 års ålder",1990–93,Utrikes födda (%),"11,3"
+/data/lagforda-fore-25/,"Kvinnor, familjer med lägst inkomster: minst en lagföring före 25 års ålder",1990–93,Relativ risk,"0,8"
+/data/lagforda-fore-25/,"Kvinnor, familjer med lägst inkomster: minst en lagföring före 25 års ålder",1990–93,"Antal, inrikes födda med minst en inrikes född förälder",8 944
+/data/lagforda-fore-25/,"Kvinnor, familjer med lägst inkomster: minst en lagföring före 25 års ålder",1990–93,"Antal, inrikes födda med två utrikes födda föräldrar",4 148
+/data/lagforda-fore-25/,"Kvinnor, familjer med lägst inkomster: minst en lagföring före 25 års ålder",1990–93,"Antal, utrikes födda",6 312
+/data/lagforda-fore-25/,"Kvinnor, familjer med lägst inkomster: minst två lagföringar före 25 års ålder",1966–69,Inrikes födda med minst en inrikes född förälder (%),"2,7"
+/data/lagforda-fore-25/,"Kvinnor, familjer med lägst inkomster: minst två lagföringar före 25 års ålder",1966–69,Inrikes födda med två utrikes födda föräldrar (%),"5,6"
+/data/lagforda-fore-25/,"Kvinnor, familjer med lägst inkomster: minst två lagföringar före 25 års ålder",1966–69,Relativ risk,"2,1"
+/data/lagforda-fore-25/,"Kvinnor, familjer med lägst inkomster: minst två lagföringar före 25 års ålder",1966–69,Utrikes födda (%),"6,2"
+/data/lagforda-fore-25/,"Kvinnor, familjer med lägst inkomster: minst två lagföringar före 25 års ålder",1966–69,Relativ risk,"2,3"
+/data/lagforda-fore-25/,"Kvinnor, familjer med lägst inkomster: minst två lagföringar före 25 års ålder",1966–69,"Antal, inrikes födda med minst en inrikes född förälder",16 441
+/data/lagforda-fore-25/,"Kvinnor, familjer med lägst inkomster: minst två lagföringar före 25 års ålder",1966–69,"Antal, inrikes födda med två utrikes födda föräldrar",1 184
+/data/lagforda-fore-25/,"Kvinnor, familjer med lägst inkomster: minst två lagföringar före 25 års ålder",1966–69,"Antal, utrikes födda",2 403
+/data/lagforda-fore-25/,"Kvinnor, familjer med lägst inkomster: minst två lagföringar före 25 års ålder",1970–73,Inrikes födda med minst en inrikes född förälder (%),"2,2"
+/data/lagforda-fore-25/,"Kvinnor, familjer med lägst inkomster: minst två lagföringar före 25 års ålder",1970–73,Inrikes födda med två utrikes födda föräldrar (%),"4,0"
+/data/lagforda-fore-25/,"Kvinnor, familjer med lägst inkomster: minst två lagföringar före 25 års ålder",1970–73,Relativ risk,"1,8"
+/data/lagforda-fore-25/,"Kvinnor, familjer med lägst inkomster: minst två lagföringar före 25 års ålder",1970–73,Utrikes födda (%),"4,5"
+/data/lagforda-fore-25/,"Kvinnor, familjer med lägst inkomster: minst två lagföringar före 25 års ålder",1970–73,Relativ risk,"2,0"
+/data/lagforda-fore-25/,"Kvinnor, familjer med lägst inkomster: minst två lagföringar före 25 års ålder",1970–73,"Antal, inrikes födda med minst en inrikes född förälder",13 629
+/data/lagforda-fore-25/,"Kvinnor, familjer med lägst inkomster: minst två lagföringar före 25 års ålder",1970–73,"Antal, inrikes födda med två utrikes födda föräldrar",1 738
+/data/lagforda-fore-25/,"Kvinnor, familjer med lägst inkomster: minst två lagföringar före 25 års ålder",1970–73,"Antal, utrikes födda",3 033
+/data/lagforda-fore-25/,"Kvinnor, familjer med lägst inkomster: minst två lagföringar före 25 års ålder",1974–77,Inrikes födda med minst en inrikes född förälder (%),"2,5"
+/data/lagforda-fore-25/,"Kvinnor, familjer med lägst inkomster: minst två lagföringar före 25 års ålder",1974–77,Inrikes födda med två utrikes födda föräldrar (%),"4,1"
+/data/lagforda-fore-25/,"Kvinnor, familjer med lägst inkomster: minst två lagföringar före 25 års ålder",1974–77,Relativ risk,"1,6"
+/data/lagforda-fore-25/,"Kvinnor, familjer med lägst inkomster: minst två lagföringar före 25 års ålder",1974–77,Utrikes födda (%),"3,6"
+/data/lagforda-fore-25/,"Kvinnor, familjer med lägst inkomster: minst två lagföringar före 25 års ålder",1974–77,Relativ risk,"1,4"
+/data/lagforda-fore-25/,"Kvinnor, familjer med lägst inkomster: minst två lagföringar före 25 års ålder",1974–77,"Antal, inrikes födda med minst en inrikes född förälder",10 126
+/data/lagforda-fore-25/,"Kvinnor, familjer med lägst inkomster: minst två lagföringar före 25 års ålder",1974–77,"Antal, inrikes födda med två utrikes födda föräldrar",2 107
+/data/lagforda-fore-25/,"Kvinnor, familjer med lägst inkomster: minst två lagföringar före 25 års ålder",1974–77,"Antal, utrikes födda",4 066
+/data/lagforda-fore-25/,"Kvinnor, familjer med lägst inkomster: minst två lagföringar före 25 års ålder",1978–81,Inrikes födda med minst en inrikes född förälder (%),"3,9"
+/data/lagforda-fore-25/,"Kvinnor, familjer med lägst inkomster: minst två lagföringar före 25 års ålder",1978–81,Inrikes födda med två utrikes födda föräldrar (%),"4,1"
+/data/lagforda-fore-25/,"Kvinnor, familjer med lägst inkomster: minst två lagföringar före 25 års ålder",1978–81,Relativ risk,"1,1"
+/data/lagforda-fore-25/,"Kvinnor, familjer med lägst inkomster: minst två lagföringar före 25 års ålder",1978–81,Utrikes födda (%),"3,0"
+/data/lagforda-fore-25/,"Kvinnor, familjer med lägst inkomster: minst två lagföringar före 25 års ålder",1978–81,Relativ risk,"0,8"
+/data/lagforda-fore-25/,"Kvinnor, familjer med lägst inkomster: minst två lagföringar före 25 års ålder",1978–81,"Antal, inrikes födda med minst en inrikes född förälder",7 429
+/data/lagforda-fore-25/,"Kvinnor, familjer med lägst inkomster: minst två lagföringar före 25 års ålder",1978–81,"Antal, inrikes födda med två utrikes födda föräldrar",2 189
+/data/lagforda-fore-25/,"Kvinnor, familjer med lägst inkomster: minst två lagföringar före 25 års ålder",1978–81,"Antal, utrikes födda",6 506
+/data/lagforda-fore-25/,"Kvinnor, familjer med lägst inkomster: minst två lagföringar före 25 års ålder",1982–85,Inrikes födda med minst en inrikes född förälder (%),"4,4"
+/data/lagforda-fore-25/,"Kvinnor, familjer med lägst inkomster: minst två lagföringar före 25 års ålder",1982–85,Inrikes födda med två utrikes födda föräldrar (%),"5,2"
+/data/lagforda-fore-25/,"Kvinnor, familjer med lägst inkomster: minst två lagföringar före 25 års ålder",1982–85,Relativ risk,"1,2"
+/data/lagforda-fore-25/,"Kvinnor, familjer med lägst inkomster: minst två lagföringar före 25 års ålder",1982–85,Utrikes födda (%),"2,5"
+/data/lagforda-fore-25/,"Kvinnor, familjer med lägst inkomster: minst två lagföringar före 25 års ålder",1982–85,Relativ risk,"0,6"
+/data/lagforda-fore-25/,"Kvinnor, familjer med lägst inkomster: minst två lagföringar före 25 års ålder",1982–85,"Antal, inrikes födda med minst en inrikes född förälder",7 227
+/data/lagforda-fore-25/,"Kvinnor, familjer med lägst inkomster: minst två lagföringar före 25 års ålder",1982–85,"Antal, inrikes födda med två utrikes födda föräldrar",2 191
+/data/lagforda-fore-25/,"Kvinnor, familjer med lägst inkomster: minst två lagföringar före 25 års ålder",1982–85,"Antal, utrikes födda",6 592
+/data/lagforda-fore-25/,"Kvinnor, familjer med lägst inkomster: minst två lagföringar före 25 års ålder",1986–89,Inrikes födda med minst en inrikes född förälder (%),"4,8"
+/data/lagforda-fore-25/,"Kvinnor, familjer med lägst inkomster: minst två lagföringar före 25 års ålder",1986–89,Inrikes födda med två utrikes födda föräldrar (%),"4,8"
+/data/lagforda-fore-25/,"Kvinnor, familjer med lägst inkomster: minst två lagföringar före 25 års ålder",1986–89,Relativ risk,"1,0"
+/data/lagforda-fore-25/,"Kvinnor, familjer med lägst inkomster: minst två lagföringar före 25 års ålder",1986–89,Utrikes födda (%),"3,2"
+/data/lagforda-fore-25/,"Kvinnor, familjer med lägst inkomster: minst två lagföringar före 25 års ålder",1986–89,Relativ risk,"0,7"
+/data/lagforda-fore-25/,"Kvinnor, familjer med lägst inkomster: minst två lagföringar före 25 års ålder",1986–89,"Antal, inrikes födda med minst en inrikes född förälder",9 149
+/data/lagforda-fore-25/,"Kvinnor, familjer med lägst inkomster: minst två lagföringar före 25 års ålder",1986–89,"Antal, inrikes födda med två utrikes födda föräldrar",2 923
+/data/lagforda-fore-25/,"Kvinnor, familjer med lägst inkomster: minst två lagföringar före 25 års ålder",1986–89,"Antal, utrikes födda",6 172
+/data/lagforda-fore-25/,"Kvinnor, familjer med lägst inkomster: minst två lagföringar före 25 års ålder",1990–93,Inrikes födda med minst en inrikes född förälder (%),"5,0"
+/data/lagforda-fore-25/,"Kvinnor, familjer med lägst inkomster: minst två lagföringar före 25 års ålder",1990–93,Inrikes födda med två utrikes födda föräldrar (%),"4,1"
+/data/lagforda-fore-25/,"Kvinnor, familjer med lägst inkomster: minst två lagföringar före 25 års ålder",1990–93,Relativ risk,"0,8"
+/data/lagforda-fore-25/,"Kvinnor, familjer med lägst inkomster: minst två lagföringar före 25 års ålder",1990–93,Utrikes födda (%),"2,8"
+/data/lagforda-fore-25/,"Kvinnor, familjer med lägst inkomster: minst två lagföringar före 25 års ålder",1990–93,Relativ risk,"0,5"
+/data/lagforda-fore-25/,"Kvinnor, familjer med lägst inkomster: minst två lagföringar före 25 års ålder",1990–93,"Antal, inrikes födda med minst en inrikes född förälder",8 944
+/data/lagforda-fore-25/,"Kvinnor, familjer med lägst inkomster: minst två lagföringar före 25 års ålder",1990–93,"Antal, inrikes födda med två utrikes födda föräldrar",4 148
+/data/lagforda-fore-25/,"Kvinnor, familjer med lägst inkomster: minst två lagföringar före 25 års ålder",1990–93,"Antal, utrikes födda",6 312

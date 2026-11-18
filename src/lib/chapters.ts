@@ -67,6 +67,13 @@ export const chapters: ChapterInfo[] = [
     nextLabel: { sv: 'Dödligt våld', en: 'Homicide' },
   },
   {
+    id: 'kap9',
+    num: '09',
+    navLabel: { sv: 'Före 25 år', en: 'Before 25' },
+    kicker: { sv: 'Lagförda före 25 års ålder', en: 'Convicted before age 25' },
+    nextLabel: { sv: 'Lagförda före 25 års ålder', en: 'Convicted before age 25' },
+  },
+  {
     id: 'metod',
     num: '',
     navLabel: { sv: 'Metod', en: 'Method' },

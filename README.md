@@ -23,6 +23,7 @@ Stack: Astro + D3, data as CSV in `data/`, deploy via GitHub + Vercel.
 | data/utvisning_b1.csv | People with a deportation order in a prison sentence who left prison 2013–2023: share deported, share convicted of new crimes, by sex, age, offence and citizenship | Brå 2026:15 appendix 1, table B1 |
 | data/utvisning_text.csv | Figures Brå 2026:15 states only in the text (share deported within a year for some years, counts) | Brå 2026:15, p. 5 and 36 |
 | data/dodligt_vald.csv | Homicide victims, perpetrators and the population 2005–2021: background, income, work, housing area, earlier convictions (shares Brå states in the text or prints on a figure) | Brå 2025:5, p. 9–14 and 76–79 |
+| data/backman_lagforda_fore_25.csv | Share convicted before age 25 (at least once / repeatedly) and relative risk, by background, sex and birth-year group 1966–1993, for everyone and for the lowest-income families | Bäckman et al. 2021, Nordic Journal of Criminology, tables 1 and 2 (CC BY 4.0) |
 
 All files are in place. Copies of some of the Brå prison reports are kept in `docs/kallor/` for spot-checking; the build does not use them.
 

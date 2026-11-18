@@ -16,6 +16,10 @@ export const SOURCES = {
     label: 'Brå rapport 2025:5, Offer och gärningspersoner vid dödligt våld',
     url: 'https://bra.se/rapporter/arkiv/2025-03-25-offer-och-garningspersoner-vid-dodligt-vald',
   },
+  backman2021: {
+    label: 'Bäckman, Estrada, Nilsson och Sivertsson 2021, Criminal convictions and immigrant background 1973–2017 in Sweden, Nordic Journal of Criminology',
+    url: 'https://doi.org/10.1080/2578983X.2021.1900038',
+  },
   bra2005: {
     label: 'Brå rapport 2005:17, Brottslighet bland personer födda i Sverige och i utlandet',
     url: 'https://www.bra.se/download/18.cba82f7130f475a2f1800012697/2005_17_brottslighet_bland_personer_fodda_sverige_och_utlandet.pdf',

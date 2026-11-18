@@ -425,3 +425,38 @@ export function loadHomicide(): HomicideRow[] {
   }));
   return unique(rows, (r) => `${r.chart}/${r.itemId}`, file);
 }
+
+// ---------- backman_lagforda_fore_25.csv (chapter 9) ----------
+// Bäckman, Estrada, Nilsson & Sivertsson 2021, Nordic Journal of Criminology 22(2), tables 1 and 2 (CC BY 4.0).
+// Everyone born 1966–1993 and registered in Sweden from age 15 to 24: share (%) convicted at least once
+// (and repeatedly) by age 24, and relative risk (RR) against the native group, as printed. table: alla = everyone,
+// laginkomst = grew up in the lowest-income tenth of families.
+
+export const COHORT_GROUPS = ['native', 'andra_gen', 'utrikesfodd'] as const;
+export type CohortGroup = (typeof COHORT_GROUPS)[number];
+
+export interface CohortRow {
+  table: 'alla' | 'laginkomst';
+  sex: 'man' | 'kvinna';
+  cohort: string;
+  measure: 'minst1' | 'minst4' | 'minst2';
+  group: CohortGroup;
+  pct: number;
+  rr: number;
+  n: number;
+}
+
+export function loadCohorts(): CohortRow[] {
+  const file = 'backman_lagforda_fore_25.csv';
+  const rows = readCsv(file, ['table', 'sex', 'cohort', 'measure', 'group', 'pct', 'rr', 'n', 'source']).map((r) => ({
+    table: oneOf(r.table, ['alla', 'laginkomst'] as const, `${file} table`),
+    sex: oneOf(r.sex, ['man', 'kvinna'] as const, `${file} sex`),
+    cohort: r.cohort,
+    measure: oneOf(r.measure, ['minst1', 'minst4', 'minst2'] as const, `${file} measure`),
+    group: oneOf(r.group, COHORT_GROUPS, `${file} group`),
+    pct: required(r.pct, 'pct'),
+    rr: required(r.rr, 'rr'),
+    n: required(r.n, 'n'),
+  }));
+  return unique(rows, (r) => `${r.table}/${r.sex}/${r.cohort}/${r.measure}/${r.group}`, file);
+}

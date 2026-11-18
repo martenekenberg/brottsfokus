@@ -17,7 +17,8 @@ import { round } from '../src/lib/calc';
 import { buildSuspicionShares, peakYear } from '../src/lib/chapters/kap1Shares';
 import { buildRiskFactors } from '../src/lib/chapters/kap2Factors';
 import { crimes as ntuCrimes, pooled, swedishHigher, regionTables } from '../src/lib/chapters/kap6';
-import { loadNtu, loadDeportation, loadHomicide } from '../src/lib/data';
+import { loadNtu, loadDeportation, loadHomicide, loadCohorts } from '../src/lib/data';
+import { allFell, smallerInLowIncome } from '../src/lib/chapters/kap9';
 import { moreThanTwiceForeign, worseOnAll, homicideItem } from '../src/lib/chapters/kap8';
 import { citizenshipGroups, offenceGroups, totalRow } from '../src/lib/chapters/kap7';
 import { buildKap1Data, buildKap1Spec } from '../src/lib/chapters/kap1';
@@ -171,4 +172,22 @@ test('chapter 8: homicide figures as stated by Brå', () => {
   for (const k of ['victims', 'perpetrators', 'population'] as const) assert.ok(sv2[k]! + utr[k]! <= 100);
   assert.ok(moreThanTwiceForeign(rows));
   assert.ok(worseOnAll(rows));
+});
+
+test('chapter 9: tables 1 and 2 are complete and the printed relative risks fit the shares', () => {
+  const rows = loadCohorts();
+  assert.equal(rows.length, 168);
+  for (const r of rows) {
+    if (r.group === 'native') {
+      assert.equal(r.rr, 1);
+      continue;
+    }
+    const ref = rows.find((x) => x.table === r.table && x.sex === r.sex && x.cohort === r.cohort && x.measure === r.measure && x.group === 'native')!;
+    // Shares are rounded to one decimal, so the true ratio lies between these bounds; the printed RR (one decimal) must fit.
+    const lo = (r.pct - 0.05) / (ref.pct + 0.05);
+    const hi = (r.pct + 0.05) / (ref.pct - 0.05);
+    assert.ok(r.rr >= lo - 0.05 && r.rr <= hi + 0.05, `${r.table} ${r.sex} ${r.cohort} ${r.measure} ${r.group}`);
+  }
+  assert.ok(allFell(rows));
+  assert.ok(smallerInLowIncome(rows));
 });
