@@ -20,6 +20,8 @@ Stack: Astro + D3, data as CSV in `data/`, deploy via GitHub + Vercel.
 | data/bra2021_brottsmisstankar.csv | Registered suspicions per group and year 2007–2018, incl. people not registered in Sweden (counts, and Brå's shares for checking) | Brå 2021:9 appendix 3, tables D1 and D2 |
 | data/bra2021_riskfaktorer.csv | Excess risk for social assistance, education and sex, 2015–2018 | Brå 2021:9, report text p. 54–55 |
 | data/ntu_utsatthet.csv | Self-reported victimisation by foreign/Swedish background, sex and world region, 2016–2022 (pooled and per year, with confidence intervals) | Brå NTU Kortanalys 2/2024, table appendix |
+| data/utvisning_b1.csv | People with a deportation order in a prison sentence who left prison 2013–2023: share deported, share convicted of new crimes, by sex, age, offence and citizenship | Brå 2026:15 appendix 1, table B1 |
+| data/utvisning_text.csv | Figures Brå 2026:15 states only in the text (share deported within a year for some years, counts) | Brå 2026:15, p. 5 and 36 |
 
 All files are in place. Copies of some of the Brå prison reports are kept in `docs/kallor/` for spot-checking; the build does not use them.
 

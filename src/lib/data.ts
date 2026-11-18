@@ -343,3 +343,57 @@ export function loadNtu(): NtuRow[] {
   });
   return unique(rows, (r) => `${r.view}/${r.crimeId}/${r.sex}/${r.group}/${r.period}`, file);
 }
+
+// ---------- utvisning_b1.csv and utvisning_text.csv (chapter 7) ----------
+// Brå 2026:15, Utvisningsdömda i brottmål. Table B1: everyone with a deportation order in a prison
+// sentence who left prison 2013–2023, followed up to 2024. Empty cell = Brå does not report the value
+// (fewer than 4 people, marked x by Brå). utvisning_text.csv holds figures Brå states only in the text.
+
+export const DEPORT_DIMENSIONS = ['totalt', 'kon', 'alder', 'folkbokforing', 'huvudbrott', 'varldsdel', 'delomrade'] as const;
+export type DeportDimension = (typeof DEPORT_DIMENSIONS)[number];
+
+export interface DeportRow {
+  dimension: DeportDimension;
+  group: string;
+  /** World region for a sub-region, or the main category for a sub-category. Empty otherwise. */
+  parent: string;
+  pctDeported: number | null;
+  pctDeported1yr: number | null;
+  pctReconvicted: number | null;
+  pctReconvicted1yr: number | null;
+  n: number | null;
+}
+
+export function loadDeportation(): DeportRow[] {
+  const file = 'utvisning_b1.csv';
+  const cols = ['dimension', 'group', 'parent', 'pct_deported', 'pct_deported_1yr', 'pct_reconvicted', 'pct_reconvicted_1yr', 'n', 'source'];
+  const rows = readCsv(file, cols).map((r) => ({
+    dimension: oneOf(r.dimension, DEPORT_DIMENSIONS, `${file} dimension`),
+    group: r.group,
+    parent: r.parent,
+    pctDeported: num(r.pct_deported),
+    pctDeported1yr: num(r.pct_deported_1yr),
+    pctReconvicted: num(r.pct_reconvicted),
+    pctReconvicted1yr: num(r.pct_reconvicted_1yr),
+    n: num(r.n),
+  }));
+  return unique(rows, (r) => `${r.dimension}/${r.group}`, file);
+}
+
+export interface DeportFact {
+  id: string;
+  year: number | null;
+  value: number;
+  source: string;
+}
+
+export function loadDeportationFacts(): DeportFact[] {
+  const file = 'utvisning_text.csv';
+  const rows = readCsv(file, ['id', 'year', 'value', 'source']).map((r) => ({
+    id: r.id,
+    year: num(r.year),
+    value: required(r.value, 'value'),
+    source: r.source,
+  }));
+  return unique(rows, (r) => `${r.id}/${r.year}`, file);
+}

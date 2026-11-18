@@ -1,0 +1,41 @@
+dimension,group,parent,pct_deported,pct_deported_1yr,pct_reconvicted,pct_reconvicted_1yr,n,source
+totalt,Totalt,,48.2,45.3,17.6,12.1,5826,Brå 2026:15 tabell B1
+kon,Man,,47.7,44.7,18.1,12.5,5529,Brå 2026:15 tabell B1
+kon,Kvinna,,57.9,57.2,7.1,5.7,297,Brå 2026:15 tabell B1
+alder,15–24,,39.7,34.3,23.8,17.7,1165,Brå 2026:15 tabell B1
+alder,25–34,,46.6,43.7,17.4,11.3,2293,Brå 2026:15 tabell B1
+alder,35–44,,52.7,50.7,15.4,10.7,1543,Brå 2026:15 tabell B1
+alder,45 år eller äldre,,56.5,55.5,13.2,9.2,825,Brå 2026:15 tabell B1
+folkbokforing,Folkbokförd,,49.7,42.9,22.2,14.6,781,Brå 2026:15 tabell B1
+folkbokforing,Ej folkbokförd,,48.0,45.7,16.8,11.7,5045,Brå 2026:15 tabell B1
+huvudbrott,Våldsbrott inkl. rån,,52.6,46.3,14.2,8.8,753,Brå 2026:15 tabell B1
+huvudbrott,Sexualbrott,,48.9,42.9,9.6,5.1,415,Brå 2026:15 tabell B1
+huvudbrott,Tillgreppsbrott exkl. rån,,40.6,38.7,24.4,17.9,2252,Brå 2026:15 tabell B1
+huvudbrott,Narkotikabrott/smuggling,,59.8,58.0,10.1,6.7,1613,Brå 2026:15 tabell B1
+huvudbrott,Ekonomisk brottslighet,,45.4,44.4,15.0,8.6,441,Brå 2026:15 tabell B1
+huvudbrott,Övrigt,,37.8,31.3,27.8,20.2,352,Brå 2026:15 tabell B1
+huvudbrott,Brott mot allmänhet och stat,Övrigt,45.9,32.4,13.5,,37,Brå 2026:15 tabell B1
+huvudbrott,Trafikbrott,Övrigt,34.6,34.6,42.3,34.6,26,Brå 2026:15 tabell B1
+varldsdel,Afrika,,39.4,33.7,15.5,11.1,923,Brå 2026:15 tabell B1
+delomrade,Centralafrika,Afrika,,,,,,Brå 2026:15 tabell B1
+delomrade,Nordafrika,Afrika,31.9,25.4,19.8,14.3,504,Brå 2026:15 tabell B1
+delomrade,Södra Afrika,Afrika,,,,,,Brå 2026:15 tabell B1
+delomrade,Västafrika,Afrika,48.9,47.9,8.0,5.1,313,Brå 2026:15 tabell B1
+delomrade,Östafrika,Afrika,45.2,26.9,19.4,15.1,93,Brå 2026:15 tabell B1
+varldsdel,Asien,,42.0,36.6,17.8,13.0,1002,Brå 2026:15 tabell B1
+delomrade,Sydostasien,Asien,46.7,46.7,,,30,Brå 2026:15 tabell B1
+delomrade,Södra Centralasien,Asien,39.8,34.1,18.0,13.8,261,Brå 2026:15 tabell B1
+delomrade,Västasien,Asien,42.2,36.7,18.6,13.3,694,Brå 2026:15 tabell B1
+delomrade,Östasien,Asien,58.8,52.9,,,17,Brå 2026:15 tabell B1
+varldsdel,Europa,,52.2,51.4,17.4,12.0,3154,Brå 2026:15 tabell B1
+delomrade,Nordeuropa,Europa,56.4,55.2,20.0,14.7,571,Brå 2026:15 tabell B1
+delomrade,Sydeuropa,Europa,54.8,54.3,12.2,6.7,624,Brå 2026:15 tabell B1
+delomrade,Västeuropa,Europa,81.8,81.8,3.4,2.0,203,Brå 2026:15 tabell B1
+delomrade,Östeuropa,Europa,46.5,45.7,20.1,14.2,1756,Brå 2026:15 tabell B1
+varldsdel,Latinamerika och Karibien,,50.8,49.7,6.3,2.1,191,Brå 2026:15 tabell B1
+delomrade,Centralamerika,Latinamerika och Karibien,,,,,,Brå 2026:15 tabell B1
+delomrade,Karibien,Latinamerika och Karibien,48.5,48.5,12.1,,33,Brå 2026:15 tabell B1
+delomrade,Sydamerika,Latinamerika och Karibien,53.1,51.7,5.4,,147,Brå 2026:15 tabell B1
+varldsdel,Nordamerika,,80.0,80.0,,,10,Brå 2026:15 tabell B1
+varldsdel,Oceanien,,,,,,,Brå 2026:15 tabell B1
+varldsdel,Ej definierat,,50.3,43.7,25.3,16.5,545,Brå 2026:15 tabell B1

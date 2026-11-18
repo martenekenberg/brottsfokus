@@ -17,7 +17,8 @@ import { round } from '../src/lib/calc';
 import { buildSuspicionShares, peakYear } from '../src/lib/chapters/kap1Shares';
 import { buildRiskFactors } from '../src/lib/chapters/kap2Factors';
 import { crimes as ntuCrimes, pooled, swedishHigher, regionTables } from '../src/lib/chapters/kap6';
-import { loadNtu } from '../src/lib/data';
+import { loadNtu, loadDeportation } from '../src/lib/data';
+import { citizenshipGroups, offenceGroups, totalRow } from '../src/lib/chapters/kap7';
 import { buildKap1Data, buildKap1Spec } from '../src/lib/chapters/kap1';
 import { buildKap2Data, buildKap2Spec, hasShares, type Measure, type View } from '../src/lib/chapters/kap2';
 import { buildKap4 } from '../src/lib/chapters/kap4';
@@ -142,4 +143,19 @@ test('chapter 6: NTU values as in Brå’s report, gaps stay gaps', () => {
   assert.equal(soviet.flag, '.');
   const t = regionTables(rows, 'sv').find((x) => x.id === 'kap6-region-sexualbrott')!;
   assert.equal(t.rows.find((r) => r.key === 'Sovjetunionen')!.cells[1], null);
+});
+
+test('chapter 7: table B1 adds up, hidden values stay empty', () => {
+  const rows = loadDeportation();
+  const total = totalRow(rows);
+  assert.equal(total.n, 5826);
+  assert.equal(total.pctDeported, 48.2);
+  const sum = (d: string) => rows.filter((r) => r.dimension === d && r.parent === '').reduce((a, r) => a + (r.n ?? 0), 0);
+  for (const d of ['kon', 'alder', 'folkbokforing', 'huvudbrott']) assert.equal(sum(d), 5826, d);
+  // World regions add up to 5,825; Brå hides one person (Oceania).
+  assert.equal(sum('varldsdel'), 5825);
+  assert.equal(rows.find((r) => r.group === 'Oceanien')!.pctDeported, null);
+  assert.equal(citizenshipGroups(rows)[0].group, 'Västeuropa');
+  assert.ok(citizenshipGroups(rows).every((r) => (r.n ?? 0) >= 50));
+  assert.equal(offenceGroups(rows)[0].group, 'Narkotikabrott/smuggling');
 });

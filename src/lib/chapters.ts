@@ -53,6 +53,13 @@ export const chapters: ChapterInfo[] = [
     nextLabel: { sv: 'Utsatta för brott', en: 'Victims of crime' },
   },
   {
+    id: 'kap7',
+    num: '07',
+    navLabel: { sv: 'Utvisning', en: 'Deportation' },
+    kicker: { sv: 'Utvisning på grund av brott', en: 'Deportation for crime' },
+    nextLabel: { sv: 'Utvisning', en: 'Deportation' },
+  },
+  {
     id: 'metod',
     num: '',
     navLabel: { sv: 'Metod', en: 'Method' },

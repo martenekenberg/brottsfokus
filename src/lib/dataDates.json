@@ -35,6 +35,14 @@
     "date": "2026-11-13",
     "sha256": "c7a779f30e1bc54b93dcd3fd9a5628573fd08266f72b44046b7f7bba2bc5c1ed"
   },
+  "utvisning_b1.csv": {
+    "date": "2026-11-18",
+    "sha256": "66286b9707ac1f7cf6422382098222b533484a8b3676966e2a149fd5b81bbe7c"
+  },
+  "utvisning_text.csv": {
+    "date": "2026-11-18",
+    "sha256": "e37b62f35a4d7606fa0ff9bd9cbf276257fbac3e31a60f93696884a40a2d7c8a"
+  },
   "valdtakt_domda.csv": {
     "date": "2026-11-13",
     "sha256": "2b03a489fd7711242ebe48413739583b4b71c90c9963a45216df9f74d095551a"

@@ -11,7 +11,8 @@ import { buildSuspicionShares, groupLabel, peakYear } from '../src/lib/chapters/
 import { buildRiskFactors, itemLabel } from '../src/lib/chapters/kap2Factors';
 import { round } from '../src/lib/calc';
 import { crimes as ntuCrimes, pooled as ntuPooled } from '../src/lib/chapters/kap6';
-import { loadNtu } from '../src/lib/data';
+import { loadNtu, loadDeportation, loadDeportationFacts } from '../src/lib/data';
+import { citizenshipGroups, offenceGroups, totalRow as deportTotalRow } from '../src/lib/chapters/kap7';
 import { formatNumber as formatNumberIn, formatPct as formatPctIn, formatTimes as formatTimesIn } from '../src/lib/format';
 import { buildKap1Data, buildKap1Spec as buildKap1SpecIn, GROUPS, type Mode } from '../src/lib/chapters/kap1';
 import {
@@ -252,6 +253,27 @@ const kap5 = buildKap5(bra2005);
         add(K, `Diagram, ${who.toLowerCase()}`, `${c.name} ${c.period}, ${who.toLowerCase()} med ${name}`, barFmt(r.pct!, 'pct1'), `Brå NTU Kortanalys 2/2024, tabellbilaga ${r.sourceTable.toLowerCase()} (${formatNumber(r.pct!, 3)})`, STATED, NTU);
       }
     }
+  }
+}
+
+// ---------- Chapter 7 ----------
+{
+  const K = '07 Utvisning';
+  const URL = 'https://bra.se/download/18.5d0a8fbf19ddcaf2a6cccb2/1777972068717/2026_15_Utvisningsd%C3%B6mda%20i%20brottm%C3%A5l.pdf';
+  const rows = loadDeportation();
+  const facts = loadDeportationFacts();
+  const t = deportTotalRow(rows);
+  add(K, 'Ingress', 'Antal som lämnade fängelset 2013–2023', formatNumber(t.n!), 'Brå 2026:15 tabell B1', STATED, URL);
+  add(K, 'Rubrik, ingress, diagram (linje)', 'Andel utvisade, alla', formatPct(t.pctDeported!, 1), 'Brå 2026:15 tabell B1', STATED, URL);
+  add(K, 'Andra diagrammet, ingress', 'Andel lagförda för nya brott, alla', formatPct(t.pctReconvicted!, 1), 'Brå 2026:15 tabell B1', STATED, URL);
+  for (const f of facts) {
+    add(K, 'Text', `${f.id}${f.year ? ` ${f.year}` : ''}`, formatNumber(f.value, Number.isInteger(f.value) ? 0 : 1), f.source, STATED, URL);
+  }
+  for (const r of citizenshipGroups(rows)) {
+    add(K, 'Diagram, medborgarskap', `${r.group} (n = ${formatNumber(r.n!)})`, barFmt(r.pctDeported!, 'pct1'), 'Brå 2026:15 tabell B1 (och tabell 6)', STATED, URL);
+  }
+  for (const r of offenceGroups(rows)) {
+    add(K, 'Andra diagrammet, huvudbrott', `${r.group}: utvisade / lagförda för nya brott`, `${barFmt(r.pctDeported!, 'pct1')} / ${barFmt(r.pctReconvicted!, 'pct1')}`, 'Brå 2026:15 tabell B1', STATED, URL);
   }
 }
 

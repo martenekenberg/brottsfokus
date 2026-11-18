@@ -7052,3 +7052,203 @@ Sida,Tabell,Rad,Kolumn,Värde på sidan
 /data/utsatta-for-brott/,Trakasserier: andel utsatta (%) per år,2022,"Män, svensk bakgrund","4,3"
 /data/utsatta-for-brott/,Trakasserier: andel utsatta (%) per år,2022,"Kvinnor, utländsk bakgrund","7,7"
 /data/utsatta-for-brott/,Trakasserier: andel utsatta (%) per år,2022,"Kvinnor, svensk bakgrund","6,0"
+/data/utvisning/,"Alla, efter kön, ålder och folkbokföring",Alla,Utvisade (%),"48,2"
+/data/utvisning/,"Alla, efter kön, ålder och folkbokföring",Alla,Utvisade inom 1 år (%),"45,3"
+/data/utvisning/,"Alla, efter kön, ålder och folkbokföring",Alla,Lagförda för nya brott (%),"17,6"
+/data/utvisning/,"Alla, efter kön, ålder och folkbokföring",Alla,"Lagförda, brott inom 1 år (%)","12,1"
+/data/utvisning/,"Alla, efter kön, ålder och folkbokföring",Alla,Antal personer,5 826
+/data/utvisning/,"Alla, efter kön, ålder och folkbokföring",Man,Utvisade (%),"47,7"
+/data/utvisning/,"Alla, efter kön, ålder och folkbokföring",Man,Utvisade inom 1 år (%),"44,7"
+/data/utvisning/,"Alla, efter kön, ålder och folkbokföring",Man,Lagförda för nya brott (%),"18,1"
+/data/utvisning/,"Alla, efter kön, ålder och folkbokföring",Man,"Lagförda, brott inom 1 år (%)","12,5"
+/data/utvisning/,"Alla, efter kön, ålder och folkbokföring",Man,Antal personer,5 529
+/data/utvisning/,"Alla, efter kön, ålder och folkbokföring",Kvinna,Utvisade (%),"57,9"
+/data/utvisning/,"Alla, efter kön, ålder och folkbokföring",Kvinna,Utvisade inom 1 år (%),"57,2"
+/data/utvisning/,"Alla, efter kön, ålder och folkbokföring",Kvinna,Lagförda för nya brott (%),"7,1"
+/data/utvisning/,"Alla, efter kön, ålder och folkbokföring",Kvinna,"Lagförda, brott inom 1 år (%)","5,7"
+/data/utvisning/,"Alla, efter kön, ålder och folkbokföring",Kvinna,Antal personer,297
+/data/utvisning/,"Alla, efter kön, ålder och folkbokföring",15–24,Utvisade (%),"39,7"
+/data/utvisning/,"Alla, efter kön, ålder och folkbokföring",15–24,Utvisade inom 1 år (%),"34,3"
+/data/utvisning/,"Alla, efter kön, ålder och folkbokföring",15–24,Lagförda för nya brott (%),"23,8"
+/data/utvisning/,"Alla, efter kön, ålder och folkbokföring",15–24,"Lagförda, brott inom 1 år (%)","17,7"
+/data/utvisning/,"Alla, efter kön, ålder och folkbokföring",15–24,Antal personer,1 165
+/data/utvisning/,"Alla, efter kön, ålder och folkbokföring",25–34,Utvisade (%),"46,6"
+/data/utvisning/,"Alla, efter kön, ålder och folkbokföring",25–34,Utvisade inom 1 år (%),"43,7"
+/data/utvisning/,"Alla, efter kön, ålder och folkbokföring",25–34,Lagförda för nya brott (%),"17,4"
+/data/utvisning/,"Alla, efter kön, ålder och folkbokföring",25–34,"Lagförda, brott inom 1 år (%)","11,3"
+/data/utvisning/,"Alla, efter kön, ålder och folkbokföring",25–34,Antal personer,2 293
+/data/utvisning/,"Alla, efter kön, ålder och folkbokföring",35–44,Utvisade (%),"52,7"
+/data/utvisning/,"Alla, efter kön, ålder och folkbokföring",35–44,Utvisade inom 1 år (%),"50,7"
+/data/utvisning/,"Alla, efter kön, ålder och folkbokföring",35–44,Lagförda för nya brott (%),"15,4"
+/data/utvisning/,"Alla, efter kön, ålder och folkbokföring",35–44,"Lagförda, brott inom 1 år (%)","10,7"
+/data/utvisning/,"Alla, efter kön, ålder och folkbokföring",35–44,Antal personer,1 543
+/data/utvisning/,"Alla, efter kön, ålder och folkbokföring",45 år eller äldre,Utvisade (%),"56,5"
+/data/utvisning/,"Alla, efter kön, ålder och folkbokföring",45 år eller äldre,Utvisade inom 1 år (%),"55,5"
+/data/utvisning/,"Alla, efter kön, ålder och folkbokföring",45 år eller äldre,Lagförda för nya brott (%),"13,2"
+/data/utvisning/,"Alla, efter kön, ålder och folkbokföring",45 år eller äldre,"Lagförda, brott inom 1 år (%)","9,2"
+/data/utvisning/,"Alla, efter kön, ålder och folkbokföring",45 år eller äldre,Antal personer,825
+/data/utvisning/,"Alla, efter kön, ålder och folkbokföring",Folkbokförd,Utvisade (%),"49,7"
+/data/utvisning/,"Alla, efter kön, ålder och folkbokföring",Folkbokförd,Utvisade inom 1 år (%),"42,9"
+/data/utvisning/,"Alla, efter kön, ålder och folkbokföring",Folkbokförd,Lagförda för nya brott (%),"22,2"
+/data/utvisning/,"Alla, efter kön, ålder och folkbokföring",Folkbokförd,"Lagförda, brott inom 1 år (%)","14,6"
+/data/utvisning/,"Alla, efter kön, ålder och folkbokföring",Folkbokförd,Antal personer,781
+/data/utvisning/,"Alla, efter kön, ålder och folkbokföring",Ej folkbokförd,Utvisade (%),"48,0"
+/data/utvisning/,"Alla, efter kön, ålder och folkbokföring",Ej folkbokförd,Utvisade inom 1 år (%),"45,7"
+/data/utvisning/,"Alla, efter kön, ålder och folkbokföring",Ej folkbokförd,Lagförda för nya brott (%),"16,8"
+/data/utvisning/,"Alla, efter kön, ålder och folkbokföring",Ej folkbokförd,"Lagförda, brott inom 1 år (%)","11,7"
+/data/utvisning/,"Alla, efter kön, ålder och folkbokföring",Ej folkbokförd,Antal personer,5 045
+/data/utvisning/,Efter huvudbrott i den dom som ledde till fängelse,Våldsbrott inkl. rån,Utvisade (%),"52,6"
+/data/utvisning/,Efter huvudbrott i den dom som ledde till fängelse,Våldsbrott inkl. rån,Utvisade inom 1 år (%),"46,3"
+/data/utvisning/,Efter huvudbrott i den dom som ledde till fängelse,Våldsbrott inkl. rån,Lagförda för nya brott (%),"14,2"
+/data/utvisning/,Efter huvudbrott i den dom som ledde till fängelse,Våldsbrott inkl. rån,"Lagförda, brott inom 1 år (%)","8,8"
+/data/utvisning/,Efter huvudbrott i den dom som ledde till fängelse,Våldsbrott inkl. rån,Antal personer,753
+/data/utvisning/,Efter huvudbrott i den dom som ledde till fängelse,Sexualbrott,Utvisade (%),"48,9"
+/data/utvisning/,Efter huvudbrott i den dom som ledde till fängelse,Sexualbrott,Utvisade inom 1 år (%),"42,9"
+/data/utvisning/,Efter huvudbrott i den dom som ledde till fängelse,Sexualbrott,Lagförda för nya brott (%),"9,6"
+/data/utvisning/,Efter huvudbrott i den dom som ledde till fängelse,Sexualbrott,"Lagförda, brott inom 1 år (%)","5,1"
+/data/utvisning/,Efter huvudbrott i den dom som ledde till fängelse,Sexualbrott,Antal personer,415
+/data/utvisning/,Efter huvudbrott i den dom som ledde till fängelse,Tillgreppsbrott exkl. rån,Utvisade (%),"40,6"
+/data/utvisning/,Efter huvudbrott i den dom som ledde till fängelse,Tillgreppsbrott exkl. rån,Utvisade inom 1 år (%),"38,7"
+/data/utvisning/,Efter huvudbrott i den dom som ledde till fängelse,Tillgreppsbrott exkl. rån,Lagförda för nya brott (%),"24,4"
+/data/utvisning/,Efter huvudbrott i den dom som ledde till fängelse,Tillgreppsbrott exkl. rån,"Lagförda, brott inom 1 år (%)","17,9"
+/data/utvisning/,Efter huvudbrott i den dom som ledde till fängelse,Tillgreppsbrott exkl. rån,Antal personer,2 252
+/data/utvisning/,Efter huvudbrott i den dom som ledde till fängelse,Narkotikabrott/smuggling,Utvisade (%),"59,8"
+/data/utvisning/,Efter huvudbrott i den dom som ledde till fängelse,Narkotikabrott/smuggling,Utvisade inom 1 år (%),"58,0"
+/data/utvisning/,Efter huvudbrott i den dom som ledde till fängelse,Narkotikabrott/smuggling,Lagförda för nya brott (%),"10,1"
+/data/utvisning/,Efter huvudbrott i den dom som ledde till fängelse,Narkotikabrott/smuggling,"Lagförda, brott inom 1 år (%)","6,7"
+/data/utvisning/,Efter huvudbrott i den dom som ledde till fängelse,Narkotikabrott/smuggling,Antal personer,1 613
+/data/utvisning/,Efter huvudbrott i den dom som ledde till fängelse,Ekonomisk brottslighet,Utvisade (%),"45,4"
+/data/utvisning/,Efter huvudbrott i den dom som ledde till fängelse,Ekonomisk brottslighet,Utvisade inom 1 år (%),"44,4"
+/data/utvisning/,Efter huvudbrott i den dom som ledde till fängelse,Ekonomisk brottslighet,Lagförda för nya brott (%),"15,0"
+/data/utvisning/,Efter huvudbrott i den dom som ledde till fängelse,Ekonomisk brottslighet,"Lagförda, brott inom 1 år (%)","8,6"
+/data/utvisning/,Efter huvudbrott i den dom som ledde till fängelse,Ekonomisk brottslighet,Antal personer,441
+/data/utvisning/,Efter huvudbrott i den dom som ledde till fängelse,Övrigt,Utvisade (%),"37,8"
+/data/utvisning/,Efter huvudbrott i den dom som ledde till fängelse,Övrigt,Utvisade inom 1 år (%),"31,3"
+/data/utvisning/,Efter huvudbrott i den dom som ledde till fängelse,Övrigt,Lagförda för nya brott (%),"27,8"
+/data/utvisning/,Efter huvudbrott i den dom som ledde till fängelse,Övrigt,"Lagförda, brott inom 1 år (%)","20,2"
+/data/utvisning/,Efter huvudbrott i den dom som ledde till fängelse,Övrigt,Antal personer,352
+/data/utvisning/,Efter huvudbrott i den dom som ledde till fängelse,  Brott mot allmänhet och stat,Utvisade (%),"45,9"
+/data/utvisning/,Efter huvudbrott i den dom som ledde till fängelse,  Brott mot allmänhet och stat,Utvisade inom 1 år (%),"32,4"
+/data/utvisning/,Efter huvudbrott i den dom som ledde till fängelse,  Brott mot allmänhet och stat,Lagförda för nya brott (%),"13,5"
+/data/utvisning/,Efter huvudbrott i den dom som ledde till fängelse,  Brott mot allmänhet och stat,"Lagförda, brott inom 1 år (%)",saknas
+/data/utvisning/,Efter huvudbrott i den dom som ledde till fängelse,  Brott mot allmänhet och stat,Antal personer,37
+/data/utvisning/,Efter huvudbrott i den dom som ledde till fängelse,  Trafikbrott,Utvisade (%),"34,6"
+/data/utvisning/,Efter huvudbrott i den dom som ledde till fängelse,  Trafikbrott,Utvisade inom 1 år (%),"34,6"
+/data/utvisning/,Efter huvudbrott i den dom som ledde till fängelse,  Trafikbrott,Lagförda för nya brott (%),"42,3"
+/data/utvisning/,Efter huvudbrott i den dom som ledde till fängelse,  Trafikbrott,"Lagförda, brott inom 1 år (%)","34,6"
+/data/utvisning/,Efter huvudbrott i den dom som ledde till fängelse,  Trafikbrott,Antal personer,26
+/data/utvisning/,"Efter medborgarskap, världsdel och område",Afrika,Utvisade (%),"39,4"
+/data/utvisning/,"Efter medborgarskap, världsdel och område",Afrika,Utvisade inom 1 år (%),"33,7"
+/data/utvisning/,"Efter medborgarskap, världsdel och område",Afrika,Lagförda för nya brott (%),"15,5"
+/data/utvisning/,"Efter medborgarskap, världsdel och område",Afrika,"Lagförda, brott inom 1 år (%)","11,1"
+/data/utvisning/,"Efter medborgarskap, världsdel och område",Afrika,Antal personer,923
+/data/utvisning/,"Efter medborgarskap, världsdel och område",  Centralafrika,Utvisade (%),saknas
+/data/utvisning/,"Efter medborgarskap, världsdel och område",  Centralafrika,Utvisade inom 1 år (%),saknas
+/data/utvisning/,"Efter medborgarskap, världsdel och område",  Centralafrika,Lagförda för nya brott (%),saknas
+/data/utvisning/,"Efter medborgarskap, världsdel och område",  Centralafrika,"Lagförda, brott inom 1 år (%)",saknas
+/data/utvisning/,"Efter medborgarskap, världsdel och område",  Centralafrika,Antal personer,saknas
+/data/utvisning/,"Efter medborgarskap, världsdel och område",  Nordafrika,Utvisade (%),"31,9"
+/data/utvisning/,"Efter medborgarskap, världsdel och område",  Nordafrika,Utvisade inom 1 år (%),"25,4"
+/data/utvisning/,"Efter medborgarskap, världsdel och område",  Nordafrika,Lagförda för nya brott (%),"19,8"
+/data/utvisning/,"Efter medborgarskap, världsdel och område",  Nordafrika,"Lagförda, brott inom 1 år (%)","14,3"
+/data/utvisning/,"Efter medborgarskap, världsdel och område",  Nordafrika,Antal personer,504
+/data/utvisning/,"Efter medborgarskap, världsdel och område",  Södra Afrika,Utvisade (%),saknas
+/data/utvisning/,"Efter medborgarskap, världsdel och område",  Södra Afrika,Utvisade inom 1 år (%),saknas
+/data/utvisning/,"Efter medborgarskap, världsdel och område",  Södra Afrika,Lagförda för nya brott (%),saknas
+/data/utvisning/,"Efter medborgarskap, världsdel och område",  Södra Afrika,"Lagförda, brott inom 1 år (%)",saknas
+/data/utvisning/,"Efter medborgarskap, världsdel och område",  Södra Afrika,Antal personer,saknas
+/data/utvisning/,"Efter medborgarskap, världsdel och område",  Västafrika,Utvisade (%),"48,9"
+/data/utvisning/,"Efter medborgarskap, världsdel och område",  Västafrika,Utvisade inom 1 år (%),"47,9"
+/data/utvisning/,"Efter medborgarskap, världsdel och område",  Västafrika,Lagförda för nya brott (%),"8,0"
+/data/utvisning/,"Efter medborgarskap, världsdel och område",  Västafrika,"Lagförda, brott inom 1 år (%)","5,1"
+/data/utvisning/,"Efter medborgarskap, världsdel och område",  Västafrika,Antal personer,313
+/data/utvisning/,"Efter medborgarskap, världsdel och område",  Östafrika,Utvisade (%),"45,2"
+/data/utvisning/,"Efter medborgarskap, världsdel och område",  Östafrika,Utvisade inom 1 år (%),"26,9"
+/data/utvisning/,"Efter medborgarskap, världsdel och område",  Östafrika,Lagförda för nya brott (%),"19,4"
+/data/utvisning/,"Efter medborgarskap, världsdel och område",  Östafrika,"Lagförda, brott inom 1 år (%)","15,1"
+/data/utvisning/,"Efter medborgarskap, världsdel och område",  Östafrika,Antal personer,93
+/data/utvisning/,"Efter medborgarskap, världsdel och område",Asien,Utvisade (%),"42,0"
+/data/utvisning/,"Efter medborgarskap, världsdel och område",Asien,Utvisade inom 1 år (%),"36,6"
+/data/utvisning/,"Efter medborgarskap, världsdel och område",Asien,Lagförda för nya brott (%),"17,8"
+/data/utvisning/,"Efter medborgarskap, världsdel och område",Asien,"Lagförda, brott inom 1 år (%)","13,0"
+/data/utvisning/,"Efter medborgarskap, världsdel och område",Asien,Antal personer,1 002
+/data/utvisning/,"Efter medborgarskap, världsdel och område",  Sydostasien,Utvisade (%),"46,7"
+/data/utvisning/,"Efter medborgarskap, världsdel och område",  Sydostasien,Utvisade inom 1 år (%),"46,7"
+/data/utvisning/,"Efter medborgarskap, världsdel och område",  Sydostasien,Lagförda för nya brott (%),saknas
+/data/utvisning/,"Efter medborgarskap, världsdel och område",  Sydostasien,"Lagförda, brott inom 1 år (%)",saknas
+/data/utvisning/,"Efter medborgarskap, världsdel och område",  Sydostasien,Antal personer,30
+/data/utvisning/,"Efter medborgarskap, världsdel och område",  Södra Centralasien,Utvisade (%),"39,8"
+/data/utvisning/,"Efter medborgarskap, världsdel och område",  Södra Centralasien,Utvisade inom 1 år (%),"34,1"
+/data/utvisning/,"Efter medborgarskap, världsdel och område",  Södra Centralasien,Lagförda för nya brott (%),"18,0"
+/data/utvisning/,"Efter medborgarskap, världsdel och område",  Södra Centralasien,"Lagförda, brott inom 1 år (%)","13,8"
+/data/utvisning/,"Efter medborgarskap, världsdel och område",  Södra Centralasien,Antal personer,261
+/data/utvisning/,"Efter medborgarskap, världsdel och område",  Västasien,Utvisade (%),"42,2"
+/data/utvisning/,"Efter medborgarskap, världsdel och område",  Västasien,Utvisade inom 1 år (%),"36,7"
+/data/utvisning/,"Efter medborgarskap, världsdel och område",  Västasien,Lagförda för nya brott (%),"18,6"
+/data/utvisning/,"Efter medborgarskap, världsdel och område",  Västasien,"Lagförda, brott inom 1 år (%)","13,3"
+/data/utvisning/,"Efter medborgarskap, världsdel och område",  Västasien,Antal personer,694
+/data/utvisning/,"Efter medborgarskap, världsdel och område",  Östasien,Utvisade (%),"58,8"
+/data/utvisning/,"Efter medborgarskap, världsdel och område",  Östasien,Utvisade inom 1 år (%),"52,9"
+/data/utvisning/,"Efter medborgarskap, världsdel och område",  Östasien,Lagförda för nya brott (%),saknas
+/data/utvisning/,"Efter medborgarskap, världsdel och område",  Östasien,"Lagförda, brott inom 1 år (%)",saknas
+/data/utvisning/,"Efter medborgarskap, världsdel och område",  Östasien,Antal personer,17
+/data/utvisning/,"Efter medborgarskap, världsdel och område",Europa,Utvisade (%),"52,2"
+/data/utvisning/,"Efter medborgarskap, världsdel och område",Europa,Utvisade inom 1 år (%),"51,4"
+/data/utvisning/,"Efter medborgarskap, världsdel och område",Europa,Lagförda för nya brott (%),"17,4"
+/data/utvisning/,"Efter medborgarskap, världsdel och område",Europa,"Lagförda, brott inom 1 år (%)","12,0"
+/data/utvisning/,"Efter medborgarskap, världsdel och område",Europa,Antal personer,3 154
+/data/utvisning/,"Efter medborgarskap, världsdel och område",  Nordeuropa,Utvisade (%),"56,4"
+/data/utvisning/,"Efter medborgarskap, världsdel och område",  Nordeuropa,Utvisade inom 1 år (%),"55,2"
+/data/utvisning/,"Efter medborgarskap, världsdel och område",  Nordeuropa,Lagförda för nya brott (%),"20,0"
+/data/utvisning/,"Efter medborgarskap, världsdel och område",  Nordeuropa,"Lagförda, brott inom 1 år (%)","14,7"
+/data/utvisning/,"Efter medborgarskap, världsdel och område",  Nordeuropa,Antal personer,571
+/data/utvisning/,"Efter medborgarskap, världsdel och område",  Sydeuropa,Utvisade (%),"54,8"
+/data/utvisning/,"Efter medborgarskap, världsdel och område",  Sydeuropa,Utvisade inom 1 år (%),"54,3"
+/data/utvisning/,"Efter medborgarskap, världsdel och område",  Sydeuropa,Lagförda för nya brott (%),"12,2"
+/data/utvisning/,"Efter medborgarskap, världsdel och område",  Sydeuropa,"Lagförda, brott inom 1 år (%)","6,7"
+/data/utvisning/,"Efter medborgarskap, världsdel och område",  Sydeuropa,Antal personer,624
+/data/utvisning/,"Efter medborgarskap, världsdel och område",  Västeuropa,Utvisade (%),"81,8"
+/data/utvisning/,"Efter medborgarskap, världsdel och område",  Västeuropa,Utvisade inom 1 år (%),"81,8"
+/data/utvisning/,"Efter medborgarskap, världsdel och område",  Västeuropa,Lagförda för nya brott (%),"3,4"
+/data/utvisning/,"Efter medborgarskap, världsdel och område",  Västeuropa,"Lagförda, brott inom 1 år (%)","2,0"
+/data/utvisning/,"Efter medborgarskap, världsdel och område",  Västeuropa,Antal personer,203
+/data/utvisning/,"Efter medborgarskap, världsdel och område",  Östeuropa,Utvisade (%),"46,5"
+/data/utvisning/,"Efter medborgarskap, världsdel och område",  Östeuropa,Utvisade inom 1 år (%),"45,7"
+/data/utvisning/,"Efter medborgarskap, världsdel och område",  Östeuropa,Lagförda för nya brott (%),"20,1"
+/data/utvisning/,"Efter medborgarskap, världsdel och område",  Östeuropa,"Lagförda, brott inom 1 år (%)","14,2"
+/data/utvisning/,"Efter medborgarskap, världsdel och område",  Östeuropa,Antal personer,1 756
+/data/utvisning/,"Efter medborgarskap, världsdel och område",Latinamerika och Karibien,Utvisade (%),"50,8"
+/data/utvisning/,"Efter medborgarskap, världsdel och område",Latinamerika och Karibien,Utvisade inom 1 år (%),"49,7"
+/data/utvisning/,"Efter medborgarskap, världsdel och område",Latinamerika och Karibien,Lagförda för nya brott (%),"6,3"
+/data/utvisning/,"Efter medborgarskap, världsdel och område",Latinamerika och Karibien,"Lagförda, brott inom 1 år (%)","2,1"
+/data/utvisning/,"Efter medborgarskap, världsdel och område",Latinamerika och Karibien,Antal personer,191
+/data/utvisning/,"Efter medborgarskap, världsdel och område",  Centralamerika,Utvisade (%),saknas
+/data/utvisning/,"Efter medborgarskap, världsdel och område",  Centralamerika,Utvisade inom 1 år (%),saknas
+/data/utvisning/,"Efter medborgarskap, världsdel och område",  Centralamerika,Lagförda för nya brott (%),saknas
+/data/utvisning/,"Efter medborgarskap, världsdel och område",  Centralamerika,"Lagförda, brott inom 1 år (%)",saknas
+/data/utvisning/,"Efter medborgarskap, världsdel och område",  Centralamerika,Antal personer,saknas
+/data/utvisning/,"Efter medborgarskap, världsdel och område",  Karibien,Utvisade (%),"48,5"
+/data/utvisning/,"Efter medborgarskap, världsdel och område",  Karibien,Utvisade inom 1 år (%),"48,5"
+/data/utvisning/,"Efter medborgarskap, världsdel och område",  Karibien,Lagförda för nya brott (%),"12,1"
+/data/utvisning/,"Efter medborgarskap, världsdel och område",  Karibien,"Lagförda, brott inom 1 år (%)",saknas
+/data/utvisning/,"Efter medborgarskap, världsdel och område",  Karibien,Antal personer,33
+/data/utvisning/,"Efter medborgarskap, världsdel och område",  Sydamerika,Utvisade (%),"53,1"
+/data/utvisning/,"Efter medborgarskap, världsdel och område",  Sydamerika,Utvisade inom 1 år (%),"51,7"
+/data/utvisning/,"Efter medborgarskap, världsdel och område",  Sydamerika,Lagförda för nya brott (%),"5,4"
+/data/utvisning/,"Efter medborgarskap, världsdel och område",  Sydamerika,"Lagförda, brott inom 1 år (%)",saknas
+/data/utvisning/,"Efter medborgarskap, världsdel och område",  Sydamerika,Antal personer,147
+/data/utvisning/,"Efter medborgarskap, världsdel och område",Nordamerika,Utvisade (%),"80,0"
+/data/utvisning/,"Efter medborgarskap, världsdel och område",Nordamerika,Utvisade inom 1 år (%),"80,0"
+/data/utvisning/,"Efter medborgarskap, världsdel och område",Nordamerika,Lagförda för nya brott (%),saknas
+/data/utvisning/,"Efter medborgarskap, världsdel och område",Nordamerika,"Lagförda, brott inom 1 år (%)",saknas
+/data/utvisning/,"Efter medborgarskap, världsdel och område",Nordamerika,Antal personer,10
+/data/utvisning/,"Efter medborgarskap, världsdel och område",Oceanien,Utvisade (%),saknas
+/data/utvisning/,"Efter medborgarskap, världsdel och område",Oceanien,Utvisade inom 1 år (%),saknas
+/data/utvisning/,"Efter medborgarskap, världsdel och område",Oceanien,Lagförda för nya brott (%),saknas
+/data/utvisning/,"Efter medborgarskap, världsdel och område",Oceanien,"Lagförda, brott inom 1 år (%)",saknas
+/data/utvisning/,"Efter medborgarskap, världsdel och område",Oceanien,Antal personer,saknas
+/data/utvisning/,"Efter medborgarskap, världsdel och område",Ej definierat,Utvisade (%),"50,3"
+/data/utvisning/,"Efter medborgarskap, världsdel och område",Ej definierat,Utvisade inom 1 år (%),"43,7"
+/data/utvisning/,"Efter medborgarskap, världsdel och område",Ej definierat,Lagförda för nya brott (%),"25,3"
+/data/utvisning/,"Efter medborgarskap, världsdel och område",Ej definierat,"Lagförda, brott inom 1 år (%)","16,5"
+/data/utvisning/,"Efter medborgarskap, världsdel och område",Ej definierat,Antal personer,545

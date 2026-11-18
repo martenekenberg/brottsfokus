@@ -12,6 +12,8 @@ import {
   loadSuspicionShares,
   loadRiskFactors,
   loadNtu,
+  loadDeportation,
+  loadDeportationFacts,
 } from './data';
 import { buildKap1Data, crimeById, crimeName, type GroupId } from './chapters/kap1';
 import { kap1Csv, rateTable, ratioTable } from './chapters/kap1Tables';
@@ -21,6 +23,7 @@ import { buildKap3, kap3Tables, shortReportName } from './chapters/kap3';
 import { buildSuspicionShares, sharesTables, shareGroup } from './chapters/kap1Shares';
 import { buildRiskFactors, factorsTable } from './chapters/kap2Factors';
 import { round } from './calc';
+import { deportTables, fact, kap7Csv, suppressedGroups, totalRow } from './chapters/kap7';
 import { backgroundTables, flagged, kap6Csv, pooled, regionTables, yearTables } from './chapters/kap6';
 import { kap4Tables } from './chapters/kap4Tables';
 import { kap5Csv, kap5Tables } from './chapters/kap5Tables';
@@ -729,7 +732,67 @@ function kap6(lang: Lang): TablePageContent {
   };
 }
 
-const BUILDERS: Record<string, (lang: Lang) => TablePageContent> = { kap1, kap2, kap3, kap4, kap5, kap6 };
+function kap7(lang: Lang): TablePageContent {
+  const T = <X,>(sv: X, en: X): X => tr(lang, sv, en);
+  const n = (v: number, d = 1) => formatNumber(v, d, lang);
+  const rows = loadDeportation();
+  const facts = loadDeportationFacts();
+  const total = totalRow(rows);
+  const yr = (y: number) => n(fact(facts, 'verkstalld_inom_1_ar', y), 0);
+  const hidden = suppressedGroups(rows).map((r) => dataLabel(r.group, lang));
+
+  return {
+    chapterId: 'kap7',
+    lang,
+    h1: T('Utvisningsdömda som lämnade fängelset 2013–2023: utvisade och nya brott', 'People sentenced to deportation who left prison in 2013–2023: deported and new crimes'),
+    shortTitle: T('Utvisning på grund av brott 2013–2024: tabell', 'Deportation for crime 2013–2024: table'),
+    description: T(
+      'Andel av de utvisningsdömda som lämnade fängelset 2013–2023 som utvisats eller lagförts för nya brott i Sverige, efter kön, ålder, huvudbrott och medborgarskap, enligt Brå rapport 2026:15. Tabeller och CSV-fil.',
+      'Share of people sentenced to deportation who left prison in 2013–2023 who were deported or convicted of new crimes in Sweden, by sex, age, main offence and citizenship, according to Brå report 2026:15. Tables and CSV file.',
+    ),
+    datasetDescription: T(
+      'Alla med utvisningsbeslut i en fängelsedom som lämnade anstalt 2013–2023, uppföljda till och med 2024: andel som utvisats, andel utvisade inom ett år, andel som lagförts för nya brott i Sverige och andel lagförda för brott inom ett år, samt antal personer. Från Brå rapport 2026:15, bilaga 1 tabell B1.',
+      'Everyone with a deportation order in a prison sentence who left prison in 2013–2023, followed up to the end of 2024: share deported, share deported within a year, share convicted of new crimes in Sweden and share convicted of a crime within a year, and the number of people. From Brå report 2026:15, appendix 1 table B1.',
+    ),
+    temporalCoverage: '2013/2024',
+    keywords: T(
+      ['utvisning', 'utvisning på grund av brott', 'verkställighet', 'återfall', 'medborgarskap', 'Brå 2026:15'],
+      ['deportation', 'deportation for crime', 'enforcement', 'reoffending', 'citizenship', 'Brå 2026:15'],
+    ),
+    variableMeasured: T(
+      ['Andel utvisade', 'Andel utvisade inom 1 år', 'Andel lagförda för nya brott', 'Antal personer'],
+      ['Share deported', 'Share deported within 1 year', 'Share convicted of new crimes', 'Number of people'],
+    ),
+    sources: [SOURCES.bra2026utvisning],
+    credit: 'Brå',
+    terms: BRA_TERMS(lang),
+    lead: T(
+      `Av ${n(total.n as number, 0)} personer som dömts till fängelse och utvisning och lämnade anstalten 2013–2023 hade ${n(total.pctDeported as number)} procent ` +
+        `utvisats till och med 2024, enligt Brå. ${n(total.pctReconvicted as number)} procent lagfördes för nya brott i Sverige. Andelen som utvisades ` +
+        `inom ett år var ${yr(2013)} procent bland dem som lämnade fängelset 2013, ${yr(2019)} procent 2019 och ${yr(2023)} procent 2023.`,
+      `Of ${n(total.n as number, 0)} people sentenced to prison and deportation who left prison in 2013–2023, ${n(total.pctDeported as number)}% had been ` +
+        `deported by the end of 2024, according to Brå. ${n(total.pctReconvicted as number)}% were convicted of new crimes in Sweden. The share deported ` +
+        `within a year was ${yr(2013)}% among those who left prison in 2013, ${yr(2019)}% in 2019 and ${yr(2023)}% in 2023.`,
+    ),
+    note: T(
+      'Medborgarskap är inte alltid landet personen utvisas till. De som lämnade fängelset tidigt i perioden har följts längre, därför ' +
+        'finns också andelar inom ett år, som är jämförbara mellan åren. Nya brott gäller lagföringar i Sverige för brott efter fängelset. ' +
+        'Brå redovisar inte uppgifter som bygger på färre än 4 personer, och döljer då också gruppens storlek. De visas med streck. ' +
+        `Helt dolda grupper: ${hidden.join(', ')}. Små grupper kan ändras mycket av enstaka personer.`,
+      'Citizenship is not always the country a person is deported to. Those who left prison early in the period have been followed for longer, ' +
+        'which is why shares within one year are also given; they can be compared between years. New crimes means convictions in Sweden for ' +
+        'crimes after prison. Brå does not report figures based on fewer than 4 people, and then also hides the size of the group. They are ' +
+        `shown as a dash. Fully hidden groups: ${hidden.join(', ')}. Small groups can change a lot because of single people.`,
+    ),
+    sections: [
+      { tables: deportTables(rows, lang) },
+    ],
+    csv: kap7Csv(rows, lang),
+    dataFiles: ['utvisning_b1.csv', 'utvisning_text.csv'],
+  };
+}
+
+const BUILDERS: Record<string, (lang: Lang) => TablePageContent> = { kap1, kap2, kap3, kap4, kap5, kap6, kap7 };
 const cache = new Map<string, TablePageContent>();
 
 /** The text and tables for one table page in one language. */

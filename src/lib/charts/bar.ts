@@ -156,6 +156,14 @@ export function renderBarChart(spec: BarChartSpec, width: number): string {
     p.push(`<text x="${h.x}" y="${h.y}" text-anchor="${h.anchor}" ${FONT} font-size="${h.size}" font-weight="600" fill="${C.ink}">${esc(spec.groups[h.group].label)}</text>`);
   }
 
+  // Dashed reference line beside each bar, drawn first so bars and value labels sit on top of it.
+  if (spec.ref) {
+    const rx = L.x(spec.ref.value).toFixed(1);
+    for (const b of L.bars) {
+      p.push(`<line x1="${rx}" x2="${rx}" y1="${b.y - 3}" y2="${b.y + L.barHeight + 3}" stroke="${C.ink}" stroke-width="1.5" stroke-dasharray="4 3"/>`);
+    }
+  }
+
   for (const b of L.bars) {
     const g = spec.groups[b.group];
     const bar = g.bars[b.bar];
@@ -175,18 +183,20 @@ export function renderBarChart(spec: BarChartSpec, width: number): string {
     } else {
       p.push(`<rect x="${L.x0}" y="${b.y}" width="${w.toFixed(1)}" height="${L.barHeight}" fill="${col.fill}"/>`);
     }
+    const valueText = barFmt(bar.value, spec.format, spec.lang);
+    // With a reference line, a white box behind the value keeps the dashed line from running through it.
+    if (spec.ref) {
+      const tw = valueText.length * 13 * 0.62;
+      p.push(`<rect x="${(L.x0 + w + 6).toFixed(1)}" y="${b.y - 1}" width="${(tw + 4).toFixed(1)}" height="${L.barHeight + 2}" fill="#FFFFFF"/>`);
+    }
     p.push(
-      `<text x="${(L.x0 + w + 8).toFixed(1)}" y="${b.y + 14}" ${FONT} font-size="13" font-weight="${comparison ? 600 : 700}" fill="${col.text}">${esc(barFmt(bar.value, spec.format, spec.lang))}</text>`,
+      `<text x="${(L.x0 + w + 8).toFixed(1)}" y="${b.y + 14}" ${FONT} font-size="13" font-weight="${comparison ? 600 : 700}" fill="${col.text}">${esc(valueText)}</text>`,
     );
   }
 
-  // Comparison group in risk charts: dashed black line with its label underneath.
+  // Comparison group in risk charts: the label under the dashed line (the line itself is drawn under the bars).
   if (spec.ref) {
     const rx = L.x(spec.ref.value).toFixed(1);
-    // Drawn only beside each bar so it never crosses a label.
-    for (const b of L.bars) {
-      p.push(`<line x1="${rx}" x2="${rx}" y1="${b.y - 3}" y2="${b.y + L.barHeight + 3}" stroke="${C.ink}" stroke-width="1.5" stroke-dasharray="4 3"/>`);
-    }
     // Centred under the line, but moved in so it never runs off the left edge.
     const half = (spec.ref.label.length * 12 * 0.58) / 2;
     const atEdge = Number(rx) - half < 0;
