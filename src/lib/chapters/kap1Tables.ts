@@ -3,6 +3,7 @@ import { ratioToComparison } from '../calc';
 import { tr, type Lang } from '../i18n';
 import { csvNumber, longCsv, type DataTable } from '../tables';
 import { crimeName, GROUPS, type GroupId, type Kap1Crime, type Kap1Data } from './kap1';
+import { countColumn, shareColumn, type SuspicionShares } from './kap1Shares';
 
 const RATE_GROUPS: GroupId[] = ['sv2', 'sv1', 'u2', 'utr', 'tot'];
 const RATIO_GROUPS: GroupId[] = ['sv1', 'u2', 'utr'];
@@ -72,15 +73,28 @@ export function ratioTable(data: Kap1Data, crime: Kap1Crime, lang: Lang): DataTa
   };
 }
 
-/** All crime types and years in one file, one row per crime type and year. */
-export function kap1Csv(data: Kap1Data, lang: Lang): string {
+/**
+ * All crime types and years in one file, one row per crime type and year.
+ * The rows for all offences also carry the number of registered suspicions per group and each
+ * group's share of them (Brå table D1); these columns are empty for the other crime types.
+ */
+export function kap1Csv(data: Kap1Data, shares: SuspicionShares, lang: Lang): string {
   const header = [
     tr(lang, 'brottstyp', 'crime_type'),
     tr(lang, 'ar', 'year'),
     ...RATE_GROUPS.map((g) => `${CSV_NAME[lang][g]}_per1000`),
+    ...shares.groups.map((g) => countColumn(g.id, lang)),
+    ...shares.groups.map((g) => shareColumn(g.id, lang)),
   ];
   const rows = data.crimes.flatMap((c) =>
-    data.years.map((y, i) => [crimeName(c, lang), String(y), ...RATE_GROUPS.map((g) => csvNumber(c.values[g][i], 2))]),
+    data.years.map((y, i) => {
+      const j = c.id === 'c00' ? shares.years.indexOf(y) : -1;
+      const extra =
+        j >= 0
+          ? [...shares.groups.map((g) => csvNumber(g.counts[j], 0)), ...shares.groups.map((g) => csvNumber(g.shares[j], 1))]
+          : shares.groups.flatMap(() => ['', '']);
+      return [crimeName(c, lang), String(y), ...RATE_GROUPS.map((g) => csvNumber(c.values[g][i], 2)), ...extra];
+    }),
   );
   return longCsv(header, rows);
 }

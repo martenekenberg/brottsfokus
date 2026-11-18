@@ -9,12 +9,28 @@ import {
   loadRapeStudies,
   loadSuspectsByBackground,
   loadTableB6,
+  loadSuspicionShares,
+  loadRiskFactors,
+  loadNtu,
+  loadDeportation,
+  loadDeportationFacts,
+  loadHomicide,
+  loadCohorts,
+  loadBirthCohorts,
 } from './data';
 import { buildKap1Data, crimeById, crimeName, type GroupId } from './chapters/kap1';
 import { kap1Csv, rateTable, ratioTable } from './chapters/kap1Tables';
 import { buildKap2Data, smallestGroup } from './chapters/kap2';
 import { b6Table, kap2Csv, riskTable, totalCrime, TOTAL } from './chapters/kap2Tables';
 import { buildKap3, kap3Tables, shortReportName } from './chapters/kap3';
+import { buildSuspicionShares, sharesTables, shareGroup } from './chapters/kap1Shares';
+import { buildRiskFactors, factorsTable } from './chapters/kap2Factors';
+import { round } from './calc';
+import { birthYears, firstBackgroundYear, kap10Csv, kohortTables, kohortValue } from './chapters/kap10';
+import { cell as cohortCell, cohortTables, cohorts as cohortList, kap9Csv } from './chapters/kap9';
+import { homicideItem, homicideTables, kap8Csv } from './chapters/kap8';
+import { deportTables, fact, kap7Csv, suppressedGroups, totalRow } from './chapters/kap7';
+import { backgroundTables, flagged, kap6Csv, pooled, regionTables, yearTables } from './chapters/kap6';
 import { kap4Tables } from './chapters/kap4Tables';
 import { kap5Csv, kap5Tables } from './chapters/kap5Tables';
 import { formatNumber } from './format';
@@ -65,6 +81,10 @@ function kap1(lang: Lang): TablePageContent {
   const T = <X,>(sv: X, en: X): X => tr(lang, sv, en);
   const n = (v: number, d = 1) => formatNumber(v, d, lang);
   const data = buildKap1Data(loadSuspectsByBackground());
+  const shares = buildSuspicionShares(loadSuspicionShares());
+  const ej = shareGroup(shares, 'ej');
+  const sharesFirst = shares.years[0];
+  const sharesLast = shares.years[shares.years.length - 1];
   const first = data.years[0];
   const last = data.years[data.years.length - 1];
   const period = `${first}–${last}`;
@@ -101,8 +121,8 @@ function kap1(lang: Lang): TablePageContent {
       ['suspected of crime', 'born abroad', 'foreign background', 'crime types', 'Brå 2021:9'],
     ),
     variableMeasured: T(
-      ['Misstänkta per 1 000 invånare', 'Jämfört med inrikesfödda med två inrikesfödda föräldrar'],
-      ['Suspects per 1,000 residents', 'Compared with born in Sweden, two Swedish-born parents'],
+      ['Misstänkta per 1 000 invånare', 'Jämfört med inrikesfödda med två inrikesfödda föräldrar', 'Antal registrerade brottsmisstankar', 'Andel av alla brottsmisstankar'],
+      ['Suspects per 1,000 residents', 'Compared with born in Sweden, two Swedish-born parents', 'Number of registered crime suspicions', 'Share of all crime suspicions'],
     ),
     sources: [SOURCES.bra2021],
     credit: 'Brå',
@@ -152,9 +172,25 @@ function kap1(lang: Lang): TablePageContent {
         tables: data.crimes.filter((c) => c.id !== 'c00').map((c) => rateTable(data, c, lang)),
         collapsed: true,
       },
+      {
+        heading: T('Andel av alla registrerade brottsmisstankar', 'Share of all registered crime suspicions'),
+        intro: T(
+          `Här räknas brottsmisstankar, inte personer: en person kan misstänkas för flera brott. Även misstankar mot personer som inte är folkbokförda i Sverige är med. De stod för ${n(round(ej.shares[0], 1))} procent av misstankarna ${sharesFirst} och ${n(round(ej.shares[ej.shares.length - 1], 1))} procent ${sharesLast}. Från Brå rapport 2021:9, tabellbilaga 3.`,
+          `Suspicions are counted here, not people: one person can be suspected of several crimes. Suspicions against people not registered as living in Sweden are included. They accounted for ${n(round(ej.shares[0], 1))}% of suspicions in ${sharesFirst} and ${n(round(ej.shares[ej.shares.length - 1], 1))}% in ${sharesLast}. From Brå report 2021:9, table appendix 3.`,
+        ),
+        tables: sharesTables(shares, lang),
+        after: T(
+          'Andelen är uträknad: gruppens antal misstankar delat med alla misstankar samma år, gånger 100. Den stämmer med Brås egen tabell D2. ' +
+            'Icke folkbokförda är personer med tillfällig vistelse i Sverige, och misstankar där det inte gått att se om personen var folkbokförd. ' +
+            'De finns inte i befolkningsstatistiken, så deras andel kan inte jämföras med en andel av befolkningen.',
+          'The share is calculated: the group’s number of suspicions divided by all suspicions the same year, times 100. It matches Brå’s own table D2. ' +
+            'People not registered as living in Sweden are people staying in Sweden temporarily, plus suspicions where it was not possible to tell whether the person was registered. ' +
+            'They are not in the population statistics, so their share cannot be compared with a share of the population.',
+        ),
+      },
     ],
-    csv: kap1Csv(data, lang),
-    dataFiles: ['misstankta_bakgrund_2007_2018.csv'],
+    csv: kap1Csv(data, shares, lang),
+    dataFiles: ['misstankta_bakgrund_2007_2018.csv', 'bra2021_brottsmisstankar.csv'],
   };
 }
 
@@ -164,6 +200,7 @@ function kap2(lang: Lang): TablePageContent {
   const depthByOrder = new Map(loadSuspectsByBackground().map((r) => [r.crimeOrder, r.depth]));
   const b6 = loadTableB6();
   const data = buildKap2Data(loadOrigin(), depthByOrder, b6);
+  const factors = buildRiskFactors(loadRiskFactors(), b6);
   const regionTotal = totalCrime(data, 'region');
   const sorted = [...regionTotal.units].sort((a, b) => b.risk - a.risk);
   const top = sorted[0];
@@ -202,8 +239,8 @@ function kap2(lang: Lang): TablePageContent {
       ['suspected of crime', 'birth region', 'birth country', 'excess risk', 'born abroad', 'Brå 2021:9'],
     ),
     variableMeasured: T(
-      ['Misstänkta per 1 000', 'Överrisk', 'Justerad överrisk', 'Andel av de misstänkta', 'Andel av befolkningen'],
-      ['Suspects per 1,000', 'Excess risk', 'Adjusted excess risk', 'Share of suspects', 'Share of population'],
+      ['Misstänkta per 1 000', 'Överrisk', 'Justerad överrisk', 'Andel av de misstänkta', 'Andel av befolkningen', 'Överrisk för andra faktorer'],
+      ['Suspects per 1,000', 'Excess risk', 'Adjusted excess risk', 'Share of suspects', 'Share of population', 'Excess risk for other factors'],
     ),
     sources: [SOURCES.bra2021],
     credit: 'Brå',
@@ -247,6 +284,20 @@ function kap2(lang: Lang): TablePageContent {
             lang,
           ),
         ],
+      },
+      {
+        heading: T('Bakgrund och andra faktorer', 'Background and other factors'),
+        intro: T(
+          'Brå jämför i samma rapport överriskerna efter bakgrund med andra faktorer. Varje rad jämför en grupp med sin egen jämförelsegrupp.',
+          'In the same report, Brå compares the excess risks by background with other factors. Each row compares one group with its own comparison group.',
+        ),
+        tables: [factorsTable(factors, lang)],
+        after: T(
+          'Varje faktor är mätt för sig. Faktorerna hänger ihop, så de kan inte läggas ihop. Ingen av siffrorna är justerad för ålder. ' +
+            'Försörjningsstöd gäller om familjen fick det någon gång 2014. Brå anger överriskerna för försörjningsstöd, utbildning och kön i rapportens text, inte i en tabell.',
+          'Each factor is measured on its own. The factors are linked, so they cannot be added together. None of the figures is adjusted for age. ' +
+            'Social assistance means the family received it at some point in 2014. Brå gives the excess risks for social assistance, education and sex in the text of the report, not in a table.',
+        ),
       },
       {
         heading: T('Efter födelseområde', 'By birth region'),
@@ -339,8 +390,8 @@ function kap2(lang: Lang): TablePageContent {
         collapsed: true,
       },
     ],
-    csv: kap2Csv(data, b6, lang),
-    dataFiles: ['misstankta_ursprung_2015_2018.csv', 'bra2021_tabell_b6.csv'],
+    csv: kap2Csv(data, b6, factors, lang),
+    dataFiles: ['misstankta_ursprung_2015_2018.csv', 'bra2021_tabell_b6.csv', 'bra2021_riskfaktorer.csv'],
   };
 }
 
@@ -607,7 +658,314 @@ function kap5(lang: Lang): TablePageContent {
   };
 }
 
-const BUILDERS: Record<string, (lang: Lang) => TablePageContent> = { kap1, kap2, kap3, kap4, kap5 };
+function kap6(lang: Lang): TablePageContent {
+  const T = <X,>(sv: X, en: X): X => tr(lang, sv, en);
+  const rows = loadNtu();
+  const p = (crime: string, sex: 'man' | 'kvinnor', g: string) => {
+    const v = pooled(rows, crime, sex, g).pct;
+    if (v === null) throw new Error(`NTU: no value for ${crime} ${sex} ${g}`);
+    return T(`${formatNumber(v, 1, 'sv')} procent`, `${formatNumber(v, 1, 'en')}%`);
+  };
+  const hidden = flagged(rows);
+  const count = (list: typeof hidden, flag: 'x' | '.') => {
+    const n = list.filter((r) => r.flag === flag).length;
+    return T(n === 1 ? 'ett värde' : `${n} värden`, n === 1 ? 'one value is' : `${n} values are`);
+  };
+
+  return {
+    chapterId: 'kap6',
+    lang,
+    h1: T('Utsatta för brott efter utländsk och svensk bakgrund, 2016–2022', 'Victims of crime by foreign and Swedish background, 2016–2022'),
+    shortTitle: T('Utsatta för brott efter bakgrund 2016–2022: tabell', 'Victims of crime by background 2016–2022: table'),
+    description: T(
+      'Andel som uppger att de utsatts för nio typer av brott, efter utländsk och svensk bakgrund, kön och världsdel, enligt Brås Nationella trygghetsundersökning 2017–2023. Tabeller och CSV-fil.',
+      'Share who say they were victims of nine types of crime, by foreign and Swedish background, sex and world region, according to Brå’s Swedish Crime Survey 2017–2023. Tables and CSV file.',
+    ),
+    datasetDescription: T(
+      'Självrapporterad utsatthet för brott bland personer 16–84 år, enligt Nationella trygghetsundersökningen (NTU) 2017–2023. Andel (%) utsatta med 95 procents konfidensintervall, efter utländsk och svensk bakgrund, kön och världsdel, alla år sammanslagna och per år. Från Brå, NTU Kortanalys 2/2024, tabellbilaga.',
+      'Self-reported victimisation among people aged 16–84, according to the Swedish Crime Survey (NTU) 2017–2023. Share (%) who were victims, with 95 percent confidence intervals, by foreign and Swedish background, sex and world region, all years pooled and by year. From Brå, NTU Kortanalys 2/2024, table appendix.',
+    ),
+    temporalCoverage: '2016/2022',
+    keywords: T(
+      ['utsatthet för brott', 'brottsoffer', 'NTU', 'utländsk bakgrund', 'Brå'],
+      ['victimisation', 'crime victims', 'NTU', 'foreign background', 'Brå'],
+    ),
+    variableMeasured: T(['Andel utsatta för brott', 'Konfidensintervall (95 %)'], ['Share who were victims of crime', 'Confidence interval (95%)']),
+    sources: [SOURCES.ntu2024],
+    credit: 'Brå',
+    terms: BRA_TERMS(lang),
+    lead: T(
+      `Bland män med utländsk bakgrund uppgav ${p('misshandel', 'man', 'utlandsk')} att de utsatts för misshandel under ett år, ` +
+        `jämfört med ${p('misshandel', 'man', 'svensk')} bland män med svensk bakgrund, enligt Brås trygghetsundersökning 2016–2022. ` +
+        `För sexualbrott mot kvinnor var det omvänt: ${p('sexualbrott', 'kvinnor', 'utlandsk')} bland kvinnor med utländsk bakgrund och ` +
+        `${p('sexualbrott', 'kvinnor', 'svensk')} bland kvinnor med svensk bakgrund.`,
+      `Among men with a foreign background, ${p('misshandel', 'man', 'utlandsk')} said they had been assaulted during a year, ` +
+        `compared with ${p('misshandel', 'man', 'svensk')} among men with a Swedish background, according to Brå’s crime survey 2016–2022. ` +
+        `For sexual offences against women it was the other way round: ${p('sexualbrott', 'kvinnor', 'utlandsk')} among women with a ` +
+        `foreign background and ${p('sexualbrott', 'kvinnor', 'svensk')} among women with a Swedish background.`,
+    ),
+    note: T(
+      'Svaren kommer från en enkät och gäller även brott som aldrig anmälts. Utländsk bakgrund betyder här att personen själv eller ' +
+        'en eller båda föräldrarna är födda utomlands, vilket skiljer sig från sidans andra kapitel. Inte justerat för ålder eller ' +
+        'andra skillnader mellan grupperna. Alla tillfrågade svarar inte, och Brå väger svaren så att de ska spegla befolkningen. ' +
+        'Lägre och övre gräns är ett 95 procents konfidensintervall. Trakasserier gäller 2019–2022. ' +
+        `I tabellerna efter världsdel saknas ${count(hidden, 'x')} därför att gruppen hade färre än 100 svarande, som Brå inte redovisar, ` +
+        `och ${count(hidden, '.')} därför att inga fall fanns. De visas med streck.`,
+      'The answers come from a survey and include crimes that were never reported. Foreign background here means that the person, ' +
+        'or one or both parents, was born abroad, which differs from the site’s other chapters. Not adjusted for age or other ' +
+        'differences between the groups. Not everyone who is asked answers, and Brå weights the answers so that they reflect the ' +
+        'population. Lower and upper limit is a 95 percent confidence interval. Harassment covers 2019–2022. ' +
+        `In the tables by world region, ${count(hidden, 'x')} missing because the group had fewer than 100 respondents, which Brå does not report, ` +
+        `and ${count(hidden, '.')} missing because there were no cases. They are shown as a dash.`,
+    ),
+    sections: [
+      { heading: T('Utländsk och svensk bakgrund', 'Foreign and Swedish background'), tables: backgroundTables(rows, lang) },
+      {
+        heading: T('Efter världsdel', 'By world region'),
+        intro: T(
+          'Världsdel för personens eget födelseland, eller för den utrikesfödda förälderns, eller moderns om båda är födda utomlands. ' +
+            'Sovjetunionen avser länder i före detta Sovjetunionen. Alla år sammanslagna.',
+          'World region of the person’s own birth country, or of the foreign-born parent’s, or the mother’s if both were born abroad. ' +
+            'Former Soviet Union means countries of the former Soviet Union. All years pooled.',
+        ),
+        tables: regionTables(rows, lang),
+        collapsed: true,
+      },
+      { heading: T('Per år', 'By year'), tables: yearTables(rows, lang), collapsed: true },
+    ],
+    csv: kap6Csv(rows, lang),
+    dataFiles: ['ntu_utsatthet.csv'],
+  };
+}
+
+function kap7(lang: Lang): TablePageContent {
+  const T = <X,>(sv: X, en: X): X => tr(lang, sv, en);
+  const n = (v: number, d = 1) => formatNumber(v, d, lang);
+  const rows = loadDeportation();
+  const facts = loadDeportationFacts();
+  const total = totalRow(rows);
+  const yr = (y: number) => n(fact(facts, 'verkstalld_inom_1_ar', y), 0);
+  const hidden = suppressedGroups(rows).map((r) => dataLabel(r.group, lang));
+
+  return {
+    chapterId: 'kap7',
+    lang,
+    h1: T('Utvisningsdömda som lämnade fängelset 2013–2023: utvisade och nya brott', 'People sentenced to deportation who left prison in 2013–2023: deported and new crimes'),
+    shortTitle: T('Utvisning på grund av brott 2013–2024: tabell', 'Deportation for crime 2013–2024: table'),
+    description: T(
+      'Andel av de utvisningsdömda som lämnade fängelset 2013–2023 som utvisats eller lagförts för nya brott i Sverige, efter kön, ålder, huvudbrott och medborgarskap, enligt Brå rapport 2026:15. Tabeller och CSV-fil.',
+      'Share of people sentenced to deportation who left prison in 2013–2023 who were deported or convicted of new crimes in Sweden, by sex, age, main offence and citizenship, according to Brå report 2026:15. Tables and CSV file.',
+    ),
+    datasetDescription: T(
+      'Alla med utvisningsbeslut i en fängelsedom som lämnade anstalt 2013–2023, uppföljda till och med 2024: andel som utvisats, andel utvisade inom ett år, andel som lagförts för nya brott i Sverige och andel lagförda för brott inom ett år, samt antal personer. Från Brå rapport 2026:15, bilaga 1 tabell B1.',
+      'Everyone with a deportation order in a prison sentence who left prison in 2013–2023, followed up to the end of 2024: share deported, share deported within a year, share convicted of new crimes in Sweden and share convicted of a crime within a year, and the number of people. From Brå report 2026:15, appendix 1 table B1.',
+    ),
+    temporalCoverage: '2013/2024',
+    keywords: T(
+      ['utvisning', 'utvisning på grund av brott', 'verkställighet', 'återfall', 'medborgarskap', 'Brå 2026:15'],
+      ['deportation', 'deportation for crime', 'enforcement', 'reoffending', 'citizenship', 'Brå 2026:15'],
+    ),
+    variableMeasured: T(
+      ['Andel utvisade', 'Andel utvisade inom 1 år', 'Andel lagförda för nya brott', 'Antal personer'],
+      ['Share deported', 'Share deported within 1 year', 'Share convicted of new crimes', 'Number of people'],
+    ),
+    sources: [SOURCES.bra2026utvisning],
+    credit: 'Brå',
+    terms: BRA_TERMS(lang),
+    lead: T(
+      `Av ${n(total.n as number, 0)} personer som dömts till fängelse och utvisning och lämnade anstalten 2013–2023 hade ${n(total.pctDeported as number)} procent ` +
+        `utvisats till och med 2024, enligt Brå. ${n(total.pctReconvicted as number)} procent lagfördes för nya brott i Sverige. Andelen som utvisades ` +
+        `inom ett år var ${yr(2013)} procent bland dem som lämnade fängelset 2013, ${yr(2019)} procent 2019 och ${yr(2023)} procent 2023.`,
+      `Of ${n(total.n as number, 0)} people sentenced to prison and deportation who left prison in 2013–2023, ${n(total.pctDeported as number)}% had been ` +
+        `deported by the end of 2024, according to Brå. ${n(total.pctReconvicted as number)}% were convicted of new crimes in Sweden. The share deported ` +
+        `within a year was ${yr(2013)}% among those who left prison in 2013, ${yr(2019)}% in 2019 and ${yr(2023)}% in 2023.`,
+    ),
+    note: T(
+      'Medborgarskap är inte alltid landet personen utvisas till. De som lämnade fängelset tidigt i perioden har följts längre, därför ' +
+        'finns också andelar inom ett år, som är jämförbara mellan åren. Nya brott gäller lagföringar i Sverige för brott efter fängelset. ' +
+        'Brå redovisar inte uppgifter som bygger på färre än 4 personer, och döljer då också gruppens storlek. De visas med streck. ' +
+        `Helt dolda grupper: ${hidden.join(', ')}. Små grupper kan ändras mycket av enstaka personer.`,
+      'Citizenship is not always the country a person is deported to. Those who left prison early in the period have been followed for longer, ' +
+        'which is why shares within one year are also given; they can be compared between years. New crimes means convictions in Sweden for ' +
+        'crimes after prison. Brå does not report figures based on fewer than 4 people, and then also hides the size of the group. They are ' +
+        `shown as a dash. Fully hidden groups: ${hidden.join(', ')}. Small groups can change a lot because of single people.`,
+    ),
+    sections: [
+      { tables: deportTables(rows, lang) },
+    ],
+    csv: kap7Csv(rows, lang),
+    dataFiles: ['utvisning_b1.csv', 'utvisning_text.csv'],
+  };
+}
+
+function kap8(lang: Lang): TablePageContent {
+  const T = <X,>(sv: X, en: X): X => tr(lang, sv, en);
+  const n = (v: number | null, d = 0) => formatNumber(v as number, d, lang);
+  const rows = loadHomicide();
+  const utl = homicideItem(rows, 'utl');
+  const lag = homicideItem(rows, 'lagford');
+
+  return {
+    chapterId: 'kap8',
+    lang,
+    h1: T('Offer och gärningspersoner vid dödligt våld jämfört med befolkningen, 2005–2021', 'Homicide victims and perpetrators compared with the population, 2005–2021'),
+    shortTitle: T('Dödligt våld 2005–2021, offer och gärningspersoner: tabell', 'Homicide 2005–2021, victims and perpetrators: table'),
+    description: T(
+      'Bakgrund, inkomst, arbete, boende och tidigare lagföringar bland offer och gärningspersoner vid dödligt våld 2005–2021, jämfört med befolkningen, enligt Brå rapport 2025:5. Tabeller och CSV-fil.',
+      'Background, income, work, housing and earlier convictions among homicide victims and perpetrators in 2005–2021, compared with the population, according to Brå report 2025:5. Tables and CSV file.',
+    ),
+    datasetDescription: T(
+      'Andelar (%) bland 1 521 offer och 1 175 gärningspersoner vid dödligt våld i Sverige 2005–2021 och i befolkningen: utländsk bakgrund, utrikes födda, inrikes födda med två inrikes födda föräldrar, lagförda för brott året före, inkomst i lägsta tiondelen, boende i område med stora socioekonomiska utmaningar, ensamstående med barn och förvärvsarbetande. Uppgifter som Brå anger i texten eller på figurer i rapport 2025:5.',
+      'Shares (%) among 1,521 victims and 1,175 perpetrators of homicide in Sweden in 2005–2021 and in the population: foreign background, born abroad, born in Sweden with two Swedish-born parents, convicted of a crime in the year before, income in the lowest tenth, living in an area with major socio-economic challenges, single parents and people in employment. Figures that Brå gives in the text or on figures in report 2025:5.',
+    ),
+    temporalCoverage: '2005/2021',
+    keywords: T(
+      ['dödligt våld', 'brottsoffer', 'gärningspersoner', 'utländsk bakgrund', 'socioekonomi', 'Brå 2025:5'],
+      ['homicide', 'crime victims', 'perpetrators', 'foreign background', 'socio-economic', 'Brå 2025:5'],
+    ),
+    variableMeasured: T(['Andel bland offer', 'Andel bland gärningspersoner', 'Andel i befolkningen'], ['Share among victims', 'Share among perpetrators', 'Share in the population']),
+    sources: [SOURCES.bra2025dodligt],
+    credit: 'Brå',
+    terms: BRA_TERMS(lang),
+    lead: T(
+      `Av offren för dödligt våld i Sverige 2005–2021 hade ${n(utl.victims)} procent utländsk bakgrund, och av gärningspersonerna ${n(utl.perpetrators)} procent, ` +
+        `enligt Brå. I befolkningen var andelen ${n(utl.population)} procent. ${n(lag.victims)} procent av offren och ${n(lag.perpetrators)} procent av ` +
+        `gärningspersonerna hade lagförts för brott året före, mot ${n(lag.population, 1)} procent i befolkningen.`,
+      `Of homicide victims in Sweden in 2005–2021, ${n(utl.victims)}% had a foreign background, and of perpetrators ${n(utl.perpetrators)}%, according to Brå. ` +
+        `In the population the share was ${n(utl.population)}%. ${n(lag.victims)}% of victims and ${n(lag.perpetrators)}% of perpetrators had been convicted of ` +
+        `a crime in the year before, against ${n(lag.population, 1)}% of the population.`,
+    ),
+    note: T(
+      'Utländsk bakgrund betyder utrikes född eller inrikes född med två utrikes födda föräldrar. Gärningspersoner finns bara för uppklarade fall, och ' +
+        'omkring 70 procent av fallen i kriminell miljö är ouppklarade. Bara personer med svenskt personnummer ingår. Inte justerat för ålder eller kön. ' +
+        'Inkomster från brott syns inte i registren. Befolkningens andel är ett snitt för perioden. Brå anger hela procent utom för befolkningens ' +
+        'lagföringar, och tabellen visar en decimal. Brå redovisar resten av resultaten i diagram utan siffror, så de finns inte här.',
+      'Foreign background means born abroad, or born in Sweden with two foreign-born parents. Perpetrators are only known for solved cases, and about 70% of ' +
+        'cases in criminal milieus are unsolved. Only people with a Swedish personal identity number are included. Not adjusted for age or sex. Income from crime ' +
+        'does not show in the registers. The population share is an average for the period. Brå gives whole percentages except for the population’s ' +
+        'convictions, and the table shows one decimal. Brå shows the rest of its results in charts without numbers, so they are not included here.',
+    ),
+    sections: [{ tables: homicideTables(rows, lang) }],
+    csv: kap8Csv(rows, lang),
+    dataFiles: ['dodligt_vald.csv'],
+  };
+}
+
+function kap9(lang: Lang): TablePageContent {
+  const T = <X,>(sv: X, en: X): X => tr(lang, sv, en);
+  const rows = loadCohorts();
+  const list = cohortList(rows);
+  const first = list[0];
+  const last = list[list.length - 1];
+  const v = (c: string, g: 'utrikesfodd' | 'andra_gen' | 'native') => formatNumber(cohortCell(rows, 'alla', 'man', c, g).pct, 1, lang);
+
+  return {
+    chapterId: 'kap9',
+    lang,
+    h1: T('Lagförda före 25 års ålder efter bakgrund, födda 1966–1993', 'Convicted before age 25 by background, born 1966–1993'),
+    shortTitle: T('Lagförda före 25 år, födda 1966–1993: tabell', 'Convicted before 25, born 1966–1993: table'),
+    description: T(
+      'Andel som lagförts för brott före 25 års ålder bland alla födda 1966–1993, efter bakgrund, kön och födelseår, och bland dem som växte upp i familjer med lägst inkomster. Från Bäckman m.fl. 2021. Tabeller och CSV-fil.',
+      'Share convicted of a crime before age 25 among everyone born in 1966–1993, by background, sex and birth year, and among those who grew up in the lowest-income families. From Bäckman et al. 2021. Tables and CSV file.',
+    ),
+    datasetDescription: T(
+      'Alla födda 1966–1993 som var folkbokförda i Sverige från 15 till 24 års ålder, i grupper om fyra födelseår: andel (%) som lagförts minst en gång respektive upprepat före 25 års ålder, relativ risk jämfört med inrikes födda med minst en inrikes född förälder, och antal personer. För alla och för dem som växte upp i den tiondel av familjerna som hade lägst inkomster. Tabell 1 och 2 i Bäckman, Estrada, Nilsson och Sivertsson 2021, Nordic Journal of Criminology (CC BY 4.0).',
+      'Everyone born in 1966–1993 who was registered as living in Sweden from age 15 to 24, in groups of four birth years: share (%) convicted at least once and repeatedly before age 25, relative risk compared with people born in Sweden with at least one Swedish-born parent, and number of people. For everyone and for those who grew up in the tenth of families with the lowest incomes. Tables 1 and 2 in Bäckman, Estrada, Nilsson and Sivertsson 2021, Nordic Journal of Criminology (CC BY 4.0).',
+    ),
+    temporalCoverage: '1990/2017',
+    keywords: T(
+      ['lagförda', 'unga', 'utrikes födda', 'andra generationen', 'låg inkomst', 'födelsekohorter'],
+      ['convicted', 'young people', 'born abroad', 'second generation', 'low income', 'birth cohorts'],
+    ),
+    variableMeasured: T(['Andel lagförda före 25 års ålder', 'Relativ risk', 'Antal personer'], ['Share convicted before age 25', 'Relative risk', 'Number of people']),
+    sources: [SOURCES.backman2021],
+    credit: T('Bäckman, Estrada, Nilsson och Sivertsson 2021', 'Bäckman, Estrada, Nilsson and Sivertsson 2021'),
+    terms: T('Artikeln är publicerad med öppen tillgång under CC BY 4.0.', 'The article is published open access under CC BY 4.0.'),
+    lead: T(
+      `Av männen födda ${last} hade ${v(last, 'utrikesfodd')} procent av de utrikes födda, ${v(last, 'andra_gen')} procent av de inrikes födda med två utrikes ` +
+        `födda föräldrar och ${v(last, 'native')} procent av övriga lagförts för brott före 25 års ålder, enligt en studie från Stockholms universitet. ` +
+        `Bland männen födda ${first} var andelarna ${v(first, 'utrikesfodd')}, ${v(first, 'andra_gen')} och ${v(first, 'native')} procent.`,
+      `Of men born in ${last}, ${v(last, 'utrikesfodd')}% of those born abroad, ${v(last, 'andra_gen')}% of those born in Sweden with two foreign-born parents ` +
+        `and ${v(last, 'native')}% of the others had been convicted of a crime before age 25, according to a study from Stockholm University. ` +
+        `Among men born in ${first}, the shares were ${v(first, 'utrikesfodd')}%, ${v(first, 'andra_gen')}% and ${v(first, 'native')}%.`,
+    ),
+    note: T(
+      'Varje grupp följs från 15 till 24 års ålder. Bara personer som var folkbokförda i Sverige hela den tiden ingår. Lagförd betyder dom, ' +
+        'strafföreläggande eller åtalsunderlåtelse. Upprepat betyder minst fyra lagföringar för män och minst två för kvinnor, som i artikeln. ' +
+        'Relativ risk är artikelns egen, uträknad från oavrundade andelar, så den kan skilja sig något från en kvot av de avrundade andelarna. ' +
+        'Lägst inkomster: föräldrarnas sammanlagda arbetsinkomst låg i den lägsta tiondelen minst två av tre år när personen var 15–17 år.',
+      'Each group is followed from age 15 to 24. Only people registered as living in Sweden for that whole time are included. Convicted means a court ' +
+        'sentence, a summary penalty or a waiver of prosecution. Repeatedly means at least four convictions for men and at least two for women, as in the ' +
+        'article. Relative risk is the article’s own, calculated from unrounded shares, so it can differ slightly from a ratio of the rounded shares. ' +
+        'Lowest incomes: the parents’ combined income from work was in the lowest tenth in at least two of three years when the person was 15–17.',
+    ),
+    sections: [
+      { heading: T('Alla', 'Everyone'), tables: cohortTables(rows, lang).filter((t) => t.id.startsWith('kap9-alla')) },
+      {
+        heading: T('Familjer med lägst inkomster', 'Lowest-income families'),
+        tables: cohortTables(rows, lang).filter((t) => t.id.startsWith('kap9-laginkomst')),
+      },
+    ],
+    csv: kap9Csv(rows, lang),
+    dataFiles: ['backman_lagforda_fore_25.csv'],
+  };
+}
+
+function kap10(lang: Lang): TablePageContent {
+  const T = <X,>(sv: X, en: X): X => tr(lang, sv, en);
+  const rows = loadBirthCohorts();
+  const years = birthYears(rows, 'fore25');
+  const bg = firstBackgroundYear(rows, 'fore25');
+  const last = years[years.length - 1];
+  const v = (g: 'alla' | 'I20' | 'Utr' | 'I02', y: number) => formatNumber(kohortValue(rows, 'fore25', 'samtliga', g, y) as number, 1, lang);
+  const tables = kohortTables(rows, lang);
+
+  return {
+    chapterId: 'kap10',
+    lang,
+    h1: T(`Lagförda före 25 och 20 års ålder efter födelseår och bakgrund, födda ${years[0]}–2003`, `Convicted before age 25 and 20 by birth year and background, born ${years[0]}–2003`),
+    shortTitle: T('Lagförda efter födelseår: tabell', 'Convicted by birth year: table'),
+    description: T(
+      'Andel av varje födelseår som lagförts för brott före 25 och före 20 års ålder, efter kön och födelsebakgrund, enligt Brås officiella födelsekohortstatistik (rapport 2025:21). Tabeller och CSV-fil.',
+      'Share of each birth year convicted of a crime before age 25 and before age 20, by sex and birth background, according to Brå’s official birth cohort statistics (report 2025:21). Tables and CSV file.',
+    ),
+    datasetDescription: T(
+      'Andel (%) av alla folkbokförda födda ett visst år som lagförts för brott minst en gång före 25 års ålder (födda 1958–1998) och före 20 års ålder (födda 1958–2003), för kvinnor och män tillsammans och var för sig. Efter födelsebakgrund för födda från 1984: inrikesfödda med två, en eller ingen inrikesfödd förälder samt utrikesfödda. Brå rapport 2025:21, tabell 1 och tabell 4.',
+      'Share (%) of everyone registered in Sweden and born in a given year who was convicted of a crime at least once before age 25 (born 1958–1998) and before age 20 (born 1958–2003), for women and men together and separately. By birth background for those born from 1984: born in Sweden with two, one or no Swedish-born parents, and born abroad. Brå report 2025:21, table 1 and table 4.',
+    ),
+    temporalCoverage: '1958/2023',
+    keywords: T(
+      ['födelsekohort', 'lagförda', 'unga', 'utrikesfödda', 'födelsebakgrund', 'Brå 2025:21'],
+      ['birth cohort', 'convicted', 'young people', 'born abroad', 'birth background', 'Brå 2025:21'],
+    ),
+    variableMeasured: T(['Andel lagförda före 25 års ålder', 'Andel lagförda före 20 års ålder'], ['Share convicted before age 25', 'Share convicted before age 20']),
+    sources: [SOURCES.bra2025kohort],
+    credit: 'Brå',
+    terms: BRA_TERMS(lang),
+    lead: T(
+      `Av dem som föddes ${years[0]} hade ${v('alla', years[0])} procent lagförts för brott före 25 års ålder, och av dem som föddes ${last} ${v('alla', last)} procent, ` +
+        `enligt Brå. För födda ${bg} var andelen ${v('Utr', bg)} procent bland utrikesfödda och ${v('I20', bg)} procent bland inrikesfödda med två ` +
+        `inrikesfödda föräldrar. För födda ${last} var andelarna ${v('Utr', last)} och ${v('I20', last)} procent.`,
+      `Of those born in ${years[0]}, ${v('alla', years[0])}% had been convicted of a crime before age 25, and of those born in ${last}, ${v('alla', last)}%, ` +
+        `according to Brå. For those born in ${bg}, the share was ${v('Utr', bg)}% among people born abroad and ${v('I20', bg)}% among people born in ` +
+        `Sweden with two Swedish-born parents. For those born in ${last}, the shares were ${v('Utr', last)}% and ${v('I20', last)}%.`,
+    ),
+    note: T(
+      `Lagförd betyder dom, strafföreläggande eller åtalsunderlåtelse. Siffror efter födelsebakgrund finns bara för födda från ${bg}, eftersom ` +
+        'Brå saknar folkmängd efter bakgrund för tidigare år. Tomma celler betyder att uppgift saknas. Inte justerat för till exempel familjens inkomst.',
+      `Convicted means a court sentence, a summary penalty or a waiver of prosecution. Figures by birth background only exist for those born from ${bg}, ` +
+        'because Brå has no population figures by background for earlier years. Empty cells mean no value. Not adjusted for, for example, family income.',
+    ),
+    sections: [
+      { heading: T('Före 25 års ålder', 'Before age 25'), tables: tables.filter((t) => t.id.startsWith('kap10-fore25')) },
+      { heading: T('Före 20 års ålder', 'Before age 20'), tables: tables.filter((t) => t.id.startsWith('kap10-fore20')), collapsed: true },
+    ],
+    csv: kap10Csv(rows, lang),
+    dataFiles: ['bra_fodelsekohorter.csv'],
+  };
+}
+
+const BUILDERS: Record<string, (lang: Lang) => TablePageContent> = { kap1, kap2, kap3, kap4, kap5, kap6, kap7, kap8, kap9, kap10 };
 const cache = new Map<string, TablePageContent>();
 
 /** The text and tables for one table page in one language. */

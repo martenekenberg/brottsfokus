@@ -246,3 +246,245 @@ export function loadTableB6(): B6Row[] {
   }));
   return unique(rows, (r) => `${r.view}/${r.unit}`, file);
 }
+
+// ---------- bra2021_brottsmisstankar.csv (chapter 1, second chart) ----------
+// Copied from Brå 2021:9 appendix 3, tables D1 (number of registered suspicions) and D2 (share, %).
+// Every suspicion is counted, not every person, including suspicions against people not registered in Sweden.
+
+export const SUSPICION_GROUPS = ['sv2', 'sv1', 'u2', 'utr', 'ej'] as const;
+export type SuspicionGroup = (typeof SUSPICION_GROUPS)[number];
+
+export interface SuspicionRow {
+  year: number;
+  groupId: SuspicionGroup;
+  group: string;
+  suspicions: number;
+  /** Brå's own share in table D2, kept to check the share calculated from the counts. */
+  pctBra: number;
+}
+
+export function loadSuspicionShares(): SuspicionRow[] {
+  const file = 'bra2021_brottsmisstankar.csv';
+  const rows = readCsv(file, ['year', 'group_id', 'group', 'suspicions', 'pct_bra', 'source']).map((r) => ({
+    year: required(r.year, 'year'),
+    groupId: oneOf(r.group_id, SUSPICION_GROUPS, `${file} group_id`),
+    group: r.group,
+    suspicions: required(r.suspicions, 'suspicions'),
+    pctBra: required(r.pct_bra, 'pct_bra'),
+  }));
+  return unique(rows, (r) => `${r.year}/${r.groupId}`, file);
+}
+
+// ---------- bra2021_riskfaktorer.csv (chapter 2, second chart) ----------
+// Excess risks for other factors, stated in the text of Brå 2021:9 (p. 54–55), 2015–2018.
+
+export interface RiskFactorRow {
+  factorId: string;
+  factor: string;
+  comparison: string;
+  risk: number;
+  source: string;
+}
+
+export function loadRiskFactors(): RiskFactorRow[] {
+  const file = 'bra2021_riskfaktorer.csv';
+  const rows = readCsv(file, ['factor_id', 'factor', 'comparison', 'risk', 'source']).map((r) => ({
+    factorId: r.factor_id,
+    factor: r.factor,
+    comparison: r.comparison,
+    risk: required(r.risk, 'risk'),
+    source: r.source,
+  }));
+  return unique(rows, (r) => r.factorId, file);
+}
+
+// ---------- ntu_utsatthet.csv (chapter 6) ----------
+// Copied from Brå, NTU Kortanalys 2/2024, table appendix (tables 1A–9B). Self-reported victimisation, share (%).
+// view: bakgrund = Swedish/foreign background, all years pooled; varldsdel = world region of background, pooled;
+// ar = one value per year. flag: x = too few respondents to report, . = no cases (Brå's own markers).
+
+export const NTU_SEX = ['samtliga', 'man', 'kvinnor'] as const;
+export type NtuSex = (typeof NTU_SEX)[number];
+
+export interface NtuRow {
+  view: 'bakgrund' | 'varldsdel' | 'ar';
+  crimeId: string;
+  crime: string;
+  sex: NtuSex;
+  group: string;
+  period: string;
+  pct: number | null;
+  ciLow: number | null;
+  ciHigh: number | null;
+  flag: '' | 'x' | '.';
+  sourceTable: string;
+}
+
+export function loadNtu(): NtuRow[] {
+  const file = 'ntu_utsatthet.csv';
+  const cols = ['view', 'crime_id', 'crime', 'sex', 'group', 'period', 'pct', 'ci_low', 'ci_high', 'flag', 'source_table'];
+  const rows = readCsv(file, cols).map((r) => {
+    const flag = oneOf(r.flag, ['', 'x', '.'] as const, `${file} flag`);
+    const pct = num(r.pct);
+    if ((pct === null) !== (flag !== '')) throw new Error(`${file}: a value must be empty exactly when it is flagged (${r.crime_id} ${r.group})`);
+    return {
+      view: oneOf(r.view, ['bakgrund', 'varldsdel', 'ar'] as const, `${file} view`),
+      crimeId: r.crime_id,
+      crime: r.crime,
+      sex: oneOf(r.sex, NTU_SEX, `${file} sex`),
+      group: r.group,
+      period: r.period,
+      pct,
+      ciLow: num(r.ci_low),
+      ciHigh: num(r.ci_high),
+      flag,
+      sourceTable: r.source_table,
+    };
+  });
+  return unique(rows, (r) => `${r.view}/${r.crimeId}/${r.sex}/${r.group}/${r.period}`, file);
+}
+
+// ---------- utvisning_b1.csv and utvisning_text.csv (chapter 7) ----------
+// Brå 2026:15, Utvisningsdömda i brottmål. Table B1: everyone with a deportation order in a prison
+// sentence who left prison 2013–2023, followed up to 2024. Empty cell = Brå does not report the value
+// (fewer than 4 people, marked x by Brå). utvisning_text.csv holds figures Brå states only in the text.
+
+export const DEPORT_DIMENSIONS = ['totalt', 'kon', 'alder', 'folkbokforing', 'huvudbrott', 'varldsdel', 'delomrade'] as const;
+export type DeportDimension = (typeof DEPORT_DIMENSIONS)[number];
+
+export interface DeportRow {
+  dimension: DeportDimension;
+  group: string;
+  /** World region for a sub-region, or the main category for a sub-category. Empty otherwise. */
+  parent: string;
+  pctDeported: number | null;
+  pctDeported1yr: number | null;
+  pctReconvicted: number | null;
+  pctReconvicted1yr: number | null;
+  n: number | null;
+}
+
+export function loadDeportation(): DeportRow[] {
+  const file = 'utvisning_b1.csv';
+  const cols = ['dimension', 'group', 'parent', 'pct_deported', 'pct_deported_1yr', 'pct_reconvicted', 'pct_reconvicted_1yr', 'n', 'source'];
+  const rows = readCsv(file, cols).map((r) => ({
+    dimension: oneOf(r.dimension, DEPORT_DIMENSIONS, `${file} dimension`),
+    group: r.group,
+    parent: r.parent,
+    pctDeported: num(r.pct_deported),
+    pctDeported1yr: num(r.pct_deported_1yr),
+    pctReconvicted: num(r.pct_reconvicted),
+    pctReconvicted1yr: num(r.pct_reconvicted_1yr),
+    n: num(r.n),
+  }));
+  return unique(rows, (r) => `${r.dimension}/${r.group}`, file);
+}
+
+export interface DeportFact {
+  id: string;
+  year: number | null;
+  value: number;
+  source: string;
+}
+
+export function loadDeportationFacts(): DeportFact[] {
+  const file = 'utvisning_text.csv';
+  const rows = readCsv(file, ['id', 'year', 'value', 'source']).map((r) => ({
+    id: r.id,
+    year: num(r.year),
+    value: required(r.value, 'value'),
+    source: r.source,
+  }));
+  return unique(rows, (r) => `${r.id}/${r.year}`, file);
+}
+
+// ---------- dodligt_vald.csv (chapter 8) ----------
+// Brå 2025:5, Offer och gärningspersoner vid dödligt våld. Shares (%) among homicide victims, perpetrators
+// and the population, 2005–2021, as Brå states them in the text or prints them on a figure. Empty = not given.
+
+export interface HomicideRow {
+  chart: 'bakgrund' | 'socioekonomi';
+  itemId: string;
+  item: string;
+  victims: number | null;
+  perpetrators: number | null;
+  population: number | null;
+  source: string;
+}
+
+export function loadHomicide(): HomicideRow[] {
+  const file = 'dodligt_vald.csv';
+  const rows = readCsv(file, ['chart', 'item_id', 'item', 'victims', 'perpetrators', 'population', 'source']).map((r) => ({
+    chart: oneOf(r.chart, ['bakgrund', 'socioekonomi'] as const, `${file} chart`),
+    itemId: r.item_id,
+    item: r.item,
+    victims: num(r.victims),
+    perpetrators: num(r.perpetrators),
+    population: num(r.population),
+    source: r.source,
+  }));
+  return unique(rows, (r) => `${r.chart}/${r.itemId}`, file);
+}
+
+// ---------- backman_lagforda_fore_25.csv (chapter 9) ----------
+// Bäckman, Estrada, Nilsson & Sivertsson 2021, Nordic Journal of Criminology 22(2), tables 1 and 2 (CC BY 4.0).
+// Everyone born 1966–1993 and registered in Sweden from age 15 to 24: share (%) convicted at least once
+// (and repeatedly) by age 24, and relative risk (RR) against the native group, as printed. table: alla = everyone,
+// laginkomst = grew up in the lowest-income tenth of families.
+
+export const COHORT_GROUPS = ['native', 'andra_gen', 'utrikesfodd'] as const;
+export type CohortGroup = (typeof COHORT_GROUPS)[number];
+
+export interface CohortRow {
+  table: 'alla' | 'laginkomst';
+  sex: 'man' | 'kvinna';
+  cohort: string;
+  measure: 'minst1' | 'minst4' | 'minst2';
+  group: CohortGroup;
+  pct: number;
+  rr: number;
+  n: number;
+}
+
+export function loadCohorts(): CohortRow[] {
+  const file = 'backman_lagforda_fore_25.csv';
+  const rows = readCsv(file, ['table', 'sex', 'cohort', 'measure', 'group', 'pct', 'rr', 'n', 'source']).map((r) => ({
+    table: oneOf(r.table, ['alla', 'laginkomst'] as const, `${file} table`),
+    sex: oneOf(r.sex, ['man', 'kvinna'] as const, `${file} sex`),
+    cohort: r.cohort,
+    measure: oneOf(r.measure, ['minst1', 'minst4', 'minst2'] as const, `${file} measure`),
+    group: oneOf(r.group, COHORT_GROUPS, `${file} group`),
+    pct: required(r.pct, 'pct'),
+    rr: required(r.rr, 'rr'),
+    n: required(r.n, 'n'),
+  }));
+  return unique(rows, (r) => `${r.table}/${r.sex}/${r.cohort}/${r.measure}/${r.group}`, file);
+}
+
+// ---------- bra_fodelsekohorter.csv (chapter 10) ----------
+// Brå 2025:21, Födelsekohortstatistik (official statistics), table 1 (share of each birth year convicted at least
+// once by age 25) and table 4, column 20 years (by age 20). group: alla = everyone; I20, I11, I02 = born in Sweden
+// with two, one or no Swedish-born parents; Utr = born abroad. By background only for birth years from 1984.
+
+export const KOHORT_GROUPS = ['alla', 'I20', 'I11', 'I02', 'Utr'] as const;
+export type KohortGroup = (typeof KOHORT_GROUPS)[number];
+
+export interface KohortRow {
+  measure: 'fore25' | 'fore20';
+  birthYear: number;
+  sex: 'samtliga' | 'kvinnor' | 'man';
+  group: KohortGroup;
+  pct: number;
+}
+
+export function loadBirthCohorts(): KohortRow[] {
+  const file = 'bra_fodelsekohorter.csv';
+  const rows = readCsv(file, ['measure', 'birth_year', 'sex', 'group', 'pct', 'source']).map((r) => ({
+    measure: oneOf(r.measure, ['fore25', 'fore20'] as const, `${file} measure`),
+    birthYear: required(r.birth_year, 'birth_year'),
+    sex: oneOf(r.sex, ['samtliga', 'kvinnor', 'man'] as const, `${file} sex`),
+    group: oneOf(r.group, KOHORT_GROUPS, `${file} group`),
+    pct: required(r.pct, 'pct'),
+  }));
+  return unique(rows, (r) => `${r.measure}/${r.birthYear}/${r.sex}/${r.group}`, file);
+}

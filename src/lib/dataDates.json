@@ -1,11 +1,31 @@
 {
+  "backman_lagforda_fore_25.csv": {
+    "date": "2026-11-18",
+    "sha256": "32c6022980d955615d35461b3aa780aa02414eef776871a287acbc0cfdb5253d"
+  },
   "bra2005.csv": {
     "date": "2026-11-13",
     "sha256": "9d38dd0ae509450ba4645e88a6148fb749f8252fc814117427e9a1c82fa16940"
   },
+  "bra2021_brottsmisstankar.csv": {
+    "date": "2026-11-17",
+    "sha256": "374daecf15dd40a7091fb85fd00e007eb12ba272960f494963c05070580974d2"
+  },
+  "bra2021_riskfaktorer.csv": {
+    "date": "2026-11-17",
+    "sha256": "9d4f59e431b3f585297cc340bae4071b42ad10c3ad3e4511965b834c680f8c3b"
+  },
   "bra2021_tabell_b6.csv": {
     "date": "2026-11-13",
     "sha256": "2f1f7db0a470b2df41b1596e3810709448edc66c03a85612da874fdcb5f0fec2"
+  },
+  "bra_fodelsekohorter.csv": {
+    "date": "2026-11-18",
+    "sha256": "df0fd8a149931d0bfd2aa04c28b2f8d5473387a510caf08b3d700698110030da"
+  },
+  "dodligt_vald.csv": {
+    "date": "2026-11-18",
+    "sha256": "8a8e2340c7ed0116b0712e0222849888a39122982083d0962ce50d78d46c3083"
   },
   "intagna_medborgarskap.csv": {
     "date": "2026-11-13",
@@ -19,9 +39,21 @@
     "date": "2026-11-13",
     "sha256": "a61b15110207e3542759956064e1ad2c38d2d3d81775d3db1242a807ac9976b4"
   },
+  "ntu_utsatthet.csv": {
+    "date": "2026-11-18",
+    "sha256": "c21b9a5822a6b51f56fc8ccb86d22c389967ed4949d4ae8b666ae0af5ddb9a92"
+  },
   "scb_befolkning.csv": {
     "date": "2026-11-13",
     "sha256": "c7a779f30e1bc54b93dcd3fd9a5628573fd08266f72b44046b7f7bba2bc5c1ed"
+  },
+  "utvisning_b1.csv": {
+    "date": "2026-11-18",
+    "sha256": "66286b9707ac1f7cf6422382098222b533484a8b3676966e2a149fd5b81bbe7c"
+  },
+  "utvisning_text.csv": {
+    "date": "2026-11-18",
+    "sha256": "e37b62f35a4d7606fa0ff9bd9cbf276257fbac3e31a60f93696884a40a2d7c8a"
   },
   "valdtakt_domda.csv": {
     "date": "2026-11-13",

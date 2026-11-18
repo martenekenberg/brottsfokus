@@ -1,0 +1,11 @@
+chart,item_id,item,victims,perpetrators,population,source
+bakgrund,utl,Utländsk bakgrund,49,43,21,Brå 2025:5 s. 13 och figur 42 s. 77
+bakgrund,utr,Utrikes födda,36,33,16,Brå 2025:5 s. 76
+bakgrund,sv2,Inrikes födda med två inrikes födda föräldrar,44,45,72,Brå 2025:5 s. 76
+bakgrund,kriminell_miljo,Utländsk bakgrund vid dödligt våld i kriminell miljö,80,64,,Brå 2025:5 s. 13 och 79
+bakgrund,viktat,Utländsk bakgrund med viktade värden för gärningspersonerna,,46,,Brå 2025:5 s. 76 not 57
+socioekonomi,lagford,Lagförda för brott året före det dödliga våldet,24,28,1.2,Brå 2025:5 s. 14
+socioekonomi,lagsta_decil,Inkomst i befolkningens lägsta tiondel,45,51,10,Brå 2025:5 s. 10 (befolkningen: per definition en tiondel)
+socioekonomi,omrade,Bodde i socioekonomiskt utsatt område,16,15,5,Brå 2025:5 s. 12
+socioekonomi,ensamstaende,Ensamstående med barn,12,13,7,Brå 2025:5 s. 12
+socioekonomi,forvarvsarbete,Förvärvsarbetande,33,29,65,Brå 2025:5 s. 9

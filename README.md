@@ -17,6 +17,14 @@ Stack: Astro + D3, data as CSV in `data/`, deploy via GitHub + Vercel.
 | data/misstankta_bakgrund_2007_2018.csv | Suspects per 1,000 per year, crime type and background group | Brå 2021:9 appendix 2 |
 | data/misstankta_ursprung_2015_2018.csv | Suspects 2015–2018 by region of birth, country of birth and mother's region of birth | Brå 2021:9 appendix 1 |
 | data/bra2021_tabell_b6.csv | Share of suspects and share of population per group, 2015–2018 | Brå 2021:9 appendix 1, table B6 |
+| data/bra2021_brottsmisstankar.csv | Registered suspicions per group and year 2007–2018, incl. people not registered in Sweden (counts, and Brå's shares for checking) | Brå 2021:9 appendix 3, tables D1 and D2 |
+| data/bra2021_riskfaktorer.csv | Excess risk for social assistance, education and sex, 2015–2018 | Brå 2021:9, report text p. 54–55 |
+| data/ntu_utsatthet.csv | Self-reported victimisation by foreign/Swedish background, sex and world region, 2016–2022 (pooled and per year, with confidence intervals) | Brå NTU Kortanalys 2/2024, table appendix |
+| data/utvisning_b1.csv | People with a deportation order in a prison sentence who left prison 2013–2023: share deported, share convicted of new crimes, by sex, age, offence and citizenship | Brå 2026:15 appendix 1, table B1 |
+| data/utvisning_text.csv | Figures Brå 2026:15 states only in the text (share deported within a year for some years, counts) | Brå 2026:15, p. 5 and 36 |
+| data/dodligt_vald.csv | Homicide victims, perpetrators and the population 2005–2021: background, income, work, housing area, earlier convictions (shares Brå states in the text or prints on a figure) | Brå 2025:5, p. 9–14 and 76–79 |
+| data/backman_lagforda_fore_25.csv | Share convicted before age 25 (at least once / repeatedly) and relative risk, by background, sex and birth-year group 1966–1993, for everyone and for the lowest-income families | Bäckman et al. 2021, Nordic Journal of Criminology, tables 1 and 2 (CC BY 4.0) |
+| data/bra_fodelsekohorter.csv | Share of each birth year convicted before age 25 (born 1958–1998) and before age 20 (born 1958–2003), by sex and birth background (from 1984) | Brå 2025:21, tables 1 and 4 (Excel) |
 
 All files are in place. Copies of some of the Brå prison reports are kept in `docs/kallor/` for spot-checking; the build does not use them.
 

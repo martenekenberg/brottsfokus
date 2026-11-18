@@ -1,0 +1,86 @@
+---
+// A second chart inside a chapter, with the same pattern as the chapter itself:
+// heading, short intro, legend, chart, "Läs så här" box and source line.
+import { tr, type Lang } from '../lib/i18n';
+
+interface Props {
+  /** Anchor, so the chart can be linked to. */
+  id: string;
+  title: string;
+  lang: Lang;
+}
+
+const { id, title, lang } = Astro.props;
+const hasIntro = Astro.slots.has('intro');
+const hasLegend = Astro.slots.has('legend');
+---
+
+<div class="sub-chart chart-block" id={id} aria-labelledby={`${id}-h`} role="group">
+  <h3 id={`${id}-h`}>{title}</h3>
+  {hasIntro && <p class="sub-intro"><slot name="intro" /></p>}
+  {hasLegend && <slot name="legend" />}
+  <slot />
+  <div class="note">
+    <strong>{tr(lang, 'Läs så här. ', 'How to read this. ')}</strong>
+    <slot name="note" />
+  </div>
+  <p class="source"><slot name="source" /></p>
+</div>
+
+<style>
+  .sub-chart {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+    margin-top: 24px;
+    padding-top: 32px;
+    border-top: 1px solid var(--rule);
+    scroll-margin-top: calc(var(--sticky-nav-h) + 8px);
+  }
+  h3 {
+    margin: 0;
+    font-family: var(--font-serif);
+    font-size: 28px;
+    line-height: 1.2;
+    font-weight: 500;
+  }
+  .sub-intro {
+    margin: 0;
+    font-family: var(--font-serif);
+    font-size: 18px;
+    line-height: 1.5;
+    color: var(--text-body);
+  }
+  .note {
+    background: var(--panel);
+    padding: 16px 20px;
+    font-size: 14px;
+    line-height: 1.55;
+  }
+  .note strong {
+    font-weight: 600;
+  }
+  .source {
+    margin: 0;
+    padding-top: 12px;
+    border-top: 1px solid var(--rule);
+    font-size: 12px;
+    line-height: 1.5;
+    color: var(--text-muted);
+  }
+  .source :global(a) {
+    color: var(--text-muted);
+  }
+  .sub-chart :global(.bar-swatch) {
+    width: 14px;
+    height: 12px;
+  }
+  @media (max-width: 640px) {
+    h3 {
+      font-size: 22px;
+    }
+    .sub-intro {
+      font-size: 16px;
+    }
+  }
+</style>

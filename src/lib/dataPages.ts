@@ -47,6 +47,31 @@ export const tablePages: TablePage[] = [
     slug: { sv: 'bra-2005', en: 'bra-2005' },
     name: { sv: 'Brås äldre studier', en: 'Brå’s older studies' },
   },
+  {
+    chapterId: 'kap6',
+    slug: { sv: 'utsatta-for-brott', en: 'crime-victims' },
+    name: { sv: 'Utsatta för brott', en: 'Victims of crime' },
+  },
+  {
+    chapterId: 'kap7',
+    slug: { sv: 'utvisning', en: 'deportation' },
+    name: { sv: 'Utvisning på grund av brott', en: 'Deportation for crime' },
+  },
+  {
+    chapterId: 'kap8',
+    slug: { sv: 'dodligt-vald', en: 'homicide' },
+    name: { sv: 'Dödligt våld', en: 'Homicide' },
+  },
+  {
+    chapterId: 'kap9',
+    slug: { sv: 'lagforda-fore-25', en: 'convicted-before-25' },
+    name: { sv: 'Lagförda före 25 års ålder', en: 'Convicted before age 25' },
+  },
+  {
+    chapterId: 'kap10',
+    slug: { sv: 'fodelsear', en: 'birth-year' },
+    name: { sv: 'Lagförda efter födelseår', en: 'Convicted by birth year' },
+  },
 ];
 
 /** The table index page: /data/ in Swedish, /en/data/ in English. */

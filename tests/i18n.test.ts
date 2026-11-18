@@ -2,7 +2,7 @@
 // the language paths line up, and English numbers use the English format.
 import { test } from 'node:test';
 import assert from 'node:assert/strict';
-import { loadBra2005, loadOrigin, loadRapeStudies, loadSuspectsByBackground, loadTableB6 } from '../src/lib/data';
+import { loadBra2005, loadOrigin, loadRapeStudies, loadRiskFactors, loadSuspectsByBackground, loadSuspicionShares, loadTableB6, loadNtu, loadDeportation, loadHomicide } from '../src/lib/data';
 import { dataLabel } from '../src/lib/labels';
 import { alternatePath, tablePage } from '../src/lib/dataPages';
 import { localePath } from '../src/lib/i18n';
@@ -19,6 +19,20 @@ test('every label from the data files has an English name', () => {
   for (const r of loadTableB6()) labels.add(r.unit);
   for (const r of loadRapeStudies()) labels.add(r.item);
   for (const r of loadBra2005()) labels.add(r.group);
+  for (const r of loadSuspicionShares()) labels.add(r.group);
+  for (const r of loadNtu()) {
+    labels.add(r.crime);
+    if (r.view === 'varldsdel') labels.add(r.group);
+  }
+  for (const r of loadHomicide()) labels.add(r.item);
+  for (const r of loadDeportation()) {
+    if (r.group !== 'Totalt') labels.add(r.group);
+    if (r.parent) labels.add(r.parent);
+  }
+  for (const r of loadRiskFactors()) {
+    labels.add(r.factor);
+    labels.add(r.comparison);
+  }
   const missing = [...labels].filter((sv) => {
     try {
       dataLabel(sv, 'en');

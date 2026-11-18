@@ -1,0 +1,604 @@
+view,crime_id,crime,sex,group,period,pct,ci_low,ci_high,flag,source_table
+bakgrund,misshandel,Misshandel,samtliga,utlandsk,2016–2022,3.419236,3.292021,3.549987,,Tabell 1C
+bakgrund,misshandel,Misshandel,samtliga,svensk,2016–2022,3.015191,2.951582,3.079796,,Tabell 1C
+bakgrund,misshandel,Misshandel,man,utlandsk,2016–2022,4.153746,3.949293,4.365722,,Tabell 1C
+bakgrund,misshandel,Misshandel,man,svensk,2016–2022,3.831430,3.727552,3.937387,,Tabell 1C
+bakgrund,misshandel,Misshandel,kvinnor,utlandsk,2016–2022,2.779617,2.623774,2.942129,,Tabell 1C
+bakgrund,misshandel,Misshandel,kvinnor,svensk,2016–2022,2.271472,2.195682,2.349169,,Tabell 1C
+varldsdel,misshandel,Misshandel,samtliga,Afrika,2016–2022,4.242771,3.662301,4.886749,,Tabell 1C
+varldsdel,misshandel,Misshandel,samtliga,Asien,2016–2022,3.934297,3.654840,4.228878,,Tabell 1C
+varldsdel,misshandel,Misshandel,samtliga,Europa,2016–2022,3.077675,2.928428,3.232396,,Tabell 1C
+varldsdel,misshandel,Misshandel,samtliga,Latinamerika och Karibien,2016–2022,3.686433,3.083874,4.370086,,Tabell 1C
+varldsdel,misshandel,Misshandel,samtliga,Nordamerika,2016–2022,2.954839,2.207306,3.872639,,Tabell 1C
+varldsdel,misshandel,Misshandel,samtliga,Oceanien,2016–2022,5.883030,3.392576,9.456564,,Tabell 1C
+varldsdel,misshandel,Misshandel,samtliga,Sovjetunionen,2016–2022,5.194901,3.337778,7.693921,,Tabell 1C
+varldsdel,misshandel,Misshandel,man,Afrika,2016–2022,4.471158,3.668251,5.393202,,Tabell 1C
+varldsdel,misshandel,Misshandel,man,Asien,2016–2022,4.534463,4.107122,4.992820,,Tabell 1C
+varldsdel,misshandel,Misshandel,man,Europa,2016–2022,3.937378,3.688245,4.198450,,Tabell 1C
+varldsdel,misshandel,Misshandel,man,Latinamerika och Karibien,2016–2022,4.196660,3.267976,5.302099,,Tabell 1C
+varldsdel,misshandel,Misshandel,man,Nordamerika,2016–2022,3.566023,2.422868,5.058678,,Tabell 1C
+varldsdel,misshandel,Misshandel,man,Oceanien,2016–2022,5.137937,2.198009,10.203983,,Tabell 1C
+varldsdel,misshandel,Misshandel,man,Sovjetunionen,2016–2022,6.194964,3.303454,10.537760,,Tabell 1C
+varldsdel,misshandel,Misshandel,kvinnor,Afrika,2016–2022,3.981030,3.182049,4.915823,,Tabell 1C
+varldsdel,misshandel,Misshandel,kvinnor,Asien,2016–2022,3.381686,3.025864,3.767002,,Tabell 1C
+varldsdel,misshandel,Misshandel,kvinnor,Europa,2016–2022,2.365062,2.189774,2.550455,,Tabell 1C
+varldsdel,misshandel,Misshandel,kvinnor,Latinamerika och Karibien,2016–2022,3.264030,2.517759,4.159876,,Tabell 1C
+varldsdel,misshandel,Misshandel,kvinnor,Nordamerika,2016–2022,2.389674,1.509631,3.600359,,Tabell 1C
+varldsdel,misshandel,Misshandel,kvinnor,Oceanien,2016–2022,6.666755,3.134230,12.362500,,Tabell 1C
+varldsdel,misshandel,Misshandel,kvinnor,Sovjetunionen,2016–2022,4.525292,2.384241,7.796541,,Tabell 1C
+ar,misshandel,Misshandel,samtliga,utlandsk,2016,3.386155,,,,Tabell 1A
+ar,misshandel,Misshandel,samtliga,utlandsk,2017,3.755922,,,,Tabell 1A
+ar,misshandel,Misshandel,samtliga,utlandsk,2018,3.897984,,,,Tabell 1A
+ar,misshandel,Misshandel,samtliga,utlandsk,2019,3.765936,,,,Tabell 1A
+ar,misshandel,Misshandel,samtliga,utlandsk,2020,3.124105,,,,Tabell 1A
+ar,misshandel,Misshandel,samtliga,utlandsk,2021,2.861913,,,,Tabell 1A
+ar,misshandel,Misshandel,samtliga,utlandsk,2022,3.085142,2.758844,3.438736,,Tabell 1A
+ar,misshandel,Misshandel,samtliga,svensk,2016,3.018176,,,,Tabell 1A
+ar,misshandel,Misshandel,samtliga,svensk,2017,3.060625,,,,Tabell 1A
+ar,misshandel,Misshandel,samtliga,svensk,2018,3.394782,,,,Tabell 1A
+ar,misshandel,Misshandel,samtliga,svensk,2019,3.505454,,,,Tabell 1A
+ar,misshandel,Misshandel,samtliga,svensk,2020,2.690896,,,,Tabell 1A
+ar,misshandel,Misshandel,samtliga,svensk,2021,2.704718,,,,Tabell 1A
+ar,misshandel,Misshandel,samtliga,svensk,2022,2.627980,2.460174,2.804030,,Tabell 1A
+ar,misshandel,Misshandel,man,utlandsk,2016,4.333654,,,,Tabell 1A
+ar,misshandel,Misshandel,man,utlandsk,2017,4.818497,,,,Tabell 1A
+ar,misshandel,Misshandel,man,utlandsk,2018,4.645466,,,,Tabell 1A
+ar,misshandel,Misshandel,man,utlandsk,2019,4.647170,,,,Tabell 1A
+ar,misshandel,Misshandel,man,utlandsk,2020,3.466543,,,,Tabell 1A
+ar,misshandel,Misshandel,man,utlandsk,2021,3.422885,,,,Tabell 1A
+ar,misshandel,Misshandel,man,utlandsk,2022,3.698887,3.181973,4.274104,,Tabell 1A
+ar,misshandel,Misshandel,man,svensk,2016,3.867946,,,,Tabell 1A
+ar,misshandel,Misshandel,man,svensk,2017,3.805180,,,,Tabell 1A
+ar,misshandel,Misshandel,man,svensk,2018,4.274674,,,,Tabell 1A
+ar,misshandel,Misshandel,man,svensk,2019,4.573455,,,,Tabell 1A
+ar,misshandel,Misshandel,man,svensk,2020,3.459999,,,,Tabell 1A
+ar,misshandel,Misshandel,man,svensk,2021,3.507009,,,,Tabell 1A
+ar,misshandel,Misshandel,man,svensk,2022,3.179665,2.912228,3.464570,,Tabell 1A
+ar,misshandel,Misshandel,kvinnor,utlandsk,2016,2.571047,,,,Tabell 1A
+ar,misshandel,Misshandel,kvinnor,utlandsk,2017,2.860253,,,,Tabell 1A
+ar,misshandel,Misshandel,kvinnor,utlandsk,2018,3.259957,,,,Tabell 1A
+ar,misshandel,Misshandel,kvinnor,utlandsk,2019,2.978502,,,,Tabell 1A
+ar,misshandel,Misshandel,kvinnor,utlandsk,2020,2.813096,,,,Tabell 1A
+ar,misshandel,Misshandel,kvinnor,utlandsk,2021,2.370904,,,,Tabell 1A
+ar,misshandel,Misshandel,kvinnor,utlandsk,2022,2.556431,2.158852,3.005294,,Tabell 1A
+ar,misshandel,Misshandel,kvinnor,svensk,2016,2.248846,,,,Tabell 1A
+ar,misshandel,Misshandel,kvinnor,svensk,2017,2.390846,,,,Tabell 1A
+ar,misshandel,Misshandel,kvinnor,svensk,2018,2.592932,,,,Tabell 1A
+ar,misshandel,Misshandel,kvinnor,svensk,2019,2.526132,,,,Tabell 1A
+ar,misshandel,Misshandel,kvinnor,svensk,2020,1.983034,,,,Tabell 1A
+ar,misshandel,Misshandel,kvinnor,svensk,2021,1.960272,,,,Tabell 1A
+ar,misshandel,Misshandel,kvinnor,svensk,2022,2.132570,1.927818,2.352923,,Tabell 1A
+bakgrund,hot,Hot,samtliga,utlandsk,2016–2022,9.342746,9.137767,9.550810,,Tabell 2C
+bakgrund,hot,Hot,samtliga,svensk,2016–2022,7.905510,7.804791,8.007121,,Tabell 2C
+bakgrund,hot,Hot,man,utlandsk,2016–2022,9.556818,9.253507,9.866758,,Tabell 2C
+bakgrund,hot,Hot,man,svensk,2016–2022,8.223956,8.074747,8.375045,,Tabell 2C
+bakgrund,hot,Hot,kvinnor,utlandsk,2016–2022,9.156164,8.879789,9.438310,,Tabell 2C
+bakgrund,hot,Hot,kvinnor,svensk,2016–2022,7.615057,7.479248,7.752561,,Tabell 2C
+varldsdel,hot,Hot,samtliga,Afrika,2016–2022,7.959695,7.169265,8.808149,,Tabell 2C
+varldsdel,hot,Hot,samtliga,Asien,2016–2022,9.415964,8.991726,9.853514,,Tabell 2C
+varldsdel,hot,Hot,samtliga,Europa,2016–2022,9.272309,9.019458,9.529912,,Tabell 2C
+varldsdel,hot,Hot,samtliga,Latinamerika och Karibien,2016–2022,11.388160,10.337633,12.506461,,Tabell 2C
+varldsdel,hot,Hot,samtliga,Nordamerika,2016–2022,9.672288,8.294801,11.195952,,Tabell 2C
+varldsdel,hot,Hot,samtliga,Oceanien,2016–2022,13.766736,9.787351,18.644929,,Tabell 2C
+varldsdel,hot,Hot,samtliga,Sovjetunionen,2016–2022,7.085844,4.878902,9.908880,,Tabell 2C
+varldsdel,hot,Hot,man,Afrika,2016–2022,7.846862,6.785453,9.017543,,Tabell 2C
+varldsdel,hot,Hot,man,Asien,2016–2022,9.853379,9.233253,10.500857,,Tabell 2C
+varldsdel,hot,Hot,man,Europa,2016–2022,9.574983,9.194322,9.966119,,Tabell 2C
+varldsdel,hot,Hot,man,Latinamerika och Karibien,2016–2022,10.926476,9.421816,12.582026,,Tabell 2C
+varldsdel,hot,Hot,man,Nordamerika,2016–2022,7.798708,6.055668,9.860648,,Tabell 2C
+varldsdel,hot,Hot,man,Oceanien,2016–2022,12.522222,7.487209,19.355960,,Tabell 2C
+varldsdel,hot,Hot,man,Sovjetunionen,2016–2022,7.827458,4.513860,12.534397,,Tabell 2C
+varldsdel,hot,Hot,kvinnor,Afrika,2016–2022,8.089524,6.944284,9.358345,,Tabell 2C
+varldsdel,hot,Hot,kvinnor,Asien,2016–2022,9.013173,8.439460,9.612800,,Tabell 2C
+varldsdel,hot,Hot,kvinnor,Europa,2016–2022,9.021275,8.685647,9.365599,,Tabell 2C
+varldsdel,hot,Hot,kvinnor,Latinamerika och Karibien,2016–2022,11.771853,10.344286,13.322303,,Tabell 2C
+varldsdel,hot,Hot,kvinnor,Nordamerika,2016–2022,11.400025,9.374082,13.694215,,Tabell 2C
+varldsdel,hot,Hot,kvinnor,Oceanien,2016–2022,15.077975,9.390196,22.529902,,Tabell 2C
+varldsdel,hot,Hot,kvinnor,Sovjetunionen,2016–2022,6.585279,3.906248,10.350513,,Tabell 2C
+ar,hot,Hot,samtliga,utlandsk,2016,8.963940,,,,Tabell 2A
+ar,hot,Hot,samtliga,utlandsk,2017,9.532908,,,,Tabell 2A
+ar,hot,Hot,samtliga,utlandsk,2018,9.929871,,,,Tabell 2A
+ar,hot,Hot,samtliga,utlandsk,2019,10.212272,,,,Tabell 2A
+ar,hot,Hot,samtliga,utlandsk,2020,9.432036,,,,Tabell 2A
+ar,hot,Hot,samtliga,utlandsk,2021,8.547218,,,,Tabell 2A
+ar,hot,Hot,samtliga,utlandsk,2022,8.668395,8.128095,9.232685,,Tabell 2A
+ar,hot,Hot,samtliga,svensk,2016,7.408704,,,,Tabell 2A
+ar,hot,Hot,samtliga,svensk,2017,7.780588,,,,Tabell 2A
+ar,hot,Hot,samtliga,svensk,2018,8.735884,,,,Tabell 2A
+ar,hot,Hot,samtliga,svensk,2019,8.713887,,,,Tabell 2A
+ar,hot,Hot,samtliga,svensk,2020,7.979966,,,,Tabell 2A
+ar,hot,Hot,samtliga,svensk,2021,7.384564,,,,Tabell 2A
+ar,hot,Hot,samtliga,svensk,2022,7.220425,6.946138,7.502149,,Tabell 2A
+ar,hot,Hot,man,utlandsk,2016,9.258673,,,,Tabell 2A
+ar,hot,Hot,man,utlandsk,2017,9.858730,,,,Tabell 2A
+ar,hot,Hot,man,utlandsk,2018,10.232236,,,,Tabell 2A
+ar,hot,Hot,man,utlandsk,2019,10.019108,,,,Tabell 2A
+ar,hot,Hot,man,utlandsk,2020,9.564445,,,,Tabell 2A
+ar,hot,Hot,man,utlandsk,2021,8.752354,,,,Tabell 2A
+ar,hot,Hot,man,utlandsk,2022,9.128476,8.321940,9.986412,,Tabell 2A
+ar,hot,Hot,man,svensk,2016,7.690299,,,,Tabell 2A
+ar,hot,Hot,man,svensk,2017,8.082856,,,,Tabell 2A
+ar,hot,Hot,man,svensk,2018,9.011911,,,,Tabell 2A
+ar,hot,Hot,man,svensk,2019,9.309719,,,,Tabell 2A
+ar,hot,Hot,man,svensk,2020,8.430735,,,,Tabell 2A
+ar,hot,Hot,man,svensk,2021,7.629863,,,,Tabell 2A
+ar,hot,Hot,man,svensk,2022,7.236836,6.837240,7.652373,,Tabell 2A
+ar,hot,Hot,kvinnor,utlandsk,2016,8.710059,,,,Tabell 2A
+ar,hot,Hot,kvinnor,utlandsk,2017,9.258047,,,,Tabell 2A
+ar,hot,Hot,kvinnor,utlandsk,2018,9.671772,,,,Tabell 2A
+ar,hot,Hot,kvinnor,utlandsk,2019,10.385666,,,,Tabell 2A
+ar,hot,Hot,kvinnor,utlandsk,2020,9.312002,,,,Tabell 2A
+ar,hot,Hot,kvinnor,utlandsk,2021,8.367587,,,,Tabell 2A
+ar,hot,Hot,kvinnor,utlandsk,2022,8.271737,7.557443,9.030996,,Tabell 2A
+ar,hot,Hot,kvinnor,svensk,2016,7.153585,,,,Tabell 2A
+ar,hot,Hot,kvinnor,svensk,2017,7.508319,,,,Tabell 2A
+ar,hot,Hot,kvinnor,svensk,2018,8.484065,,,,Tabell 2A
+ar,hot,Hot,kvinnor,svensk,2019,8.167314,,,,Tabell 2A
+ar,hot,Hot,kvinnor,svensk,2020,7.564505,,,,Tabell 2A
+ar,hot,Hot,kvinnor,svensk,2021,7.156650,,,,Tabell 2A
+ar,hot,Hot,kvinnor,svensk,2022,7.205672,6.832533,7.592743,,Tabell 2A
+bakgrund,sexualbrott,Sexualbrott,samtliga,utlandsk,2016–2022,4.780788,4.631100,4.933908,,Tabell 3C
+bakgrund,sexualbrott,Sexualbrott,samtliga,svensk,2016–2022,5.421581,5.337191,5.506914,,Tabell 3C
+bakgrund,sexualbrott,Sexualbrott,man,utlandsk,2016–2022,1.450671,1.329895,1.579406,,Tabell 3C
+bakgrund,sexualbrott,Sexualbrott,man,svensk,2016–2022,1.251154,1.191503,1.312998,,Tabell 3C
+bakgrund,sexualbrott,Sexualbrott,kvinnor,utlandsk,2016–2022,7.682107,7.427278,7.942913,,Tabell 3C
+bakgrund,sexualbrott,Sexualbrott,kvinnor,svensk,2016–2022,9.220845,9.072710,9.370609,,Tabell 3C
+varldsdel,sexualbrott,Sexualbrott,samtliga,Afrika,2016–2022,3.634121,3.097786,4.234807,,Tabell 3C
+varldsdel,sexualbrott,Sexualbrott,samtliga,Asien,2016–2022,4.616254,4.313982,4.933419,,Tabell 3C
+varldsdel,sexualbrott,Sexualbrott,samtliga,Europa,2016–2022,4.737589,4.553338,4.927119,,Tabell 3C
+varldsdel,sexualbrott,Sexualbrott,samtliga,Latinamerika och Karibien,2016–2022,7.231555,6.385535,8.152483,,Tabell 3C
+varldsdel,sexualbrott,Sexualbrott,samtliga,Nordamerika,2016–2022,5.992394,4.907738,7.236176,,Tabell 3C
+varldsdel,sexualbrott,Sexualbrott,samtliga,Oceanien,2016–2022,7.636826,4.747047,11.565052,,Tabell 3C
+varldsdel,sexualbrott,Sexualbrott,samtliga,Sovjetunionen,2016–2022,2.123537,1.034146,3.897324,,Tabell 3C
+varldsdel,sexualbrott,Sexualbrott,man,Afrika,2016–2022,1.553621,1.099305,2.134560,,Tabell 3C
+varldsdel,sexualbrott,Sexualbrott,man,Asien,2016–2022,1.543509,1.297535,1.822501,,Tabell 3C
+varldsdel,sexualbrott,Sexualbrott,man,Europa,2016–2022,1.420253,1.271326,1.581764,,Tabell 3C
+varldsdel,sexualbrott,Sexualbrott,man,Latinamerika och Karibien,2016–2022,1.362374,0.865254,2.046594,,Tabell 3C
+varldsdel,sexualbrott,Sexualbrott,man,Nordamerika,2016–2022,1.034555,0.489052,1.946060,,Tabell 3C
+varldsdel,sexualbrott,Sexualbrott,man,Oceanien,2016–2022,2.768523,0.841742,6.910255,,Tabell 3C
+varldsdel,sexualbrott,Sexualbrott,man,Sovjetunionen,2016–2022,,,,.,Tabell 3C
+varldsdel,sexualbrott,Sexualbrott,kvinnor,Afrika,2016–2022,6.014522,5.025781,7.133160,,Tabell 3C
+varldsdel,sexualbrott,Sexualbrott,kvinnor,Asien,2016–2022,7.449034,6.924357,8.000636,,Tabell 3C
+varldsdel,sexualbrott,Sexualbrott,kvinnor,Europa,2016–2022,7.487592,7.179885,7.804314,,Tabell 3C
+varldsdel,sexualbrott,Sexualbrott,kvinnor,Latinamerika och Karibien,2016–2022,12.104385,10.659841,13.670470,,Tabell 3C
+varldsdel,sexualbrott,Sexualbrott,kvinnor,Nordamerika,2016–2022,10.589412,8.633740,12.819250,,Tabell 3C
+varldsdel,sexualbrott,Sexualbrott,kvinnor,Oceanien,2016–2022,12.771295,7.591211,19.815212,,Tabell 3C
+varldsdel,sexualbrott,Sexualbrott,kvinnor,Sovjetunionen,2016–2022,3.546163,1.703884,6.542836,,Tabell 3C
+ar,sexualbrott,Sexualbrott,samtliga,utlandsk,2016,4.249319,,,,Tabell 3A
+ar,sexualbrott,Sexualbrott,samtliga,utlandsk,2017,5.788087,,,,Tabell 3A
+ar,sexualbrott,Sexualbrott,samtliga,utlandsk,2018,5.625340,,,,Tabell 3A
+ar,sexualbrott,Sexualbrott,samtliga,utlandsk,2019,5.383548,,,,Tabell 3A
+ar,sexualbrott,Sexualbrott,samtliga,utlandsk,2020,4.268692,,,,Tabell 3A
+ar,sexualbrott,Sexualbrott,samtliga,utlandsk,2021,3.920099,,,,Tabell 3A
+ar,sexualbrott,Sexualbrott,samtliga,utlandsk,2022,4.158837,3.779597,4.564769,,Tabell 3A
+ar,sexualbrott,Sexualbrott,samtliga,svensk,2016,4.913671,,,,Tabell 3A
+ar,sexualbrott,Sexualbrott,samtliga,svensk,2017,6.673620,,,,Tabell 3A
+ar,sexualbrott,Sexualbrott,samtliga,svensk,2018,6.173011,,,,Tabell 3A
+ar,sexualbrott,Sexualbrott,samtliga,svensk,2019,5.657066,,,,Tabell 3A
+ar,sexualbrott,Sexualbrott,samtliga,svensk,2020,4.744990,,,,Tabell 3A
+ar,sexualbrott,Sexualbrott,samtliga,svensk,2021,4.731072,,,,Tabell 3A
+ar,sexualbrott,Sexualbrott,samtliga,svensk,2022,4.926756,4.698140,5.163211,,Tabell 3A
+ar,sexualbrott,Sexualbrott,man,utlandsk,2016,1.287995,,,,Tabell 3A
+ar,sexualbrott,Sexualbrott,man,utlandsk,2017,1.619911,,,,Tabell 3A
+ar,sexualbrott,Sexualbrott,man,utlandsk,2018,1.794896,,,,Tabell 3A
+ar,sexualbrott,Sexualbrott,man,utlandsk,2019,1.525402,,,,Tabell 3A
+ar,sexualbrott,Sexualbrott,man,utlandsk,2020,1.354352,,,,Tabell 3A
+ar,sexualbrott,Sexualbrott,man,utlandsk,2021,1.193970,,,,Tabell 3A
+ar,sexualbrott,Sexualbrott,man,utlandsk,2022,1.369549,1.063174,1.737203,,Tabell 3A
+ar,sexualbrott,Sexualbrott,man,svensk,2016,0.952999,,,,Tabell 3A
+ar,sexualbrott,Sexualbrott,man,svensk,2017,1.535726,,,,Tabell 3A
+ar,sexualbrott,Sexualbrott,man,svensk,2018,1.571384,,,,Tabell 3A
+ar,sexualbrott,Sexualbrott,man,svensk,2019,1.354626,,,,Tabell 3A
+ar,sexualbrott,Sexualbrott,man,svensk,2020,1.133906,,,,Tabell 3A
+ar,sexualbrott,Sexualbrott,man,svensk,2021,1.107331,,,,Tabell 3A
+ar,sexualbrott,Sexualbrott,man,svensk,2022,1.088585,0.934306,1.261102,,Tabell 3A
+ar,sexualbrott,Sexualbrott,kvinnor,utlandsk,2016,6.796907,,,,Tabell 3A
+ar,sexualbrott,Sexualbrott,kvinnor,utlandsk,2017,9.300675,,,,Tabell 3A
+ar,sexualbrott,Sexualbrott,kvinnor,utlandsk,2018,8.897274,,,,Tabell 3A
+ar,sexualbrott,Sexualbrott,kvinnor,utlandsk,2019,8.833669,,,,Tabell 3A
+ar,sexualbrott,Sexualbrott,kvinnor,utlandsk,2020,6.916949,,,,Tabell 3A
+ar,sexualbrott,Sexualbrott,kvinnor,utlandsk,2021,6.309283,,,,Tabell 3A
+ar,sexualbrott,Sexualbrott,kvinnor,utlandsk,2022,6.562266,5.922141,7.249369,,Tabell 3A
+ar,sexualbrott,Sexualbrott,kvinnor,svensk,2016,8.500692,,,,Tabell 3A
+ar,sexualbrott,Sexualbrott,kvinnor,svensk,2017,11.291397,,,,Tabell 3A
+ar,sexualbrott,Sexualbrott,kvinnor,svensk,2018,10.361756,,,,Tabell 3A
+ar,sexualbrott,Sexualbrott,kvinnor,svensk,2019,9.598574,,,,Tabell 3A
+ar,sexualbrott,Sexualbrott,kvinnor,svensk,2020,8.068047,,,,Tabell 3A
+ar,sexualbrott,Sexualbrott,kvinnor,svensk,2021,8.095836,,,,Tabell 3A
+ar,sexualbrott,Sexualbrott,kvinnor,svensk,2022,8.377282,7.976692,8.791430,,Tabell 3A
+bakgrund,personran,Personrån,samtliga,utlandsk,2016–2022,1.511440,1.426802,1.599748,,Tabell 4C
+bakgrund,personran,Personrån,samtliga,svensk,2016–2022,1.153052,1.113596,1.193540,,Tabell 4C
+bakgrund,personran,Personrån,man,utlandsk,2016–2022,2.099956,1.954501,2.253241,,Tabell 4C
+bakgrund,personran,Personrån,man,svensk,2016–2022,1.872130,1.799216,1.947206,,Tabell 4C
+bakgrund,personran,Personrån,kvinnor,utlandsk,2016–2022,0.998700,0.905969,1.098335,,Tabell 4C
+bakgrund,personran,Personrån,kvinnor,svensk,2016–2022,0.498086,0.462854,0.535291,,Tabell 4C
+varldsdel,personran,Personrån,samtliga,Afrika,2016–2022,2.048417,1.651768,2.511327,,Tabell 4C
+varldsdel,personran,Personrån,samtliga,Asien,2016–2022,1.677546,1.496062,1.874848,,Tabell 4C
+varldsdel,personran,Personrån,samtliga,Europa,2016–2022,1.391667,1.291548,1.497439,,Tabell 4C
+varldsdel,personran,Personrån,samtliga,Latinamerika och Karibien,2016–2022,1.509118,1.135071,1.967809,,Tabell 4C
+varldsdel,personran,Personrån,samtliga,Nordamerika,2016–2022,1.131390,0.697662,1.740789,,Tabell 4C
+varldsdel,personran,Personrån,samtliga,Oceanien,2016–2022,2.648246,1.129600,5.322037,,Tabell 4C
+varldsdel,personran,Personrån,samtliga,Sovjetunionen,2016–2022,1.457127,0.605075,2.996566,,Tabell 4C
+varldsdel,personran,Personrån,man,Afrika,2016–2022,2.556454,1.960515,3.275813,,Tabell 4C
+varldsdel,personran,Personrån,man,Asien,2016–2022,2.194336,1.899214,2.521942,,Tabell 4C
+varldsdel,personran,Personrån,man,Europa,2016–2022,2.009220,1.831617,2.199222,,Tabell 4C
+varldsdel,personran,Personrån,man,Latinamerika och Karibien,2016–2022,2.282587,1.617097,3.131047,,Tabell 4C
+varldsdel,personran,Personrån,man,Nordamerika,2016–2022,1.268180,0.648244,2.252184,,Tabell 4C
+varldsdel,personran,Personrån,man,Oceanien,2016–2022,3.063082,0.992823,7.337238,,Tabell 4C
+varldsdel,personran,Personrån,man,Sovjetunionen,2016–2022,2.285837,0.773971,5.353138,,Tabell 4C
+varldsdel,personran,Personrån,kvinnor,Afrika,2016–2022,1.467706,1.004626,2.073522,,Tabell 4C
+varldsdel,personran,Personrån,kvinnor,Asien,2016–2022,1.200965,0.993069,1.439663,,Tabell 4C
+varldsdel,personran,Personrån,kvinnor,Europa,2016–2022,0.879832,0.774313,0.995739,,Tabell 4C
+varldsdel,personran,Personrån,kvinnor,Latinamerika och Karibien,2016–2022,0.866180,0.513170,1.376122,,Tabell 4C
+varldsdel,personran,Personrån,kvinnor,Nordamerika,2016–2022,1.004406,0.484897,1.861094,,Tabell 4C
+varldsdel,personran,Personrån,kvinnor,Oceanien,2016–2022,2.210729,0.552906,6.226689,,Tabell 4C
+varldsdel,personran,Personrån,kvinnor,Sovjetunionen,2016–2022,0.901216,0.194216,2.803525,,Tabell 4C
+ar,personran,Personrån,samtliga,utlandsk,2016,1.526817,,,,Tabell 4A
+ar,personran,Personrån,samtliga,utlandsk,2017,1.657958,,,,Tabell 4A
+ar,personran,Personrån,samtliga,utlandsk,2018,1.644355,,,,Tabell 4A
+ar,personran,Personrån,samtliga,utlandsk,2019,1.587025,,,,Tabell 4A
+ar,personran,Personrån,samtliga,utlandsk,2020,1.453599,,,,Tabell 4A
+ar,personran,Personrån,samtliga,utlandsk,2021,1.391021,,,,Tabell 4A
+ar,personran,Personrån,samtliga,utlandsk,2022,1.297820,1.089696,1.534163,,Tabell 4A
+ar,personran,Personrån,samtliga,svensk,2016,0.957309,,,,Tabell 4A
+ar,personran,Personrån,samtliga,svensk,2017,1.115712,,,,Tabell 4A
+ar,personran,Personrån,samtliga,svensk,2018,1.291067,,,,Tabell 4A
+ar,personran,Personrån,samtliga,svensk,2019,1.459996,,,,Tabell 4A
+ar,personran,Personrån,samtliga,svensk,2020,1.185521,,,,Tabell 4A
+ar,personran,Personrån,samtliga,svensk,2021,1.126650,,,,Tabell 4A
+ar,personran,Personrån,samtliga,svensk,2022,0.916929,0.818854,1.023520,,Tabell 4A
+ar,personran,Personrån,man,utlandsk,2016,2.161281,,,,Tabell 4A
+ar,personran,Personrån,man,utlandsk,2017,2.239693,,,,Tabell 4A
+ar,personran,Personrån,man,utlandsk,2018,2.174487,,,,Tabell 4A
+ar,personran,Personrån,man,utlandsk,2019,2.199239,,,,Tabell 4A
+ar,personran,Personrån,man,utlandsk,2020,2.147562,,,,Tabell 4A
+ar,personran,Personrån,man,utlandsk,2021,1.942167,,,,Tabell 4A
+ar,personran,Personrån,man,utlandsk,2022,1.799040,1.445053,2.213471,,Tabell 4A
+ar,personran,Personrån,man,svensk,2016,1.468447,,,,Tabell 4A
+ar,personran,Personrån,man,svensk,2017,1.715306,,,,Tabell 4A
+ar,personran,Personrån,man,svensk,2018,2.055017,,,,Tabell 4A
+ar,personran,Personrån,man,svensk,2019,2.380666,,,,Tabell 4A
+ar,personran,Personrån,man,svensk,2020,2.039937,,,,Tabell 4A
+ar,personran,Personrån,man,svensk,2021,1.899876,,,,Tabell 4A
+ar,personran,Personrån,man,svensk,2022,1.536495,1.352109,1.738910,,Tabell 4A
+ar,personran,Personrån,kvinnor,utlandsk,2016,0.980575,,,,Tabell 4A
+ar,personran,Personrån,kvinnor,utlandsk,2017,1.169111,,,,Tabell 4A
+ar,personran,Personrån,kvinnor,utlandsk,2018,1.190401,,,,Tabell 4A
+ar,personran,Personrån,kvinnor,utlandsk,2019,1.039975,,,,Tabell 4A
+ar,personran,Personrån,kvinnor,utlandsk,2020,0.823557,,,,Tabell 4A
+ar,personran,Personrån,kvinnor,utlandsk,2021,0.907751,,,,Tabell 4A
+ar,personran,Personrån,kvinnor,utlandsk,2022,0.865631,0.643585,1.140543,,Tabell 4A
+ar,personran,Personrån,kvinnor,svensk,2016,0.495003,,,,Tabell 4A
+ar,personran,Personrån,kvinnor,svensk,2017,0.576498,,,,Tabell 4A
+ar,personran,Personrån,kvinnor,svensk,2018,0.594833,,,,Tabell 4A
+ar,personran,Personrån,kvinnor,svensk,2019,0.616347,,,,Tabell 4A
+ar,personran,Personrån,kvinnor,svensk,2020,0.400029,,,,Tabell 4A
+ar,personran,Personrån,kvinnor,svensk,2021,0.409107,,,,Tabell 4A
+ar,personran,Personrån,kvinnor,svensk,2022,0.360130,0.280002,0.456378,,Tabell 4A
+bakgrund,fickstold,Fickstöld,samtliga,utlandsk,2016–2022,3.040575,2.920639,3.164066,,Tabell 5C
+bakgrund,fickstold,Fickstöld,samtliga,svensk,2016–2022,2.017658,1.965517,2.070813,,Tabell 5C
+bakgrund,fickstold,Fickstöld,man,utlandsk,2016–2022,2.908725,2.737436,3.087718,,Tabell 5C
+bakgrund,fickstold,Fickstöld,man,svensk,2016–2022,2.055847,1.979429,2.134420,,Tabell 5C
+bakgrund,fickstold,Fickstöld,kvinnor,utlandsk,2016–2022,3.155349,2.989598,3.327701,,Tabell 5C
+bakgrund,fickstold,Fickstöld,kvinnor,svensk,2016–2022,1.982895,1.912148,2.055555,,Tabell 5C
+varldsdel,fickstold,Fickstöld,samtliga,Afrika,2016–2022,3.205178,2.703029,3.772121,,Tabell 5C
+varldsdel,fickstold,Fickstöld,samtliga,Asien,2016–2022,3.630814,3.362528,3.914293,,Tabell 5C
+varldsdel,fickstold,Fickstöld,samtliga,Europa,2016–2022,2.674116,2.535090,2.818650,,Tabell 5C
+varldsdel,fickstold,Fickstöld,samtliga,Latinamerika och Karibien,2016–2022,4.199439,3.555946,4.922901,,Tabell 5C
+varldsdel,fickstold,Fickstöld,samtliga,Nordamerika,2016–2022,3.188677,2.411146,4.134923,,Tabell 5C
+varldsdel,fickstold,Fickstöld,samtliga,Oceanien,2016–2022,2.658344,1.135168,5.338087,,Tabell 5C
+varldsdel,fickstold,Fickstöld,samtliga,Sovjetunionen,2016–2022,2.745578,1.472007,4.690056,,Tabell 5C
+varldsdel,fickstold,Fickstöld,man,Afrika,2016–2022,2.795125,2.169147,3.544226,,Tabell 5C
+varldsdel,fickstold,Fickstöld,man,Asien,2016–2022,3.375691,3.007604,3.775497,,Tabell 5C
+varldsdel,fickstold,Fickstöld,man,Europa,2016–2022,2.654581,2.450038,2.871370,,Tabell 5C
+varldsdel,fickstold,Fickstöld,man,Latinamerika och Karibien,2016–2022,3.663903,2.803373,4.701677,,Tabell 5C
+varldsdel,fickstold,Fickstöld,man,Nordamerika,2016–2022,2.757760,1.771006,4.098741,,Tabell 5C
+varldsdel,fickstold,Fickstöld,man,Oceanien,2016–2022,3.272196,1.103916,7.636219,,Tabell 5C
+varldsdel,fickstold,Fickstöld,man,Sovjetunionen,2016–2022,2.308239,0.784588,5.391671,,Tabell 5C
+varldsdel,fickstold,Fickstöld,kvinnor,Afrika,2016–2022,3.673773,2.908400,4.575661,,Tabell 5C
+varldsdel,fickstold,Fickstöld,kvinnor,Asien,2016–2022,3.865915,3.485589,4.275388,,Tabell 5C
+varldsdel,fickstold,Fickstöld,kvinnor,Europa,2016–2022,2.690290,2.503579,2.887005,,Tabell 5C
+varldsdel,fickstold,Fickstöld,kvinnor,Latinamerika och Karibien,2016–2022,4.646559,3.746501,5.692096,,Tabell 5C
+varldsdel,fickstold,Fickstöld,kvinnor,Nordamerika,2016–2022,3.586617,2.480989,5.013199,,Tabell 5C
+varldsdel,fickstold,Fickstöld,kvinnor,Oceanien,2016–2022,2.009879,0.466352,5.924336,,Tabell 5C
+varldsdel,fickstold,Fickstöld,kvinnor,Sovjetunionen,2016–2022,3.037492,1.373284,5.857147,,Tabell 5C
+ar,fickstold,Fickstöld,samtliga,utlandsk,2016,3.877546,,,,Tabell 5A
+ar,fickstold,Fickstöld,samtliga,utlandsk,2017,3.758593,,,,Tabell 5A
+ar,fickstold,Fickstöld,samtliga,utlandsk,2018,3.590268,,,,Tabell 5A
+ar,fickstold,Fickstöld,samtliga,utlandsk,2019,3.335320,,,,Tabell 5A
+ar,fickstold,Fickstöld,samtliga,utlandsk,2020,2.505480,,,,Tabell 5A
+ar,fickstold,Fickstöld,samtliga,utlandsk,2021,2.045839,,,,Tabell 5A
+ar,fickstold,Fickstöld,samtliga,utlandsk,2022,2.031378,1.768259,2.322327,,Tabell 5A
+ar,fickstold,Fickstöld,samtliga,svensk,2016,2.731662,,,,Tabell 5A
+ar,fickstold,Fickstöld,samtliga,svensk,2017,2.589953,,,,Tabell 5A
+ar,fickstold,Fickstöld,samtliga,svensk,2018,2.425811,,,,Tabell 5A
+ar,fickstold,Fickstöld,samtliga,svensk,2019,2.340828,,,,Tabell 5A
+ar,fickstold,Fickstöld,samtliga,svensk,2020,1.366024,,,,Tabell 5A
+ar,fickstold,Fickstöld,samtliga,svensk,2021,1.149663,,,,Tabell 5A
+ar,fickstold,Fickstöld,samtliga,svensk,2022,1.186396,1.074391,1.306871,,Tabell 5A
+ar,fickstold,Fickstöld,man,utlandsk,2016,3.520865,,,,Tabell 5A
+ar,fickstold,Fickstöld,man,utlandsk,2017,3.521450,,,,Tabell 5A
+ar,fickstold,Fickstöld,man,utlandsk,2018,3.177689,,,,Tabell 5A
+ar,fickstold,Fickstöld,man,utlandsk,2019,2.981274,,,,Tabell 5A
+ar,fickstold,Fickstöld,man,utlandsk,2020,2.514559,,,,Tabell 5A
+ar,fickstold,Fickstöld,man,utlandsk,2021,2.341210,,,,Tabell 5A
+ar,fickstold,Fickstöld,man,utlandsk,2022,2.245478,1.847018,2.703928,,Tabell 5A
+ar,fickstold,Fickstöld,man,svensk,2016,2.671416,,,,Tabell 5A
+ar,fickstold,Fickstöld,man,svensk,2017,2.451207,,,,Tabell 5A
+ar,fickstold,Fickstöld,man,svensk,2018,2.466060,,,,Tabell 5A
+ar,fickstold,Fickstöld,man,svensk,2019,2.442763,,,,Tabell 5A
+ar,fickstold,Fickstöld,man,svensk,2020,1.519445,,,,Tabell 5A
+ar,fickstold,Fickstöld,man,svensk,2021,1.336584,,,,Tabell 5A
+ar,fickstold,Fickstöld,man,svensk,2022,1.208466,1.045638,1.389460,,Tabell 5A
+ar,fickstold,Fickstöld,kvinnor,utlandsk,2016,4.185084,,,,Tabell 5A
+ar,fickstold,Fickstöld,kvinnor,utlandsk,2017,3.957447,,,,Tabell 5A
+ar,fickstold,Fickstöld,kvinnor,utlandsk,2018,3.943825,,,,Tabell 5A
+ar,fickstold,Fickstöld,kvinnor,utlandsk,2019,3.651458,,,,Tabell 5A
+ar,fickstold,Fickstöld,kvinnor,utlandsk,2020,2.497249,,,,Tabell 5A
+ar,fickstold,Fickstöld,kvinnor,utlandsk,2021,1.787914,,,,Tabell 5A
+ar,fickstold,Fickstöld,kvinnor,utlandsk,2022,1.846773,1.512116,2.233304,,Tabell 5A
+ar,fickstold,Fickstöld,kvinnor,svensk,2016,2.786085,,,,Tabell 5A
+ar,fickstold,Fickstöld,kvinnor,svensk,2017,2.714712,,,,Tabell 5A
+ar,fickstold,Fickstöld,kvinnor,svensk,2018,2.389137,,,,Tabell 5A
+ar,fickstold,Fickstöld,kvinnor,svensk,2019,2.247475,,,,Tabell 5A
+ar,fickstold,Fickstöld,kvinnor,svensk,2020,1.225100,,,,Tabell 5A
+ar,fickstold,Fickstöld,kvinnor,svensk,2021,0.976300,,,,Tabell 5A
+ar,fickstold,Fickstöld,kvinnor,svensk,2022,1.166573,1.016738,1.332268,,Tabell 5A
+bakgrund,forsaljningsbedrageri,Försäljningsbedrägeri,samtliga,utlandsk,2016–2022,6.502612,6.329490,6.679027,,Tabell 6C
+bakgrund,forsaljningsbedrageri,Försäljningsbedrägeri,samtliga,svensk,2016–2022,4.633543,4.555322,4.712723,,Tabell 6C
+bakgrund,forsaljningsbedrageri,Försäljningsbedrägeri,man,utlandsk,2016–2022,7.388953,7.119925,7.664948,,Tabell 6C
+bakgrund,forsaljningsbedrageri,Försäljningsbedrägeri,man,svensk,2016–2022,5.231915,5.111363,5.354476,,Tabell 6C
+bakgrund,forsaljningsbedrageri,Försäljningsbedrägeri,kvinnor,utlandsk,2016–2022,5.730384,5.508712,5.958294,,Tabell 6C
+bakgrund,forsaljningsbedrageri,Försäljningsbedrägeri,kvinnor,svensk,2016–2022,4.088367,3.987431,4.191134,,Tabell 6C
+varldsdel,forsaljningsbedrageri,Försäljningsbedrägeri,samtliga,Afrika,2016–2022,6.502160,5.785215,7.279213,,Tabell 6C
+varldsdel,forsaljningsbedrageri,Försäljningsbedrägeri,samtliga,Asien,2016–2022,7.985510,7.592716,8.392065,,Tabell 6C
+varldsdel,forsaljningsbedrageri,Försäljningsbedrägeri,samtliga,Europa,2016–2022,5.858190,5.654415,6.067100,,Tabell 6C
+varldsdel,forsaljningsbedrageri,Försäljningsbedrägeri,samtliga,Latinamerika och Karibien,2016–2022,7.029349,6.194985,7.938974,,Tabell 6C
+varldsdel,forsaljningsbedrageri,Försäljningsbedrägeri,samtliga,Nordamerika,2016–2022,5.420690,4.390836,6.611593,,Tabell 6C
+varldsdel,forsaljningsbedrageri,Försäljningsbedrägeri,samtliga,Oceanien,2016–2022,8.590577,5.504948,12.691565,,Tabell 6C
+varldsdel,forsaljningsbedrageri,Försäljningsbedrägeri,samtliga,Sovjetunionen,2016–2022,4.645079,2.906800,7.029059,,Tabell 6C
+varldsdel,forsaljningsbedrageri,Försäljningsbedrägeri,man,Afrika,2016–2022,7.372861,6.341846,8.514741,,Tabell 6C
+varldsdel,forsaljningsbedrageri,Försäljningsbedrägeri,man,Asien,2016–2022,9.011910,8.417281,9.634428,,Tabell 6C
+varldsdel,forsaljningsbedrageri,Försäljningsbedrägeri,man,Europa,2016–2022,6.695650,6.373920,7.028569,,Tabell 6C
+varldsdel,forsaljningsbedrageri,Försäljningsbedrägeri,man,Latinamerika och Karibien,2016–2022,7.378281,6.139529,8.780575,,Tabell 6C
+varldsdel,forsaljningsbedrageri,Försäljningsbedrägeri,man,Nordamerika,2016–2022,6.648649,5.048211,8.574756,,Tabell 6C
+varldsdel,forsaljningsbedrageri,Försäljningsbedrägeri,man,Oceanien,2016–2022,8.006238,4.135527,13.863595,,Tabell 6C
+varldsdel,forsaljningsbedrageri,Försäljningsbedrägeri,man,Sovjetunionen,2016–2022,3.952704,1.771951,7.641674,,Tabell 6C
+varldsdel,forsaljningsbedrageri,Försäljningsbedrägeri,kvinnor,Afrika,2016–2022,5.505056,4.561055,6.580088,,Tabell 6C
+varldsdel,forsaljningsbedrageri,Försäljningsbedrägeri,kvinnor,Asien,2016–2022,7.040065,6.529877,7.577378,,Tabell 6C
+varldsdel,forsaljningsbedrageri,Försäljningsbedrägeri,kvinnor,Europa,2016–2022,5.164037,4.906551,5.431008,,Tabell 6C
+varldsdel,forsaljningsbedrageri,Försäljningsbedrägeri,kvinnor,Latinamerika och Karibien,2016–2022,6.738164,5.648087,7.967475,,Tabell 6C
+varldsdel,forsaljningsbedrageri,Försäljningsbedrägeri,kvinnor,Nordamerika,2016–2022,4.283948,3.062827,5.822300,,Tabell 6C
+varldsdel,forsaljningsbedrageri,Försäljningsbedrägeri,kvinnor,Oceanien,2016–2022,9.206864,4.909791,15.543737,,Tabell 6C
+varldsdel,forsaljningsbedrageri,Försäljningsbedrägeri,kvinnor,Sovjetunionen,2016–2022,5.109593,2.809653,8.521316,,Tabell 6C
+ar,forsaljningsbedrageri,Försäljningsbedrägeri,samtliga,utlandsk,2016,5.713783,,,,Tabell 6A
+ar,forsaljningsbedrageri,Försäljningsbedrägeri,samtliga,utlandsk,2017,6.022335,,,,Tabell 6A
+ar,forsaljningsbedrageri,Försäljningsbedrägeri,samtliga,utlandsk,2018,6.227611,,,,Tabell 6A
+ar,forsaljningsbedrageri,Försäljningsbedrägeri,samtliga,utlandsk,2019,6.333633,,,,Tabell 6A
+ar,forsaljningsbedrageri,Försäljningsbedrägeri,samtliga,utlandsk,2020,6.814520,,,,Tabell 6A
+ar,forsaljningsbedrageri,Försäljningsbedrägeri,samtliga,utlandsk,2021,6.998991,,,,Tabell 6A
+ar,forsaljningsbedrageri,Försäljningsbedrägeri,samtliga,utlandsk,2022,7.521282,7.015959,8.051258,,Tabell 6A
+ar,forsaljningsbedrageri,Försäljningsbedrägeri,samtliga,svensk,2016,3.938081,,,,Tabell 6A
+ar,forsaljningsbedrageri,Försäljningsbedrägeri,samtliga,svensk,2017,4.215589,,,,Tabell 6A
+ar,forsaljningsbedrageri,Försäljningsbedrägeri,samtliga,svensk,2018,4.570292,,,,Tabell 6A
+ar,forsaljningsbedrageri,Försäljningsbedrägeri,samtliga,svensk,2019,4.522408,,,,Tabell 6A
+ar,forsaljningsbedrageri,Försäljningsbedrägeri,samtliga,svensk,2020,4.884503,,,,Tabell 6A
+ar,forsaljningsbedrageri,Försäljningsbedrägeri,samtliga,svensk,2021,5.127913,,,,Tabell 6A
+ar,forsaljningsbedrageri,Försäljningsbedrägeri,samtliga,svensk,2022,5.455690,5.215830,5.703280,,Tabell 6A
+ar,forsaljningsbedrageri,Försäljningsbedrägeri,man,utlandsk,2016,6.419402,,,,Tabell 6A
+ar,forsaljningsbedrageri,Försäljningsbedrägeri,man,utlandsk,2017,6.883026,,,,Tabell 6A
+ar,forsaljningsbedrageri,Försäljningsbedrägeri,man,utlandsk,2018,7.287112,,,,Tabell 6A
+ar,forsaljningsbedrageri,Försäljningsbedrägeri,man,utlandsk,2019,7.305704,,,,Tabell 6A
+ar,forsaljningsbedrageri,Försäljningsbedrägeri,man,utlandsk,2020,8.121837,,,,Tabell 6A
+ar,forsaljningsbedrageri,Försäljningsbedrägeri,man,utlandsk,2021,7.851181,,,,Tabell 6A
+ar,forsaljningsbedrageri,Försäljningsbedrägeri,man,utlandsk,2022,7.880485,7.128906,8.684953,,Tabell 6A
+ar,forsaljningsbedrageri,Försäljningsbedrägeri,man,svensk,2016,4.463198,,,,Tabell 6A
+ar,forsaljningsbedrageri,Försäljningsbedrägeri,man,svensk,2017,4.744807,,,,Tabell 6A
+ar,forsaljningsbedrageri,Försäljningsbedrägeri,man,svensk,2018,5.083993,,,,Tabell 6A
+ar,forsaljningsbedrageri,Försäljningsbedrägeri,man,svensk,2019,5.051349,,,,Tabell 6A
+ar,forsaljningsbedrageri,Försäljningsbedrägeri,man,svensk,2020,5.655195,,,,Tabell 6A
+ar,forsaljningsbedrageri,Försäljningsbedrägeri,man,svensk,2021,5.706918,,,,Tabell 6A
+ar,forsaljningsbedrageri,Försäljningsbedrägeri,man,svensk,2022,6.224053,5.852560,6.611830,,Tabell 6A
+ar,forsaljningsbedrageri,Försäljningsbedrägeri,kvinnor,utlandsk,2016,5.106581,,,,Tabell 6A
+ar,forsaljningsbedrageri,Försäljningsbedrägeri,kvinnor,utlandsk,2017,5.300635,,,,Tabell 6A
+ar,forsaljningsbedrageri,Försäljningsbedrägeri,kvinnor,utlandsk,2018,5.320137,,,,Tabell 6A
+ar,forsaljningsbedrageri,Försäljningsbedrägeri,kvinnor,utlandsk,2019,5.463416,,,,Tabell 6A
+ar,forsaljningsbedrageri,Försäljningsbedrägeri,kvinnor,utlandsk,2020,5.625595,,,,Tabell 6A
+ar,forsaljningsbedrageri,Försäljningsbedrägeri,kvinnor,utlandsk,2021,6.253400,,,,Tabell 6A
+ar,forsaljningsbedrageri,Försäljningsbedrägeri,kvinnor,utlandsk,2022,7.211245,6.542055,7.926587,,Tabell 6A
+ar,forsaljningsbedrageri,Försäljningsbedrägeri,kvinnor,svensk,2016,3.463452,,,,Tabell 6A
+ar,forsaljningsbedrageri,Försäljningsbedrägeri,kvinnor,svensk,2017,3.739500,,,,Tabell 6A
+ar,forsaljningsbedrageri,Försäljningsbedrägeri,kvinnor,svensk,2018,4.102364,,,,Tabell 6A
+ar,forsaljningsbedrageri,Försäljningsbedrägeri,kvinnor,svensk,2019,4.037252,,,,Tabell 6A
+ar,forsaljningsbedrageri,Försäljningsbedrägeri,kvinnor,svensk,2020,4.175466,,,,Tabell 6A
+ar,forsaljningsbedrageri,Försäljningsbedrägeri,kvinnor,svensk,2021,4.590286,,,,Tabell 6A
+ar,forsaljningsbedrageri,Försäljningsbedrägeri,kvinnor,svensk,2022,4.764625,4.459076,5.084876,,Tabell 6A
+bakgrund,kortbedrageri,Kort- och kreditbedrägeri,samtliga,utlandsk,2016–2022,5.596327,5.435043,5.760974,,Tabell 7C
+bakgrund,kortbedrageri,Kort- och kreditbedrägeri,samtliga,svensk,2016–2022,4.167358,4.093003,4.242680,,Tabell 7C
+bakgrund,kortbedrageri,Kort- och kreditbedrägeri,man,utlandsk,2016–2022,6.211394,5.963467,6.466484,,Tabell 7C
+bakgrund,kortbedrageri,Kort- och kreditbedrägeri,man,svensk,2016–2022,4.646553,4.532624,4.762521,,Tabell 7C
+bakgrund,kortbedrageri,Kort- och kreditbedrägeri,kvinnor,utlandsk,2016–2022,5.060263,4.851375,5.275489,,Tabell 7C
+bakgrund,kortbedrageri,Kort- och kreditbedrägeri,kvinnor,svensk,2016–2022,3.730998,3.634421,3.829420,,Tabell 7C
+varldsdel,kortbedrageri,Kort- och kreditbedrägeri,samtliga,Afrika,2016–2022,6.285003,5.579538,7.050943,,Tabell 7C
+varldsdel,kortbedrageri,Kort- och kreditbedrägeri,samtliga,Asien,2016–2022,5.797405,5.459925,6.149375,,Tabell 7C
+varldsdel,kortbedrageri,Kort- och kreditbedrägeri,samtliga,Europa,2016–2022,5.345003,5.149906,5.545298,,Tabell 7C
+varldsdel,kortbedrageri,Kort- och kreditbedrägeri,samtliga,Latinamerika och Karibien,2016–2022,6.370343,5.575890,7.241120,,Tabell 7C
+varldsdel,kortbedrageri,Kort- och kreditbedrägeri,samtliga,Nordamerika,2016–2022,6.630670,5.488902,7.929231,,Tabell 7C
+varldsdel,kortbedrageri,Kort- och kreditbedrägeri,samtliga,Oceanien,2016–2022,4.572656,2.419378,7.853173,,Tabell 7C
+varldsdel,kortbedrageri,Kort- och kreditbedrägeri,samtliga,Sovjetunionen,2016–2022,5.829891,3.855746,8.431722,,Tabell 7C
+varldsdel,kortbedrageri,Kort- och kreditbedrägeri,man,Afrika,2016–2022,5.883726,4.962293,6.919951,,Tabell 7C
+varldsdel,kortbedrageri,Kort- och kreditbedrägeri,man,Asien,2016–2022,6.449493,5.942050,6.986591,,Tabell 7C
+varldsdel,kortbedrageri,Kort- och kreditbedrägeri,man,Europa,2016–2022,6.134306,5.825664,6.454287,,Tabell 7C
+varldsdel,kortbedrageri,Kort- och kreditbedrägeri,man,Latinamerika och Karibien,2016–2022,6.430170,5.273972,7.753678,,Tabell 7C
+varldsdel,kortbedrageri,Kort- och kreditbedrägeri,man,Nordamerika,2016–2022,5.746321,4.265182,7.559538,,Tabell 7C
+varldsdel,kortbedrageri,Kort- och kreditbedrägeri,man,Oceanien,2016–2022,5.443068,2.375971,10.653827,,Tabell 7C
+varldsdel,kortbedrageri,Kort- och kreditbedrägeri,man,Sovjetunionen,2016–2022,7.703911,4.427802,12.369865,,Tabell 7C
+varldsdel,kortbedrageri,Kort- och kreditbedrägeri,kvinnor,Afrika,2016–2022,6.744894,5.697934,7.919473,,Tabell 7C
+varldsdel,kortbedrageri,Kort- och kreditbedrägeri,kvinnor,Asien,2016–2022,5.196057,4.755569,5.664860,,Tabell 7C
+varldsdel,kortbedrageri,Kort- och kreditbedrägeri,kvinnor,Europa,2016–2022,4.690584,4.444735,4.946026,,Tabell 7C
+varldsdel,kortbedrageri,Kort- och kreditbedrägeri,kvinnor,Latinamerika och Karibien,2016–2022,6.320511,5.266436,7.514755,,Tabell 7C
+varldsdel,kortbedrageri,Kort- och kreditbedrägeri,kvinnor,Nordamerika,2016–2022,7.450718,5.811044,9.386443,,Tabell 7C
+varldsdel,kortbedrageri,Kort- och kreditbedrägeri,kvinnor,Oceanien,2016–2022,3.671552,1.277141,8.386611,,Tabell 7C
+varldsdel,kortbedrageri,Kort- och kreditbedrägeri,kvinnor,Sovjetunionen,2016–2022,4.576603,2.427475,7.845747,,Tabell 7C
+ar,kortbedrageri,Kort- och kreditbedrägeri,samtliga,utlandsk,2016,5.828575,,,,Tabell 7A
+ar,kortbedrageri,Kort- och kreditbedrägeri,samtliga,utlandsk,2017,5.779084,,,,Tabell 7A
+ar,kortbedrageri,Kort- och kreditbedrägeri,samtliga,utlandsk,2018,6.448129,,,,Tabell 7A
+ar,kortbedrageri,Kort- och kreditbedrägeri,samtliga,utlandsk,2019,6.328735,,,,Tabell 7A
+ar,kortbedrageri,Kort- och kreditbedrägeri,samtliga,utlandsk,2020,5.128116,,,,Tabell 7A
+ar,kortbedrageri,Kort- och kreditbedrägeri,samtliga,utlandsk,2021,4.764722,,,,Tabell 7A
+ar,kortbedrageri,Kort- och kreditbedrägeri,samtliga,utlandsk,2022,4.779854,4.374110,5.211852,,Tabell 7A
+ar,kortbedrageri,Kort- och kreditbedrägeri,samtliga,svensk,2016,4.466450,,,,Tabell 7A
+ar,kortbedrageri,Kort- och kreditbedrägeri,samtliga,svensk,2017,4.779798,,,,Tabell 7A
+ar,kortbedrageri,Kort- och kreditbedrägeri,samtliga,svensk,2018,4.964414,,,,Tabell 7A
+ar,kortbedrageri,Kort- och kreditbedrägeri,samtliga,svensk,2019,4.869348,,,,Tabell 7A
+ar,kortbedrageri,Kort- och kreditbedrägeri,samtliga,svensk,2020,3.592517,,,,Tabell 7A
+ar,kortbedrageri,Kort- och kreditbedrägeri,samtliga,svensk,2021,2.961479,,,,Tabell 7A
+ar,kortbedrageri,Kort- och kreditbedrägeri,samtliga,svensk,2022,3.182781,2.998439,3.375247,,Tabell 7A
+ar,kortbedrageri,Kort- och kreditbedrägeri,man,utlandsk,2016,6.754067,,,,Tabell 7A
+ar,kortbedrageri,Kort- och kreditbedrägeri,man,utlandsk,2017,6.333105,,,,Tabell 7A
+ar,kortbedrageri,Kort- och kreditbedrägeri,man,utlandsk,2018,7.144679,,,,Tabell 7A
+ar,kortbedrageri,Kort- och kreditbedrägeri,man,utlandsk,2019,7.000816,,,,Tabell 7A
+ar,kortbedrageri,Kort- och kreditbedrägeri,man,utlandsk,2020,5.666678,,,,Tabell 7A
+ar,kortbedrageri,Kort- och kreditbedrägeri,man,utlandsk,2021,5.362000,,,,Tabell 7A
+ar,kortbedrageri,Kort- och kreditbedrägeri,man,utlandsk,2022,5.085222,4.478907,5.747925,,Tabell 7A
+ar,kortbedrageri,Kort- och kreditbedrägeri,man,svensk,2016,4.988487,,,,Tabell 7A
+ar,kortbedrageri,Kort- och kreditbedrägeri,man,svensk,2017,5.326040,,,,Tabell 7A
+ar,kortbedrageri,Kort- och kreditbedrägeri,man,svensk,2018,5.578588,,,,Tabell 7A
+ar,kortbedrageri,Kort- och kreditbedrägeri,man,svensk,2019,5.347906,,,,Tabell 7A
+ar,kortbedrageri,Kort- och kreditbedrägeri,man,svensk,2020,4.079334,,,,Tabell 7A
+ar,kortbedrageri,Kort- och kreditbedrägeri,man,svensk,2021,3.330161,,,,Tabell 7A
+ar,kortbedrageri,Kort- och kreditbedrägeri,man,svensk,2022,3.485249,3.205634,3.782169,,Tabell 7A
+ar,kortbedrageri,Kort- och kreditbedrägeri,kvinnor,utlandsk,2016,5.030975,,,,Tabell 7A
+ar,kortbedrageri,Kort- och kreditbedrägeri,kvinnor,utlandsk,2017,5.313998,,,,Tabell 7A
+ar,kortbedrageri,Kort- och kreditbedrägeri,kvinnor,utlandsk,2018,5.852101,,,,Tabell 7A
+ar,kortbedrageri,Kort- och kreditbedrägeri,kvinnor,utlandsk,2019,5.727560,,,,Tabell 7A
+ar,kortbedrageri,Kort- och kreditbedrägeri,kvinnor,utlandsk,2020,4.639022,,,,Tabell 7A
+ar,kortbedrageri,Kort- och kreditbedrägeri,kvinnor,utlandsk,2021,4.242040,,,,Tabell 7A
+ar,kortbedrageri,Kort- och kreditbedrägeri,kvinnor,utlandsk,2022,4.515494,3.983971,5.096115,,Tabell 7A
+ar,kortbedrageri,Kort- och kreditbedrägeri,kvinnor,svensk,2016,3.994866,,,,Tabell 7A
+ar,kortbedrageri,Kort- och kreditbedrägeri,kvinnor,svensk,2017,4.288685,,,,Tabell 7A
+ar,kortbedrageri,Kort- och kreditbedrägeri,kvinnor,svensk,2018,4.405574,,,,Tabell 7A
+ar,kortbedrageri,Kort- och kreditbedrägeri,kvinnor,svensk,2019,4.430794,,,,Tabell 7A
+ar,kortbedrageri,Kort- och kreditbedrägeri,kvinnor,svensk,2020,3.145067,,,,Tabell 7A
+ar,kortbedrageri,Kort- och kreditbedrägeri,kvinnor,svensk,2021,2.619073,,,,Tabell 7A
+ar,kortbedrageri,Kort- och kreditbedrägeri,kvinnor,svensk,2022,2.910660,2.671347,3.165278,,Tabell 7A
+bakgrund,natkrankning,Nätkränkning,samtliga,utlandsk,2016–2022,2.772786,2.658128,2.891024,,Tabell 8C
+bakgrund,natkrankning,Nätkränkning,samtliga,svensk,2016–2022,2.100814,2.047594,2.155047,,Tabell 8C
+bakgrund,natkrankning,Nätkränkning,man,utlandsk,2016–2022,2.970136,2.796995,3.150979,,Tabell 8C
+bakgrund,natkrankning,Nätkränkning,man,svensk,2016–2022,2.176039,2.097420,2.256807,,Tabell 8C
+bakgrund,natkrankning,Nätkränkning,kvinnor,utlandsk,2016–2022,2.600901,2.450231,2.758257,,Tabell 8C
+bakgrund,natkrankning,Nätkränkning,kvinnor,svensk,2016–2022,2.032251,1.960579,2.105838,,Tabell 8C
+varldsdel,natkrankning,Nätkränkning,samtliga,Afrika,2016–2022,3.028547,2.541400,3.580601,,Tabell 8C
+varldsdel,natkrankning,Nätkränkning,samtliga,Asien,2016–2022,3.512383,3.248403,3.791603,,Tabell 8C
+varldsdel,natkrankning,Nätkränkning,samtliga,Europa,2016–2022,2.425111,2.292618,2.563145,,Tabell 8C
+varldsdel,natkrankning,Nätkränkning,samtliga,Latinamerika och Karibien,2016–2022,3.006806,2.465125,3.630695,,Tabell 8C
+varldsdel,natkrankning,Nätkränkning,samtliga,Nordamerika,2016–2022,2.383242,1.718980,3.219674,,Tabell 8C
+varldsdel,natkrankning,Nätkränkning,samtliga,Oceanien,2016–2022,2.282993,0.903376,4.832815,,Tabell 8C
+varldsdel,natkrankning,Nätkränkning,samtliga,Sovjetunionen,2016–2022,2.495689,1.293041,4.374698,,Tabell 8C
+varldsdel,natkrankning,Nätkränkning,man,Afrika,2016–2022,3.487803,2.784683,4.311849,,Tabell 8C
+varldsdel,natkrankning,Nätkränkning,man,Asien,2016–2022,3.840759,3.447549,4.265436,,Tabell 8C
+varldsdel,natkrankning,Nätkränkning,man,Europa,2016–2022,2.611066,2.408204,2.826187,,Tabell 8C
+varldsdel,natkrankning,Nätkränkning,man,Latinamerika och Karibien,2016–2022,2.568162,1.857019,3.461647,,Tabell 8C
+varldsdel,natkrankning,Nätkränkning,man,Nordamerika,2016–2022,1.585893,0.872855,2.663111,,Tabell 8C
+varldsdel,natkrankning,Nätkränkning,man,Oceanien,2016–2022,2.067351,0.507665,5.893040,,Tabell 8C
+varldsdel,natkrankning,Nätkränkning,man,Sovjetunionen,2016–2022,0.921030,0.158453,3.259377,,Tabell 8C
+varldsdel,natkrankning,Nätkränkning,kvinnor,Afrika,2016–2022,2.501610,1.878885,3.264203,,Tabell 8C
+varldsdel,natkrankning,Nätkränkning,kvinnor,Asien,2016–2022,3.210551,2.864310,3.586332,,Tabell 8C
+varldsdel,natkrankning,Nätkränkning,kvinnor,Europa,2016–2022,2.270869,2.099240,2.452610,,Tabell 8C
+varldsdel,natkrankning,Nätkränkning,kvinnor,Latinamerika och Karibien,2016–2022,3.370814,2.611153,4.279898,,Tabell 8C
+varldsdel,natkrankning,Nätkränkning,kvinnor,Nordamerika,2016–2022,3.120177,2.096516,4.468677,,Tabell 8C
+varldsdel,natkrankning,Nätkränkning,kvinnor,Oceanien,2016–2022,2.508175,0.687322,6.677133,,Tabell 8C
+varldsdel,natkrankning,Nätkränkning,kvinnor,Sovjetunionen,2016–2022,3.554937,1.710705,6.551811,,Tabell 8C
+ar,natkrankning,Nätkränkning,samtliga,utlandsk,2016,2.447541,,,,Tabell 8A
+ar,natkrankning,Nätkränkning,samtliga,utlandsk,2017,2.512722,,,,Tabell 8A
+ar,natkrankning,Nätkränkning,samtliga,utlandsk,2018,3.026091,,,,Tabell 8A
+ar,natkrankning,Nätkränkning,samtliga,utlandsk,2019,3.114327,,,,Tabell 8A
+ar,natkrankning,Nätkränkning,samtliga,utlandsk,2020,2.895769,,,,Tabell 8A
+ar,natkrankning,Nätkränkning,samtliga,utlandsk,2021,2.520377,,,,Tabell 8A
+ar,natkrankning,Nätkränkning,samtliga,utlandsk,2022,2.875988,2.561699,3.217587,,Tabell 8A
+ar,natkrankning,Nätkränkning,samtliga,svensk,2016,1.735990,,,,Tabell 8A
+ar,natkrankning,Nätkränkning,samtliga,svensk,2017,1.967140,,,,Tabell 8A
+ar,natkrankning,Nätkränkning,samtliga,svensk,2018,2.324154,,,,Tabell 8A
+ar,natkrankning,Nätkränkning,samtliga,svensk,2019,2.333591,,,,Tabell 8A
+ar,natkrankning,Nätkränkning,samtliga,svensk,2020,2.338276,,,,Tabell 8A
+ar,natkrankning,Nätkränkning,samtliga,svensk,2021,2.053060,,,,Tabell 8A
+ar,natkrankning,Nätkränkning,samtliga,svensk,2022,1.968961,1.824088,2.122159,,Tabell 8A
+ar,natkrankning,Nätkränkning,man,utlandsk,2016,2.556228,,,,Tabell 8A
+ar,natkrankning,Nätkränkning,man,utlandsk,2017,2.566721,,,,Tabell 8A
+ar,natkrankning,Nätkränkning,man,utlandsk,2018,3.359059,,,,Tabell 8A
+ar,natkrankning,Nätkränkning,man,utlandsk,2019,3.344647,,,,Tabell 8A
+ar,natkrankning,Nätkränkning,man,utlandsk,2020,3.021205,,,,Tabell 8A
+ar,natkrankning,Nätkränkning,man,utlandsk,2021,2.653428,,,,Tabell 8A
+ar,natkrankning,Nätkränkning,man,utlandsk,2022,3.275878,2.791061,3.819309,,Tabell 8A
+ar,natkrankning,Nätkränkning,man,svensk,2016,1.639342,,,,Tabell 8A
+ar,natkrankning,Nätkränkning,man,svensk,2017,1.959941,,,,Tabell 8A
+ar,natkrankning,Nätkränkning,man,svensk,2018,2.548557,,,,Tabell 8A
+ar,natkrankning,Nätkränkning,man,svensk,2019,2.529490,,,,Tabell 8A
+ar,natkrankning,Nätkränkning,man,svensk,2020,2.464546,,,,Tabell 8A
+ar,natkrankning,Nätkränkning,man,svensk,2021,2.061960,,,,Tabell 8A
+ar,natkrankning,Nätkränkning,man,svensk,2022,2.050952,1.837126,2.282603,,Tabell 8A
+ar,natkrankning,Nätkränkning,kvinnor,utlandsk,2016,2.353860,,,,Tabell 8A
+ar,natkrankning,Nätkränkning,kvinnor,utlandsk,2017,2.467234,,,,Tabell 8A
+ar,natkrankning,Nätkränkning,kvinnor,utlandsk,2018,2.742164,,,,Tabell 8A
+ar,natkrankning,Nätkränkning,kvinnor,utlandsk,2019,2.908372,,,,Tabell 8A
+ar,natkrankning,Nätkränkning,kvinnor,utlandsk,2020,2.782043,,,,Tabell 8A
+ar,natkrankning,Nätkränkning,kvinnor,utlandsk,2021,2.403908,,,,Tabell 8A
+ar,natkrankning,Nätkränkning,kvinnor,utlandsk,2022,2.530872,2.136124,2.976721,,Tabell 8A
+ar,natkrankning,Nätkränkning,kvinnor,svensk,2016,1.823531,,,,Tabell 8A
+ar,natkrankning,Nätkränkning,kvinnor,svensk,2017,1.973622,,,,Tabell 8A
+ar,natkrankning,Nätkränkning,kvinnor,svensk,2018,2.119978,,,,Tabell 8A
+ar,natkrankning,Nätkränkning,kvinnor,svensk,2019,2.153973,,,,Tabell 8A
+ar,natkrankning,Nätkränkning,kvinnor,svensk,2020,2.221936,,,,Tabell 8A
+ar,natkrankning,Nätkränkning,kvinnor,svensk,2021,2.044794,,,,Tabell 8A
+ar,natkrankning,Nätkränkning,kvinnor,svensk,2022,1.895309,1.702915,2.103313,,Tabell 8A
+bakgrund,trakasserier,Trakasserier,samtliga,utlandsk,2019–2022,7.663156,7.410849,7.921336,,Tabell 9B
+bakgrund,trakasserier,Trakasserier,samtliga,svensk,2019–2022,5.362571,5.248704,5.478183,,Tabell 9B
+bakgrund,trakasserier,Trakasserier,man,utlandsk,2019–2022,6.930741,6.579956,7.294362,,Tabell 9B
+bakgrund,trakasserier,Trakasserier,man,svensk,2019–2022,4.339730,4.190451,4.492796,,Tabell 9B
+bakgrund,trakasserier,Trakasserier,kvinnor,utlandsk,2019–2022,8.311428,7.954552,8.679124,,Tabell 9B
+bakgrund,trakasserier,Trakasserier,kvinnor,svensk,2019–2022,6.299951,6.131416,6.471716,,Tabell 9B
+varldsdel,trakasserier,Trakasserier,samtliga,Afrika,2019–2022,8.413951,7.340903,9.589699,,Tabell 9B
+varldsdel,trakasserier,Trakasserier,samtliga,Asien,2019–2022,9.017141,8.465685,9.592486,,Tabell 9B
+varldsdel,trakasserier,Trakasserier,samtliga,Europa,2019–2022,6.996531,6.695398,7.306976,,Tabell 9B
+varldsdel,trakasserier,Trakasserier,samtliga,Latinamerika och Karibien,2019–2022,7.718725,6.583944,8.981892,,Tabell 9B
+varldsdel,trakasserier,Trakasserier,samtliga,Nordamerika,2019–2022,6.644898,5.136479,8.439323,,Tabell 9B
+varldsdel,trakasserier,Trakasserier,samtliga,Oceanien,2019–2022,5.491013,2.509288,10.421059,,Tabell 9B
+varldsdel,trakasserier,Trakasserier,samtliga,Sovjetunionen,2019–2022,9.417258,6.001578,13.955531,,Tabell 9B
+varldsdel,trakasserier,Trakasserier,man,Afrika,2019–2022,7.876370,6.470292,9.480113,,Tabell 9B
+varldsdel,trakasserier,Trakasserier,man,Asien,2019–2022,8.546173,7.781812,9.360293,,Tabell 9B
+varldsdel,trakasserier,Trakasserier,man,Europa,2019–2022,6.203861,5.784285,6.644405,,Tabell 9B
+varldsdel,trakasserier,Trakasserier,man,Latinamerika och Karibien,2019–2022,6.551034,5.053289,8.335588,,Tabell 9B
+varldsdel,trakasserier,Trakasserier,man,Nordamerika,2019–2022,3.833112,2.290141,6.020301,,Tabell 9B
+varldsdel,trakasserier,Trakasserier,man,Oceanien,2019–2022,6.608925,2.532694,13.992092,,Tabell 9B
+varldsdel,trakasserier,Trakasserier,man,Sovjetunionen,2019–2022,3.630112,1.139411,8.835838,,Tabell 9B
+varldsdel,trakasserier,Trakasserier,kvinnor,Afrika,2019–2022,9.017951,7.439722,10.809413,,Tabell 9B
+varldsdel,trakasserier,Trakasserier,kvinnor,Asien,2019–2022,9.461363,8.681717,10.286928,,Tabell 9B
+varldsdel,trakasserier,Trakasserier,kvinnor,Europa,2019–2022,7.663110,7.240685,8.102263,,Tabell 9B
+varldsdel,trakasserier,Trakasserier,kvinnor,Latinamerika och Karibien,2019–2022,8.714513,7.107196,10.553502,,Tabell 9B
+varldsdel,trakasserier,Trakasserier,kvinnor,Nordamerika,2019–2022,9.113768,6.746637,11.989645,,Tabell 9B
+varldsdel,trakasserier,Trakasserier,kvinnor,Oceanien,2019–2022,,,,x,Tabell 9B
+varldsdel,trakasserier,Trakasserier,kvinnor,Sovjetunionen,2019–2022,13.232585,7.958057,20.341743,,Tabell 9B
+ar,trakasserier,Trakasserier,samtliga,utlandsk,2019,8.139963,,,,Tabell 9A
+ar,trakasserier,Trakasserier,samtliga,utlandsk,2020,7.506569,,,,Tabell 9A
+ar,trakasserier,Trakasserier,samtliga,utlandsk,2021,7.480050,,,,Tabell 9A
+ar,trakasserier,Trakasserier,samtliga,utlandsk,2022,7.499650,6.994971,8.028999,,Tabell 9A
+ar,trakasserier,Trakasserier,samtliga,svensk,2019,5.703048,,,,Tabell 9A
+ar,trakasserier,Trakasserier,samtliga,svensk,2020,5.278311,,,,Tabell 9A
+ar,trakasserier,Trakasserier,samtliga,svensk,2021,5.258106,,,,Tabell 9A
+ar,trakasserier,Trakasserier,samtliga,svensk,2022,5.166746,4.933116,5.408153,,Tabell 9A
+ar,trakasserier,Trakasserier,man,utlandsk,2019,6.874263,,,,Tabell 9A
+ar,trakasserier,Trakasserier,man,utlandsk,2020,6.469467,,,,Tabell 9A
+ar,trakasserier,Trakasserier,man,utlandsk,2021,7.151101,,,,Tabell 9A
+ar,trakasserier,Trakasserier,man,utlandsk,2022,7.301045,6.576546,8.079171,,Tabell 9A
+ar,trakasserier,Trakasserier,man,svensk,2019,4.522427,,,,Tabell 9A
+ar,trakasserier,Trakasserier,man,svensk,2020,4.298475,,,,Tabell 9A
+ar,trakasserier,Trakasserier,man,svensk,2021,4.239508,,,,Tabell 9A
+ar,trakasserier,Trakasserier,man,svensk,2022,4.275517,3.966039,4.602011,,Tabell 9A
+ar,trakasserier,Trakasserier,kvinnor,utlandsk,2019,9.270477,,,,Tabell 9A
+ar,trakasserier,Trakasserier,kvinnor,utlandsk,2020,8.447034,,,,Tabell 9A
+ar,trakasserier,Trakasserier,kvinnor,utlandsk,2021,7.767752,,,,Tabell 9A
+ar,trakasserier,Trakasserier,kvinnor,utlandsk,2022,7.671080,6.981631,8.406195,,Tabell 9A
+ar,trakasserier,Trakasserier,kvinnor,svensk,2019,6.785309,,,,Tabell 9A
+ar,trakasserier,Trakasserier,kvinnor,svensk,2020,6.181773,,,,Tabell 9A
+ar,trakasserier,Trakasserier,kvinnor,svensk,2021,6.203316,,,,Tabell 9A
+ar,trakasserier,Trakasserier,kvinnor,svensk,2022,5.967027,5.626380,6.321975,,Tabell 9A

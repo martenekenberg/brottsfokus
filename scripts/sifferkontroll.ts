@@ -6,7 +6,13 @@
 // Run with: npm run sifferkontroll
 import { writeFileSync } from 'node:fs';
 import { foreignCitizenSharePct, populationSharePct, swedishBornTwoForeignParents } from '../src/lib/calc';
-import { loadBra2005, loadOrigin, loadPopulation, loadPrison, loadRapeStudies, loadSuspectsByBackground, loadTableB6 } from '../src/lib/data';
+import { loadBra2005, loadOrigin, loadPopulation, loadPrison, loadRapeStudies, loadRiskFactors, loadSuspectsByBackground, loadSuspicionShares, loadTableB6 } from '../src/lib/data';
+import { buildSuspicionShares, groupLabel, peakYear } from '../src/lib/chapters/kap1Shares';
+import { buildRiskFactors, itemLabel } from '../src/lib/chapters/kap2Factors';
+import { round } from '../src/lib/calc';
+import { crimes as ntuCrimes, pooled as ntuPooled } from '../src/lib/chapters/kap6';
+import { loadNtu, loadDeportation, loadDeportationFacts, loadHomicide, loadCohorts, loadBirthCohorts } from '../src/lib/data';
+import { citizenshipGroups, offenceGroups, totalRow as deportTotalRow } from '../src/lib/chapters/kap7';
 import { formatNumber as formatNumberIn, formatPct as formatPctIn, formatTimes as formatTimesIn } from '../src/lib/format';
 import { buildKap1Data, buildKap1Spec as buildKap1SpecIn, GROUPS, type Mode } from '../src/lib/chapters/kap1';
 import {
@@ -109,6 +115,24 @@ const kap5 = buildKap5(bra2005);
     if (missing.length) add(K, 'Läs så här', `${c.name} saknas ${missing.join(' och ')}`, 'saknas', 'Brå 2021:9 tabellbilaga 2', STATED, BRA2021);
   }
   add(K, 'Brottstypsmenyn', 'Alla övriga brottstyper och år', 'se sifferkontroll_menyer.csv', 'Brå 2021:9 tabellbilaga 2', STATED, BRA2021);
+
+  // Second chart: each group's share of all registered suspicions (Brå 2021:9 tabellbilaga 3).
+  const D = 'Andra diagrammet, andel av brottsmisstankar';
+  const shares = buildSuspicionShares(loadSuspicionShares());
+  const rows = loadSuspicionShares();
+  shares.groups.forEach((g) => {
+    shares.years.forEach((y, i) => {
+      const bra = rows.find((r) => r.groupId === g.id && r.year === y)!.pctBra;
+      add(K, D, `${groupLabel(g, 'sv')}, ${y}`, formatPct(round(g.shares[i], 1), 1), `Uträknat: ${formatNumber(g.counts[i])} / ${formatNumber(shares.totals[i])} misstankar (tabell D1). Brås tabell D2 anger ${formatNumber(bra, 1)}`, CALC, BRA2021);
+    });
+  });
+  const ej = shares.groups.find((g) => g.id === 'ej')!;
+  const py = peakYear(shares, 'ej');
+  add(K, `${D}, Läs så här`, `Icke folkbokförda, högsta andelen (${py})`, formatPct(round(ej.shares[shares.years.indexOf(py)], 1), 1), 'Uträknat från tabell D1, som ovan', CALC, BRA2021);
+  for (const r of b6.filter((x) => x.view === 'bakgrund' && x.unit !== 'Totalt i populationen')) {
+    add(K, `${D}, Läs så här`, `${r.unit}, andel av befolkningen 15+ den 31 december 2014`, formatPct(r.populationPct, 1), 'Brå 2021:9 tabellbilaga 1, tabell B6', STATED, BRA2021);
+  }
+  add(K, D, 'Obs: rapporttexten (s. 92) anger 24,3 procent för utrikesfödda 2007, men tabell D2 och antalen i D1 ger 23,6 (24,3 är värdet för 2008). Sidan följer tabellen.', '23,6 %', 'Brå 2021:9 tabellbilaga 3, tabell D1 och D2', STATED, BRA2021);
 }
 
 // ---------- Chapter 2 ----------
@@ -136,6 +160,12 @@ const kap5 = buildKap5(bra2005);
   add(K, 'Läs så här', `Minsta födelselandet (${land.label}), antal personer`, formatNumber(land.n), 'Brå 2021:9 tabellbilaga 1, tabell B9', STATED, BRA2021);
   add(K, 'Läs så här', `Minsta gruppen efter moderns födelseområde (${mother.label}), antal personer`, formatNumber(mother.n), 'Brå 2021:9 tabellbilaga 1, tabell B6', STATED, BRA2021);
   add(K, 'Menyerna', 'Födelseland, övriga brottstyper och per 1 000', 'se sifferkontroll_menyer.csv', 'Brå 2021:9 tabellbilaga 1', STATED, BRA2021);
+
+  // Second chart: background next to other factors.
+  for (const f of buildRiskFactors(loadRiskFactors(), b6)) {
+    const where = f.kind === 'bakgrund' ? `${f.source} (${formatNumber(f.risk, 2)})` : `${f.source}, i rapportens text`;
+    add(K, 'Andra diagrammet, andra faktorer', `${itemLabel(f, 'sv')} jämfört med ${f.comparison.toLowerCase()}`, barFmt(f.risk, 'x1'), where, STATED, BRA2021);
+  }
 }
 
 // ---------- Chapter 3 ----------
@@ -208,6 +238,76 @@ const kap5 = buildKap5(bra2005);
   });
   for (const g of kap5.crimes.groups) {
     add(K, 'Brottstyper', `${g.label}: utrikesfödda / en eller två utrikesfödda föräldrar / två inrikesfödda föräldrar`, g.bars.map((b) => barFmt(b.value, 'pct2')).join(' / '), 'Brå 2005:17, Tabell 11', STATED, BRA2005);
+  }
+}
+
+// ---------- Chapter 6 ----------
+{
+  const K = '06 Utsatta för brott';
+  const NTU = 'https://bra.se/rapporter/arkiv/2024-05-21-utsatthet-for-brott-bland-personer-med-utlandsk-bakgrund';
+  const ntu = loadNtu();
+  for (const c of ntuCrimes(ntu)) {
+    for (const [sex, who] of [['man', 'Män'], ['kvinnor', 'Kvinnor']] as const) {
+      for (const [g, name] of [['utlandsk', 'utländsk bakgrund'], ['svensk', 'svensk bakgrund']] as const) {
+        const r = ntuPooled(ntu, c.id, sex, g);
+        add(K, `Diagram, ${who.toLowerCase()}`, `${c.name} ${c.period}, ${who.toLowerCase()} med ${name}`, barFmt(r.pct!, 'pct1'), `Brå NTU Kortanalys 2/2024, tabellbilaga ${r.sourceTable.toLowerCase()} (${formatNumber(r.pct!, 3)})`, STATED, NTU);
+      }
+    }
+  }
+}
+
+// ---------- Chapter 7 ----------
+{
+  const K = '07 Utvisning';
+  const URL = 'https://bra.se/download/18.5d0a8fbf19ddcaf2a6cccb2/1777972068717/2026_15_Utvisningsd%C3%B6mda%20i%20brottm%C3%A5l.pdf';
+  const rows = loadDeportation();
+  const facts = loadDeportationFacts();
+  const t = deportTotalRow(rows);
+  add(K, 'Ingress', 'Antal som lämnade fängelset 2013–2023', formatNumber(t.n!), 'Brå 2026:15 tabell B1', STATED, URL);
+  add(K, 'Rubrik, ingress, diagram (linje)', 'Andel utvisade, alla', formatPct(t.pctDeported!, 1), 'Brå 2026:15 tabell B1', STATED, URL);
+  add(K, 'Andra diagrammet, ingress', 'Andel lagförda för nya brott, alla', formatPct(t.pctReconvicted!, 1), 'Brå 2026:15 tabell B1', STATED, URL);
+  for (const f of facts) {
+    add(K, 'Text', `${f.id}${f.year ? ` ${f.year}` : ''}`, formatNumber(f.value, Number.isInteger(f.value) ? 0 : 1), f.source, STATED, URL);
+  }
+  for (const r of citizenshipGroups(rows)) {
+    add(K, 'Diagram, medborgarskap', `${r.group} (n = ${formatNumber(r.n!)})`, barFmt(r.pctDeported!, 'pct1'), 'Brå 2026:15 tabell B1 (och tabell 6)', STATED, URL);
+  }
+  for (const r of offenceGroups(rows)) {
+    add(K, 'Andra diagrammet, huvudbrott', `${r.group}: utvisade / lagförda för nya brott`, `${barFmt(r.pctDeported!, 'pct1')} / ${barFmt(r.pctReconvicted!, 'pct1')}`, 'Brå 2026:15 tabell B1', STATED, URL);
+  }
+}
+
+// ---------- Chapter 8 ----------
+{
+  const K = '08 Dödligt våld';
+  const URL = 'https://bra.se/download/18.4dd364db195b26cb24b107f4/1742814210786/2025_5_Offer%20och%20g%C3%A4rningspersoner%20vid%20d%C3%B6dligt%20v%C3%A5ld.pdf';
+  const f = (v: number | null) => (v === null ? 'anges inte' : formatNumber(v, Number.isInteger(v) ? 0 : 1));
+  for (const r of loadHomicide()) {
+    add(K, r.chart === 'bakgrund' ? 'Diagram/text, bakgrund' : 'Andra diagrammet', `${r.item}: offer / gärningspersoner / befolkningen`, `${f(r.victims)} / ${f(r.perpetrators)} / ${f(r.population)}`, r.source, STATED, URL);
+  }
+  add(K, 'Källrad', 'Antal offer och gärningspersoner 2005–2021', '1 521 / 1 175', 'Brå 2025:5 s. 7', STATED, URL);
+  add(K, 'Läs så här', 'Andel ouppklarade fall i kriminell miljö', 'omkring 70 %', 'Brå 2025:5 s. 8', STATED, URL);
+}
+
+// ---------- Chapter 9 ----------
+{
+  const K = '09 Lagförda före 25';
+  const URL = 'https://doi.org/10.1080/2578983X.2021.1900038';
+  const name = { utrikesfodd: 'utrikes födda', andra_gen: 'två utrikes födda föräldrar', native: 'minst en inrikes född förälder' } as const;
+  for (const r of loadCohorts().filter((x) => x.measure === 'minst1')) {
+    const where = r.table === 'alla' ? 'Diagram, alla' : 'Andra diagrammet, lägst inkomster';
+    add(K, where, `${r.sex === 'man' ? 'Män' : 'Kvinnor'} födda ${r.cohort}, ${name[r.group]}`, barFmt(r.pct, 'pct1'), `Bäckman m.fl. 2021, tabell ${r.table === 'alla' ? 1 : 2}`, STATED, URL);
+  }
+}
+
+// ---------- Chapter 10 ----------
+{
+  const K = '10 Födelseår';
+  const URL = 'https://bra.se/rapporter/arkiv/2025-12-02-fodelsekohortstatistik';
+  const name = { alla: 'alla', I20: 'två inrikesfödda föräldrar', I11: 'en utrikesfödd förälder', I02: 'två utrikesfödda föräldrar', Utr: 'utrikesfödda' } as const;
+  for (const r of loadBirthCohorts().filter((x) => x.sex === 'samtliga')) {
+    const where = r.measure === 'fore25' ? 'Diagram, före 25 år' : 'Andra diagrammet, före 20 år';
+    add(K, where, `Födda ${r.birthYear}, ${name[r.group]}`, fmt(r.pct, 'pct1'), `Brå 2025:21 tabell ${r.measure === 'fore25' ? '1' : '4 (kolumnen 20 år)'}`, STATED, URL);
   }
 }
 

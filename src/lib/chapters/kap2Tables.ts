@@ -4,6 +4,7 @@ import { tr, type Lang } from '../i18n';
 import { dataLabel } from '../labels';
 import { csvNumber, longCsv, type Column, type DataTable } from '../tables';
 import { crimeLabel, type Kap2Crime, type Kap2Data, type View } from './kap2';
+import { itemLabel, type FactorItem } from './kap2Factors';
 
 export const TOTAL = 'Brott totalt';
 const COMPARISON_LABEL = 'Inrikesfödda med två inrikesfödda föräldrar';
@@ -113,8 +114,12 @@ const VIEW_CSV: Record<Lang, Record<View, string>> = {
   en: { region: 'birth_region', land: 'birth_country', moder: 'mother_birth_region' },
 };
 
-/** Everything on the page in one long file: one row per view, crime type and group. */
-export function kap2Csv(data: Kap2Data, b6: B6Row[], lang: Lang): string {
+/**
+ * Everything on the page in one long file: one row per view, crime type and group.
+ * The view "riskfaktorer" holds the second chart: background next to other factors, each
+ * named with what it is compared with.
+ */
+export function kap2Csv(data: Kap2Data, b6: B6Row[], factors: FactorItem[], lang: Lang): string {
   const header = [
     tr(lang, 'vy', 'view'),
     tr(lang, 'brottstyp', 'crime_type'),
@@ -170,6 +175,14 @@ export function kap2Csv(data: Kap2Data, b6: B6Row[], lang: Lang): string {
       }
     }
   }
+  for (const f of factors) {
+    const compared = tr(lang, `${itemLabel(f, lang)} jämfört med ${dataLabel(f.comparison, lang).toLowerCase()}`, `${itemLabel(f, lang)} compared with ${lowerFirst(dataLabel(f.comparison, lang))}`);
+    rows.push([tr(lang, 'riskfaktorer', 'risk_factors'), crimeLabel(TOTAL, lang), compared, '', '', '', csvNumber(f.risk, f.kind === 'bakgrund' ? 2 : 1), '', '', '', '', '']);
+  }
   return longCsv(header, rows);
+}
+
+function lowerFirst(s: string): string {
+  return s.charAt(0).toLowerCase() + s.slice(1);
 }
 
