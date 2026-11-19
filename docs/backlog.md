@@ -19,18 +19,9 @@ Option 2 of three: a front page plus one page per part. Plan and owner check bef
 
 ## To do: fixes from the site review (both languages)
 
-Fix now:
+Fix now: done 19 November 2026 (see "Done" below), except:
 
-- Chapter 10: describe Brå's population correctly (registered in Sweden at age 15 and when convicted; people who arrived later are not included). "Lagförd" includes district-court verdicts later overturned.
-- "iVercels" missing space in Om sidan (`src/components/About.astro`). English leftovers "Brå rapport" and "m.fl." in the Method source list. English key figure "22 %".
-- Masthead, share image, llms.txt intro and caveats still describe only chapters 1–5 (no victims, deportation or Stockholms universitet).
-- Chapter 3: add Brå's statement that the number without Swedish citizenship has been roughly stable since 2021 (the share fell because more Swedish citizens were admitted), and an age caveat (prisoners are adults, the population includes children).
-- Chapter 7: add that 5 045 of the 5 826 (87 %) were not registered in Sweden (table B1).
-- Chapter 7: the dashed "Alla" line runs through the value labels. Chapter 1, second chart: purple is not in the palette.
-- Chapter 2: the share view keeps risk order instead of sorting by the value shown.
-- Check against the papers: 6,4 % (256 of 4 032 is 6,35 %) and 47,8 % (1 451 of 3 039 is 47,7 %) in the rape studies.
-- Key figure source "Brå 2025; SCB": name the report.
-- CLAUDE.md: describe chapters 6–10, the new sources and the nav.
+- Chapter 1, second chart: the purple for "icke folkbokförda" is not in the colour rules. Owner decides: add it to the palette as a documented colour, or redraw the chart another way.
 
 Next:
 
@@ -49,9 +40,7 @@ Owner decisions still open:
 
 ## To do
 
-- **Confirm the license of the two Lund studies.** Europe PMC lists both articles as open access under CC BY, but the publisher pages (Taylor & Francis, SAGE) could not be read to confirm it. If either is not CC BY, change the terms text on `/data/valdtakt/`.
 - **Error report form.** Add a form so readers can report errors without the owner's name or email address being shown. Use a form service that forwards messages privately and has spam protection. When it is in place, update the "Fel och rättelser" text in `src/components/About.astro`.
-- **Correction log.** The first time a number is corrected, add a dated list of corrections to the "Om sidan" section.
 - **Chapter summaries.** Where a chapter intro lacks the key number, year and source, add one short sentence. Owner approves the copy first.
 
 ## Later, once there is search data
@@ -62,6 +51,9 @@ Owner decisions still open:
 
 ## Done
 
+- Fixes from the site review, 19 November 2026: chapter 10 population wording; context in chapters 3 and 7; "iVercels" and English source wording; key figure source; chapter 2 share view order; chapter 7 labels over the reference line; masthead, share images (Swedish and English) and llms.txt cover all ten chapters; CLAUDE.md updated.
+- Chapter 4 corrected to 47,7 and 40,8 % (Khoshnood et al. 2021, table 1); first entry in the correction log under "Om sidan", 19 November 2026.
+- Both Lund studies confirmed CC BY 4.0 (licence text in the Europe PMC full texts), 19 November 2026.
 - Three headlines rewritten to say only what the data shows (chapter 4, chapter 2 second chart, chapter 10 second chart), 19 November 2026.
 
 - Redirect www to the plain domain (308), November 2026.
