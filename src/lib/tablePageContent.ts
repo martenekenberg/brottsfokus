@@ -567,7 +567,6 @@ function kap4(lang: Lang): TablePageContent {
       },
       { heading: T('Dömda och kontrollgrupp 2000–2020', 'Convicted and control group 2000–2020'), tables: [t.controls] },
       { heading: T('Födelseregion', 'Birth region'), tables: [t.region] },
-      { heading: T('Tidigare domar och bistånd', 'Previous convictions and social assistance'), tables: [t.prior] },
       {
         heading: T('Befolkningen', 'Population'),
         tables: [t.population],
@@ -805,7 +804,6 @@ function kap8(lang: Lang): TablePageContent {
   const n = (v: number | null, d = 0) => formatNumber(v as number, d, lang);
   const rows = loadHomicide();
   const utl = homicideItem(rows, 'utl');
-  const lag = homicideItem(rows, 'lagford');
 
   return {
     chapterId: 'kap8',
@@ -813,17 +811,17 @@ function kap8(lang: Lang): TablePageContent {
     h1: T('Offer och gärningspersoner vid dödligt våld jämfört med befolkningen, 2005–2021', 'Homicide victims and perpetrators compared with the population, 2005–2021'),
     shortTitle: T('Dödligt våld 2005–2021, offer och gärningspersoner: tabell', 'Homicide 2005–2021, victims and perpetrators: table'),
     description: T(
-      'Bakgrund, inkomst, arbete, boende och tidigare lagföringar bland offer och gärningspersoner vid dödligt våld 2005–2021, jämfört med befolkningen, enligt Brå rapport 2025:5. Tabeller och CSV-fil.',
-      'Background, income, work, housing and earlier convictions among homicide victims and perpetrators in 2005–2021, compared with the population, according to Brå report 2025:5. Tables and CSV file.',
+      'Bakgrund bland offer och gärningspersoner vid dödligt våld 2005–2021, jämfört med befolkningen, enligt Brå rapport 2025:5. Tabell och CSV-fil.',
+      'Background among homicide victims and perpetrators in 2005–2021, compared with the population, according to Brå report 2025:5. Table and CSV file.',
     ),
     datasetDescription: T(
-      'Andelar (%) bland 1 521 offer och 1 175 gärningspersoner vid dödligt våld i Sverige 2005–2021 och i befolkningen: utländsk bakgrund, utrikes födda, inrikes födda med två inrikes födda föräldrar, lagförda för brott året före, inkomst i lägsta tiondelen, boende i område med stora socioekonomiska utmaningar, ensamstående med barn och förvärvsarbetande. Uppgifter som Brå anger i texten eller på figurer i rapport 2025:5.',
-      'Shares (%) among 1,521 victims and 1,175 perpetrators of homicide in Sweden in 2005–2021 and in the population: foreign background, born abroad, born in Sweden with two Swedish-born parents, convicted of a crime in the year before, income in the lowest tenth, living in an area with major socio-economic challenges, single parents and people in employment. Figures that Brå gives in the text or on figures in report 2025:5.',
+      'Andelar (%) bland 1 521 offer och 1 175 gärningspersoner vid dödligt våld i Sverige 2005–2021 och i befolkningen: utländsk bakgrund, utrikes födda och inrikes födda med två inrikes födda föräldrar. Uppgifter som Brå anger i texten eller på figurer i rapport 2025:5.',
+      'Shares (%) among 1,521 victims and 1,175 perpetrators of homicide in Sweden in 2005–2021 and in the population: foreign background, born abroad, and born in Sweden with two Swedish-born parents. Figures that Brå gives in the text or on figures in report 2025:5.',
     ),
     temporalCoverage: '2005/2021',
     keywords: T(
-      ['dödligt våld', 'brottsoffer', 'gärningspersoner', 'utländsk bakgrund', 'socioekonomi', 'Brå 2025:5'],
-      ['homicide', 'crime victims', 'perpetrators', 'foreign background', 'socio-economic', 'Brå 2025:5'],
+      ['dödligt våld', 'brottsoffer', 'gärningspersoner', 'utländsk bakgrund', 'Brå 2025:5'],
+      ['homicide', 'crime victims', 'perpetrators', 'foreign background', 'Brå 2025:5'],
     ),
     variableMeasured: T(['Andel bland offer', 'Andel bland gärningspersoner', 'Andel i befolkningen'], ['Share among victims', 'Share among perpetrators', 'Share in the population']),
     sources: [SOURCES.bra2025dodligt],
@@ -831,21 +829,17 @@ function kap8(lang: Lang): TablePageContent {
     terms: BRA_TERMS(lang),
     lead: T(
       `Av offren för dödligt våld i Sverige 2005–2021 hade ${n(utl.victims)} procent utländsk bakgrund, och av gärningspersonerna ${n(utl.perpetrators)} procent, ` +
-        `enligt Brå. I befolkningen var andelen ${n(utl.population)} procent. ${n(lag.victims)} procent av offren och ${n(lag.perpetrators)} procent av ` +
-        `gärningspersonerna hade lagförts för brott året före, mot ${n(lag.population, 1)} procent i befolkningen.`,
+        `enligt Brå. I befolkningen var andelen ${n(utl.population)} procent.`,
       `Of homicide victims in Sweden in 2005–2021, ${n(utl.victims)}% had a foreign background, and of perpetrators ${n(utl.perpetrators)}%, according to Brå. ` +
-        `In the population the share was ${n(utl.population)}%. ${n(lag.victims)}% of victims and ${n(lag.perpetrators)}% of perpetrators had been convicted of ` +
-        `a crime in the year before, against ${n(lag.population, 1)}% of the population.`,
+        `In the population the share was ${n(utl.population)}%.`,
     ),
     note: T(
       'Utländsk bakgrund betyder utrikes född eller inrikes född med två utrikes födda föräldrar. Gärningspersoner finns bara för uppklarade fall, och ' +
         'omkring 70 procent av fallen i kriminell miljö är ouppklarade. Bara personer med svenskt personnummer ingår. Inte justerat för ålder eller kön. ' +
-        'Inkomster från brott syns inte i registren. Befolkningens andel är ett snitt för perioden. Brå anger hela procent utom för befolkningens ' +
-        'lagföringar, och tabellen visar en decimal. Brå redovisar resten av resultaten i diagram utan siffror, så de finns inte här.',
+        'Befolkningens andel är ett snitt för perioden. Brå anger hela procent.',
       'Foreign background means born abroad, or born in Sweden with two foreign-born parents. Perpetrators are only known for solved cases, and about 70% of ' +
-        'cases in criminal milieus are unsolved. Only people with a Swedish personal identity number are included. Not adjusted for age or sex. Income from crime ' +
-        'does not show in the registers. The population share is an average for the period. Brå gives whole percentages except for the population’s ' +
-        'convictions, and the table shows one decimal. Brå shows the rest of its results in charts without numbers, so they are not included here.',
+        'cases in criminal milieus are unsolved. Only people with a Swedish personal identity number are included. Not adjusted for age or sex. ' +
+        'The population share is an average for the period. Brå gives whole percentages.',
     ),
     sections: [{ tables: homicideTables(rows, lang) }],
     csv: kap8Csv(rows, lang),

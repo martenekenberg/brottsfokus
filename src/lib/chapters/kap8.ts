@@ -8,7 +8,6 @@ import { csvNumber, longCsv, type DataTable } from '../tables';
 
 /** Rows shown in the charts (the others are mentioned in the notes). */
 const BACKGROUND_IDS = ['utl', 'utr', 'sv2'];
-const SOCIO_IDS = ['lagford', 'lagsta_decil', 'omrade', 'ensamstaende', 'forvarvsarbete'];
 
 export function homicideItem(rows: HomicideRow[], id: string): HomicideRow {
   const r = rows.find((x) => x.itemId === id);
@@ -69,28 +68,10 @@ export function buildBackgroundSpec(rows: HomicideRow[], lang: Lang): BarChartSp
   });
 }
 
-export function buildSocioSpec(rows: HomicideRow[], lang: Lang): BarChartSpec {
-  return spec(rows, SOCIO_IDS, lang, {
-    sv: 'Stapeldiagram. Socioekonomisk situation och tidigare lagföringar bland offer och gärningspersoner vid dödligt våld 2005–2021, jämfört med befolkningen. ',
-    en: 'Bar chart. Socio-economic situation and earlier convictions among homicide victims and perpetrators in 2005–2021, compared with the population. ',
-  });
-}
-
 /** True if both victims and perpetrators had more than twice the population's share with a foreign background. */
 export function moreThanTwiceForeign(rows: HomicideRow[]): boolean {
   const v = complete(homicideItem(rows, 'utl'));
   return v.victims > 2 * v.population && v.perpetrators > 2 * v.population;
-}
-
-/** True if victims and perpetrators fared worse than the population on every measure in the second chart. */
-export function worseOnAll(rows: HomicideRow[]): boolean {
-  return SOCIO_IDS.every((id) => {
-    const v = complete(homicideItem(rows, id));
-    // Employment is the one measure where a lower share is worse.
-    return id === 'forvarvsarbete'
-      ? v.victims < v.population && v.perpetrators < v.population
-      : v.victims > v.population && v.perpetrators > v.population;
-  });
 }
 
 const COLUMNS = (lang: Lang) => [
@@ -124,7 +105,6 @@ export function homicideTables(rows: HomicideRow[], lang: Lang): DataTable[] {
   });
   return [
     table('kap8-bakgrund', tr(lang, 'Bakgrund, 2005–2021', 'Background, 2005–2021'), 'bakgrund'),
-    table('kap8-socioekonomi', tr(lang, 'Socioekonomisk situation och tidigare lagföringar, 2005–2021', 'Socio-economic situation and earlier convictions, 2005–2021'), 'socioekonomi'),
   ];
 }
 
@@ -134,6 +114,7 @@ export function kap8Csv(rows: HomicideRow[], lang: Lang): string {
   const part = (c: HomicideRow['chart']) => (c === 'bakgrund' ? tr(lang, 'bakgrund', 'background') : tr(lang, 'socioekonomi', 'socio_economic'));
   return longCsv(
     header,
-    rows.map((r) => [part(r.chart), dataLabel(r.item, lang), csvNumber(r.victims, 1), csvNumber(r.perpetrators, 1), csvNumber(r.population, 1), sourceText(r.source, lang)]),
+    // Only the background figures: the socio-economic chart was removed at the owner's request (November 2026).
+    rows.filter((r) => r.chart === 'bakgrund').map((r) => [part(r.chart), dataLabel(r.item, lang), csvNumber(r.victims, 1), csvNumber(r.perpetrators, 1), csvNumber(r.population, 1), sourceText(r.source, lang)]),
   );
 }

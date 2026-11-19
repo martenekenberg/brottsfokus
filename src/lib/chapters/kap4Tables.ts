@@ -16,7 +16,6 @@ export interface Kap4Tables {
   background: DataTable;
   controls: DataTable;
   region: DataTable;
-  prior: DataTable;
   population: DataTable;
   csv: string;
   popForeignBorn: number;
@@ -107,22 +106,6 @@ export function kap4Tables(rows: RapeStudyRow[], population: PopulationRow[], la
     rows: [...rowsOf(rows, 'region')].sort((a, b) => b.pct - a.pct).map((r) => ({ key: groupName(r.item), cells: [r.pct] })),
   };
 
-  const prior: DataTable = {
-    id: 'kap4-tidigare',
-    caption: tr(
-      lang,
-      'Alla dömda för våldtäkt 2000–2015: tidigare domar och ekonomiskt bistånd (Khoshnood m.fl. 2021, tabell 1)',
-      'All convicted for rape 2000–2015: previous convictions and social assistance (Khoshnood et al. 2021, table 1)',
-    ),
-    rowLabel: tr(lang, 'Uppgift', 'Item'),
-    rowCsv: tr(lang, 'grupp', 'group'),
-    columns: [
-      { kind: 'number', label: tr(lang, 'Antal', 'Number'), csv: tr(lang, 'antal', 'number'), decimals: 0 },
-      { kind: 'number', label: tr(lang, 'Andel av de dömda (%)', 'Share of convicted (%)'), csv: tr(lang, 'andel_pct', 'share_pct'), decimals: 1 },
-    ],
-    rows: rowsOf(rows, 'ovrigt').map((r) => ({ key: groupName(r.item), cells: [r.n, r.pct] })),
-  };
-
   const popRows = STUDY_YEARS.map((y) => {
     const r = population.find((p) => p.year === y);
     if (!r) throw new Error(`scb_befolkning.csv: ${y} missing`);
@@ -183,14 +166,12 @@ export function kap4Tables(rows: RapeStudyRow[], population: PopulationRow[], la
     ...ctrl.map((r) => [t('kontrollgrupp', 'control_group'), groupName(r.item), r.period, csvNumber(r.n, 0), csvNumber(r.pct, 1), csvNumber(r.pctControls, 1), '']),
     [t('kontrollgrupp', 'control_group'), otherLabel, sv2.period, '', csvNumber(complementPct(sv2.pct), 1), csvNumber(complementPct(sv2Controls), 1), ''],
     ...rowsOf(rows, 'region').map((r) => [t('fodelseregion_utrikesfodda', 'birth_region_born_abroad'), groupName(r.item), r.period, '', csvNumber(r.pct, 1), '', '']),
-    ...rowsOf(rows, 'ovrigt').map((r) => [t('tidigare_domar_och_bistand', 'previous_convictions_and_social_assistance'), groupName(r.item), r.period, csvNumber(r.n, 0), csvNumber(r.pct, 1), '', '']),
   ];
 
   return {
     background,
     controls,
     region,
-    prior,
     population: population_,
     csv: longCsv(header, csvRows),
     popForeignBorn,

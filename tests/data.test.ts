@@ -20,7 +20,7 @@ import { crimes as ntuCrimes, pooled, swedishHigher, regionTables } from '../src
 import { loadNtu, loadDeportation, loadHomicide, loadCohorts, loadBirthCohorts } from '../src/lib/data';
 import { birthYears, fellInAllGroups, kohortValue } from '../src/lib/chapters/kap10';
 import { allFell, smallerInLowIncome } from '../src/lib/chapters/kap9';
-import { moreThanTwiceForeign, worseOnAll, homicideItem } from '../src/lib/chapters/kap8';
+import { moreThanTwiceForeign, homicideItem } from '../src/lib/chapters/kap8';
 import { citizenshipGroups, offenceGroups, totalRow } from '../src/lib/chapters/kap7';
 import { buildKap1Data, buildKap1Spec } from '../src/lib/chapters/kap1';
 import { buildKap2Data, buildKap2Spec, hasShares, type Measure, type View } from '../src/lib/chapters/kap2';
@@ -172,7 +172,6 @@ test('chapter 8: homicide figures as stated by Brå', () => {
   const utr = homicideItem(rows, 'utr');
   for (const k of ['victims', 'perpetrators', 'population'] as const) assert.ok(sv2[k]! + utr[k]! <= 100);
   assert.ok(moreThanTwiceForeign(rows));
-  assert.ok(worseOnAll(rows));
 });
 
 test('chapter 9: tables 1 and 2 are complete and the printed relative risks fit the shares', () => {

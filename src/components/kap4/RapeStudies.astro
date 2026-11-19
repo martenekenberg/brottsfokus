@@ -1,5 +1,6 @@
 ---
-// Chapter 4: main paired bars, then region of birth and prior convictions as two smaller charts.
+// Chapter 2.2 (kap4): main paired bars, then region of birth as a smaller chart.
+// The chart of prior convictions and social assistance was removed at the owner's request (November 2026).
 import BarChart from '../charts/BarChart.astro';
 import type { Kap4 } from '../../lib/chapters/kap4';
 import { tr, type Lang } from '../../lib/i18n';
@@ -37,11 +38,6 @@ const { kap4, lang } = Astro.props;
     <h3 class="small-title">{tr(lang, 'Födelseregion bland de utrikesfödda dömda, 2000–2015', 'Birth region among the born-abroad convicted, 2000–2015')}</h3>
     <p class="small-sub">{tr(lang, 'Andel av de 1 451 utrikesfödda dömda.', 'Share of the 1,451 born-abroad convicted.')}</p>
     <BarChart spec={kap4.region} staticWidth={520} />
-  </div>
-  <div class="chart-block">
-    <h3 class="small-title">{tr(lang, 'Tidigare domar och ekonomiskt bistånd bland alla dömda, 2000–2015', 'Previous convictions and social assistance among all convicted, 2000–2015')}</h3>
-    <p class="small-sub">{tr(lang, 'Andel av alla dömda i studien. Ekonomiskt bistånd är inte ett brott.', 'Share of all convicted people in the study. Social assistance is not a crime.')}</p>
-    <BarChart spec={kap4.prior} staticWidth={520} />
   </div>
 </div>
 

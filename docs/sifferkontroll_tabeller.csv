@@ -6154,14 +6154,6 @@ Sida,Tabell,Rad,Kolumn,Värde på sidan
 /data/valdtakt/,"Utrikesfödda dömda för våldtäkt 2000–2015 efter födelseregion (Khoshnood m.fl. 2021, tabell 2)",Asien utom Mellanöstern samt Oceanien,Andel av de utrikesfödda dömda (%),"14,4"
 /data/valdtakt/,"Utrikesfödda dömda för våldtäkt 2000–2015 efter födelseregion (Khoshnood m.fl. 2021, tabell 2)",Latinamerika och Karibien,Andel av de utrikesfödda dömda (%),"9,7"
 /data/valdtakt/,"Utrikesfödda dömda för våldtäkt 2000–2015 efter födelseregion (Khoshnood m.fl. 2021, tabell 2)",Västländer,Andel av de utrikesfödda dömda (%),"7,3"
-/data/valdtakt/,"Alla dömda för våldtäkt 2000–2015: tidigare domar och ekonomiskt bistånd (Khoshnood m.fl. 2021, tabell 1)",Tidigare dömd för våldsbrott,Antal,1 402
-/data/valdtakt/,"Alla dömda för våldtäkt 2000–2015: tidigare domar och ekonomiskt bistånd (Khoshnood m.fl. 2021, tabell 1)",Tidigare dömd för våldsbrott,Andel av de dömda (%),"46,1"
-/data/valdtakt/,"Alla dömda för våldtäkt 2000–2015: tidigare domar och ekonomiskt bistånd (Khoshnood m.fl. 2021, tabell 1)",Tidigare dömd för egendomsbrott,Antal,1 119
-/data/valdtakt/,"Alla dömda för våldtäkt 2000–2015: tidigare domar och ekonomiskt bistånd (Khoshnood m.fl. 2021, tabell 1)",Tidigare dömd för egendomsbrott,Andel av de dömda (%),"36,8"
-/data/valdtakt/,"Alla dömda för våldtäkt 2000–2015: tidigare domar och ekonomiskt bistånd (Khoshnood m.fl. 2021, tabell 1)",Tidigare dömd för ekonomisk brottslighet,Antal,528
-/data/valdtakt/,"Alla dömda för våldtäkt 2000–2015: tidigare domar och ekonomiskt bistånd (Khoshnood m.fl. 2021, tabell 1)",Tidigare dömd för ekonomisk brottslighet,Andel av de dömda (%),"17,4"
-/data/valdtakt/,"Alla dömda för våldtäkt 2000–2015: tidigare domar och ekonomiskt bistånd (Khoshnood m.fl. 2021, tabell 1)",Har haft ekonomiskt bistånd (socialbidrag),Antal,989
-/data/valdtakt/,"Alla dömda för våldtäkt 2000–2015: tidigare domar och ekonomiskt bistånd (Khoshnood m.fl. 2021, tabell 1)",Har haft ekonomiskt bistånd (socialbidrag),Andel av de dömda (%),"32,5"
 /data/valdtakt/,"Befolkningen 2000, 2005, 2010 och 2015, underlag för jämförelsen (SCB)",2000,Folkmängd,8 882 792
 /data/valdtakt/,"Befolkningen 2000, 2005, 2010 och 2015, underlag för jämförelsen (SCB)",2000,Utrikesfödda,1 003 798
 /data/valdtakt/,"Befolkningen 2000, 2005, 2010 och 2015, underlag för jämförelsen (SCB)",2000,Inrikesfödda med två utrikesfödda föräldrar,284 449
@@ -7267,21 +7259,6 @@ Sida,Tabell,Rad,Kolumn,Värde på sidan
 /data/dodligt-vald/,"Bakgrund, 2005–2021",Utländsk bakgrund med viktade värden för gärningspersonerna,Offer (%),saknas
 /data/dodligt-vald/,"Bakgrund, 2005–2021",Utländsk bakgrund med viktade värden för gärningspersonerna,Gärningspersoner (%),"46,0"
 /data/dodligt-vald/,"Bakgrund, 2005–2021",Utländsk bakgrund med viktade värden för gärningspersonerna,Befolkningen (%),saknas
-/data/dodligt-vald/,"Socioekonomisk situation och tidigare lagföringar, 2005–2021",Lagförda för brott året före det dödliga våldet,Offer (%),"24,0"
-/data/dodligt-vald/,"Socioekonomisk situation och tidigare lagföringar, 2005–2021",Lagförda för brott året före det dödliga våldet,Gärningspersoner (%),"28,0"
-/data/dodligt-vald/,"Socioekonomisk situation och tidigare lagföringar, 2005–2021",Lagförda för brott året före det dödliga våldet,Befolkningen (%),"1,2"
-/data/dodligt-vald/,"Socioekonomisk situation och tidigare lagföringar, 2005–2021",Inkomst i befolkningens lägsta tiondel,Offer (%),"45,0"
-/data/dodligt-vald/,"Socioekonomisk situation och tidigare lagföringar, 2005–2021",Inkomst i befolkningens lägsta tiondel,Gärningspersoner (%),"51,0"
-/data/dodligt-vald/,"Socioekonomisk situation och tidigare lagföringar, 2005–2021",Inkomst i befolkningens lägsta tiondel,Befolkningen (%),"10,0"
-/data/dodligt-vald/,"Socioekonomisk situation och tidigare lagföringar, 2005–2021",Bodde i socioekonomiskt utsatt område,Offer (%),"16,0"
-/data/dodligt-vald/,"Socioekonomisk situation och tidigare lagföringar, 2005–2021",Bodde i socioekonomiskt utsatt område,Gärningspersoner (%),"15,0"
-/data/dodligt-vald/,"Socioekonomisk situation och tidigare lagföringar, 2005–2021",Bodde i socioekonomiskt utsatt område,Befolkningen (%),"5,0"
-/data/dodligt-vald/,"Socioekonomisk situation och tidigare lagföringar, 2005–2021",Ensamstående med barn,Offer (%),"12,0"
-/data/dodligt-vald/,"Socioekonomisk situation och tidigare lagföringar, 2005–2021",Ensamstående med barn,Gärningspersoner (%),"13,0"
-/data/dodligt-vald/,"Socioekonomisk situation och tidigare lagföringar, 2005–2021",Ensamstående med barn,Befolkningen (%),"7,0"
-/data/dodligt-vald/,"Socioekonomisk situation och tidigare lagföringar, 2005–2021",Förvärvsarbetande,Offer (%),"33,0"
-/data/dodligt-vald/,"Socioekonomisk situation och tidigare lagföringar, 2005–2021",Förvärvsarbetande,Gärningspersoner (%),"29,0"
-/data/dodligt-vald/,"Socioekonomisk situation och tidigare lagföringar, 2005–2021",Förvärvsarbetande,Befolkningen (%),"65,0"
 /data/lagforda-fore-25/,"Män, alla: minst en lagföring före 25 års ålder",1966–69,Inrikes födda med minst en inrikes född förälder (%),"28,4"
 /data/lagforda-fore-25/,"Män, alla: minst en lagföring före 25 års ålder",1966–69,Inrikes födda med två utrikes födda föräldrar (%),"38,8"
 /data/lagforda-fore-25/,"Män, alla: minst en lagföring före 25 års ålder",1966–69,Relativ risk,"1,4"

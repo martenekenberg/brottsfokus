@@ -13,10 +13,8 @@ Next:
 - Table pages on phones: keep the year column fixed when scrolling sideways.
 - Colour rules: grey is used for a comparison group in 1.1 (one foreign-born parent, solid grey) and 1.3, not only for the population. (2.1 fixed: Bäckman's comparison group is now a black line.)
 
-Owner decisions still open:
+Watch:
 
-- Keep the income and work charts (2.2 prior convictions, 4.2 second chart)?
-- Masthead "Uppdaterad" date: keep the build date?
 - Brå plans new suspect statistics for 2019–2024 by the end of 2026. Update 1.1, 1.2 and the key figures when it is out.
 
 ## To do
@@ -31,6 +29,8 @@ Owner decisions still open:
 - Links from relevant places (data journalists, researchers, newsletters).
 
 ## Done
+
+- Owner decisions, 19 November 2026: the income and work charts (2.2 prior convictions and social assistance, 4.2 second chart) removed from the site and table pages; the masthead keeps the build date as "Uppdaterad".
 
 - New page structure, 19 November 2026 (owner's decision): front page with part cards, one page per part, Metod and Om sidan on their own pages, menu with the current page marked and a scroll hint on phones, old `/#kap` links forwarded. Chapters 9 and 10 merged; Bäckman et al. drawn as line charts. The four card sentences in `src/lib/parts.ts` were approved by the owner.
 - Purple for a fifth series added to the colour rules as "extra" (owner's request), 19 November 2026.

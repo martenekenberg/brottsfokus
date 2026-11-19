@@ -3,13 +3,12 @@
 // Loads its own data and stops the build if its headline no longer matches the data.
 import Chapter from '../Chapter.astro';
 import BarChart from '../charts/BarChart.astro';
-import SubChart from '../SubChart.astro';
 import { tr, type Lang } from '../../lib/i18n';
 import { chapter } from '../../lib/chapters';
 import { loadHomicide } from '../../lib/data';
 import { tablePage } from '../../lib/dataPages';
 import { formatNumber } from '../../lib/format';
-import { buildBackgroundSpec, buildSocioSpec, homicideItem, moreThanTwiceForeign, SERIES, worseOnAll } from '../../lib/chapters/kap8';
+import { buildBackgroundSpec, homicideItem, moreThanTwiceForeign, SERIES } from '../../lib/chapters/kap8';
 
 interface Props {
   lang: Lang;
@@ -17,16 +16,13 @@ interface Props {
 const { lang } = Astro.props;
 const L = (sv: string, en: string) => tr(lang, sv, en);
 const n0 = (v: number) => formatNumber(v, 0, lang);
-const n1 = (v: number) => formatNumber(v, 1, lang);
 
 // ---------- Chapter 8: homicide ----------
 const homicide = loadHomicide();
 if (!moreThanTwiceForeign(homicide)) throw new Error('Chapter 8 headline no longer matches the data');
-if (!worseOnAll(homicide)) throw new Error('Chapter 8 second chart: headline no longer matches the data');
 const hUtl = homicideItem(homicide, 'utl');
 const hMiljo = homicideItem(homicide, 'kriminell_miljo');
 const hWeighted = homicideItem(homicide, 'viktat');
-const hLagford = homicideItem(homicide, 'lagford');
 const homicideLegend = (
   [
     ['victims', '#1D4E89', false],
@@ -76,40 +72,4 @@ const homicideLegend = (
       ', Offer och gärningspersoner vid dödligt våld (homicide victims and perpetrators), p. 13, 76–79. 1,521 victims and 1,175 perpetrators, 2005–2021.',
     )}
   </Fragment>
-  <SubChart
-    slot="after"
-    id="kap8-socioekonomi"
-    lang={lang}
-    title={L(
-      'Offer och gärningspersoner hade lägre inkomst, arbetade mer sällan och var oftare lagförda än befolkningen',
-      'Victims and perpetrators had lower incomes, were less often in work and had more often been convicted than the population',
-    )}
-  >
-    <Fragment slot="intro">
-      {L(
-        `Brå jämför också offrens och gärningspersonernas inkomst, arbete, boende och tidigare brott med befolkningen. ${n0(hLagford.victims as number)} procent av offren och ${n0(hLagford.perpetrators as number)} procent av gärningspersonerna hade lagförts för brott året före, mot ${n1(hLagford.population as number)} procent i befolkningen.`,
-        `Brå also compares the victims’ and perpetrators’ income, work, housing and earlier crimes with the population. ${n0(hLagford.victims as number)}% of victims and ${n0(hLagford.perpetrators as number)}% of perpetrators had been convicted of a crime in the year before, against ${n1(hLagford.population as number)}% of the population.`,
-      )}
-    </Fragment>
-    <ul slot="legend" class="legend-list" aria-label={L('Förklaring', 'Key')}>
-      {
-        homicideLegend.map((l) => (
-          <li>
-            <span class="mark bar-swatch" style={`width:14px;height:12px;${l.outline ? 'border:1.5px solid #5C5C5C;background:#FFFFFF' : `background:${l.color}`}`} aria-hidden="true" />
-            {l.label}
-          </li>
-        ))
-      }
-    </ul>
-    <BarChart spec={buildSocioSpec(homicide, lang)} />
-    <Fragment slot="note">
-      {L(
-        `Inkomsterna bygger på deklarerade inkomster, så inkomster från brott syns inte. Befolkningens andel i den lägsta inkomsttiondelen är per definition en tiondel. Lagförda året före gäller offer och gärningspersoner. För befolkningen är det ett snitt för personer 15 år och äldre 2004–2020 (${n1(hLagford.population as number)} procent). Förvärvsarbete gäller november året före. Utsatt område är det Brå kallar område med stora socioekonomiska utmaningar. Brå anger hela procent utom för befolkningens lagföringar.`,
-        `Incomes are based on declared income, so income from crime does not show. The population’s share in the lowest income tenth is one tenth by definition. Convicted in the year before applies to victims and perpetrators. For the population it is an average for people aged 15 and over in 2004–2020 (${n1(hLagford.population as number)}%). Employment refers to November of the year before. A deprived area is what Brå calls an area with major socio-economic challenges. Brå gives whole percentages except for the population’s convictions.`,
-      )}
-    </Fragment>
-    <Fragment slot="source">
-      {L('Källa: ', 'Source: ')}<a href="https://bra.se/rapporter/arkiv/2025-03-25-offer-och-garningspersoner-vid-dodligt-vald">{L('Brå rapport 2025:5', 'Brå report 2025:5')}</a>{L(', sammanfattningen s. 9–14.', ', summary p. 9–14.')}
-    </Fragment>
-  </SubChart>
 </Chapter>

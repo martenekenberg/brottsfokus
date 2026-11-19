@@ -21,7 +21,6 @@ export interface Kap4 {
   /** 2000–2015: convicted and the whole population. */
   population2015: BarChartSpec;
   region: BarChartSpec;
-  prior: BarChartSpec;
   /** Values used in the copy. */
   popForeignBorn: number;
   popTwoForeignParents: number;
@@ -145,25 +144,11 @@ export function buildKap4(rows: RapeStudyRow[], population: PopulationRow[], lan
       '.',
   };
 
-  const priorRows = rows.filter((r) => r.chart === 'ovrigt');
-  const prior: BarChartSpec = {
-    lang,
-    groups: priorRows.map((r) => ({ label: dataLabel(r.item, lang), bars: [{ label: '', value: r.pct, kind: 'focus' as const }] })),
-    ariaLabel: tr(
-      lang,
-      'Stapeldiagram. Andel av alla dömda för våldtäkt 2000–2015 som tidigare dömts för brott eller haft ekonomiskt bistånd. ',
-      'Bar chart. Share of all people convicted of rape 2000–2015 who had previously been convicted of a crime or received social assistance. ',
-    ) +
-      priorRows.map((r) => `${dataLabel(r.item, lang)} ${pct(r.pct)}`).join(', ') +
-      '.',
-  };
-
   return {
     main,
     population2015,
     menPct: pick(rows, 'kontroll', 'man').pct,
     region,
-    prior,
     popForeignBorn,
     popTwoForeignParents,
     sv2Convicted: sv2.pct,

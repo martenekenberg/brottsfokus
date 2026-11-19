@@ -210,9 +210,6 @@ const kap5 = buildKap5(bra2005);
   for (const r of rape.filter((x) => x.chart === 'region').sort((a, b) => b.pct - a.pct)) {
     add(K, 'Mindre diagram', r.item, barFmt(r.pct), `Khoshnood m.fl. 2021, ${r.note}`, STATED, K2021);
   }
-  for (const r of rape.filter((x) => x.chart === 'ovrigt')) {
-    add(K, 'Mindre diagram', `${r.item} (n = ${r.n})`, barFmt(r.pct), `Khoshnood m.fl. 2021, ${r.note}`, STATED, K2021);
-  }
 }
 
 // ---------- Chapter 5 ----------
@@ -282,7 +279,7 @@ const kap5 = buildKap5(bra2005);
   const K = '08 Dödligt våld';
   const URL = 'https://bra.se/download/18.4dd364db195b26cb24b107f4/1742814210786/2025_5_Offer%20och%20g%C3%A4rningspersoner%20vid%20d%C3%B6dligt%20v%C3%A5ld.pdf';
   const f = (v: number | null) => (v === null ? 'anges inte' : formatNumber(v, Number.isInteger(v) ? 0 : 1));
-  for (const r of loadHomicide()) {
+  for (const r of loadHomicide().filter((x) => x.chart === 'bakgrund')) {
     add(K, r.chart === 'bakgrund' ? 'Diagram/text, bakgrund' : 'Andra diagrammet', `${r.item}: offer / gärningspersoner / befolkningen`, `${f(r.victims)} / ${f(r.perpetrators)} / ${f(r.population)}`, r.source, STATED, URL);
   }
   add(K, 'Källrad', 'Antal offer och gärningspersoner 2005–2021', '1 521 / 1 175', 'Brå 2025:5 s. 7', STATED, URL);

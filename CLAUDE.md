@@ -36,7 +36,7 @@ The `.dc.html` files are design mockups in a canvas format. Open them as plain H
 - Deploy: GitHub repo + Vercel, static build. Ask before creating the repo or connecting Vercel.
 - Vercel Web Analytics is on (owner's request), via `@vercel/analytics` in `src/layouts/Base.astro`. No cookies and no other tracking unless I ask. If analytics changes, update "Kakor och besöksstatistik" in Om sidan.
 - The owner is anonymous. Never put the owner's name, email address or GitHub account on the site or in its metadata. Keep the repo private and do not link to it.
-- Site name, URL, title, description and last update date live in `src/lib/site.ts`. `updated` is the build date; the main page's masthead, structured data, sitemap entry and Om sidan read it.
+- Site name, URL, title, description and last update date live in `src/lib/site.ts`. `updated` is the build date (owner confirmed, November 2026); the main page's masthead, structured data, sitemap entry and Om sidan read it.
 - The table pages and `/data/` use the date their data last changed instead (`src/lib/dataDates.json`, written by `npm run datadates`), so a deploy without data changes does not mark them as changed. The build stops if a data file changed since its date was recorded.
 
 ## First steps
@@ -168,7 +168,7 @@ Numbered by part (see "Page structure"). The ids (`kap1` and so on) are the old 
 
 2.1 **Lagförda före 25 års ålder** (`kap9`, chapters 9 and 10 merged at the owner's request). Brå 2025:21 by birth year 1958–2003 (before 25, then before 20), and Bäckman et al. 2021 by birth-year group 1966–93 as line charts per sex, for everyone and for the lowest-income families. The two sources group background differently; the page says so. The table pages `kap9` (Bäckman) and `kap10` (Brå) both stay; `MERGED` in `src/lib/chapters.ts` points `kap10` here.
 
-2.2 **Dömda för våldtäkt** (`kap4`). Paired bars: convicted vs matched controls (2000–2020), convicted vs population (2000–2015). Also region of birth and prior convictions as smaller charts.
+2.2 **Dömda för våldtäkt** (`kap4`). Paired bars: convicted vs matched controls (2000–2020), convicted vs population (2000–2015). Also region of birth as a smaller chart. (The chart of prior convictions and social assistance was removed at the owner's request, November 2026; the rows stay in the data file.)
 
 3.1 **Fängelse och medborgarskap, 2014–2025** (`kap3`). Line chart: new inmates (all), new inmates (men), new inmates (women), inmates 1 October, foreign citizens in the population (dashed grey). Break lines where a year is missing; never join across a gap.
 
@@ -176,7 +176,7 @@ Numbered by part (see "Page structure"). The ids (`kap1` and so on) are the old 
 
 4.1 **Utsatta för brott, 2016–2022** (`kap6`). Paired bars per crime type, men and women: foreign vs Swedish background (Brå NTU). Brå's grouping here counts one foreign-born parent as foreign background.
 
-4.2 **Dödligt våld, 2005–2021** (`kap8`). Victims, perpetrators and population by background; second chart income, work, housing area and earlier convictions (Brå 2025:5).
+4.2 **Dödligt våld, 2005–2021** (`kap8`). Victims, perpetrators and population by background (Brå 2025:5). (The second chart on income, work, housing and earlier convictions was removed at the owner's request, November 2026; the rows stay in the data file.)
 
 Every headline that makes a claim about the data has a check in its chapter component (`src/components/chapters/`) that stops the build if the data no longer supports it. Add one for every new headline.
 
