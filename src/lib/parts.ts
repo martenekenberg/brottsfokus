@@ -10,7 +10,7 @@ export interface PartInfo {
   num: number;
   path: Record<Lang, string>;
   title: Record<Lang, string>;
-  /** One sentence on the front page card and under the part's headline. Owner approves the copy. */
+  /** One sentence on the front page card and under the part's headline. Approved by the owner, 19 November 2026. */
   card: Record<Lang, string>;
   /** Chapter ids, in page order. */
   chapters: string[];

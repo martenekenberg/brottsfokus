@@ -32,7 +32,7 @@ Owner decisions still open:
 
 ## Done
 
-- New page structure, 19 November 2026 (owner's decision): front page with part cards, one page per part, Metod and Om sidan on their own pages, menu with the current page marked and a scroll hint on phones, old `/#kap` links forwarded. Chapters 9 and 10 merged; Bäckman et al. drawn as line charts. The four card sentences in `src/lib/parts.ts` are drafts for the owner to approve.
+- New page structure, 19 November 2026 (owner's decision): front page with part cards, one page per part, Metod and Om sidan on their own pages, menu with the current page marked and a scroll hint on phones, old `/#kap` links forwarded. Chapters 9 and 10 merged; Bäckman et al. drawn as line charts. The four card sentences in `src/lib/parts.ts` were approved by the owner.
 - Purple for a fifth series added to the colour rules as "extra" (owner's request), 19 November 2026.
 - Fixes from the site review, 19 November 2026: chapter 10 population wording; context in chapters 3 and 7; "iVercels" and English source wording; key figure source; chapter 2 share view order; chapter 7 labels over the reference line; masthead, share images (Swedish and English) and llms.txt cover all ten chapters; CLAUDE.md updated.
 - Chapter 4 corrected to 47,7 and 40,8 % (Khoshnood et al. 2021, table 1); first entry in the correction log under "Om sidan", 19 November 2026.
