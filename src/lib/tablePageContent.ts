@@ -951,9 +951,13 @@ function kap10(lang: Lang): TablePageContent {
         `Sweden with two Swedish-born parents. For those born in ${last}, the shares were ${v('Utr', last)}% and ${v('I20', last)}%.`,
     ),
     note: T(
-      `Lagförd betyder dom, strafföreläggande eller åtalsunderlåtelse. Siffror efter födelsebakgrund finns bara för födda från ${bg}, eftersom ` +
+      'Bara den som var folkbokförd i Sverige vid 15 års ålder och när beslutet kom räknas, så den som invandrat efter 15 års ålder är inte med. ' +
+        'Lagförd betyder dom i tingsrätt, strafföreläggande eller åtalsunderlåtelse. Den som senare friats i högre rätt räknas också. ' +
+        `Siffror efter födelsebakgrund finns bara för födda från ${bg}, eftersom ` +
         'Brå saknar folkmängd efter bakgrund för tidigare år. Tomma celler betyder att uppgift saknas. Inte justerat för till exempel familjens inkomst.',
-      `Convicted means a court sentence, a summary penalty or a waiver of prosecution. Figures by birth background only exist for those born from ${bg}, ` +
+      'Only people registered in Sweden at age 15 and when the decision was made are counted, so people who moved to Sweden after age 15 are not included. ' +
+        'Convicted means a district court judgment, a summary penalty or a waiver of prosecution. People later acquitted by a higher court are still counted. ' +
+        `Figures by birth background only exist for those born from ${bg}, ` +
         'because Brå has no population figures by background for earlier years. Empty cells mean no value. Not adjusted for, for example, family income.',
     ),
     sections: [

@@ -852,22 +852,22 @@ const keyFigures = [
       >
         <p slot="intro">
           {L(
-            `Andel av alla som föddes ett visst år och var folkbokförda i Sverige som lagförts för brott minst en gång före 25 års ålder. Av dem som föddes ${k25Years[0]} gällde det ${kv('fore25', 'alla', k25Years[0])} procent, av dem som föddes ${k25Last} ${kv('fore25', 'alla', k25Last)} procent. Brå redovisar bakgrund från födelseåret ${kBg}.`,
-            `Share of everyone born in a given year and registered in Sweden who was convicted of a crime at least once before age 25. Of those born in ${k25Years[0]}, ${kv('fore25', 'alla', k25Years[0])}%; of those born in ${k25Last}, ${kv('fore25', 'alla', k25Last)}%. Brå reports background from birth year ${kBg}.`,
+            `Andel av alla som föddes ett visst år och var folkbokförda i Sverige vid 15 års ålder, som lagförts för brott minst en gång före 25 års ålder. Av dem som föddes ${k25Years[0]} gällde det ${kv('fore25', 'alla', k25Years[0])} procent, av dem som föddes ${k25Last} ${kv('fore25', 'alla', k25Last)} procent. Brå redovisar bakgrund från födelseåret ${kBg}.`,
+            `Share of everyone born in a given year and registered in Sweden at age 15 who was convicted of a crime at least once before age 25. Of those born in ${k25Years[0]}, ${kv('fore25', 'alla', k25Years[0])}%; of those born in ${k25Last}, ${kv('fore25', 'alla', k25Last)}%. Brå reports background from birth year ${kBg}.`,
           )}
         </p>
         <Legend slot="legend" items={kohortLegend} />
         <LineChart spec={buildKohortSpec(kohort, 'fore25', 'samtliga', lang)} />
         <Fragment slot="note">
           {L(
-            `Kvinnor och män tillsammans, siffror per kön finns i tabellen. Lagförd betyder dom, strafföreläggande eller åtalsunderlåtelse. Folkmängd efter bakgrund finns bara för födda från ${kBg}, därför börjar de linjerna där. Det är officiell statistik från Brå. Siffrorna är inte justerade för till exempel familjens inkomst.`,
-            `Women and men together; figures by sex are in the table. Convicted means a court sentence, a summary penalty or a waiver of prosecution. Population figures by background only exist for those born from ${kBg}, so those lines start there. These are official statistics from Brå. The figures are not adjusted for, for example, family income.`,
+            `Kvinnor och män tillsammans, siffror per kön finns i tabellen. Bara den som var folkbokförd i Sverige vid 15 års ålder och när beslutet kom räknas, så den som invandrat efter 15 års ålder är inte med. Lagförd betyder dom i tingsrätt, strafföreläggande eller åtalsunderlåtelse. Den som senare friats i högre rätt räknas också. Folkmängd efter bakgrund finns bara för födda från ${kBg}, därför börjar de linjerna där. Siffrorna är inte justerade för till exempel familjens inkomst.`,
+            `Women and men together; figures by sex are in the table. Only people registered in Sweden at age 15 and when the decision was made are counted, so people who moved to Sweden after age 15 are not included. Convicted means a district court judgment, a summary penalty or a waiver of prosecution. People later acquitted by a higher court are still counted. Population figures by background only exist for those born from ${kBg}, so those lines start there. The figures are not adjusted for, for example, family income.`,
           )}
         </Fragment>
         <Fragment slot="source">
           {L('Källa: ', 'Source: ')}<a href="https://bra.se/rapporter/arkiv/2025-12-02-fodelsekohortstatistik">{L('Brå rapport 2025:21', 'Brå report 2025:21')}</a>{L(
-            ', Födelsekohortstatistik, tabell 1. Personer folkbokförda i Sverige, lagföringar till och med 2023.',
-            ', Födelsekohortstatistik (birth cohort statistics), table 1. People registered in Sweden, convictions up to the end of 2023.',
+            ', Födelsekohortstatistik, tabell 1. Personer folkbokförda i Sverige vid 15 års ålder, lagföringar till och med 2023.',
+            ', Födelsekohortstatistik (birth cohort statistics), table 1. People registered in Sweden at age 15, convictions up to the end of 2023.',
           )}
         </Fragment>
         <SubChart
@@ -889,8 +889,8 @@ const keyFigures = [
           <LineChart spec={buildKohortSpec(kohort, 'fore20', 'samtliga', lang)} />
           <Fragment slot="note">
             {L(
-              `Rubriken gäller födelseåren från ${kBg}, då Brå börjar redovisa bakgrund. Andelen minskade inte varje år: bland dem som föddes ${k25Last + 1} var den något högre än bland dem som föddes ${k25Last}, i alla grupper. Före 20 års ålder är andelarna lägre än före 25, eftersom många lagförs första gången mellan 20 och 25 år. Utrikesfödda kan ha kommit till Sverige först i tonåren.`,
-              `The headline covers birth years from ${kBg}, when Brå starts reporting background. The share did not fall every year: among those born in ${k25Last + 1} it was slightly higher than among those born in ${k25Last}, in every group. Before age 20 the shares are lower than before 25, because many people are convicted for the first time between 20 and 25. People born abroad may have come to Sweden only in their teens.`,
+              `Rubriken gäller födelseåren från ${kBg}, då Brå börjar redovisa bakgrund. Andelen minskade inte varje år: bland dem som föddes ${k25Last + 1} var den något högre än bland dem som föddes ${k25Last}, i alla grupper. Före 20 års ålder är andelarna lägre än före 25, eftersom många lagförs första gången mellan 20 och 25 år. Utrikesfödda som kom till Sverige efter 15 års ålder är inte med.`,
+              `The headline covers birth years from ${kBg}, when Brå starts reporting background. The share did not fall every year: among those born in ${k25Last + 1} it was slightly higher than among those born in ${k25Last}, in every group. Before age 20 the shares are lower than before 25, because many people are convicted for the first time between 20 and 25. People born abroad who came to Sweden after age 15 are not included.`,
             )}
           </Fragment>
           <Fragment slot="source">
