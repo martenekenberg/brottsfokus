@@ -18,8 +18,7 @@ const { figures } = Astro.props;
     figures.map((f) => (
       <div class="figure">
         <p class="value">
-          {f.value}
-          <span class="unit">{f.unit}</span>
+          {f.value}<span class="unit">{f.unit}</span>
         </p>
         <p class="text">{f.text}</p>
         <p class="src">{f.source}</p>

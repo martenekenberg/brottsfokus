@@ -350,7 +350,7 @@ const keyFigures = [
       `av de nyintagna i fängelse ${lastYear} saknade svenskt medborgarskap. I befolkningen var andelen ${n1(popShareLast)} procent.`,
       `of new prisoners in ${lastYear} did not have Swedish citizenship. In the population the share was ${n1(popShareLast)}%.`,
     ),
-    source: `Brå ${lastYear}; SCB`,
+    source: `Brå, ${(kap3.sourcesByYear.get(lastYear) ?? []).map((s) => shortReportName(s.label)).join(', ') || lastYear}; SCB`,
   },
 ];
 ---

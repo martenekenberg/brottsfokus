@@ -113,7 +113,10 @@ interface Props {
   lang: Lang;
 }
 const { extraSources = [], lang } = Astro.props;
-const allSources = [...sources, ...extraSources];
+// Official titles stay as published; only the wording around them is translated.
+const sourceLabel = (label: string) =>
+  lang === 'en' ? label.replace(/^Brå rapport /, 'Brå report ').replace(' m.fl. ', ' et al. ') : label;
+const allSources = [...sources, ...extraSources].map((s) => ({ ...s, label: sourceLabel(s.label) }));
 ---
 <section id="metod" class="method" aria-labelledby="metod-h">
   <h2 id="metod-h">{tr(lang, 'Metod och begrepp', 'Method and terms')}</h2>
