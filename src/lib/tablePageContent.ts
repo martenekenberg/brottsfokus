@@ -22,14 +22,14 @@ import { buildKap1Data, crimeById, crimeName, type GroupId } from './chapters/ka
 import { kap1Csv, rateTable, ratioTable } from './chapters/kap1Tables';
 import { buildKap2Data, smallestGroup } from './chapters/kap2';
 import { b6Table, kap2Csv, riskTable, totalCrime, TOTAL } from './chapters/kap2Tables';
-import { buildKap3, kap3Tables, shortReportName } from './chapters/kap3';
+import { buildKap3, kap3Context, kap3Tables, shortReportName } from './chapters/kap3';
 import { buildSuspicionShares, sharesTables, shareGroup } from './chapters/kap1Shares';
 import { buildRiskFactors, factorsTable } from './chapters/kap2Factors';
 import { round } from './calc';
 import { birthYears, firstBackgroundYear, kap10Csv, kohortTables, kohortValue } from './chapters/kap10';
 import { cell as cohortCell, cohortTables, cohorts as cohortList, kap9Csv } from './chapters/kap9';
 import { homicideItem, homicideTables, kap8Csv } from './chapters/kap8';
-import { deportTables, fact, kap7Csv, suppressedGroups, totalRow } from './chapters/kap7';
+import { deportTables, fact, kap7Csv, notRegisteredSentence, suppressedGroups, totalRow } from './chapters/kap7';
 import { backgroundTables, flagged, kap6Csv, pooled, regionTables, yearTables } from './chapters/kap6';
 import { kap4Tables } from './chapters/kap4Tables';
 import { kap5Csv, kap5Tables } from './chapters/kap5Tables';
@@ -457,7 +457,7 @@ function kap3(lang: Lang): TablePageContent {
         'Sweden and are not counted in the population. Brå gives the shares in whole percent. A dash (–) means that Brå gives no ' +
         `value for that year. For all new prisoners, values are missing for ${yearRanges(missingAll, lang)}. Shares for men and women ` +
         `are available for ${yearRanges(withValue(k.newMen), lang)}, and for people in prison on 1 October for ${yearRanges(withValue(k.onOct1), lang)}.`,
-    ),
+    ) + ' ' + kap3Context(k, lang),
     sections: [
       {
         tables: [shareTable],
@@ -781,11 +781,11 @@ function kap7(lang: Lang): TablePageContent {
         `within a year was ${yr(2013)}% among those who left prison in 2013, ${yr(2019)}% in 2019 and ${yr(2023)}% in 2023.`,
     ),
     note: T(
-      'Medborgarskap är inte alltid landet personen utvisas till. De som lämnade fängelset tidigt i perioden har följts längre, därför ' +
+      'Medborgarskap är inte alltid landet personen utvisas till. ' + notRegisteredSentence(rows, 'sv') + ' De som lämnade fängelset tidigt i perioden har följts längre, därför ' +
         'finns också andelar inom ett år, som är jämförbara mellan åren. Nya brott gäller lagföringar i Sverige för brott efter fängelset. ' +
         'Brå redovisar inte uppgifter som bygger på färre än 4 personer, och döljer då också gruppens storlek. De visas med streck. ' +
         `Helt dolda grupper: ${hidden.join(', ')}. Små grupper kan ändras mycket av enstaka personer.`,
-      'Citizenship is not always the country a person is deported to. Those who left prison early in the period have been followed for longer, ' +
+      'Citizenship is not always the country a person is deported to. ' + notRegisteredSentence(rows, 'en') + ' Those who left prison early in the period have been followed for longer, ' +
         'which is why shares within one year are also given; they can be compared between years. New crimes means convictions in Sweden for ' +
         'crimes after prison. Brå does not report figures based on fewer than 4 people, and then also hides the size of the group. They are ' +
         `shown as a dash. Fully hidden groups: ${hidden.join(', ')}. Small groups can change a lot because of single people.`,

@@ -3,7 +3,8 @@
 // the number checklist.
 import type { DeportDimension, DeportFact, DeportRow } from '../data';
 import type { BarChartSpec } from '../charts/bar';
-import { formatPct } from '../format';
+import { formatNumber, formatPct } from '../format';
+import { round } from '../calc';
 import { tr, type Lang } from '../i18n';
 import { dataLabel } from '../labels';
 import { csvNumber, longCsv, type DataTable } from '../tables';
@@ -15,6 +16,24 @@ export function totalRow(rows: DeportRow[]): DeportRow {
   const r = rows.find((x) => x.dimension === 'totalt');
   if (!r || r.pctDeported === null || r.n === null) throw new Error('utvisning_b1.csv: total row missing');
   return r;
+}
+
+/**
+ * How many of all people in the study were not registered in Sweden (table B1, "Ej folkbokförd").
+ * Checks that the registered and not-registered groups add up to the total.
+ */
+export function notRegisteredSentence(rows: DeportRow[], lang: Lang): string {
+  const total = totalRow(rows);
+  const not = rows.find((x) => x.dimension === 'folkbokforing' && x.group === 'Ej folkbokförd');
+  const yes = rows.find((x) => x.dimension === 'folkbokforing' && x.group === 'Folkbokförd');
+  if (!not?.n || !yes?.n || not.n + yes.n !== total.n) throw new Error('utvisning_b1.csv: registration groups do not add up to the total');
+  const n = (v: number) => formatNumber(v, 0, lang);
+  const pct = n(round((not.n / (total.n as number)) * 100, 0));
+  return tr(
+    lang,
+    `Av de ${n(total.n as number)} personerna var ${n(not.n)} (${pct} procent) inte folkbokförda i Sverige.`,
+    `Of the ${n(total.n as number)} people, ${n(not.n)} (${pct}%) were not registered as living in Sweden.`,
+  );
 }
 
 export function fact(facts: DeportFact[], id: string, year: number | null = null): number {

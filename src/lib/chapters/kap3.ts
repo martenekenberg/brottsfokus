@@ -1,7 +1,8 @@
 // Chapter 3: prison and citizenship. Shared by the chart on the main page and the table page,
 // so both always show the same numbers.
 import type { PopulationRow, PrisonRow } from '../data';
-import { foreignCitizenSharePct, prisonSeries } from '../calc';
+import { foreignCitizenSharePct, prisonSeries, round } from '../calc';
+import { formatNumber } from '../format';
 import { tr, type Lang } from '../i18n';
 import type { DataTable } from '../tables';
 
@@ -70,6 +71,33 @@ export function buildKap3(prison: PrisonRow[], population: PopulationRow[]): Kap
     sources,
     sourcesByYear,
   };
+}
+
+/**
+ * Context for the falling share, used in the chart note and on the table page.
+ * Brå's statement on the trend is from Kriminalvård fängelse och häkte 2024 (p. 16);
+ * the 2025 report has +3 people without Swedish citizenship compared with 2024.
+ * The counts and the share of men come from the data file.
+ */
+export function kap3Context(k: Kap3, lang: Lang): string {
+  const years = k.years.filter((y) => k.countNewAll.get(y) != null);
+  const first = years[0];
+  const last = years[years.length - 1];
+  const all = (y: number) => k.countNewAll.get(y) as number;
+  const men = k.countNewMen.get(last);
+  if (first === undefined || first === last || men == null) throw new Error('Chapter 3: counts missing for the context note');
+  if (!(all(last) > all(first))) throw new Error('Chapter 3: context note says the number of new prisoners rose');
+  const menPct = formatNumber(round((men / all(last)) * 100, 0), 0, lang);
+  const n = (v: number) => formatNumber(v, 0, lang);
+  return tr(
+    lang,
+    `Enligt Brå minskade antalet nyintagna utan svenskt medborgarskap mellan 2018 och 2021 och har sedan legat relativt stilla. ` +
+      `Samtidigt ökade antalet nyintagna totalt, från ${n(all(first))} år ${first} till ${n(all(last))} år ${last}. ` +
+      `Befolkningens andel gäller alla åldrar, även barn. De nyintagna är 15 år eller äldre, och ${menPct} procent av dem var män år ${last}.`,
+    `According to Brå, the number of new prisoners without Swedish citizenship fell between 2018 and 2021 and has since been fairly stable. ` +
+      `Over the same time, the total number of new prisoners rose, from ${n(all(first))} in ${first} to ${n(all(last))} in ${last}. ` +
+      `The population share covers all ages, including children. New prisoners are aged 15 or older, and ${menPct}% of them were men in ${last}.`,
+  );
 }
 
 /** Brå report name without the leading "Brå ", for short source lists. */
