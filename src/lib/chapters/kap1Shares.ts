@@ -13,6 +13,7 @@ import { GROUPS } from './kap1';
 export const SHARE_ORDER: SuspicionGroup[] = ['sv2', 'utr', 'u2', 'sv1', 'ej'];
 
 /** Not in the population figures, so it gets a colour of its own outside the chapter 1 groups. */
+// Colour token "extra" in CLAUDE.md: a fifth series, here people not registered in Sweden.
 const NOT_REGISTERED = { color: '#6B3FA0', textColor: '#6B3FA0' };
 
 export interface ShareGroup {

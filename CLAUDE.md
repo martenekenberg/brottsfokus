@@ -86,6 +86,7 @@ Calculated values (shares, averages) are computed in code from these files. Keep
 | focus | `#1D4E89` | The group a chart is about |
 | second | `#C2410C` | Second data series, chapter numbers and kickers |
 | population | `#8A8A8A` | Population / comparison group (lines and hollow marks only, never small text) |
+| extra | `#6B3FA0` | A fifth series, when the four background groups already use ink, focus, second and grey. Used for people not registered in Sweden (chapter 1, second chart). Contrast 7.4:1, so it may also be used for labels. Added at the owner's request, November 2026. |
 
 White page background. **No dark mode.** Text contrast must be at least 4.5:1.
 

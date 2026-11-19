@@ -9,6 +9,8 @@
   --focus-hover: #123461;
   --second: #c2410c;
   --population: #8a8a8a;
+  /* A fifth series when the four background groups use the other colours (CLAUDE.md, "extra"). */
+  --extra: #6b3fa0;
 
   --font-serif: 'Newsreader Variable', Newsreader, Georgia, serif;
   --font-sans: 'Inter Variable', Inter, Arial, sans-serif;

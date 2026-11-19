@@ -15,13 +15,11 @@ Option 2 of three: a front page plus one page per part. Plan and owner check bef
 - Metod and Om sidan stay reachable from every page.
 - Chapters are numbered within each part. Old links such as `/#kap3` must still work (redirect or a small script on the front page).
 - Table pages and CSV files keep their URLs. Update CLAUDE.md, the sitemap, llms.txt and the English pages in the same change.
-- Open: merge chapters 9 and 10 into one chapter in part 2?
+- Chapters 9 and 10 become one chapter in part 2 (owner, 19 November 2026).
 
 ## To do: fixes from the site review (both languages)
 
-Fix now: done 19 November 2026 (see "Done" below), except:
-
-- Chapter 1, second chart: the purple for "icke folkbokförda" is not in the colour rules. Owner decides: add it to the palette as a documented colour, or redraw the chart another way.
+Fix now: done 19 November 2026 (see "Done" below).
 
 Next:
 
@@ -51,6 +49,7 @@ Owner decisions still open:
 
 ## Done
 
+- Purple for a fifth series added to the colour rules as "extra" (owner's request), 19 November 2026.
 - Fixes from the site review, 19 November 2026: chapter 10 population wording; context in chapters 3 and 7; "iVercels" and English source wording; key figure source; chapter 2 share view order; chapter 7 labels over the reference line; masthead, share images (Swedish and English) and llms.txt cover all ten chapters; CLAUDE.md updated.
 - Chapter 4 corrected to 47,7 and 40,8 % (Khoshnood et al. 2021, table 1); first entry in the correction log under "Om sidan", 19 November 2026.
 - Both Lund studies confirmed CC BY 4.0 (licence text in the Europe PMC full texts), 19 November 2026.
