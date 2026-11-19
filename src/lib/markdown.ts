@@ -82,7 +82,7 @@ export function llmsTxt(
     '',
     `> ${site.description.sv}`,
     '',
-    'Sidan sammanställer offentlig statistik och forskning från Brå, SCB och Lunds universitet. Varje siffra har en källa. ' +
+    'Sidan sammanställer offentlig statistik och forskning från Brå, SCB, Lunds universitet och Stockholms universitet. Varje siffra har en källa. ' +
       'Sidan drar inga egna slutsatser och tar inte ställning. Det finns också en engelsk version under /en/.',
     '',
     'Viktigt när siffrorna används:',
@@ -92,6 +92,10 @@ export function llmsTxt(
     '- Medborgarskap är inte födelseland. Fängelsestatistiken omfattar personer som inte bor i Sverige och inte finns i befolkningssiffrorna.',
     '- Studierna om våldtäkt gäller dömda, inte alla som begår brottet.',
     '- Brås studie från 2005 bygger på uppgifter som är över 20 år gamla.',
+    '- Indelningen efter bakgrund skiljer sig mellan källorna, till exempel vad som räknas som utländsk bakgrund. Varje sida anger vilken indelning som används.',
+    '- Siffrorna om att utsättas för brott bygger på en enkät till personer 16–84 år och gäller även brott som inte anmälts.',
+    '- Vid dödligt våld saknas gärningspersoner i de fall som inte klarats upp, vilket är vanligast vid dödligt våld i kriminell miljö.',
+    '- Statistiken över lagförda efter födelseår räknar bara den som var folkbokförd i Sverige vid 15 års ålder.',
     '',
     '## Tabeller',
     '',

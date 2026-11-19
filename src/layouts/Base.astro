@@ -67,7 +67,7 @@ const jsonLd = {
       dateModified: updated,
       isPartOf: { '@id': `${site.url}#website` },
       publisher: { '@id': publisher['@id'] },
-      primaryImageOfPage: site.shareImage,
+      primaryImageOfPage: site.shareImage[lang],
       citation: citations,
     },
     ...jsonLdNodes,
@@ -97,7 +97,7 @@ const jsonLd = {
     <meta property="og:url" content={pageUrl} />
     <meta property="og:title" content={title} />
     <meta property="og:description" content={description} />
-    <meta property="og:image" content={site.shareImage} />
+    <meta property="og:image" content={site.shareImage[lang]} />
     <meta property="og:image:width" content="1200" />
     <meta property="og:image:height" content="630" />
     <meta

@@ -528,13 +528,14 @@ function kap4(lang: Lang): TablePageContent {
     lead: T(
       `Av dem som dömdes för våldtäkt mot en kvinna 2000–2015 var ${pct(utr.pct)} utrikesfödda och ` +
         `${pct(u2.pct)} inrikesfödda med två utrikesfödda föräldrar, enligt en registerstudie från Lunds ` +
-        `universitet. I befolkningen var andelarna i snitt ${n(t.popForeignBorn)} och ` +
-        `${pct(t.popTwoForeignParents)}. I en senare studie av dömda 2000–2020 var ` +
+        `universitet. I befolkningen, alla åldrar och båda könen, var andelarna i snitt ${n(t.popForeignBorn)} och ` +
+        `${pct(t.popTwoForeignParents)}. De dömda var nästan bara män 15–60 år. I en senare studie av dömda 2000–2020 var ` +
         `${pct(utrC.pct)} av de dömda utrikesfödda, jämfört med ${pct(utrC.pctControls)} ` +
         'i en kontrollgrupp med samma kön och födelseår.',
       `Of those convicted of rape against a woman in 2000–2015, ${pct(utr.pct)} were born abroad and ${pct(u2.pct)} were born ` +
-        `in Sweden with two foreign-born parents, according to a register study from Lund University. In the population, the ` +
-        `shares were on average ${pct(t.popForeignBorn)} and ${pct(t.popTwoForeignParents)}. In a later study of those convicted ` +
+        `in Sweden with two foreign-born parents, according to a register study from Lund University. In the population, all ages ` +
+        `and both sexes, the shares were on average ${pct(t.popForeignBorn)} and ${pct(t.popTwoForeignParents)}. The convicted were almost all ` +
+        `men aged 15–60. In a later study of those convicted ` +
         `in 2000–2020, ${pct(utrC.pct)} of the convicted were born abroad, compared with ${pct(utrC.pctControls)} in a control ` +
         'group of the same sex and birth year.',
     ),
