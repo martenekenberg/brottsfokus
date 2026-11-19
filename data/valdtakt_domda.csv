@@ -1,8 +1,8 @@
 chart,item_id,item,period,n,pct,pct_controls,note
-bakgrund,sv2,Inrikesfödda med två inrikesfödda föräldrar,2000–2015,1239,40.7,,Tabell 1 (i texten 40.8 %)
+bakgrund,sv2,Inrikesfödda med två inrikesfödda föräldrar,2000–2015,1239,40.8,,Tabell 1 (publicerad version via Europe PMC PMC8330751). Rättat 2026-11-19 från 40.7
 bakgrund,sv1,Inrikesfödda med en utrikesfödd förälder,2000–2015,172,5.7,,Tabell 1
 bakgrund,u2,Inrikesfödda med två utrikesfödda föräldrar,2000–2015,177,5.8,,Tabell 1
-bakgrund,utr,Utrikesfödda,2000–2015,1451,47.8,,Tabell 1 (i sammanfattningen 47.7 %)
+bakgrund,utr,Utrikesfödda,2000–2015,1451,47.7,,Tabell 1 (publicerad version via Europe PMC PMC8330751). Rättat 2026-11-19 från 47.8
 region,mena,Mellanöstern och Nordafrika,2000–2015,,34.5,,Andel av de 1 451 utrikesfödda. Tabell 2
 region,afr,Afrika utom Nordafrika,2000–2015,,19.1,,Tabell 2
 region,oeu,Östeuropa,2000–2015,,15.0,,Tabell 2
@@ -11,7 +11,7 @@ region,lat,Latinamerika och Karibien,2000–2015,,9.7,,Tabell 2
 region,west,Västländer,2000–2015,,7.3,,Tabell 2
 kontroll,sv2,Inrikesfödda med två inrikesfödda föräldrar,2000–2020,1488,36.9,69.5,Tabell 1 (kontroller n = 14 016). Dömda n = 4 032 och kontroller n = 20 160
 kontroll,sv1,Inrikesfödda med en utrikesfödd förälder,2000–2020,247,6.1,7.7,Tabell 1 (kontroller n = 1 549)
-kontroll,u2,Inrikesfödda med två utrikesfödda föräldrar,2000–2020,256,6.4,4.8,Tabell 1 (kontroller n = 976)
+kontroll,u2,Inrikesfödda med två utrikesfödda föräldrar,2000–2020,256,6.4,4.8,Tabell 1 (kontroller n = 976). Artikeln anger 6.4 (256 av 4 032 är 6.35)
 kontroll,utr,Utrikesfödda,2000–2020,2041,50.6,18.0,Tabell 1 (kontroller n = 3 619)
 kontroll,man,Män bland de dömda,2000–2020,4019,99.7,,Tabell 1
 ovrigt,vald,Tidigare dömd för våldsbrott,2000–2015,1402,46.1,,Tabell 1
