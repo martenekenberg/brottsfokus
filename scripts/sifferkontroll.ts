@@ -174,7 +174,11 @@ const kap5 = buildKap5(bra2005);
   const name = { nyintagna: { totalt: 'Nyintagna, alla', man: 'Nyintagna män', kvinnor: 'Nyintagna kvinnor' }, '1okt': { totalt: 'Intagna 1 oktober', man: 'Intagna 1 oktober, män', kvinnor: 'Intagna 1 oktober, kvinnor' } };
   for (const r of prison) {
     if (r.shareWithoutPct === null) continue;
-    add(K, 'Diagram', `${name[r.population][r.group]}, ${r.year}, utan svenskt medborgarskap`, formatPct(r.shareWithoutPct), r.source, STATED, r.sourceUrl);
+    if (r.shareComputed) {
+      add(K, 'Diagram', `${name[r.population][r.group]}, ${r.year}, utan svenskt medborgarskap`, formatPct(r.shareWithoutPct), `Uträknat: ${formatNumber(r.personsWithout!)} / ${formatNumber(r.persons!)} (${r.source})`, CALC, r.sourceUrl);
+    } else {
+      add(K, 'Diagram', `${name[r.population][r.group]}, ${r.year}, utan svenskt medborgarskap`, formatPct(r.shareWithoutPct), r.source, STATED, r.sourceUrl);
+    }
   }
   const first = Math.min(...prison.map((r) => r.year));
   const last = Math.max(...prison.map((r) => r.year));

@@ -1,4 +1,5 @@
 // Build-time CSV loading. Runs in Node during `astro build`, never in the browser.
+import { shareWithoutPctFromCounts } from './calc';
 import { readFileSync } from 'node:fs';
 import { join } from 'node:path';
 import { csvParse } from 'd3';
@@ -53,23 +54,39 @@ export interface PrisonRow {
   year: number;
   population: 'nyintagna' | '1okt';
   group: 'totalt' | 'man' | 'kvinnor';
+  /** Brå's stated share, or for years with only counts, computed from them (see `shareComputed`). */
   shareWithoutPct: number | null;
+  /** True if the share is computed from `personsWithout` / `persons` (shareWithoutPctFromCounts). */
+  shareComputed: boolean;
   persons: number | null;
+  /** Number without Swedish citizenship (Brå table 8), where the share is not stated. */
+  personsWithout: number | null;
   source: string;
   sourceUrl: string;
 }
 
 export function loadPrison(): PrisonRow[] {
   const file = 'intagna_medborgarskap.csv';
-  const rows = readCsv(file, ['year', 'population', 'group', 'share_without_pct', 'persons', 'source', 'source_url']).map((r) => ({
-    year: required(r.year, 'year'),
-    population: oneOf(r.population, ['nyintagna', '1okt'] as const, `${file} population`),
-    group: oneOf(r.group, ['totalt', 'man', 'kvinnor'] as const, `${file} group`),
-    shareWithoutPct: num(r.share_without_pct),
-    persons: num(r.persons),
-    source: r.source,
-    sourceUrl: r.source_url,
-  }));
+  const rows = readCsv(file, ['year', 'population', 'group', 'share_without_pct', 'persons', 'persons_without', 'source', 'source_url']).map((r) => {
+    const stated = num(r.share_without_pct);
+    const persons = num(r.persons);
+    const personsWithout = num(r.persons_without);
+    const computed = persons !== null && personsWithout !== null ? shareWithoutPctFromCounts(personsWithout, persons) : null;
+    if (stated !== null && computed !== null && stated !== computed) {
+      throw new Error(`${file} ${r.year} ${r.population} ${r.group}: stated share ${stated} does not match the counts (${computed})`);
+    }
+    return {
+      year: required(r.year, 'year'),
+      population: oneOf(r.population, ['nyintagna', '1okt'] as const, `${file} population`),
+      group: oneOf(r.group, ['totalt', 'man', 'kvinnor'] as const, `${file} group`),
+      shareWithoutPct: stated ?? computed,
+      shareComputed: stated === null && computed !== null,
+      persons,
+      personsWithout,
+      source: r.source,
+      sourceUrl: r.source_url,
+    };
+  });
   return unique(rows, (r) => `${r.year}/${r.population}/${r.group}`, file);
 }
 

@@ -23,7 +23,7 @@ import { buildKap1Data, crimeById, crimeName, type GroupId } from './chapters/ka
 import { kap1Csv, rateTable, ratioTable } from './chapters/kap1Tables';
 import { buildKap2Data, smallestGroup } from './chapters/kap2';
 import { b6Table, kap2Csv, riskTable, totalCrime, TOTAL } from './chapters/kap2Tables';
-import { buildKap3, kap3Context, kap3Tables, shortReportName } from './chapters/kap3';
+import { buildKap3, kap3ComputedNote, kap3Context, kap3Tables, shortReportName } from './chapters/kap3';
 import { buildSuspicionShares, sharesTables, shareGroup } from './chapters/kap1Shares';
 import { buildRiskFactors, factorsTable } from './chapters/kap2Factors';
 import { round } from './calc';
@@ -458,7 +458,7 @@ function kap3(lang: Lang): TablePageContent {
         'Sweden and are not counted in the population. Brå gives the shares in whole percent. A dash (–) means that Brå gives no ' +
         `value for that year. For all new prisoners, values are missing for ${yearRanges(missingAll, lang)}. Shares for men and women ` +
         `are available for ${yearRanges(withValue(k.newMen), lang)}, and for people in prison on 1 October for ${yearRanges(withValue(k.onOct1), lang)}.`,
-    ) + ' ' + kap3Context(k, lang),
+    ) + ' ' + [kap3ComputedNote(k, lang), kap3Context(k, lang)].filter(Boolean).join(' '),
     sections: [
       {
         tables: [shareTable],

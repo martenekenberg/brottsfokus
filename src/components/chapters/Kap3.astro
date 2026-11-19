@@ -7,7 +7,7 @@ import LineChart from '../charts/LineChart.astro';
 import { tr, type Lang } from '../../lib/i18n';
 import { loadPopulation, loadPrison } from '../../lib/data';
 import { yearsWithValues } from '../../lib/calc';
-import { buildKap3, kap3Context, shortReportName } from '../../lib/chapters/kap3';
+import { buildKap3, kap3ComputedNote, kap3Context, shortReportName } from '../../lib/chapters/kap3';
 import { tablePage } from '../../lib/dataPages';
 import { formatNumber } from '../../lib/format';
 import type { LineChartSpec } from '../../lib/charts/line';
@@ -170,7 +170,7 @@ const prisonSources = kap3.sources;
       'Medborgarskap är inte födelseland. Bland fängelsets utländska medborgare finns personer som inte bor i Sverige och inte räknas i befolkningen. Punkter saknas för år som Brå inte anger. ',
       'Citizenship is not country of birth. Among the foreign citizens in prison are people who do not live in Sweden and are not counted in the population. Points are missing for years that Brå does not report. ',
     )}
-    {kap3Context(kap3, lang)}
+    {[kap3ComputedNote(kap3, lang), kap3Context(kap3, lang)].filter(Boolean).join(' ')}
   </Fragment>
   <Fragment slot="source">
     {L('Källor: ', 'Sources: ')}

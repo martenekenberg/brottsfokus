@@ -1,5 +1,6 @@
 // Checks on the real data files and on what the chapters build from them.
 import { test } from 'node:test';
+import { shareWithoutPctFromCounts } from '../src/lib/calc';
 import assert from 'node:assert/strict';
 import {
   loadBra2005,
@@ -210,4 +211,34 @@ test('chapter 10: Brå birth cohort series are complete, values as in table 1', 
   assert.equal(kohortValue(rows, 'fore25', 'samtliga', 'I20', 1998), 10.2);
   assert.ok(fellInAllGroups(rows, 'fore25', 1984, 1998));
   assert.ok(fellInAllGroups(rows, 'fore20', 1998, 2003));
+});
+
+// Brå table 8 ("558"), new prisoners, total and number without Swedish citizenship, as published on
+// https://bra.se/statistik/statistik-om-rattsvasendet/kriminalvard (read 19 November 2026).
+// The site says the calculation for 2016, 2017 and 2021 gives Brå's own shares in every other year; this checks it.
+const TABLE_558: Record<number, Record<'totalt' | 'man' | 'kvinnor', [number, number]>> = {
+  2014: { totalt: [8943, 3082], man: [8344, 2916], kvinnor: [599, 166] },
+  2015: { totalt: [8581, 3047], man: [8025, 2889], kvinnor: [556, 158] },
+  2018: { totalt: [8927, 3074], man: [8254, 2913], kvinnor: [673, 161] },
+  2019: { totalt: [9172, 3006], man: [8445, 2843], kvinnor: [727, 163] },
+  2020: { totalt: [8964, 2822], man: [8333, 2698], kvinnor: [631, 124] },
+  2022: { totalt: [10297, 2937], man: [9533, 2801], kvinnor: [764, 136] },
+  2023: { totalt: [10646, 2782], man: [9824, 2654], kvinnor: [822, 128] },
+  2024: { totalt: [11812, 2837], man: [10733, 2714], kvinnor: [1079, 123] },
+  2025: { totalt: [12754, 2840], man: [11481, 2666], kvinnor: [1273, 174] },
+};
+
+test('prison: Brå table 8 counts give Brå’s stated shares in every year with a stated share', () => {
+  let checked = 0;
+  for (const r of loadPrison()) {
+    if (r.population !== 'nyintagna' || r.shareComputed || r.shareWithoutPct === null) continue;
+    const c = TABLE_558[r.year]?.[r.group];
+    assert.ok(c, `no table 8 counts for ${r.year} ${r.group}`);
+    assert.equal(shareWithoutPctFromCounts(c[1], c[0]), r.shareWithoutPct, `${r.year} ${r.group}`);
+    checked++;
+  }
+  assert.equal(checked, 21);
+  // And the computed years are exactly the three filled in from table 8.
+  const computed = [...new Set(loadPrison().filter((r) => r.shareComputed).map((r) => r.year))];
+  assert.deepEqual(computed, [2016, 2017, 2021]);
 });

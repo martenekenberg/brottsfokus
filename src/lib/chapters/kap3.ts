@@ -26,6 +26,8 @@ export interface Kap3 {
   sources: { url: string; label: string }[];
   /** Brå reports used for each year. */
   sourcesByYear: Map<number, { url: string; label: string }[]>;
+  /** Years where the share for new prisoners is computed from Brå's counts (table 8), not stated in a report. */
+  computedYears: number[];
 }
 
 /** Number of people in one prison series, as (year, value) pairs. */
@@ -70,7 +72,25 @@ export function buildKap3(prison: PrisonRow[], population: PopulationRow[]): Kap
     population,
     sources,
     sourcesByYear,
+    computedYears: [...new Set(prison.filter((r) => r.population === 'nyintagna' && r.shareComputed).map((r) => r.year))].sort((a, b) => a - b),
   };
+}
+
+/** "2016, 2017 och 2021" / "2016, 2017 and 2021". */
+function listYears(years: number[], lang: Lang): string {
+  if (years.length <= 1) return years.join('');
+  return `${years.slice(0, -1).join(', ')} ${tr(lang, 'och', 'and')} ${years[years.length - 1]}`;
+}
+
+/** Says which years are computed from Brå's counts, and how. Empty if none are. */
+export function kap3ComputedNote(k: Kap3, lang: Lang): string {
+  if (k.computedYears.length === 0) return '';
+  const y = listYears(k.computedYears, lang);
+  return tr(
+    lang,
+    `Andelarna för ${y} är uträknade från Brås tabell 8: antal utan svenskt medborgarskap delat med antal nyintagna, avrundat till hela procent. Samma uträkning ger exakt Brås egna andelar för alla andra år.`,
+    `The shares for ${y} are calculated from Brå’s table 8: the number without Swedish citizenship divided by the number of new prisoners, rounded to whole percent. The same calculation gives exactly Brå’s own shares for every other year.`,
+  );
 }
 
 /**

@@ -7,6 +7,7 @@ import {
   meanOfStudyYears,
   ratioToComparison,
   round,
+  shareWithoutPctFromCounts,
   studyPopulationSharePct,
   swedishBornTwoForeignParents,
 } from '../src/lib/calc';
@@ -115,4 +116,11 @@ test('tableToMarkdown formats numbers the Swedish way and marks gaps', () => {
     rows: [{ key: 'A | B', cells: [12754, null, 'Norden'] }],
   };
   assert.equal(tableToMarkdown(t, 'sv'), '| Grupp | Antal | Andel | Område |\n| --- | ---: | ---: | --- |\n| A \\| B | 12 754 | – | Norden |');
+});
+
+test('prison: share from counts rounds to whole percent like Brå', () => {
+  assert.equal(shareWithoutPctFromCounts(2975, 8495), 35); // 35.02
+  assert.equal(shareWithoutPctFromCounts(163, 656), 25); // 24.85
+  assert.equal(shareWithoutPctFromCounts(2822, 8964), 31); // 31.48
+  assert.equal(shareWithoutPctFromCounts(3047, 8581), 36); // 35.51
 });

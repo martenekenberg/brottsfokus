@@ -48,6 +48,15 @@ export function meanOfStudyYears(values: Map<number, number | null>): number {
   return picked.reduce((a, b) => a + b, 0) / picked.length;
 }
 
+/**
+ * Share without Swedish citizenship among new prisoners, from Brå's counts (table 8, "558"),
+ * for years where Brå's reports give no share. Rule: without / total * 100, rounded to whole
+ * percent, as Brå gives its own shares.
+ */
+export function shareWithoutPctFromCounts(without: number, total: number): number {
+  return round((without / total) * 100, 0);
+}
+
 /** Share without Swedish citizenship for one prison series, as (year, value) pairs. */
 export function prisonSeries(
   rows: PrisonRow[],
