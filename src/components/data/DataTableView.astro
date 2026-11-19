@@ -2,6 +2,7 @@
 // A plain HTML data table. Wide tables scroll sideways inside their own box, never the page.
 // With `collapsed`, the table is folded away under its title and opens on click.
 // Folded tables are still in the HTML, so search engines and screen readers can read them.
+// The first column (year, group or region) stays in place while the rest scrolls sideways.
 import { formatCell, type DataTable } from '../../lib/tables';
 import { missingText, type Lang } from '../../lib/i18n';
 
@@ -65,6 +66,15 @@ const Title = collapsed ? 'summary' : 'p';
   </div>
 </Wrapper>
 
+<script>
+  // Show a thin edge on the fixed first column once the table has been scrolled sideways.
+  for (const box of document.querySelectorAll<HTMLElement>('.table-scroll')) {
+    const update = () => box.classList.toggle('scrolled', box.scrollLeft > 0);
+    box.addEventListener('scroll', update, { passive: true });
+    update();
+  }
+</script>
+
 <style>
   .table-block {
     display: flex;
@@ -122,7 +132,9 @@ const Title = collapsed ? 'summary' : 'p';
   }
   table {
     width: 100%;
-    border-collapse: collapse;
+    /* Separate borders, so the fixed first column keeps its own lines while the rest scrolls. */
+    border-collapse: separate;
+    border-spacing: 0;
     font-size: 14px;
     line-height: 1.4;
     font-variant-numeric: tabular-nums;
@@ -135,7 +147,14 @@ const Title = collapsed ? 'summary' : 'p';
     vertical-align: top;
   }
   th:first-child {
+    position: sticky;
+    left: 0;
+    z-index: 1;
     padding-left: 0;
+    background: #fff;
+  }
+  .scrolled th:first-child {
+    box-shadow: inset -1px 0 0 var(--rule), 4px 0 6px -4px rgba(0, 0, 0, 0.18);
   }
   thead th {
     border-bottom: 2px solid var(--ink);
@@ -176,8 +195,11 @@ const Title = collapsed ? 'summary' : 'p';
     table {
       font-size: 13px;
     }
+    /* On phones the first column aims for 120px, so more numbers fit next to it.
+       Labels wrap between words; only a single long word makes it wider. */
     tbody th {
-      min-width: 140px;
+      min-width: 0;
+      width: 120px;
     }
     th,
     td {

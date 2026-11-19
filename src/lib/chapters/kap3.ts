@@ -44,18 +44,14 @@ export function buildKap3(prison: PrisonRow[], population: PopulationRow[]): Kap
   const lastYear = Math.max(...prison.map((r) => r.year));
   const years = Array.from({ length: lastYear - firstYear + 1 }, (_, i) => firstYear + i);
 
-  const sources = [...new Map(prison.map((r) => [r.sourceUrl, r.source])).entries()]
-    .map(([url, label]) => ({ url, label }))
-    .sort((a, b) => a.label.localeCompare(b.label, 'sv'));
+  // One entry per source name. Brå's tables 8 and 12 share a web address, so the address alone can't tell them apart.
+  const uniqueSources = (rows: typeof prison) =>
+    [...new Map(rows.map((r) => [r.source, r.sourceUrl])).entries()].map(([label, url]) => ({ url, label }));
+
+  const sources = uniqueSources(prison).sort((a, b) => a.label.localeCompare(b.label, 'sv'));
 
   const sourcesByYear = new Map<number, { url: string; label: string }[]>();
-  for (const y of years) {
-    const used = new Map(prison.filter((r) => r.year === y).map((r) => [r.sourceUrl, r.source]));
-    sourcesByYear.set(
-      y,
-      [...used.entries()].map(([url, label]) => ({ url, label })),
-    );
-  }
+  for (const y of years) sourcesByYear.set(y, uniqueSources(prison.filter((r) => r.year === y)));
 
   return {
     years,

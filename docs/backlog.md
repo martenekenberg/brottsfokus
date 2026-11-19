@@ -8,7 +8,6 @@ Fix now: done 19 November 2026 (see "Done" below).
 
 Next:
 
-- Table pages on phones: keep the year column fixed when scrolling sideways.
 - Colour rules: grey is used for a comparison group in 1.1 (one foreign-born parent, solid grey) and 1.3, not only for the population. (2.1 fixed: Bäckman's comparison group is now a black line.)
 
 Watch:
@@ -26,6 +25,8 @@ Watch:
 - Links from relevant places (data journalists, researchers, newsletters).
 
 ## Done
+
+- Table pages on phones: the first column (year, group or region) stays in place when scrolling sideways, with a thin edge once scrolled; it is narrower on phones. Also fixed: 3.1 now lists Brå's table 8 as a source next to table 12 (both share one web address, so table 8 was dropped), 19 November 2026.
 
 - Error report form on Om sidan (both languages) via Formward, hosted in Sweden: honeypot, no captcha, no cookies; "Fel och rättelser" and "Kakor och besöksstatistik" updated, 19 November 2026.
 

@@ -268,3 +268,14 @@ test('prison: exactly the agreed years are computed from Brå’s counts', () =>
     assert.equal(years.length, 12, `${p} ${g}`);
   }
 });
+
+test('prison: every source named in the data file is listed, per year and in total', async () => {
+  const { buildKap3 } = await import('../src/lib/chapters/kap3');
+  const prison = loadPrison();
+  const k = buildKap3(prison, loadPopulation());
+  const listed = new Set(k.sources.map((s) => s.label));
+  for (const r of prison) {
+    assert.ok(listed.has(r.source), `missing source ${r.source}`);
+    assert.ok((k.sourcesByYear.get(r.year) ?? []).some((s) => s.label === r.source), `${r.year}: missing ${r.source}`);
+  }
+});
