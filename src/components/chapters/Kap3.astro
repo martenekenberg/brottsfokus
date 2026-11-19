@@ -1,0 +1,187 @@
+---
+// Chapter 3: prison and citizenship.
+// Loads its own data and stops the build if its headline no longer matches the data.
+import Chapter from '../Chapter.astro';
+import Legend from '../Legend.astro';
+import LineChart from '../charts/LineChart.astro';
+import { tr, type Lang } from '../../lib/i18n';
+import { loadPopulation, loadPrison } from '../../lib/data';
+import { yearsWithValues } from '../../lib/calc';
+import { buildKap3, kap3Context, shortReportName } from '../../lib/chapters/kap3';
+import { tablePage } from '../../lib/dataPages';
+import { formatNumber } from '../../lib/format';
+import type { LineChartSpec } from '../../lib/charts/line';
+
+interface Props {
+  lang: Lang;
+}
+const { lang } = Astro.props;
+const L = (sv: string, en: string) => tr(lang, sv, en);
+const n0 = (v: number) => formatNumber(v, 0, lang);
+const n1 = (v: number) => formatNumber(v, 1, lang);
+
+const C = {
+  ink: '#121212',
+  muted: '#5C5C5C',
+  focus: '#1D4E89',
+  second: '#C2410C',
+  population: '#8A8A8A',
+};
+
+// ---------- Chapter 3: prison and citizenship ----------
+const prison = loadPrison();
+const population = loadPopulation();
+
+const kap3 = buildKap3(prison, population);
+const { popShare, newAll, newMen, newWomen, onOct1, firstYear, lastYear } = kap3;
+const prisonYears = kap3.years;
+const byYear = (m: Map<number, number | null>) => prisonYears.map((y) => m.get(y) ?? null);
+
+const newAllLast = newAll.get(lastYear);
+const popShareLast = popShare.get(lastYear);
+if (newAllLast == null || popShareLast == null) throw new Error(`Missing ${lastYear} values for chapter 3`);
+
+// The headline says the share has fallen since its highest year. Stop the build if the data no longer says so.
+const peakYear = prisonYears.reduce((best, y) => ((newAll.get(y) ?? -1) > (newAll.get(best) ?? -1) ? y : best), firstYear);
+const newAllPeak = newAll.get(peakYear) as number;
+if (!(newAllLast < newAllPeak) || peakYear === lastYear) throw new Error('Chapter 3 headline no longer matches the data');
+
+// Men and women share one colour, so each line is named where it starts.
+const startLabel = (m: Map<number, number | null>, text: string) => {
+  const span = yearsWithValues(m);
+  return span ? [{ year: span.first, text }] : [];
+};
+const prisonMax = Math.max(...[newAll, newMen, newWomen, onOct1].flatMap((m) => [...m.values()].map((v) => v ?? 0)));
+
+const prisonSpec: LineChartSpec = {
+  lang,
+  years: prisonYears,
+  yMax: Math.max(40, Math.ceil(prisonMax / 10) * 10),
+  yTickStep: 10,
+  yFormat: 'pct',
+  ariaLabel: L(
+    'Linjediagram. Andel utan svenskt medborgarskap bland nyintagna i fängelse, totalt och för män och kvinnor, ' +
+      `och bland intagna den 1 oktober, ${firstYear} till ${lastYear}, jämfört med andelen utländska medborgare i befolkningen. ` +
+      `År ${lastYear} var andelen ${formatNumber(newAllLast, 0, 'sv')} procent bland nyintagna och ` +
+      `${formatNumber(popShareLast, 1, 'sv')} procent i befolkningen. År som Brå inte anger saknas.`,
+    `Line chart. Share without Swedish citizenship among new prisoners, in total and for men and women, and among people in prison ` +
+      `on 1 October, ${firstYear} to ${lastYear}, compared with the share of foreign citizens in the population. ` +
+      `In ${lastYear} the share was ${formatNumber(newAllLast, 0, 'en')}% among new prisoners and ` +
+      `${formatNumber(popShareLast, 1, 'en')}% in the population. Years that Brå does not report are missing.`,
+  ),
+  series: [
+    {
+      id: 'ny-alla',
+      label: L('Nyintagna, alla', 'New prisoners, all'),
+      endLabel: L('nyintagna', 'new prisoners'),
+      endLabelShort: L('alla', 'all'),
+      color: C.focus,
+      textColor: C.focus,
+      strokeWidth: 3,
+      dotRadius: 3.5,
+      values: byYear(newAll),
+      annotate: [peakYear],
+      format: 'pct',
+    },
+    {
+      id: 'ny-man',
+      label: L('Nyintagna män', 'New prisoners, men'),
+      endLabel: L('män', 'men'),
+      endLabelShort: L('män', 'men'),
+      color: C.focus,
+      textColor: C.focus,
+      strokeWidth: 1.5,
+      dotRadius: 2.5,
+      values: byYear(newMen),
+      pointLabels: startLabel(newMen, L('män', 'men')),
+      format: 'pct',
+    },
+    {
+      id: 'ny-kvinnor',
+      label: L('Nyintagna kvinnor', 'New prisoners, women'),
+      endLabel: L('kvinnor', 'women'),
+      endLabelShort: L('kvinnor', 'women'),
+      color: C.focus,
+      textColor: C.focus,
+      strokeWidth: 1.5,
+      dotRadius: 2.5,
+      values: byYear(newWomen),
+      pointLabels: startLabel(newWomen, L('kvinnor', 'women')),
+      format: 'pct',
+    },
+    {
+      id: 'okt',
+      label: L('Intagna den 1 oktober', 'Prisoners on 1 October'),
+      endLabel: L('1 oktober', '1 October'),
+      endLabelShort: L('1 okt', '1 Oct'),
+      color: C.second,
+      textColor: C.second,
+      strokeWidth: 2.5,
+      dotRadius: 3.5,
+      values: byYear(onOct1),
+      format: 'pct',
+    },
+    {
+      id: 'bef',
+      label: L('Utländska medborgare i befolkningen', 'Foreign citizens in the population'),
+      endLabel: L('befolkningen', 'population'),
+      endLabelShort: '',
+      color: C.population,
+      textColor: C.muted,
+      strokeWidth: 2,
+      dashed: true,
+      dotRadius: 2.5,
+      values: byYear(popShare),
+      format: 'pct1',
+    },
+  ],
+};
+
+const prisonSources = kap3.sources;
+---
+
+<Chapter
+  id="kap3"
+  lang={lang}
+  tableHref={tablePage('kap3', lang).path}
+  title={L(
+    `Andelen utan svenskt medborgarskap bland nyintagna har minskat sedan ${peakYear}`,
+    `The share without Swedish citizenship among new prisoners has fallen since ${peakYear}`,
+  )}
+>
+  <p slot="intro">
+    {L(
+      `År ${lastYear} saknade ${n0(newAllLast)} procent av dem som togs in i fängelse svenskt medborgarskap. I hela befolkningen var ${n1(popShareLast)} procent utländska medborgare.`,
+      `In ${lastYear}, ${n0(newAllLast)}% of those taken into prison did not have Swedish citizenship. In the whole population, ${n1(popShareLast)}% were foreign citizens.`,
+    )}
+  </p>
+  <Legend
+    slot="legend"
+    items={[
+      { label: L('Nyintagna under året', 'New prisoners during the year'), color: C.focus, mark: 'line' },
+      { label: L('Nyintagna män och kvinnor', 'New prisoners, men and women'), color: C.focus, mark: 'line', thin: true },
+      { label: L('Intagna den 1 oktober', 'Prisoners on 1 October'), color: C.second, mark: 'line' },
+      { label: L('Utländska medborgare i befolkningen', 'Foreign citizens in the population'), color: C.population, mark: 'dash' },
+    ]}
+  />
+  <LineChart spec={prisonSpec} />
+  <Fragment slot="note">
+    {L(
+      'Medborgarskap är inte födelseland. Bland fängelsets utländska medborgare finns personer som inte bor i Sverige och inte räknas i befolkningen. Punkter saknas för år som Brå inte anger. ',
+      'Citizenship is not country of birth. Among the foreign citizens in prison are people who do not live in Sweden and are not counted in the population. Points are missing for years that Brå does not report. ',
+    )}
+    {kap3Context(kap3, lang)}
+  </Fragment>
+  <Fragment slot="source">
+    {L('Källor: ', 'Sources: ')}
+    {
+      prisonSources.map((s, i) => (
+        <>
+          <a href={s.url}>{shortReportName(s.label)}</a>
+          {i < prisonSources.length - 1 ? ', ' : ''}
+        </>
+      ))
+    }
+    {L('; SCB, befolkningen den 31 december.', '; SCB, population on 31 December.')}
+  </Fragment>
+</Chapter>

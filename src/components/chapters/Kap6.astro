@@ -1,0 +1,53 @@
+---
+// Chapter 6: victims of crime (NTU).
+// Loads its own data and stops the build if its headline no longer matches the data.
+import Chapter from '../Chapter.astro';
+import Victims from '../kap6/Victims.astro';
+import { tr, type Lang } from '../../lib/i18n';
+import { loadNtu } from '../../lib/data';
+import { tablePage } from '../../lib/dataPages';
+import { swedishHigher } from '../../lib/chapters/kap6';
+
+interface Props {
+  lang: Lang;
+}
+const { lang } = Astro.props;
+const L = (sv: string, en: string) => tr(lang, sv, en);
+
+const ntu = loadNtu();
+
+// The chapter 6 headline names one exception: sexual offences against women. Stop the build if the data says otherwise.
+if (JSON.stringify(swedishHigher(ntu)) !== JSON.stringify([{ crimeId: 'sexualbrott', sex: 'kvinnor' }])) {
+  throw new Error('Chapter 6 headline no longer matches the data');
+}
+---
+
+<Chapter
+  id="kap6"
+  lang={lang}
+  tableHref={tablePage('kap6', lang).path}
+  title={L(
+    'Personer med utländsk bakgrund uppgav oftare att de utsatts för brott, utom kvinnor när det gäller sexualbrott',
+    'People with a foreign background more often said they had been victims of crime, except women when it comes to sexual offences',
+  )}
+>
+  <p slot="intro">
+    {L(
+      'Andel av befolkningen 16–84 år som säger att de utsatts för brottet under året före undersökningen. Svaren från undersökningarna 2017–2023 är sammanslagna, så de gäller brott 2016–2022.',
+      'Share of the population aged 16–84 who say they were victims of the crime in the year before the survey. Answers from the 2017–2023 surveys are pooled, so they cover crimes in 2016–2022.',
+    )}
+  </p>
+  <Victims rows={ntu} lang={lang} />
+  <Fragment slot="note">
+    {L(
+      'Svaren kommer från en enkät och gäller även brott som aldrig anmälts till polisen. Här räknar Brå alla som själva eller vars ena eller båda föräldrar är födda utomlands som utländsk bakgrund. Det skiljer sig från kapitel 1 och 2, där inrikesfödda med en utrikesfödd förälder är en egen grupp. Inte justerat för ålder eller andra skillnader mellan grupperna. Alla tillfrågade svarar inte, och Brå väger svaren så att de ska spegla befolkningen. Skillnader på några tiondels procentenheter kan bero på slumpen i urvalet, felmarginalerna finns i tabellerna (länken nedan). Frågan om trakasserier ställs bara sedan 2019. Resultat efter världsdel och per år finns också i tabellerna.',
+      'The answers come from a survey and include crimes that were never reported to the police. Here Brå counts everyone who was born abroad, or who has one or two parents born abroad, as having a foreign background. This differs from chapters 1 and 2, where people born in Sweden with one foreign-born parent are a group of their own. Not adjusted for age or other differences between the groups. Not everyone who is asked answers, and Brå weights the answers so that they reflect the population. Differences of a few tenths of a percentage point can be due to chance in the sample; the margins of error are in the tables (link below). The question on harassment has only been asked since 2019. Results by world region and by year are also in the tables.',
+    )}
+  </Fragment>
+  <Fragment slot="source">
+    {L('Källa: ', 'Source: ')}<a href="https://bra.se/rapporter/arkiv/2024-05-21-utsatthet-for-brott-bland-personer-med-utlandsk-bakgrund">{L('Brå, NTU Kortanalys 2/2024', 'Brå, NTU Kortanalys 2/2024')}</a>{L(
+      ', Utsatthet för brott bland personer med utländsk bakgrund, tabellbilaga (tabell 1C–9B). Nationella trygghetsundersökningen 2017–2023, personer 16–84 år.',
+      ', Utsatthet för brott bland personer med utländsk bakgrund (victimisation among people with a foreign background), table appendix (tables 1C–9B). Swedish Crime Survey 2017–2023, people aged 16–84.',
+    )}
+  </Fragment>
+</Chapter>

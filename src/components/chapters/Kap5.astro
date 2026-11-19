@@ -1,0 +1,52 @@
+---
+// Chapter 5: Brå's older studies.
+// Loads its own data and stops the build if its headline no longer matches the data.
+import Chapter from '../Chapter.astro';
+import OlderStudies from '../kap5/OlderStudies.astro';
+import { tr, type Lang } from '../../lib/i18n';
+import { loadBra2005 } from '../../lib/data';
+import { tablePage } from '../../lib/dataPages';
+import { formatNumber } from '../../lib/format';
+import { buildKap5 } from '../../lib/chapters/kap5';
+
+interface Props {
+  lang: Lang;
+}
+const { lang } = Astro.props;
+const L = (sv: string, en: string) => tr(lang, sv, en);
+const n1 = (v: number) => formatNumber(v, 1, lang);
+
+const kap5 = buildKap5(loadBra2005(), lang);
+
+if (!kap5.foreignBornRiskRose) throw new Error('Chapter 5 headline no longer matches the data');
+---
+
+<Chapter
+  id="kap5"
+  lang={lang}
+  tableHref={tablePage('kap5', lang).path}
+  title={L(
+    'Överrisken för utrikesfödda ökade mellan 1985–89 och 1997–2001',
+    'Excess risk for people born abroad rose between 1985–89 and 1997–2001',
+  )}
+>
+  <p slot="intro">
+    {L(
+      'Överrisk är andelen misstänkta i gruppen delat med andelen bland inrikesfödda med två inrikesfödda föräldrar. Standardiserad överrisk tar hänsyn till kön, ålder, utbildning och förvärvsinkomst.',
+      'Excess risk is the share of suspects in the group divided by the share among people born in Sweden with two Swedish-born parents. Standardised excess risk takes into account sex, age, education and income.',
+    )}
+  </p>
+  <OlderStudies kap5={kap5} lang={lang} />
+  <Fragment slot="note">
+    {L(
+      `Siffrorna är över 20 år gamla. Standardiserad överrisk finns bara separat för en och två utrikesfödda föräldrar: ${n1(kap5.standOneParent)} och ${n1(kap5.standTwoParents)}. Några brottstyper i Brås tabell 11 gick inte att läsa ur PDF-filen och saknas.`,
+      `The figures are over 20 years old. Standardised excess risk is only given separately for one and for two foreign-born parents: ${n1(kap5.standOneParent)} and ${n1(kap5.standTwoParents)}. Some crime types in Brå’s table 11 could not be read from the PDF file and are missing.`,
+    )}
+  </Fragment>
+  <Fragment slot="source">
+    {L('Källor: ', 'Sources: ')}<a href="https://www.bra.se/download/18.cba82f7130f475a2f1800012697/2005_17_brottslighet_bland_personer_fodda_sverige_och_utlandet.pdf">{L('Brå rapport 2005:17', 'Brå report 2005:17')}</a>{L(
+      ', tabell 7–11 och bilaga 4 tabell 1. Uppgifterna för 1985–1989 kommer från Brå 1996 och redovisas i tabell 8 i Brå 2005:17. Folkbokförda, misstänkta minst en gång under perioden.',
+      ', tables 7–11 and appendix 4, table 1. The figures for 1985–1989 come from Brå 1996 and are shown in table 8 of Brå 2005:17. Registered residents, suspected at least once during the period.',
+    )}
+  </Fragment>
+</Chapter>

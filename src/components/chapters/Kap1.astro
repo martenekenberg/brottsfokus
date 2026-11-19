@@ -1,0 +1,113 @@
+---
+// Chapter 1: suspects over time 2007–2018, and each group's share of all registered suspicions.
+// Loads its own data and stops the build if its headline no longer matches the data.
+import Chapter from '../Chapter.astro';
+import Legend from '../Legend.astro';
+import LineChart from '../charts/LineChart.astro';
+import SubChart from '../SubChart.astro';
+import SuspectsOverTime from '../kap1/SuspectsOverTime.astro';
+import { tr, type Lang } from '../../lib/i18n';
+import { loadSuspectsByBackground, loadTableB6, loadSuspicionShares } from '../../lib/data';
+import { round } from '../../lib/calc';
+import { tablePage } from '../../lib/dataPages';
+import { formatNumber, formatPct } from '../../lib/format';
+import { buildKap1Data, allGroupsFell } from '../../lib/chapters/kap1';
+import { buildSharesSpec, buildSuspicionShares, peakYear as sharePeakYear, shareGroup } from '../../lib/chapters/kap1Shares';
+
+interface Props {
+  lang: Lang;
+}
+const { lang } = Astro.props;
+const L = (sv: string, en: string) => tr(lang, sv, en);
+const n1 = (v: number) => formatNumber(v, 1, lang);
+
+const tableB6 = loadTableB6();
+
+const suspects = loadSuspectsByBackground();
+
+const kap1Data = buildKap1Data(suspects);
+
+const kap1First = kap1Data.years[0];
+const kap1Last = kap1Data.years[kap1Data.years.length - 1];
+if (!allGroupsFell(kap1Data, 'c00')) throw new Error('Chapter 1 headline no longer matches the data');
+
+// ---------- Chapter 1, second chart: shares of all registered suspicions ----------
+const shares = buildSuspicionShares(loadSuspicionShares());
+const sharesSpec = buildSharesSpec(shares, lang);
+const sharesFirst = shares.years[0];
+const sharesLast = shares.years[shares.years.length - 1];
+const ej = shareGroup(shares, 'ej');
+const ejFirst = round(ej.shares[0], 1);
+const ejLast = round(ej.shares[ej.shares.length - 1], 1);
+const ejPeakYear = sharePeakYear(shares, 'ej');
+const ejPeak = round(ej.shares[shares.years.indexOf(ejPeakYear)], 1);
+// Population shares on 31 December 2014 (table B6), as the comparison in the note.
+const b6Pop = (unit: string) => {
+  const r = tableB6.find((x) => x.view === 'bakgrund' && x.unit === unit);
+  if (!r) throw new Error(`Table B6: ${unit} missing`);
+  return formatPct(r.populationPct, 1, lang);
+};
+---
+
+<Chapter
+  id="kap1"
+  lang={lang}
+  tableHref={tablePage('kap1', lang).path}
+  title={L(
+    `Sett till alla brott minskade andelen misstänkta i alla fyra grupper mellan ${kap1First} och ${kap1Last}`,
+    `Across all crimes, the share suspected fell in all four groups between ${kap1First} and ${kap1Last}`,
+  )}
+>
+  <p slot="intro">
+    {L(
+      'Andelen av befolkningen, 15 år och äldre, som misstänktes för minst ett brott under året. Grupperna bygger på var personen och personens föräldrar är födda.',
+      'The share of the population aged 15 and over who were suspected of at least one crime during the year. The groups are based on where the person and their parents were born.',
+    )}
+  </p>
+  <SuspectsOverTime data={kap1Data} lang={lang} />
+  <Fragment slot="note">
+    {L(
+      'Inte justerat för ålder eller kön. Grupperna med utländsk bakgrund har fler unga, som oftare misstänks. Med hänsyn till ålder, kön, inkomst, utbildning och kommuntyp minskar skillnaderna, men de finns kvar. Mycket ovanliga brott kan svänga mellan åren eftersom Brå avrundar till två decimaler. Det märks mest i jämförelsen med två inrikesfödda föräldrar, som räknas från de avrundade talen. Rubriken gäller brott totalt, för enskilda brottstyper ser utvecklingen olika ut. Övergrepp i rättssak saknas 2007–2008.',
+      'Not adjusted for age or sex. The groups with a foreign background have more young people, who are more often suspected. When age, sex, income, education and type of municipality are taken into account, the differences get smaller, but they remain. Very rare crimes can vary from year to year, because Brå rounds to two decimals. This shows most clearly in the comparison with two Swedish-born parents, which is calculated from the rounded figures. The headline is about all crimes together; the trend differs for individual crime types. Interference in a judicial matter is missing for 2007–2008.',
+    )}
+  </Fragment>
+  <Fragment slot="source">
+    {L(
+      'Källa: Brå rapport 2021:9, Misstänkta för brott bland personer med inrikes respektive utrikes bakgrund. Folkbokförda personer 15 år och äldre.',
+      'Source: Brå report 2021:9, Misstänkta för brott bland personer med inrikes respektive utrikes bakgrund (suspects of crime by Swedish and foreign background). Registered residents aged 15 and over.',
+    )}
+  </Fragment>
+  <SubChart
+    slot="after"
+    id="kap1-misstankar"
+    lang={lang}
+    title={L(
+      `Personer som inte är folkbokförda i Sverige stod för ${n1(ejFirst)} procent av brottsmisstankarna ${sharesFirst} och ${n1(ejLast)} procent ${sharesLast}`,
+      `People not registered as living in Sweden accounted for ${n1(ejFirst)}% of crime suspicions in ${sharesFirst} and ${n1(ejLast)}% in ${sharesLast}`,
+    )}
+  >
+    <Fragment slot="intro">
+      {L(
+        'Varje grupps andel av alla brottsmisstankar som registrerades under året. Här räknas misstankarna, inte personerna: en person kan misstänkas för flera brott. Även misstankar mot personer som inte är folkbokförda i Sverige är med.',
+        'Each group’s share of all crime suspicions registered during the year. Suspicions are counted here, not people: one person can be suspected of several crimes. Suspicions against people who are not registered as living in Sweden are included.',
+      )}
+    </Fragment>
+    <Legend
+      slot="legend"
+      items={sharesSpec.series.map((s) => ({ label: s.label, color: s.color, mark: 'line' as const }))}
+    />
+    <LineChart spec={sharesSpec} />
+    <Fragment slot="note">
+      {L(
+        `Icke folkbokförda är personer med tillfällig vistelse i Sverige. Hit räknas också misstankar där det inte gått att se om personen var folkbokförd, till exempel för att personnumret är ofullständigt. Andelen var som högst ${ejPeakYear}, ${n1(ejPeak)} procent. De icke folkbokförda finns inte i befolkningsstatistiken, så deras andel kan inte jämföras med en andel av befolkningen. Som jämförelse för de övriga: av de folkbokförda 15 år och äldre den 31 december 2014 var ${b6Pop('Inrikesfödda med två inrikesfödda föräldrar')} inrikesfödda med två inrikesfödda föräldrar, ${b6Pop('Utrikesfödda')} utrikesfödda, ${b6Pop('Inrikesfödda med två utrikesfödda föräldrar')} inrikesfödda med två utrikesfödda föräldrar och ${b6Pop('Inrikesfödda med en inrikes- och en utrikesfödd förälder')} inrikesfödda med en utrikesfödd förälder. Antalet misstankar beror också på hur många brott varje misstänkt registreras för. Inte justerat för ålder eller kön.`,
+        `People not registered as living in Sweden are people staying in Sweden temporarily. The group also includes suspicions where it was not possible to tell whether the person was registered, for example because the personal identity number is incomplete. The share was highest in ${ejPeakYear}, at ${n1(ejPeak)}%. People who are not registered are not in the population statistics, so their share cannot be compared with a share of the population. As a comparison for the other groups: of registered residents aged 15 and over on 31 December 2014, ${b6Pop('Inrikesfödda med två inrikesfödda föräldrar')} were born in Sweden with two Swedish-born parents, ${b6Pop('Utrikesfödda')} were born abroad, ${b6Pop('Inrikesfödda med två utrikesfödda föräldrar')} were born in Sweden with two foreign-born parents and ${b6Pop('Inrikesfödda med en inrikes- och en utrikesfödd förälder')} were born in Sweden with one foreign-born parent. The number of suspicions also depends on how many crimes each suspect is registered for. Not adjusted for age or sex.`,
+      )}
+    </Fragment>
+    <Fragment slot="source">
+      {L('Källa: ', 'Source: ')}<a href="https://bra.se/rapporter/arkiv/2021-08-25-misstankta-for-brott-bland-personer-med-inrikes-respektive-utrikes-bakgrund">{L('Brå rapport 2021:9', 'Brå report 2021:9')}</a>{L(
+        ', tabellbilaga 3 (tabell D1 och D2): alla registrerade brottsmisstankar per år, efter om den misstänkta var folkbokförd vid brottet. Befolkningens andelar: tabellbilaga 1, tabell B6.',
+        ', table appendix 3 (tables D1 and D2): all registered crime suspicions per year, by whether the suspect was registered as living in Sweden at the time of the crime. Population shares: table appendix 1, table B6.',
+      )}
+    </Fragment>
+  </SubChart>
+</Chapter>

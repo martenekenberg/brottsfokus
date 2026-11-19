@@ -1,0 +1,123 @@
+---
+// Chapter 2: birth region 2015–2018, and Brå's comparison with other factors.
+// Loads its own data and stops the build if its headline no longer matches the data.
+import Chapter from '../Chapter.astro';
+import BarChart from '../charts/BarChart.astro';
+import SubChart from '../SubChart.astro';
+import OriginDots from '../kap2/OriginDots.astro';
+import { tr, type Lang } from '../../lib/i18n';
+import { loadOrigin, loadSuspectsByBackground, loadTableB6, loadRiskFactors } from '../../lib/data';
+import { tablePage } from '../../lib/dataPages';
+import { formatNumber } from '../../lib/format';
+import { buildKap2Data, smallestGroup } from '../../lib/chapters/kap2';
+import { buildFactorsSpec, buildRiskFactors } from '../../lib/chapters/kap2Factors';
+
+interface Props {
+  lang: Lang;
+}
+const { lang } = Astro.props;
+const L = (sv: string, en: string) => tr(lang, sv, en);
+const n0 = (v: number) => formatNumber(v, 0, lang);
+const n1 = (v: number) => formatNumber(v, 1, lang);
+
+const tableB6 = loadTableB6();
+
+const suspects = loadSuspectsByBackground();
+
+// Chapter 2 uses the same crime list, so its menu is indented the same way.
+const depthByOrder = new Map(suspects.map((r) => [r.crimeOrder, r.depth]));
+
+const kap2Data = buildKap2Data(loadOrigin(), depthByOrder, tableB6);
+
+// Smallest groups in chapter 2, for the note under the chart.
+const smallestCountry = smallestGroup(kap2Data, 'land');
+const smallestMotherRegion = smallestGroup(kap2Data, 'moder');
+if (!smallestCountry || !smallestMotherRegion) throw new Error('Chapter 2: group sizes missing');
+
+// ---------- Chapter 2, second chart: background next to other factors ----------
+const riskFactorRows = loadRiskFactors();
+const factors = buildRiskFactors(riskFactorRows, tableB6);
+const factorsSpec = buildFactorsSpec(factors, lang);
+// The headline names exactly these three factors. Stop the build if the data file holds others.
+if (riskFactorRows.map((f) => f.factorId).sort().join('|') !== 'forsorjningsstod|kon|utbildning') {
+  throw new Error('Chapter 2 second chart: headline no longer matches the data');
+}
+const factorRisk = (id: string) => {
+  const f = riskFactorRows.find((r) => r.factorId === id);
+  if (!f) throw new Error(`Chapter 2 second chart: no risk factor ${id}`);
+  return n1(f.risk);
+};
+---
+
+<Chapter
+  id="kap2"
+  lang={lang}
+  tableHref={tablePage('kap2', lang).path}
+  title={L(
+    'Överrisken var störst bland födda i Afrika och Centralasien och nära 1 bland födda i Norden, Västeuropa och Östasien',
+    'Excess risk was highest among people born in Africa and Central Asia, and close to 1 among those born in the Nordic countries, Western Europe and East Asia',
+  )}
+>
+  <p slot="intro">
+    {L(
+      'Hur många gånger vanligare det var att misstänkas för brott någon gång 2015–2018 än för inrikesfödda med två inrikesfödda föräldrar. Utrikesfödda efter födelseområde eller födelseland, och inrikesfödda med två utrikesfödda föräldrar efter moderns födelseområde.',
+      'How many times more likely it was to be suspected of crime at any point in 2015–2018 than for people born in Sweden with two Swedish-born parents. People born abroad, by birth region or birth country, and people born in Sweden with two foreign-born parents, by mother’s birth region.',
+    )}
+  </p>
+  <OriginDots data={kap2Data} lang={lang} />
+  <Fragment slot="note">
+    {L(
+      `Orange punkt visar Brås beräkning om gruppen haft samma ålder, kön, inkomst och utbildning som jämförelsegruppen, inte en faktisk andel. Alla som misstänktes någon gång under fyra år räknas, därför är talen högre än i kapitel 1. Vissa grupper är små: det minsta födelselandet har ${n0(smallestCountry.n)} personer och den minsta gruppen efter moderns födelseområde ${n0(smallestMotherRegion.n)}.`,
+      `The orange dot shows Brå’s calculation of what the group would look like with the same age, sex, income and education as the comparison group, not an actual share. Everyone who was suspected at any time during four years is counted, so the figures are higher than in chapter 1. Some groups are small: the smallest birth country has ${n0(smallestCountry.n)} people, and the smallest group by mother’s birth region has ${n0(smallestMotherRegion.n)}.`,
+    )}
+  </Fragment>
+  <Fragment slot="source">
+    {L('Källa: ', 'Source: ')}<a href="https://bra.se/rapporter/arkiv/2021-08-25-misstankta-for-brott-bland-personer-med-inrikes-respektive-utrikes-bakgrund">{L('Brå rapport 2021:9', 'Brå report 2021:9')}</a>{L(
+      ', tabellbilaga 1 (andelar av misstänkta och befolkningen: tabell B6). Folkbokförda 15 år och äldre den 31 december 2014, misstänkta för brott begångna 2015–2018.',
+      ', table appendix 1 (shares of suspects and population: table B6). Registered residents aged 15 and over on 31 December 2014, suspected of crimes committed in 2015–2018.',
+    )}
+  </Fragment>
+  <SubChart
+    slot="after"
+    id="kap2-faktorer"
+    lang={lang}
+    title={L(
+      'Brå jämför överriskerna efter bakgrund med försörjningsstöd, utbildning och kön',
+      'Brå compares the excess risks by background with social assistance, education and sex',
+    )}
+  >
+    <Fragment slot="intro">
+      {L(
+        `Brå gör det i samma rapport för att sätta siffrorna i perspektiv. Överrisken var ${factorRisk('forsorjningsstod')} för personer vars familj fick försörjningsstöd, ${factorRisk('utbildning')} för personer med endast förgymnasial utbildning och ${factorRisk('kon')} för män jämfört med kvinnor. Varje stapel jämför en grupp med sin egen jämförelsegrupp, 2015–2018.`,
+        `Brå does this in the same report to put the figures in perspective. The excess risk was ${factorRisk('forsorjningsstod')} for people whose family received social assistance, ${factorRisk('utbildning')} for people with only compulsory education and ${factorRisk('kon')} for men compared with women. Each bar compares one group with its own comparison group, 2015–2018.`,
+      )}
+    </Fragment>
+    <ul slot="legend" class="legend-list" aria-label={L('Förklaring', 'Key')}>
+      <li>
+        <span class="mark bar-swatch" style="background:#1D4E89" aria-hidden="true"></span>{L(
+          'Bakgrund, jämfört med inrikesfödda med två inrikesfödda föräldrar',
+          'Background, compared with born in Sweden with two Swedish-born parents',
+        )}
+      </li>
+      <li>
+        <span class="mark bar-swatch" style="background:#C2410C" aria-hidden="true"></span>{L(
+          'Annan faktor, jämfört med motsatt grupp (se Läs så här)',
+          'Other factor, compared with the opposite group (see How to read this)',
+        )}
+      </li>
+    </ul>
+    <BarChart spec={factorsSpec} />
+    <Fragment slot="note">
+      {L(
+        'Jämförelserna är: familjen fick försörjningsstöd någon gång 2014 jämfört med inte, endast förgymnasial utbildning jämfört med minst tre års eftergymnasial utbildning, och män jämfört med kvinnor. Varje faktor är mätt för sig. Faktorerna hänger ihop, så de kan inte läggas ihop. Ingen av siffrorna är justerad för ålder. Brå anger överriskerna för försörjningsstöd, utbildning och kön i rapportens text, inte i en tabell. Gäller folkbokförda 15 år och äldre den 31 december 2014, misstänkta för brott begångna 2015–2018.',
+        'The comparisons are: the family received social assistance at some point in 2014 compared with not, compulsory school only compared with at least three years of higher education, and men compared with women. Each factor is measured on its own. The factors are linked, so they cannot be added together. None of the figures is adjusted for age. Brå gives the excess risks for social assistance, education and sex in the text of the report, not in a table. Covers registered residents aged 15 and over on 31 December 2014, suspected of crimes committed in 2015–2018.',
+      )}
+    </Fragment>
+    <Fragment slot="source">
+      {L('Källa: ', 'Source: ')}<a href="https://bra.se/rapporter/arkiv/2021-08-25-misstankta-for-brott-bland-personer-med-inrikes-respektive-utrikes-bakgrund">{L('Brå rapport 2021:9', 'Brå report 2021:9')}</a>{L(
+        '. Bakgrund: tabellbilaga 1, tabell B6. Försörjningsstöd, utbildning och kön: rapportens text, s. 54–55.',
+        '. Background: table appendix 1, table B6. Social assistance, education and sex: the text of the report, p. 54–55.',
+      )}
+    </Fragment>
+  </SubChart>
+</Chapter>

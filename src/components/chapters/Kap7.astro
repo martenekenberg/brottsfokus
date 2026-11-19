@@ -1,0 +1,97 @@
+---
+// Chapter 7: deportation for crime.
+// Loads its own data and stops the build if its headline no longer matches the data.
+import Chapter from '../Chapter.astro';
+import BarChart from '../charts/BarChart.astro';
+import SubChart from '../SubChart.astro';
+import { tr, type Lang } from '../../lib/i18n';
+import { loadDeportation, loadDeportationFacts } from '../../lib/data';
+import { tablePage } from '../../lib/dataPages';
+import { formatNumber } from '../../lib/format';
+import { buildCitizenshipSpec, buildOffenceSpec, fact, MIN_GROUP, notRegisteredSentence, offenceGroups, totalRow } from '../../lib/chapters/kap7';
+
+interface Props {
+  lang: Lang;
+}
+const { lang } = Astro.props;
+const L = (sv: string, en: string) => tr(lang, sv, en);
+const n0 = (v: number) => formatNumber(v, 0, lang);
+const n1 = (v: number) => formatNumber(v, 1, lang);
+
+// ---------- Chapter 7: deportation ----------
+const deport = loadDeportation();
+const deportFacts = loadDeportationFacts();
+const deportTotal = totalRow(deport);
+const deportPct = deportTotal.pctDeported as number;
+const reconvictedPct = deportTotal.pctReconvicted as number;
+if (!(deportPct < 50)) throw new Error('Chapter 7 headline no longer matches the data');
+const topOffence = offenceGroups(deport)[0];
+if (topOffence.group !== 'Narkotikabrott/smuggling') throw new Error('Chapter 7 second chart: headline no longer matches the data');
+const yr = (y: number) => fact(deportFacts, 'verkstalld_inom_1_ar', y);
+---
+
+<Chapter
+  id="kap7"
+  lang={lang}
+  tableHref={tablePage('kap7', lang).path}
+  title={L(
+    'Mindre än hälften av de utvisningsdömda som lämnade fängelset 2013–2023 hade utvisats i slutet av 2024',
+    'Less than half of the people sentenced to deportation who left prison in 2013–2023 had been deported by the end of 2024',
+  )}
+>
+  <p slot="intro">
+    {L(
+      `Av ${n0(deportTotal.n as number)} personer som dömts till fängelse och utvisning och lämnade anstalten 2013–2023 hade ${n1(deportPct)} procent utvisats. Andelen som utvisades inom ett år steg från ${n0(yr(2013))} procent bland dem som lämnade fängelset 2013 till ${n0(yr(2019))} procent 2019. För 2021 var den ${n0(yr(2021))} och för 2023 ${n0(yr(2023))} procent.`,
+      `Of ${n0(deportTotal.n as number)} people sentenced to prison and deportation who left prison in 2013–2023, ${n1(deportPct)}% had been deported. The share deported within a year rose from ${n0(yr(2013))}% among those who left prison in 2013 to ${n0(yr(2019))}% in 2019. For 2021 it was ${n0(yr(2021))}% and for 2023 ${n0(yr(2023))}%.`,
+    )}
+  </p>
+  <div class="chart-block">
+    <p class="chart-heading">{L('Andel utvisade efter område för medborgarskap', 'Share deported by region of citizenship')}</p>
+    <BarChart spec={buildCitizenshipSpec(deport, lang)} />
+  </div>
+  <Fragment slot="note">
+    {L(
+      `Medborgarskap är inte alltid landet personen utvisas till: en person kan utvisas till ett annat land där hen har rätt att vistas. Diagrammet visar områden med minst ${MIN_GROUP} personer, som i Brås egen redovisning. Mindre grupper finns i tabellen. ”Ej definierat” är okänt medborgarskap, under utredning eller statslös. ${notRegisteredSentence(deport, 'sv')} De som lämnade fängelset tidigt i perioden har följts längre. Brå nämner bland annat svårigheter att fastställa identitet och avsaknad av återtagandeavtal som möjliga förklaringar till skillnaderna, men drar inga säkra slutsatser om orsaker. Brå anger andelen per år bara i ett diagram, så sidan visar endast de år som nämns i texten.`,
+      `Citizenship is not always the country a person is deported to: a person can be deported to another country where they have the right to stay. The chart shows regions with at least ${MIN_GROUP} people, as in Brå’s own presentation. Smaller groups are in the table. “Not defined” means unknown citizenship, under investigation or stateless. ${notRegisteredSentence(deport, 'en')} Those who left prison early in the period have been followed for longer. Brå mentions difficulties in establishing identity and the lack of readmission agreements, among other things, as possible explanations for the differences, but draws no firm conclusions about causes. Brå gives the share by year only in a chart, so the site shows only the years mentioned in the text.`,
+    )}
+  </Fragment>
+  <Fragment slot="source">
+    {L('Källa: ', 'Source: ')}<a href="https://bra.se/download/18.5d0a8fbf19ddcaf2a6cccb2/1777972068717/2026_15_Utvisningsd%C3%B6mda%20i%20brottm%C3%A5l.pdf">{L('Brå rapport 2026:15', 'Brå report 2026:15')}</a>{L(
+      ', Utvisningsdömda i brottmål, bilaga 1 tabell B1 och s. 5 och 36. Alla med utvisningsbeslut i en fängelsedom som lämnade anstalt 2013–2023, uppföljda till och med 2024.',
+      ', Utvisningsdömda i brottmål (people sentenced to deportation in criminal cases), appendix 1 table B1 and p. 5 and 36. Everyone with a deportation order in a prison sentence who left prison in 2013–2023, followed up to the end of 2024.',
+    )}
+  </Fragment>
+  <SubChart
+    slot="after"
+    id="kap7-brott"
+    lang={lang}
+    title={L(
+      'Andelen som utvisades var högst bland dem som dömts för narkotikabrott eller smuggling',
+      'The share deported was highest among those sentenced for drug offences or smuggling',
+    )}
+  >
+    <Fragment slot="intro">
+      {L(
+        `Utvisade och lagförda för nya brott i Sverige, efter huvudbrottet i den dom som ledde till fängelse. Av alla lagfördes ${n1(reconvictedPct)} procent för nya brott.`,
+        `Deported, and convicted of new crimes in Sweden, by the main offence in the sentence that led to prison. Of everyone, ${n1(reconvictedPct)}% were convicted of new crimes.`,
+      )}
+    </Fragment>
+    <ul slot="legend" class="legend-list" aria-label={L('Förklaring', 'Key')}>
+      <li><span class="mark bar-swatch" style="background:#1D4E89" aria-hidden="true"></span>{L('Utvisade', 'Deported')}</li>
+      <li><span class="mark bar-swatch" style="background:#C2410C" aria-hidden="true"></span>{L('Lagförda för nya brott i Sverige', 'Convicted of new crimes in Sweden')}</li>
+    </ul>
+    <BarChart spec={buildOffenceSpec(deport, lang)} />
+    <Fragment slot="note">
+      {L(
+        `Nya brott är brott begångna efter fängelset som lett till dom eller annan lagföring i Sverige till och med 2024, antingen för att utvisningen inte verkställts eller efter att personen kommit tillbaka. Tillsammans gäller det ${n0(fact(deportFacts, 'nya_lagforda_brott'))} brott, ${n1(fact(deportFacts, 'nya_brott_andel_av_alla_lagforda_pct'))} procent av alla lagförda brott under perioden. Brott i andra länder räknas inte. ”Övrigt” omfattar bland annat trafikbrott och brott mot allmänhet och stat.`,
+        `New crimes are crimes committed after prison that led to a conviction or other legal decision in Sweden up to the end of 2024, either because the deportation was not carried out or after the person came back. Together they were ${n0(fact(deportFacts, 'nya_lagforda_brott'))} crimes, ${n1(fact(deportFacts, 'nya_brott_andel_av_alla_lagforda_pct'))}% of all convicted crimes in the period. Crimes in other countries are not counted. “Other” includes traffic offences and offences against the public and the state, among others.`,
+      )}
+    </Fragment>
+    <Fragment slot="source">
+      {L('Källa: ', 'Source: ')}<a href="https://bra.se/download/18.5d0a8fbf19ddcaf2a6cccb2/1777972068717/2026_15_Utvisningsd%C3%B6mda%20i%20brottm%C3%A5l.pdf">{L('Brå rapport 2026:15', 'Brå report 2026:15')}</a>{L(
+        ', bilaga 1 tabell B1 och s. 5.',
+        ', appendix 1 table B1 and p. 5.',
+      )}
+    </Fragment>
+  </SubChart>
+</Chapter>
