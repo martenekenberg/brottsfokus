@@ -17,7 +17,6 @@ Watch:
 
 ## To do
 
-- **Error report form.** Add a form so readers can report errors without the owner's name or email address being shown. Use a form service that forwards messages privately and has spam protection. When it is in place, update the "Fel och rättelser" text in `src/components/About.astro`.
 - **Chapter summaries.** Where a chapter intro lacks the key number, year and source, add one short sentence. Owner approves the copy first.
 
 ## Later, once there is search data
@@ -27,6 +26,8 @@ Watch:
 - Links from relevant places (data journalists, researchers, newsletters).
 
 ## Done
+
+- Error report form on Om sidan (both languages) via Formward, hosted in Sweden: honeypot, no captcha, no cookies; "Fel och rättelser" and "Kakor och besöksstatistik" updated, 19 November 2026.
 
 - 3.1 Fängelse: remaining gaps filled (men and women 2014, 2015, 2022 from table 8; 1 October 2014–2022 from table 12), 19 November 2026. All series now run 2014–2025.
 

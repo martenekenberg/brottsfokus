@@ -35,6 +35,7 @@ The `.dc.html` files are design mockups in a canvas format. Open them as plain H
 - Fonts from Google Fonts: Newsreader and Inter. Self-hosting via `@fontsource` is fine.
 - Deploy: GitHub repo + Vercel, static build. Ask before creating the repo or connecting Vercel.
 - Vercel Web Analytics is on (owner's request), via `@vercel/analytics` in `src/layouts/Base.astro`. No cookies and no other tracking unless I ask. If analytics changes, update "Kakor och besöksstatistik" in Om sidan.
+- Error reports go through Formward (formward.eu, hosted in Sweden), via the form in `src/components/ErrorReportForm.astro` on Om sidan. Honeypot field, no captcha, no cookies. If the form service changes, update "Kakor och besöksstatistik" in Om sidan.
 - The owner is anonymous. Never put the owner's name, email address or GitHub account on the site or in its metadata. Keep the repo private and do not link to it.
 - Site name, URL, title, description and last update date live in `src/lib/site.ts`. `updated` is the build date (owner confirmed, November 2026); the main page's masthead, structured data, sitemap entry and Om sidan read it.
 - The table pages and `/data/` use the date their data last changed instead (`src/lib/dataDates.json`, written by `npm run datadates`), so a deploy without data changes does not mark them as changed. The build stops if a data file changed since its date was recorded.

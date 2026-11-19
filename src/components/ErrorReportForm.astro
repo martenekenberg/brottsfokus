@@ -1,0 +1,241 @@
+---
+// Error report form on "Om sidan". Messages go to Formward (hosted in Sweden), which forwards
+// them to the owner by email, so the owner's address never appears on the site.
+// With JavaScript the form posts with fetch and the reader stays on the page. Without it the
+// browser posts normally and Formward sends the reader back here, to the #tack anchor.
+// No captcha and no cookies: spam is stopped by a hidden honeypot field (_gotcha) and by
+// Formward's origin list and rate limit.
+import { absoluteUrl } from '../lib/site';
+import { tr, type Lang } from '../lib/i18n';
+
+interface Props {
+  lang: Lang;
+}
+const { lang } = Astro.props;
+const L = (sv: string, en: string) => tr(lang, sv, en);
+
+const FORM_ENDPOINT = 'https://forms.formward.eu/f/e60d546c-2976-4c45-99f3-9dc6b8258a72';
+const aboutPath = lang === 'en' ? '/en/about/' : '/om/';
+const redirect = absoluteUrl(`${aboutPath}#tack`);
+const ids = { page: 'fr-page', problem: 'fr-problem', source: 'fr-source', email: 'fr-email' };
+---
+
+<div class="report" id="rapportera">
+  <h3>{L('Rapportera ett fel', 'Report an error')}</h3>
+  <p class="lead">
+    {
+      L(
+        'Har du hittat en siffra som inte stämmer med källan, en trasig länk eller något annat fel? Skriv vad det gäller. Det du skickar läses av sidans ägare och publiceras inte.',
+        'Have you found a figure that does not match its source, a broken link or another error? Describe it here. What you send is read by the site’s owner and is not published.',
+      )
+    }
+  </p>
+  <form
+    class="form"
+    action={FORM_ENDPOINT}
+    method="POST"
+    accept-charset="UTF-8"
+    data-error={L(
+      'Meddelandet kunde inte skickas. Försök igen om en stund.',
+      'The message could not be sent. Please try again in a while.',
+    )}
+    data-sending={L('Skickar …', 'Sending …')}
+  >
+    <input type="hidden" name="_subject" value={L('Felrapport, Brottsfokus', 'Error report, Brottsfokus (English site)')} />
+    <input type="hidden" name="_redirect" value={redirect} />
+    <input type="hidden" name="language" value={lang} />
+    <div class="field">
+      <label for={ids.page}>{L('Sida eller kapitel', 'Page or chapter')} <span class="opt">{L('(frivilligt)', '(optional)')}</span></label>
+      <input id={ids.page} name="page" type="text" maxlength="300" placeholder={L('Till exempel 3.1 Fängelse', 'For example 3.1 Prison')} />
+    </div>
+    <div class="field">
+      <label for={ids.problem}>{L('Vad är fel?', 'What is wrong?')}</label>
+      <textarea id={ids.problem} name="problem" rows="5" maxlength="4000" required></textarea>
+    </div>
+    <div class="field">
+      <label for={ids.source}>{L('Källa som visar rätt uppgift', 'Source that shows the correct figure')} <span class="opt">{L('(frivilligt)', '(optional)')}</span></label>
+      <input id={ids.source} name="source" type="text" maxlength="500" placeholder={L('Länk eller tabell', 'Link or table')} />
+    </div>
+    <div class="field">
+      <label for={ids.email}>{L('Din e-postadress', 'Your email address')} <span class="opt">{L('(frivilligt)', '(optional)')}</span></label>
+      <input id={ids.email} name="email" type="email" maxlength="200" autocomplete="email" />
+      <p class="hint">{L('Fyll bara i om du vill ha svar. Adressen används inte till något annat.', 'Only fill in if you want a reply. The address is not used for anything else.')}</p>
+    </div>
+    <!-- Honeypot: hidden from readers, bots tend to fill it in. -->
+    <div class="hp" aria-hidden="true">
+      <label for="fr-gotcha">{L('Lämna tomt', 'Leave empty')}</label>
+      <input id="fr-gotcha" type="text" name="_gotcha" tabindex="-1" autocomplete="off" />
+    </div>
+    <div class="actions">
+      <button type="submit">{L('Skicka', 'Send')}</button>
+      <p class="status" role="status" aria-live="polite"></p>
+    </div>
+  </form>
+  <p class="thanks" id="tack" tabindex="-1">
+    {
+      L(
+        'Tack. Meddelandet är skickat. Fel som rättas redovisas med datum under Rättelser.',
+        'Thank you. The message has been sent. Errors that are corrected are listed with the date under Corrections.',
+      )
+    }
+  </p>
+</div>
+
+<script>
+  // Post with fetch so the reader stays on the page. On failure, say so and keep what was written.
+  for (const form of document.querySelectorAll<HTMLFormElement>('.report .form')) {
+    form.addEventListener('submit', async (event) => {
+      event.preventDefault();
+      const status = form.querySelector<HTMLElement>('.status');
+      const button = form.querySelector<HTMLButtonElement>('button[type="submit"]');
+      const thanks = form.parentElement?.querySelector<HTMLElement>('.thanks');
+      if (button) button.disabled = true;
+      if (status) status.textContent = form.dataset.sending ?? '';
+      try {
+        const res = await fetch(form.action, {
+          method: 'POST',
+          headers: { Accept: 'application/json' },
+          body: new URLSearchParams(new FormData(form) as unknown as Record<string, string>),
+        });
+        const body = await res.json().catch(() => ({}));
+        if (!res.ok || body.ok !== true) throw new Error(body.error ?? `HTTP ${res.status}`);
+        form.reset();
+        form.hidden = true;
+        if (status) status.textContent = '';
+        if (thanks) {
+          thanks.classList.add('shown');
+          thanks.focus();
+        }
+      } catch {
+        if (status) status.textContent = form.dataset.error ?? '';
+      } finally {
+        if (button) button.disabled = false;
+      }
+    });
+  }
+</script>
+
+<style>
+  .report {
+    grid-column: 1 / -1;
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    padding-top: 24px;
+    border-top: 1px solid var(--rule);
+    scroll-margin-top: calc(var(--sticky-nav-h) + 8px);
+  }
+  h3 {
+    margin: 0;
+    font-size: 15px;
+    font-weight: 600;
+  }
+  .lead,
+  .hint,
+  .status,
+  .thanks {
+    margin: 0;
+    font-size: 14px;
+    line-height: 1.6;
+    color: var(--text-body);
+  }
+  .form {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 16px 24px;
+    margin-top: 8px;
+  }
+  .form[hidden] {
+    display: none;
+  }
+  .field {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+  }
+  .field:has(textarea) {
+    grid-column: 1 / -1;
+  }
+  label {
+    font-size: 14px;
+    font-weight: 600;
+    color: var(--ink);
+  }
+  .opt {
+    font-weight: 400;
+    color: var(--text-muted);
+  }
+  input,
+  textarea {
+    font: inherit;
+    font-size: 16px;
+    line-height: 1.5;
+    color: var(--ink);
+    background: #fff;
+    border: 1px solid var(--text-muted);
+    border-radius: 2px;
+    padding: 10px 12px;
+    min-height: 44px;
+    width: 100%;
+    box-sizing: border-box;
+  }
+  textarea {
+    resize: vertical;
+  }
+  input:focus-visible,
+  textarea:focus-visible,
+  button:focus-visible {
+    outline: 2px solid var(--focus, #1d4e89);
+    outline-offset: 2px;
+  }
+  .hint {
+    font-size: 13px;
+    color: var(--text-muted);
+  }
+  .hp {
+    position: absolute;
+    left: -9999px;
+    width: 1px;
+    height: 1px;
+    overflow: hidden;
+  }
+  .actions {
+    grid-column: 1 / -1;
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    flex-wrap: wrap;
+  }
+  button {
+    font: inherit;
+    font-size: 15px;
+    font-weight: 600;
+    color: #fff;
+    background: var(--ink);
+    border: 0;
+    border-radius: 2px;
+    padding: 0 24px;
+    min-height: 44px;
+    cursor: pointer;
+  }
+  button:disabled {
+    opacity: 0.6;
+    cursor: default;
+  }
+  /* Shown after a send: by the script, or by the #tack anchor when the browser comes back without JavaScript. */
+  .thanks {
+    display: none;
+    padding: 12px 16px;
+    background: var(--panel);
+    font-weight: 600;
+  }
+  .thanks.shown,
+  .thanks:target {
+    display: block;
+  }
+  @media (max-width: 640px) {
+    .form {
+      grid-template-columns: minmax(0, 1fr);
+    }
+  }
+</style>

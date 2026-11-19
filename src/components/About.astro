@@ -4,6 +4,7 @@
 import { site, dayMonthYear } from '../lib/site';
 import { chapter } from '../lib/chapters';
 import { tr, type Lang } from '../lib/i18n';
+import ErrorReportForm from './ErrorReportForm.astro';
 
 interface Props {
   lang: Lang;
@@ -112,8 +113,8 @@ const updatedText = dayMonthYear(site.updated, lang);
       {
         tr(
           lang,
-          'Det går ännu inte att kontakta sidan. Ett formulär för att rapportera fel är på väg. Fel som rättas redovisas här med datum.',
-          'It is not yet possible to contact the site. A form for reporting errors is on its way. Errors that are corrected are listed here with the date.',
+          'Fel kan rapporteras med formuläret längre ner på sidan. Varje rapport läses och jämförs med källan. Fel som rättas redovisas här med datum.',
+          'Errors can be reported with the form further down this page. Each report is read and checked against the source. Errors that are corrected are listed here with the date.',
         )
       }
     </p>
@@ -145,6 +146,12 @@ const updatedText = dayMonthYear(site.updated, lang);
             The visitor statistics use no third-party cookies, and the site sets no cookies of its own. More in{' '}
             <a href="https://vercel.com/docs/analytics/privacy-policy">Vercel’s description of its visitor statistics</a>.
           </p>
+          <p>
+            Error reports are sent through Formward, a Swedish service with its servers in Sweden. It passes on what you write,
+            and your email address if you give one, to the site’s owner by email. Formward keeps the message for 30 days and
+            does not store the sender’s IP address in readable form. The form uses no captcha and sets no cookies. More in{' '}
+            <a href="https://formward.eu/privacy">Formward’s privacy policy</a>.
+          </p>
           <p class="updated">Last updated {updatedText}.</p>
         </>
       ) : (
@@ -159,11 +166,18 @@ const updatedText = dayMonthYear(site.updated, lang);
             Besöksstatistiken använder inga kakor från tredje part, och sidan sätter inga egna kakor. Mer i{' '}
             <a href="https://vercel.com/docs/analytics/privacy-policy">Vercels beskrivning av besöksstatistiken</a>.
           </p>
+          <p>
+            Felrapporter skickas genom Formward, en svensk tjänst med servrar i Sverige. Den skickar det du skriver, och din
+            e-postadress om du anger den, vidare till sidans ägare med e-post. Formward sparar meddelandet i 30 dagar och sparar
+            inte avsändarens IP-adress i klartext. Formuläret använder ingen captcha och sätter inga
+            kakor. Mer i <a href="https://formward.eu/privacy">Formwards integritetspolicy</a>.
+          </p>
           <p class="updated">Senast uppdaterad {updatedText}.</p>
         </>
       )
     }
   </div>
+  <ErrorReportForm lang={lang} />
 </section>
 
 <style>
