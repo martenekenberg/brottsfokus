@@ -229,3 +229,4 @@ A "Källor" list with all links goes in the Metod section.
 - When a published number is corrected, add a dated entry under "Rättelser" in Om sidan (`src/components/About.astro`), in both languages.
 - The share images (`public/og.png`, `public/og-en.png`) are drawn by `scripts/og-image.cjs`. Redraw them when the site description changes.
 - When a decision isn't covered here, pick the simplest option that fits the design and tell me what you chose.
+- End every reply to me with a suggested next step (owner's request, November 2026).
