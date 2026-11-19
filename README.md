@@ -49,16 +49,16 @@ These are generated. Do not edit the CSV files by hand; run `npm run sifferkontr
 - Colours: ink #121212, text grey #5C5C5C, rules #E3E3E3, blue #1D4E89 = group in focus, orange #C2410C = second series + chapter numbers, grey #8A8A8A / hollow grey = population or comparison group.
 - Population comparison: whenever possible show the group's share next to its share of the population (filled vs hollow/outlined, or dashed grey line).
 - Chapter pattern: kicker (number · topic), factual headline, short intro, legend, chart, grey "Läs så här" box with caveats, source line, "Nästa: …" link.
-- Navigation: numbered chapter bar under the title (01 Över tid, 02 Födelseområde, 03 Fängelse, 04 Våldtäkt, 05 Äldre studier, Metod), swipeable row on mobile. Sticky at the top while scrolling.
+- Navigation: menu under the title with the four parts, Metod and Om sidan; swipeable row on mobile. Sticky at the top while scrolling. The current page is underlined.
 - Max width ~1120px, works at 390px. Charts sized from container width, with tooltips and printed values.
 
-## Chapters
-1. Misstänkta över tid 2007–2018 (Brå 2021:9) – use the full yearly series from the dashboard file.
-2. Födelseland/födelseområde 2015–2018 (Brå 2021:9) – group vs population dots; the mockup shows the 1997–2001 version from bra2005.csv as placeholder.
-3. Fängelse och medborgarskap 2014–2025 + foreign citizens in population.
-4. Dömda för våldtäkt (Lund University) vs population/controls.
-5. Brås äldre studier 1985–89 and 1997–2001.
-6. Metod och begrepp.
+## Pages and chapters
+Since November 2026: a front page (masthead, key figures, one card per part) and one page per part. Details in CLAUDE.md, "Page structure".
+1. Misstänkta för brott (`/misstankta/`): 1.1 över tid 2007–2018, 1.2 födelseområde 2015–2018 (Brå 2021:9), 1.3 Brås äldre studier 1985–89 and 1997–2001.
+2. Lagförda och dömda (`/lagforda-och-domda/`): 2.1 lagförda före 25 års ålder (Brå 2025:21, Bäckman et al. 2021), 2.2 dömda för våldtäkt (Lund University).
+3. Fängelse och utvisning (`/fangelse-och-utvisning/`): 3.1 fängelse och medborgarskap 2014–2025, 3.2 utvisning 2013–2023 (Brå 2026:15).
+4. Brottsoffer (`/brottsoffer/`): 4.1 utsatta för brott (Brå NTU), 4.2 dödligt våld (Brå 2025:5).
+Plus Metod och begrepp (`/metod/`) and Om sidan (`/om/`).
 
 ## Caveats that must stay on the site
 - Suspicions are not convictions; unadjusted figures; age and sex matter a lot.

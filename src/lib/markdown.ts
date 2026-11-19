@@ -1,5 +1,6 @@
 // Markdown copies of the table pages and llms.txt. Same text and numbers as the HTML pages.
 import { chapter, chapterHref } from './chapters';
+import { aboutPath, methodPath, parts, type PartInfo } from './parts';
 import { type TablePageUrls } from './dataPages';
 import { tr, type Lang } from './i18n';
 import { site, absoluteUrl, dayMonthYear } from './site';
@@ -8,6 +9,11 @@ import type { TablePageContent } from './tablePageContent';
 
 const plain = (s: string) => s.replace(/[  ]/g, ' ');
 const cellText = (s: string) => plain(s).replace(/\|/g, '\\|').replace(/\n/g, ' ');
+
+/** A part's chapters as "1.1 Misstänkta över tid, 1.2 Födelseområde". */
+function partChapters(p: PartInfo, lang: Lang): string {
+  return p.chapters.map((id) => `${chapter(id).num} ${chapter(id).kicker[lang]}`).join(', ');
+}
 
 export function tableToMarkdown(t: DataTable, lang: Lang): string {
   const head = [t.rowLabel, ...t.columns.map((c) => c.label)];
@@ -97,6 +103,12 @@ export function llmsTxt(
     '- Vid dödligt våld saknas gärningspersoner i de fall som inte klarats upp, vilket är vanligast vid dödligt våld i kriminell miljö.',
     '- Statistiken över lagförda efter födelseår räknar bara den som var folkbokförd i Sverige vid 15 års ålder.',
     '',
+    '## Delar',
+    '',
+    'Sidan har fyra delar med diagram. Varje del är en egen sida:',
+    '',
+    ...parts.map((p) => `- [${p.title.sv}](${absoluteUrl(p.path.sv)}): ${p.card.sv} Kapitel: ${partChapters(p, 'sv')}.`),
+    '',
     '## Tabeller',
     '',
     ...sv.map(({ page, content }) => `- [${content.h1}](${absoluteUrl(page.mdPath)}): ${content.lead}`),
@@ -105,12 +117,16 @@ export function llmsTxt(
     '',
     'English versions of the same pages, with the same figures and caveats:',
     '',
-    `- [Front page with all charts](${absoluteUrl('/en/')}): chapters ${sv.map(({ page }) => chapter(page.chapterId).num).filter((n, i, all) => all.indexOf(n) === i).join(', ')}, method and about this site.`,
+    ...parts.map((p) => `- [${p.title.en}](${absoluteUrl(p.path.en)}): ${p.card.en} Chapters: ${partChapters(p, 'en')}.`),
     ...en.map(({ page, content }) => `- [${content.h1}](${absoluteUrl(page.mdPath)}): ${content.lead}`),
     '',
     '## Optional',
     '',
-    `- [Startsidan med alla diagram](${site.url}): kapitel ${sv.map(({ page }) => chapter(page.chapterId).num).filter((n, i, all) => all.indexOf(n) === i).join(', ')}, metod och om sidan.`,
+    `- [Startsidan](${site.url}): nyckeltal och de fyra delarna.`,
+    `- [Metod och begrepp](${absoluteUrl(methodPath.sv)}): begrepp och alla källor.`,
+    `- [Om sidan](${absoluteUrl(aboutPath.sv)}): vem som står bakom sidan, rättelser och besöksstatistik.`,
+    `- [Method and terms, in English](${absoluteUrl(methodPath.en)})`,
+    `- [About this site, in English](${absoluteUrl(aboutPath.en)})`,
     `- [Alla tabeller som webbsidor](${absoluteUrl('/data/')})`,
     `- [All tables as web pages, in English](${absoluteUrl('/en/data/')})`,
   ];

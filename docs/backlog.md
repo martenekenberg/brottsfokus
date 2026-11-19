@@ -2,39 +2,22 @@
 
 Items from the SEO audit and the site review (November 2026) that are not done yet.
 
-## Decided: new page structure (owner, 19 November 2026)
-
-Option 2 of three: a front page plus one page per part. Plan and owner check before building.
-
-- Front page: masthead, key figures, and one short card per part with its main number and a link.
-- One page and URL per part:
-  1. Misstänkta för brott: över tid (+ icke folkbokförda), födelseområde (+ andra faktorer), Brås äldre studier.
-  2. Lagförda och dömda: lagförda före 25 år, lagförda efter födelseår, våldtäkt.
-  3. Fängelse och utvisning: fängelse, utvisning.
-  4. Brottsoffer: utsatta för brott, dödligt våld.
-- Metod and Om sidan stay reachable from every page.
-- Chapters are numbered within each part. Old links such as `/#kap3` must still work (redirect or a small script on the front page).
-- Table pages and CSV files keep their URLs. Update CLAUDE.md, the sitemap, llms.txt and the English pages in the same change.
-- Chapters 9 and 10 become one chapter in part 2 (owner, 19 November 2026).
-
 ## To do: fixes from the site review (both languages)
 
 Fix now: done 19 November 2026 (see "Done" below).
 
 Next:
 
-- Nav: two rows on desktop, no "you are here" marker, no scroll hint at 360 px. (Largely solved by the new structure.)
 - Metod: a table showing which background grouping each chapter uses; one spelling ("utrikesfödda") in the site's own text.
-- Chapter 9: draw as line charts per sex, like chapter 10.
-- Chapter 3: make all/men/women easier to tell apart; fill 2016, 2017 and 2021 from Brå's own table (same series).
+- 3.1 Fängelse: make all/men/women easier to tell apart; fill 2016, 2017 and 2021 from Brå's own table (same series).
 - Table pages on phones: keep the year column fixed when scrolling sideways.
-- Colour rules: grey is used for comparison groups in chapters 1, 5 and 9, not only for the population.
+- Colour rules: grey is used for a comparison group in 1.1 (one foreign-born parent, solid grey) and 1.3, not only for the population. (2.1 fixed: Bäckman's comparison group is now a black line.)
 
 Owner decisions still open:
 
-- Keep the income and work charts (chapter 4 prior convictions, chapter 8 second chart)?
+- Keep the income and work charts (2.2 prior convictions, 4.2 second chart)?
 - Masthead "Uppdaterad" date: keep the build date?
-- Brå plans new suspect statistics for 2019–2024 by the end of 2026. Update chapters 1–2 and the key figures when it is out.
+- Brå plans new suspect statistics for 2019–2024 by the end of 2026. Update 1.1, 1.2 and the key figures when it is out.
 
 ## To do
 
@@ -43,12 +26,13 @@ Owner decisions still open:
 
 ## Later, once there is search data
 
-- Give each chapter its own URL, keeping the one-page overview. (Partly replaced by the decided structure above: one URL per part.)
+- Give each chapter its own URL. Each part has one since November 2026; per chapter only if search data shows a need.
 - A Markdown copy of the main page. The table pages and `/llms.txt` have them already.
 - Links from relevant places (data journalists, researchers, newsletters).
 
 ## Done
 
+- New page structure, 19 November 2026 (owner's decision): front page with part cards, one page per part, Metod and Om sidan on their own pages, menu with the current page marked and a scroll hint on phones, old `/#kap` links forwarded. Chapters 9 and 10 merged; Bäckman et al. drawn as line charts. The four card sentences in `src/lib/parts.ts` are drafts for the owner to approve.
 - Purple for a fifth series added to the colour rules as "extra" (owner's request), 19 November 2026.
 - Fixes from the site review, 19 November 2026: chapter 10 population wording; context in chapters 3 and 7; "iVercels" and English source wording; key figure source; chapter 2 share view order; chapter 7 labels over the reference line; masthead, share images (Swedish and English) and llms.txt cover all ten chapters; CLAUDE.md updated.
 - Chapter 4 corrected to 47,7 and 40,8 % (Khoshnood et al. 2021, table 1); first entry in the correction log under "Om sidan", 19 November 2026.

@@ -3,6 +3,7 @@ import { tablePage, tablePages, tablesIndexPath } from '../lib/dataPages';
 import { dataDate } from '../lib/dataDates';
 import { tablePageContent } from '../lib/tablePageContent';
 import { localePath, type Lang } from '../lib/i18n';
+import { pagePairs } from '../lib/parts';
 
 interface Entry {
   /** The page in each language. */
@@ -10,12 +11,14 @@ interface Entry {
   date: string;
 }
 
-// The front pages (their copy changes with deploys, so they use the build date), the table
+// The front pages and part pages (their copy changes with deploys, so they use the build date), the table
 // index and one page per table in each language. Table pages change when their data changes.
 // Each entry lists its other-language version, so search engines can offer the right one.
 export function GET() {
   const entries: Entry[] = [
     { paths: { sv: localePath('sv', '/'), en: localePath('en', '/') }, date: site.updated },
+    // The four part pages, Metod and Om sidan. Their copy changes with deploys, like the front page.
+    ...pagePairs.map((paths): Entry => ({ paths, date: site.updated })),
     { paths: { sv: tablesIndexPath('sv'), en: tablesIndexPath('en') }, date: dataDate() },
     ...tablePages.map((p): Entry => {
       const sv = tablePage(p.chapterId, 'sv');

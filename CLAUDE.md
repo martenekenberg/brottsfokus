@@ -44,28 +44,28 @@ The `.dc.html` files are design mockups in a canvas format. Open them as plain H
 1. Check that `data/` contains all six CSV files listed below. If `misstankta_bakgrund_2007_2018.csv` or `misstankta_ursprung_2015_2018.csv` is missing, tell me and build the other chapters first. Those two are downloaded manually from the claude.ai dashboard's Sources panel.
 2. Read the header row and a few lines of each CSV, and confirm the column names match "Data" below. Report any differences before building charts.
 3. Scaffold the Astro project, then build the page shell (masthead, nav, chapter layout, footer) before any charts.
-4. Build one chapter fully (chapter 3, prison, is the simplest), show me, then do the rest.
+4. Build one chapter fully (prison, now 3.1, is the simplest), show me, then do the rest.
 
 ## Data
 
 All files are UTF-8 CSV with a header row. Values use a dot as the decimal separator. Empty cell = no value (do not treat it as 0).
 
-| File | Used in | Notes |
+| File | Used in (chapter) | Notes |
 |---|---|---|
-| `intagna_medborgarskap.csv` | Ch. 3 | `year, population (nyintagna / 1okt), group (totalt / man / kvinnor), share_without_pct, persons, source, source_url`. Years missing where Brå states no value. |
-| `scb_befolkning.csv` | Ch. 3, 4 | `year, folkmangd, utrikes_fodda, utlandsk_bakgrund, utlandska_medborgare, source`. Foreign citizens for 2014–2025; foreign-born and foreign background only for 2000, 2005, 2010, 2015, 2020, 2025. |
-| `valdtakt_domda.csv` | Ch. 4 | Column `chart` selects the set: `bakgrund`, `region`, `kontroll`, `ovrigt`. |
-| `bra2005.csv` | Ch. 2 (placeholder), 5 | Column `chart` selects the set: `overrisk`, `andel`, `period`, `andel_misst`, `befolkning`, `region`, `region_misst`, `region_bef`, `brott`. |
-| `misstankta_bakgrund_2007_2018.csv` | Ch. 1 | From Brå 2021:9 appendix 2. Inspect the columns first; expect year, crime type, group, rate per 1,000. |
-| `misstankta_ursprung_2015_2018.csv` | Ch. 2 | From Brå 2021:9 appendix 1. Inspect the columns first; expect view (land / region / moder), unit, crime, rate per 1,000, risk, adjusted risk, n. |
-| `bra2021_tabell_b6.csv` | Ch. 1, 2 | Brå 2021:9 appendix 1, table B6: population and suspects (n and %) per group, 2015–2018. |
-| `bra2021_brottsmisstankar.csv` | Ch. 1 (second chart) | Brå 2021:9 appendix 3, tables D1 and D2: registered suspicions per group and year 2007–2018, including people not registered in Sweden. |
-| `bra2021_riskfaktorer.csv` | Ch. 2 (second chart) | Brå 2021:9 report text pp. 54–55: excess risk for social assistance, education and sex. |
-| `ntu_utsatthet.csv` | Ch. 6 | Brå NTU Kortanalys 2/2024, Excel appendix: self-reported victimisation by background, sex and world region, with confidence intervals. |
-| `utvisning_b1.csv`, `utvisning_text.csv` | Ch. 7 | Brå 2026:15, appendix 1 table B1, and figures stated only in the text (pp. 5 and 36). |
-| `dodligt_vald.csv` | Ch. 8 | Brå 2025:5: shares Brå states in the text or prints on a figure (pp. 9–14, 76–79). |
-| `backman_lagforda_fore_25.csv` | Ch. 9 | Bäckman et al. 2021, tables 1 and 2 (CC BY 4.0). |
-| `bra_fodelsekohorter.csv` | Ch. 10 | Brå 2025:21 Excel tables 1 and 4: share of each birth year convicted before age 25 and 20, by sex and background (from birth year 1984). |
+| `intagna_medborgarskap.csv` | 3.1 | `year, population (nyintagna / 1okt), group (totalt / man / kvinnor), share_without_pct, persons, source, source_url`. Years missing where Brå states no value. |
+| `scb_befolkning.csv` | 3.1, 2.2 | `year, folkmangd, utrikes_fodda, utlandsk_bakgrund, utlandska_medborgare, source`. Foreign citizens for 2014–2025; foreign-born and foreign background only for 2000, 2005, 2010, 2015, 2020, 2025. |
+| `valdtakt_domda.csv` | 2.2 | Column `chart` selects the set: `bakgrund`, `region`, `kontroll`, `ovrigt`. |
+| `bra2005.csv` | 1.3 | Column `chart` selects the set: `overrisk`, `andel`, `period`, `andel_misst`, `befolkning`, `region`, `region_misst`, `region_bef`, `brott`. |
+| `misstankta_bakgrund_2007_2018.csv` | 1.1 | From Brå 2021:9 appendix 2. Inspect the columns first; expect year, crime type, group, rate per 1,000. |
+| `misstankta_ursprung_2015_2018.csv` | 1.2 | From Brå 2021:9 appendix 1. Inspect the columns first; expect view (land / region / moder), unit, crime, rate per 1,000, risk, adjusted risk, n. |
+| `bra2021_tabell_b6.csv` | 1.1, 1.2 | Brå 2021:9 appendix 1, table B6: population and suspects (n and %) per group, 2015–2018. |
+| `bra2021_brottsmisstankar.csv` | 1.1 (second chart) | Brå 2021:9 appendix 3, tables D1 and D2: registered suspicions per group and year 2007–2018, including people not registered in Sweden. |
+| `bra2021_riskfaktorer.csv` | 1.2 (second chart) | Brå 2021:9 report text pp. 54–55: excess risk for social assistance, education and sex. |
+| `ntu_utsatthet.csv` | 4.1 | Brå NTU Kortanalys 2/2024, Excel appendix: self-reported victimisation by background, sex and world region, with confidence intervals. |
+| `utvisning_b1.csv`, `utvisning_text.csv` | 3.2 | Brå 2026:15, appendix 1 table B1, and figures stated only in the text (pp. 5 and 36). |
+| `dodligt_vald.csv` | 4.2 | Brå 2025:5: shares Brå states in the text or prints on a figure (pp. 9–14, 76–79). |
+| `backman_lagforda_fore_25.csv` | 2.1 | Bäckman et al. 2021, tables 1 and 2 (CC BY 4.0). |
+| `bra_fodelsekohorter.csv` | 2.1 | Brå 2025:21 Excel tables 1 and 4: share of each birth year convicted before age 25 and 20, by sex and background (from birth year 1984). |
 
 Calculated values (shares, averages) are computed in code from these files. Keep each calculation in one small, named function so it can be checked. Rules:
 
@@ -86,7 +86,7 @@ Calculated values (shares, averages) are computed in code from these files. Keep
 | focus | `#1D4E89` | The group a chart is about |
 | second | `#C2410C` | Second data series, chapter numbers and kickers |
 | population | `#8A8A8A` | Population / comparison group (lines and hollow marks only, never small text) |
-| extra | `#6B3FA0` | A fifth series, when the four background groups already use ink, focus, second and grey. Used for people not registered in Sweden (chapter 1, second chart). Contrast 7.4:1, so it may also be used for labels. Added at the owner's request, November 2026. |
+| extra | `#6B3FA0` | A fifth series, when the four background groups already use ink, focus, second and grey. Used for people not registered in Sweden (1.1, second chart). Contrast 7.4:1, so it may also be used for labels. Added at the owner's request, November 2026. |
 
 White page background. **No dark mode.** Text contrast must be at least 4.5:1.
 
@@ -110,26 +110,36 @@ Visual grammar, used the same way in every chart:
 
 ## Page structure
 
-One long page with anchored chapters, matching `design/Main.dc.html`.
+A front page plus one page per part (owner's decision, 19 November 2026). The parts, their pages in both languages, their one-line card text and their chapters are defined in `src/lib/parts.ts`; chapter numbers ("1.2") follow from that list.
 
-**Decided 19 November 2026 (not built yet):** a front page plus one page per part (Misstänkta; Lagförda och dömda; Fängelse och utvisning; Brottsoffer). See `docs/backlog.md`. Until it is built, the page works as described below.
+| Page | Swedish | English | Contains |
+|---|---|---|---|
+| Front page | `/` | `/en/` | Masthead, menu, three key figures, one card per part |
+| 1. Misstänkta för brott | `/misstankta/` | `/en/suspects/` | 1.1 Över tid, 1.2 Födelseområde, 1.3 Brås äldre studier |
+| 2. Lagförda och dömda | `/lagforda-och-domda/` | `/en/convictions/` | 2.1 Lagförda före 25 års ålder, 2.2 Våldtäkt |
+| 3. Fängelse och utvisning | `/fangelse-och-utvisning/` | `/en/prison-and-deportation/` | 3.1 Fängelse, 3.2 Utvisning |
+| 4. Brottsoffer | `/brottsoffer/` | `/en/victims/` | 4.1 Utsatta för brott, 4.2 Dödligt våld |
+| Metod och begrepp | `/metod/` | `/en/method/` | Short definitions in a grid, and the "Källor" list |
+| Om sidan | `/om/` | `/en/about/` | Why the site exists, how data is chosen, who runs it (an anonymous private person), errors and corrections (with the dated "Rättelser" list), cookies and visitor statistics |
 
-
-1. **Masthead**: kicker "Offentlig statistik och forskning", date and sources line, h1 "Brottsfokus", intro paragraph.
-2. **Chapter nav**: thick top rule, thin bottom rule, links `01 Över tid`, `02 Födelseområde`, `03 Fängelse`, `04 Våldtäkt`, `05 Äldre studier`, `06 Brottsoffer`, `07 Utvisning`, `08 Dödligt våld`, `09 Före 25 år`, `10 Födelseår`, `Metod`, `Om sidan`. Wraps on desktop, one horizontally scrollable row on mobile. Sticky at the top while scrolling; once the big headline has scrolled away, a small site title slides in at the start of the bar (changed at the owner's request). Touch targets at least 44px.
-3. **Key figures**: three figures in a grid (2,5×, 3×, 22 %), each with a one-line explanation and its source. Copy is in the mockup.
-4. **Chapters 1–5**, each with the same pattern:
-   - kicker (`01 · Misstänkta över tid`)
+1. **Masthead** (front page only): kicker "Offentlig statistik och forskning", date and sources line, h1 "Brottsfokus", intro paragraph. Other pages have a smaller page header (`src/components/PageHead.astro`) with kicker, h1, intro, the page's chapters and a language link.
+2. **Menu** (`src/components/ChapterNav.astro`): thick top rule, thin bottom rule, links to the four parts, Metod and Om sidan. One row on desktop, one horizontally scrollable row on mobile with a fade at the right edge while there is more to scroll. The current page is underlined. Sticky at the top while scrolling; on the front page a small site title slides in once the big headline has scrolled away, on other pages it always shows. Touch targets at least 44px.
+3. **Key figures** (front page): three figures in a grid (2,5×, 3,2×, 22 %), each with a one-line explanation and its source.
+4. **Part cards** (front page): part number, part name, one sentence (owner approves the copy) and the part's chapters as links.
+5. **Chapters**, one component each in `src/components/chapters/`, each with the same pattern:
+   - kicker (`1.1 · Misstänkta över tid`)
    - factual headline (h2)
    - short intro
    - legend (when the chart has more than one series)
    - chart
    - "Läs så här" box with caveats
    - source line
-   - "Nästa: …" link to the next chapter
-5. **Metod och begrepp**: short definitions in a grid.
-6. **Om sidan**: why the site exists, how data is chosen, who runs it (an anonymous private person), errors and corrections, cookies and visitor statistics (Vercel Web Analytics, no cookies).
-7. **Footer**: site name, "Tabeller och CSV-filer" (link to `/data/`), "Till början ↑", and a link to the same page in the other language.
+   - link to its table page
+   - second charts, if any (`src/components/SubChart.astro`)
+   - "Nästa: …" link to the next chapter, or at the end of a part to the next part
+6. **Footer**: site name, "Tabeller och CSV-filer" (link to `/data/`), a link to the same page in the other language, and "Till början ↑".
+
+Old links to the one-page site (`/#kap3`, `/#kap10`, `/#kap7-brott`, `/#metod`) are forwarded by a small script on the front page (`src/components/MainPage.astro`). Keep chapter ids stable. Copy that names a chapter number reads it with `chapter(id).num`, so it follows any renumbering.
 
 ### English version (`/en/`)
 
@@ -139,7 +149,7 @@ The English site has the same pages, charts, tables and CSV files under `/en/`, 
 - Labels from the data files (crime types, birth regions, countries, groups) are translated in `src/lib/labels.ts`. `tests/i18n.test.ts` fails if a label in a data file has no English name.
 - The Swedish CSV files keep their Swedish column names. The English CSV files have English column names and the same numbers.
 - Official titles of reports and studies stay in their published form (Swedish titles of Brå reports, for example). Only the wording around them is English.
-- Pages are rendered from `src/components/MainPage.astro` (both languages) and `src/components/data/TablePage.astro`. `/llms.txt` lists the English table pages in an English section; `/sitemap.xml` lists both languages with `hreflang` links.
+- Pages are rendered from `src/components/MainPage.astro` (front page), `src/components/PartPage.astro` (part pages), `src/components/InfoPage.astro` (Metod, Om sidan) and `src/components/data/TablePage.astro`, all in both languages. Language links between pages with different slugs go through `alternatePath` in `src/lib/dataPages.ts`. `/llms.txt` lists the English table pages in an English section; `/sitemap.xml` lists both languages with `hreflang` links.
 - The English copy is a first translation. The owner should read it before it is treated as final.
 
 ### Table pages
@@ -148,22 +158,27 @@ Each chapter links to a page under `/data/` with its numbers as HTML tables and 
 
 ## Chapters
 
-Copy for headlines, intros, notes and sources is in `design/Main.dc.html`. Reuse it unless the data says otherwise.
+Numbered by part (see "Page structure"). The ids (`kap1` and so on) are the old chapter numbers and stay as they are, so links keep working.
 
-1. **Misstänkta över tid, 2007–2018.** Line chart, four background groups (plus whole population dashed), rate per 1,000. Crime type selector (default: brott totalt). Toggle "per 1 000 invånare" / "jämfört med två inrikesfödda föräldrar". Source: Brå 2021:9.
-2. **Födelseområde, 2015–2018.** Dot plot by region of birth (toggle to country), rate or risk, sorted highest first. Compare with population where the data allows. Until the 2015–2018 file is in place, use the 1997–2001 regional data from `bra2005.csv` (share of suspects vs share of population), as the mockup does, and label the period clearly.
-3. **Fängelse och medborgarskap, 2014–2025.** Line chart: new inmates (all), new inmates (men), new inmates (women), inmates 1 October, foreign citizens in the population (dashed grey). Break lines where a year is missing; never join across a gap.
-4. **Dömda för våldtäkt.** Paired bars: convicted vs matched controls (2000–2020), convicted vs population (2000–2015). Also region of birth and prior convictions as smaller charts.
-5. **Brås äldre studier.** Small multiples of excess risk 1985–89 vs 1997–2001 (with standardised value), share of suspects vs share of population per group, and crime types as grouped bars (leave out "samtliga brott", which is shown elsewhere).
-6. **Utsatta för brott, 2016–2022.** Paired bars per crime type, men and women: foreign vs Swedish background (Brå NTU). Brå's grouping here counts one foreign-born parent as foreign background.
-7. **Utvisning på grund av brott, 2013–2023.** Share deported by region of citizenship, and deported vs convicted of new crimes by main offence (Brå 2026:15).
-8. **Dödligt våld, 2005–2021.** Victims, perpetrators and population by background; second chart income, work, housing area and earlier convictions (Brå 2025:5).
-9. **Lagförda före 25 års ålder, födda 1966–93.** Share convicted by background, sex and birth-year group, for everyone and for the lowest-income families (Bäckman et al. 2021).
-10. **Lagförda efter födelseår, födda 1958–2003.** Share convicted before 25 and before 20 by birth year and background (Brå 2025:21).
+1.1 **Misstänkta över tid, 2007–2018** (`kap1`). Line chart, four background groups (plus whole population dashed), rate per 1,000. Crime type selector (default: brott totalt). Toggle "per 1 000 invånare" / "jämfört med två inrikesfödda föräldrar". Second chart: each group's share of all registered suspicions, including people not registered in Sweden. Source: Brå 2021:9.
 
-Chapter 1 also has a second chart (each group's share of all registered suspicions, including people not registered in Sweden), and chapter 2 a second chart (Brå's comparison with social assistance, education and sex).
+1.2 **Födelseområde, 2015–2018** (`kap2`). Dot plot by region of birth (toggle to country and mother's region), rate, risk or share of suspects, sorted highest first by the value shown. Second chart: Brå's comparison with social assistance, education and sex.
 
-Every headline that makes a claim about the data has a check in `src/components/MainPage.astro` that stops the build if the data no longer supports it. Add one for every new headline.
+1.3 **Brås äldre studier** (`kap5`). Small multiples of excess risk 1985–89 vs 1997–2001 (with standardised value), share of suspects vs share of population per group, and crime types as grouped bars (leave out "samtliga brott", which is shown elsewhere).
+
+2.1 **Lagförda före 25 års ålder** (`kap9`, chapters 9 and 10 merged at the owner's request). Brå 2025:21 by birth year 1958–2003 (before 25, then before 20), and Bäckman et al. 2021 by birth-year group 1966–93 as line charts per sex, for everyone and for the lowest-income families. The two sources group background differently; the page says so. The table pages `kap9` (Bäckman) and `kap10` (Brå) both stay; `MERGED` in `src/lib/chapters.ts` points `kap10` here.
+
+2.2 **Dömda för våldtäkt** (`kap4`). Paired bars: convicted vs matched controls (2000–2020), convicted vs population (2000–2015). Also region of birth and prior convictions as smaller charts.
+
+3.1 **Fängelse och medborgarskap, 2014–2025** (`kap3`). Line chart: new inmates (all), new inmates (men), new inmates (women), inmates 1 October, foreign citizens in the population (dashed grey). Break lines where a year is missing; never join across a gap.
+
+3.2 **Utvisning på grund av brott, 2013–2023** (`kap7`). Share deported by region of citizenship, and deported vs convicted of new crimes by main offence (Brå 2026:15).
+
+4.1 **Utsatta för brott, 2016–2022** (`kap6`). Paired bars per crime type, men and women: foreign vs Swedish background (Brå NTU). Brå's grouping here counts one foreign-born parent as foreign background.
+
+4.2 **Dödligt våld, 2005–2021** (`kap8`). Victims, perpetrators and population by background; second chart income, work, housing area and earlier convictions (Brå 2025:5).
+
+Every headline that makes a claim about the data has a check in its chapter component (`src/components/chapters/`) that stops the build if the data no longer supports it. Add one for every new headline.
 
 ## Charts
 
@@ -181,10 +196,10 @@ Every headline that makes a claim about the data has a check in `src/components/
 - The rape studies cover convicted people only. The population comparison covers all ages and both sexes, while those convicted are men aged 15–60. The first study was reported to the ethics appeals board (Överklagandenämnden för etikprövning).
 - Brå 2005 figures are over 20 years old. Some crime types in Brå's table 11 could not be read from the PDF and are left out.
 - Values were machine-read from PDFs. Before publishing, list every number shown on the site with its source table so I can spot-check them against the originals.
-- Background groupings differ between sources (chapter 6 counts one foreign-born parent as foreign background, chapter 8 does not, chapter 9's comparison group is at least one Swedish-born parent). Each chapter says which grouping it uses.
-- Chapter 6 is a survey of people aged 16–84 and includes crimes never reported.
-- Chapter 8: perpetrators are missing in unsolved cases, most often in criminal milieus. Only people with a Swedish personal identity number are included.
-- Chapter 10 counts only people registered in Sweden at age 15 and when convicted. "Lagförd" includes district court judgments later overturned.
+- Background groupings differ between sources (4.1 counts one foreign-born parent as foreign background, 4.2 does not, Bäckman et al. in 2.1 use at least one Swedish-born parent as the comparison group). Each chapter says which grouping it uses.
+- 4.1 is a survey of people aged 16–84 and includes crimes never reported.
+- 4.2: perpetrators are missing in unsolved cases, most often in criminal milieus. Only people with a Swedish personal identity number are included.
+- Brå's birth-cohort statistics (2.1) count only people registered in Sweden at age 15 and when convicted. "Lagförd" includes district court judgments later overturned.
 
 ## Sources
 
