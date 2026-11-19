@@ -18,7 +18,6 @@ import Kap6 from './chapters/Kap6.astro';
 import Kap7 from './chapters/Kap7.astro';
 import Kap8 from './chapters/Kap8.astro';
 import Kap9 from './chapters/Kap9.astro';
-import Kap10 from './chapters/Kap10.astro';
 import { site, monthYear } from '../lib/site';
 import { localePath, tr, type Lang } from '../lib/i18n';
 import { buildKeyFigures, prisonSources } from '../lib/keyFigures';
@@ -54,7 +53,6 @@ const keyFigures = buildKeyFigures(lang);
       <Kap7 lang={lang} />
       <Kap8 lang={lang} />
       <Kap9 lang={lang} />
-      <Kap10 lang={lang} />
 
       <Method extraSources={prisonSources()} lang={lang} />
       <About lang={lang} />

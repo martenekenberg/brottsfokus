@@ -8,9 +8,11 @@ interface Props {
   id: string;
   title: string;
   lang: Lang;
+  /** Page with this chart's numbers as a table and CSV file, when it differs from the chapter's. */
+  tableHref?: string;
 }
 
-const { id, title, lang } = Astro.props;
+const { id, title, lang, tableHref } = Astro.props;
 const hasIntro = Astro.slots.has('intro');
 const hasLegend = Astro.slots.has('legend');
 ---
@@ -25,6 +27,7 @@ const hasLegend = Astro.slots.has('legend');
     <slot name="note" />
   </div>
   <p class="source"><slot name="source" /></p>
+  {tableHref && <a class="table-link" href={tableHref}>{tr(lang, 'Siffrorna i tabell och som CSV-fil', 'The figures as a table and CSV file')}</a>}
 </div>
 
 <style>
@@ -70,6 +73,14 @@ const hasLegend = Astro.slots.has('legend');
   }
   .source :global(a) {
     color: var(--text-muted);
+  }
+  .table-link {
+    align-self: flex-start;
+    display: inline-flex;
+    align-items: center;
+    min-height: 44px;
+    margin-top: -8px;
+    font-size: 13px;
   }
   .sub-chart :global(.bar-swatch) {
     width: 14px;

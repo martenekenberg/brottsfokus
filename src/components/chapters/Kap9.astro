@@ -1,13 +1,18 @@
 ---
-// Chapter 9: convicted before age 25, born 1966–93 (Bäckman et al. 2021).
-// Loads its own data and stops the build if its headline no longer matches the data.
+// Convicted before age 25: Brå's birth-cohort statistics (Brå 2025:21, born 1958–2003) and the
+// Stockholm University study (Bäckman et al. 2021, born 1966–93), merged into one chapter at the
+// owner's request (November 2026). The chapter keeps the id "kap9"; old links to "#kap10" are sent here.
+// Loads its own data and stops the build if a headline no longer matches the data.
 import Chapter from '../Chapter.astro';
+import Legend from '../Legend.astro';
+import LineChart from '../charts/LineChart.astro';
 import SubChart from '../SubChart.astro';
 import Cohorts from '../kap9/Cohorts.astro';
 import { tr, type Lang } from '../../lib/i18n';
-import { loadCohorts } from '../../lib/data';
+import { loadBirthCohorts, loadCohorts } from '../../lib/data';
 import { tablePage } from '../../lib/dataPages';
 import { formatNumber } from '../../lib/format';
+import { birthYears, buildKohortSpec, fellInAllGroups, firstBackgroundYear, kohortValue, lowestInAllGroups } from '../../lib/chapters/kap10';
 import { allFell, cell as cohortCell, cohorts as cohortList, smallerInLowIncome } from '../../lib/chapters/kap9';
 
 interface Props {
@@ -17,76 +22,167 @@ const { lang } = Astro.props;
 const L = (sv: string, en: string) => tr(lang, sv, en);
 const n1 = (v: number) => formatNumber(v, 1, lang);
 
-// ---------- Chapter 9: convicted before age 25 ----------
+// ---------- Brå 2025:21, birth cohorts ----------
+const kohort = loadBirthCohorts();
+const k25Years = birthYears(kohort, 'fore25');
+const k20Years = birthYears(kohort, 'fore20');
+const kBg = firstBackgroundYear(kohort, 'fore25');
+const k25Last = k25Years[k25Years.length - 1];
+const k20Last = k20Years[k20Years.length - 1];
+const kv = (m: 'fore25' | 'fore20', g: 'alla' | 'I20' | 'I11' | 'I02' | 'Utr', y: number) => {
+  const v = kohortValue(kohort, m, 'samtliga', g, y);
+  if (v === null) throw new Error(`Convicted before 25: no value ${m} ${g} ${y}`);
+  return n1(v);
+};
+const kohortLegend = [
+  { label: L('Utrikesfödda', 'Born abroad'), color: '#1D4E89', mark: 'line' as const },
+  { label: L('Inrikesfödda med två utrikesfödda föräldrar', 'Born in Sweden, two foreign-born parents'), color: '#C2410C', mark: 'line' as const },
+  { label: L('Inrikesfödda med en utrikesfödd förälder', 'Born in Sweden, one foreign-born parent'), color: '#6B6B6B', mark: 'line' as const },
+  { label: L('Inrikesfödda med två inrikesfödda föräldrar', 'Born in Sweden, two Swedish-born parents'), color: '#121212', mark: 'line' as const },
+  { label: L('Alla födda det året', 'Everyone born that year'), color: '#8A8A8A', mark: 'dash' as const },
+];
+
+// ---------- Bäckman et al. 2021 ----------
 const cohortRows = loadCohorts();
-if (!allFell(cohortRows)) throw new Error('Chapter 9 headline no longer matches the data');
-if (!smallerInLowIncome(cohortRows)) throw new Error('Chapter 9 second chart: headline no longer matches the data');
 const cohortNames = cohortList(cohortRows);
 const cFirst = cohortNames[0];
 const cLast = cohortNames[cohortNames.length - 1];
 const cm = (c: string, g: 'utrikesfodd' | 'andra_gen' | 'native', sex: 'man' | 'kvinna' = 'man', t: 'alla' | 'laginkomst' = 'alla') =>
   n1(cohortCell(cohortRows, t, sex, c, g).pct);
-// Women from low-income families born 1978 or later: lowest share among the born abroad in every group. Checked here.
-const lowWomenLater = cohortNames.filter((c) => c >= '1978');
-const bornAbroadLowest = lowWomenLater.every((c) => {
-  const v = (g: 'utrikesfodd' | 'andra_gen' | 'native') => cohortCell(cohortRows, 'laginkomst', 'kvinna', c, g).pct;
-  return v('utrikesfodd') < v('andra_gen') && v('utrikesfodd') < v('native');
-});
-if (!bornAbroadLowest) throw new Error('Chapter 9 second chart: intro no longer matches the data');
+
+// ---------- Headline checks ----------
+// Chapter headline: the share fell in every background group, in both sources.
+if (!fellInAllGroups(kohort, 'fore25', kBg, k25Last) || !allFell(cohortRows)) {
+  throw new Error('Convicted before 25: chapter headline no longer matches the data');
+}
+// Before age 20: the last birth year has the lowest share in every group.
+if (!lowestInAllGroups(kohort, 'fore20', k20Last)) throw new Error('Convicted before 20: headline no longer matches the data');
+// Its note says the share was higher for those born the year after k25Last than for those born in k25Last, in every group.
+if (!fellInAllGroups(kohort, 'fore20', k25Last + 1, k25Last)) throw new Error('Convicted before 20: note no longer matches the data');
+if (!smallerInLowIncome(cohortRows)) throw new Error('Bäckman low-income chart: headline no longer matches the data');
+// Women from low-income families born 1978 or later: lowest share among the born abroad in every group.
+const bornAbroadLowest = cohortNames
+  .filter((c) => c >= '1978')
+  .every((c) => {
+    const v = (g: 'utrikesfodd' | 'andra_gen' | 'native') => cohortCell(cohortRows, 'laginkomst', 'kvinna', c, g).pct;
+    return v('utrikesfodd') < v('andra_gen') && v('utrikesfodd') < v('native');
+  });
+if (!bornAbroadLowest) throw new Error('Bäckman low-income chart: intro no longer matches the data');
 ---
 
 <Chapter
   id="kap9"
   lang={lang}
-  tableHref={tablePage('kap9', lang).path}
+  tableHref={tablePage('kap10', lang).path}
   title={L(
-    `Andelen som lagförts före 25 års ålder minskade i alla grupper mellan dem som föddes ${cFirst} och ${cLast}`,
-    `The share convicted before age 25 fell in all groups between those born in ${cFirst} and ${cLast}`,
+    'Andelen som lagförts före 25 års ålder har minskat i alla bakgrundsgrupper',
+    'The share convicted before age 25 has fallen in every background group',
   )}
 >
   <p slot="intro">
     {L(
-      `Andel av alla som föddes ${cFirst.slice(0, 4)}–${cLast.slice(0, 2)}${cLast.slice(-2)} och bodde i Sverige från 15 till 24 års ålder, som lagförts för brott minst en gång före 25 års ålder. Bland män födda ${cLast} gällde det ${cm(cLast, 'utrikesfodd')} procent av de utrikes födda, ${cm(cLast, 'andra_gen')} procent av de inrikes födda med två utrikes födda föräldrar och ${cm(cLast, 'native')} procent av övriga. Bland män födda ${cFirst} var andelarna ${cm(cFirst, 'utrikesfodd')}, ${cm(cFirst, 'andra_gen')} och ${cm(cFirst, 'native')} procent.`,
-      `Share of everyone born in ${cFirst.slice(0, 4)}–${cLast.slice(0, 2)}${cLast.slice(-2)} who lived in Sweden from age 15 to 24 and was convicted of a crime at least once before age 25. Among men born in ${cLast}, this applied to ${cm(cLast, 'utrikesfodd')}% of those born abroad, ${cm(cLast, 'andra_gen')}% of those born in Sweden with two foreign-born parents, and ${cm(cLast, 'native')}% of the others. Among men born in ${cFirst}, the shares were ${cm(cFirst, 'utrikesfodd')}%, ${cm(cFirst, 'andra_gen')}% and ${cm(cFirst, 'native')}%.`,
+      `Andel av alla som föddes ett visst år och var folkbokförda i Sverige vid 15 års ålder, som lagförts för brott minst en gång före 25 års ålder. Enligt Brå gällde det ${kv('fore25', 'alla', k25Years[0])} procent av dem som föddes ${k25Years[0]} och ${kv('fore25', 'alla', k25Last)} procent av dem som föddes ${k25Last}. Bland utrikesfödda var andelen ${kv('fore25', 'Utr', kBg)} procent för födda ${kBg} och ${kv('fore25', 'Utr', k25Last)} procent för födda ${k25Last}. En studie från Stockholms universitet, längre ner, visar att andelen också minskade i alla grupper mellan dem som föddes ${cFirst} och ${cLast}.`,
+      `Share of everyone born in a given year and registered in Sweden at age 15 who was convicted of a crime at least once before age 25. According to Brå, this applied to ${kv('fore25', 'alla', k25Years[0])}% of those born in ${k25Years[0]} and ${kv('fore25', 'alla', k25Last)}% of those born in ${k25Last}. Among people born abroad, the share was ${kv('fore25', 'Utr', kBg)}% for those born in ${kBg} and ${kv('fore25', 'Utr', k25Last)}% for those born in ${k25Last}. A study from Stockholm University, further down, shows that the share also fell in every group between those born in ${cFirst} and ${cLast}.`,
     )}
   </p>
-  <Cohorts rows={cohortRows} table="alla" lang={lang} />
+  <Legend slot="legend" items={kohortLegend} />
+  <LineChart spec={buildKohortSpec(kohort, 'fore25', 'samtliga', lang)} />
   <Fragment slot="note">
     {L(
-      `Varje grupp följs från 15 till 24 års ålder, så alla jämförs vid samma åldrar. Diagrammen för män och kvinnor har olika skala, eftersom andelarna är mycket lägre bland kvinnor. Lagförd betyder dom, strafföreläggande eller åtalsunderlåtelse. Bara personer som var folkbokförda i Sverige under hela tiden från 15 till 24 år ingår, så den som invandrat efter 15 års ålder är inte med. Jämförelsegruppen är inrikes födda med minst en inrikes född förälder, enligt artikelns metodbeskrivning (tabellernas fotnot skriver två inrikes födda föräldrar). Relativ risk och antal finns i tabellen. Artikeln visar också årliga siffror 1973–2017, justerade för ålder, men bara i diagram utan siffror. Enligt texten har lagföringarna bland män som är utrikes födda eller har två utrikes födda föräldrar halverats sedan 1970-talet.`,
-      `Each group is followed from age 15 to 24, so everyone is compared at the same ages. The charts for men and women have different scales, because the shares are much lower among women. Convicted means a court sentence, a summary penalty or a waiver of prosecution. Only people registered as living in Sweden for the whole time from age 15 to 24 are included, so those who immigrated after age 15 are not. The comparison group is people born in Sweden with at least one Swedish-born parent, according to the article’s description of its method (the tables’ footnote says two Swedish-born parents). Relative risk and group sizes are in the table. The article also shows yearly figures for 1973–2017, adjusted for age, but only in charts without numbers. According to the text, convictions among men who were born abroad or have two foreign-born parents have halved since the 1970s.`,
+      `Kvinnor och män tillsammans, siffror per kön finns i tabellen. Bara den som var folkbokförd i Sverige vid 15 års ålder och när beslutet kom räknas, så den som invandrat efter 15 års ålder är inte med. Lagförd betyder dom i tingsrätt, strafföreläggande eller åtalsunderlåtelse. Den som senare friats i högre rätt räknas också. Folkmängd efter bakgrund finns bara för födda från ${kBg}, därför börjar de linjerna där. Siffrorna är inte justerade för till exempel familjens inkomst. Studien längre ner delar in bakgrund på ett annat sätt, så siffrorna kan inte jämföras rakt av.`,
+      `Women and men together; figures by sex are in the table. Only people registered in Sweden at age 15 and when the decision was made are counted, so people who moved to Sweden after age 15 are not included. Convicted means a district court judgment, a summary penalty or a waiver of prosecution. People later acquitted by a higher court are still counted. Population figures by background only exist for those born from ${kBg}, so those lines start there. The figures are not adjusted for, for example, family income. The study further down groups background differently, so the figures cannot be compared directly.`,
     )}
   </Fragment>
   <Fragment slot="source">
-    {L('Källa: ', 'Source: ')}<a href="https://doi.org/10.1080/2578983X.2021.1900038">{L('Bäckman, Estrada, Nilsson och Sivertsson 2021', 'Bäckman, Estrada, Nilsson and Sivertsson 2021')}</a>{L(
-      ', Criminal convictions and immigrant background 1973–2017 in Sweden, Nordic Journal of Criminology 22(2), tabell 1. Stockholms universitet. CC BY 4.0.',
-      ', Criminal convictions and immigrant background 1973–2017 in Sweden, Nordic Journal of Criminology 22(2), table 1. Stockholm University. CC BY 4.0.',
+    {L('Källa: ', 'Source: ')}<a href="https://bra.se/rapporter/arkiv/2025-12-02-fodelsekohortstatistik">{L('Brå rapport 2025:21', 'Brå report 2025:21')}</a>{L(
+      ', Födelsekohortstatistik, tabell 1. Personer folkbokförda i Sverige vid 15 års ålder, lagföringar till och med 2023.',
+      ', Födelsekohortstatistik (birth cohort statistics), table 1. People registered in Sweden at age 15, convictions up to the end of 2023.',
     )}
   </Fragment>
-  <SubChart
-    slot="after"
-    id="kap9-laginkomst"
-    lang={lang}
-    title={L(
-      'Bland unga från familjer med lägst inkomster var skillnaderna mellan grupperna mindre',
-      'Among young people from the lowest-income families, the differences between the groups were smaller',
-    )}
-  >
-    <Fragment slot="intro">
-      {L(
-        `Samma mått för dem som växte upp i den tiondel av familjerna som hade lägst inkomster. Bland kvinnor födda 1978 eller senare var andelen här lägst bland de utrikes födda. Bland män födda ${cLast} gällde det ${cm(cLast, 'utrikesfodd', 'man', 'laginkomst')}, ${cm(cLast, 'andra_gen', 'man', 'laginkomst')} och ${cm(cLast, 'native', 'man', 'laginkomst')} procent.`,
-        `The same measure for those who grew up in the tenth of families with the lowest incomes. Among women born in 1978 or later, the share here was lowest among those born abroad. Among men born in ${cLast}, it was ${cm(cLast, 'utrikesfodd', 'man', 'laginkomst')}%, ${cm(cLast, 'andra_gen', 'man', 'laginkomst')}% and ${cm(cLast, 'native', 'man', 'laginkomst')}%.`,
+
+  <Fragment slot="after">
+    <SubChart
+      id="kap10-fore20"
+      lang={lang}
+      title={L(
+        `Före 20 års ålder var andelen lägst bland dem som föddes ${k20Last}, i alla bakgrundsgrupper`,
+        `Before age 20, the share was lowest among those born in ${k20Last}, in every background group`,
       )}
-    </Fragment>
-    <Cohorts rows={cohortRows} table="laginkomst" lang={lang} />
-    <Fragment slot="note">
-      {L(
-        `Lägst inkomster betyder att föräldrarnas sammanlagda arbetsinkomst låg i den lägsta tiondelen minst två av tre år när personen var 15–17 år. Det jämför familjer med liknande inkomst, men tar inte hänsyn till andra skillnader mellan grupperna. Samma skala som diagrammet ovan. Grupperna är mindre, så siffrorna svänger mer. Andelarna är högre här än för alla, i alla grupper.`,
-        `Lowest incomes means that the parents’ combined income from work was in the lowest tenth in at least two of three years when the person was 15–17. This compares families with similar incomes, but does not take other differences between the groups into account. Same scale as the chart above. The groups are smaller, so the figures vary more. The shares are higher here than for everyone, in all groups.`,
+    >
+      <Fragment slot="intro">
+        {L(
+          `Samma mått före 20 års ålder, som går att följa till dem som föddes ${k20Last}. Bland utrikesfödda var andelen ${kv('fore20', 'Utr', kBg)} procent för födda ${kBg}, ${kv('fore20', 'Utr', k25Last)} procent för födda ${k25Last} och ${kv('fore20', 'Utr', k20Last)} procent för födda ${k20Last}.`,
+          `The same measure before age 20, which can be followed up to those born in ${k20Last}. Among those born abroad, the share was ${kv('fore20', 'Utr', kBg)}% for those born in ${kBg}, ${kv('fore20', 'Utr', k25Last)}% for those born in ${k25Last} and ${kv('fore20', 'Utr', k20Last)}% for those born in ${k20Last}.`,
+        )}
+      </Fragment>
+      <Legend slot="legend" items={kohortLegend} />
+      <LineChart spec={buildKohortSpec(kohort, 'fore20', 'samtliga', lang)} />
+      <Fragment slot="note">
+        {L(
+          `Rubriken gäller födelseåren från ${kBg}, då Brå börjar redovisa bakgrund. Andelen minskade inte varje år: bland dem som föddes ${k25Last + 1} var den något högre än bland dem som föddes ${k25Last}, i alla grupper. Före 20 års ålder är andelarna lägre än före 25, eftersom många lagförs första gången mellan 20 och 25 år. Utrikesfödda som kom till Sverige efter 15 års ålder är inte med.`,
+          `The headline covers birth years from ${kBg}, when Brå starts reporting background. The share did not fall every year: among those born in ${k25Last + 1} it was slightly higher than among those born in ${k25Last}, in every group. Before age 20 the shares are lower than before 25, because many people are convicted for the first time between 20 and 25. People born abroad who came to Sweden after age 15 are not included.`,
+        )}
+      </Fragment>
+      <Fragment slot="source">
+        {L('Källa: ', 'Source: ')}<a href="https://bra.se/rapporter/arkiv/2025-12-02-fodelsekohortstatistik">{L('Brå rapport 2025:21', 'Brå report 2025:21')}</a>{L(', tabell 4 (kolumnen 20 år).', ', table 4 (column 20 years).')}
+      </Fragment>
+    </SubChart>
+
+    <SubChart
+      id="kap9-backman"
+      lang={lang}
+      tableHref={tablePage('kap9', lang).path}
+      title={L(
+        `I en studie från Stockholms universitet minskade andelen i alla grupper mellan dem som föddes ${cFirst} och ${cLast}`,
+        `In a study from Stockholm University, the share fell in every group between those born in ${cFirst} and ${cLast}`,
       )}
-    </Fragment>
-    <Fragment slot="source">
-      {L('Källa: ', 'Source: ')}<a href="https://doi.org/10.1080/2578983X.2021.1900038">{L('Bäckman m.fl. 2021', 'Bäckman et al. 2021')}</a>{L(', tabell 2.', ', table 2.')}
-    </Fragment>
-  </SubChart>
+    >
+      <Fragment slot="intro">
+        {L(
+          `Andel av alla som föddes ${cFirst.slice(0, 4)}–${cLast.slice(0, 2)}${cLast.slice(-2)} och bodde i Sverige från 15 till 24 års ålder, som lagförts för brott minst en gång före 25 års ålder. Bland män födda ${cLast} gällde det ${cm(cLast, 'utrikesfodd')} procent av de utrikes födda, ${cm(cLast, 'andra_gen')} procent av de inrikes födda med två utrikes födda föräldrar och ${cm(cLast, 'native')} procent av övriga. Bland män födda ${cFirst} var andelarna ${cm(cFirst, 'utrikesfodd')}, ${cm(cFirst, 'andra_gen')} och ${cm(cFirst, 'native')} procent.`,
+          `Share of everyone born in ${cFirst.slice(0, 4)}–${cLast.slice(0, 2)}${cLast.slice(-2)} who lived in Sweden from age 15 to 24 and was convicted of a crime at least once before age 25. Among men born in ${cLast}, this applied to ${cm(cLast, 'utrikesfodd')}% of those born abroad, ${cm(cLast, 'andra_gen')}% of those born in Sweden with two foreign-born parents, and ${cm(cLast, 'native')}% of the others. Among men born in ${cFirst}, the shares were ${cm(cFirst, 'utrikesfodd')}%, ${cm(cFirst, 'andra_gen')}% and ${cm(cFirst, 'native')}%.`,
+        )}
+      </Fragment>
+      <Cohorts rows={cohortRows} table="alla" lang={lang} />
+      <Fragment slot="note">
+        {L(
+          `Varje grupp följs från 15 till 24 års ålder, så alla jämförs vid samma åldrar. Diagrammen för män och kvinnor har olika skala, eftersom andelarna är mycket lägre bland kvinnor. Lagförd betyder dom, strafföreläggande eller åtalsunderlåtelse. Bara personer som var folkbokförda i Sverige under hela tiden från 15 till 24 år ingår, så den som invandrat efter 15 års ålder är inte med. Jämförelsegruppen är inrikes födda med minst en inrikes född förälder, enligt artikelns metodbeskrivning (tabellernas fotnot skriver två inrikes födda föräldrar). Relativ risk och antal finns i tabellen. Artikeln visar också årliga siffror 1973–2017, justerade för ålder, men bara i diagram utan siffror. Enligt texten har lagföringarna bland män som är utrikes födda eller har två utrikes födda föräldrar halverats sedan 1970-talet.`,
+          `Each group is followed from age 15 to 24, so everyone is compared at the same ages. The charts for men and women have different scales, because the shares are much lower among women. Convicted means a court sentence, a summary penalty or a waiver of prosecution. Only people registered as living in Sweden for the whole time from age 15 to 24 are included, so those who immigrated after age 15 are not. The comparison group is people born in Sweden with at least one Swedish-born parent, according to the article’s description of its method (the tables’ footnote says two Swedish-born parents). Relative risk and group sizes are in the table. The article also shows yearly figures for 1973–2017, adjusted for age, but only in charts without numbers. According to the text, convictions among men who were born abroad or have two foreign-born parents have halved since the 1970s.`,
+        )}
+      </Fragment>
+      <Fragment slot="source">
+        {L('Källa: ', 'Source: ')}<a href="https://doi.org/10.1080/2578983X.2021.1900038">{L('Bäckman, Estrada, Nilsson och Sivertsson 2021', 'Bäckman, Estrada, Nilsson and Sivertsson 2021')}</a>{L(
+          ', Criminal convictions and immigrant background 1973–2017 in Sweden, Nordic Journal of Criminology 22(2), tabell 1. Stockholms universitet. CC BY 4.0.',
+          ', Criminal convictions and immigrant background 1973–2017 in Sweden, Nordic Journal of Criminology 22(2), table 1. Stockholm University. CC BY 4.0.',
+        )}
+      </Fragment>
+    </SubChart>
+
+    <SubChart
+      id="kap9-laginkomst"
+      lang={lang}
+      tableHref={tablePage('kap9', lang).path}
+      title={L(
+        'Bland unga från familjer med lägst inkomster var skillnaderna mellan grupperna mindre',
+        'Among young people from the lowest-income families, the differences between the groups were smaller',
+      )}
+    >
+      <Fragment slot="intro">
+        {L(
+          `Samma mått för dem som växte upp i den tiondel av familjerna som hade lägst inkomster. Bland kvinnor födda 1978 eller senare var andelen här lägst bland de utrikes födda. Bland män födda ${cLast} gällde det ${cm(cLast, 'utrikesfodd', 'man', 'laginkomst')}, ${cm(cLast, 'andra_gen', 'man', 'laginkomst')} och ${cm(cLast, 'native', 'man', 'laginkomst')} procent.`,
+          `The same measure for those who grew up in the tenth of families with the lowest incomes. Among women born in 1978 or later, the share here was lowest among those born abroad. Among men born in ${cLast}, it was ${cm(cLast, 'utrikesfodd', 'man', 'laginkomst')}%, ${cm(cLast, 'andra_gen', 'man', 'laginkomst')}% and ${cm(cLast, 'native', 'man', 'laginkomst')}%.`,
+        )}
+      </Fragment>
+      <Cohorts rows={cohortRows} table="laginkomst" lang={lang} />
+      <Fragment slot="note">
+        {L(
+          `Lägst inkomster betyder att föräldrarnas sammanlagda arbetsinkomst låg i den lägsta tiondelen minst två av tre år när personen var 15–17 år. Det jämför familjer med liknande inkomst, men tar inte hänsyn till andra skillnader mellan grupperna. Samma skala som diagrammet ovan. Grupperna är mindre, så siffrorna svänger mer. Andelarna är högre här än för alla, i alla grupper.`,
+          `Lowest incomes means that the parents’ combined income from work was in the lowest tenth in at least two of three years when the person was 15–17. This compares families with similar incomes, but does not take other differences between the groups into account. Same scale as the chart above. The groups are smaller, so the figures vary more. The shares are higher here than for everyone, in all groups.`,
+        )}
+      </Fragment>
+      <Fragment slot="source">
+        {L('Källa: ', 'Source: ')}<a href="https://doi.org/10.1080/2578983X.2021.1900038">{L('Bäckman m.fl. 2021', 'Bäckman et al. 2021')}</a>{L(', tabell 2.', ', table 2.')}
+      </Fragment>
+    </SubChart>
+  </Fragment>
 </Chapter>

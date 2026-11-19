@@ -1,10 +1,12 @@
 ---
-// Chapter 9: share convicted before age 25 by birth-year group, men and women side by side.
-// Used twice: for everyone, and for those who grew up in the lowest-income families.
-import BarChart from '../charts/BarChart.astro';
-import { buildCohortSpec, GROUP_LABEL, SEX_LABEL, type Table } from '../../lib/chapters/kap9';
+// Bäckman et al. 2021: share convicted before age 25 by birth-year group, men and women side by side,
+// as line charts. Used twice: for everyone, and for those who grew up in the lowest-income families.
+import LineChart from '../charts/LineChart.astro';
+import Legend from '../Legend.astro';
+import { buildCohortLineSpec, GROUP_LABEL, SEX_LABEL, type Table } from '../../lib/chapters/kap9';
+import { GROUPS } from '../../lib/chapters/kap1';
 import type { CohortRow } from '../../lib/data';
-import { tr, type Lang } from '../../lib/i18n';
+import type { Lang } from '../../lib/i18n';
 
 interface Props {
   rows: CohortRow[];
@@ -15,26 +17,21 @@ interface Props {
 }
 
 const { rows, table, lang, legend = true } = Astro.props;
+const legendItems = [
+  { label: GROUP_LABEL.utrikesfodd[lang], color: GROUPS.utr.color, mark: 'line' as const },
+  { label: GROUP_LABEL.andra_gen[lang], color: GROUPS.u2.color, mark: 'line' as const },
+  { label: GROUP_LABEL.native[lang], color: GROUPS.sv2.color, mark: 'line' as const },
+];
 ---
 
-{
-  legend && (
-    <div class="chart-block">
-      <ul class="legend-list" aria-label={tr(lang, 'Förklaring', 'Key')}>
-        <li><span class="mark" style="width:14px;height:12px;background:#1D4E89" aria-hidden="true" />{GROUP_LABEL.utrikesfodd[lang]}</li>
-        <li><span class="mark" style="width:14px;height:12px;background:#C2410C" aria-hidden="true" />{GROUP_LABEL.andra_gen[lang]}</li>
-        <li><span class="mark" style="width:14px;height:12px;border:1.5px solid #5C5C5C;background:#FFFFFF" aria-hidden="true" />{GROUP_LABEL.native[lang]}</li>
-      </ul>
-    </div>
-  )
-}
+{legend && <Legend items={legendItems} />}
 
 <div class="small-multiples">
   {
     (['man', 'kvinna'] as const).map((sex) => (
       <div class="chart-block">
         <h4 class="small-title">{SEX_LABEL[sex][lang]}</h4>
-        <BarChart spec={buildCohortSpec(rows, table, sex, lang)} staticWidth={520} />
+        <LineChart spec={buildCohortLineSpec(rows, table, sex, lang)} />
       </div>
     ))
   }

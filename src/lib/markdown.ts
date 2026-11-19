@@ -62,8 +62,8 @@ export function pageToMarkdown(p: TablePageContent, page: TablePageUrls, updated
     '',
     tr(
       lang,
-      `Från ${site.name}, ${absoluteUrl(page.path)}. Diagram: ${absoluteUrl(`${localePath(lang, '/')}#${p.chapterId}`)}. Uppgifterna senast ändrade ${dayMonthYear(updated, lang)}.`,
-      `From ${site.name}, ${absoluteUrl(page.path)}. Chart: ${absoluteUrl(`${localePath(lang, '/')}#${p.chapterId}`)}. Data last changed ${dayMonthYear(updated, lang)}.`,
+      `Från ${site.name}, ${absoluteUrl(page.path)}. Diagram: ${absoluteUrl(`${localePath(lang, '/')}#${chapter(p.chapterId).id}`)}. Uppgifterna senast ändrade ${dayMonthYear(updated, lang)}.`,
+      `From ${site.name}, ${absoluteUrl(page.path)}. Chart: ${absoluteUrl(`${localePath(lang, '/')}#${chapter(p.chapterId).id}`)}. Data last changed ${dayMonthYear(updated, lang)}.`,
     ),
   );
   return plain(out.join('\n')) + '\n';
@@ -105,12 +105,12 @@ export function llmsTxt(
     '',
     'English versions of the same pages, with the same figures and caveats:',
     '',
-    `- [Front page with all charts](${absoluteUrl('/en/')}): chapters ${sv.map(({ page }) => chapter(page.chapterId).num).join(', ')}, method and about this site.`,
+    `- [Front page with all charts](${absoluteUrl('/en/')}): chapters ${sv.map(({ page }) => chapter(page.chapterId).num).filter((n, i, all) => all.indexOf(n) === i).join(', ')}, method and about this site.`,
     ...en.map(({ page, content }) => `- [${content.h1}](${absoluteUrl(page.mdPath)}): ${content.lead}`),
     '',
     '## Optional',
     '',
-    `- [Startsidan med alla diagram](${site.url}): kapitel ${sv.map(({ page }) => chapter(page.chapterId).num).join(', ')}, metod och om sidan.`,
+    `- [Startsidan med alla diagram](${site.url}): kapitel ${sv.map(({ page }) => chapter(page.chapterId).num).filter((n, i, all) => all.indexOf(n) === i).join(', ')}, metod och om sidan.`,
     `- [Alla tabeller som webbsidor](${absoluteUrl('/data/')})`,
     `- [All tables as web pages, in English](${absoluteUrl('/en/data/')})`,
   ];

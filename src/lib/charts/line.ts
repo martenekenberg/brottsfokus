@@ -41,6 +41,14 @@ export interface LineChartSpec {
   yTickStep?: number;
   yFormat: ValueFormat;
   ariaLabel: string;
+  /** Text for each point on the x axis and in the tooltip, e.g. "1966–69" for a group of birth years. Defaults to the year. */
+  xLabels?: string[];
+}
+
+/** The x axis text for one point: from `xLabels` if given, else the year itself. */
+export function xLabel(spec: LineChartSpec, year: number): string {
+  const i = spec.years.indexOf(year);
+  return spec.xLabels?.[i] ?? String(year);
 }
 
 export const NARROW = 560;
@@ -141,8 +149,7 @@ export function layoutLineChart(spec: LineChartSpec, width: number): LineLayout 
   return { width, height, left, right, top, bottom, x, y };
 }
 
-function xTickYears(years: number[], innerWidth: number): number[] {
-  const perLabel = 44;
+function xTickYears(years: number[], innerWidth: number, perLabel = 44): number[] {
   const step = Math.max(1, Math.ceil((years.length * perLabel) / innerWidth));
   const ticks = years.filter((_, i) => i % step === 0);
   const last = years[years.length - 1];
@@ -177,9 +184,11 @@ export function renderLineChart(spec: LineChartSpec, width: number): string {
   }
 
   // X axis labels.
-  for (const yr of xTickYears(spec.years, plotRight - left)) {
+  // Longer labels (such as "1966–69") need more room each.
+  const perLabel = spec.xLabels ? Math.max(44, ...spec.xLabels.map((t) => textWidth(t, 12) + 14)) : 44;
+  for (const yr of xTickYears(spec.years, plotRight - left, perLabel)) {
     parts.push(
-      `<text x="${x(yr).toFixed(1)}" y="${height - bottom + 22}" text-anchor="middle" ${font} font-size="12" fill="#5C5C5C">${yr}</text>`,
+      `<text x="${x(yr).toFixed(1)}" y="${height - bottom + 22}" text-anchor="middle" ${font} font-size="12" fill="#5C5C5C">${esc(xLabel(spec, yr))}</text>`,
     );
   }
 

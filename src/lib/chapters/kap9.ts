@@ -3,6 +3,8 @@
 // Shared by the main page, the table page and the number checklist.
 import type { CohortGroup, CohortRow } from '../data';
 import type { BarChartSpec } from '../charts/bar';
+import { fmt, type LineChartSpec, type LineSeries } from '../charts/line';
+import { GROUPS } from './kap1';
 import { formatPct } from '../format';
 import { tr, type Lang } from '../i18n';
 import { csvNumber, longCsv, type DataTable } from '../tables';
@@ -63,6 +65,66 @@ export function buildCohortSpec(rows: CohortRow[], table: Table, sex: Sex, lang:
       ) +
       groups.map((g) => `${g.label}: ${g.bars.map((b) => `${b.label} ${pct(b.value)}`).join(', ')}`).join('. ') +
       '.',
+  };
+}
+
+/** Line styles from chapter 1: born abroad blue, two foreign-born parents orange, the comparison group black. */
+const LINE_STYLE: Record<CohortGroup, keyof typeof GROUPS> = { utrikesfodd: 'utr', andra_gen: 'u2', native: 'sv2' };
+const END_LABEL: Record<CohortGroup, Record<Lang, string>> = {
+  utrikesfodd: { sv: 'Utrikes födda', en: 'Born abroad' },
+  andra_gen: { sv: 'Två utrikes födda föräldrar', en: 'Two foreign-born parents' },
+  native: { sv: 'Minst en inrikes född förälder', en: 'At least one Swedish-born parent' },
+};
+
+/**
+ * The same figures as buildCohortSpec, as a line chart: one point per birth-year group.
+ * Points sit at each group's first birth year (the groups are four years each, so the spacing is even)
+ * and are labelled with the whole group, e.g. "1966–69".
+ */
+export function buildCohortLineSpec(rows: CohortRow[], table: Table, sex: Sex, lang: Lang): LineChartSpec {
+  const names = cohorts(rows);
+  const years = names.map((c) => Number(c.slice(0, 4)));
+  const series: LineSeries[] = BAR_ORDER.map((g) => {
+    const st = GROUPS[LINE_STYLE[g]];
+    return {
+      id: g,
+      label: GROUP_LABEL[g][lang],
+      endLabel: END_LABEL[g][lang],
+      endLabelShort: '',
+      color: st.color,
+      textColor: st.textColor,
+      strokeWidth: st.strokeWidth,
+      dotRadius: 3,
+      values: names.map((c) => cell(rows, table, sex, c, g).pct),
+      format: 'pct1',
+    };
+  });
+  const who = table === 'alla' ? '' : tr(lang, ' från familjer med lägst inkomster', ' from the lowest-income families');
+  const first = names[0];
+  const last = names[names.length - 1];
+  return {
+    lang,
+    years,
+    xLabels: names,
+    series,
+    yMax: sexMax(rows, sex),
+    yTickStep: 10,
+    yFormat: 'pct',
+    ariaLabel:
+      tr(
+        lang,
+        `Linjediagram. ${SEX_LABEL[sex].sv}${who}: andel som lagförts för brott minst en gång före 25 års ålder, efter födelseår och bakgrund. `,
+        `Line chart. ${SEX_LABEL[sex].en}${who}: share convicted of a crime at least once before age 25, by birth year and background. `,
+      ) +
+      series
+        .map((s) =>
+          tr(
+            lang,
+            `${s.label}: ${fmt(s.values[0]!, 'pct1', lang)} för födda ${first} och ${fmt(s.values[s.values.length - 1]!, 'pct1', lang)} för födda ${last}.`,
+            `${s.label}: ${fmt(s.values[0]!, 'pct1', lang)} for those born in ${first} and ${fmt(s.values[s.values.length - 1]!, 'pct1', lang)} for those born in ${last}.`,
+          ),
+        )
+        .join(' '),
   };
 }
 

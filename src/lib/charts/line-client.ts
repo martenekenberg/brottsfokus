@@ -1,6 +1,6 @@
 // Browser side of the line chart: tooltip with every series for the year under the pointer.
 import { mountCharts } from './client';
-import { fmt, layoutLineChart, renderLineChart, type LineChartSpec } from './line';
+import { fmt, layoutLineChart, renderLineChart, xLabel, type LineChartSpec } from './line';
 import { esc } from './svg';
 import { missingText } from '../i18n';
 
@@ -15,7 +15,7 @@ function tooltipHtml(spec: LineChartSpec, i: number): string {
       return `<div class="tt-row">${swatch}<span class="tt-name">${esc(s.label)}</span><span class="tt-val">${value}</span></div>`;
     })
     .join('');
-  return `<div class="tt-head">${spec.years[i]}</div>${rows}`;
+  return `<div class="tt-head">${esc(xLabel(spec, spec.years[i]))}</div>${rows}`;
 }
 
 mountCharts<LineChartSpec>({

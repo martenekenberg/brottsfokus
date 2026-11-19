@@ -74,13 +74,6 @@ export const chapters: ChapterInfo[] = [
     nextLabel: { sv: 'Lagförda före 25 års ålder', en: 'Convicted before age 25' },
   },
   {
-    id: 'kap10',
-    num: '10',
-    navLabel: { sv: 'Födelseår', en: 'Birth year' },
-    kicker: { sv: 'Lagförda efter födelseår', en: 'Convicted by birth year' },
-    nextLabel: { sv: 'Lagförda efter födelseår', en: 'Convicted by birth year' },
-  },
-  {
     id: 'metod',
     num: '',
     navLabel: { sv: 'Metod', en: 'Method' },
@@ -96,8 +89,14 @@ export const chapters: ChapterInfo[] = [
   },
 ];
 
+/**
+ * Old chapter ids that now live inside another chapter. Chapter 10 (convicted by birth year) was merged
+ * into chapter 9 in November 2026; its table page keeps the id "kap10".
+ */
+export const MERGED: Record<string, string> = { kap10: 'kap9' };
+
 export function chapter(id: string): ChapterInfo {
-  const c = chapters.find((x) => x.id === id);
+  const c = chapters.find((x) => x.id === (MERGED[id] ?? id));
   if (!c) throw new Error(`Unknown chapter ${id}`);
   return c;
 }
