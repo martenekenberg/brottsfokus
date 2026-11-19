@@ -3,6 +3,7 @@
 import type { PopulationRow, PrisonRow } from '../data';
 import { foreignCitizenSharePct, prisonSeries, round } from '../calc';
 import { formatNumber } from '../format';
+import { yearRanges } from '../years';
 import { tr, type Lang } from '../i18n';
 import type { DataTable } from '../tables';
 
@@ -26,8 +27,8 @@ export interface Kap3 {
   sources: { url: string; label: string }[];
   /** Brå reports used for each year. */
   sourcesByYear: Map<number, { url: string; label: string }[]>;
-  /** Years where the share for new prisoners is computed from Brå's counts (table 8), not stated in a report. */
-  computedYears: number[];
+  /** Years where each share is computed from Brå's counts (tables 8 and 12), not taken from a report. */
+  computed: { all: number[]; men: number[]; women: number[]; oct1: number[] };
 }
 
 /** Number of people in one prison series, as (year, value) pairs. */
@@ -72,24 +73,41 @@ export function buildKap3(prison: PrisonRow[], population: PopulationRow[]): Kap
     population,
     sources,
     sourcesByYear,
-    computedYears: [...new Set(prison.filter((r) => r.population === 'nyintagna' && r.shareComputed).map((r) => r.year))].sort((a, b) => a - b),
+    computed: {
+      all: computedYears(prison, 'nyintagna', 'totalt'),
+      men: computedYears(prison, 'nyintagna', 'man'),
+      women: computedYears(prison, 'nyintagna', 'kvinnor'),
+      oct1: computedYears(prison, '1okt', 'totalt'),
+    },
   };
 }
 
-/** "2016, 2017 och 2021" / "2016, 2017 and 2021". */
-function listYears(years: number[], lang: Lang): string {
-  if (years.length <= 1) return years.join('');
-  return `${years.slice(0, -1).join(', ')} ${tr(lang, 'och', 'and')} ${years[years.length - 1]}`;
+function computedYears(rows: PrisonRow[], population: PrisonRow['population'], group: PrisonRow['group']): number[] {
+  return rows.filter((r) => r.population === population && r.group === group && r.shareComputed).map((r) => r.year).sort((a, b) => a - b);
 }
 
-/** Says which years are computed from Brå's counts, and how. Empty if none are. */
+/** True if any series in the chart has a year without a value. */
+export function kap3HasGaps(k: Kap3): boolean {
+  return [k.newAll, k.newMen, k.newWomen, k.onOct1].some((m) => k.years.some((y) => (m.get(y) ?? null) === null));
+}
+
+/** Says which years are computed from Brå's counts (tables 8 and 12), and how. Empty if none are. */
 export function kap3ComputedNote(k: Kap3, lang: Lang): string {
-  if (k.computedYears.length === 0) return '';
-  const y = listYears(k.computedYears, lang);
+  const { all, men, women, oct1 } = k.computed;
+  const parts: string[] = [];
+  if (all.length) parts.push(tr(lang, `nyintagna ${yearRanges(all, lang)}`, `new prisoners ${yearRanges(all, lang)}`));
+  if (men.length && men.join() === women.join()) {
+    parts.push(tr(lang, `nyintagna män och kvinnor ${yearRanges(men, lang)}`, `new prisoners, men and women, ${yearRanges(men, lang)}`));
+  } else {
+    if (men.length) parts.push(tr(lang, `nyintagna män ${yearRanges(men, lang)}`, `new prisoners, men, ${yearRanges(men, lang)}`));
+    if (women.length) parts.push(tr(lang, `nyintagna kvinnor ${yearRanges(women, lang)}`, `new prisoners, women, ${yearRanges(women, lang)}`));
+  }
+  if (oct1.length) parts.push(tr(lang, `intagna den 1 oktober ${yearRanges(oct1, lang)}`, `prisoners on 1 October ${yearRanges(oct1, lang)}`));
+  if (parts.length === 0) return '';
   return tr(
     lang,
-    `Andelarna för ${y} är uträknade från Brås tabell 8: antal utan svenskt medborgarskap delat med antal nyintagna, avrundat till hela procent. Samma uträkning ger exakt Brås egna andelar för alla andra år.`,
-    `The shares for ${y} are calculated from Brå’s table 8: the number without Swedish citizenship divided by the number of new prisoners, rounded to whole percent. The same calculation gives exactly Brå’s own shares for every other year.`,
+    `Andelarna för ${parts.join('; ')} är uträknade från Brås tabell 8 (nyintagna) och tabell 12 (den 1 oktober): antal utan svenskt medborgarskap delat med antal, avrundat till hela procent. Samma uträkning ger exakt Brås egna andelar för alla andra år.`,
+    `The shares for ${parts.join('; ')} are calculated from Brå’s table 8 (new prisoners) and table 12 (1 October): the number without Swedish citizenship divided by the total, rounded to whole percent. The same calculation gives exactly Brå’s own shares for every other year.`,
   );
 }
 

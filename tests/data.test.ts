@@ -238,7 +238,33 @@ test('prison: Brå table 8 counts give Brå’s stated shares in every year with
     checked++;
   }
   assert.equal(checked, 21);
-  // And the computed years are exactly the three filled in from table 8.
-  const computed = [...new Set(loadPrison().filter((r) => r.shareComputed).map((r) => r.year))];
-  assert.deepEqual(computed, [2016, 2017, 2021]);
+});
+
+// Brå table 12 ("562"), people in prison on 1 October: total and number without Swedish citizenship.
+const TABLE_562: Record<number, [number, number]> = { 2023: [6985, 1572], 2024: [8206, 1728], 2025: [9087, 1824] };
+
+test('prison: Brå table 12 counts give Brå’s stated 1 October shares', () => {
+  const stated = loadPrison().filter((r) => r.population === '1okt' && !r.shareComputed && r.shareWithoutPct !== null);
+  assert.equal(stated.length, 3);
+  for (const r of stated) {
+    const c = TABLE_562[r.year];
+    assert.ok(c, `no table 12 counts for ${r.year}`);
+    assert.equal(shareWithoutPctFromCounts(c[1], c[0]), r.shareWithoutPct, String(r.year));
+  }
+});
+
+test('prison: exactly the agreed years are computed from Brå’s counts', () => {
+  const key = (p: string, g: string) =>
+    loadPrison()
+      .filter((r) => r.population === p && r.group === g && r.shareComputed)
+      .map((r) => r.year);
+  assert.deepEqual(key('nyintagna', 'totalt'), [2016, 2017, 2021]);
+  assert.deepEqual(key('nyintagna', 'man'), [2014, 2015, 2016, 2017, 2021, 2022]);
+  assert.deepEqual(key('nyintagna', 'kvinnor'), [2014, 2015, 2016, 2017, 2021, 2022]);
+  assert.deepEqual(key('1okt', 'totalt'), [2014, 2015, 2016, 2017, 2018, 2019, 2020, 2021, 2022]);
+  // No series has a gap any more, 2014-2025.
+  for (const [p, g] of [['nyintagna', 'totalt'], ['nyintagna', 'man'], ['nyintagna', 'kvinnor'], ['1okt', 'totalt']]) {
+    const years = loadPrison().filter((r) => r.population === p && r.group === g && r.shareWithoutPct !== null).map((r) => r.year);
+    assert.equal(years.length, 12, `${p} ${g}`);
+  }
 });

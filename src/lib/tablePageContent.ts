@@ -23,7 +23,7 @@ import { buildKap1Data, crimeById, crimeName, type GroupId } from './chapters/ka
 import { kap1Csv, rateTable, ratioTable } from './chapters/kap1Tables';
 import { buildKap2Data, smallestGroup } from './chapters/kap2';
 import { b6Table, kap2Csv, riskTable, totalCrime, TOTAL } from './chapters/kap2Tables';
-import { buildKap3, kap3ComputedNote, kap3Context, kap3Tables, shortReportName } from './chapters/kap3';
+import { buildKap3, kap3ComputedNote, kap3Context, kap3HasGaps, kap3Tables, shortReportName } from './chapters/kap3';
 import { buildSuspicionShares, sharesTables, shareGroup } from './chapters/kap1Shares';
 import { buildRiskFactors, factorsTable } from './chapters/kap2Factors';
 import { round } from './calc';
@@ -451,13 +451,19 @@ function kap3(lang: Lang): TablePageContent {
     ),
     note: T(
       'Medborgarskap är inte födelseland. Bland fängelsets utländska medborgare finns personer som inte bor i Sverige och ' +
-        'inte räknas i befolkningen. Brå anger andelarna i hela procent. Streck (–) betyder att Brå inte anger något värde ' +
-        `för året. För alla nyintagna saknas ${yearRanges(missingAll, lang)}. Andelar för män och kvinnor finns för ` +
-        `${yearRanges(withValue(k.newMen), lang)} och för intagna den 1 oktober för ${yearRanges(withValue(k.onOct1), lang)}.`,
+        'inte räknas i befolkningen. Brå anger andelarna i hela procent.' +
+        (kap3HasGaps(k)
+          ? ` Streck (–) betyder att Brå inte anger något värde för året.` +
+            (missingAll.length ? ` För alla nyintagna saknas ${yearRanges(missingAll, lang)}.` : '') +
+            ` Andelar för män och kvinnor finns för ${yearRanges(withValue(k.newMen), lang)} och för intagna den 1 oktober för ${yearRanges(withValue(k.onOct1), lang)}.`
+          : ''),
       'Citizenship is not the same as country of birth. Among the foreign citizens in prison are people who do not live in ' +
-        'Sweden and are not counted in the population. Brå gives the shares in whole percent. A dash (–) means that Brå gives no ' +
-        `value for that year. For all new prisoners, values are missing for ${yearRanges(missingAll, lang)}. Shares for men and women ` +
-        `are available for ${yearRanges(withValue(k.newMen), lang)}, and for people in prison on 1 October for ${yearRanges(withValue(k.onOct1), lang)}.`,
+        'Sweden and are not counted in the population. Brå gives the shares in whole percent.' +
+        (kap3HasGaps(k)
+          ? ` A dash (–) means that Brå gives no value for that year.` +
+            (missingAll.length ? ` For all new prisoners, values are missing for ${yearRanges(missingAll, lang)}.` : '') +
+            ` Shares for men and women are available for ${yearRanges(withValue(k.newMen), lang)}, and for people in prison on 1 October for ${yearRanges(withValue(k.onOct1), lang)}.`
+          : ''),
     ) + ' ' + [kap3ComputedNote(k, lang), kap3Context(k, lang)].filter(Boolean).join(' '),
     sections: [
       {
@@ -473,8 +479,8 @@ function kap3(lang: Lang): TablePageContent {
         heading: T('Antal personer', 'Number of people'),
         tables: [countTable],
         after: T(
-          `Antalen gäller alla i gruppen, både med och utan svenskt medborgarskap. Här visas de för ${yearRanges(withValue(k.countNewAll), lang)}.`,
-          `The numbers cover everyone in each group, with and without Swedish citizenship. They are shown here for ${yearRanges(withValue(k.countNewAll), lang)}.`,
+          'Antalen gäller alla i gruppen, både med och utan svenskt medborgarskap. De visas för de år och grupper där Brås rapporter anger dem eller där sidan räknar ut andelen från Brås tabell 8 och 12.',
+          'The numbers cover everyone in each group, with and without Swedish citizenship. They are shown for the years and groups where Brå’s reports give them, or where the site calculates the share from Brå’s tables 8 and 12.',
         ),
       },
       { heading: T('Befolkningen', 'Population'), tables: [popTable] },

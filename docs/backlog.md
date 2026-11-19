@@ -8,7 +8,6 @@ Fix now: done 19 November 2026 (see "Done" below).
 
 Next:
 
-- 3.1 Fängelse: men and women for 2014, 2015 and 2022, and prisoners on 1 October before 2023, could be filled the same way from Brå's tables 8 and 551. Owner decides.
 - Table pages on phones: keep the year column fixed when scrolling sideways.
 - Colour rules: grey is used for a comparison group in 1.1 (one foreign-born parent, solid grey) and 1.3, not only for the population. (2.1 fixed: Bäckman's comparison group is now a black line.)
 
@@ -28,6 +27,8 @@ Watch:
 - Links from relevant places (data journalists, researchers, newsletters).
 
 ## Done
+
+- 3.1 Fängelse: remaining gaps filled (men and women 2014, 2015, 2022 from table 8; 1 October 2014–2022 from table 12), 19 November 2026. All series now run 2014–2025.
 
 - 3.1 Fängelse: 2016, 2017 and 2021 filled from Brå's table 8 (computed from counts, checked against all 21 stated shares); men and women moved to their own chart on the same scale, 19 November 2026.
 

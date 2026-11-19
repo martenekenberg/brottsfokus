@@ -1,25 +1,40 @@
 year,population,group,share_without_pct,persons,persons_without,source,source_url
 2014,nyintagna,totalt,34,,,Brå Kriminalvård fängelse och häkte 2023,https://bra.se/download/18.5b49ce5118fa40079af564d/1716986211421/Statistikrapport_Kriminalv%C3%A5rd_f%C3%A4ngelse_2023.pdf
+2014,nyintagna,kvinnor,,599,166,"Brå Kriminalvård, tabell 8 (558)",https://bra.se/statistik/statistik-om-rattsvasendet/kriminalvard
+2014,nyintagna,man,,8344,2916,"Brå Kriminalvård, tabell 8 (558)",https://bra.se/statistik/statistik-om-rattsvasendet/kriminalvard
+2014,1okt,totalt,,4319,1324,"Brå Kriminalvård, tabell 12 (562)",https://bra.se/statistik/statistik-om-rattsvasendet/kriminalvard
 2015,nyintagna,totalt,36,,,Brå Kriminalvård fängelse och häkte 2024,https://bra.se/download/18.3dfda190198e60e75227701/1756367472378/Statistikrapport_Kriminalv%C3%A5rd_f%C3%A4ngelse_2024.pdf
+2015,nyintagna,kvinnor,,556,158,"Brå Kriminalvård, tabell 8 (558)",https://bra.se/statistik/statistik-om-rattsvasendet/kriminalvard
+2015,nyintagna,man,,8025,2889,"Brå Kriminalvård, tabell 8 (558)",https://bra.se/statistik/statistik-om-rattsvasendet/kriminalvard
+2015,1okt,totalt,,4292,1325,"Brå Kriminalvård, tabell 12 (562)",https://bra.se/statistik/statistik-om-rattsvasendet/kriminalvard
 2016,nyintagna,totalt,,8495,2975,"Brå Kriminalvård, tabell 8 (558)",https://bra.se/statistik/statistik-om-rattsvasendet/kriminalvard
 2016,nyintagna,kvinnor,,656,163,"Brå Kriminalvård, tabell 8 (558)",https://bra.se/statistik/statistik-om-rattsvasendet/kriminalvard
 2016,nyintagna,man,,7839,2812,"Brå Kriminalvård, tabell 8 (558)",https://bra.se/statistik/statistik-om-rattsvasendet/kriminalvard
+2016,1okt,totalt,,4231,1274,"Brå Kriminalvård, tabell 12 (562)",https://bra.se/statistik/statistik-om-rattsvasendet/kriminalvard
 2017,nyintagna,totalt,,8423,2966,"Brå Kriminalvård, tabell 8 (558)",https://bra.se/statistik/statistik-om-rattsvasendet/kriminalvard
 2017,nyintagna,kvinnor,,610,139,"Brå Kriminalvård, tabell 8 (558)",https://bra.se/statistik/statistik-om-rattsvasendet/kriminalvard
 2017,nyintagna,man,,7813,2827,"Brå Kriminalvård, tabell 8 (558)",https://bra.se/statistik/statistik-om-rattsvasendet/kriminalvard
+2017,1okt,totalt,,4148,1240,"Brå Kriminalvård, tabell 12 (562)",https://bra.se/statistik/statistik-om-rattsvasendet/kriminalvard
 2018,nyintagna,totalt,34,,,Brå Kriminalvård 2018 Sammanfattning,https://www.bra.se/download/18.62c6cfa2166eca5d70e1ab5c/1615396313681/Sammanfattning_kriminalvard_2018.pdf
 2018,nyintagna,kvinnor,24,,,Brå Kriminalvård 2018 Sammanfattning,https://www.bra.se/download/18.62c6cfa2166eca5d70e1ab5c/1615396313681/Sammanfattning_kriminalvard_2018.pdf
 2018,nyintagna,man,35,,,Brå Kriminalvård 2018 Sammanfattning,https://www.bra.se/download/18.62c6cfa2166eca5d70e1ab5c/1615396313681/Sammanfattning_kriminalvard_2018.pdf
+2018,1okt,totalt,,4393,1319,"Brå Kriminalvård, tabell 12 (562)",https://bra.se/statistik/statistik-om-rattsvasendet/kriminalvard
 2019,nyintagna,totalt,33,,,Brå Kriminalvård 2019 Sammanfattning,https://bra.se/download/18.1537f1c6192bd251bfc3748/1730195168702/Sammanfattning_kriminalvard_2019.pdf
 2019,nyintagna,kvinnor,22,,,Brå Kriminalvård 2019 Sammanfattning,https://bra.se/download/18.1537f1c6192bd251bfc3748/1730195168702/Sammanfattning_kriminalvard_2019.pdf
 2019,nyintagna,man,34,,,Brå Kriminalvård 2019 Sammanfattning,https://bra.se/download/18.1537f1c6192bd251bfc3748/1730195168702/Sammanfattning_kriminalvard_2019.pdf
+2019,1okt,totalt,,4834,1414,"Brå Kriminalvård, tabell 12 (562)",https://bra.se/statistik/statistik-om-rattsvasendet/kriminalvard
 2020,nyintagna,totalt,31,,,Brå Kriminalvård 2020 Sammanfattning,https://bra.se/download/18.47bb43da192711ebb3766dd/1729674991477/2021_Sammanfattning_kriminalvard_2020.pdf
 2020,nyintagna,kvinnor,20,,,Brå Kriminalvård 2020 Sammanfattning,https://bra.se/download/18.47bb43da192711ebb3766dd/1729674991477/2021_Sammanfattning_kriminalvard_2020.pdf
 2020,nyintagna,man,32,,,Brå Kriminalvård 2020 Sammanfattning,https://bra.se/download/18.47bb43da192711ebb3766dd/1729674991477/2021_Sammanfattning_kriminalvard_2020.pdf
+2020,1okt,totalt,,5276,1466,"Brå Kriminalvård, tabell 12 (562)",https://bra.se/statistik/statistik-om-rattsvasendet/kriminalvard
 2021,nyintagna,totalt,,9481,2768,"Brå Kriminalvård, tabell 8 (558)",https://bra.se/statistik/statistik-om-rattsvasendet/kriminalvard
 2021,nyintagna,kvinnor,,668,115,"Brå Kriminalvård, tabell 8 (558)",https://bra.se/statistik/statistik-om-rattsvasendet/kriminalvard
 2021,nyintagna,man,,8813,2653,"Brå Kriminalvård, tabell 8 (558)",https://bra.se/statistik/statistik-om-rattsvasendet/kriminalvard
+2021,1okt,totalt,,5687,1429,"Brå Kriminalvård, tabell 12 (562)",https://bra.se/statistik/statistik-om-rattsvasendet/kriminalvard
 2022,nyintagna,totalt,29,,,Brå Kriminalvård fängelse och häkte 2023,https://bra.se/download/18.5b49ce5118fa40079af564d/1716986211421/Statistikrapport_Kriminalv%C3%A5rd_f%C3%A4ngelse_2023.pdf
+2022,nyintagna,kvinnor,,764,136,"Brå Kriminalvård, tabell 8 (558)",https://bra.se/statistik/statistik-om-rattsvasendet/kriminalvard
+2022,nyintagna,man,,9533,2801,"Brå Kriminalvård, tabell 8 (558)",https://bra.se/statistik/statistik-om-rattsvasendet/kriminalvard
+2022,1okt,totalt,,6146,1486,"Brå Kriminalvård, tabell 12 (562)",https://bra.se/statistik/statistik-om-rattsvasendet/kriminalvard
 2023,nyintagna,totalt,26,10647,,Brå Kriminalvård fängelse och häkte 2023,https://bra.se/download/18.5b49ce5118fa40079af564d/1716986211421/Statistikrapport_Kriminalv%C3%A5rd_f%C3%A4ngelse_2023.pdf
 2023,nyintagna,kvinnor,16,822,,Brå Kriminalvård fängelse och häkte 2023,https://bra.se/download/18.5b49ce5118fa40079af564d/1716986211421/Statistikrapport_Kriminalv%C3%A5rd_f%C3%A4ngelse_2023.pdf
 2023,nyintagna,man,27,9825,,Brå Kriminalvård fängelse och häkte 2023,https://bra.se/download/18.5b49ce5118fa40079af564d/1716986211421/Statistikrapport_Kriminalv%C3%A5rd_f%C3%A4ngelse_2023.pdf

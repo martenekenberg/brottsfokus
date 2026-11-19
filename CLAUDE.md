@@ -52,7 +52,7 @@ All files are UTF-8 CSV with a header row. Values use a dot as the decimal separ
 
 | File | Used in (chapter) | Notes |
 |---|---|---|
-| `intagna_medborgarskap.csv` | 3.1 | `year, population (nyintagna / 1okt), group (totalt / man / kvinnor), share_without_pct, persons, persons_without, source, source_url`. `share_without_pct` is Brå's stated share. For 2016, 2017 and 2021 only counts from Brå's table 8 ("558") are given (`persons`, `persons_without`) and the share is computed. Other missing years stay gaps. |
+| `intagna_medborgarskap.csv` | 3.1 | `year, population (nyintagna / 1okt), group (totalt / man / kvinnor), share_without_pct, persons, persons_without, source, source_url`. `share_without_pct` is Brå's stated share. Where a report gives none, the row has Brå's counts (`persons`, `persons_without`) and the share is computed: new prisoners from Brå's table 8 ("558"), 1 October from table 12 ("562"). Every series runs 2014–2025 without gaps. |
 | `scb_befolkning.csv` | 3.1, 2.2 | `year, folkmangd, utrikes_fodda, utlandsk_bakgrund, utlandska_medborgare, source`. Foreign citizens for 2014–2025; foreign-born and foreign background only for 2000, 2005, 2010, 2015, 2020, 2025. |
 | `valdtakt_domda.csv` | 2.2 | Column `chart` selects the set: `bakgrund`, `region`, `kontroll`, `ovrigt`. |
 | `bra2005.csv` | 1.3 | Column `chart` selects the set: `overrisk`, `andel`, `period`, `andel_misst`, `befolkning`, `region`, `region_misst`, `region_bef`, `brott`. |
@@ -72,7 +72,7 @@ Calculated values (shares, averages) are computed in code from these files. Keep
 - Foreign citizens' share of population = `utlandska_medborgare / folkmangd * 100`, one decimal.
 - Swedish-born with two foreign-born parents = `utlandsk_bakgrund - utrikes_fodda`.
 - Population comparison for the rape study 2000–2015 = mean of 2000, 2005, 2010, 2015.
-- Share without Swedish citizenship from counts (prison, 2016, 2017, 2021) = `persons_without / persons * 100`, whole percent (`shareWithoutPctFromCounts`). A test checks that Brå's table 8 counts give Brå's stated share in all 21 other cases, and the loader stops the build if a row's stated share and counts disagree.
+- Share without Swedish citizenship from counts (prison) = `persons_without / persons * 100`, whole percent (`shareWithoutPctFromCounts`). Tests check that Brå's table 8 and 12 counts give Brå's stated share in every case where Brå states one (21 for new prisoners, 3 for 1 October), and the loader stops the build if a row's stated share and counts disagree.
 
 ## Design system
 
