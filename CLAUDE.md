@@ -171,7 +171,7 @@ Numbered by part (see "Page structure"). The ids (`kap1` and so on) are the old 
 
 2.2 **Dömda för våldtäkt** (`kap4`). Paired bars: convicted vs matched controls (2000–2020), convicted vs population (2000–2015). Also region of birth as a smaller chart. (The chart of prior convictions and social assistance was removed at the owner's request, November 2026; the rows stay in the data file.)
 
-3.1 **Fängelse och medborgarskap, 2014–2025** (`kap3`). Line chart: new inmates (all), new inmates (men), new inmates (women), inmates 1 October, foreign citizens in the population (dashed grey). Break lines where a year is missing; never join across a gap.
+3.1 **Fängelse och medborgarskap, 2014–2025** (`kap3`). Line chart: new inmates (all), inmates 1 October, foreign citizens in the population (dashed grey). Below it, on the same scale, a second line chart for new inmates by sex (men blue, women orange) with the same population line. Break lines where a year is missing; never join across a gap.
 
 3.2 **Utvisning på grund av brott, 2013–2023** (`kap7`). Share deported by region of citizenship, and deported vs convicted of new crimes by main offence (Brå 2026:15).
 

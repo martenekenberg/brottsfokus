@@ -6,7 +6,6 @@ import Legend from '../Legend.astro';
 import LineChart from '../charts/LineChart.astro';
 import { tr, type Lang } from '../../lib/i18n';
 import { loadPopulation, loadPrison } from '../../lib/data';
-import { yearsWithValues } from '../../lib/calc';
 import { buildKap3, kap3ComputedNote, kap3Context, shortReportName } from '../../lib/chapters/kap3';
 import { tablePage } from '../../lib/dataPages';
 import { formatNumber } from '../../lib/format';
@@ -46,67 +45,52 @@ const peakYear = prisonYears.reduce((best, y) => ((newAll.get(y) ?? -1) > (newAl
 const newAllPeak = newAll.get(peakYear) as number;
 if (!(newAllLast < newAllPeak) || peakYear === lastYear) throw new Error('Chapter 3 headline no longer matches the data');
 
-// Men and women share one colour, so each line is named where it starts.
-const startLabel = (m: Map<number, number | null>, text: string) => {
-  const span = yearsWithValues(m);
-  return span ? [{ year: span.first, text }] : [];
-};
 const prisonMax = Math.max(...[newAll, newMen, newWomen, onOct1].flatMap((m) => [...m.values()].map((v) => v ?? 0)));
+// Both charts use the same scale, so men and women can be compared with all new prisoners above.
+const yMax = Math.max(40, Math.ceil(prisonMax / 10) * 10);
+const populationSeries = {
+  id: 'bef',
+  label: L('Utländska medborgare i befolkningen', 'Foreign citizens in the population'),
+  endLabel: L('befolkningen', 'population'),
+  endLabelShort: '',
+  color: C.population,
+  textColor: C.muted,
+  strokeWidth: 2,
+  dashed: true,
+  dotRadius: 2.5,
+  values: byYear(popShare),
+  format: 'pct1' as const,
+};
 
+// Main chart: all new prisoners, prisoners on 1 October, and the population.
 const prisonSpec: LineChartSpec = {
   lang,
   years: prisonYears,
-  yMax: Math.max(40, Math.ceil(prisonMax / 10) * 10),
+  yMax,
   yTickStep: 10,
   yFormat: 'pct',
   ariaLabel: L(
-    'Linjediagram. Andel utan svenskt medborgarskap bland nyintagna i fängelse, totalt och för män och kvinnor, ' +
-      `och bland intagna den 1 oktober, ${firstYear} till ${lastYear}, jämfört med andelen utländska medborgare i befolkningen. ` +
+    'Linjediagram. Andel utan svenskt medborgarskap bland nyintagna i fängelse och bland intagna den 1 oktober, ' +
+      `${firstYear} till ${lastYear}, jämfört med andelen utländska medborgare i befolkningen. ` +
       `År ${lastYear} var andelen ${formatNumber(newAllLast, 0, 'sv')} procent bland nyintagna och ` +
-      `${formatNumber(popShareLast, 1, 'sv')} procent i befolkningen. År som Brå inte anger saknas.`,
-    `Line chart. Share without Swedish citizenship among new prisoners, in total and for men and women, and among people in prison ` +
-      `on 1 October, ${firstYear} to ${lastYear}, compared with the share of foreign citizens in the population. ` +
+      `${formatNumber(popShareLast, 1, 'sv')} procent i befolkningen. År som saknas har inget värde.`,
+    `Line chart. Share without Swedish citizenship among new prisoners and among people in prison on 1 October, ` +
+      `${firstYear} to ${lastYear}, compared with the share of foreign citizens in the population. ` +
       `In ${lastYear} the share was ${formatNumber(newAllLast, 0, 'en')}% among new prisoners and ` +
-      `${formatNumber(popShareLast, 1, 'en')}% in the population. Years that Brå does not report are missing.`,
+      `${formatNumber(popShareLast, 1, 'en')}% in the population. Missing years have no value.`,
   ),
   series: [
     {
       id: 'ny-alla',
       label: L('Nyintagna, alla', 'New prisoners, all'),
       endLabel: L('nyintagna', 'new prisoners'),
-      endLabelShort: L('alla', 'all'),
+      endLabelShort: L('nyintagna', 'new'),
       color: C.focus,
       textColor: C.focus,
       strokeWidth: 3,
       dotRadius: 3.5,
       values: byYear(newAll),
       annotate: [peakYear],
-      format: 'pct',
-    },
-    {
-      id: 'ny-man',
-      label: L('Nyintagna män', 'New prisoners, men'),
-      endLabel: L('män', 'men'),
-      endLabelShort: L('män', 'men'),
-      color: C.focus,
-      textColor: C.focus,
-      strokeWidth: 1.5,
-      dotRadius: 2.5,
-      values: byYear(newMen),
-      pointLabels: startLabel(newMen, L('män', 'men')),
-      format: 'pct',
-    },
-    {
-      id: 'ny-kvinnor',
-      label: L('Nyintagna kvinnor', 'New prisoners, women'),
-      endLabel: L('kvinnor', 'women'),
-      endLabelShort: L('kvinnor', 'women'),
-      color: C.focus,
-      textColor: C.focus,
-      strokeWidth: 1.5,
-      dotRadius: 2.5,
-      values: byYear(newWomen),
-      pointLabels: startLabel(newWomen, L('kvinnor', 'women')),
       format: 'pct',
     },
     {
@@ -121,19 +105,51 @@ const prisonSpec: LineChartSpec = {
       values: byYear(onOct1),
       format: 'pct',
     },
+    populationSeries,
+  ],
+};
+
+// Second chart: new prisoners by sex, on the same scale.
+const sexSpec: LineChartSpec = {
+  lang,
+  years: prisonYears,
+  yMax,
+  yTickStep: 10,
+  yFormat: 'pct',
+  ariaLabel: L(
+    `Linjediagram. Andel utan svenskt medborgarskap bland nyintagna män och kvinnor, ${firstYear} till ${lastYear}, ` +
+      `jämfört med andelen utländska medborgare i befolkningen. År ${lastYear}: ` +
+      `${formatNumber(newMen.get(lastYear) ?? NaN, 0, 'sv')} procent bland män och ${formatNumber(newWomen.get(lastYear) ?? NaN, 0, 'sv')} procent bland kvinnor. År som saknas har inget värde.`,
+    `Line chart. Share without Swedish citizenship among new prisoners, men and women, ${firstYear} to ${lastYear}, ` +
+      `compared with the share of foreign citizens in the population. In ${lastYear}: ` +
+      `${formatNumber(newMen.get(lastYear) ?? NaN, 0, 'en')}% among men and ${formatNumber(newWomen.get(lastYear) ?? NaN, 0, 'en')}% among women. Missing years have no value.`,
+  ),
+  series: [
     {
-      id: 'bef',
-      label: L('Utländska medborgare i befolkningen', 'Foreign citizens in the population'),
-      endLabel: L('befolkningen', 'population'),
-      endLabelShort: '',
-      color: C.population,
-      textColor: C.muted,
-      strokeWidth: 2,
-      dashed: true,
-      dotRadius: 2.5,
-      values: byYear(popShare),
-      format: 'pct1',
+      id: 'ny-man',
+      label: L('Nyintagna män', 'New prisoners, men'),
+      endLabel: L('män', 'men'),
+      endLabelShort: L('män', 'men'),
+      color: C.focus,
+      textColor: C.focus,
+      strokeWidth: 2.5,
+      dotRadius: 3,
+      values: byYear(newMen),
+      format: 'pct',
     },
+    {
+      id: 'ny-kvinnor',
+      label: L('Nyintagna kvinnor', 'New prisoners, women'),
+      endLabel: L('kvinnor', 'women'),
+      endLabelShort: L('kvinnor', 'women'),
+      color: C.second,
+      textColor: C.second,
+      strokeWidth: 2.5,
+      dotRadius: 3,
+      values: byYear(newWomen),
+      format: 'pct',
+    },
+    populationSeries,
   ],
 };
 
@@ -159,12 +175,22 @@ const prisonSources = kap3.sources;
     slot="legend"
     items={[
       { label: L('Nyintagna under året', 'New prisoners during the year'), color: C.focus, mark: 'line' },
-      { label: L('Nyintagna män och kvinnor', 'New prisoners, men and women'), color: C.focus, mark: 'line', thin: true },
       { label: L('Intagna den 1 oktober', 'Prisoners on 1 October'), color: C.second, mark: 'line' },
       { label: L('Utländska medborgare i befolkningen', 'Foreign citizens in the population'), color: C.population, mark: 'dash' },
     ]}
   />
   <LineChart spec={prisonSpec} />
+  <div class="chart-block sex-chart">
+    <p class="chart-heading">{L('Nyintagna män och kvinnor', 'New prisoners, men and women')}</p>
+    <Legend
+      items={[
+        { label: L('Män', 'Men'), color: C.focus, mark: 'line' },
+        { label: L('Kvinnor', 'Women'), color: C.second, mark: 'line' },
+        { label: L('Utländska medborgare i befolkningen', 'Foreign citizens in the population'), color: C.population, mark: 'dash' },
+      ]}
+    />
+    <LineChart spec={sexSpec} />
+  </div>
   <Fragment slot="note">
     {L(
       'Medborgarskap är inte födelseland. Bland fängelsets utländska medborgare finns personer som inte bor i Sverige och inte räknas i befolkningen. Punkter saknas för år som Brå inte anger. ',
@@ -185,3 +211,11 @@ const prisonSources = kap3.sources;
     {L('; SCB, befolkningen den 31 december.', '; SCB, population on 31 December.')}
   </Fragment>
 </Chapter>
+
+<style>
+  .sex-chart {
+    margin-top: 8px;
+    padding-top: 24px;
+    border-top: 1px solid var(--rule);
+  }
+</style>
