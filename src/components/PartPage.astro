@@ -1,0 +1,58 @@
+---
+// One part of the site (for example "Misstänkta för brott") with its chapters.
+// Rendered by src/pages/[part]/index.astro and src/pages/en/[part]/index.astro.
+import Base from '../layouts/Base.astro';
+import ChapterNav from './ChapterNav.astro';
+import PageHead from './PageHead.astro';
+import Footer from './Footer.astro';
+import Kap1 from './chapters/Kap1.astro';
+import Kap2 from './chapters/Kap2.astro';
+import Kap3 from './chapters/Kap3.astro';
+import Kap4 from './chapters/Kap4.astro';
+import Kap5 from './chapters/Kap5.astro';
+import Kap6 from './chapters/Kap6.astro';
+import Kap7 from './chapters/Kap7.astro';
+import Kap8 from './chapters/Kap8.astro';
+import Kap9 from './chapters/Kap9.astro';
+import { chapter } from '../lib/chapters';
+import { part, parts, type PartId } from '../lib/parts';
+import { site } from '../lib/site';
+import { tr, type Lang } from '../lib/i18n';
+
+interface Props {
+  partId: PartId;
+  lang: Lang;
+}
+const { partId, lang } = Astro.props;
+const p = part(partId);
+const path = p.path[lang];
+const COMPONENTS: Record<string, typeof Kap1> = { kap1: Kap1, kap2: Kap2, kap3: Kap3, kap4: Kap4, kap5: Kap5, kap6: Kap6, kap7: Kap7, kap8: Kap8, kap9: Kap9 };
+const toc = p.chapters.map((id) => {
+  const c = chapter(id);
+  return { num: c.num, label: c.kicker[lang], href: `#${id}` };
+});
+---
+
+<Base title={`${p.title[lang]} · ${site.name}`} description={p.card[lang]} lang={lang} path={path}>
+  <div class="wrap">
+    <ChapterNav current={partId} lang={lang} />
+    <PageHead
+      kicker={tr(lang, `Del ${p.num} av ${parts.length}`, `Part ${p.num} of ${parts.length}`)}
+      title={p.title[lang]}
+      intro={p.card[lang]}
+      toc={toc}
+      path={path}
+      lang={lang}
+    />
+    <main>
+      {
+        p.chapters.map((id) => {
+          const Component = COMPONENTS[id];
+          if (!Component) throw new Error(`No component for chapter ${id}`);
+          return <Component lang={lang} />;
+        })
+      }
+    </main>
+    <Footer lang={lang} path={path} />
+  </div>
+</Base>

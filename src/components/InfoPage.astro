@@ -1,0 +1,44 @@
+---
+// The Metod and Om sidan pages: menu, page header and the section itself.
+import Base from '../layouts/Base.astro';
+import ChapterNav from './ChapterNav.astro';
+import PageHead from './PageHead.astro';
+import Method from './Method.astro';
+import About from './About.astro';
+import Footer from './Footer.astro';
+import { aboutPath, methodPath } from '../lib/parts';
+import { prisonSources } from '../lib/keyFigures';
+import { site } from '../lib/site';
+import { tr, type Lang } from '../lib/i18n';
+
+interface Props {
+  page: 'metod' | 'om';
+  lang: Lang;
+}
+const { page, lang } = Astro.props;
+const path = page === 'metod' ? methodPath[lang] : aboutPath[lang];
+const title = page === 'metod' ? tr(lang, 'Metod och begrepp', 'Method and terms') : tr(lang, 'Om sidan', 'About this site');
+const description =
+  page === 'metod'
+    ? tr(
+        lang,
+        'Begrepp, jämförelser och källor bakom Brottsfokus: misstänkt och dömd, bakgrund, medborgarskap, överrisk och jämförelse med befolkningen.',
+        'Terms, comparisons and sources behind Brottsfokus: suspected and convicted, background, citizenship, excess risk and comparison with the population.',
+      )
+    : tr(
+        lang,
+        'Varför Brottsfokus finns, hur uppgifterna väljs, vem som står bakom sidan, rättelser och besöksstatistik.',
+        'Why Brottsfokus exists, how the figures are chosen, who runs the site, corrections and visitor statistics.',
+      );
+---
+
+<Base title={`${title} · ${site.name}`} description={description} lang={lang} path={path}>
+  <div class="wrap">
+    <ChapterNav current={page} lang={lang} />
+    <PageHead kicker={site.name} title={title} path={path} lang={lang} />
+    <main>
+      {page === 'metod' ? <Method extraSources={prisonSources()} lang={lang} ownPage /> : <About lang={lang} ownPage />}
+    </main>
+    <Footer lang={lang} path={path} />
+  </div>
+</Base>

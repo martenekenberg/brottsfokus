@@ -5,6 +5,7 @@ import Chapter from '../Chapter.astro';
 import BarChart from '../charts/BarChart.astro';
 import SubChart from '../SubChart.astro';
 import { tr, type Lang } from '../../lib/i18n';
+import { chapter } from '../../lib/chapters';
 import { loadHomicide } from '../../lib/data';
 import { tablePage } from '../../lib/dataPages';
 import { formatNumber } from '../../lib/format';
@@ -65,8 +66,8 @@ const homicideLegend = (
   </div>
   <Fragment slot="note">
     {L(
-      `Utländsk bakgrund betyder här utrikes född eller inrikes född med två utrikes födda föräldrar, som i kapitel 1 och 2. Omkring 70 procent av fallen i kriminell miljö är ouppklarade, och där saknas gärningspersoner. Brå har därför också räknat med viktade värden: då hade ${n0(hWeighted.perpetrators as number)} procent av gärningspersonerna utländsk bakgrund. Bara personer med svenskt personnummer ingår. Andelen med utländsk bakgrund var störst vid dödligt våld i kriminell miljö, ${n0(hMiljo.victims as number)} procent av offren och ${n0(hMiljo.perpetrators as number)} procent av gärningspersonerna. Inte justerat för ålder eller kön. Offer och gärningspersoner är oftare unga män än befolkningen i stort. Befolkningens andel är ett snitt för 2005–2021.`,
-      `Foreign background here means born abroad, or born in Sweden with two foreign-born parents, as in chapters 1 and 2. About 70% of the cases in criminal milieus are unsolved and have no identified perpetrator. Brå therefore also calculated weighted values: with them, ${n0(hWeighted.perpetrators as number)}% of perpetrators had a foreign background. Only people with a Swedish personal identity number are included. The share with a foreign background was highest for homicides in criminal milieus: ${n0(hMiljo.victims as number)}% of victims and ${n0(hMiljo.perpetrators as number)}% of perpetrators. Not adjusted for age or sex. Victims and perpetrators are more often young men than the population as a whole. The population share is an average for 2005–2021.`,
+      `Utländsk bakgrund betyder här utrikes född eller inrikes född med två utrikes födda föräldrar, som i kapitel ${chapter('kap1').num} och ${chapter('kap2').num}. Omkring 70 procent av fallen i kriminell miljö är ouppklarade, och där saknas gärningspersoner. Brå har därför också räknat med viktade värden: då hade ${n0(hWeighted.perpetrators as number)} procent av gärningspersonerna utländsk bakgrund. Bara personer med svenskt personnummer ingår. Andelen med utländsk bakgrund var störst vid dödligt våld i kriminell miljö, ${n0(hMiljo.victims as number)} procent av offren och ${n0(hMiljo.perpetrators as number)} procent av gärningspersonerna. Inte justerat för ålder eller kön. Offer och gärningspersoner är oftare unga män än befolkningen i stort. Befolkningens andel är ett snitt för 2005–2021.`,
+      `Foreign background here means born abroad, or born in Sweden with two foreign-born parents, as in chapters ${chapter('kap1').num} and ${chapter('kap2').num}. About 70% of the cases in criminal milieus are unsolved and have no identified perpetrator. Brå therefore also calculated weighted values: with them, ${n0(hWeighted.perpetrators as number)}% of perpetrators had a foreign background. Only people with a Swedish personal identity number are included. The share with a foreign background was highest for homicides in criminal milieus: ${n0(hMiljo.victims as number)}% of victims and ${n0(hMiljo.perpetrators as number)}% of perpetrators. Not adjusted for age or sex. Victims and perpetrators are more often young men than the population as a whole. The population share is an average for 2005–2021.`,
     )}
   </Fragment>
   <Fragment slot="source">

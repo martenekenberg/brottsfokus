@@ -18,6 +18,7 @@ import {
   loadCohorts,
   loadBirthCohorts,
 } from './data';
+import { chapter } from './chapters';
 import { buildKap1Data, crimeById, crimeName, type GroupId } from './chapters/kap1';
 import { kap1Csv, rateTable, ratioTable } from './chapters/kap1Tables';
 import { buildKap2Data, smallestGroup } from './chapters/kap2';
@@ -258,13 +259,13 @@ function kap2(lang: Lang): TablePageContent {
     note: T(
       'Misstänkt är inte samma sak som dömd. Gäller folkbokförda personer 15 år och äldre den 31 december 2014 som ' +
         'misstänktes för brott begångna 2015–2018. Alla som misstänktes någon gång under de fyra åren räknas, därför är ' +
-        'talen högre än i kapitel 1. Överrisk är gruppens andel misstänkta delat med andelen bland inrikesfödda med två ' +
+        `talen högre än i kapitel ${chapter('kap1').num}. Överrisk är gruppens andel misstänkta delat med andelen bland inrikesfödda med två ` +
         'inrikesfödda föräldrar. Justerad överrisk är Brås beräkning om gruppen haft samma ålder, kön, inkomst och ' +
         'utbildning som jämförelsegruppen, inte en faktisk andel. Vissa grupper är små: det minsta födelselandet, ' +
         `${smallestName}, har ${n(smallest.n)} personer.`,
       'Suspected is not the same as convicted. Covers registered residents aged 15 and over on 31 December 2014 who were ' +
         'suspected of crimes committed in 2015–2018. Everyone who was suspected at any time during the four years is counted, so ' +
-        'the figures are higher than in chapter 1. Excess risk is the group’s share of suspects divided by the share among born ' +
+        `the figures are higher than in chapter ${chapter('kap1').num}. Excess risk is the group’s share of suspects divided by the share among born ` +
         'in Sweden with two Swedish-born parents. Adjusted excess risk is Brå’s calculation of what the group would look like with ' +
         'the same age, sex, income and education as the comparison group, not an actual share. Some groups are small: the smallest ' +
         `birth country, ${smallestName}, has ${n(smallest.n)} people.`,

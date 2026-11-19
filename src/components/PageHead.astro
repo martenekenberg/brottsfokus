@@ -1,0 +1,121 @@
+---
+// Header for the part pages and the Metod and Om sidan pages: kicker, headline, short intro,
+// an optional list of the page's chapters, and a link to the same page in the other language.
+import { alternatePath } from '../lib/dataPages';
+import { HTML_LANG, otherLang, tr, type Lang } from '../lib/i18n';
+
+interface Props {
+  kicker: string;
+  title: string;
+  intro?: string;
+  /** Chapters on the page, linked by anchor. */
+  toc?: { num: string; label: string; href: string }[];
+  /** This page's path, for the language link. */
+  path: string;
+  lang: Lang;
+}
+const { kicker, title, intro, toc = [], path, lang } = Astro.props;
+const switchLang = otherLang(lang);
+---
+
+<header class="page-head" id="top">
+  <div class="meta">
+    <span class="label">{kicker}</span>
+    <a class="switch" href={alternatePath(path, lang)} hreflang={HTML_LANG[switchLang]}>{tr(lang, 'English', 'Svenska')}</a>
+  </div>
+  <h1>{title}</h1>
+  {intro && <p class="intro">{intro}</p>}
+  {
+    toc.length > 0 && (
+      <ol class="toc" aria-label={tr(lang, 'Kapitel på sidan', 'Chapters on this page')}>
+        {toc.map((t) => (
+          <li>
+            <a href={t.href}>
+              <span class="num">{t.num}</span>
+              {t.label}
+            </a>
+          </li>
+        ))}
+      </ol>
+    )
+  }
+</header>
+
+<style>
+  .page-head {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+    padding: 40px 0 32px;
+  }
+  .meta {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    align-items: center;
+    gap: 8px;
+    font-size: 13px;
+  }
+  .label {
+    font-weight: 600;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--second);
+  }
+  .switch {
+    display: inline-flex;
+    align-items: center;
+    min-height: 44px;
+    color: var(--ink);
+  }
+  h1 {
+    margin: 0;
+    font-family: var(--font-serif);
+    font-size: 56px;
+    line-height: 1.05;
+    font-weight: 500;
+    letter-spacing: -0.01em;
+  }
+  .intro {
+    margin: 0;
+    font-family: var(--font-serif);
+    font-size: 22px;
+    line-height: 1.45;
+    color: var(--text-body);
+  }
+  .toc {
+    list-style: none;
+    margin: 8px 0 0;
+    padding: 0;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0 28px;
+  }
+  .toc a {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    min-height: 44px;
+    font-size: 15px;
+    color: var(--ink);
+  }
+  .num {
+    color: var(--second);
+    font-weight: 700;
+  }
+  @media (max-width: 640px) {
+    .page-head {
+      gap: 10px;
+      padding: 24px 0 20px;
+    }
+    h1 {
+      font-size: 36px;
+    }
+    .intro {
+      font-size: 19px;
+    }
+    .toc {
+      flex-direction: column;
+    }
+  }
+</style>

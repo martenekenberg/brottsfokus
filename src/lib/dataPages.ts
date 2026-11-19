@@ -1,6 +1,7 @@
 // The table pages, one per chapter that has one. Used by the chapter links,
 // the table index page, the sitemap and the language links.
 import { localePath, type Lang } from './i18n';
+import { pagePairs } from './parts';
 
 export interface TablePage {
   chapterId: string;
@@ -101,6 +102,10 @@ export function tablePage(chapterId: string, lang: Lang): TablePageUrls {
  */
 export function alternatePath(path: string, lang: Lang): string {
   const other: Lang = lang === 'sv' ? 'en' : 'sv';
+  // Part pages, Metod and Om sidan have their own slug in each language.
+  for (const pair of pagePairs) {
+    if (path === pair[lang]) return pair[other];
+  }
   for (const p of tablePages) {
     const from = tablePage(p.chapterId, lang);
     const to = tablePage(p.chapterId, other);

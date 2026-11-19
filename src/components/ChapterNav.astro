@@ -1,22 +1,28 @@
 ---
-// Chapter menu. Sticks to the top of the screen while scrolling. Once the big
-// headline has scrolled out of view, a small site title slides in at the left,
-// so the headline appears to shrink into the bar. The bar never changes height,
-// so the page does not jump.
-import { chapters } from '../lib/chapters';
-import { localePath, type Lang } from '../lib/i18n';
+// Site menu: the four parts, Metod and Om sidan. Sticks to the top of the screen while scrolling.
+// On the front page, once the big headline has scrolled out of view, a small site title slides in
+// at the left, so the headline appears to shrink into the bar. On other pages the small title always
+// shows. The bar never changes height, so the page does not jump.
+import { aboutPath, methodPath, parts, type PartId } from '../lib/parts';
+import { localePath, tr, type Lang } from '../lib/i18n';
 
 interface Props {
-  /** False on pages other than the main page: links point back to it and the small title always shows. */
+  /** True on the front page only. */
   home?: boolean;
+  /** The page being shown, marked in the menu. */
+  current?: PartId | 'metod' | 'om';
   lang: Lang;
 }
-const { home = true, lang } = Astro.props;
-const base = home ? '' : localePath(lang, '/');
+const { home = false, current, lang } = Astro.props;
 const frontPage = localePath(lang, '/');
+const items = [
+  ...parts.map((p) => ({ id: p.id as string, num: String(p.num), label: p.title[lang], href: p.path[lang] })),
+  { id: 'metod', num: '', label: tr(lang, 'Metod', 'Method'), href: methodPath[lang] },
+  { id: 'om', num: '', label: tr(lang, 'Om sidan', 'About'), href: aboutPath[lang] },
+];
 ---
 
-<nav aria-label={lang === 'en' ? 'Chapters' : 'Kapitel'} class:list={['chapter-nav', { 'is-compact': !home }]} data-chapter-nav>
+<nav aria-label={tr(lang, 'Huvudmeny', 'Main menu')} class:list={['chapter-nav', { 'is-compact': !home }]} data-chapter-nav>
   <div class="row">
     {
       home ? (
@@ -27,11 +33,11 @@ const frontPage = localePath(lang, '/');
     }
     <ul>
       {
-        chapters.map((c) => (
+        items.map((it) => (
           <li>
-            <a href={`${base}#${c.id}`}>
-              {c.num && <span class="num">{c.num}</span>}
-              {c.navLabel[lang]}
+            <a href={it.href} aria-current={it.id === current ? 'page' : undefined}>
+              {it.num && <span class="num">{it.num}</span>}
+              {it.label}
             </a>
           </li>
         ))
@@ -42,6 +48,18 @@ const frontPage = localePath(lang, '/');
 
 <script>
   const nav = document.querySelector<HTMLElement>('[data-chapter-nav]');
+  // Phones: the menu is one row that scrolls sideways. Fade its right edge while there is more to see,
+  // and bring the current page's link into view.
+  if (nav) {
+    const updateEnd = () => nav.classList.toggle('at-end', nav.scrollLeft + nav.clientWidth >= nav.scrollWidth - 2);
+    nav.addEventListener('scroll', updateEnd, { passive: true });
+    window.addEventListener('resize', updateEnd);
+    const currentLink = nav.querySelector<HTMLElement>('[aria-current="page"]');
+    if (currentLink && nav.scrollWidth > nav.clientWidth) {
+      nav.scrollLeft = Math.max(0, currentLink.offsetLeft - 16);
+    }
+    updateEnd();
+  }
   const headline = document.querySelector<HTMLElement>('.masthead h1');
   const mini = nav?.querySelector<HTMLAnchorElement>('.mini-title');
   // Keep jump links landing just below the menu, whatever its height (it can wrap).
@@ -148,6 +166,9 @@ const frontPage = localePath(lang, '/');
     color: var(--second);
     font-weight: 700;
   }
+  ul a[aria-current='page'] {
+    box-shadow: inset 0 -3px 0 var(--second);
+  }
   @media (max-width: 640px) {
     /* One row that scrolls sideways; the small title is its first item. */
     .chapter-nav {
@@ -157,6 +178,11 @@ const frontPage = localePath(lang, '/');
     }
     .chapter-nav::-webkit-scrollbar {
       display: none;
+    }
+    /* More to the right: fade the edge as a hint that the row scrolls. */
+    .chapter-nav:not(.at-end) {
+      mask-image: linear-gradient(to right, #000 calc(100% - 40px), transparent);
+      -webkit-mask-image: linear-gradient(to right, #000 calc(100% - 40px), transparent);
     }
     .row {
       width: max-content;

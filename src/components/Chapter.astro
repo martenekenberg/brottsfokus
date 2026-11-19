@@ -1,7 +1,7 @@
 ---
 // Shared chapter pattern: kicker, headline, intro, legend, chart,
 // "Läs så här" box, source line, a second chart if any (slot "after"), "Nästa" link.
-import { chapter, nextChapter } from '../lib/chapters';
+import { chapter, nextLink } from '../lib/chapters';
 import { tr, type Lang } from '../lib/i18n';
 
 interface Props {
@@ -14,7 +14,7 @@ interface Props {
 
 const { id, title, tableHref, lang } = Astro.props;
 const c = chapter(id);
-const next = nextChapter(id);
+const next = nextLink(id, lang);
 const hasLegend = Astro.slots.has('legend');
 const hasNote = Astro.slots.has('note');
 const hasControls = Astro.slots.has('controls');
@@ -38,7 +38,7 @@ const hasControls = Astro.slots.has('controls');
   <p class="source"><slot name="source" /></p>
   {tableHref && <a class="table-link" href={tableHref}>{tr(lang, 'Siffrorna i tabell och som CSV-fil', 'The figures as a table and CSV file')}</a>}
   <slot name="after" />
-  {next && <a class="next" href={`#${next.id}`}>{tr(lang, 'Nästa: ', 'Next: ')}{next.nextLabel[lang]} →</a>}
+  <a class="next" href={next.href}>{tr(lang, 'Nästa: ', 'Next: ')}{next.label} →</a>
 </section>
 
 <style>

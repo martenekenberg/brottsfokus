@@ -4,10 +4,10 @@
 // table pages. Adds Dataset markup.
 import DataLayout from '../../layouts/DataLayout.astro';
 import DataTableView from './DataTableView.astro';
-import { chapter } from '../../lib/chapters';
+import { chapter, chapterHref } from '../../lib/chapters';
 import { tablePage, tablePages, tablesIndexPath } from '../../lib/dataPages';
 import { dataDate } from '../../lib/dataDates';
-import { IN_LANGUAGE, localePath, tr, type Lang } from '../../lib/i18n';
+import { IN_LANGUAGE, tr, type Lang } from '../../lib/i18n';
 import { site, absoluteUrl, dayMonthYear } from '../../lib/site';
 import type { TablePageContent } from '../../lib/tablePageContent';
 
@@ -47,7 +47,7 @@ const dataset = {
     { '@type': 'DataDownload', encodingFormat: 'text/markdown', contentUrl: absoluteUrl(page.mdPath) },
   ],
 };
-const chartHref = `${localePath(lang, '/')}#${c.id}`;
+const chartHref = chapterHref(c.id, lang);
 const crumbTables = tr(lang, 'Tabeller', 'Tables');
 ---
 
@@ -138,7 +138,7 @@ const crumbTables = tr(lang, 'Tabeller', 'Tables');
   </p>
 
   <a class="back" href={chartHref}>
-    {tr(lang, `Till diagrammet i kapitel ${Number(c.num)}, ${c.navLabel[lang]}`, `Back to the chart in chapter ${Number(c.num)}, ${c.navLabel[lang]}`)}
+    {tr(lang, `Till diagrammet i kapitel ${c.num}, ${c.navLabel[lang]}`, `Back to the chart in chapter ${c.num}, ${c.navLabel[lang]}`)}
   </a>
 
   <nav class="more" aria-labelledby="fler-tabeller">

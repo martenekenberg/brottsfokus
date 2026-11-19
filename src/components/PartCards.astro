@@ -1,0 +1,111 @@
+---
+// Front page: one card per part, with its name, one sentence (owner approves the copy in
+// src/lib/parts.ts) and its chapters as links.
+import { chapter } from '../lib/chapters';
+import { parts } from '../lib/parts';
+import { tr, type Lang } from '../lib/i18n';
+
+interface Props {
+  lang: Lang;
+}
+const { lang } = Astro.props;
+---
+
+<section class="parts" aria-label={tr(lang, 'Sidans delar', 'Parts of the site')}>
+  {
+    parts.map((p) => (
+      <article class="card">
+        <p class="num">{tr(lang, `Del ${p.num}`, `Part ${p.num}`)}</p>
+        <h2>
+          <a href={p.path[lang]}>{p.title[lang]}</a>
+        </h2>
+        <p class="text">{p.card[lang]}</p>
+        <ul aria-label={tr(lang, `Kapitel i ${p.title.sv.toLowerCase()}`, `Chapters in ${p.title.en.toLowerCase()}`)}>
+          {p.chapters.map((id) => {
+            const c = chapter(id);
+            return (
+              <li>
+                <a href={`${p.path[lang]}#${id}`}>
+                  <span class="cnum">{c.num}</span>
+                  {c.kicker[lang]}
+                </a>
+              </li>
+            );
+          })}
+        </ul>
+      </article>
+    ))
+  }
+</section>
+
+<style>
+  .parts {
+    display: grid;
+    /* Two by two on wide screens, one column on phones. */
+    grid-template-columns: repeat(auto-fit, minmax(min(100%, 420px), 1fr));
+    gap: 40px 48px;
+    padding: 8px 0 64px;
+  }
+  .card {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    padding-top: 16px;
+    border-top: 3px solid var(--ink);
+  }
+  .num {
+    margin: 0;
+    font-size: 13px;
+    font-weight: 600;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--second);
+  }
+  h2 {
+    margin: 0;
+    font-family: var(--font-serif);
+    font-size: 30px;
+    line-height: 1.12;
+    font-weight: 500;
+  }
+  h2 a {
+    color: var(--ink);
+    text-decoration: none;
+  }
+  h2 a:hover {
+    color: var(--focus);
+    text-decoration: underline;
+  }
+  .text {
+    margin: 0;
+    font-size: 15px;
+    line-height: 1.55;
+    color: var(--text-body);
+  }
+  ul {
+    list-style: none;
+    margin: 4px 0 0;
+    padding: 0;
+  }
+  ul a {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    min-height: 44px;
+    font-size: 14px;
+    color: var(--ink);
+  }
+  .cnum {
+    color: var(--second);
+    font-weight: 700;
+  }
+  @media (max-width: 640px) {
+    .parts {
+      gap: 24px;
+      padding: 24px 0 40px;
+    }
+    h2 {
+      font-size: 26px;
+    }
+  }
+</style>

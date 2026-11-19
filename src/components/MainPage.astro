@@ -1,63 +1,65 @@
 ---
-// The one-page overview: masthead, chapter menu, key figures, all chapters, method and about.
+// The front page: masthead, menu, key figures and one card per part.
 // Rendered once per language: src/pages/index.astro (Swedish) and src/pages/en/index.astro (English).
-// Each chapter is its own component in ./chapters/ and loads its own data.
+// The chapters live on the part pages (src/components/PartPage.astro).
 import Base from '../layouts/Base.astro';
 import Masthead from './Masthead.astro';
 import ChapterNav from './ChapterNav.astro';
 import KeyFigures from './KeyFigures.astro';
-import Method from './Method.astro';
+import PartCards from './PartCards.astro';
 import Footer from './Footer.astro';
-import About from './About.astro';
-import Kap1 from './chapters/Kap1.astro';
-import Kap2 from './chapters/Kap2.astro';
-import Kap3 from './chapters/Kap3.astro';
-import Kap4 from './chapters/Kap4.astro';
-import Kap5 from './chapters/Kap5.astro';
-import Kap6 from './chapters/Kap6.astro';
-import Kap7 from './chapters/Kap7.astro';
-import Kap8 from './chapters/Kap8.astro';
-import Kap9 from './chapters/Kap9.astro';
 import { site, monthYear } from '../lib/site';
 import { localePath, tr, type Lang } from '../lib/i18n';
-import { buildKeyFigures, prisonSources } from '../lib/keyFigures';
+import { buildKeyFigures } from '../lib/keyFigures';
+import { chapters, MERGED } from '../lib/chapters';
+import { aboutPath, methodPath, partOf } from '../lib/parts';
 
 interface Props {
   lang: Lang;
 }
 const { lang } = Astro.props;
 const L = (sv: string, en: string) => tr(lang, sv, en);
-const pageTitle = site.title[lang];
-const pageDescription = site.description[lang];
 const frontPath = localePath(lang, '/');
 const keyFigures = buildKeyFigures(lang);
+
+// Until November 2026 every chapter was on this page, so links like "/#kap3" exist elsewhere.
+// The part after "#" never reaches the server, so a small script sends such links on to the right page.
+const oldAnchors: Record<string, string> = {
+  metod: methodPath[lang],
+  om: aboutPath[lang],
+  ...Object.fromEntries(chapters.map((c) => [c.id, `${partOf(c.id).path[lang]}#${c.id}`])),
+  ...Object.fromEntries(Object.entries(MERGED).map(([old, now]) => [old, `${partOf(now).path[lang]}#${now}`])),
+};
+const partPaths: Record<string, string> = Object.fromEntries(
+  [...chapters.map((c) => c.id), ...Object.keys(MERGED)].map((id) => [id, partOf(MERGED[id] ?? id).path[lang]]),
+);
 ---
 
-<Base title={pageTitle} description={pageDescription} lang={lang} path={frontPath}>
+<Base title={site.title[lang]} description={site.description[lang]} lang={lang} path={frontPath}>
+  <script is:inline define:vars={{ oldAnchors, partPaths }}>
+    (function () {
+      var id = decodeURIComponent(location.hash.slice(1));
+      if (!id) return;
+      // A chapter ("kap3") goes to its page; a chart inside one ("kap7-brott") keeps its own anchor.
+      var target = oldAnchors[id];
+      if (!target) {
+        var m = /^(kap\d+)-/.exec(id);
+        if (m && partPaths[m[1]]) target = partPaths[m[1]] + '#' + id;
+      }
+      if (target) location.replace(target);
+    })();
+  </script>
   <div class="wrap">
     <Masthead
       updated={monthYear(site.updated, lang)}
       sources={L('Brå, SCB, Lunds och Stockholms universitet', 'Brå, SCB, Lund and Stockholm universities')}
       lang={lang}
     />
-    <ChapterNav lang={lang} />
+    <ChapterNav home lang={lang} />
     <KeyFigures figures={keyFigures} />
-
     <main>
-      <Kap1 lang={lang} />
-      <Kap2 lang={lang} />
-      <Kap3 lang={lang} />
-      <Kap4 lang={lang} />
-      <Kap5 lang={lang} />
-      <Kap6 lang={lang} />
-      <Kap7 lang={lang} />
-      <Kap8 lang={lang} />
-      <Kap9 lang={lang} />
-
-      <Method extraSources={prisonSources()} lang={lang} />
-      <About lang={lang} />
+      <PartCards lang={lang} />
     </main>
-
     <Footer lang={lang} path={frontPath} />
   </div>
 </Base>

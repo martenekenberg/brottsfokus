@@ -1,0 +1,12 @@
+---
+// The four part pages in Swedish: /misstankta/, /lagforda-och-domda/ and so on (src/lib/parts.ts).
+import PartPage from '../../components/PartPage.astro';
+import { parts } from '../../lib/parts';
+
+export function getStaticPaths() {
+  return parts.map((p) => ({ params: { part: p.path.sv.replaceAll('/', '') }, props: { partId: p.id } }));
+}
+const { partId } = Astro.props;
+---
+
+<PartPage partId={partId} lang="sv" />

@@ -4,6 +4,7 @@
 import Chapter from '../Chapter.astro';
 import Victims from '../kap6/Victims.astro';
 import { tr, type Lang } from '../../lib/i18n';
+import { chapter } from '../../lib/chapters';
 import { loadNtu } from '../../lib/data';
 import { tablePage } from '../../lib/dataPages';
 import { swedishHigher } from '../../lib/chapters/kap6';
@@ -40,8 +41,8 @@ if (JSON.stringify(swedishHigher(ntu)) !== JSON.stringify([{ crimeId: 'sexualbro
   <Victims rows={ntu} lang={lang} />
   <Fragment slot="note">
     {L(
-      'Svaren kommer från en enkät och gäller även brott som aldrig anmälts till polisen. Här räknar Brå alla som själva eller vars ena eller båda föräldrar är födda utomlands som utländsk bakgrund. Det skiljer sig från kapitel 1 och 2, där inrikesfödda med en utrikesfödd förälder är en egen grupp. Inte justerat för ålder eller andra skillnader mellan grupperna. Alla tillfrågade svarar inte, och Brå väger svaren så att de ska spegla befolkningen. Skillnader på några tiondels procentenheter kan bero på slumpen i urvalet, felmarginalerna finns i tabellerna (länken nedan). Frågan om trakasserier ställs bara sedan 2019. Resultat efter världsdel och per år finns också i tabellerna.',
-      'The answers come from a survey and include crimes that were never reported to the police. Here Brå counts everyone who was born abroad, or who has one or two parents born abroad, as having a foreign background. This differs from chapters 1 and 2, where people born in Sweden with one foreign-born parent are a group of their own. Not adjusted for age or other differences between the groups. Not everyone who is asked answers, and Brå weights the answers so that they reflect the population. Differences of a few tenths of a percentage point can be due to chance in the sample; the margins of error are in the tables (link below). The question on harassment has only been asked since 2019. Results by world region and by year are also in the tables.',
+      `Svaren kommer från en enkät och gäller även brott som aldrig anmälts till polisen. Här räknar Brå alla som själva eller vars ena eller båda föräldrar är födda utomlands som utländsk bakgrund. Det skiljer sig från kapitel ${chapter('kap1').num} och ${chapter('kap2').num}, där inrikesfödda med en utrikesfödd förälder är en egen grupp. Inte justerat för ålder eller andra skillnader mellan grupperna. Alla tillfrågade svarar inte, och Brå väger svaren så att de ska spegla befolkningen. Skillnader på några tiondels procentenheter kan bero på slumpen i urvalet, felmarginalerna finns i tabellerna (länken nedan). Frågan om trakasserier ställs bara sedan 2019. Resultat efter världsdel och per år finns också i tabellerna.`,
+      `The answers come from a survey and include crimes that were never reported to the police. Here Brå counts everyone who was born abroad, or who has one or two parents born abroad, as having a foreign background. This differs from chapters ${chapter('kap1').num} and ${chapter('kap2').num}, where people born in Sweden with one foreign-born parent are a group of their own. Not adjusted for age or other differences between the groups. Not everyone who is asked answers, and Brå weights the answers so that they reflect the population. Differences of a few tenths of a percentage point can be due to chance in the sample; the margins of error are in the tables (link below). The question on harassment has only been asked since 2019. Results by world region and by year are also in the tables.`,
     )}
   </Fragment>
   <Fragment slot="source">

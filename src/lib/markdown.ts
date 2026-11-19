@@ -1,7 +1,7 @@
 // Markdown copies of the table pages and llms.txt. Same text and numbers as the HTML pages.
-import { chapter } from './chapters';
+import { chapter, chapterHref } from './chapters';
 import { type TablePageUrls } from './dataPages';
-import { localePath, tr, type Lang } from './i18n';
+import { tr, type Lang } from './i18n';
 import { site, absoluteUrl, dayMonthYear } from './site';
 import { formatCell, type DataTable } from './tables';
 import type { TablePageContent } from './tablePageContent';
@@ -62,8 +62,8 @@ export function pageToMarkdown(p: TablePageContent, page: TablePageUrls, updated
     '',
     tr(
       lang,
-      `Från ${site.name}, ${absoluteUrl(page.path)}. Diagram: ${absoluteUrl(`${localePath(lang, '/')}#${chapter(p.chapterId).id}`)}. Uppgifterna senast ändrade ${dayMonthYear(updated, lang)}.`,
-      `From ${site.name}, ${absoluteUrl(page.path)}. Chart: ${absoluteUrl(`${localePath(lang, '/')}#${chapter(p.chapterId).id}`)}. Data last changed ${dayMonthYear(updated, lang)}.`,
+      `Från ${site.name}, ${absoluteUrl(page.path)}. Diagram: ${absoluteUrl(chapterHref(p.chapterId, lang))}. Uppgifterna senast ändrade ${dayMonthYear(updated, lang)}.`,
+      `From ${site.name}, ${absoluteUrl(page.path)}. Chart: ${absoluteUrl(chapterHref(p.chapterId, lang))}. Data last changed ${dayMonthYear(updated, lang)}.`,
     ),
   );
   return plain(out.join('\n')) + '\n';

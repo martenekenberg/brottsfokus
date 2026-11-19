@@ -1,5 +1,6 @@
 ---
 import { tablesIndexPath } from '../lib/dataPages';
+import { chapter } from '../lib/chapters';
 import { tr, type Lang } from '../lib/i18n';
 
 const terms = (lang: Lang) => [
@@ -15,8 +16,8 @@ const terms = (lang: Lang) => [
     title: tr(lang, 'Bakgrund', 'Background'),
     text: tr(
       lang,
-      'Utrikesfödd är född utomlands. Inrikesfödda delas in efter om ingen, en eller båda föräldrarna är födda utomlands. I kapitel 6 räknar Brå alla som själva eller vars ena eller båda föräldrar är födda utomlands som utländsk bakgrund.',
-      'Born abroad means born outside Sweden. People born in Sweden are grouped by whether none, one or both of their parents were born abroad. In chapter 6, Brå counts everyone who was born abroad or has one or two parents born abroad as having a foreign background.',
+      `Utrikesfödd är född utomlands. Inrikesfödda delas in efter om ingen, en eller båda föräldrarna är födda utomlands. I kapitel ${chapter('kap6').num} räknar Brå alla som själva eller vars ena eller båda föräldrar är födda utomlands som utländsk bakgrund.`,
+      `Born abroad means born outside Sweden. People born in Sweden are grouped by whether none, one or both of their parents were born abroad. In chapter ${chapter('kap6').num}, Brå counts everyone who was born abroad or has one or two parents born abroad as having a foreign background.`,
     ),
   },
   {
@@ -39,8 +40,8 @@ const terms = (lang: Lang) => [
     title: tr(lang, 'Utsatt för brott', 'Victim of crime'),
     text: tr(
       lang,
-      'Kapitel 6 bygger på Brås Nationella trygghetsundersökning (NTU), en årlig enkät där personer 16–84 år svarar på om de utsatts för brott. Den fångar även brott som inte anmäls.',
-      'Chapter 6 is based on Brå’s Swedish Crime Survey (NTU), a yearly survey in which people aged 16–84 say whether they have been victims of crime. It also captures crimes that are not reported.',
+      `Kapitel ${chapter('kap6').num} bygger på Brås Nationella trygghetsundersökning (NTU), en årlig enkät där personer 16–84 år svarar på om de utsatts för brott. Den fångar även brott som inte anmäls.`,
+      `Chapter ${chapter('kap6').num} is based on Brå’s Swedish Crime Survey (NTU), a yearly survey in which people aged 16–84 say whether they have been victims of crime. It also captures crimes that are not reported.`,
     ),
   },
   {
@@ -111,15 +112,17 @@ interface Props {
   /** Extra sources, e.g. Brå's yearly prison reports, read from the data files. */
   extraSources?: { label: string; url: string }[];
   lang: Lang;
+  /** On its own page the page header carries the headline, so the section leaves its own out. */
+  ownPage?: boolean;
 }
-const { extraSources = [], lang } = Astro.props;
+const { extraSources = [], lang, ownPage = false } = Astro.props;
 // Official titles stay as published; only the wording around them is translated.
 const sourceLabel = (label: string) =>
   lang === 'en' ? label.replace(/^Brå rapport /, 'Brå report ').replace(' m.fl. ', ' et al. ') : label;
 const allSources = [...sources, ...extraSources].map((s) => ({ ...s, label: sourceLabel(s.label) }));
 ---
-<section id="metod" class="method" aria-labelledby="metod-h">
-  <h2 id="metod-h">{tr(lang, 'Metod och begrepp', 'Method and terms')}</h2>
+<section id="metod" class:list={['method', { 'own-page': ownPage }]} aria-label={tr(lang, 'Metod och begrepp', 'Method and terms')}>
+  {!ownPage && <h2 id="metod-h">{tr(lang, 'Metod och begrepp', 'Method and terms')}</h2>}
   {
     terms(lang).map((t) => (
       <div class="term">
@@ -154,6 +157,10 @@ const allSources = [...sources, ...extraSources].map((s) => ({ ...s, label: sour
     padding: 64px 0;
     border-top: 3px solid var(--ink);
     scroll-margin-top: calc(var(--sticky-nav-h) + 8px);
+  }
+  .method.own-page {
+    padding-top: 32px;
+    border-top: 1px solid var(--ink);
   }
   h2 {
     grid-column: 1 / -1;

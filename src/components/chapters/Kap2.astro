@@ -6,6 +6,7 @@ import BarChart from '../charts/BarChart.astro';
 import SubChart from '../SubChart.astro';
 import OriginDots from '../kap2/OriginDots.astro';
 import { tr, type Lang } from '../../lib/i18n';
+import { chapter } from '../../lib/chapters';
 import { loadOrigin, loadSuspectsByBackground, loadTableB6, loadRiskFactors } from '../../lib/data';
 import { tablePage } from '../../lib/dataPages';
 import { formatNumber } from '../../lib/format';
@@ -67,8 +68,8 @@ const factorRisk = (id: string) => {
   <OriginDots data={kap2Data} lang={lang} />
   <Fragment slot="note">
     {L(
-      `Orange punkt visar Brås beräkning om gruppen haft samma ålder, kön, inkomst och utbildning som jämförelsegruppen, inte en faktisk andel. Alla som misstänktes någon gång under fyra år räknas, därför är talen högre än i kapitel 1. Vissa grupper är små: det minsta födelselandet har ${n0(smallestCountry.n)} personer och den minsta gruppen efter moderns födelseområde ${n0(smallestMotherRegion.n)}.`,
-      `The orange dot shows Brå’s calculation of what the group would look like with the same age, sex, income and education as the comparison group, not an actual share. Everyone who was suspected at any time during four years is counted, so the figures are higher than in chapter 1. Some groups are small: the smallest birth country has ${n0(smallestCountry.n)} people, and the smallest group by mother’s birth region has ${n0(smallestMotherRegion.n)}.`,
+      `Orange punkt visar Brås beräkning om gruppen haft samma ålder, kön, inkomst och utbildning som jämförelsegruppen, inte en faktisk andel. Alla som misstänktes någon gång under fyra år räknas, därför är talen högre än i kapitel ${chapter('kap1').num}. Vissa grupper är små: det minsta födelselandet har ${n0(smallestCountry.n)} personer och den minsta gruppen efter moderns födelseområde ${n0(smallestMotherRegion.n)}.`,
+      `The orange dot shows Brå’s calculation of what the group would look like with the same age, sex, income and education as the comparison group, not an actual share. Everyone who was suspected at any time during four years is counted, so the figures are higher than in chapter ${chapter('kap1').num}. Some groups are small: the smallest birth country has ${n0(smallestCountry.n)} people, and the smallest group by mother’s birth region has ${n0(smallestMotherRegion.n)}.`,
     )}
   </Fragment>
   <Fragment slot="source">
