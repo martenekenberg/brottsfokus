@@ -1,0 +1,240 @@
+---
+// Metod: which background grouping each chapter uses. The sources group people differently,
+// and the biggest difference is where people born in Sweden with one foreign-born parent end up.
+// Chapter numbers and links come from the chapter list, so they follow any renumbering.
+import { chapter, chapterHref } from '../lib/chapters';
+import { tr, type Lang } from '../lib/i18n';
+
+interface Props {
+  lang: Lang;
+}
+const { lang } = Astro.props;
+const L = (sv: string, en: string) => tr(lang, sv, en);
+
+const FOUR_SV = 'utrikesfödda, inrikesfödda med två utrikesfödda föräldrar, inrikesfödda med en utrikesfödd förälder och inrikesfödda med två inrikesfödda föräldrar';
+const FOUR_EN = 'born abroad, born in Sweden with two foreign-born parents, born in Sweden with one foreign-born parent, and born in Sweden with two Swedish-born parents';
+const TWO_SWEDISH = L('Inrikesfödda med två inrikesfödda föräldrar', 'Born in Sweden, two Swedish-born parents');
+
+const rows = [
+  {
+    ids: ['kap1'],
+    source: 'Brå 2021:9',
+    groups: L(`Fyra grupper: ${FOUR_SV}. Det andra diagrammet har också icke folkbokförda.`, `Four groups: ${FOUR_EN}. The second chart also has people not registered in Sweden.`),
+    compared: TWO_SWEDISH,
+    oneParent: L('Egen grupp', 'A group of its own'),
+  },
+  {
+    ids: ['kap2'],
+    source: 'Brå 2021:9',
+    groups: L(
+      'Utrikesfödda efter födelseområde eller födelseland, och inrikesfödda med två utrikesfödda föräldrar efter moderns födelseområde. Det andra diagrammet har tre grupper efter bakgrund.',
+      'People born abroad by birth region or birth country, and people born in Sweden with two foreign-born parents by mother’s birth region. The second chart has three groups by background.',
+    ),
+    compared: TWO_SWEDISH,
+    oneParent: L('Egen grupp i det andra diagrammet', 'A group of its own in the second chart'),
+  },
+  {
+    ids: ['kap5'],
+    source: 'Brå 2005:17',
+    groups: L(
+      'Samma fyra grupper. I några diagram slås en och två utrikesfödda föräldrar ihop.',
+      'The same four groups. Some charts combine one and two foreign-born parents.',
+    ),
+    compared: TWO_SWEDISH,
+    oneParent: L('Egen grupp, eller ihop med två utrikesfödda föräldrar', 'A group of its own, or combined with two foreign-born parents'),
+  },
+  {
+    ids: ['kap9'],
+    source: 'Brå 2025:21',
+    groups: L('Samma fyra grupper, för födda från 1984.', 'The same four groups, for people born from 1984.'),
+    compared: L('Alla grupper visas bredvid varandra', 'All groups are shown side by side'),
+    oneParent: L('Egen grupp', 'A group of its own'),
+  },
+  {
+    ids: ['kap9'],
+    source: L('Bäckman m.fl. 2021', 'Bäckman et al. 2021'),
+    groups: L(
+      'Tre grupper: utrikesfödda, inrikesfödda med två utrikesfödda föräldrar och inrikesfödda med minst en inrikesfödd förälder.',
+      'Three groups: born abroad, born in Sweden with two foreign-born parents, and born in Sweden with at least one Swedish-born parent.',
+    ),
+    compared: L('Inrikesfödda med minst en inrikesfödd förälder', 'Born in Sweden, at least one Swedish-born parent'),
+    oneParent: L('I jämförelsegruppen', 'In the comparison group'),
+  },
+  {
+    ids: ['kap4'],
+    source: L('Khoshnood m.fl. 2021 och 2026', 'Khoshnood et al. 2021 and 2026'),
+    groups: L(
+      'Samma fyra grupper. Det översta stapelparet är alla utom inrikesfödda med två inrikesfödda föräldrar.',
+      'The same four groups. The top pair of bars is everyone except people born in Sweden with two Swedish-born parents.',
+    ),
+    compared: L('En matchad kontrollgrupp, och befolkningen', 'A matched control group, and the population'),
+    oneParent: L('Egen grupp, och med i det översta stapelparet', 'A group of its own, and part of the top pair of bars'),
+  },
+  {
+    ids: ['kap3', 'kap7'],
+    source: L('Brå, kriminalvårdsstatistik och 2026:15', 'Brå, prison statistics and 2026:15'),
+    groups: L(
+      'Medborgarskap, inte födelseland: med eller utan svenskt medborgarskap, och för utvisning område för medborgarskap.',
+      'Citizenship, not country of birth: with or without Swedish citizenship, and for deportation the region of citizenship.',
+    ),
+    compared: L('Utländska medborgare i befolkningen (fängelse)', 'Foreign citizens in the population (prison)'),
+    oneParent: L('Redovisas inte', 'Not reported'),
+  },
+  {
+    ids: ['kap6'],
+    source: L('Brå, NTU', 'Brå, Swedish Crime Survey'),
+    groups: L(
+      'Två grupper: utländsk bakgrund (född utomlands, eller minst en förälder född utomlands) och svensk bakgrund.',
+      'Two groups: foreign background (born abroad, or at least one parent born abroad) and Swedish background.',
+    ),
+    compared: L('Svensk bakgrund', 'Swedish background'),
+    oneParent: L('Utländsk bakgrund', 'Foreign background'),
+  },
+  {
+    ids: ['kap8'],
+    source: 'Brå 2025:5',
+    groups: L(
+      'Fyra grupper, och två: utländsk bakgrund (utrikesfödda och inrikesfödda med två utrikesfödda föräldrar) och svensk bakgrund (övriga).',
+      'Four groups, and two: foreign background (born abroad, and born in Sweden with two foreign-born parents) and Swedish background (everyone else).',
+    ),
+    compared: L('Befolkningen', 'The population'),
+    oneParent: L('Svensk bakgrund', 'Swedish background'),
+  },
+];
+const head = {
+  chapter: L('Kapitel', 'Chapter'),
+  source: L('Källa', 'Source'),
+  groups: L('Grupper', 'Groups'),
+  compared: L('Jämförs med', 'Compared with'),
+  oneParent: L('Inrikesfödda med en utrikesfödd förälder', 'Born in Sweden, one foreign-born parent'),
+};
+---
+
+<div class="groupings" id="indelning">
+  <h3>{L('Indelning efter bakgrund i varje kapitel', 'How each chapter groups background')}</h3>
+  <p class="lead">
+    {
+      L(
+        'Källorna delar in bakgrund på olika sätt. Störst skillnad gäller inrikesfödda med en utrikesfödd förälder: i vissa källor en egen grupp, i andra en del av utländsk eller svensk bakgrund. Jämför därför bara siffror som bygger på samma indelning.',
+        'The sources group background in different ways. The biggest difference concerns people born in Sweden with one foreign-born parent: a group of their own in some sources, part of foreign or Swedish background in others. Only compare figures that use the same grouping.',
+      )
+    }
+  </p>
+  <table>
+    <thead>
+      <tr>
+        <th scope="col">{head.chapter}</th>
+        <th scope="col">{head.source}</th>
+        <th scope="col">{head.groups}</th>
+        <th scope="col">{head.compared}</th>
+        <th scope="col">{head.oneParent}</th>
+      </tr>
+    </thead>
+    <tbody>
+      {
+        rows.map((r) => (
+          <tr>
+            <th scope="row" data-label={head.chapter}>
+              {r.ids.map((id, i) => (
+                <>
+                  {i > 0 && ', '}
+                  <a href={chapterHref(id, lang)}>{chapter(id).num} {chapter(id).kicker[lang]}</a>
+                </>
+              ))}
+            </th>
+            <td data-label={head.source}>{r.source}</td>
+            <td data-label={head.groups}>{r.groups}</td>
+            <td data-label={head.compared}>{r.compared}</td>
+            <td data-label={head.oneParent} class="one-parent">{r.oneParent}</td>
+          </tr>
+        ))
+      }
+    </tbody>
+  </table>
+</div>
+
+<style>
+  .groupings {
+    grid-column: 1 / -1;
+    padding-top: 24px;
+    border-top: 1px solid var(--rule);
+    scroll-margin-top: calc(var(--sticky-nav-h) + 8px);
+  }
+  h3 {
+    margin: 0 0 8px;
+    font-size: 15px;
+    font-weight: 600;
+  }
+  .lead {
+    margin: 0 0 16px;
+    font-size: 14px;
+    line-height: 1.6;
+    color: var(--text-body);
+  }
+  table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 13px;
+    line-height: 1.5;
+  }
+  thead th {
+    text-align: left;
+    font-weight: 600;
+    color: var(--text-muted);
+    padding: 0 12px 8px 0;
+    border-bottom: 1px solid var(--ink);
+    vertical-align: bottom;
+  }
+  tbody th,
+  tbody td {
+    text-align: left;
+    vertical-align: top;
+    padding: 10px 12px 10px 0;
+    border-bottom: 1px solid var(--rule);
+  }
+  tbody th {
+    font-weight: 600;
+  }
+  /* Column widths: the groups need the most room. */
+  thead th:nth-child(1) { width: 16%; }
+  thead th:nth-child(2) { width: 13%; }
+  thead th:nth-child(3) { width: 37%; }
+  thead th:nth-child(4) { width: 17%; }
+  thead th:nth-child(5) { width: 17%; }
+  tbody th a {
+    color: var(--ink);
+  }
+  .one-parent {
+    font-weight: 600;
+  }
+  /* Phones: each row becomes a small block with the column names repeated. */
+  @media (max-width: 720px) {
+    thead {
+      position: absolute;
+      width: 1px;
+      height: 1px;
+      overflow: hidden;
+      clip: rect(0 0 0 0);
+    }
+    tbody tr {
+      display: block;
+      padding: 12px 0;
+      border-bottom: 1px solid var(--rule);
+    }
+    tbody th,
+    tbody td {
+      display: block;
+      padding: 2px 0;
+      border: 0;
+      white-space: normal;
+    }
+    tbody td::before {
+      content: attr(data-label) ': ';
+      font-weight: 600;
+      color: var(--text-muted);
+    }
+    .one-parent {
+      font-weight: 400;
+    }
+  }
+</style>

@@ -1,6 +1,7 @@
 ---
 import { tablesIndexPath } from '../lib/dataPages';
 import { chapter } from '../lib/chapters';
+import GroupingsTable from './GroupingsTable.astro';
 import { tr, type Lang } from '../lib/i18n';
 
 const terms = (lang: Lang) => [
@@ -16,8 +17,8 @@ const terms = (lang: Lang) => [
     title: tr(lang, 'Bakgrund', 'Background'),
     text: tr(
       lang,
-      `Utrikesfödd är född utomlands. Inrikesfödda delas in efter om ingen, en eller båda föräldrarna är födda utomlands. I kapitel ${chapter('kap6').num} räknar Brå alla som själva eller vars ena eller båda föräldrar är födda utomlands som utländsk bakgrund.`,
-      `Born abroad means born outside Sweden. People born in Sweden are grouped by whether none, one or both of their parents were born abroad. In chapter ${chapter('kap6').num}, Brå counts everyone who was born abroad or has one or two parents born abroad as having a foreign background.`,
+      `Utrikesfödd är född utomlands. Inrikesfödda delas in efter om ingen, en eller båda föräldrarna är födda utomlands. Källorna gör olika indelningar, se tabellen nedan.`,
+      `Born abroad means born outside Sweden. People born in Sweden are grouped by whether none, one or both of their parents were born abroad. The sources group people differently; see the table below.`,
     ),
   },
   {
@@ -131,6 +132,7 @@ const allSources = [...sources, ...extraSources].map((s) => ({ ...s, label: sour
       </div>
     ))
   }
+  <GroupingsTable lang={lang} />
   <div class="sources">
     <h3>{tr(lang, 'Källor', 'Sources')}</h3>
     <p>

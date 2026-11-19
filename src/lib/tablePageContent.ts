@@ -815,7 +815,7 @@ function kap8(lang: Lang): TablePageContent {
       'Background among homicide victims and perpetrators in 2005–2021, compared with the population, according to Brå report 2025:5. Table and CSV file.',
     ),
     datasetDescription: T(
-      'Andelar (%) bland 1 521 offer och 1 175 gärningspersoner vid dödligt våld i Sverige 2005–2021 och i befolkningen: utländsk bakgrund, utrikes födda och inrikes födda med två inrikes födda föräldrar. Uppgifter som Brå anger i texten eller på figurer i rapport 2025:5.',
+      'Andelar (%) bland 1 521 offer och 1 175 gärningspersoner vid dödligt våld i Sverige 2005–2021 och i befolkningen: utländsk bakgrund, utrikesfödda och inrikesfödda med två inrikesfödda föräldrar. Uppgifter som Brå anger i texten eller på figurer i rapport 2025:5.',
       'Shares (%) among 1,521 victims and 1,175 perpetrators of homicide in Sweden in 2005–2021 and in the population: foreign background, born abroad, and born in Sweden with two Swedish-born parents. Figures that Brå gives in the text or on figures in report 2025:5.',
     ),
     temporalCoverage: '2005/2021',
@@ -834,7 +834,7 @@ function kap8(lang: Lang): TablePageContent {
         `In the population the share was ${n(utl.population)}%.`,
     ),
     note: T(
-      'Utländsk bakgrund betyder utrikes född eller inrikes född med två utrikes födda föräldrar. Gärningspersoner finns bara för uppklarade fall, och ' +
+      'Utländsk bakgrund betyder utrikesfödd eller inrikesfödd med två utrikesfödda föräldrar. Gärningspersoner finns bara för uppklarade fall, och ' +
         'omkring 70 procent av fallen i kriminell miljö är ouppklarade. Bara personer med svenskt personnummer ingår. Inte justerat för ålder eller kön. ' +
         'Befolkningens andel är ett snitt för perioden. Brå anger hela procent.',
       'Foreign background means born abroad, or born in Sweden with two foreign-born parents. Perpetrators are only known for solved cases, and about 70% of ' +
@@ -865,12 +865,12 @@ function kap9(lang: Lang): TablePageContent {
       'Share convicted of a crime before age 25 among everyone born in 1966–1993, by background, sex and birth year, and among those who grew up in the lowest-income families. From Bäckman et al. 2021. Tables and CSV file.',
     ),
     datasetDescription: T(
-      'Alla födda 1966–1993 som var folkbokförda i Sverige från 15 till 24 års ålder, i grupper om fyra födelseår: andel (%) som lagförts minst en gång respektive upprepat före 25 års ålder, relativ risk jämfört med inrikes födda med minst en inrikes född förälder, och antal personer. För alla och för dem som växte upp i den tiondel av familjerna som hade lägst inkomster. Tabell 1 och 2 i Bäckman, Estrada, Nilsson och Sivertsson 2021, Nordic Journal of Criminology (CC BY 4.0).',
+      'Alla födda 1966–1993 som var folkbokförda i Sverige från 15 till 24 års ålder, i grupper om fyra födelseår: andel (%) som lagförts minst en gång respektive upprepat före 25 års ålder, relativ risk jämfört med inrikesfödda med minst en inrikesfödd förälder, och antal personer. För alla och för dem som växte upp i den tiondel av familjerna som hade lägst inkomster. Tabell 1 och 2 i Bäckman, Estrada, Nilsson och Sivertsson 2021, Nordic Journal of Criminology (CC BY 4.0).',
       'Everyone born in 1966–1993 who was registered as living in Sweden from age 15 to 24, in groups of four birth years: share (%) convicted at least once and repeatedly before age 25, relative risk compared with people born in Sweden with at least one Swedish-born parent, and number of people. For everyone and for those who grew up in the tenth of families with the lowest incomes. Tables 1 and 2 in Bäckman, Estrada, Nilsson and Sivertsson 2021, Nordic Journal of Criminology (CC BY 4.0).',
     ),
     temporalCoverage: '1990/2017',
     keywords: T(
-      ['lagförda', 'unga', 'utrikes födda', 'andra generationen', 'låg inkomst', 'födelsekohorter'],
+      ['lagförda', 'unga', 'utrikesfödda', 'andra generationen', 'låg inkomst', 'födelsekohorter'],
       ['convicted', 'young people', 'born abroad', 'second generation', 'low income', 'birth cohorts'],
     ),
     variableMeasured: T(['Andel lagförda före 25 års ålder', 'Relativ risk', 'Antal personer'], ['Share convicted before age 25', 'Relative risk', 'Number of people']),
@@ -878,8 +878,8 @@ function kap9(lang: Lang): TablePageContent {
     credit: T('Bäckman, Estrada, Nilsson och Sivertsson 2021', 'Bäckman, Estrada, Nilsson and Sivertsson 2021'),
     terms: T('Artikeln är publicerad med öppen tillgång under CC BY 4.0.', 'The article is published open access under CC BY 4.0.'),
     lead: T(
-      `Av männen födda ${last} hade ${v(last, 'utrikesfodd')} procent av de utrikes födda, ${v(last, 'andra_gen')} procent av de inrikes födda med två utrikes ` +
-        `födda föräldrar och ${v(last, 'native')} procent av övriga lagförts för brott före 25 års ålder, enligt en studie från Stockholms universitet. ` +
+      `Av männen födda ${last} hade ${v(last, 'utrikesfodd')} procent av de utrikesfödda, ${v(last, 'andra_gen')} procent av de inrikesfödda med två ` +
+        `utrikesfödda föräldrar och ${v(last, 'native')} procent av övriga lagförts för brott före 25 års ålder, enligt en studie från Stockholms universitet. ` +
         `Bland männen födda ${first} var andelarna ${v(first, 'utrikesfodd')}, ${v(first, 'andra_gen')} och ${v(first, 'native')} procent.`,
       `Of men born in ${last}, ${v(last, 'utrikesfodd')}% of those born abroad, ${v(last, 'andra_gen')}% of those born in Sweden with two foreign-born parents ` +
         `and ${v(last, 'native')}% of the others had been convicted of a crime before age 25, according to a study from Stockholm University. ` +

@@ -8,7 +8,6 @@ Fix now: done 19 November 2026 (see "Done" below).
 
 Next:
 
-- Metod: a table showing which background grouping each chapter uses; one spelling ("utrikesfödda") in the site's own text.
 - 3.1 Fängelse: make all/men/women easier to tell apart; fill 2016, 2017 and 2021 from Brå's own table (same series).
 - Table pages on phones: keep the year column fixed when scrolling sideways.
 - Colour rules: grey is used for a comparison group in 1.1 (one foreign-born parent, solid grey) and 1.3, not only for the population. (2.1 fixed: Bäckman's comparison group is now a black line.)
@@ -29,6 +28,8 @@ Watch:
 - Links from relevant places (data journalists, researchers, newsletters).
 
 ## Done
+
+- Metod: table showing how each chapter groups background, and one spelling ("utrikesfödda") in the site's own text, 19 November 2026. Brå 2025:5's own labels ("utrikes födda") stay as Brå writes them.
 
 - Owner decisions, 19 November 2026: the income and work charts (2.2 prior convictions and social assistance, 4.2 second chart) removed from the site and table pages; the masthead keeps the build date as "Uppdaterad".
 

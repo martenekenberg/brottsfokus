@@ -13,9 +13,9 @@ export type Sex = 'man' | 'kvinna';
 export type Table = 'alla' | 'laginkomst';
 
 export const GROUP_LABEL: Record<CohortGroup, Record<Lang, string>> = {
-  utrikesfodd: { sv: 'Utrikes födda', en: 'Born abroad' },
-  andra_gen: { sv: 'Inrikes födda med två utrikes födda föräldrar', en: 'Born in Sweden, two foreign-born parents' },
-  native: { sv: 'Inrikes födda med minst en inrikes född förälder', en: 'Born in Sweden, at least one Swedish-born parent' },
+  utrikesfodd: { sv: 'Utrikesfödda', en: 'Born abroad' },
+  andra_gen: { sv: 'Inrikesfödda med två utrikesfödda föräldrar', en: 'Born in Sweden, two foreign-born parents' },
+  native: { sv: 'Inrikesfödda med minst en inrikesfödd förälder', en: 'Born in Sweden, at least one Swedish-born parent' },
 };
 
 /** Order of the bars: the groups compared, then the comparison group (outlined). */
@@ -71,9 +71,9 @@ export function buildCohortSpec(rows: CohortRow[], table: Table, sex: Sex, lang:
 /** Line styles from chapter 1: born abroad blue, two foreign-born parents orange, the comparison group black. */
 const LINE_STYLE: Record<CohortGroup, keyof typeof GROUPS> = { utrikesfodd: 'utr', andra_gen: 'u2', native: 'sv2' };
 const END_LABEL: Record<CohortGroup, Record<Lang, string>> = {
-  utrikesfodd: { sv: 'Utrikes födda', en: 'Born abroad' },
-  andra_gen: { sv: 'Två utrikes födda föräldrar', en: 'Two foreign-born parents' },
-  native: { sv: 'Minst en inrikes född förälder', en: 'At least one Swedish-born parent' },
+  utrikesfodd: { sv: 'Utrikesfödda', en: 'Born abroad' },
+  andra_gen: { sv: 'Två utrikesfödda föräldrar', en: 'Two foreign-born parents' },
+  native: { sv: 'Minst en inrikesfödd förälder', en: 'At least one Swedish-born parent' },
 };
 
 /**
