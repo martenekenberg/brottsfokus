@@ -185,9 +185,14 @@ function detail(view: View, u: Kap2Unit, lang: Lang): string | undefined {
 export function buildKap2Spec(data: Kap2Data, view: View, crimeName: string, measure: Measure, lang: Lang): DotChartSpec {
   const crime = crimeFor(data, view, crimeName);
   // Highest first, by the value that is shown. (Risk and rate can differ in order by a
-  // hair, because Brå rounds both.) The share view keeps the risk order.
+  // hair, because Brå rounds both.) The share view sorts by share of all suspects.
+  const byShare = measure === 'share' && hasShares(crime);
   const units = [...crime.units].sort((a, b) =>
-    measure === 'rate' ? b.per1000 - a.per1000 || b.risk - a.risk : b.risk - a.risk || b.per1000 - a.per1000,
+    byShare
+      ? (b.suspectsPct as number) - (a.suspectsPct as number) || b.risk - a.risk
+      : measure === 'rate'
+        ? b.per1000 - a.per1000 || b.risk - a.risk
+        : b.risk - a.risk || b.per1000 - a.per1000,
   );
   const refLabel = tr(lang, 'Inrikesfödda med två inrikesfödda föräldrar', 'Born in Sweden, two Swedish-born parents');
   const heading = chartHeading(view, crime, measure, lang);
@@ -210,7 +215,7 @@ export function buildKap2Spec(data: Kap2Data, view: View, crimeName: string, mea
       ariaLabel:
         tr(lang, 'Punktdiagram. ', 'Dot plot. ') +
         `${heading}. ` +
-        tr(lang, `${rows.length} grupper, sorterade efter överrisk. `, `${rows.length} groups, sorted by excess risk. `) +
+        tr(lang, `${rows.length} grupper, sorterade efter andel av de misstänkta. `, `${rows.length} groups, sorted by share of suspects. `) +
         rows
           .map((r) =>
             tr(

@@ -189,7 +189,8 @@ export function renderBarChart(spec: BarChartSpec, width: number): string {
     // With a reference line, a white box behind the value keeps the dashed line from running through it.
     if (spec.ref) {
       const tw = valueText.length * 13 * 0.62;
-      p.push(`<rect x="${(L.x0 + w + 6).toFixed(1)}" y="${b.y - 1}" width="${(tw + 4).toFixed(1)}" height="${L.barHeight + 2}" fill="#FFFFFF"/>`);
+      // As tall as the dashed segment (3px above and below the bar), so no stub shows above or below the label.
+      p.push(`<rect x="${(L.x0 + w + 6).toFixed(1)}" y="${b.y - 3}" width="${(tw + 4).toFixed(1)}" height="${L.barHeight + 6}" fill="#FFFFFF"/>`);
     }
     p.push(
       `<text x="${(L.x0 + w + 8).toFixed(1)}" y="${b.y + 14}" ${FONT} font-size="13" font-weight="${comparison ? 600 : 700}" fill="${col.text}">${esc(valueText)}</text>`,
