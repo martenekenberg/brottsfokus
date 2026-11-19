@@ -30,6 +30,11 @@ export interface Kap4 {
   sv2Controls: number;
   /** Share of men among the convicted 2000–2020. */
   menPct: number;
+  /** Period of the 2000–2020 study, as written in the data file. */
+  period: string;
+  /** Share born abroad, 2000–2020: convicted and controls. Used in the headline. */
+  utrConvicted: number;
+  utrControls: number;
 }
 
 export function buildKap4(rows: RapeStudyRow[], population: PopulationRow[], lang: Lang): Kap4 {
@@ -163,5 +168,8 @@ export function buildKap4(rows: RapeStudyRow[], population: PopulationRow[], lan
     popTwoForeignParents,
     sv2Convicted: sv2.pct,
     sv2Controls: sv2.pctControls,
+    period: sv2.period,
+    utrConvicted: pick(rows, 'kontroll', 'utr').pct,
+    utrControls: pick(rows, 'kontroll', 'utr').pctControls ?? NaN,
   };
 }

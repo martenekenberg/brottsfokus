@@ -103,6 +103,20 @@ export function fellInAllGroups(rows: KohortRow[], measure: Measure, fromYear: n
   });
 }
 
+/**
+ * True if `year` has the lowest value of all birth years in every group (both sexes together).
+ * Ties count as not lowest, so the headline "lägst" is never shared with another year.
+ */
+export function lowestInAllGroups(rows: KohortRow[], measure: Measure, year: number): boolean {
+  return ORDER.every((g) => {
+    const own = kohortValue(rows, measure, 'samtliga', g, year);
+    if (own === null) return false;
+    return rows
+      .filter((r) => r.measure === measure && r.sex === 'samtliga' && r.group === g && r.birthYear !== year)
+      .every((r) => r.pct > own);
+  });
+}
+
 /** One table per measure and sex: birth years as rows, groups as columns. */
 export function kohortTables(rows: KohortRow[], lang: Lang): DataTable[] {
   const out: DataTable[] = [];
