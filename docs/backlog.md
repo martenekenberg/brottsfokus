@@ -17,7 +17,7 @@ Watch:
 
 ## Backlog from the SEO plan (November 2026)
 
-- **AI citation check (item 11).** A fixed list of about 25 questions (most can reuse the short-answer questions in `src/lib/shortAnswers.ts`), asked once a month in ChatGPT, Perplexity and Gemini. Log per question and tool: Brottsfokus mentioned, linked, used as the main source, quoted correctly. Owner put this in the backlog, 20 November 2026.
+- **AI citation check (item 11).** A fixed list of about 25 questions (most can reuse the short-answer questions in `src/lib/shortAnswers.ts`), asked once a month in ChatGPT, Perplexity and Gemini. Log per question and tool: Brottsfokus mentioned, linked, used as the main source, quoted correctly. Owner put this in the backlog, 20 November 2026. Start about a month later (around 20 December 2026), once the site is fully indexed (owner's decision).
 - **"Om uppgifterna": newer data.** Checked on bra.se, 20 November 2026: no newer comparable data for any chapter yet. 1.1 and 1.2: Brå's project page (updated 26 March 2026) plans the first publication for suspects 2019–2024 at the end of 2026. 3.1, 3.2, 4.2 and 2.1 (Brå 2025:21) already use Brå's latest release. 4.1: no newer NTU short analysis by background than 2/2024. Brå 2025:7 "Migration och brott" is a research review, not new statistics. Check again when Brå publishes 2019–2024 and in December (birth-cohort statistics).
 
 ## Later, once there is search data
