@@ -236,3 +236,4 @@ A "Källor" list with all links goes in the Metod section.
 - The share images (`public/og.png`, `public/og-en.png`) are drawn by `scripts/og-image.cjs`. Redraw them when the site description changes.
 - When a decision isn't covered here, pick the simplest option that fits the design and tell me what you chose.
 - End every reply to me with a suggested next step (owner's request, November 2026).
+- When suggesting URLs to submit or inspect in Google Search Console (or Bing Webmaster Tools), give each full URL in its own code block, so it has a copy button (owner's request, November 2026).
