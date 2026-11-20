@@ -9,7 +9,7 @@ A public, static website in Swedish called **Brottsfokus** (formerly "Brott och 
 Core principles, in priority order:
 
 1. **Every number has a visible source.** No figure appears without a source line under its chart.
-2. **Neutral tone.** Headlines state what the numbers show, nothing more. No opinions, no loaded words, no conclusions the sources don't draw.
+2. **Neutral tone.** Headlines state what the numbers show, nothing more. No opinions, no loaded words, no conclusions the sources don't draw. Chapter headlines lead with the size of the difference against the comparison group or the population, in numbers; trends go in the intro (owner's decision, November 2026).
 3. **Compare with the population whenever possible.** Show a group's share next to that group's share of the population.
 4. **Caveats stay visible.** Every chart has a "Läs så här" box with its limitations.
 5. **Never invent or estimate data.** If a value is missing, show a gap and say so.
@@ -136,11 +136,11 @@ A front page plus one page per part (owner's decision, 19 November 2026). The pa
    - kicker (`1.1 · Misstänkta över tid`)
    - factual headline (h2)
    - short intro
-   - "Kort svar" boxes, if any (`src/components/ShortAnswer.astro`, slot `answers`): a search question, an answer with numbers computed from the data, one caveat and the source. Owner-approved questions, November 2026. Defined once in `src/lib/shortAnswers.ts` and shown both in the chapter and on Frågor och svar. "Invandrare" may be used in questions and once in the answer, meaning utrikesfödda only (defined on Metod); never for citizenship, "utländsk bakgrund" or people born in Sweden (write "barn till invandrare")
+   - "Kort svar" boxes, if any (`src/components/ShortAnswer.astro`, slot `answers`): a search question, an answer with numbers computed from the data, one caveat and the source. Owner-approved questions, November 2026. Defined once in `src/lib/shortAnswers.ts` and shown both in the chapter and on Frågor och svar. "Invandrare" may be used in questions and once in the answer, meaning utrikesfödda only (defined on Metod); never for citizenship, "utländsk bakgrund" or people born in Sweden (write "barn till invandrare"). Headlines may say "barn till två invandrare" for inrikesfödda med två utrikesfödda föräldrar (defined on Metod)
    - "Om uppgifterna" panel: each study, the years its figures cover and when it was published (`src/lib/chapterFacts.ts`, years from the data where the data holds them), so the period is never confused with the site's update date
    - legend (when the chart has more than one series)
    - chart
-   - "Läs så här" box with caveats
+   - "Läs så här" box with caveats: the required caveats in a few short sentences. Technical notes (rounding, computed years, footnote mismatches) go in the table page's "Läs så här" (owner's decision, November 2026)
    - source line
    - link to its table page
    - second charts, if any (`src/components/SubChart.astro`)
