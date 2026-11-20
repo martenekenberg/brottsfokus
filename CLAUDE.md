@@ -88,12 +88,15 @@ Calculated values (shares, averages) are computed in code from these files. Keep
 | focus | `#1D4E89` | The group a chart is about |
 | second | `#C2410C` | Second data series, chapter numbers and kickers |
 | population | `#8A8A8A` | Population / comparison group (lines and hollow marks only, never small text) |
+| fourth | `#0F766E` | Born in Sweden with one foreign-born parent, in line charts (1.1, 2.1), so the group is not mistaken for the dashed grey population line. Contrast 5.5:1, so it may also be used for labels. Owner's decision, November 2026. |
 | extra | `#6B3FA0` | A fifth series, when the four background groups already use ink, focus, second and grey. Used for people not registered in Sweden (1.1, second chart). Contrast 7.4:1, so it may also be used for labels. Added at the owner's request, November 2026. |
 
 White page background. **No dark mode.** Text contrast must be at least 4.5:1.
 
 Visual grammar, used the same way in every chart:
-- Filled blue mark = the group. Hollow grey mark or outlined grey bar = the same group's share of the population.
+- Filled blue mark = the group. Hollow grey mark = the same group's share of the population.
+- Outlined grey bar = what the group is compared with: the population, a matched control group (2.2), or the group with Swedish background or two Swedish-born parents (1.3, 4.1). Owner's decision, November 2026.
+- Grey lines are only used for the population (dashed). A background group never gets a grey line.
 - Dashed grey line = population in line charts.
 - Dashed black line at 1 = the comparison group in risk charts.
 

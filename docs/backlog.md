@@ -6,9 +6,7 @@ Items from the SEO audit and the site review (November 2026) that are not done y
 
 Fix now: done 19 November 2026 (see "Done" below).
 
-Next:
-
-- Colour rules: grey is used for a comparison group in 1.1 (one foreign-born parent, solid grey) and 1.3, not only for the population. (2.1 fixed: Bäckman's comparison group is now a black line.)
+Next: nothing right now.
 
 Watch:
 
@@ -33,6 +31,8 @@ Watch:
 - Links from relevant places (data journalists, researchers, newsletters).
 
 ## Done
+
+- Colour rules (owner's decision, 20 November 2026): "born in Sweden with one foreign-born parent" is teal (new token "fourth") in 1.1 and 2.1 instead of grey; the outlined grey bar stays and the rule now says it marks what a group is compared with (population, control group or Swedish background).
 
 - SEO plan, 20 November 2026: part page titles and descriptions with the period, BreadcrumbList and Article markup (items 3–4); front page intro and "Om uppgifterna" in every chapter (1–2); ten "Kort svar" boxes (6); Frågor och svar page with FAQPage markup (7); "Läs också" links between chapters and to Metod terms (8); data dictionary and datapackage.json (10); Om sidan: owner works with data analysis, editorial points added (9).
 
