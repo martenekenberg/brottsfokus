@@ -79,13 +79,13 @@ function build(lang: Lang): ShortAnswerItem[] {
       ),
       answer: [
         L(
-          `Personer som inte var folkbokförda i Sverige stod för ${v(0)} procent av alla registrerade brottsmisstankar ${first} och ${v(shares.years.length - 1)} procent ${last}. Andelen var störst ${peak}, ${v(shares.years.indexOf(peak))} procent.`,
-          `People not registered as living in Sweden accounted for ${v(0)}% of all registered crime suspicions in ${first} and ${v(shares.years.length - 1)}% in ${last}. The share was highest in ${peak}, at ${v(shares.years.indexOf(peak))}%.`,
+          `Personer som inte var folkbokförda i Sverige stod för ${v(shares.years.length - 1)} procent av alla registrerade brottsmisstankar ${last}, mot ${v(0)} procent ${first}. Högst var andelen ${peak}, ${v(shares.years.indexOf(peak))} procent.`,
+          `People not registered as living in Sweden accounted for ${v(shares.years.length - 1)}% of all registered crime suspicions in ${last}, against ${v(0)}% in ${first}. The share was highest in ${peak}, at ${v(shares.years.indexOf(peak))}%.`,
         ),
       ],
       caveat: L(
-        'Det gäller misstankar, inte personer: en person kan misstänkas för flera brott. Personer som inte är folkbokförda finns inte i befolkningsstatistiken, så andelen kan inte jämföras med befolkningen. Misstänkt är inte dömd.',
-        'This counts suspicions, not people: one person can be suspected of several crimes. People who are not registered are not in the population statistics, so the share cannot be compared with the population. Suspected is not convicted.',
+        'Det gäller misstankar, inte personer, och misstänkt är inte dömd. De som inte är folkbokförda finns inte i befolkningsstatistiken, så andelen kan inte jämföras med befolkningen.',
+        'This counts suspicions, not people, and suspected is not convicted. People who are not registered are not in the population statistics, so the share cannot be compared with the population.',
       ),
       source: braSource(lang, '2021:9', SOURCES.bra2021.url, L(', tabellbilaga 3, tabell D1 och D2.', ', table appendix 3, tables D1 and D2.')),
     });
@@ -117,13 +117,13 @@ function build(lang: Lang): ShortAnswerItem[] {
         L('Utrikesfödda, alltså ', 'People born abroad, that is '),
         immigrants,
         L(
-          `, misstänktes för brott ${n1(utr.risk)} gånger så ofta som inrikesfödda med två inrikesfödda föräldrar. Under 2015–2018 misstänktes ${n1(utr.pctSuspected)} procent av de utrikesfödda för minst ett brott, jämfört med ${n1(sv2.pctSuspected)} procent.`,
-          `, were suspected of crime ${n1(utr.risk)} times as often as people born in Sweden with two Swedish-born parents. In 2015–2018, ${n1(utr.pctSuspected)}% of people born abroad were suspected of at least one crime, compared with ${n1(sv2.pctSuspected)}%.`,
+          `, misstänktes för brott ${n1(utr.risk)} gånger så ofta som inrikesfödda med två inrikesfödda föräldrar: ${n1(utr.pctSuspected)} mot ${n1(sv2.pctSuspected)} procent misstänktes för minst ett brott under 2015–2018.`,
+          `, were suspected of crime ${n1(utr.risk)} times as often as people born in Sweden with two Swedish-born parents: ${n1(utr.pctSuspected)}% against ${n1(sv2.pctSuspected)}% were suspected of at least one crime in 2015–2018.`,
         ),
       ],
       caveat: L(
-        'Inte justerat för ålder, kön eller inkomst. Med hänsyn till dem blir skillnaderna mindre, men de finns kvar. Misstänkt är inte dömd.',
-        'Not adjusted for age, sex or income. Taking them into account makes the differences smaller, but they remain. Suspected is not convicted.',
+        'Misstänkt är inte dömd. Inte justerat för ålder, kön eller inkomst. Med hänsyn till dem blir skillnaden mindre, men den finns kvar.',
+        'Suspected is not convicted. Not adjusted for age, sex or income. Taking them into account makes the difference smaller, but it remains.',
       ),
       source: b6Source,
     });
@@ -133,13 +133,13 @@ function build(lang: Lang): ShortAnswerItem[] {
       question: L('Hur vanligt är det att barn till invandrare misstänks för brott?', 'How common is it for children of immigrants to be suspected of crime?'),
       answer: [
         L(
-          `Inrikesfödda med två utrikesfödda föräldrar misstänktes för brott ${n1(u2.risk)} gånger så ofta som inrikesfödda med två inrikesfödda föräldrar. Under 2015–2018 misstänktes ${n1(u2.pctSuspected)} procent av dem för minst ett brott, jämfört med ${n1(sv2.pctSuspected)} procent. Med en utrikesfödd och en inrikesfödd förälder var det ${n1(sv1.risk)} gånger så vanligt (${n1(sv1.pctSuspected)} procent).`,
-          `People born in Sweden with two foreign-born parents were suspected of crime ${n1(u2.risk)} times as often as people born in Sweden with two Swedish-born parents. In 2015–2018, ${n1(u2.pctSuspected)}% of them were suspected of at least one crime, compared with ${n1(sv2.pctSuspected)}%. With one foreign-born and one Swedish-born parent it was ${n1(sv1.risk)} times as common (${n1(sv1.pctSuspected)}%).`,
+          `Inrikesfödda med två utrikesfödda föräldrar misstänktes för brott ${n1(u2.risk)} gånger så ofta som de med två inrikesfödda föräldrar: ${n1(u2.pctSuspected)} mot ${n1(sv2.pctSuspected)} procent under 2015–2018. Med en utrikesfödd förälder var det ${n1(sv1.risk)} gånger så vanligt (${n1(sv1.pctSuspected)} procent).`,
+          `People born in Sweden with two foreign-born parents were suspected of crime ${n1(u2.risk)} times as often as those with two Swedish-born parents: ${n1(u2.pctSuspected)}% against ${n1(sv2.pctSuspected)}% in 2015–2018. With one foreign-born parent it was ${n1(sv1.risk)} times as common (${n1(sv1.pctSuspected)}%).`,
         ),
       ],
       caveat: L(
-        'De är födda i Sverige och räknas inte som invandrare här. Inte justerat för ålder, kön eller inkomst. Misstänkt är inte dömd.',
-        'They were born in Sweden and are not counted as immigrants here. Not adjusted for age, sex or income. Suspected is not convicted.',
+        'De är födda i Sverige och räknas inte som invandrare här. Misstänkt är inte dömd. Inte justerat för ålder, kön eller inkomst.',
+        'They were born in Sweden and are not counted as immigrants here. Suspected is not convicted. Not adjusted for age, sex or income.',
       ),
       source: b6Source,
     });
@@ -155,6 +155,7 @@ function build(lang: Lang): ShortAnswerItem[] {
     // The caveat in 1.2 says the differences remain after adjustment. Stop the build if most regions fall to 1 or below.
     if (!(regions.filter((r) => r.adj > 1).length > regions.length / 2)) throw new Error('Short answer 1.2 no longer matches the data');
     const lower = regions.filter((r) => r.adj < r.risk).length;
+    const stillAbove = regions.filter((r) => r.adj > 1).length;
     const top = [...regions].sort((a, b) => b.risk - a.risk)[0];
     const adjMin = Math.min(...regions.map((r) => r.adj));
     const adjMax = Math.max(...regions.map((r) => r.adj));
@@ -164,8 +165,8 @@ function build(lang: Lang): ShortAnswerItem[] {
       question: L('Hur mycket av skillnaden beror på ålder, kön och inkomst?', 'How much of the difference is due to age, sex and income?'),
       answer: [
         L(
-          `Brå har räknat om överrisken för utrikesfödda som om varje födelseområde hade samma ålder, kön, inkomst och utbildning som inrikesfödda med två inrikesfödda föräldrar. Då blev den lägre för ${lower} av ${regions.length} födelseområden och låg mellan ${n1(adjMin)} och ${n1(adjMax)}. För födda i ${dataLabel(top.unit, lang)} blev den ${n1(top.adj)} i stället för ${n1(top.risk)}.`,
-          `Brå recalculated the excess risk for people born abroad as if each birth region had the same age, sex, income and education as people born in Sweden with two Swedish-born parents. It then became lower for ${lower} of ${regions.length} birth regions and ranged from ${n1(adjMin)} to ${n1(adjMax)}. For people born in ${dataLabel(top.unit, lang)} it became ${n1(top.adj)} instead of ${n1(top.risk)}.`,
+          `Brå har räknat om överrisken som om varje födelseområde hade samma ålder, kön, inkomst och utbildning som inrikesfödda med två inrikesfödda föräldrar. Den blev då lägre för ${lower} av ${regions.length} områden och låg mellan ${n1(adjMin)} och ${n1(adjMax)}. För ${stillAbove} av dem fanns en överrisk kvar. För födda i ${dataLabel(top.unit, lang)} blev den ${n1(top.adj)} i stället för ${n1(top.risk)}.`,
+          `Brå recalculated the excess risk as if each birth region had the same age, sex, income and education as people born in Sweden with two Swedish-born parents. It then became lower for ${lower} of ${regions.length} regions and ranged from ${n1(adjMin)} to ${n1(adjMax)}. For ${stillAbove} of them an excess risk remained. For people born in ${dataLabel(top.unit, lang)} it became ${n1(top.adj)} instead of ${n1(top.risk)}.`,
         ),
       ],
       caveat: L(
@@ -194,8 +195,8 @@ function build(lang: Lang): ShortAnswerItem[] {
       question: L('Hur många lagförs för brott före 25 års ålder, och har det förändrats?', 'How many people in Sweden are convicted of a crime before age 25, and has it changed?'),
       answer: [
         L(
-          `Av dem som föddes ${first} hade ${kv('alla', first)} procent lagförts för brott före 25 års ålder, och av dem som föddes ${last} ${kv('alla', last)} procent. Andelen har minskat i alla bakgrundsgrupper sedan födelseåret ${bg}, det första år Brå redovisar bakgrund för. Bland födda ${last} var den ${kv('I20', last)} procent för inrikesfödda med två inrikesfödda föräldrar, ${kv('I02', last)} procent för inrikesfödda med två utrikesfödda föräldrar och ${kv('Utr', last)} procent för utrikesfödda.`,
-          `Of those born in ${first}, ${kv('alla', first)}% had been convicted of a crime before age 25, and of those born in ${last}, ${kv('alla', last)}%. The share has fallen in every background group since birth year ${bg}, the first year for which Brå reports background. Among those born in ${last}, it was ${kv('I20', last)}% for people born in Sweden with two Swedish-born parents, ${kv('I02', last)}% for people born in Sweden with two foreign-born parents and ${kv('Utr', last)}% for people born abroad.`,
+          `Av dem som föddes ${first} hade ${kv('alla', first)} procent lagförts för brott före 25 års ålder, av dem som föddes ${last} ${kv('alla', last)} procent. Andelen har minskat i alla bakgrundsgrupper sedan födelseåret ${bg}, men skillnaderna finns kvar. Bland födda ${last} var den ${kv('Utr', last)} procent för utrikesfödda, ${kv('I02', last)} procent för inrikesfödda med två utrikesfödda föräldrar och ${kv('I20', last)} procent för dem med två inrikesfödda föräldrar.`,
+          `Of those born in ${first}, ${kv('alla', first)}% had been convicted of a crime before age 25; of those born in ${last}, ${kv('alla', last)}%. The share has fallen in every background group since birth year ${bg}, but the differences remain. Among those born in ${last}, it was ${kv('Utr', last)}% for people born abroad, ${kv('I02', last)}% for people born in Sweden with two foreign-born parents and ${kv('I20', last)}% for those with two Swedish-born parents.`,
         ),
       ],
       caveat: L(
@@ -220,8 +221,8 @@ function build(lang: Lang): ShortAnswerItem[] {
         L('Utrikesfödda, alltså ', 'People born abroad, that is '),
         immigrants,
         L(
-          `, var ${n1(kap4.utrConvicted)} procent av dem som dömdes för våldtäkt mot en kvinna ${kap4.period}. I en kontrollgrupp med samma kön och födelseår var andelen ${n1(kap4.utrControls)} procent. I en tidigare studie av dömda ${utr2015.period} var andelen ${n1(utr2015.pct)} procent, medan i genomsnitt ${n1(kap4.popForeignBorn)} procent av hela befolkningen var utrikesfödda under samma år.`,
-          `, were ${n1(kap4.utrConvicted)}% of those convicted of rape against a woman in ${kap4.period}. In a control group of the same sex and birth year, the share was ${n1(kap4.utrControls)}%. In an earlier study of people convicted in ${utr2015.period}, the share was ${n1(utr2015.pct)}%, while on average ${n1(kap4.popForeignBorn)}% of the whole population were born abroad in the same years.`,
+          `, var ${n1(kap4.utrConvicted)} procent av dem som dömdes för våldtäkt mot en kvinna ${kap4.period}, mot ${n1(kap4.utrControls)} procent i en kontrollgrupp med samma kön och födelseår. I en tidigare studie av dömda ${utr2015.period} var andelen ${n1(utr2015.pct)} procent, när ${n1(kap4.popForeignBorn)} procent av befolkningen var utrikesfödda.`,
+          `, were ${n1(kap4.utrConvicted)}% of those convicted of rape against a woman in ${kap4.period}, against ${n1(kap4.utrControls)}% in a control group of the same sex and birth year. In an earlier study of people convicted in ${utr2015.period}, the share was ${n1(utr2015.pct)}%, when ${n1(kap4.popForeignBorn)}% of the population were born abroad.`,
         ),
       ],
       caveat: L(
@@ -254,8 +255,8 @@ function build(lang: Lang): ShortAnswerItem[] {
       question: L('Hur stor andel av fångarna saknar svenskt medborgarskap?', 'What share of prisoners in Sweden are not Swedish citizens?'),
       answer: [
         L(
-          `Av dem som togs in i fängelse ${y} saknade ${n0(newAll)} procent svenskt medborgarskap. Av dem som satt i fängelse den 1 oktober ${y} var andelen ${n0(oct1)} procent. I hela befolkningen var ${n1(pop)} procent utländska medborgare.`,
-          `Of those taken into prison in ${y}, ${n0(newAll)}% did not have Swedish citizenship. Of those in prison on 1 October ${y}, the share was ${n0(oct1)}%. In the whole population, ${n1(pop)}% were foreign citizens.`,
+          `Av dem som togs in i fängelse ${y} saknade ${n0(newAll)} procent svenskt medborgarskap, och av dem som satt i fängelse den 1 oktober ${n0(oct1)} procent. I hela befolkningen var ${n1(pop)} procent utländska medborgare.`,
+          `Of those taken into prison in ${y}, ${n0(newAll)}% were not Swedish citizens, and of those in prison on 1 October, ${n0(oct1)}%. In the whole population, ${n1(pop)}% were foreign citizens.`,
         ),
       ],
       caveat: L(
@@ -281,8 +282,8 @@ function build(lang: Lang): ShortAnswerItem[] {
       question: L('Hur många av dem som döms till utvisning blir utvisade?', 'How many people sentenced to deportation are actually deported?'),
       answer: [
         L(
-          `Av ${n0(total.n as number)} personer som dömts till fängelse och utvisning och lämnade anstalten 2013–2023 hade ${n1(total.pctDeported as number)} procent utvisats i slutet av 2024. Andelen som utvisades inom ett år efter att de lämnat fängelset var ${within(2013)} procent för dem som lämnade 2013 och ${within(2023)} procent för dem som lämnade 2023.`,
-          `Of ${n0(total.n as number)} people sentenced to prison and deportation who left prison in 2013–2023, ${n1(total.pctDeported as number)}% had been deported by the end of 2024. The share deported within a year of leaving prison was ${within(2013)}% for those who left in 2013 and ${within(2023)}% for those who left in 2023.`,
+          `Av ${n0(total.n as number)} personer som dömts till fängelse och utvisning och lämnade anstalten 2013–2023 hade ${n1(total.pctDeported as number)} procent utvisats i slutet av 2024. Andelen som utvisades inom ett år var ${within(2013)} procent för dem som släpptes 2013 och ${within(2023)} procent för dem som släpptes 2023.`,
+          `Of ${n0(total.n as number)} people sentenced to prison and deportation who left prison in 2013–2023, ${n1(total.pctDeported as number)}% had been deported by the end of 2024. The share deported within a year was ${within(2013)}% for those released in 2013 and ${within(2023)}% for those released in 2023.`,
         ),
       ],
       caveat: L(
@@ -308,13 +309,13 @@ function build(lang: Lang): ShortAnswerItem[] {
       question: L('Utsätts personer med utländsk bakgrund oftare för brott?', 'Are people with a foreign background more often victims of crime?'),
       answer: [
         L(
-          `För alla ${count} brottstyper uppgav män med utländsk bakgrund oftare än män med svensk bakgrund att de utsatts under året. Detsamma gällde kvinnor, utom för sexualbrott: där uppgav ${pct('sexualbrott', 'kvinnor', 'utlandsk')} procent av kvinnorna med utländsk bakgrund och ${pct('sexualbrott', 'kvinnor', 'svensk')} procent av kvinnorna med svensk bakgrund att de utsatts. Svaren gäller brott 2016–2022.`,
-          `For all ${count} crime types, men with a foreign background more often than men with a Swedish background said they had been victims during the year. The same applied to women, except for sexual offences: there, ${pct('sexualbrott', 'kvinnor', 'utlandsk')}% of women with a foreign background and ${pct('sexualbrott', 'kvinnor', 'svensk')}% of women with a Swedish background said they had been victims. The answers cover crimes in 2016–2022.`,
+          `Ja, enligt Brås trygghetsundersökning. Män med utländsk bakgrund uppgav oftare än män med svensk bakgrund att de utsatts, för alla ${count} brottstyper. Kvinnor gjorde det för alla utom sexualbrott, där ${pct('sexualbrott', 'kvinnor', 'utlandsk')} procent med utländsk och ${pct('sexualbrott', 'kvinnor', 'svensk')} procent med svensk bakgrund uppgav att de utsatts. Svaren gäller brott 2016–2022.`,
+          `Yes, according to Brå’s crime survey. Men with a foreign background more often than men with a Swedish background said they had been victims, for all ${count} crime types. Women did so for all but sexual offences, where ${pct('sexualbrott', 'kvinnor', 'utlandsk')}% with a foreign and ${pct('sexualbrott', 'kvinnor', 'svensk')}% with a Swedish background said they had been victims. The answers cover crimes in 2016–2022.`,
         ),
       ],
       caveat: L(
-        'Utländsk bakgrund räknar här också inrikesfödda med en utrikesfödd förälder. Svaren kommer från en enkät till personer 16–84 år, gäller även brott som aldrig anmälts och är inte justerade för ålder.',
-        'A foreign background here also includes people born in Sweden with one foreign-born parent. The answers come from a survey of people aged 16–84, include crimes that were never reported and are not adjusted for age.',
+        'Utländsk bakgrund räknar här också inrikesfödda med en utrikesfödd förälder. Enkät till personer 16–84 år, även brott som aldrig anmälts. Inte justerat för ålder.',
+        'A foreign background here also includes people born in Sweden with one foreign-born parent. A survey of people aged 16–84, including crimes never reported. Not adjusted for age.',
       ),
       source: [L('Källa: ', 'Source: '), { text: 'Brå, NTU Kortanalys 2/2024', href: SOURCES.ntu2024.url }, L(', tabellbilaga.', ', table appendix.')],
     });
@@ -334,8 +335,8 @@ function build(lang: Lang): ShortAnswerItem[] {
       ),
       answer: [
         L(
-          `Av offren för dödligt våld i Sverige 2005–2021 hade ${n0(utl.victims as number)} procent utländsk bakgrund, och av gärningspersonerna ${n0(utl.perpetrators as number)} procent. I befolkningen var andelen ${n0(utl.population as number)} procent. Utländsk bakgrund betyder här utrikesfödd eller inrikesfödd med två utrikesfödda föräldrar.`,
-          `Of homicide victims in Sweden in 2005–2021, ${n0(utl.victims as number)}% had a foreign background, and of perpetrators ${n0(utl.perpetrators as number)}%. In the population, the share was ${n0(utl.population as number)}%. A foreign background here means born abroad, or born in Sweden with two foreign-born parents.`,
+          `Av offren för dödligt våld i Sverige 2005–2021 hade ${n0(utl.victims as number)} procent utländsk bakgrund och av gärningspersonerna ${n0(utl.perpetrators as number)} procent, mot ${n0(utl.population as number)} procent av befolkningen. Utländsk bakgrund betyder här utrikesfödd eller inrikesfödd med två utrikesfödda föräldrar.`,
+          `Of homicide victims in Sweden in 2005–2021, ${n0(utl.victims as number)}% had a foreign background and of perpetrators ${n0(utl.perpetrators as number)}%, against ${n0(utl.population as number)}% of the population. A foreign background here means born abroad, or born in Sweden with two foreign-born parents.`,
         ),
       ],
       caveat: L(
