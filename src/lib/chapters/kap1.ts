@@ -50,8 +50,9 @@ export const GROUPS: Record<GroupId, GroupStyle> = {
   sv1: {
     label: { sv: 'Inrikesfödda med en utrikesfödd förälder', en: 'Born in Sweden, one foreign-born parent' },
     endLabel: { sv: 'Inrikesfödda, en utrikesfödd förälder', en: 'Born in Sweden, one foreign-born parent' },
-    color: '#6B6B6B',
-    textColor: '#6B6B6B',
+    // Teal, so it can't be mistaken for the dashed grey population line (CLAUDE.md, "fourth").
+    color: '#0F766E',
+    textColor: '#0F766E',
     strokeWidth: 2,
   },
   sv2: {

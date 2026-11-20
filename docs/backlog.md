@@ -6,9 +6,7 @@ Items from the SEO audit and the site review (November 2026) that are not done y
 
 Fix now: done 19 November 2026 (see "Done" below).
 
-Next:
-
-- Colour rules: grey is used for a comparison group in 1.1 (one foreign-born parent, solid grey) and 1.3, not only for the population. (2.1 fixed: Bäckman's comparison group is now a black line.)
+Next: nothing right now.
 
 Watch:
 
@@ -25,6 +23,8 @@ Watch:
 - Links from relevant places (data journalists, researchers, newsletters).
 
 ## Done
+
+- Colour rules (owner's decision, 20 November 2026): "born in Sweden with one foreign-born parent" is teal (new token "fourth") in 1.1 and 2.1 instead of grey; the outlined grey bar stays and the rule now says it marks what a group is compared with (population, control group or Swedish background).
 
 - Table pages on phones: the first column (year, group or region) stays in place when scrolling sideways, with a thin edge once scrolled; it is narrower on phones. Also fixed: 3.1 now lists Brå's table 8 as a source next to table 12 (both share one web address, so table 8 was dropped), 19 November 2026.
 

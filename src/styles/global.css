@@ -11,6 +11,8 @@
   --population: #8a8a8a;
   /* A fifth series when the four background groups use the other colours (CLAUDE.md, "extra"). */
   --extra: #6b3fa0;
+  /* Born in Sweden with one foreign-born parent, in line charts (CLAUDE.md, "fourth"). */
+  --fourth: #0f766e;
 
   --font-serif: 'Newsreader Variable', Newsreader, Georgia, serif;
   --font-sans: 'Inter Variable', Inter, Arial, sans-serif;

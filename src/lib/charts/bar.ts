@@ -1,5 +1,6 @@
 // Reusable horizontal bar chart: groups of one or more bars.
-// Filled blue bar = the group. Outlined grey bar = comparison (population or control group).
+// Filled blue bar = the group. Outlined grey bar = what the group is compared with: the population,
+// a control group, or the group with Swedish background (CLAUDE.md, "Visual grammar").
 // Orange = a second group. Lighter shades = an earlier period or a standardised value.
 // Pure function: data + width in, SVG markup out. Runs at build time and in the browser.
 import { scaleLinear } from 'd3';
