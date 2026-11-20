@@ -55,6 +55,15 @@ const crumbTables = tr(lang, 'Tabeller', 'Tables');
       })
     }
   </ul>
+  <p class="package">
+    {
+      tr(
+        lang,
+        'Alla CSV-filer och deras kolumner, med typ, enhet, källa och period, finns beskrivna i maskinläsbar form i ',
+        'All CSV files and their columns, with type, unit, source and period, are described in machine-readable form in ',
+      )
+    }<a href={`${path}datapackage.json`}>datapackage.json</a>{tr(lang, ' (Frictionless Data Package). Varje tabellsida visar också sina kolumner.', ' (Frictionless Data Package). Each table page also lists its columns.')}
+  </p>
 </DataLayout>
 
 <style>
@@ -86,5 +95,14 @@ const crumbTables = tr(lang, 'Tabeller', 'Tables');
     margin-left: auto;
     font-size: 13px;
     font-weight: 400;
+  }
+  .package {
+    margin: 24px 0 0;
+    font-size: 14px;
+    line-height: 1.55;
+    color: var(--text-muted);
+  }
+  .package a {
+    color: var(--ink);
   }
 </style>
