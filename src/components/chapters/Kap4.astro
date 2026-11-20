@@ -6,6 +6,7 @@ import RapeStudies from '../kap4/RapeStudies.astro';
 import { tr, type Lang } from '../../lib/i18n';
 import { loadPopulation, loadRapeStudies } from '../../lib/data';
 import { tablePage } from '../../lib/dataPages';
+import { part } from '../../lib/parts';
 import { formatNumber } from '../../lib/format';
 import { buildKap4 } from '../../lib/chapters/kap4';
 
@@ -22,6 +23,10 @@ const kap4 = buildKap4(loadRapeStudies(), population, lang);
 // The headline says "drygt hälften" (just over half) were born abroad. Stop the build if the data no longer says so.
 if (!(kap4.utrConvicted > 50 && kap4.utrConvicted < 55) || !(kap4.utrControls < kap4.utrConvicted)) {
   throw new Error('Chapter 4 headline no longer matches the data');
+}
+// The part card repeats the headline with its period. Stop the build when new data changes the period.
+if (!(['sv', 'en'] as const).every((l) => part('lagforda').card[l].includes(kap4.period))) {
+  throw new Error(`Part 2 card no longer names ${kap4.period}; update it in src/lib/parts.ts`);
 }
 const kap4ControlsPct = formatNumber(kap4.utrControls, 0, lang);
 

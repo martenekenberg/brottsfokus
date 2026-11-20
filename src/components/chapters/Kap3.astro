@@ -8,6 +8,7 @@ import { tr, type Lang } from '../../lib/i18n';
 import { loadPopulation, loadPrison } from '../../lib/data';
 import { buildKap3, kap3Context, kap3HasGaps, shortReportName } from '../../lib/chapters/kap3';
 import { tablePage } from '../../lib/dataPages';
+import { part } from '../../lib/parts';
 import { formatNumber } from '../../lib/format';
 import type { LineChartSpec } from '../../lib/charts/line';
 
@@ -49,6 +50,10 @@ if (!(newAllLast < newAllPeak) || peakYear === lastYear) throw new Error('Chapte
 const prisonRatio = newAllLast / popShareLast;
 if (!(newAllLast > 20 && newAllLast < 25) || !(prisonRatio >= 2.6 && prisonRatio < 3)) {
   throw new Error('Chapter 3 headline no longer matches the data');
+}
+// The part card repeats the headline with its year. Stop the build when new data makes that year out of date.
+if (!(['sv', 'en'] as const).every((l) => part('fangelse').card[l].includes(String(lastYear)))) {
+  throw new Error(`Part 3 card no longer names ${lastYear}; update it in src/lib/parts.ts`);
 }
 
 const prisonMax = Math.max(...[newAll, newMen, newWomen, onOct1].flatMap((m) => [...m.values()].map((v) => v ?? 0)));
