@@ -12,7 +12,7 @@ export interface PartInfo {
   title: Record<Lang, string>;
   /**
    * One sentence on the front page card and under the part's headline. Rewritten to lead with the gap, like the chapter
-   * headlines (owner's request, 20 November 2026). Each claim rests on a chapter headline check, so the build stops if the
+   * headlines (owner's request, approved 20 November 2026). Each claim rests on a chapter headline check, so the build stops if the
    * data no longer supports it.
    */
   card: Record<Lang, string>;
