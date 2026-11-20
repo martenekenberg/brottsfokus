@@ -36,6 +36,20 @@ const smallestCountry = smallestGroup(kap2Data, 'land');
 const smallestMotherRegion = smallestGroup(kap2Data, 'moder');
 if (!smallestCountry || !smallestMotherRegion) throw new Error('Chapter 2: group sizes missing');
 
+// The headline says people born in Africa and Central Asia were suspected 4–6 times as often, and people born in
+// the Nordic countries and Western Europe barely more often. Stop the build if Brå's risks no longer say so.
+const regionRisk = (unit: string) => {
+  const r = kap2Origin.find((x) => x.view === 'region' && x.crimeOrder === 0 && x.unit === unit);
+  if (!r) throw new Error(`Chapter 2: no birth region ${unit}`);
+  return r.risk;
+};
+const highRegions = ['Nordafrika', 'Östafrika', 'Övriga Afrika', 'Centralasien'].map(regionRisk);
+const lowRegions = ['Norden utom Sverige', 'EU15 och Västeuropa utom Norden'].map(regionRisk);
+if (!highRegions.every((r) => r >= 4 && r <= 6) || !lowRegions.every((r) => r > 1 && r < 1.15)) {
+  throw new Error('Chapter 2 headline no longer matches the data');
+}
+const smallestN = Math.min(smallestCountry.n, smallestMotherRegion.n);
+
 // ---------- Chapter 2, second chart: background next to other factors ----------
 const riskFactorRows = loadRiskFactors();
 const factors = buildRiskFactors(riskFactorRows, tableB6);
@@ -57,21 +71,21 @@ const factorRisk = (id: string) => {
   lang={lang}
   tableHref={tablePage('kap2', lang).path}
   title={L(
-    'Överrisken var störst bland födda i Afrika och Centralasien och nära 1 bland födda i Norden, Västeuropa och Östasien',
-    'Excess risk was highest among people born in Africa and Central Asia, and close to 1 among those born in the Nordic countries, Western Europe and East Asia',
+    'Födda i Afrika och Centralasien misstänktes 4–6 gånger så ofta, födda i Norden och Västeuropa knappt oftare',
+    'People born in Africa and Central Asia were suspected 4–6 times as often, those born in the Nordic countries and Western Europe barely more often',
   )}
 >
   <p slot="intro">
     {L(
-      'Hur många gånger vanligare det var att misstänkas för brott någon gång 2015–2018 än för inrikesfödda med två inrikesfödda föräldrar. Utrikesfödda efter födelseområde eller födelseland, och inrikesfödda med två utrikesfödda föräldrar efter moderns födelseområde.',
-      'How many times more likely it was to be suspected of crime at any point in 2015–2018 than for people born in Sweden with two Swedish-born parents. People born abroad, by birth region or birth country, and people born in Sweden with two foreign-born parents, by mother’s birth region.',
+      'Hur många gånger vanligare det var att misstänkas för brott någon gång 2015–2018, jämfört med inrikesfödda med två inrikesfödda föräldrar. Utrikesfödda efter födelseområde eller land, barn till två invandrare efter moderns födelseområde.',
+      'How many times more likely it was to be suspected of crime at some point in 2015–2018, compared with people born in Sweden with two Swedish-born parents. People born abroad by birth region or country, children of two immigrants by their mother’s birth region.',
     )}
   </p>
   <OriginDots data={kap2Data} lang={lang} />
   <Fragment slot="note">
     {L(
-      `Orange punkt visar Brås beräkning om gruppen haft samma ålder, kön, inkomst och utbildning som jämförelsegruppen, inte en faktisk andel. Alla som misstänktes någon gång under fyra år räknas, därför är talen högre än i kapitel ${chapter('kap1').num}. Vissa grupper är små: det minsta födelselandet har ${n0(smallestCountry.n)} personer och den minsta gruppen efter moderns födelseområde ${n0(smallestMotherRegion.n)}.`,
-      `The orange dot shows Brå’s calculation of what the group would look like with the same age, sex, income and education as the comparison group, not an actual share. Everyone who was suspected at any time during four years is counted, so the figures are higher than in chapter ${chapter('kap1').num}. Some groups are small: the smallest birth country has ${n0(smallestCountry.n)} people, and the smallest group by mother’s birth region has ${n0(smallestMotherRegion.n)}.`,
+      `Misstänkt är inte dömd. Orange punkt är Brås beräkning om gruppen haft samma ålder, kön, inkomst och utbildning som jämförelsegruppen, inte en faktisk andel. Alla som misstänktes någon gång under fyra år räknas, så talen är högre än i kapitel ${chapter('kap1').num}. Vissa grupper är små, ner till ${n0(smallestN)} personer.`,
+      `Suspected is not convicted. The orange dot is Brå’s calculation of the group with the same age, sex, income and education as the comparison group, not an actual share. Everyone suspected at some point in four years is counted, so the figures are higher than in chapter ${chapter('kap1').num}. Some groups are small, down to ${n0(smallestN)} people.`,
     )}
   </Fragment>
   <Fragment slot="source">
@@ -85,14 +99,14 @@ const factorRisk = (id: string) => {
     id="kap2-faktorer"
     lang={lang}
     title={L(
-      'Brå jämför överriskerna efter bakgrund med försörjningsstöd, utbildning och kön',
-      'Brå compares the excess risks by background with social assistance, education and sex',
+      'Brå jämför bakgrund med försörjningsstöd, utbildning och kön',
+      'Brå compares background with social assistance, education and sex',
     )}
   >
     <Fragment slot="intro">
       {L(
-        `Brå gör det i samma rapport för att sätta siffrorna i perspektiv. Överrisken var ${factorRisk('forsorjningsstod')} för personer vars familj fick försörjningsstöd, ${factorRisk('utbildning')} för personer med endast förgymnasial utbildning och ${factorRisk('kon')} för män jämfört med kvinnor. Varje stapel jämför en grupp med sin egen jämförelsegrupp, 2015–2018.`,
-        `Brå does this in the same report to put the figures in perspective. The excess risk was ${factorRisk('forsorjningsstod')} for people whose family received social assistance, ${factorRisk('utbildning')} for people with only compulsory education and ${factorRisk('kon')} for men compared with women. Each bar compares one group with its own comparison group, 2015–2018.`,
+        `Brå gör jämförelsen i samma rapport för att sätta siffrorna i perspektiv. Under 2015–2018 var överrisken ${factorRisk('forsorjningsstod')} om familjen fick försörjningsstöd, ${factorRisk('utbildning')} med endast förgymnasial utbildning och ${factorRisk('kon')} för män jämfört med kvinnor.`,
+        `Brå makes the comparison in the same report to put the figures in perspective. In 2015–2018 the excess risk was ${factorRisk('forsorjningsstod')} if the family received social assistance, ${factorRisk('utbildning')} with only compulsory education and ${factorRisk('kon')} for men compared with women.`,
       )}
     </Fragment>
     <ul slot="legend" class="legend-list" aria-label={L('Förklaring', 'Key')}>
@@ -112,8 +126,8 @@ const factorRisk = (id: string) => {
     <BarChart spec={factorsSpec} />
     <Fragment slot="note">
       {L(
-        'Jämförelserna är: familjen fick försörjningsstöd någon gång 2014 jämfört med inte, endast förgymnasial utbildning jämfört med minst tre års eftergymnasial utbildning, och män jämfört med kvinnor. Varje faktor är mätt för sig. Faktorerna hänger ihop, så de kan inte läggas ihop. Ingen av siffrorna är justerad för ålder. Brå anger överriskerna för försörjningsstöd, utbildning och kön i rapportens text, inte i en tabell. Gäller folkbokförda 15 år och äldre den 31 december 2014, misstänkta för brott begångna 2015–2018.',
-        'The comparisons are: the family received social assistance at some point in 2014 compared with not, compulsory school only compared with at least three years of higher education, and men compared with women. Each factor is measured on its own. The factors are linked, so they cannot be added together. None of the figures is adjusted for age. Brå gives the excess risks for social assistance, education and sex in the text of the report, not in a table. Covers registered residents aged 15 and over on 31 December 2014, suspected of crimes committed in 2015–2018.',
+        'Jämförelserna: försörjningsstöd någon gång 2014 mot inte, endast förgymnasial utbildning mot minst tre års eftergymnasial, män mot kvinnor. Varje faktor är mätt för sig, och faktorerna hänger ihop, så de kan inte läggas ihop. Ingen siffra är justerad för ålder.',
+        'The comparisons: social assistance at some point in 2014 against none, compulsory school only against at least three years of higher education, men against women. Each factor is measured on its own, and the factors are linked, so they cannot be added together. None of the figures is adjusted for age.',
       )}
     </Fragment>
     <Fragment slot="source">

@@ -32,7 +32,7 @@ const RELATED: Record<string, Related> = {
       { id: 'kap3', note: { sv: 'intagna i fängelse, efter medborgarskap', en: 'prisoners, by citizenship' } },
       { id: 'kap6', note: { sv: 'utsatta för brott, efter bakgrund', en: 'victims of crime, by background' } },
     ],
-    terms: ['misstankt', 'bakgrund', 'folkbokford'],
+    terms: ['misstankt', 'bakgrund', 'invandrare', 'folkbokford'],
   },
   kap2: {
     chapters: [
@@ -54,7 +54,7 @@ const RELATED: Record<string, Related> = {
       { id: 'kap1', note: { sv: 'misstänkta, efter samma slags bakgrundsgrupper', en: 'suspects, by the same kind of background groups' } },
       { id: 'kap3', note: { sv: 'intagna i fängelse, efter medborgarskap', en: 'prisoners, by citizenship' } },
     ],
-    terms: ['misstankt', 'bakgrund'],
+    terms: ['misstankt', 'bakgrund', 'invandrare'],
   },
   kap4: {
     chapters: [

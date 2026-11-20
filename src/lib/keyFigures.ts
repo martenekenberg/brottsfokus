@@ -32,8 +32,8 @@ export function buildKeyFigures(lang: Lang): KeyFigure[] {
       value: n1(b6Risk('Utrikesfödda')),
       unit: '×',
       text: L(
-        'Så mycket vanligare var det för utrikesfödda att registreras som misstänkta för brott än för inrikesfödda med två inrikesfödda föräldrar.',
-        'How much more likely it was for people born abroad to be registered as suspects of crime than for people born in Sweden with two Swedish-born parents.',
+        'så ofta misstänktes utrikesfödda för brott som inrikesfödda med två inrikesfödda föräldrar.',
+        'the rate at which people born abroad were suspected of crime, compared with people born in Sweden with two Swedish-born parents.',
       ),
       source: L('Brå rapport 2021:9, 2015–2018', 'Brå report 2021:9, 2015–2018'),
     },
@@ -41,8 +41,8 @@ export function buildKeyFigures(lang: Lang): KeyFigure[] {
       value: n1(b6Risk('Inrikesfödda med två utrikesfödda föräldrar')),
       unit: '×',
       text: L(
-        'För inrikesfödda med två utrikesfödda föräldrar var det drygt tre gånger så vanligt.',
-        'For people born in Sweden with two foreign-born parents it was a little over three times as common.',
+        'så ofta misstänktes inrikesfödda med två utrikesfödda föräldrar.',
+        'the rate for people born in Sweden with two foreign-born parents.',
       ),
       source: L('Brå rapport 2021:9, 2015–2018', 'Brå report 2021:9, 2015–2018'),
     },
@@ -50,8 +50,8 @@ export function buildKeyFigures(lang: Lang): KeyFigure[] {
       value: n0(newAllLast),
       unit: lang === 'en' ? '%' : ' %',
       text: L(
-        `av de nyintagna i fängelse ${lastYear} saknade svenskt medborgarskap. I befolkningen var andelen ${n1(popShareLast)} procent.`,
-        `of new prisoners in ${lastYear} did not have Swedish citizenship. In the population the share was ${n1(popShareLast)}%.`,
+        `av de nyintagna i fängelse ${lastYear} saknade svenskt medborgarskap, mot ${n1(popShareLast)} procent av befolkningen.`,
+        `of new prisoners in ${lastYear} were not Swedish citizens, against ${n1(popShareLast)}% of the population.`,
       ),
       source: `Brå, ${(kap3.sourcesByYear.get(lastYear) ?? []).map((s) => shortReportName(s.label)).join(', ') || lastYear}; SCB`,
     },
