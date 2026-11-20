@@ -124,7 +124,7 @@ A front page plus one page per part (owner's decision, 19 November 2026). The pa
 | Metod och begrepp | `/metod/` | `/en/method/` | Short definitions in a grid, and the "Källor" list |
 | Om sidan | `/om/` | `/en/about/` | Why the site exists, how data is chosen, who runs it (an anonymous private person), errors and corrections (with the dated "Rättelser" list), cookies and visitor statistics |
 
-1. **Masthead** (front page only): kicker "Offentlig statistik och forskning", date and sources line, h1 "Brottsfokus", intro paragraph. Other pages have a smaller page header (`src/components/PageHead.astro`) with kicker, h1, intro, the page's chapters and a language link.
+1. **Masthead** (front page only): kicker "Offentlig statistik och forskning", date and sources line, h1 "Brottsfokus", intro paragraph, and a smaller line on where the figures come from with a link to `/data/`. Other pages have a smaller page header (`src/components/PageHead.astro`) with kicker, h1, intro, the page's chapters and a language link.
 2. **Menu** (`src/components/ChapterNav.astro`): thick top rule, thin bottom rule, links to the four parts, Metod and Om sidan. One row on desktop, one horizontally scrollable row on mobile with a fade at the right edge while there is more to scroll. The current page is underlined. Sticky at the top while scrolling; on the front page a small site title slides in once the big headline has scrolled away, on other pages it always shows. Touch targets at least 44px.
 3. **Key figures** (front page): three figures in a grid (2,5×, 3,2×, 22 %), each with a one-line explanation and its source.
 4. **Part cards** (front page): part number, part name, one sentence (owner approves the copy) and the part's chapters as links.
@@ -132,6 +132,7 @@ A front page plus one page per part (owner's decision, 19 November 2026). The pa
    - kicker (`1.1 · Misstänkta över tid`)
    - factual headline (h2)
    - short intro
+   - "Om uppgifterna" panel: each study, the years its figures cover and when it was published (`src/lib/chapterFacts.ts`, years from the data where the data holds them), so the period is never confused with the site's update date
    - legend (when the chart has more than one series)
    - chart
    - "Läs så här" box with caveats

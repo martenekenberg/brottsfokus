@@ -1,0 +1,127 @@
+---
+// "Om uppgifterna": which study a chapter shows, which years its figures cover and when it was published.
+// One row per study. Facts are in src/lib/chapterFacts.ts.
+import { chapterFacts } from '../lib/chapterFacts';
+import { tr, type Lang } from '../lib/i18n';
+
+interface Props {
+  id: string;
+  lang: Lang;
+}
+const { id, lang } = Astro.props;
+const facts = chapterFacts(id, lang);
+const L = (sv: string, en: string) => tr(lang, sv, en);
+---
+
+<div class="facts">
+  <p class="title">{L('Om uppgifterna', 'About the figures')}</p>
+  <table>
+    <thead>
+      <tr>
+        <th scope="col">{L('Studie', 'Study')}</th>
+        <th scope="col">{L('Uppgifterna avser', 'Figures cover')}</th>
+        <th scope="col">{L('Publicerad', 'Published')}</th>
+      </tr>
+    </thead>
+    <tbody>
+      {
+        facts.studies.map((s) => (
+          <tr>
+            <td data-label={L('Studie', 'Study')}>
+              <a href={s.href}>{s.study}</a>
+            </td>
+            <td data-label={L('Uppgifterna avser', 'Figures cover')}>{s.covers}</td>
+            <td data-label={L('Publicerad', 'Published')}>{s.published}</td>
+          </tr>
+        ))
+      }
+    </tbody>
+  </table>
+  {
+    facts.newer && (
+      <p class="newer">
+        {facts.newer.text}
+        {facts.newer.links.map((l, i) => (
+          <>
+            {i > 0 && L(' och ', ' and ')}
+            <a href={l.href}>{l.label}</a>
+          </>
+        ))}
+        .
+      </p>
+    )
+  }
+</div>
+
+<style>
+  .facts {
+    border-top: 1px solid var(--rule);
+    border-bottom: 1px solid var(--rule);
+    padding: 10px 0 12px;
+    font-size: 13px;
+    line-height: 1.45;
+  }
+  .title {
+    margin: 0 0 6px;
+    font-weight: 600;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    font-size: 12px;
+    color: var(--text-muted);
+  }
+  table {
+    width: auto;
+    border-collapse: collapse;
+    font-variant-numeric: tabular-nums;
+  }
+  th {
+    text-align: left;
+    font-weight: 500;
+    color: var(--text-muted);
+    padding: 2px 32px 2px 0;
+  }
+  td {
+    padding: 2px 32px 2px 0;
+    vertical-align: top;
+  }
+  th:last-child,
+  td:last-child {
+    padding-right: 0;
+  }
+  a {
+    color: var(--ink);
+  }
+  .newer {
+    margin: 8px 0 0;
+  }
+  /* Phones: one block per study, each value with its label. */
+  @media (max-width: 640px) {
+    thead {
+      position: absolute;
+      width: 1px;
+      height: 1px;
+      overflow: hidden;
+      clip: rect(0 0 0 0);
+    }
+    table {
+      width: 100%;
+    }
+    tr {
+      display: block;
+      padding: 4px 0;
+    }
+    tr + tr {
+      border-top: 1px solid var(--rule);
+    }
+    td {
+      display: grid;
+      grid-template-columns: 9.5em 1fr;
+      gap: 8px;
+      padding: 1px 0;
+    }
+    td::before {
+      content: attr(data-label);
+      color: var(--text-muted);
+    }
+  }
+</style>
