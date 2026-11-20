@@ -19,6 +19,7 @@ const n1 = (v: number) => formatNumber(v, 1, lang);
 const kap5 = buildKap5(loadBra2005(), lang);
 
 if (!kap5.foreignBornRiskRose) throw new Error('Chapter 5 headline no longer matches the data');
+const risk = kap5.foreignBornRisk;
 ---
 
 <Chapter
@@ -32,8 +33,10 @@ if (!kap5.foreignBornRiskRose) throw new Error('Chapter 5 headline no longer mat
 >
   <p slot="intro">
     {L(
-      'Överrisk är andelen misstänkta i gruppen delat med andelen bland inrikesfödda med två inrikesfödda föräldrar. Standardiserad överrisk tar hänsyn till kön, ålder, utbildning och förvärvsinkomst.',
-      'Excess risk is the share of suspects in the group divided by the share among people born in Sweden with two Swedish-born parents. Standardised excess risk takes into account sex, age, education and income.',
+      `Enligt Brå rapport 2005:17 var andelen misstänkta bland utrikesfödda ${n1(risk.p9701)} gånger så hög som bland inrikesfödda med två inrikesfödda föräldrar 1997–2001, och ${n1(risk.p8589)} gånger så hög 1985–89. Med hänsyn till kön, ålder, utbildning och inkomst var den ${n1(risk.stand)} gånger så hög 1997–2001. ` +
+        'Överrisk är andelen misstänkta i gruppen delat med andelen bland inrikesfödda med två inrikesfödda föräldrar. Standardiserad överrisk tar hänsyn till kön, ålder, utbildning och förvärvsinkomst.',
+      `According to Brå report 2005:17, the share of suspects among people born abroad was ${n1(risk.p9701)} times as high as among people born in Sweden with two Swedish-born parents in 1997–2001, and ${n1(risk.p8589)} times as high in 1985–89. Taking sex, age, education and income into account, it was ${n1(risk.stand)} times as high in 1997–2001. ` +
+        'Excess risk is the share of suspects in the group divided by the share among people born in Sweden with two Swedish-born parents. Standardised excess risk takes into account sex, age, education and income.',
     )}
   </p>
   <OlderStudies kap5={kap5} lang={lang} />

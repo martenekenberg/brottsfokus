@@ -14,7 +14,6 @@ Watch:
 
 ## To do
 
-- **Chapter summaries.** Where a chapter intro lacks the key number, year and source, add one short sentence. Owner approves the copy first.
 
 ## Backlog from the SEO plan (November 2026)
 
@@ -31,6 +30,8 @@ Watch:
 - Links from relevant places (data journalists, researchers, newsletters).
 
 ## Done
+
+- Chapter summaries, 20 November 2026 (owner approved the copy): 1.1 and 1.3 got a sentence with the key numbers, years and source, with build checks. The other chapters already had them in "Kort svar" and "Om uppgifterna".
 
 - Colour rules (owner's decision, 20 November 2026): "born in Sweden with one foreign-born parent" is teal (new token "fourth") in 1.1 and 2.1 instead of grey; the outlined grey bar stays and the rule now says it marks what a group is compared with (population, control group or Swedish background).
 

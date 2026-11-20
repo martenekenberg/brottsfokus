@@ -11,7 +11,7 @@ import { loadSuspectsByBackground, loadTableB6, loadSuspicionShares } from '../.
 import { round } from '../../lib/calc';
 import { tablePage } from '../../lib/dataPages';
 import { formatNumber, formatPct } from '../../lib/format';
-import { buildKap1Data, allGroupsFell } from '../../lib/chapters/kap1';
+import { buildKap1Data, allGroupsFell, crimeById } from '../../lib/chapters/kap1';
 import { buildSharesSpec, buildSuspicionShares, peakYear as sharePeakYear, shareGroup } from '../../lib/chapters/kap1Shares';
 
 interface Props {
@@ -30,6 +30,22 @@ const kap1Data = buildKap1Data(suspects);
 const kap1First = kap1Data.years[0];
 const kap1Last = kap1Data.years[kap1Data.years.length - 1];
 if (!allGroupsFell(kap1Data, 'c00')) throw new Error('Chapter 1 headline no longer matches the data');
+
+// Intro: the range across the four groups, all crimes, first and last year. The sentence says two Swedish-born
+// parents is the lowest and two foreign-born parents the highest; stop the build if that no longer holds.
+const total = crimeById(kap1Data, 'c00').values;
+const at = (g: 'sv2' | 'sv1' | 'u2' | 'utr', i: number) => {
+  const v = total[g][i];
+  if (v == null) throw new Error(`Chapter 1: no value for ${g}, ${kap1Data.years[i]}`);
+  return v;
+};
+const lastI = kap1Data.years.length - 1;
+for (const i of [0, lastI]) {
+  const vals = (['sv2', 'sv1', 'u2', 'utr'] as const).map((g) => at(g, i));
+  if (at('sv2', i) !== Math.min(...vals) || at('u2', i) !== Math.max(...vals)) {
+    throw new Error('Chapter 1 intro: lowest and highest group no longer match the data');
+  }
+}
 
 // ---------- Chapter 1, second chart: shares of all registered suspicions ----------
 const shares = buildSuspicionShares(loadSuspicionShares());
@@ -60,8 +76,10 @@ const b6Pop = (unit: string) => {
 >
   <p slot="intro">
     {L(
-      'Andelen av befolkningen, 15 år och äldre, som misstänktes för minst ett brott under året. Grupperna bygger på var personen och personens föräldrar är födda.',
-      'The share of the population aged 15 and over who were suspected of at least one crime during the year. The groups are based on where the person and their parents were born.',
+      'Andelen av befolkningen, 15 år och äldre, som misstänktes för minst ett brott under året. Grupperna bygger på var personen och personens föräldrar är födda. ' +
+        `År ${kap1Last} var det mellan ${n1(at('sv2', lastI))} misstänkta per 1 000 invånare bland inrikesfödda med två inrikesfödda föräldrar och ${n1(at('u2', lastI))} bland inrikesfödda med två utrikesfödda föräldrar, mot ${n1(at('sv2', 0))} och ${n1(at('u2', 0))} år ${kap1First} (Brå rapport 2021:9).`,
+      'The share of the population aged 15 and over who were suspected of at least one crime during the year. The groups are based on where the person and their parents were born. ' +
+        `In ${kap1Last} the rate ranged from ${n1(at('sv2', lastI))} suspects per 1,000 residents among people born in Sweden with two Swedish-born parents to ${n1(at('u2', lastI))} among people born in Sweden with two foreign-born parents, compared with ${n1(at('sv2', 0))} and ${n1(at('u2', 0))} in ${kap1First} (Brå report 2021:9).`,
     )}
   </p>
   <SuspectsOverTime data={kap1Data} lang={lang} />
