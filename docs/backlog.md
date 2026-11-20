@@ -19,7 +19,6 @@ Watch:
 
 - **AI citation check (item 11).** A fixed list of about 25 questions (most can reuse the short-answer questions in `src/lib/shortAnswers.ts`), asked once a month in ChatGPT, Perplexity and Gemini. Log per question and tool: Brottsfokus mentioned, linked, used as the main source, quoted correctly. Owner put this in the backlog, 20 November 2026.
 - **"Om uppgifterna": newer data.** Only 1.3 says a newer study exists (Brå 2021:9). Check by hand on Brå's site whether newer comparable data exists for the other chapters before saying so on the site.
-- **Table page 2.1 (Brå 2025:21), temporalCoverage "1958/2023".** Mixes birth years (from 1958) and conviction years (to 2023). Consider stating the conviction period only, or saying which is which.
 
 ## Later, once there is search data
 
@@ -30,6 +29,8 @@ Watch:
 - Links from relevant places (data journalists, researchers, newsletters).
 
 ## Done
+
+- Table pages 2.1: temporalCoverage now gives the years the convictions fall in, 20 November 2026. Brå 2025:21: 1973/2023 (was 1958/2023, which mixed a birth year and a conviction year). Bäckman et al.: 1981/2017 (was 1990/2017, the years the birth groups turned 24). Both computed from the data.
 
 - Chapter summaries, 20 November 2026 (owner approved the copy): 1.1 and 1.3 got a sentence with the key numbers, years and source, with build checks. The other chapters already had them in "Kort svar" and "Om uppgifterna".
 

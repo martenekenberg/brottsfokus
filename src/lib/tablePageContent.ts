@@ -874,7 +874,9 @@ function kap9(lang: Lang): TablePageContent {
       'Alla födda 1966–1993 som var folkbokförda i Sverige från 15 till 24 års ålder, i grupper om fyra födelseår: andel (%) som lagförts minst en gång respektive upprepat före 25 års ålder, relativ risk jämfört med inrikesfödda med minst en inrikesfödd förälder, och antal personer. För alla och för dem som växte upp i den tiondel av familjerna som hade lägst inkomster. Tabell 1 och 2 i Bäckman, Estrada, Nilsson och Sivertsson 2021, Nordic Journal of Criminology (CC BY 4.0).',
       'Everyone born in 1966–1993 who was registered as living in Sweden from age 15 to 24, in groups of four birth years: share (%) convicted at least once and repeatedly before age 25, relative risk compared with people born in Sweden with at least one Swedish-born parent, and number of people. For everyone and for those who grew up in the tenth of families with the lowest incomes. Tables 1 and 2 in Bäckman, Estrada, Nilsson and Sivertsson 2021, Nordic Journal of Criminology (CC BY 4.0).',
     ),
-    temporalCoverage: '1990/2017',
+    // The years the convictions fall in: from the first group's first birth year at age 15 (no one younger can be
+    // convicted) to the last group's last birth year at age 24. Birth groups are written "1966–69".
+    temporalCoverage: `${Number(first.slice(0, 4)) + 15}/${Number(last.slice(0, 2) + last.slice(-2)) + 24}`,
     keywords: T(
       ['lagförda', 'unga', 'utrikesfödda', 'andra generationen', 'låg inkomst', 'födelsekohorter'],
       ['convicted', 'young people', 'born abroad', 'second generation', 'low income', 'birth cohorts'],
@@ -935,7 +937,9 @@ function kap10(lang: Lang): TablePageContent {
       'Andel (%) av alla folkbokförda födda ett visst år som lagförts för brott minst en gång före 25 års ålder (födda 1958–1998) och före 20 års ålder (födda 1958–2003), för kvinnor och män tillsammans och var för sig. Efter födelsebakgrund för födda från 1984: inrikesfödda med två, en eller ingen inrikesfödd förälder samt utrikesfödda. Brå rapport 2025:21, tabell 1 och tabell 4.',
       'Share (%) of everyone registered in Sweden and born in a given year who was convicted of a crime at least once before age 25 (born 1958–1998) and before age 20 (born 1958–2003), for women and men together and separately. By birth background for those born from 1984: born in Sweden with two, one or no Swedish-born parents, and born abroad. Brå report 2025:21, table 1 and table 4.',
     ),
-    temporalCoverage: '1958/2023',
+    // The years the convictions fall in, not birth years: from the year the first birth year turned 15
+    // (no one younger can be convicted) to Brå's last year of convictions, 2023.
+    temporalCoverage: `${years[0] + 15}/2023`,
     keywords: T(
       ['födelsekohort', 'lagförda', 'unga', 'utrikesfödda', 'födelsebakgrund', 'Brå 2025:21'],
       ['birth cohort', 'convicted', 'young people', 'born abroad', 'birth background', 'Brå 2025:21'],
