@@ -16,8 +16,9 @@ import Kap8 from './chapters/Kap8.astro';
 import Kap9 from './chapters/Kap9.astro';
 import { chapter } from '../lib/chapters';
 import { part, parts, type PartId } from '../lib/parts';
-import { site } from '../lib/site';
-import { tr, type Lang } from '../lib/i18n';
+import { partCoverage, partDatasetIds, partMeta, partSourceUrls } from '../lib/partMeta';
+import { site, absoluteUrl } from '../lib/site';
+import { IN_LANGUAGE, localePath, tr, type Lang } from '../lib/i18n';
 
 interface Props {
   partId: PartId;
@@ -31,9 +32,50 @@ const toc = p.chapters.map((id) => {
   const c = chapter(id);
   return { num: c.num, label: c.kicker[lang], href: `#${id}` };
 });
+
+// Search title and description, with the years the part covers (src/lib/partMeta.ts).
+const meta = partMeta(partId, lang);
+const coverage = partCoverage(partId);
+const citations = partSourceUrls(partId, lang);
+const pageUrl = absoluteUrl(path);
+
+// Structured data: where the page sits on the site, and what it is. The visible headline stays the part name.
+const breadcrumbLd = {
+  '@type': 'BreadcrumbList',
+  itemListElement: [
+    { '@type': 'ListItem', position: 1, name: site.name, item: absoluteUrl(localePath(lang, '/')) },
+    { '@type': 'ListItem', position: 2, name: p.title[lang], item: pageUrl },
+  ],
+};
+// Author and publisher are the site itself, since the person behind it is anonymous.
+const articleLd = {
+  '@type': 'Article',
+  '@id': `${pageUrl}#article`,
+  headline: p.title[lang],
+  description: meta.description,
+  url: pageUrl,
+  inLanguage: IN_LANGUAGE[lang],
+  mainEntityOfPage: { '@id': `${pageUrl}#webpage` },
+  isPartOf: { '@id': `${site.url}#website` },
+  author: { '@id': `${site.url}#publisher` },
+  publisher: { '@id': `${site.url}#publisher` },
+  dateModified: site.updated,
+  image: site.shareImage[lang],
+  temporalCoverage: `${coverage.first}/${coverage.last}`,
+  spatialCoverage: { '@type': 'Place', name: tr(lang, 'Sverige', 'Sweden') },
+  // The tables the charts are drawn from (Dataset markup on the table pages), and the original sources.
+  isBasedOn: [...partDatasetIds(partId, lang).map((id) => ({ '@id': id })), ...citations],
+};
 ---
 
-<Base title={`${p.title[lang]} · ${site.name}`} description={p.card[lang]} lang={lang} path={path}>
+<Base
+  title={`${meta.title} · ${site.name}`}
+  description={meta.description}
+  lang={lang}
+  path={path}
+  citations={citations}
+  jsonLdNodes={[breadcrumbLd, articleLd]}
+>
   <div class="wrap">
     <ChapterNav current={partId} lang={lang} />
     <PageHead

@@ -112,7 +112,7 @@ Visual grammar, used the same way in every chart:
 
 ## Page structure
 
-A front page plus one page per part (owner's decision, 19 November 2026). The parts, their pages in both languages, their one-line card text and their chapters are defined in `src/lib/parts.ts`; chapter numbers ("1.2") follow from that list.
+A front page plus one page per part (owner's decision, 19 November 2026). The parts, their pages in both languages, their one-line card text and their chapters are defined in `src/lib/parts.ts`; chapter numbers ("1.2") follow from that list. Each part also has a search title and description (`meta` in `parts.ts`); `{period}` in them is filled with the years its table pages cover (`src/lib/partMeta.ts`). Part pages carry BreadcrumbList and Article markup, with the part's Datasets and sources as `isBasedOn`.
 
 | Page | Swedish | English | Contains |
 |---|---|---|---|
