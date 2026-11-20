@@ -132,6 +132,7 @@ A front page plus one page per part (owner's decision, 19 November 2026). The pa
    - kicker (`1.1 · Misstänkta över tid`)
    - factual headline (h2)
    - short intro
+   - "Kort svar" boxes, if any (`src/components/ShortAnswer.astro`, slot `answers`): a search question, an answer with numbers computed from the data, one caveat and the source. Owner-approved questions, November 2026. "Invandrare" may be used in questions and once in the answer, meaning utrikesfödda only (defined on Metod); never for citizenship, "utländsk bakgrund" or people born in Sweden (write "barn till invandrare")
    - "Om uppgifterna" panel: each study, the years its figures cover and when it was published (`src/lib/chapterFacts.ts`, years from the data where the data holds them), so the period is never confused with the site's update date
    - legend (when the chart has more than one series)
    - chart

@@ -1,0 +1,68 @@
+---
+// "Kort svar": one search question answered in a sentence or two, near the top of a chapter.
+// The answer gives the number, the years, the comparison group and the source; one caveat follows.
+// Numbers are computed from the data by the chapter, like its headline.
+import { tr, type Lang } from '../lib/i18n';
+
+interface Props {
+  /** Anchor, so the answer can be linked to (from the FAQ page, for example). */
+  id: string;
+  question: string;
+  lang: Lang;
+}
+const { id, question, lang } = Astro.props;
+---
+
+<section class="short-answer" id={id} aria-labelledby={`${id}-q`}>
+  <p class="label">{tr(lang, 'Kort svar', 'Short answer')}</p>
+  <h3 id={`${id}-q`}>{question}</h3>
+  <p class="answer"><slot /></p>
+  <p class="caveat"><slot name="caveat" /></p>
+  <p class="source"><slot name="source" /></p>
+</section>
+
+<style>
+  .short-answer {
+    border-top: 2px solid var(--ink);
+    padding-top: 12px;
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    scroll-margin-top: calc(var(--sticky-nav-h) + 8px);
+  }
+  .label {
+    margin: 0;
+    font-size: 13px;
+    font-weight: 600;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--second);
+  }
+  h3 {
+    margin: 0;
+    font-family: var(--font-serif);
+    font-size: 24px;
+    line-height: 1.25;
+    font-weight: 500;
+  }
+  .answer {
+    margin: 0;
+    font-size: 16px;
+    line-height: 1.55;
+  }
+  .caveat,
+  .source {
+    margin: 0;
+    font-size: 13px;
+    line-height: 1.5;
+    color: var(--text-muted);
+  }
+  .source :global(a) {
+    color: var(--text-muted);
+  }
+  @media (max-width: 640px) {
+    h3 {
+      font-size: 20px;
+    }
+  }
+</style>
