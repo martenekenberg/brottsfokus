@@ -1,6 +1,6 @@
 ---
 // "Om sidan": who runs the site, why it exists, how data is chosen and how
-// errors are handled. The owner is anonymous, so trust rests on the sources.
+// errors are handled. The owner is not named, so trust rests on the sources and the method.
 import { site, dayMonthYear } from '../lib/site';
 import { chapter } from '../lib/chapters';
 import { tr, type Lang } from '../lib/i18n';
@@ -67,6 +67,10 @@ const updatedText = dayMonthYear(site.updated, lang);
               'If a figure is missing, a gap is shown.',
               'Where possible, a group’s share is shown next to its share of the population.',
               'Every chart has a source and a box, How to read this, that describes what the figures do not show.',
+              'Headlines state only what the figures show. Every headline that makes a claim about the figures is checked automatically against the data, and the site is not published if a headline no longer holds.',
+              'When a data file is added or changed, the figures are checked against the original source before they are published.',
+              'The site uses the sources’ own terms, such as born abroad and foreign background. Where the site says immigrants, it means people born abroad.',
+              'The site draws no conclusions of its own about causes. Where a source discusses causes, this is given as the source’s assessment.',
             ]
           : [
               'Uppgifterna kommer från myndigheter som Brå och SCB och från vetenskapligt granskad forskning.',
@@ -74,6 +78,10 @@ const updatedText = dayMonthYear(site.updated, lang);
               'Saknas en uppgift visas en lucka.',
               'Där det går visas en grupps andel bredvid samma grupps andel av befolkningen.',
               'Varje diagram har en källa och en ruta, Läs så här, som beskriver vad siffrorna inte visar.',
+              'Rubrikerna säger bara vad siffrorna visar. Varje rubrik som påstår något om siffrorna kontrolleras automatiskt mot underlaget, och sidan publiceras inte om rubriken inte längre stämmer.',
+              'När en datafil läggs till eller ändras kontrolleras siffrorna mot originalkällan innan de publiceras.',
+              'Sidan använder källornas egna begrepp, som utrikesfödda och utländsk bakgrund. Där sidan skriver invandrare betyder det utrikesfödda.',
+              'Sidan drar inga egna slutsatser om orsaker. Där en källa diskuterar orsaker återges det som källans bedömning.',
             ]
         ).map((t) => <li>{t}</li>)
       }
@@ -85,23 +93,23 @@ const updatedText = dayMonthYear(site.updated, lang);
       lang === 'en' ? (
         <>
           <p>
-            Brottsfokus is run by a private person who has chosen to be anonymous. The site is independent and not linked to any
+            Brottsfokus is run by a private person who works with data analysis. The site is independent and not linked to any
             party, organisation or authority. It has no advertising and no outside funding.
           </p>
           <p>
-            The publisher is anonymous, so the site rests on its sources. Every figure can be checked against the source linked
-            under the chart.
+            The site rests on its sources: every figure can be checked against the source linked under the chart, and all the
+            figures are also available as tables and CSV files.
           </p>
         </>
       ) : (
         <>
           <p>
-            Brottsfokus drivs av en privatperson som har valt att vara anonym. Sidan är fristående och inte knuten till något
+            Brottsfokus drivs av en privatperson som arbetar med dataanalys. Sidan är fristående och inte knuten till något
             parti, någon organisation eller någon myndighet. Den har inga annonser och ingen finansiering utifrån.
           </p>
           <p>
-            Avsändaren är anonym, så sidan vilar på sina källor. Varje siffra går att kontrollera i källan som länkas under
-            diagrammet.
+            Sidan vilar på sina källor: varje siffra går att kontrollera i källan som länkas under diagrammet, och alla siffror
+            finns också som tabeller och CSV-filer.
           </p>
         </>
       )
