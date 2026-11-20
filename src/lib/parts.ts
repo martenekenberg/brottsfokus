@@ -10,7 +10,11 @@ export interface PartInfo {
   num: number;
   path: Record<Lang, string>;
   title: Record<Lang, string>;
-  /** One sentence on the front page card and under the part's headline. Approved by the owner, 19 November 2026. */
+  /**
+   * One sentence on the front page card and under the part's headline. Rewritten to lead with the gap, like the chapter
+   * headlines (owner's request, approved 20 November 2026). Each claim rests on a chapter headline check, so the build stops if the
+   * data no longer supports it.
+   */
   card: Record<Lang, string>;
   /** Chapter ids, in page order. */
   chapters: string[];
@@ -28,8 +32,8 @@ export const parts: PartInfo[] = [
     path: { sv: '/misstankta/', en: '/en/suspects/' },
     title: { sv: 'Misstänkta för brott', en: 'Suspected of crime' },
     card: {
-      sv: 'Hur vanligt det är att misstänkas för brott i olika grupper efter födelseland och föräldrarnas födelseland, 1985–2018.',
-      en: 'How common it is to be suspected of crime in different groups by country of birth and parents’ country of birth, 1985–2018.',
+      sv: 'Utrikesfödda och barn till invandrare misstänktes oftare för brott, i Brås studier från 1985 till 2018.',
+      en: 'People born abroad and children of immigrants were suspected of crime more often, in Brå’s studies from 1985 to 2018.',
     },
     chapters: ['kap1', 'kap2', 'kap5'],
     meta: {
@@ -46,8 +50,8 @@ export const parts: PartInfo[] = [
     path: { sv: '/lagforda-och-domda/', en: '/en/convictions/' },
     title: { sv: 'Lagförda och dömda', en: 'Convicted' },
     card: {
-      sv: 'Hur stor andel som lagförts för brott före 25 års ålder, och bakgrund bland dem som dömts för våldtäkt.',
-      en: 'The share convicted of a crime before age 25, and the background of people convicted of rape.',
+      sv: 'Utrikesfödda och barn till två invandrare lagfördes nästan dubbelt så ofta före 25 års ålder, och drygt hälften av de dömda för våldtäkt 2000–2020 var utrikesfödda.',
+      en: 'People born abroad and children of two immigrants were convicted nearly twice as often before age 25, and just over half of those convicted of rape in 2000–2020 were born abroad.',
     },
     chapters: ['kap9', 'kap4'],
     meta: {
@@ -65,8 +69,8 @@ export const parts: PartInfo[] = [
     path: { sv: '/fangelse-och-utvisning/', en: '/en/prison-and-deportation/' },
     title: { sv: 'Fängelse och utvisning', en: 'Prison and deportation' },
     card: {
-      sv: 'Andelen utan svenskt medborgarskap bland intagna i fängelse, och hur många av de utvisningsdömda som utvisats.',
-      en: 'The share without Swedish citizenship among people in prison, and how many people sentenced to deportation were deported.',
+      sv: 'Bland dem som togs in i fängelse 2025 var andelen utan svenskt medborgarskap nästan tre gånger så stor som i befolkningen. Under hälften av de utvisningsdömda hade utvisats.',
+      en: 'Among people taken into prison in 2025, the share without Swedish citizenship was nearly three times that in the population. Less than half of those sentenced to deportation had been deported.',
     },
     chapters: ['kap3', 'kap7'],
     meta: {
@@ -83,8 +87,8 @@ export const parts: PartInfo[] = [
     path: { sv: '/brottsoffer/', en: '/en/victims/' },
     title: { sv: 'Brottsoffer', en: 'Victims of crime' },
     card: {
-      sv: 'Hur ofta personer med utländsk och svensk bakgrund säger att de utsatts för brott, och offer och gärningspersoner vid dödligt våld.',
-      en: 'How often people with a foreign and a Swedish background say they were victims of crime, and homicide victims and perpetrators.',
+      sv: 'Personer med utländsk bakgrund uppgav oftare att de utsatts för de flesta brott. Vid dödligt våld var deras andel av både offer och gärningspersoner mer än dubbelt så stor som i befolkningen.',
+      en: 'People with a foreign background more often said they had been victims of most crimes. In homicides, their share of both victims and perpetrators was more than twice that of the population.',
     },
     chapters: ['kap6', 'kap8'],
     meta: {

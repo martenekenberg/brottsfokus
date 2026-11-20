@@ -19,8 +19,13 @@ const n0 = (v: number) => formatNumber(v, 0, lang);
 
 // ---------- Chapter 8: homicide ----------
 const homicide = loadHomicide();
-if (!moreThanTwiceForeign(homicide)) throw new Error('Chapter 8 headline no longer matches the data');
 const hUtl = homicideItem(homicide, 'utl');
+// The headline names the perpetrators' and victims' shares "against" the population's, in rising order. Stop the build
+// if the population share is no longer the smallest, or if the shares are missing.
+const [hPop, hPerp, hVict] = [hUtl.population, hUtl.perpetrators, hUtl.victims];
+if (hPop == null || hPerp == null || hVict == null || !(hPop < hPerp && hPerp < hVict) || !moreThanTwiceForeign(homicide)) {
+  throw new Error('Chapter 8 headline no longer matches the data');
+}
 const hMiljo = homicideItem(homicide, 'kriminell_miljo');
 const hWeighted = homicideItem(homicide, 'viktat');
 const homicideLegend = (
@@ -37,14 +42,14 @@ const homicideLegend = (
   lang={lang}
   tableHref={tablePage('kap8', lang).path}
   title={L(
-    'Andelen med utländsk bakgrund var mer än dubbelt så stor bland offer och gärningspersoner vid dödligt våld som i befolkningen',
-    'The share with a foreign background was more than twice as large among homicide victims and perpetrators as in the population',
+    `Vid dödligt våld hade ${n0(hPerp)} procent av gärningspersonerna och ${n0(hVict)} procent av offren utländsk bakgrund, mot ${n0(hPop)} procent i befolkningen`,
+    `In homicides, ${n0(hPerp)}% of perpetrators and ${n0(hVict)}% of victims had a foreign background, against ${n0(hPop)}% of the population`,
   )}
 >
   <p slot="intro">
     {L(
-      `Alla offer och identifierade gärningspersoner vid dödligt våld i Sverige 2005–2021, jämfört med befolkningen under samma år. ${n0(hUtl.victims as number)} procent av offren och ${n0(hUtl.perpetrators as number)} procent av gärningspersonerna hade utländsk bakgrund, mot ${n0(hUtl.population as number)} procent i befolkningen.`,
-      `All homicide victims and identified perpetrators in Sweden in 2005–2021, compared with the population in the same years. ${n0(hUtl.victims as number)}% of victims and ${n0(hUtl.perpetrators as number)}% of perpetrators had a foreign background, against ${n0(hUtl.population as number)}% of the population.`,
+      `Alla offer och identifierade gärningspersoner vid dödligt våld i Sverige 2005–2021. Andelen var störst i kriminell miljö: ${n0(hMiljo.perpetrators as number)} procent av gärningspersonerna och ${n0(hMiljo.victims as number)} procent av offren.`,
+      `All homicide victims and identified perpetrators in Sweden in 2005–2021. The share was highest in criminal milieus: ${n0(hMiljo.perpetrators as number)}% of perpetrators and ${n0(hMiljo.victims as number)}% of victims.`,
     )}
   </p>
   <div class="chart-block">
@@ -62,8 +67,8 @@ const homicideLegend = (
   </div>
   <Fragment slot="note">
     {L(
-      `Utländsk bakgrund betyder här utrikesfödd eller inrikesfödd med två utrikesfödda föräldrar, som i kapitel ${chapter('kap1').num} och ${chapter('kap2').num}. Omkring 70 procent av fallen i kriminell miljö är ouppklarade, och där saknas gärningspersoner. Brå har därför också räknat med viktade värden: då hade ${n0(hWeighted.perpetrators as number)} procent av gärningspersonerna utländsk bakgrund. Bara personer med svenskt personnummer ingår. Andelen med utländsk bakgrund var störst vid dödligt våld i kriminell miljö, ${n0(hMiljo.victims as number)} procent av offren och ${n0(hMiljo.perpetrators as number)} procent av gärningspersonerna. Inte justerat för ålder eller kön. Offer och gärningspersoner är oftare unga män än befolkningen i stort. Befolkningens andel är ett snitt för 2005–2021.`,
-      `Foreign background here means born abroad, or born in Sweden with two foreign-born parents, as in chapters ${chapter('kap1').num} and ${chapter('kap2').num}. About 70% of the cases in criminal milieus are unsolved and have no identified perpetrator. Brå therefore also calculated weighted values: with them, ${n0(hWeighted.perpetrators as number)}% of perpetrators had a foreign background. Only people with a Swedish personal identity number are included. The share with a foreign background was highest for homicides in criminal milieus: ${n0(hMiljo.victims as number)}% of victims and ${n0(hMiljo.perpetrators as number)}% of perpetrators. Not adjusted for age or sex. Victims and perpetrators are more often young men than the population as a whole. The population share is an average for 2005–2021.`,
+      `Utländsk bakgrund betyder här utrikesfödd eller inrikesfödd med två utrikesfödda föräldrar, som i kapitel ${chapter('kap1').num} och ${chapter('kap2').num}. Omkring 70 procent av fallen i kriminell miljö är ouppklarade, och där saknas gärningspersoner. Med Brås viktade värden hade ${n0(hWeighted.perpetrators as number)} procent av gärningspersonerna utländsk bakgrund. Bara personer med svenskt personnummer ingår. Inte justerat för ålder eller kön, och offer och gärningspersoner är oftare unga män än befolkningen.`,
+      `Foreign background here means born abroad, or born in Sweden with two foreign-born parents, as in chapters ${chapter('kap1').num} and ${chapter('kap2').num}. About 70% of the cases in criminal milieus are unsolved and have no identified perpetrator. With Brå’s weighted values, ${n0(hWeighted.perpetrators as number)}% of perpetrators had a foreign background. Only people with a Swedish personal identity number are included. Not adjusted for age or sex, and victims and perpetrators are more often young men than the population.`,
     )}
   </Fragment>
   <Fragment slot="source">

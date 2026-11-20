@@ -35,14 +35,14 @@ const yr = (y: number) => fact(deportFacts, 'verkstalld_inom_1_ar', y);
   lang={lang}
   tableHref={tablePage('kap7', lang).path}
   title={L(
-    'Mindre än hälften av de utvisningsdömda som lämnade fängelset 2013–2023 hade utvisats i slutet av 2024',
-    'Less than half of the people sentenced to deportation who left prison in 2013–2023 had been deported by the end of 2024',
+    'Mindre än hälften av dem som dömts till utvisning hade utvisats',
+    'Less than half of the people sentenced to deportation had been deported',
   )}
 >
   <p slot="intro">
     {L(
-      `Av ${n0(deportTotal.n as number)} personer som dömts till fängelse och utvisning och lämnade anstalten 2013–2023 hade ${n1(deportPct)} procent utvisats. Andelen som utvisades inom ett år steg från ${n0(yr(2013))} procent bland dem som lämnade fängelset 2013 till ${n0(yr(2019))} procent 2019. För 2021 var den ${n0(yr(2021))} och för 2023 ${n0(yr(2023))} procent.`,
-      `Of ${n0(deportTotal.n as number)} people sentenced to prison and deportation who left prison in 2013–2023, ${n1(deportPct)}% had been deported. The share deported within a year rose from ${n0(yr(2013))}% among those who left prison in 2013 to ${n0(yr(2019))}% in 2019. For 2021 it was ${n0(yr(2021))}% and for 2023 ${n0(yr(2023))}%.`,
+      `Av ${n0(deportTotal.n as number)} personer som dömts till fängelse och utvisning och lämnade anstalten 2013–2023 hade ${n1(deportPct)} procent utvisats i slutet av 2024. Andelen som utvisades inom ett år steg från ${n0(yr(2013))} procent för dem som släpptes 2013 till ${n0(yr(2019))} procent 2019, och var ${n0(yr(2023))} procent 2023.`,
+      `Of ${n0(deportTotal.n as number)} people sentenced to prison and deportation who left prison in 2013–2023, ${n1(deportPct)}% had been deported by the end of 2024. The share deported within a year rose from ${n0(yr(2013))}% for those released in 2013 to ${n0(yr(2019))}% in 2019, and was ${n0(yr(2023))}% in 2023.`,
     )}
   </p>
   <div class="chart-block">
@@ -51,8 +51,8 @@ const yr = (y: number) => fact(deportFacts, 'verkstalld_inom_1_ar', y);
   </div>
   <Fragment slot="note">
     {L(
-      `Medborgarskap är inte alltid landet personen utvisas till: en person kan utvisas till ett annat land där hen har rätt att vistas. Diagrammet visar områden med minst ${MIN_GROUP} personer, som i Brås egen redovisning. Mindre grupper finns i tabellen. ”Ej definierat” är okänt medborgarskap, under utredning eller statslös. ${notRegisteredSentence(deport, 'sv')} De som lämnade fängelset tidigt i perioden har följts längre. Brå nämner bland annat svårigheter att fastställa identitet och avsaknad av återtagandeavtal som möjliga förklaringar till skillnaderna, men drar inga säkra slutsatser om orsaker. Brå anger andelen per år bara i ett diagram, så sidan visar endast de år som nämns i texten.`,
-      `Citizenship is not always the country a person is deported to: a person can be deported to another country where they have the right to stay. The chart shows regions with at least ${MIN_GROUP} people, as in Brå’s own presentation. Smaller groups are in the table. “Not defined” means unknown citizenship, under investigation or stateless. ${notRegisteredSentence(deport, 'en')} Those who left prison early in the period have been followed for longer. Brå mentions difficulties in establishing identity and the lack of readmission agreements, among other things, as possible explanations for the differences, but draws no firm conclusions about causes. Brå gives the share by year only in a chart, so the site shows only the years mentioned in the text.`,
+      `De som lämnade fängelset tidigt i perioden har följts längre. Brå nämner bland annat svårigheter att fastställa identitet och avsaknad av återtagandeavtal som möjliga förklaringar, men drar inga säkra slutsatser om orsaker. ${notRegisteredSentence(deport, 'sv')} Medborgarskap är inte alltid landet personen utvisas till. Diagrammet visar områden med minst ${MIN_GROUP} personer. ”Ej definierat” är okänt medborgarskap, under utredning eller statslös.`,
+      `Those who left prison early in the period have been followed for longer. Brå mentions difficulties in establishing identity and the lack of readmission agreements, among other things, as possible explanations, but draws no firm conclusions about causes. ${notRegisteredSentence(deport, 'en')} Citizenship is not always the country a person is deported to. The chart shows regions with at least ${MIN_GROUP} people. “Not defined” means unknown citizenship, under investigation or stateless.`,
     )}
   </Fragment>
   <Fragment slot="source">
@@ -66,14 +66,14 @@ const yr = (y: number) => fact(deportFacts, 'verkstalld_inom_1_ar', y);
     id="kap7-brott"
     lang={lang}
     title={L(
-      'Andelen som utvisades var högst bland dem som dömts för narkotikabrott eller smuggling',
-      'The share deported was highest among those sentenced for drug offences or smuggling',
+      'Störst andel utvisades bland dem som dömts för narkotikabrott eller smuggling',
+      'The largest share was deported among those sentenced for drug offences or smuggling',
     )}
   >
     <Fragment slot="intro">
       {L(
-        `Utvisade och lagförda för nya brott i Sverige, efter huvudbrottet i den dom som ledde till fängelse. Av alla lagfördes ${n1(reconvictedPct)} procent för nya brott.`,
-        `Deported, and convicted of new crimes in Sweden, by the main offence in the sentence that led to prison. Of everyone, ${n1(reconvictedPct)}% were convicted of new crimes.`,
+        `Utvisade, och lagförda för nya brott i Sverige, efter huvudbrottet i fängelsedomen. Av alla lagfördes ${n1(reconvictedPct)} procent för nya brott.`,
+        `Deported, and convicted of new crimes in Sweden, by the main offence in the prison sentence. Of everyone, ${n1(reconvictedPct)}% were convicted of new crimes.`,
       )}
     </Fragment>
     <ul slot="legend" class="legend-list" aria-label={L('Förklaring', 'Key')}>
@@ -83,8 +83,8 @@ const yr = (y: number) => fact(deportFacts, 'verkstalld_inom_1_ar', y);
     <BarChart spec={buildOffenceSpec(deport, lang)} />
     <Fragment slot="note">
       {L(
-        `Nya brott är brott begångna efter fängelset som lett till dom eller annan lagföring i Sverige till och med 2024, antingen för att utvisningen inte verkställts eller efter att personen kommit tillbaka. Tillsammans gäller det ${n0(fact(deportFacts, 'nya_lagforda_brott'))} brott, ${n1(fact(deportFacts, 'nya_brott_andel_av_alla_lagforda_pct'))} procent av alla lagförda brott under perioden. Brott i andra länder räknas inte. ”Övrigt” omfattar bland annat trafikbrott och brott mot allmänhet och stat.`,
-        `New crimes are crimes committed after prison that led to a conviction or other legal decision in Sweden up to the end of 2024, either because the deportation was not carried out or after the person came back. Together they were ${n0(fact(deportFacts, 'nya_lagforda_brott'))} crimes, ${n1(fact(deportFacts, 'nya_brott_andel_av_alla_lagforda_pct'))}% of all convicted crimes in the period. Crimes in other countries are not counted. “Other” includes traffic offences and offences against the public and the state, among others.`,
+        `Nya brott är brott efter fängelset som lett till lagföring i Sverige till och med 2024, för att utvisningen inte verkställts eller efter att personen kommit tillbaka. Det gäller ${n0(fact(deportFacts, 'nya_lagforda_brott'))} brott, ${n1(fact(deportFacts, 'nya_brott_andel_av_alla_lagforda_pct'))} procent av alla lagförda brott under perioden. Brott i andra länder räknas inte.`,
+        `New crimes are crimes after prison that led to a conviction in Sweden up to the end of 2024, because the deportation was not carried out or after the person came back. They were ${n0(fact(deportFacts, 'nya_lagforda_brott'))} crimes, ${n1(fact(deportFacts, 'nya_brott_andel_av_alla_lagforda_pct'))}% of all convicted crimes in the period. Crimes in other countries are not counted.`,
       )}
     </Fragment>
     <Fragment slot="source">

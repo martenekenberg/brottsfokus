@@ -29,7 +29,8 @@ const kap1Data = buildKap1Data(suspects);
 
 const kap1First = kap1Data.years[0];
 const kap1Last = kap1Data.years[kap1Data.years.length - 1];
-if (!allGroupsFell(kap1Data, 'c00')) throw new Error('Chapter 1 headline no longer matches the data');
+// The intro says the share fell in all four groups.
+if (!allGroupsFell(kap1Data, 'c00')) throw new Error('Chapter 1 intro no longer matches the data');
 
 // Intro: the range across the four groups, all crimes, first and last year. The sentence says two Swedish-born
 // parents is the lowest and two foreign-born parents the highest; stop the build if that no longer holds.
@@ -46,6 +47,10 @@ for (const i of [0, lastI]) {
     throw new Error('Chapter 1 intro: lowest and highest group no longer match the data');
   }
 }
+
+// The headline says people born in Sweden with two foreign-born parents were suspected more than three times
+// as often as those with two Swedish-born parents, every year. Stop the build if any year falls to 3 or below.
+if (!kap1Data.years.every((_, i) => at('u2', i) / at('sv2', i) > 3)) throw new Error('Chapter 1 headline no longer matches the data');
 
 // ---------- Chapter 1, second chart: shares of all registered suspicions ----------
 const shares = buildSuspicionShares(loadSuspicionShares());
@@ -70,23 +75,21 @@ const b6Pop = (unit: string) => {
   lang={lang}
   tableHref={tablePage('kap1', lang).path}
   title={L(
-    `Sett till alla brott minskade andelen misstänkta i alla fyra grupper mellan ${kap1First} och ${kap1Last}`,
-    `Across all crimes, the share suspected fell in all four groups between ${kap1First} and ${kap1Last}`,
+    `Barn till två invandrare misstänktes mer än tre gånger så ofta, varje år ${kap1First}–${kap1Last}`,
+    `Children of two immigrants were suspected more than three times as often, every year from ${kap1First} to ${kap1Last}`,
   )}
 >
   <p slot="intro">
     {L(
-      'Andelen av befolkningen, 15 år och äldre, som misstänktes för minst ett brott under året. Grupperna bygger på var personen och personens föräldrar är födda. ' +
-        `År ${kap1Last} var det mellan ${n1(at('sv2', lastI))} misstänkta per 1 000 invånare bland inrikesfödda med två inrikesfödda föräldrar och ${n1(at('u2', lastI))} bland inrikesfödda med två utrikesfödda föräldrar, mot ${n1(at('sv2', 0))} och ${n1(at('u2', 0))} år ${kap1First} (Brå rapport 2021:9).`,
-      'The share of the population aged 15 and over who were suspected of at least one crime during the year. The groups are based on where the person and their parents were born. ' +
-        `In ${kap1Last} the rate ranged from ${n1(at('sv2', lastI))} suspects per 1,000 residents among people born in Sweden with two Swedish-born parents to ${n1(at('u2', lastI))} among people born in Sweden with two foreign-born parents, compared with ${n1(at('sv2', 0))} and ${n1(at('u2', 0))} in ${kap1First} (Brå report 2021:9).`,
+      `Misstänkta för minst ett brott under året, per 1 000 invånare 15 år och äldre. År ${kap1Last}: ${n1(at('u2', lastI))} bland inrikesfödda med två utrikesfödda föräldrar, ${n1(at('sv2', lastI))} bland dem med två inrikesfödda föräldrar. Andelen minskade i alla grupper från ${kap1First}, men avståndet mellan dem fanns kvar.`,
+      `Suspected of at least one crime during the year, per 1,000 residents aged 15 and over. In ${kap1Last}: ${n1(at('u2', lastI))} among people born in Sweden with two foreign-born parents, ${n1(at('sv2', lastI))} among those with two Swedish-born parents. The share fell in every group from ${kap1First}, but the gap between them remained.`,
     )}
   </p>
   <SuspectsOverTime data={kap1Data} lang={lang} />
   <Fragment slot="note">
     {L(
-      'Inte justerat för ålder eller kön. Grupperna med utländsk bakgrund har fler unga, som oftare misstänks. Med hänsyn till ålder, kön, inkomst, utbildning och kommuntyp minskar skillnaderna, men de finns kvar. Mycket ovanliga brott kan svänga mellan åren eftersom Brå avrundar till två decimaler. Det märks mest i jämförelsen med två inrikesfödda föräldrar, som räknas från de avrundade talen. Rubriken gäller brott totalt, för enskilda brottstyper ser utvecklingen olika ut. Övergrepp i rättssak saknas 2007–2008.',
-      'Not adjusted for age or sex. The groups with a foreign background have more young people, who are more often suspected. When age, sex, income, education and type of municipality are taken into account, the differences get smaller, but they remain. Very rare crimes can vary from year to year, because Brå rounds to two decimals. This shows most clearly in the comparison with two Swedish-born parents, which is calculated from the rounded figures. The headline is about all crimes together; the trend differs for individual crime types. Interference in a judicial matter is missing for 2007–2008.',
+      'Misstänkt är inte dömd. Inte justerat för ålder eller kön, och grupperna med utländsk bakgrund har fler unga, som oftare misstänks. Med hänsyn till ålder, kön, inkomst, utbildning och kommuntyp blir skillnaderna mindre, men de finns kvar. Rubriken gäller brott totalt. Övergrepp i rättssak saknas 2007–2008.',
+      'Suspected is not convicted. Not adjusted for age or sex, and the groups with a foreign background have more young people, who are more often suspected. Taking age, sex, income, education and type of municipality into account makes the differences smaller, but they remain. The headline is about all crimes together. Interference in a judicial matter is missing for 2007–2008.',
     )}
   </Fragment>
   <Fragment slot="source">
@@ -100,14 +103,14 @@ const b6Pop = (unit: string) => {
     id="kap1-misstankar"
     lang={lang}
     title={L(
-      `Personer som inte är folkbokförda i Sverige stod för ${n1(ejFirst)} procent av brottsmisstankarna ${sharesFirst} och ${n1(ejLast)} procent ${sharesLast}`,
-      `People not registered as living in Sweden accounted for ${n1(ejFirst)}% of crime suspicions in ${sharesFirst} and ${n1(ejLast)}% in ${sharesLast}`,
+      `Personer som inte är folkbokförda i Sverige stod för ${n1(ejLast)} procent av brottsmisstankarna ${sharesLast}, mot ${n1(ejFirst)} procent ${sharesFirst}`,
+      `People not registered as living in Sweden accounted for ${n1(ejLast)}% of crime suspicions in ${sharesLast}, against ${n1(ejFirst)}% in ${sharesFirst}`,
     )}
   >
     <Fragment slot="intro">
       {L(
-        'Varje grupps andel av alla brottsmisstankar som registrerades under året. Här räknas misstankarna, inte personerna: en person kan misstänkas för flera brott. Även misstankar mot personer som inte är folkbokförda i Sverige är med.',
-        'Each group’s share of all crime suspicions registered during the year. Suspicions are counted here, not people: one person can be suspected of several crimes. Suspicions against people who are not registered as living in Sweden are included.',
+        'Varje grupps andel av alla registrerade brottsmisstankar under året, även misstankar mot personer som inte bor här. Här räknas misstankar, inte personer: en person kan misstänkas för flera brott.',
+        'Each group’s share of all crime suspicions registered during the year, including suspicions against people who do not live here. Suspicions are counted, not people: one person can be suspected of several crimes.',
       )}
     </Fragment>
     <Legend
@@ -117,8 +120,8 @@ const b6Pop = (unit: string) => {
     <LineChart spec={sharesSpec} />
     <Fragment slot="note">
       {L(
-        `Icke folkbokförda är personer med tillfällig vistelse i Sverige. Hit räknas också misstankar där det inte gått att se om personen var folkbokförd, till exempel för att personnumret är ofullständigt. Andelen var som högst ${ejPeakYear}, ${n1(ejPeak)} procent. De icke folkbokförda finns inte i befolkningsstatistiken, så deras andel kan inte jämföras med en andel av befolkningen. Som jämförelse för de övriga: av de folkbokförda 15 år och äldre den 31 december 2014 var ${b6Pop('Inrikesfödda med två inrikesfödda föräldrar')} inrikesfödda med två inrikesfödda föräldrar, ${b6Pop('Utrikesfödda')} utrikesfödda, ${b6Pop('Inrikesfödda med två utrikesfödda föräldrar')} inrikesfödda med två utrikesfödda föräldrar och ${b6Pop('Inrikesfödda med en inrikes- och en utrikesfödd förälder')} inrikesfödda med en utrikesfödd förälder. Antalet misstankar beror också på hur många brott varje misstänkt registreras för. Inte justerat för ålder eller kön.`,
-        `People not registered as living in Sweden are people staying in Sweden temporarily. The group also includes suspicions where it was not possible to tell whether the person was registered, for example because the personal identity number is incomplete. The share was highest in ${ejPeakYear}, at ${n1(ejPeak)}%. People who are not registered are not in the population statistics, so their share cannot be compared with a share of the population. As a comparison for the other groups: of registered residents aged 15 and over on 31 December 2014, ${b6Pop('Inrikesfödda med två inrikesfödda föräldrar')} were born in Sweden with two Swedish-born parents, ${b6Pop('Utrikesfödda')} were born abroad, ${b6Pop('Inrikesfödda med två utrikesfödda föräldrar')} were born in Sweden with two foreign-born parents and ${b6Pop('Inrikesfödda med en inrikes- och en utrikesfödd förälder')} were born in Sweden with one foreign-born parent. The number of suspicions also depends on how many crimes each suspect is registered for. Not adjusted for age or sex.`,
+        `Icke folkbokförda vistas tillfälligt i Sverige. Hit räknas också misstankar där folkbokföringen inte gått att avgöra, till exempel för att personnumret är ofullständigt. Deras andel var högst ${ejPeakYear}, ${n1(ejPeak)} procent. De finns inte i befolkningsstatistiken och kan inte jämföras med befolkningen. Som jämförelse för de övriga, befolkningen 15 år och äldre 2014: ${b6Pop('Inrikesfödda med två inrikesfödda föräldrar')} inrikesfödda med två inrikesfödda föräldrar, ${b6Pop('Utrikesfödda')} utrikesfödda, ${b6Pop('Inrikesfödda med två utrikesfödda föräldrar')} inrikesfödda med två utrikesfödda föräldrar och ${b6Pop('Inrikesfödda med en inrikes- och en utrikesfödd förälder')} med en utrikesfödd förälder. Inte justerat för ålder eller kön.`,
+        `People not registered are staying in Sweden temporarily. The group also includes suspicions where registration could not be determined, for example because the personal identity number is incomplete. Their share was highest in ${ejPeakYear}, at ${n1(ejPeak)}%. They are not in the population statistics and cannot be compared with the population. As a comparison for the others, the population aged 15 and over in 2014: ${b6Pop('Inrikesfödda med två inrikesfödda föräldrar')} born in Sweden with two Swedish-born parents, ${b6Pop('Utrikesfödda')} born abroad, ${b6Pop('Inrikesfödda med två utrikesfödda föräldrar')} born in Sweden with two foreign-born parents and ${b6Pop('Inrikesfödda med en inrikes- och en utrikesfödd förälder')} with one foreign-born parent. Not adjusted for age or sex.`,
       )}
     </Fragment>
     <Fragment slot="source">
