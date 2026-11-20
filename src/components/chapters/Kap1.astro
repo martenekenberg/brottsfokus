@@ -2,6 +2,7 @@
 // Chapter 1: suspects over time 2007–2018, and each group's share of all registered suspicions.
 // Loads its own data and stops the build if its headline no longer matches the data.
 import Chapter from '../Chapter.astro';
+import ShortAnswer from '../ShortAnswer.astro';
 import Legend from '../Legend.astro';
 import LineChart from '../charts/LineChart.astro';
 import SubChart from '../SubChart.astro';
@@ -71,6 +72,21 @@ const b6Pop = (unit: string) => {
       'Not adjusted for age or sex. The groups with a foreign background have more young people, who are more often suspected. When age, sex, income, education and type of municipality are taken into account, the differences get smaller, but they remain. Very rare crimes can vary from year to year, because Brå rounds to two decimals. This shows most clearly in the comparison with two Swedish-born parents, which is calculated from the rounded figures. The headline is about all crimes together; the trend differs for individual crime types. Interference in a judicial matter is missing for 2007–2008.',
     )}
   </Fragment>
+  <ShortAnswer slot="answers" id="kap1-svar" lang={lang} question={L('Hur stor andel av brottsmisstankarna gäller personer som inte är folkbokförda i Sverige?', 'What share of crime suspicions concern people not registered as living in Sweden?')}>
+    {L(
+      `Personer som inte var folkbokförda i Sverige stod för ${n1(ejFirst)} procent av alla registrerade brottsmisstankar ${sharesFirst} och ${n1(ejLast)} procent ${sharesLast}. Andelen var störst ${ejPeakYear}, ${n1(ejPeak)} procent.`,
+      `People not registered as living in Sweden accounted for ${n1(ejFirst)}% of all registered crime suspicions in ${sharesFirst} and ${n1(ejLast)}% in ${sharesLast}. The share was highest in ${ejPeakYear}, at ${n1(ejPeak)}%.`,
+    )}
+    <Fragment slot="caveat">
+      {L(
+        'Det gäller misstankar, inte personer: en person kan misstänkas för flera brott. Personer som inte är folkbokförda finns inte i befolkningsstatistiken, så andelen kan inte jämföras med befolkningen. Misstänkt är inte dömd.',
+        'This counts suspicions, not people: one person can be suspected of several crimes. People who are not registered are not in the population statistics, so the share cannot be compared with the population. Suspected is not convicted.',
+      )}
+    </Fragment>
+    <Fragment slot="source">
+      {L('Källa: ', 'Source: ')}<a href="https://bra.se/rapporter/arkiv/2021-08-25-misstankta-for-brott-bland-personer-med-inrikes-respektive-utrikes-bakgrund">{L('Brå rapport 2021:9', 'Brå report 2021:9')}</a>{L(', tabellbilaga 3, tabell D1 och D2.', ', table appendix 3, tables D1 and D2.')}
+    </Fragment>
+  </ShortAnswer>
   <Fragment slot="source">
     {L(
       'Källa: Brå rapport 2021:9, Misstänkta för brott bland personer med inrikes respektive utrikes bakgrund. Folkbokförda personer 15 år och äldre.',

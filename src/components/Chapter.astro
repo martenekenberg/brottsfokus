@@ -70,11 +70,11 @@ const hasAnswers = Astro.slots.has('answers');
   .intro :global(p) {
     margin: 0;
   }
-  /* Short answers: side by side on wide screens when a chapter has more than one. */
+  /* Short answers: stacked, full width like the rest of the text. */
   .answers {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(min(100%, 340px), 1fr));
-    gap: 24px 32px;
+    display: flex;
+    flex-direction: column;
+    gap: 28px;
   }
   .note {
     background: var(--panel);

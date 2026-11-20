@@ -2,6 +2,7 @@
 // Chapter 7: deportation for crime.
 // Loads its own data and stops the build if its headline no longer matches the data.
 import Chapter from '../Chapter.astro';
+import ShortAnswer from '../ShortAnswer.astro';
 import BarChart from '../charts/BarChart.astro';
 import SubChart from '../SubChart.astro';
 import { tr, type Lang } from '../../lib/i18n';
@@ -45,6 +46,21 @@ const yr = (y: number) => fact(deportFacts, 'verkstalld_inom_1_ar', y);
       `Of ${n0(deportTotal.n as number)} people sentenced to prison and deportation who left prison in 2013–2023, ${n1(deportPct)}% had been deported. The share deported within a year rose from ${n0(yr(2013))}% among those who left prison in 2013 to ${n0(yr(2019))}% in 2019. For 2021 it was ${n0(yr(2021))}% and for 2023 ${n0(yr(2023))}%.`,
     )}
   </p>
+  <ShortAnswer slot="answers" id="kap7-svar" lang={lang} question={L('Hur många av dem som döms till utvisning blir utvisade?', 'How many people sentenced to deportation are actually deported?')}>
+    {L(
+      `Av ${n0(deportTotal.n as number)} personer som dömts till fängelse och utvisning och lämnade anstalten 2013–2023 hade ${n1(deportPct)} procent utvisats i slutet av 2024. Andelen som utvisades inom ett år efter att de lämnat fängelset var ${n0(yr(2013))} procent för dem som lämnade 2013 och ${n0(yr(2023))} procent för dem som lämnade 2023.`,
+      `Of ${n0(deportTotal.n as number)} people sentenced to prison and deportation who left prison in 2013–2023, ${n1(deportPct)}% had been deported by the end of 2024. The share deported within a year of leaving prison was ${n0(yr(2013))}% for those who left in 2013 and ${n0(yr(2023))}% for those who left in 2023.`,
+    )}
+    <Fragment slot="caveat">
+      {L(
+        'De som lämnade fängelset tidigt i perioden har följts längre. Brå nämner möjliga förklaringar, som svårigheter att fastställa identitet, men drar inga säkra slutsatser om orsaker.',
+        'Those who left prison early in the period have been followed for longer. Brå mentions possible explanations, such as difficulties in establishing identity, but draws no firm conclusions about causes.',
+      )}
+    </Fragment>
+    <Fragment slot="source">
+      {L('Källa: ', 'Source: ')}<a href="https://bra.se/download/18.5d0a8fbf19ddcaf2a6cccb2/1777972068717/2026_15_Utvisningsd%C3%B6mda%20i%20brottm%C3%A5l.pdf">{L('Brå rapport 2026:15', 'Brå report 2026:15')}</a>{L(', bilaga 1 tabell B1 och s. 5.', ', appendix 1 table B1 and p. 5.')}
+    </Fragment>
+  </ShortAnswer>
   <div class="chart-block">
     <p class="chart-heading">{L('Andel utvisade efter område för medborgarskap', 'Share deported by region of citizenship')}</p>
     <BarChart spec={buildCitizenshipSpec(deport, lang)} />
