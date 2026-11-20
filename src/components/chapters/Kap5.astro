@@ -27,23 +27,21 @@ const risk = kap5.foreignBornRisk;
   lang={lang}
   tableHref={tablePage('kap5', lang).path}
   title={L(
-    'Överrisken för utrikesfödda ökade mellan 1985–89 och 1997–2001',
-    'Excess risk for people born abroad rose between 1985–89 and 1997–2001',
+    `Redan kring år 2000 misstänktes utrikesfödda ${n1(risk.p9701)} gånger så ofta, och skillnaden hade ökat sedan 1980-talet`,
+    `Around 2000, people born abroad were already suspected ${n1(risk.p9701)} times as often, and the gap had grown since the 1980s`,
   )}
 >
   <p slot="intro">
     {L(
-      `Enligt Brå rapport 2005:17 var andelen misstänkta bland utrikesfödda ${n1(risk.p9701)} gånger så hög som bland inrikesfödda med två inrikesfödda föräldrar 1997–2001, och ${n1(risk.p8589)} gånger så hög 1985–89. Med hänsyn till kön, ålder, utbildning och inkomst var den ${n1(risk.stand)} gånger så hög 1997–2001. ` +
-        'Överrisk är andelen misstänkta i gruppen delat med andelen bland inrikesfödda med två inrikesfödda föräldrar. Standardiserad överrisk tar hänsyn till kön, ålder, utbildning och förvärvsinkomst.',
-      `According to Brå report 2005:17, the share of suspects among people born abroad was ${n1(risk.p9701)} times as high as among people born in Sweden with two Swedish-born parents in 1997–2001, and ${n1(risk.p8589)} times as high in 1985–89. Taking sex, age, education and income into account, it was ${n1(risk.stand)} times as high in 1997–2001. ` +
-        'Excess risk is the share of suspects in the group divided by the share among people born in Sweden with two Swedish-born parents. Standardised excess risk takes into account sex, age, education and income.',
+      `Brå rapport 2005:17 jämför med inrikesfödda med två inrikesfödda föräldrar. Överrisken för utrikesfödda var ${n1(risk.p8589)} under 1985–89 och ${n1(risk.p9701)} under 1997–2001. Med hänsyn till kön, ålder, utbildning och inkomst (standardiserad överrisk) var den ${n1(risk.stand)}.`,
+      `Brå report 2005:17 compares with people born in Sweden with two Swedish-born parents. The excess risk for people born abroad was ${n1(risk.p8589)} in 1985–89 and ${n1(risk.p9701)} in 1997–2001. Taking sex, age, education and income into account (standardised excess risk), it was ${n1(risk.stand)}.`,
     )}
   </p>
   <OlderStudies kap5={kap5} lang={lang} />
   <Fragment slot="note">
     {L(
-      `Siffrorna är över 20 år gamla. Standardiserad överrisk finns bara separat för en och två utrikesfödda föräldrar: ${n1(kap5.standOneParent)} och ${n1(kap5.standTwoParents)}. Några brottstyper i Brås tabell 11 gick inte att läsa ur PDF-filen och saknas.`,
-      `The figures are over 20 years old. Standardised excess risk is only given separately for one and for two foreign-born parents: ${n1(kap5.standOneParent)} and ${n1(kap5.standTwoParents)}. Some crime types in Brå’s table 11 could not be read from the PDF file and are missing.`,
+      `Siffrorna är över 20 år gamla. Misstänkt är inte dömd. För barn till invandrare finns standardiserad överrisk bara separat: ${n1(kap5.standOneParent)} med en och ${n1(kap5.standTwoParents)} med två utrikesfödda föräldrar. Några brottstyper i Brås tabell 11 gick inte att läsa ur PDF-filen och saknas.`,
+      `The figures are over 20 years old. Suspected is not convicted. For children of immigrants, standardised excess risk is only given separately: ${n1(kap5.standOneParent)} with one and ${n1(kap5.standTwoParents)} with two foreign-born parents. Some crime types in Brå’s table 11 could not be read from the PDF file and are missing.`,
     )}
   </Fragment>
   <Fragment slot="source">

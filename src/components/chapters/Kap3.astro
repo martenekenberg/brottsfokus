@@ -6,7 +6,7 @@ import Legend from '../Legend.astro';
 import LineChart from '../charts/LineChart.astro';
 import { tr, type Lang } from '../../lib/i18n';
 import { loadPopulation, loadPrison } from '../../lib/data';
-import { buildKap3, kap3ComputedNote, kap3Context, kap3HasGaps, shortReportName } from '../../lib/chapters/kap3';
+import { buildKap3, kap3Context, kap3HasGaps, shortReportName } from '../../lib/chapters/kap3';
 import { tablePage } from '../../lib/dataPages';
 import { formatNumber } from '../../lib/format';
 import type { LineChartSpec } from '../../lib/charts/line';
@@ -40,10 +40,16 @@ const newAllLast = newAll.get(lastYear);
 const popShareLast = popShare.get(lastYear);
 if (newAllLast == null || popShareLast == null) throw new Error(`Missing ${lastYear} values for chapter 3`);
 
-// The headline says the share has fallen since its highest year. Stop the build if the data no longer says so.
+// The intro says the share has fallen since its highest year. Stop the build if the data no longer says so.
 const peakYear = prisonYears.reduce((best, y) => ((newAll.get(y) ?? -1) > (newAll.get(best) ?? -1) ? y : best), firstYear);
 const newAllPeak = newAll.get(peakYear) as number;
-if (!(newAllLast < newAllPeak) || peakYear === lastYear) throw new Error('Chapter 3 headline no longer matches the data');
+if (!(newAllLast < newAllPeak) || peakYear === lastYear) throw new Error('Chapter 3 intro no longer matches the data');
+// The headline says "more than one in five" new prisoners lacked Swedish citizenship, "nearly three times" the
+// population share. Stop the build if the last year no longer says so.
+const prisonRatio = newAllLast / popShareLast;
+if (!(newAllLast > 20 && newAllLast < 25) || !(prisonRatio >= 2.6 && prisonRatio < 3)) {
+  throw new Error('Chapter 3 headline no longer matches the data');
+}
 
 const prisonMax = Math.max(...[newAll, newMen, newWomen, onOct1].flatMap((m) => [...m.values()].map((v) => v ?? 0)));
 // Both charts use the same scale, so men and women can be compared with all new prisoners above.
@@ -161,14 +167,14 @@ const prisonSources = kap3.sources;
   lang={lang}
   tableHref={tablePage('kap3', lang).path}
   title={L(
-    `Andelen utan svenskt medborgarskap bland nyintagna har minskat sedan ${peakYear}`,
-    `The share without Swedish citizenship among new prisoners has fallen since ${peakYear}`,
+    `Mer än var femte som togs in i fängelse ${lastYear} saknade svenskt medborgarskap, nästan tre gånger andelen i befolkningen`,
+    `More than one in five people taken into prison in ${lastYear} were not Swedish citizens, nearly three times the share in the population`,
   )}
 >
   <p slot="intro">
     {L(
-      `År ${lastYear} saknade ${n0(newAllLast)} procent av dem som togs in i fängelse svenskt medborgarskap. I hela befolkningen var ${n1(popShareLast)} procent utländska medborgare.`,
-      `In ${lastYear}, ${n0(newAllLast)}% of those taken into prison did not have Swedish citizenship. In the whole population, ${n1(popShareLast)}% were foreign citizens.`,
+      `Av de nyintagna saknade ${n0(newAllLast)} procent svenskt medborgarskap, mot ${n1(popShareLast)} procent utländska medborgare i hela befolkningen. Andelen var högst ${peakYear}, ${n0(newAllPeak)} procent, och har sedan minskat.`,
+      `${n0(newAllLast)}% of new prisoners were not Swedish citizens, against ${n1(popShareLast)}% foreign citizens in the whole population. The share was highest in ${peakYear}, at ${n0(newAllPeak)}%, and has fallen since.`,
     )}
   </p>
   <Legend
@@ -193,10 +199,10 @@ const prisonSources = kap3.sources;
   </div>
   <Fragment slot="note">
     {L(
-      'Medborgarskap är inte födelseland. Bland fängelsets utländska medborgare finns personer som inte bor i Sverige och inte räknas i befolkningen.' + (kap3HasGaps(kap3) ? ' Punkter saknas för år som Brå inte anger.' : '') + ' ',
-      'Citizenship is not country of birth. Among the foreign citizens in prison are people who do not live in Sweden and are not counted in the population.' + (kap3HasGaps(kap3) ? ' Points are missing for years that Brå does not report.' : '') + ' ',
+      'Medborgarskap är inte födelseland: många som är födda utomlands är svenska medborgare. Bland de intagna finns också personer som inte bor i Sverige och inte räknas i befolkningen.' + (kap3HasGaps(kap3) ? ' Punkter saknas för år som Brå inte anger.' : '') + ' ',
+      'Citizenship is not country of birth: many people born abroad are Swedish citizens. The prisoners also include people who do not live in Sweden and are not counted in the population.' + (kap3HasGaps(kap3) ? ' Points are missing for years that Brå does not report.' : '') + ' ',
     )}
-    {[kap3ComputedNote(kap3, lang), kap3Context(kap3, lang)].filter(Boolean).join(' ')}
+    {kap3Context(kap3, lang)}
   </Fragment>
   <Fragment slot="source">
     {L('Källor: ', 'Sources: ')}

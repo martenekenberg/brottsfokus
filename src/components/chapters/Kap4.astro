@@ -32,21 +32,21 @@ const kap4ControlsPct = formatNumber(kap4.utrControls, 0, lang);
   lang={lang}
   tableHref={tablePage('kap4', lang).path}
   title={L(
-    `Drygt hälften av de dömda för våldtäkt ${kap4.period} var utrikesfödda, jämfört med ${kap4ControlsPct} procent i en kontrollgrupp med samma kön och födelseår`,
-    `Just over half of those convicted of rape in ${kap4.period} were born abroad, compared with ${kap4ControlsPct}% in a control group of the same sex and birth year`,
+    `Drygt hälften av de dömda för våldtäkt ${kap4.period} var utrikesfödda, mot ${kap4ControlsPct} procent i en kontrollgrupp`,
+    `Just over half of those convicted of rape in ${kap4.period} were born abroad, against ${kap4ControlsPct}% in a control group`,
   )}
 >
   <p slot="intro">
     {L(
-      'Två registerstudier från Lunds universitet av alla som dömts för våldtäkt eller försök till våldtäkt mot en kvinna 18 år eller äldre.',
-      'Two register studies from Lund University of everyone convicted of rape or attempted rape against a woman aged 18 or older.',
+      'Två registerstudier från Lunds universitet av alla som dömts för våldtäkt eller försök till våldtäkt mot en kvinna 18 år eller äldre. Kontrollgruppen har samma kön och födelseår som de dömda.',
+      'Two register studies from Lund University of everyone convicted of rape or attempted rape against a woman aged 18 or older. The control group has the same sex and birth year as the convicted.',
     )}
   </p>
   <RapeStudies kap4={kap4} lang={lang} />
   <Fragment slot="note">
     {L(
-      `Studierna gäller dömda, inte alla som begår våldtäkt. De dömda är nästan bara män (${n1(kap4.menPct)} procent i den senare studien), 15–60 år, medan befolkningens andel gäller alla åldrar och båda könen (snitt 2000–2015). Den första studien anmäldes till Överklagandenämnden för etikprövning. Det översta stapelparet är alla utom inrikesfödda med två inrikesfödda föräldrar, som var ${n1(kap4.sv2Convicted)} procent av de dömda och ${n1(kap4.sv2Controls)} procent av kontrollgruppen. I den senare minskade sambandet efter justering för bland annat socioekonomi och tidigare brottslighet, men det fanns kvar.`,
-      `The studies cover people who were convicted, not everyone who commits rape. The convicted are almost all men (${n1(kap4.menPct)}% in the later study), aged 15–60, while the population share covers all ages and both sexes (average 2000–2015). The first study was reported to the Swedish appeals board for ethical review (Överklagandenämnden för etikprövning). The top pair of bars shows everyone except people born in Sweden with two Swedish-born parents, who were ${n1(kap4.sv2Convicted)}% of the convicted and ${n1(kap4.sv2Controls)}% of the control group. In the later study the link weakened after adjusting for socioeconomic factors and earlier crime, among other things, but it remained.`,
+      `Studierna gäller dömda, inte alla som begår våldtäkt. De dömda är nästan bara män (${n1(kap4.menPct)} procent), 15–60 år, medan befolkningens andel gäller alla åldrar och båda könen. Med hänsyn till bland annat socioekonomi och tidigare brottslighet minskade sambandet, men det fanns kvar. Det översta stapelparet är alla utom inrikesfödda med två inrikesfödda föräldrar (${n1(kap4.sv2Convicted)} procent av de dömda, ${n1(kap4.sv2Controls)} procent av kontrollgruppen). Den första studien anmäldes till Överklagandenämnden för etikprövning.`,
+      `The studies cover people who were convicted, not everyone who commits rape. The convicted are almost all men (${n1(kap4.menPct)}%), aged 15–60, while the population share covers all ages and both sexes. Taking socioeconomic factors and earlier crime into account, among other things, weakened the link, but it remained. The top pair of bars is everyone except people born in Sweden with two Swedish-born parents (${n1(kap4.sv2Convicted)}% of the convicted, ${n1(kap4.sv2Controls)}% of the control group). The first study was reported to the Swedish appeals board for ethical review (Överklagandenämnden för etikprövning).`,
     )}
   </Fragment>
   <Fragment slot="source">
