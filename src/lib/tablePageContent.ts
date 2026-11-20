@@ -791,11 +791,15 @@ function kap7(lang: Lang): TablePageContent {
       'Medborgarskap är inte alltid landet personen utvisas till. ' + notRegisteredSentence(rows, 'sv') + ' De som lämnade fängelset tidigt i perioden har följts längre, därför ' +
         'finns också andelar inom ett år, som är jämförbara mellan åren. Nya brott gäller lagföringar i Sverige för brott efter fängelset. ' +
         'Brå redovisar inte uppgifter som bygger på färre än 4 personer, och döljer då också gruppens storlek. De visas med streck. ' +
-        `Helt dolda grupper: ${hidden.join(', ')}. Små grupper kan ändras mycket av enstaka personer.`,
+        `Helt dolda grupper: ${hidden.join(', ')}. Små grupper kan ändras mycket av enstaka personer. ` +
+        'Brå anger andelen utvisade inom ett år per år bara i ett diagram, så sidan visar bara de år som nämns i texten. ' +
+        '”Övrigt” omfattar bland annat trafikbrott och brott mot allmänhet och stat.',
       'Citizenship is not always the country a person is deported to. ' + notRegisteredSentence(rows, 'en') + ' Those who left prison early in the period have been followed for longer, ' +
         'which is why shares within one year are also given; they can be compared between years. New crimes means convictions in Sweden for ' +
         'crimes after prison. Brå does not report figures based on fewer than 4 people, and then also hides the size of the group. They are ' +
-        `shown as a dash. Fully hidden groups: ${hidden.join(', ')}. Small groups can change a lot because of single people.`,
+        `shown as a dash. Fully hidden groups: ${hidden.join(', ')}. Small groups can change a lot because of single people. ` +
+        'Brå gives the share deported within a year for each year only in a chart, so the site shows only the years mentioned in the text. ' +
+        '“Other” includes traffic offences and offences against the public and the state, among others.',
     ),
     sections: [
       { tables: deportTables(rows, lang) },
@@ -895,11 +899,17 @@ function kap9(lang: Lang): TablePageContent {
       'Varje grupp följs från 15 till 24 års ålder. Bara personer som var folkbokförda i Sverige hela den tiden ingår. Lagförd betyder dom, ' +
         'strafföreläggande eller åtalsunderlåtelse. Upprepat betyder minst fyra lagföringar för män och minst två för kvinnor, som i artikeln. ' +
         'Relativ risk är artikelns egen, uträknad från oavrundade andelar, så den kan skilja sig något från en kvot av de avrundade andelarna. ' +
-        'Lägst inkomster: föräldrarnas sammanlagda arbetsinkomst låg i den lägsta tiondelen minst två av tre år när personen var 15–17 år.',
+        'Lägst inkomster: föräldrarnas sammanlagda arbetsinkomst låg i den lägsta tiondelen minst två av tre år när personen var 15–17 år. ' +
+        'Jämförelsegruppen är inrikesfödda med minst en inrikesfödd förälder, enligt artikelns metodbeskrivning (tabellernas fotnot skriver två inrikesfödda föräldrar). ' +
+        'Artikeln visar också årliga siffror 1973–2017, justerade för ålder, men bara i diagram utan siffror. Enligt texten har lagföringarna bland män som är ' +
+        'utrikesfödda eller har två utrikesfödda föräldrar halverats sedan 1970-talet.',
       'Each group is followed from age 15 to 24. Only people registered as living in Sweden for that whole time are included. Convicted means a court ' +
         'sentence, a summary penalty or a waiver of prosecution. Repeatedly means at least four convictions for men and at least two for women, as in the ' +
         'article. Relative risk is the article’s own, calculated from unrounded shares, so it can differ slightly from a ratio of the rounded shares. ' +
-        'Lowest incomes: the parents’ combined income from work was in the lowest tenth in at least two of three years when the person was 15–17.',
+        'Lowest incomes: the parents’ combined income from work was in the lowest tenth in at least two of three years when the person was 15–17. ' +
+        'The comparison group is people born in Sweden with at least one Swedish-born parent, according to the article’s description of its method (the tables’ footnote says two Swedish-born parents). ' +
+        'The article also shows yearly figures for 1973–2017, adjusted for age, but only in charts without numbers. According to the text, convictions among men ' +
+        'who were born abroad or have two foreign-born parents have halved since the 1970s.',
     ),
     sections: [
       { heading: T('Alla', 'Everyone'), tables: cohortTables(rows, lang).filter((t) => t.id.startsWith('kap9-alla')) },
@@ -956,11 +966,13 @@ function kap10(lang: Lang): TablePageContent {
       'Bara den som var folkbokförd i Sverige vid 15 års ålder och när beslutet kom räknas, så den som invandrat efter 15 års ålder är inte med. ' +
         'Lagförd betyder dom i tingsrätt, strafföreläggande eller åtalsunderlåtelse. Den som senare friats i högre rätt räknas också. ' +
         `Siffror efter födelsebakgrund finns bara för födda från ${bg}, eftersom ` +
-        'Brå saknar folkmängd efter bakgrund för tidigare år. Tomma celler betyder att uppgift saknas. Inte justerat för till exempel familjens inkomst.',
+        'Brå saknar folkmängd efter bakgrund för tidigare år. Tomma celler betyder att uppgift saknas. Inte justerat för till exempel familjens inkomst. ' +
+        `Före 20 års ålder minskade andelen inte varje år: för födda ${last + 1} var den något högre än för födda ${last}, i alla grupper.`,
       'Only people registered in Sweden at age 15 and when the decision was made are counted, so people who moved to Sweden after age 15 are not included. ' +
         'Convicted means a district court judgment, a summary penalty or a waiver of prosecution. People later acquitted by a higher court are still counted. ' +
         `Figures by birth background only exist for those born from ${bg}, ` +
-        'because Brå has no population figures by background for earlier years. Empty cells mean no value. Not adjusted for, for example, family income.',
+        'because Brå has no population figures by background for earlier years. Empty cells mean no value. Not adjusted for, for example, family income. ' +
+        `Before age 20 the share did not fall every year: for those born in ${last + 1} it was slightly higher than for those born in ${last}, in every group.`,
     ),
     sections: [
       { heading: T('Före 25 års ålder', 'Before age 25'), tables: tables.filter((t) => t.id.startsWith('kap10-fore25')) },
