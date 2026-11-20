@@ -1,24 +1,32 @@
 ---
-// "Kort svar": one search question answered in a sentence or two, near the top of a chapter.
-// The answer gives the number, the years, the comparison group and the source; one caveat follows.
-// Numbers are computed from the data by the chapter, like its headline.
+// "Kort svar": one search question answered in a sentence or two, with one caveat and the source.
+// The answers are defined once in src/lib/shortAnswers.ts and shown in their chapter and on "Frågor och svar".
 import { tr, type Lang } from '../lib/i18n';
+import type { Segment, ShortAnswerItem } from '../lib/shortAnswers';
 
 interface Props {
-  /** Anchor, so the answer can be linked to (from the FAQ page, for example). */
-  id: string;
-  question: string;
+  item: ShortAnswerItem;
   lang: Lang;
+  /** Set on "Frågor och svar", where the anchor belongs to the chapter's copy of the answer. */
+  anchor?: boolean;
+  /** Link to the chapter, shown on "Frågor och svar". */
+  chapterLink?: { href: string; label: string };
+  /** Heading level: h3 in a chapter, h2 on its own page. */
+  level?: 2 | 3;
 }
-const { id, question, lang } = Astro.props;
+const { item, lang, anchor = true, chapterLink, level = 3 } = Astro.props;
+const H = level === 2 ? 'h2' : 'h3';
+const headingId = `${item.id}${anchor ? '' : '-faq'}-q`;
+const parts = (segments: Segment[]) => segments.map((s) => (typeof s === 'string' ? { text: s } : s));
 ---
 
-<section class="short-answer" id={id} aria-labelledby={`${id}-q`}>
+<section class="short-answer" id={anchor ? item.id : undefined} aria-labelledby={headingId}>
   <p class="label">{tr(lang, 'Kort svar', 'Short answer')}</p>
-  <h3 id={`${id}-q`}>{question}</h3>
-  <p class="answer"><slot /></p>
-  <p class="caveat"><slot name="caveat" /></p>
-  <p class="source"><slot name="source" /></p>
+  <H id={headingId}>{item.question}</H>
+  <p class="answer">{parts(item.answer).map((p) => ('href' in p ? <a href={p.href}>{p.text}</a> : p.text))}</p>
+  <p class="caveat">{item.caveat}</p>
+  <p class="source">{parts(item.source).map((p) => ('href' in p ? <a href={p.href}>{p.text}</a> : p.text))}</p>
+  {chapterLink && <a class="chapter-link" href={chapterLink.href}>{chapterLink.label} →</a>}
 </section>
 
 <style>
@@ -38,6 +46,7 @@ const { id, question, lang } = Astro.props;
     text-transform: uppercase;
     color: var(--second);
   }
+  h2,
   h3 {
     margin: 0;
     font-family: var(--font-serif);
@@ -50,6 +59,18 @@ const { id, question, lang } = Astro.props;
     font-size: 16px;
     line-height: 1.55;
   }
+  .answer a,
+  .chapter-link {
+    color: var(--ink);
+  }
+  .chapter-link {
+    font-size: 14px;
+    font-weight: 500;
+    display: inline-flex;
+    align-items: center;
+    min-height: 44px;
+    align-self: flex-start;
+  }
   .caveat,
   .source {
     margin: 0;
@@ -57,13 +78,11 @@ const { id, question, lang } = Astro.props;
     line-height: 1.5;
     color: var(--text-muted);
   }
-  .answer :global(a) {
-    color: var(--ink);
-  }
-  .source :global(a) {
+  .source a {
     color: var(--text-muted);
   }
   @media (max-width: 640px) {
+    h2,
     h3 {
       font-size: 20px;
     }

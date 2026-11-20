@@ -4,7 +4,6 @@
 // owner's request (November 2026). The chapter keeps the id "kap9"; old links to "#kap10" are sent here.
 // Loads its own data and stops the build if a headline no longer matches the data.
 import Chapter from '../Chapter.astro';
-import ShortAnswer from '../ShortAnswer.astro';
 import Legend from '../Legend.astro';
 import LineChart from '../charts/LineChart.astro';
 import SubChart from '../SubChart.astro';
@@ -86,21 +85,6 @@ if (!bornAbroadLowest) throw new Error('Bäckman low-income chart: intro no long
       `Share of everyone born in a given year and registered in Sweden at age 15 who was convicted of a crime at least once before age 25. According to Brå, this applied to ${kv('fore25', 'alla', k25Years[0])}% of those born in ${k25Years[0]} and ${kv('fore25', 'alla', k25Last)}% of those born in ${k25Last}. Among people born abroad, the share was ${kv('fore25', 'Utr', kBg)}% for those born in ${kBg} and ${kv('fore25', 'Utr', k25Last)}% for those born in ${k25Last}. A study from Stockholm University, further down, shows that the share also fell in every group between those born in ${cFirst} and ${cLast}.`,
     )}
   </p>
-  <ShortAnswer slot="answers" id="kap9-svar" lang={lang} question={L('Hur många lagförs för brott före 25 års ålder, och har det förändrats?', 'How many people in Sweden are convicted of a crime before age 25, and has it changed?')}>
-    {L(
-      `Av dem som föddes ${k25Years[0]} hade ${kv('fore25', 'alla', k25Years[0])} procent lagförts för brott före 25 års ålder, och av dem som föddes ${k25Last} ${kv('fore25', 'alla', k25Last)} procent. Andelen har minskat i alla bakgrundsgrupper sedan födelseåret ${kBg}, det första år Brå redovisar bakgrund för. Bland födda ${k25Last} var den ${kv('fore25', 'I20', k25Last)} procent för inrikesfödda med två inrikesfödda föräldrar, ${kv('fore25', 'I02', k25Last)} procent för inrikesfödda med två utrikesfödda föräldrar och ${kv('fore25', 'Utr', k25Last)} procent för utrikesfödda.`,
-      `Of those born in ${k25Years[0]}, ${kv('fore25', 'alla', k25Years[0])}% had been convicted of a crime before age 25, and of those born in ${k25Last}, ${kv('fore25', 'alla', k25Last)}%. The share has fallen in every background group since birth year ${kBg}, the first year for which Brå reports background. Among those born in ${k25Last}, it was ${kv('fore25', 'I20', k25Last)}% for people born in Sweden with two Swedish-born parents, ${kv('fore25', 'I02', k25Last)}% for people born in Sweden with two foreign-born parents and ${kv('fore25', 'Utr', k25Last)}% for people born abroad.`,
-    )}
-    <Fragment slot="caveat">
-      {L(
-        'Gäller bara personer som var folkbokförda i Sverige vid 15 års ålder och när de lagfördes. Lagförd räknar även tingsrättsdomar som senare ändrats. Inte justerat för inkomst eller andra skillnader.',
-        'Covers only people registered in Sweden at age 15 and when convicted. Convicted includes district court judgments later overturned. Not adjusted for income or other differences.',
-      )}
-    </Fragment>
-    <Fragment slot="source">
-      {L('Källa: ', 'Source: ')}<a href="https://bra.se/rapporter/arkiv/2025-12-02-fodelsekohortstatistik">{L('Brå rapport 2025:21', 'Brå report 2025:21')}</a>{L(', tabell 1 och 4.', ', tables 1 and 4.')}
-    </Fragment>
-  </ShortAnswer>
   <Legend slot="legend" items={kohortLegend} />
   <LineChart spec={buildKohortSpec(kohort, 'fore25', 'samtliga', lang)} />
   <Fragment slot="note">

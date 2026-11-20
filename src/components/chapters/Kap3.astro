@@ -2,7 +2,6 @@
 // Chapter 3: prison and citizenship.
 // Loads its own data and stops the build if its headline no longer matches the data.
 import Chapter from '../Chapter.astro';
-import ShortAnswer from '../ShortAnswer.astro';
 import Legend from '../Legend.astro';
 import LineChart from '../charts/LineChart.astro';
 import { tr, type Lang } from '../../lib/i18n';
@@ -155,12 +154,6 @@ const sexSpec: LineChartSpec = {
 };
 
 const prisonSources = kap3.sources;
-
-// Short answer: new prisoners and prisoners on 1 October in the latest year, next to the population.
-const oct1Last = onOct1.get(lastYear);
-if (oct1Last == null) throw new Error(`Chapter 3 short answer: no 1 October value for ${lastYear}`);
-const lastYearSources = kap3.sourcesByYear.get(lastYear) ?? [];
-if (lastYearSources.length === 0) throw new Error(`Chapter 3 short answer: no source for ${lastYear}`);
 ---
 
 <Chapter
@@ -178,28 +171,6 @@ if (lastYearSources.length === 0) throw new Error(`Chapter 3 short answer: no so
       `In ${lastYear}, ${n0(newAllLast)}% of those taken into prison did not have Swedish citizenship. In the whole population, ${n1(popShareLast)}% were foreign citizens.`,
     )}
   </p>
-  <ShortAnswer slot="answers" id="kap3-svar" lang={lang} question={L('Hur stor andel av fångarna saknar svenskt medborgarskap?', 'What share of prisoners in Sweden are not Swedish citizens?')}>
-    {L(
-      `Av dem som togs in i fängelse ${lastYear} saknade ${n0(newAllLast)} procent svenskt medborgarskap. Av dem som satt i fängelse den 1 oktober ${lastYear} var andelen ${n0(oct1Last)} procent. I hela befolkningen var ${n1(popShareLast)} procent utländska medborgare.`,
-      `Of those taken into prison in ${lastYear}, ${n0(newAllLast)}% did not have Swedish citizenship. Of those in prison on 1 October ${lastYear}, the share was ${n0(oct1Last)}%. In the whole population, ${n1(popShareLast)}% were foreign citizens.`,
-    )}
-    <Fragment slot="caveat">
-      {L(
-        'Medborgarskap är inte födelseland: många som är födda utomlands är svenska medborgare. En del av de intagna bor inte i Sverige och finns inte med i befolkningen.',
-        'Citizenship is not country of birth: many people born abroad are Swedish citizens. Some prisoners do not live in Sweden and are not part of the population figures.',
-      )}
-    </Fragment>
-    <Fragment slot="source">
-      {L('Källa: Brå, ', 'Source: Brå, ')}
-      {lastYearSources.map((s, i) => (
-        <>
-          {i > 0 && ', '}
-          <a href={s.url}>{shortReportName(s.label)}</a>
-        </>
-      ))}
-      {L('; SCB, befolkningen den 31 december.', '; SCB, population on 31 December.')}
-    </Fragment>
-  </ShortAnswer>
   <Legend
     slot="legend"
     items={[

@@ -2,7 +2,6 @@
 // Chapter 8: homicide victims and perpetrators.
 // Loads its own data and stops the build if its headline no longer matches the data.
 import Chapter from '../Chapter.astro';
-import ShortAnswer from '../ShortAnswer.astro';
 import BarChart from '../charts/BarChart.astro';
 import { tr, type Lang } from '../../lib/i18n';
 import { chapter } from '../../lib/chapters';
@@ -48,21 +47,6 @@ const homicideLegend = (
       `All homicide victims and identified perpetrators in Sweden in 2005–2021, compared with the population in the same years. ${n0(hUtl.victims as number)}% of victims and ${n0(hUtl.perpetrators as number)}% of perpetrators had a foreign background, against ${n0(hUtl.population as number)}% of the population.`,
     )}
   </p>
-  <ShortAnswer slot="answers" id="kap8-svar" lang={lang} question={L('Hur stor andel av offren och gärningspersonerna vid dödligt våld har utländsk bakgrund?', 'What share of homicide victims and perpetrators in Sweden have a foreign background?')}>
-    {L(
-      `Av offren för dödligt våld i Sverige 2005–2021 hade ${n0(hUtl.victims as number)} procent utländsk bakgrund, och av gärningspersonerna ${n0(hUtl.perpetrators as number)} procent. I befolkningen var andelen ${n0(hUtl.population as number)} procent. Utländsk bakgrund betyder här utrikesfödd eller inrikesfödd med två utrikesfödda föräldrar.`,
-      `Of homicide victims in Sweden in 2005–2021, ${n0(hUtl.victims as number)}% had a foreign background, and of perpetrators ${n0(hUtl.perpetrators as number)}%. In the population, the share was ${n0(hUtl.population as number)}%. A foreign background here means born abroad, or born in Sweden with two foreign-born parents.`,
-    )}
-    <Fragment slot="caveat">
-      {L(
-        `Gärningspersoner saknas i ouppklarade fall, oftast i kriminell miljö. Med Brås viktade värden hade ${n0(hWeighted.perpetrators as number)} procent av gärningspersonerna utländsk bakgrund. Inte justerat för ålder eller kön.`,
-        `Perpetrators are missing in unsolved cases, most often in criminal milieus. With Brå’s weighted values, ${n0(hWeighted.perpetrators as number)}% of perpetrators had a foreign background. Not adjusted for age or sex.`,
-      )}
-    </Fragment>
-    <Fragment slot="source">
-      {L('Källa: ', 'Source: ')}<a href="https://bra.se/rapporter/arkiv/2025-03-25-offer-och-garningspersoner-vid-dodligt-vald">{L('Brå rapport 2025:5', 'Brå report 2025:5')}</a>{L(', s. 13 och 76–79.', ', p. 13 and 76–79.')}
-    </Fragment>
-  </ShortAnswer>
   <div class="chart-block">
     <ul class="legend-list" aria-label={L('Förklaring', 'Key')}>
       {

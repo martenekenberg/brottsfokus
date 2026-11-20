@@ -2,14 +2,12 @@
 // Chapter 6: victims of crime (NTU).
 // Loads its own data and stops the build if its headline no longer matches the data.
 import Chapter from '../Chapter.astro';
-import ShortAnswer from '../ShortAnswer.astro';
-import { formatNumber } from '../../lib/format';
 import Victims from '../kap6/Victims.astro';
 import { tr, type Lang } from '../../lib/i18n';
 import { chapter } from '../../lib/chapters';
 import { loadNtu } from '../../lib/data';
 import { tablePage } from '../../lib/dataPages';
-import { crimes, pooled, swedishHigher } from '../../lib/chapters/kap6';
+import { swedishHigher } from '../../lib/chapters/kap6';
 
 interface Props {
   lang: Lang;
@@ -23,13 +21,6 @@ const ntu = loadNtu();
 if (JSON.stringify(swedishHigher(ntu)) !== JSON.stringify([{ crimeId: 'sexualbrott', sex: 'kvinnor' }])) {
   throw new Error('Chapter 6 headline no longer matches the data');
 }
-// Short answer: the one exception (sexual offences against women) and the number of crime types.
-const ntuCrimeCount = crimes(ntu).length;
-const ntuPct = (crimeId: string, sex: 'man' | 'kvinnor', group: string) => {
-  const v = pooled(ntu, crimeId, sex, group).pct;
-  if (v === null) throw new Error(`Chapter 6 short answer: no value for ${crimeId} ${sex} ${group}`);
-  return formatNumber(v, 1, lang);
-};
 
 ---
 
@@ -48,21 +39,6 @@ const ntuPct = (crimeId: string, sex: 'man' | 'kvinnor', group: string) => {
       'Share of the population aged 16–84 who say they were victims of the crime in the year before the survey. Answers from the 2017–2023 surveys are pooled, so they cover crimes in 2016–2022.',
     )}
   </p>
-  <ShortAnswer slot="answers" id="kap6-svar" lang={lang} question={L('Utsätts personer med utländsk bakgrund oftare för brott?', 'Are people with a foreign background more often victims of crime?')}>
-    {L(
-      `För alla ${ntuCrimeCount} brottstyper uppgav män med utländsk bakgrund oftare än män med svensk bakgrund att de utsatts under året. Detsamma gällde kvinnor, utom för sexualbrott: där uppgav ${ntuPct('sexualbrott', 'kvinnor', 'utlandsk')} procent av kvinnorna med utländsk bakgrund och ${ntuPct('sexualbrott', 'kvinnor', 'svensk')} procent av kvinnorna med svensk bakgrund att de utsatts. Svaren gäller brott 2016–2022.`,
-      `For all ${ntuCrimeCount} crime types, men with a foreign background more often than men with a Swedish background said they had been victims during the year. The same applied to women, except for sexual offences: there, ${ntuPct('sexualbrott', 'kvinnor', 'utlandsk')}% of women with a foreign background and ${ntuPct('sexualbrott', 'kvinnor', 'svensk')}% of women with a Swedish background said they had been victims. The answers cover crimes in 2016–2022.`,
-    )}
-    <Fragment slot="caveat">
-      {L(
-        'Utländsk bakgrund räknar här också inrikesfödda med en utrikesfödd förälder. Svaren kommer från en enkät till personer 16–84 år, gäller även brott som aldrig anmälts och är inte justerade för ålder.',
-        'A foreign background here also includes people born in Sweden with one foreign-born parent. The answers come from a survey of people aged 16–84, include crimes that were never reported and are not adjusted for age.',
-      )}
-    </Fragment>
-    <Fragment slot="source">
-      {L('Källa: ', 'Source: ')}<a href="https://bra.se/rapporter/arkiv/2024-05-21-utsatthet-for-brott-bland-personer-med-utlandsk-bakgrund">Brå, NTU Kortanalys 2/2024</a>{L(', tabellbilaga.', ', table appendix.')}
-    </Fragment>
-  </ShortAnswer>
   <Victims rows={ntu} lang={lang} />
   <Fragment slot="note">
     {L(

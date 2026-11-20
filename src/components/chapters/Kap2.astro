@@ -2,9 +2,6 @@
 // Chapter 2: birth region 2015–2018, and Brå's comparison with other factors.
 // Loads its own data and stops the build if its headline no longer matches the data.
 import Chapter from '../Chapter.astro';
-import ShortAnswer from '../ShortAnswer.astro';
-import { dataLabel } from '../../lib/labels';
-import { methodPath } from '../../lib/parts';
 import BarChart from '../charts/BarChart.astro';
 import SubChart from '../SubChart.astro';
 import OriginDots from '../kap2/OriginDots.astro';
@@ -53,34 +50,6 @@ const factorRisk = (id: string) => {
   return n1(f.risk);
 };
 
-// ---------- Short answers ----------
-// Table B6: each background group compared with born in Sweden with two Swedish-born parents, 2015–2018.
-const b6 = (unit: string) => {
-  const r = tableB6.find((x) => x.view === 'bakgrund' && x.unit === unit);
-  if (!r) throw new Error(`Chapter 2 short answer: table B6 has no ${unit}`);
-  return r;
-};
-const bUtr = b6('Utrikesfödda');
-const bU2 = b6('Inrikesfödda med två utrikesfödda föräldrar');
-const bSv1 = b6('Inrikesfödda med en inrikes- och en utrikesfödd förälder');
-const bSv2 = b6('Inrikesfödda med två inrikesfödda föräldrar');
-// Brå's risk by birth region, before and after its adjustment for age, sex, income and education.
-const regionRisks = kap2Origin
-  .filter((r) => r.view === 'region' && r.crimeOrder === 0 && r.unitId !== 'sv2')
-  .map((r) => {
-    if (r.riskAdj === null) throw new Error(`Chapter 2 short answer: no adjusted risk for ${r.unit}`);
-    return { unit: r.unit, risk: r.risk, adj: r.riskAdj };
-  });
-if (regionRisks.length < 10) throw new Error('Chapter 2 short answer: birth regions missing');
-const adjLower = regionRisks.filter((r) => r.adj < r.risk).length;
-const adjMin = Math.min(...regionRisks.map((r) => r.adj));
-const adjMax = Math.max(...regionRisks.map((r) => r.adj));
-const topRegion = [...regionRisks].sort((a, b) => b.risk - a.risk)[0];
-// The answer says the adjusted risk stays above 1 for most regions. Stop the build if not.
-const adjAbove1 = regionRisks.filter((r) => r.adj > 1).length;
-if (!(adjAbove1 > regionRisks.length / 2)) throw new Error('Chapter 2 short answer no longer matches the data');
-const immigrantsLink = `${methodPath[lang]}#begrepp-invandrare`;
-
 ---
 
 <Chapter
@@ -98,53 +67,6 @@ const immigrantsLink = `${methodPath[lang]}#begrepp-invandrare`;
       'How many times more likely it was to be suspected of crime at any point in 2015–2018 than for people born in Sweden with two Swedish-born parents. People born abroad, by birth region or birth country, and people born in Sweden with two foreign-born parents, by mother’s birth region.',
     )}
   </p>
-  <Fragment slot="answers">
-    <ShortAnswer id="kap2-svar-invandrare" lang={lang} question={L('Hur mycket vanligare är det att invandrare misstänks för brott?', 'How much more likely are immigrants to be suspected of crime in Sweden?')}>
-      {L('Utrikesfödda, alltså ', 'People born abroad, that is ')}<a href={immigrantsLink}>{L('invandrare', 'immigrants')}</a>{L(
-        `, misstänktes för brott ${n1(bUtr.risk)} gånger så ofta som inrikesfödda med två inrikesfödda föräldrar. Under 2015–2018 misstänktes ${n1(bUtr.pctSuspected)} procent av de utrikesfödda för minst ett brott, jämfört med ${n1(bSv2.pctSuspected)} procent.`,
-        `, were suspected of crime ${n1(bUtr.risk)} times as often as people born in Sweden with two Swedish-born parents. In 2015–2018, ${n1(bUtr.pctSuspected)}% of people born abroad were suspected of at least one crime, compared with ${n1(bSv2.pctSuspected)}%.`,
-      )}
-      <Fragment slot="caveat">
-        {L(
-          'Inte justerat för ålder, kön eller inkomst. Med hänsyn till dem blir skillnaderna mindre, men de finns kvar. Misstänkt är inte dömd.',
-          'Not adjusted for age, sex or income. Taking them into account makes the differences smaller, but they remain. Suspected is not convicted.',
-        )}
-      </Fragment>
-      <Fragment slot="source">
-        {L('Källa: ', 'Source: ')}<a href="https://bra.se/rapporter/arkiv/2021-08-25-misstankta-for-brott-bland-personer-med-inrikes-respektive-utrikes-bakgrund">{L('Brå rapport 2021:9', 'Brå report 2021:9')}</a>{L(', tabellbilaga 1, tabell B6. Folkbokförda 15 år och äldre.', ', table appendix 1, table B6. Registered residents aged 15 and over.')}
-      </Fragment>
-    </ShortAnswer>
-    <ShortAnswer id="kap2-svar-barn" lang={lang} question={L('Hur vanligt är det att barn till invandrare misstänks för brott?', 'How common is it for children of immigrants to be suspected of crime?')}>
-      {L(
-        `Inrikesfödda med två utrikesfödda föräldrar misstänktes för brott ${n1(bU2.risk)} gånger så ofta som inrikesfödda med två inrikesfödda föräldrar. Under 2015–2018 misstänktes ${n1(bU2.pctSuspected)} procent av dem för minst ett brott, jämfört med ${n1(bSv2.pctSuspected)} procent. Med en utrikesfödd och en inrikesfödd förälder var det ${n1(bSv1.risk)} gånger så vanligt (${n1(bSv1.pctSuspected)} procent).`,
-        `People born in Sweden with two foreign-born parents were suspected of crime ${n1(bU2.risk)} times as often as people born in Sweden with two Swedish-born parents. In 2015–2018, ${n1(bU2.pctSuspected)}% of them were suspected of at least one crime, compared with ${n1(bSv2.pctSuspected)}%. With one foreign-born and one Swedish-born parent it was ${n1(bSv1.risk)} times as common (${n1(bSv1.pctSuspected)}%).`,
-      )}
-      <Fragment slot="caveat">
-        {L(
-          'De är födda i Sverige och räknas inte som invandrare här. Inte justerat för ålder, kön eller inkomst. Misstänkt är inte dömd.',
-          'They were born in Sweden and are not counted as immigrants here. Not adjusted for age, sex or income. Suspected is not convicted.',
-        )}
-      </Fragment>
-      <Fragment slot="source">
-        {L('Källa: ', 'Source: ')}<a href="https://bra.se/rapporter/arkiv/2021-08-25-misstankta-for-brott-bland-personer-med-inrikes-respektive-utrikes-bakgrund">{L('Brå rapport 2021:9', 'Brå report 2021:9')}</a>{L(', tabellbilaga 1, tabell B6. Folkbokförda 15 år och äldre.', ', table appendix 1, table B6. Registered residents aged 15 and over.')}
-      </Fragment>
-    </ShortAnswer>
-    <ShortAnswer id="kap2-svar-justerat" lang={lang} question={L('Hur mycket av skillnaden beror på ålder, kön och inkomst?', 'How much of the difference is due to age, sex and income?')}>
-      {L(
-        `Brå har räknat om överrisken för utrikesfödda som om varje födelseområde hade samma ålder, kön, inkomst och utbildning som inrikesfödda med två inrikesfödda föräldrar. Då blev den lägre för ${adjLower} av ${regionRisks.length} födelseområden och låg mellan ${n1(adjMin)} och ${n1(adjMax)}. För födda i ${dataLabel(topRegion.unit, lang)} blev den ${n1(topRegion.adj)} i stället för ${n1(topRegion.risk)}.`,
-        `Brå recalculated the excess risk for people born abroad as if each birth region had the same age, sex, income and education as people born in Sweden with two Swedish-born parents. It then became lower for ${adjLower} of ${regionRisks.length} birth regions and ranged from ${n1(adjMin)} to ${n1(adjMax)}. For people born in ${dataLabel(topRegion.unit, lang)} it became ${n1(topRegion.adj)} instead of ${n1(topRegion.risk)}.`,
-      )}
-      <Fragment slot="caveat">
-        {L(
-          'Det justerade talet är Brås beräkning, inte en faktisk andel. Brå anger det per födelseområde, inte för alla utrikesfödda tillsammans. Överrisk 1 betyder lika vanligt som i jämförelsegruppen.',
-          'The adjusted figure is Brå’s calculation, not an actual share. Brå gives it by birth region, not for everyone born abroad together. An excess risk of 1 means as common as in the comparison group.',
-        )}
-      </Fragment>
-      <Fragment slot="source">
-        {L('Källa: ', 'Source: ')}<a href="https://bra.se/rapporter/arkiv/2021-08-25-misstankta-for-brott-bland-personer-med-inrikes-respektive-utrikes-bakgrund">{L('Brå rapport 2021:9', 'Brå report 2021:9')}</a>{L(', tabellbilaga 1. Brott begångna 2015–2018.', ', table appendix 1. Crimes committed in 2015–2018.')}
-      </Fragment>
-    </ShortAnswer>
-  </Fragment>
   <OriginDots data={kap2Data} lang={lang} />
   <Fragment slot="note">
     {L(

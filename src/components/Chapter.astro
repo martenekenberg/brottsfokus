@@ -1,8 +1,10 @@
 ---
 // Shared chapter pattern: kicker, headline, intro, legend, chart,
-// "Kort svar" boxes (slot "answers"), "Om uppgifterna" panel, "Läs så här" box, source line, a second chart if any (slot "after"), "Nästa" link.
+// "Kort svar" boxes (src/lib/shortAnswers.ts), "Om uppgifterna" panel, "Läs så här" box, source line, a second chart if any (slot "after"), "Nästa" link.
 import { chapter, nextLink } from '../lib/chapters';
 import ChapterFacts from './ChapterFacts.astro';
+import ShortAnswer from './ShortAnswer.astro';
+import { chapterShortAnswers } from '../lib/shortAnswers';
 import { tr, type Lang } from '../lib/i18n';
 
 interface Props {
@@ -19,14 +21,14 @@ const next = nextLink(id, lang);
 const hasLegend = Astro.slots.has('legend');
 const hasNote = Astro.slots.has('note');
 const hasControls = Astro.slots.has('controls');
-const hasAnswers = Astro.slots.has('answers');
+const answers = chapterShortAnswers(id, lang);
 ---
 
 <section id={id} class="chapter" aria-labelledby={`${id}-h`}>
   <p class="kicker">{c.num ? `${c.num} · ${c.kicker[lang]}` : c.kicker[lang]}</p>
   <h2 id={`${id}-h`}>{title}</h2>
   <div class="intro"><slot name="intro" /></div>
-  {hasAnswers && <div class="answers"><slot name="answers" /></div>}
+  {answers.length > 0 && <div class="answers">{answers.map((a) => <ShortAnswer item={a} lang={lang} />)}</div>}
   <ChapterFacts id={id} lang={lang} />
   {hasControls && <div class="controls"><slot name="controls" /></div>}
   {hasLegend && <div class="legend"><slot name="legend" /></div>}
