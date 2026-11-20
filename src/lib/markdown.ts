@@ -1,6 +1,6 @@
 // Markdown copies of the table pages and llms.txt. Same text and numbers as the HTML pages.
 import { chapter, chapterHref } from './chapters';
-import { aboutPath, methodPath, parts, type PartInfo } from './parts';
+import { aboutPath, faqPath, methodPath, parts, type PartInfo } from './parts';
 import { type TablePageUrls } from './dataPages';
 import { tr, type Lang } from './i18n';
 import { site, absoluteUrl, dayMonthYear } from './site';
@@ -123,6 +123,8 @@ export function llmsTxt(
     '## Optional',
     '',
     `- [Startsidan](${site.url}): nyckeltal och de fyra delarna.`,
+    `- [Frågor och svar](${absoluteUrl(faqPath.sv)}): korta svar med källa och förbehåll på vanliga frågor, och begreppen invandrare, misstänkt, lagförd, överrisk och utländsk bakgrund.`,
+    `- [Questions and answers, in English](${absoluteUrl(faqPath.en)})`,
     `- [Metod och begrepp](${absoluteUrl(methodPath.sv)}): begrepp och alla källor.`,
     `- [Om sidan](${absoluteUrl(aboutPath.sv)}): vem som står bakom sidan, rättelser och besöksstatistik.`,
     `- [Method and terms, in English](${absoluteUrl(methodPath.en)})`,

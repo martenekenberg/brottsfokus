@@ -1,22 +1,23 @@
 ---
-// Site menu: the four parts, Metod and Om sidan. Sticks to the top of the screen while scrolling.
+// Site menu: the four parts, Frågor och svar, Metod and Om sidan. Sticks to the top of the screen while scrolling.
 // On the front page, once the big headline has scrolled out of view, a small site title slides in
 // at the left, so the headline appears to shrink into the bar. On other pages the small title always
 // shows. The bar never changes height, so the page does not jump.
-import { aboutPath, methodPath, parts, type PartId } from '../lib/parts';
+import { aboutPath, faqPath, methodPath, parts, type PartId } from '../lib/parts';
 import { localePath, tr, type Lang } from '../lib/i18n';
 
 interface Props {
   /** True on the front page only. */
   home?: boolean;
   /** The page being shown, marked in the menu. */
-  current?: PartId | 'metod' | 'om';
+  current?: PartId | 'faq' | 'metod' | 'om';
   lang: Lang;
 }
 const { home = false, current, lang } = Astro.props;
 const frontPage = localePath(lang, '/');
 const items = [
   ...parts.map((p) => ({ id: p.id as string, num: String(p.num), label: p.title[lang], href: p.path[lang] })),
+  { id: 'faq', num: '', label: tr(lang, 'Frågor', 'Q&A'), href: faqPath[lang] },
   { id: 'metod', num: '', label: tr(lang, 'Metod', 'Method'), href: methodPath[lang] },
   { id: 'om', num: '', label: tr(lang, 'Om sidan', 'About'), href: aboutPath[lang] },
 ];
@@ -144,7 +145,7 @@ const items = [
     padding: 0;
     display: flex;
     flex-wrap: wrap;
-    gap: 0 32px;
+    gap: 0 24px;
     min-width: 0;
   }
   ul a {

@@ -100,6 +100,8 @@ export const parts: PartInfo[] = [
 /** Pages that are not parts: method and about. */
 export const methodPath: Record<Lang, string> = { sv: '/metod/', en: '/en/method/' };
 export const aboutPath: Record<Lang, string> = { sv: '/om/', en: '/en/about/' };
+/** "Frågor och svar": the short answers and common questions about the terms (item 7 of the SEO plan, November 2026). */
+export const faqPath: Record<Lang, string> = { sv: '/fragor-och-svar/', en: '/en/faq/' };
 
 export function part(id: PartId): PartInfo {
   const p = parts.find((x) => x.id === id);
@@ -115,4 +117,4 @@ export function partOf(chapterId: string): PartInfo {
 }
 
 /** Every page with a Swedish and an English version, for language links and the sitemap. */
-export const pagePairs: Record<Lang, string>[] = [...parts.map((p) => p.path), methodPath, aboutPath];
+export const pagePairs: Record<Lang, string>[] = [...parts.map((p) => p.path), faqPath, methodPath, aboutPath];

@@ -121,18 +121,19 @@ A front page plus one page per part (owner's decision, 19 November 2026). The pa
 | 2. Lagförda och dömda | `/lagforda-och-domda/` | `/en/convictions/` | 2.1 Lagförda före 25 års ålder, 2.2 Våldtäkt |
 | 3. Fängelse och utvisning | `/fangelse-och-utvisning/` | `/en/prison-and-deportation/` | 3.1 Fängelse, 3.2 Utvisning |
 | 4. Brottsoffer | `/brottsoffer/` | `/en/victims/` | 4.1 Utsatta för brott, 4.2 Dödligt våld |
+| Frågor och svar | `/fragor-och-svar/` | `/en/faq/` | Questions on terms and sources (`src/lib/faq.ts`), then every chapter's short answer grouped by part with a link to its chapter. FAQPage markup |
 | Metod och begrepp | `/metod/` | `/en/method/` | Short definitions in a grid, and the "Källor" list |
 | Om sidan | `/om/` | `/en/about/` | Why the site exists, how data is chosen, who runs it (an anonymous private person), errors and corrections (with the dated "Rättelser" list), cookies and visitor statistics |
 
 1. **Masthead** (front page only): kicker "Offentlig statistik och forskning", date and sources line, h1 "Brottsfokus", intro paragraph, and a smaller line on where the figures come from with a link to `/data/`. Other pages have a smaller page header (`src/components/PageHead.astro`) with kicker, h1, intro, the page's chapters and a language link.
-2. **Menu** (`src/components/ChapterNav.astro`): thick top rule, thin bottom rule, links to the four parts, Metod and Om sidan. One row on desktop, one horizontally scrollable row on mobile with a fade at the right edge while there is more to scroll. The current page is underlined. Sticky at the top while scrolling; on the front page a small site title slides in once the big headline has scrolled away, on other pages it always shows. Touch targets at least 44px.
+2. **Menu** (`src/components/ChapterNav.astro`): thick top rule, thin bottom rule, links to the four parts, Frågor (Q&A), Metod and Om sidan. One row on desktop, one horizontally scrollable row on mobile with a fade at the right edge while there is more to scroll. The current page is underlined. Sticky at the top while scrolling; on the front page a small site title slides in once the big headline has scrolled away, on other pages it always shows. Touch targets at least 44px.
 3. **Key figures** (front page): three figures in a grid (2,5×, 3,2×, 22 %), each with a one-line explanation and its source.
 4. **Part cards** (front page): part number, part name, one sentence (owner approves the copy) and the part's chapters as links.
 5. **Chapters**, one component each in `src/components/chapters/`, each with the same pattern:
    - kicker (`1.1 · Misstänkta över tid`)
    - factual headline (h2)
    - short intro
-   - "Kort svar" boxes, if any (`src/components/ShortAnswer.astro`, slot `answers`): a search question, an answer with numbers computed from the data, one caveat and the source. Owner-approved questions, November 2026. "Invandrare" may be used in questions and once in the answer, meaning utrikesfödda only (defined on Metod); never for citizenship, "utländsk bakgrund" or people born in Sweden (write "barn till invandrare")
+   - "Kort svar" boxes, if any (`src/components/ShortAnswer.astro`, slot `answers`): a search question, an answer with numbers computed from the data, one caveat and the source. Owner-approved questions, November 2026. Defined once in `src/lib/shortAnswers.ts` and shown both in the chapter and on Frågor och svar. "Invandrare" may be used in questions and once in the answer, meaning utrikesfödda only (defined on Metod); never for citizenship, "utländsk bakgrund" or people born in Sweden (write "barn till invandrare")
    - "Om uppgifterna" panel: each study, the years its figures cover and when it was published (`src/lib/chapterFacts.ts`, years from the data where the data holds them), so the period is never confused with the site's update date
    - legend (when the chart has more than one series)
    - chart
