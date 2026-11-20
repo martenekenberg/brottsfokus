@@ -141,6 +141,7 @@ A front page plus one page per part (owner's decision, 19 November 2026). The pa
    - source line
    - link to its table page
    - second charts, if any (`src/components/SubChart.astro`)
+   - "Läs också": related chapters with a short note on how they relate, and the Metod terms the chapter relies on (`src/lib/related.ts`; the chapter "Nästa" points to is left out). Every Metod term has an anchor `begrepp-<id>`; `tests/related.test.ts` checks the links
    - "Nästa: …" link to the next chapter, or at the end of a part to the next part
 6. **Footer**: site name, "Tabeller och CSV-filer" (link to `/data/`), a link to the same page in the other language, and "Till början ↑".
 

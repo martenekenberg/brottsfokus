@@ -1,10 +1,11 @@
 ---
 // Shared chapter pattern: kicker, headline, intro, legend, chart,
-// "Kort svar" boxes (src/lib/shortAnswers.ts), "Om uppgifterna" panel, "Läs så här" box, source line, a second chart if any (slot "after"), "Nästa" link.
+// "Kort svar" boxes (src/lib/shortAnswers.ts), "Om uppgifterna" panel, "Läs så här" box, source line, a second chart if any (slot "after"), "Läs också" links (src/lib/related.ts), "Nästa" link.
 import { chapter, nextLink } from '../lib/chapters';
 import ChapterFacts from './ChapterFacts.astro';
 import ShortAnswer from './ShortAnswer.astro';
 import { chapterShortAnswers } from '../lib/shortAnswers';
+import { relatedLinks } from '../lib/related';
 import { tr, type Lang } from '../lib/i18n';
 
 interface Props {
@@ -22,6 +23,7 @@ const hasLegend = Astro.slots.has('legend');
 const hasNote = Astro.slots.has('note');
 const hasControls = Astro.slots.has('controls');
 const answers = chapterShortAnswers(id, lang);
+const related = relatedLinks(id, lang);
 ---
 
 <section id={id} class="chapter" aria-labelledby={`${id}-h`}>
@@ -44,6 +46,29 @@ const answers = chapterShortAnswers(id, lang);
   <p class="source"><slot name="source" /></p>
   {tableHref && <a class="table-link" href={tableHref}>{tr(lang, 'Siffrorna i tabell och som CSV-fil', 'The figures as a table and CSV file')}</a>}
   <slot name="after" />
+  <nav class="related" aria-label={tr(lang, `Läs också, kapitel ${c.num}`, `See also, chapter ${c.num}`)}>
+    <p class="related-title">{tr(lang, 'Läs också', 'See also')}</p>
+    {
+      related.chapters.length > 0 && (
+        <ul>
+          {related.chapters.map((r) => (
+            <li>
+              <a href={r.href}>{`${r.num} ${r.label}`}</a>{`: ${r.note}`}
+            </li>
+          ))}
+        </ul>
+      )
+    }
+    <p class="related-terms">
+      {tr(lang, 'Begrepp: ', 'Terms: ')}
+      {related.terms.map((t, i) => (
+        <>
+          {i > 0 && ', '}
+          <a href={t.href}>{t.label}</a>
+        </>
+      ))}
+    </p>
+  </nav>
   <a class="next" href={next.href}>{tr(lang, 'Nästa: ', 'Next: ')}{next.label} →</a>
 </section>
 
@@ -105,6 +130,35 @@ const answers = chapterShortAnswers(id, lang);
     min-height: 44px;
     margin-top: -12px;
     font-size: 13px;
+  }
+  .related {
+    font-size: 14px;
+    line-height: 1.5;
+    border-top: 1px solid var(--rule);
+    padding-top: 12px;
+  }
+  .related-title {
+    margin: 0 0 4px;
+    font-size: 12px;
+    font-weight: 600;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--text-muted);
+  }
+  .related ul {
+    margin: 0;
+    padding: 0;
+    list-style: none;
+  }
+  .related li {
+    padding: 4px 0;
+  }
+  .related a {
+    color: var(--ink);
+  }
+  .related-terms {
+    margin: 4px 0 0;
+    color: var(--text-muted);
   }
   .next {
     align-self: flex-start;
