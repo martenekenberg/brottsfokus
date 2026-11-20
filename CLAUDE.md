@@ -115,7 +115,7 @@ Visual grammar, used the same way in every chart:
 
 ## Page structure
 
-A front page plus one page per part (owner's decision, 19 November 2026). The parts, their pages in both languages, their one-line card text and their chapters are defined in `src/lib/parts.ts`; chapter numbers ("1.2") follow from that list.
+A front page plus one page per part (owner's decision, 19 November 2026). The parts, their pages in both languages, their one-line card text and their chapters are defined in `src/lib/parts.ts`; chapter numbers ("1.2") follow from that list. Each part also has a search title and description (`meta` in `parts.ts`); `{period}` in them is filled with the years its table pages cover (`src/lib/partMeta.ts`). Part pages carry BreadcrumbList and Article markup, with the part's Datasets and sources as `isBasedOn`.
 
 | Page | Swedish | English | Contains |
 |---|---|---|---|
@@ -124,23 +124,27 @@ A front page plus one page per part (owner's decision, 19 November 2026). The pa
 | 2. Lagförda och dömda | `/lagforda-och-domda/` | `/en/convictions/` | 2.1 Lagförda före 25 års ålder, 2.2 Våldtäkt |
 | 3. Fängelse och utvisning | `/fangelse-och-utvisning/` | `/en/prison-and-deportation/` | 3.1 Fängelse, 3.2 Utvisning |
 | 4. Brottsoffer | `/brottsoffer/` | `/en/victims/` | 4.1 Utsatta för brott, 4.2 Dödligt våld |
+| Frågor och svar | `/fragor-och-svar/` | `/en/faq/` | Questions on terms and sources (`src/lib/faq.ts`), then every chapter's short answer grouped by part with a link to its chapter. FAQPage markup |
 | Metod och begrepp | `/metod/` | `/en/method/` | Short definitions in a grid, and the "Källor" list |
-| Om sidan | `/om/` | `/en/about/` | Why the site exists, how data is chosen, who runs it (an anonymous private person), errors and corrections (with the dated "Rättelser" list), cookies and visitor statistics |
+| Om sidan | `/om/` | `/en/about/` | Why the site exists, how data is chosen, who runs it (a private person who works with data analysis; no name, owner's decision November 2026), how the work is done (editorial points, including checks against the source when data changes), errors and corrections (with the dated "Rättelser" list), cookies and visitor statistics |
 
-1. **Masthead** (front page only): kicker "Offentlig statistik och forskning", date and sources line, h1 "Brottsfokus", intro paragraph. Other pages have a smaller page header (`src/components/PageHead.astro`) with kicker, h1, intro, the page's chapters and a language link.
-2. **Menu** (`src/components/ChapterNav.astro`): thick top rule, thin bottom rule, links to the four parts, Metod and Om sidan. One row on desktop, one horizontally scrollable row on mobile with a fade at the right edge while there is more to scroll. The current page is underlined. Sticky at the top while scrolling; on the front page a small site title slides in once the big headline has scrolled away, on other pages it always shows. Touch targets at least 44px.
+1. **Masthead** (front page only): kicker "Offentlig statistik och forskning", date and sources line, h1 "Brottsfokus", intro paragraph, and a smaller line on where the figures come from with a link to `/data/`. Other pages have a smaller page header (`src/components/PageHead.astro`) with kicker, h1, intro, the page's chapters and a language link.
+2. **Menu** (`src/components/ChapterNav.astro`): thick top rule, thin bottom rule, links to the four parts, Frågor (Q&A), Metod and Om sidan. One row on desktop, one horizontally scrollable row on mobile with a fade at the right edge while there is more to scroll. The current page is underlined. Sticky at the top while scrolling; on the front page a small site title slides in once the big headline has scrolled away, on other pages it always shows. Touch targets at least 44px.
 3. **Key figures** (front page): three figures in a grid (2,5×, 3,2×, 22 %), each with a one-line explanation and its source.
 4. **Part cards** (front page): part number, part name, one sentence (owner approves the copy) and the part's chapters as links.
 5. **Chapters**, one component each in `src/components/chapters/`, each with the same pattern:
    - kicker (`1.1 · Misstänkta över tid`)
    - factual headline (h2)
    - short intro
+   - "Kort svar" boxes, if any (`src/components/ShortAnswer.astro`, slot `answers`): a search question, an answer with numbers computed from the data, one caveat and the source. Owner-approved questions, November 2026. Defined once in `src/lib/shortAnswers.ts` and shown both in the chapter and on Frågor och svar. "Invandrare" may be used in questions and once in the answer, meaning utrikesfödda only (defined on Metod); never for citizenship, "utländsk bakgrund" or people born in Sweden (write "barn till invandrare")
+   - "Om uppgifterna" panel: each study, the years its figures cover and when it was published (`src/lib/chapterFacts.ts`, years from the data where the data holds them), so the period is never confused with the site's update date
    - legend (when the chart has more than one series)
    - chart
    - "Läs så här" box with caveats
    - source line
    - link to its table page
    - second charts, if any (`src/components/SubChart.astro`)
+   - "Läs också": related chapters with a short note on how they relate, and the Metod terms the chapter relies on (`src/lib/related.ts`; the chapter "Nästa" points to is left out). Every Metod term has an anchor `begrepp-<id>`; `tests/related.test.ts` checks the links
    - "Nästa: …" link to the next chapter, or at the end of a part to the next part
 6. **Footer**: site name, "Tabeller och CSV-filer" (link to `/data/`), a link to the same page in the other language, and "Till början ↑".
 
@@ -159,7 +163,7 @@ The English site has the same pages, charts, tables and CSV files under `/en/`, 
 
 ### Table pages
 
-Each chapter links to a page under `/data/` with its numbers as HTML tables and a CSV file (added at the owner's request, for readers, accessibility and search). `/data/` lists them. Each page has: kicker, factual headline, summary with the key numbers and source, "Läs så här" above the tables, tables, CSV download, terms of use (CC BY 4.0, set in `src/lib/site.ts`), sources, link back to the chart, links to the other table pages, and Dataset markup. Build the tables with the same calculation code as the charts. `npm run sifferkontroll` lists every table value in `docs/sifferkontroll_tabeller.csv`. Each page's text and tables are defined once in `src/lib/tablePageContent.ts`; the HTML page, the CSV file and a Markdown copy (`/data/<slug>.md`) are generated from it. `/llms.txt` lists the Markdown copies with each page's summary and the main caveats.
+Each chapter links to a page under `/data/` with its numbers as HTML tables and a CSV file (added at the owner's request, for readers, accessibility and search). `/data/` lists them. Each page has: kicker, factual headline, summary with the key numbers and source, "Läs så här" above the tables, tables, CSV download, terms of use (CC BY 4.0, set in `src/lib/site.ts`), sources, link back to the chart, links to the other table pages, and Dataset markup. Build the tables with the same calculation code as the charts. `npm run sifferkontroll` lists every table value in `docs/sifferkontroll_tabeller.csv`. Each page's text and tables are defined once in `src/lib/tablePageContent.ts`; the HTML page, the CSV file and a Markdown copy (`/data/<slug>.md`) are generated from it. `/llms.txt` lists the Markdown copies with each page's summary and the main caveats. Every CSV column is described in `src/lib/dataDictionary.ts` (name in both languages, type, unit, meaning); `tests/dataDictionary.test.ts` fails if a CSV header and the dictionary differ, so update the dictionary when a CSV column changes. The dictionary is shown on each table page ("Kolumnerna i CSV-filen"), in its Markdown copy and in `/data/datapackage.json` and `/en/data/datapackage.json` (Frictionless Tabular Data Package, `src/lib/dataPackage.ts`).
 
 ## Chapters
 

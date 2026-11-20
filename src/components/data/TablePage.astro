@@ -4,6 +4,7 @@
 // table pages. Adds Dataset markup.
 import DataLayout from '../../layouts/DataLayout.astro';
 import DataTableView from './DataTableView.astro';
+import { columnIn, dataDictionary } from '../../lib/dataDictionary';
 import { chapter, chapterHref } from '../../lib/chapters';
 import { tablePage, tablePages, tablesIndexPath } from '../../lib/dataPages';
 import { dataDate } from '../../lib/dataDates';
@@ -48,6 +49,8 @@ const dataset = {
   ],
 };
 const chartHref = chapterHref(c.id, lang);
+const columns = dataDictionary(p.chapterId).map((col) => columnIn(col, lang));
+const packagePath = `${tablesIndexPath(lang)}datapackage.json`;
 const crumbTables = tr(lang, 'Tabeller', 'Tables');
 ---
 
@@ -116,6 +119,38 @@ const crumbTables = tr(lang, 'Tabeller', 'Tables');
     }{' '}
     <a href={page.mdPath}>{tr(lang, 'textfil (Markdown)', 'a text file (Markdown)')}</a>.
   </p>
+  <details class="columns">
+    <summary>{tr(lang, `Kolumnerna i CSV-filen (${columns.length})`, `The columns in the CSV file (${columns.length})`)}</summary>
+    <div class="columns-scroll">
+      <table>
+        <thead>
+          <tr>
+            <th scope="col">{tr(lang, 'Kolumn', 'Column')}</th>
+            <th scope="col">{tr(lang, 'Enhet', 'Unit')}</th>
+            <th scope="col">{tr(lang, 'Beskrivning', 'Description')}</th>
+          </tr>
+        </thead>
+        <tbody>
+          {
+            columns.map((col) => (
+              <tr>
+                <td>
+                  <code>{col.name}</code>
+                </td>
+                <td>{col.unit}</td>
+                <td>{col.description}</td>
+              </tr>
+            ))
+          }
+        </tbody>
+      </table>
+    </div>
+    <p class="body">
+      {tr(lang, 'Samma beskrivning för alla CSV-filer finns i maskinläsbar form i', 'The same description for all CSV files is available in machine-readable form in')}{' '}
+      <a href={packagePath}>datapackage.json</a>{' '}
+      {tr(lang, '(Frictionless Data).', '(Frictionless Data).')}
+    </p>
+  </details>
 
   <h2>{tr(lang, 'Använda siffrorna', 'Using the figures')}</h2>
   <p class="body">
@@ -191,5 +226,76 @@ const crumbTables = tr(lang, 'Tabeller', 'Tables');
     min-height: 44px;
     font-size: 14px;
     font-weight: 600;
+  }
+  .columns {
+    margin-top: 8px;
+    font-size: 14px;
+  }
+  .columns summary {
+    cursor: pointer;
+    font-weight: 600;
+    min-height: 44px;
+    display: flex;
+    align-items: center;
+  }
+  .columns-scroll {
+    overflow-x: auto;
+  }
+  .columns table {
+    border-collapse: collapse;
+    width: 100%;
+    line-height: 1.45;
+  }
+  .columns th,
+  .columns td {
+    text-align: left;
+    vertical-align: top;
+    padding: 6px 16px 6px 0;
+    border-bottom: 1px solid var(--rule);
+  }
+  .columns th {
+    font-weight: 500;
+    color: var(--text-muted);
+  }
+  .columns td:first-child {
+    white-space: nowrap;
+  }
+  .columns code {
+    font-size: 13px;
+  }
+  /* Phones: one block per column, name and unit on one line, description below. */
+  @media (max-width: 640px) {
+    .columns thead {
+      display: none;
+    }
+    .columns table,
+    .columns tbody,
+    .columns tr,
+    .columns td {
+      display: block;
+    }
+    .columns tr {
+      padding: 8px 0;
+      border-bottom: 1px solid var(--rule);
+    }
+    .columns td {
+      border: 0;
+      padding: 0;
+    }
+    .columns td:first-child,
+    .columns td:nth-child(2) {
+      display: inline;
+      white-space: normal;
+      overflow-wrap: anywhere;
+    }
+    .columns td:nth-child(2):not(:empty)::before {
+      content: ' · ';
+    }
+    .columns td:nth-child(2) {
+      color: var(--text-muted);
+    }
+    .columns td:last-child {
+      margin-top: 2px;
+    }
   }
 </style>

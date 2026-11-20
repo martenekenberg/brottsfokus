@@ -1,0 +1,155 @@
+---
+// "Frågor och svar": common questions about terms and sources, then every chapter's short answer,
+// grouped by part, each with a link to its chapter. FAQPage markup lists the same questions and answers.
+import Base from '../layouts/Base.astro';
+import ChapterNav from './ChapterNav.astro';
+import PageHead from './PageHead.astro';
+import ShortAnswer from './ShortAnswer.astro';
+import Footer from './Footer.astro';
+import { chapter, chapterHref } from '../lib/chapters';
+import { faqTerms } from '../lib/faq';
+import { faqPath, parts, partOf } from '../lib/parts';
+import { plainText, shortAnswers, type Segment } from '../lib/shortAnswers';
+import { site, absoluteUrl } from '../lib/site';
+import { IN_LANGUAGE, localePath, tr, type Lang } from '../lib/i18n';
+
+interface Props {
+  lang: Lang;
+}
+const { lang } = Astro.props;
+const L = (sv: string, en: string) => tr(lang, sv, en);
+const path = faqPath[lang];
+const pageUrl = absoluteUrl(path);
+const title = L('Frågor och svar', 'Questions and answers');
+const description = L(
+  'Korta svar med källa på vanliga frågor om brott och bakgrund i Sverige: invandrare och brottsmisstankar, fängelse och medborgarskap, utvisning, våldtäkt, brottsoffer och dödligt våld.',
+  'Short answers, with sources, to common questions about crime and background in Sweden: immigrants and crime suspicions, prison and citizenship, deportation, rape, victims of crime and homicide.',
+);
+const terms = faqTerms(lang);
+const answers = shortAnswers(lang);
+const byPart = parts
+  .map((p) => ({ part: p, items: answers.filter((a) => partOf(a.chapterId).id === p.id) }))
+  .filter((g) => g.items.length > 0);
+const parts_ = (segments: Segment[]) => segments.map((s) => (typeof s === 'string' ? { text: s } : s));
+
+// Structured data: the same questions and answers as on the page, as plain text.
+const faqLd = {
+  '@type': 'FAQPage',
+  '@id': `${pageUrl}#faq`,
+  url: pageUrl,
+  inLanguage: IN_LANGUAGE[lang],
+  isPartOf: { '@id': `${site.url}#website` },
+  mainEntity: [
+    ...terms.map((t) => ({ q: t.question, a: plainText(t.answer), url: `${pageUrl}#${t.id}` })),
+    ...answers.map((a) => ({ q: a.question, a: `${plainText(a.answer)} ${a.caveat} ${plainText(a.source)}`, url: absoluteUrl(chapterHref(a.chapterId, lang).replace(/#.*/, `#${a.id}`)) })),
+  ].map((x) => ({ '@type': 'Question', name: x.q, url: x.url, acceptedAnswer: { '@type': 'Answer', text: x.a } })),
+};
+const breadcrumbLd = {
+  '@type': 'BreadcrumbList',
+  itemListElement: [
+    { '@type': 'ListItem', position: 1, name: site.name, item: absoluteUrl(localePath(lang, '/')) },
+    { '@type': 'ListItem', position: 2, name: title, item: pageUrl },
+  ],
+};
+---
+
+<Base title={`${title} · ${site.name}`} description={description} lang={lang} path={path} jsonLdNodes={[breadcrumbLd, faqLd]}>
+  <div class="wrap">
+    <ChapterNav current="faq" lang={lang} />
+    <PageHead
+      kicker={site.name}
+      title={title}
+      intro={L(
+        'Korta svar på vanliga frågor, med källa och det viktigaste förbehållet. Varje svar med siffror finns också i sitt kapitel, med diagram och tabeller.',
+        'Short answers to common questions, with the source and the most important caveat. Every answer with figures is also in its chapter, with charts and tables.',
+      )}
+      path={path}
+      lang={lang}
+    />
+    <main>
+      <section class="group" aria-labelledby="begrepp-h">
+        <h2 id="begrepp-h">{L('Begrepp och källor', 'Terms and sources')}</h2>
+        {
+          terms.map((t) => (
+            <div class="term" id={t.id}>
+              <h3>{t.question}</h3>
+              <p>{parts_(t.answer).map((p) => ('href' in p ? <a href={p.href}>{p.text}</a> : p.text))}</p>
+            </div>
+          ))
+        }
+      </section>
+      {
+        byPart.map(({ part, items }) => (
+          <section class="group" aria-labelledby={`del-${part.id}-h`}>
+            <h2 id={`del-${part.id}-h`}>
+              <span class="num">{part.num}</span>
+              {part.title[lang]}
+            </h2>
+            {items.map((a) => (
+              <ShortAnswer
+                item={a}
+                lang={lang}
+                anchor={false}
+                chapterLink={{ href: chapterHref(a.chapterId, lang).replace(/#.*/, `#${a.id}`), label: L(`Diagram och fler siffror i kapitel ${chapter(a.chapterId).num}`, `Charts and more figures in chapter ${chapter(a.chapterId).num}`) }}
+              />
+            ))}
+          </section>
+        ))
+      }
+    </main>
+    <Footer lang={lang} path={path} />
+  </div>
+</Base>
+
+<style>
+  .group {
+    display: flex;
+    flex-direction: column;
+    gap: 28px;
+    padding: 48px 0;
+    border-top: 1px solid var(--ink);
+  }
+  h2 {
+    margin: 0;
+    font-family: var(--font-serif);
+    font-size: 40px;
+    line-height: 1.12;
+    font-weight: 500;
+  }
+  .num {
+    color: var(--second);
+    margin-right: 0.35em;
+  }
+  .term {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    scroll-margin-top: calc(var(--sticky-nav-h) + 8px);
+  }
+  h3 {
+    margin: 0;
+    font-family: var(--font-serif);
+    font-size: 24px;
+    line-height: 1.25;
+    font-weight: 500;
+  }
+  .term p {
+    margin: 0;
+    font-size: 16px;
+    line-height: 1.55;
+  }
+  .term a {
+    color: var(--ink);
+  }
+  @media (max-width: 640px) {
+    .group {
+      padding: 32px 0;
+    }
+    h2 {
+      font-size: 28px;
+    }
+    h3 {
+      font-size: 20px;
+    }
+  }
+</style>

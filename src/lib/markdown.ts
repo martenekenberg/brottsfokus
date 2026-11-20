@@ -1,6 +1,7 @@
 // Markdown copies of the table pages and llms.txt. Same text and numbers as the HTML pages.
 import { chapter, chapterHref } from './chapters';
-import { aboutPath, methodPath, parts, type PartInfo } from './parts';
+import { aboutPath, faqPath, methodPath, parts, type PartInfo } from './parts';
+import { columnIn, dataDictionary } from './dataDictionary';
 import { type TablePageUrls } from './dataPages';
 import { tr, type Lang } from './i18n';
 import { site, absoluteUrl, dayMonthYear } from './site';
@@ -59,6 +60,15 @@ export function pageToMarkdown(p: TablePageContent, page: TablePageUrls, updated
     ),
     '',
     tr(lang, `CSV-fil med alla siffror: ${absoluteUrl(page.csvPath)}`, `CSV file with all the figures: ${absoluteUrl(page.csvPath)}`),
+    '',
+    `### ${tr(lang, 'Kolumnerna i CSV-filen', 'The columns in the CSV file')}`,
+    '',
+    `| ${tr(lang, 'Kolumn', 'Column')} | ${tr(lang, 'Enhet', 'Unit')} | ${tr(lang, 'Beskrivning', 'Description')} |`,
+    '| --- | --- | --- |',
+    ...dataDictionary(p.chapterId).map((c) => {
+      const x = columnIn(c, lang);
+      return `| ${x.name} | ${x.unit} | ${x.description.replaceAll('|', '/')} |`;
+    }),
     '',
     `## ${tr(lang, 'Källor', 'Sources')}`,
     '',
@@ -123,11 +133,14 @@ export function llmsTxt(
     '## Optional',
     '',
     `- [Startsidan](${site.url}): nyckeltal och de fyra delarna.`,
+    `- [Frågor och svar](${absoluteUrl(faqPath.sv)}): korta svar med källa och förbehåll på vanliga frågor, och begreppen invandrare, misstänkt, lagförd, överrisk och utländsk bakgrund.`,
+    `- [Questions and answers, in English](${absoluteUrl(faqPath.en)})`,
     `- [Metod och begrepp](${absoluteUrl(methodPath.sv)}): begrepp och alla källor.`,
     `- [Om sidan](${absoluteUrl(aboutPath.sv)}): vem som står bakom sidan, rättelser och besöksstatistik.`,
     `- [Method and terms, in English](${absoluteUrl(methodPath.en)})`,
     `- [About this site, in English](${absoluteUrl(aboutPath.en)})`,
     `- [Alla tabeller som webbsidor](${absoluteUrl('/data/')})`,
+    `- [Beskrivning av alla CSV-filer och kolumner (Frictionless Data Package)](${absoluteUrl('/data/datapackage.json')})`,
     `- [All tables as web pages, in English](${absoluteUrl('/en/data/')})`,
   ];
   return plain(out.join('\n')) + '\n';

@@ -28,7 +28,8 @@ const suspects = loadSuspectsByBackground();
 // Chapter 2 uses the same crime list, so its menu is indented the same way.
 const depthByOrder = new Map(suspects.map((r) => [r.crimeOrder, r.depth]));
 
-const kap2Data = buildKap2Data(loadOrigin(), depthByOrder, tableB6);
+const kap2Origin = loadOrigin();
+const kap2Data = buildKap2Data(kap2Origin, depthByOrder, tableB6);
 
 // Smallest groups in chapter 2, for the note under the chart.
 const smallestCountry = smallestGroup(kap2Data, 'land');
@@ -48,6 +49,7 @@ const factorRisk = (id: string) => {
   if (!f) throw new Error(`Chapter 2 second chart: no risk factor ${id}`);
   return n1(f.risk);
 };
+
 ---
 
 <Chapter

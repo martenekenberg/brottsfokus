@@ -16,7 +16,15 @@ Watch:
 
 - **Chapter summaries.** Where a chapter intro lacks the key number, year and source, add one short sentence. Owner approves the copy first.
 
+## Backlog from the SEO plan (November 2026)
+
+- **AI citation check (item 11).** A fixed list of about 25 questions (most can reuse the short-answer questions in `src/lib/shortAnswers.ts`), asked once a month in ChatGPT, Perplexity and Gemini. Log per question and tool: Brottsfokus mentioned, linked, used as the main source, quoted correctly. Owner put this in the backlog, 20 November 2026.
+- **"Om uppgifterna": newer data.** Only 1.3 says a newer study exists (Brå 2021:9). Check by hand on Brå's site whether newer comparable data exists for the other chapters before saying so on the site.
+- **Table page 2.1 (Brå 2025:21), temporalCoverage "1958/2023".** Mixes birth years (from 1958) and conviction years (to 2023). Consider stating the conviction period only, or saying which is which.
+
 ## Later, once there is search data
+
+- **Separate question pages (item 12).** Only if Search Console shows clear demand for a question that the short answers and Frågor och svar do not already meet.
 
 - Give each chapter its own URL. Each part has one since November 2026; per chapter only if search data shows a need.
 - A Markdown copy of the main page. The table pages and `/llms.txt` have them already.
@@ -25,6 +33,8 @@ Watch:
 ## Done
 
 - Colour rules (owner's decision, 20 November 2026): "born in Sweden with one foreign-born parent" is teal (new token "fourth") in 1.1 and 2.1 instead of grey; the outlined grey bar stays and the rule now says it marks what a group is compared with (population, control group or Swedish background).
+
+- SEO plan, 20 November 2026: part page titles and descriptions with the period, BreadcrumbList and Article markup (items 3–4); front page intro and "Om uppgifterna" in every chapter (1–2); ten "Kort svar" boxes (6); Frågor och svar page with FAQPage markup (7); "Läs också" links between chapters and to Metod terms (8); data dictionary and datapackage.json (10); Om sidan: owner works with data analysis, editorial points added (9).
 
 - Table pages on phones: the first column (year, group or region) stays in place when scrolling sideways, with a thin edge once scrolled; it is narrower on phones. Also fixed: 3.1 now lists Brå's table 8 as a source next to table 12 (both share one web address, so table 8 was dropped), 19 November 2026.
 

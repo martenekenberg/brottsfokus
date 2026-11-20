@@ -6,6 +6,7 @@ import { tr, type Lang } from '../lib/i18n';
 
 const terms = (lang: Lang) => [
   {
+    id: 'misstankt',
     title: tr(lang, 'Misstänkt, inte dömd', 'Suspected, not convicted'),
     text: tr(
       lang,
@@ -14,6 +15,7 @@ const terms = (lang: Lang) => [
     ),
   },
   {
+    id: 'bakgrund',
     title: tr(lang, 'Bakgrund', 'Background'),
     text: tr(
       lang,
@@ -22,6 +24,17 @@ const terms = (lang: Lang) => [
     ),
   },
   {
+    // Owner's decision, November 2026: the site may say "invandrare" in short answers, meaning born abroad only.
+    id: 'invandrare',
+    title: tr(lang, 'Invandrare', 'Immigrants'),
+    text: tr(
+      lang,
+      'På Brottsfokus betyder invandrare samma sak som utrikesfödda: personer som är födda i ett annat land och folkbokförda i Sverige. Ordet har ingen officiell statistisk definition. Brå och SCB skriver utrikesfödda. Barn till invandrare är födda i Sverige och räknas inte som invandrare här.',
+      'On Brottsfokus, immigrants means the same as people born abroad: people who were born in another country and are registered as living in Sweden. The word has no official statistical definition. Brå and SCB write “utrikesfödda” (born abroad). Children of immigrants were born in Sweden and are not counted as immigrants here.',
+    ),
+  },
+  {
+    id: 'folkbokford',
     title: tr(lang, 'Folkbokförd', 'Registered as living in Sweden'),
     text: tr(
       lang,
@@ -30,6 +43,7 @@ const terms = (lang: Lang) => [
     ),
   },
   {
+    id: 'medborgarskap',
     title: tr(lang, 'Medborgarskap', 'Citizenship'),
     text: tr(
       lang,
@@ -38,6 +52,7 @@ const terms = (lang: Lang) => [
     ),
   },
   {
+    id: 'utsatt',
     title: tr(lang, 'Utsatt för brott', 'Victim of crime'),
     text: tr(
       lang,
@@ -46,6 +61,7 @@ const terms = (lang: Lang) => [
     ),
   },
   {
+    id: 'overrisk',
     title: tr(lang, 'Överrisk', 'Excess risk'),
     text: tr(
       lang,
@@ -54,6 +70,7 @@ const terms = (lang: Lang) => [
     ),
   },
   {
+    id: 'befolkningen',
     title: tr(lang, 'Jämförelse med befolkningen', 'Comparison with the population'),
     text: tr(
       lang,
@@ -126,7 +143,7 @@ const allSources = [...sources, ...extraSources].map((s) => ({ ...s, label: sour
   {!ownPage && <h2 id="metod-h">{tr(lang, 'Metod och begrepp', 'Method and terms')}</h2>}
   {
     terms(lang).map((t) => (
-      <div class="term">
+      <div class="term" id={`begrepp-${t.id}`}>
         <h3>{t.title}</h3>
         <p>{t.text}</p>
       </div>
@@ -172,6 +189,7 @@ const allSources = [...sources, ...extraSources].map((s) => ({ ...s, label: sour
     font-weight: 500;
   }
   .term {
+    scroll-margin-top: calc(var(--sticky-nav-h) + 8px);
     display: flex;
     flex-direction: column;
     gap: 8px;
