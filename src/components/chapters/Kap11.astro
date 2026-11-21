@@ -12,6 +12,7 @@ import { tablePage } from '../../lib/dataPages';
 import { formatNumber } from '../../lib/format';
 import { round } from '../../lib/calc';
 import { SOURCES } from '../../lib/sources';
+import { chapter } from '../../lib/chapters';
 
 interface Props {
   lang: Lang;
@@ -67,15 +68,15 @@ const times = (v: number) => formatNumber(v, 1, lang);
   <LineChart spec={spec} />
   <Fragment slot="note">
     {L(
-      'Lagförd betyder här en fällande dom, böter eller beslut att avstå från åtal. Inte justerat för ålder eller kön: barn till invandrare är i genomsnitt mycket yngre än befolkningen, och unga lagförs oftare. Med hänsyn till ålder blir skillnaderna mindre enligt Danmarks Statistik, men de finns kvar. Grupperna är Danmarks Statistiks och skiljer sig från Brås, och de flesta narkotikabrott och alla trafikbrott står i andra lagar och ingår inte. Bara personer som bodde i Danmark räknas. Jämför därför inte direkt med de svenska siffrorna.',
-      'Convicted here means a guilty verdict, a fine or a decision to waive prosecution. Not adjusted for age or sex: descendants of immigrants are on average much younger than the population, and young people are convicted more often. Taking age into account makes the differences smaller, according to Danmarks Statistik, but they remain. The groups are Danmarks Statistik’s and differ from Brå’s, and most drug offences and all traffic offences are in other laws and not included. Only people living in Denmark are counted. So do not compare directly with the Swedish figures.',
+      'Lagförd betyder här en fällande dom, böter eller beslut att avstå från åtal. Inte justerat för ålder eller kön: barn till invandrare är i genomsnitt mycket yngre än befolkningen, och unga lagförs oftare. Med hänsyn till ålder blir skillnaderna mindre, men de finns kvar (se nästa kapitel). Grupperna är Danmarks Statistiks och skiljer sig från Brås, och de flesta narkotikabrott och alla trafikbrott står i andra lagar och ingår inte. Bara personer som bodde i Danmark räknas. Jämför därför inte direkt med de svenska siffrorna.',
+      'Convicted here means a guilty verdict, a fine or a decision to waive prosecution. Not adjusted for age or sex: descendants of immigrants are on average much younger than the population, and young people are convicted more often. Taking age into account makes the differences smaller, but they remain (see the next chapter). The groups are Danmarks Statistik’s and differ from Brå’s, and most drug offences and all traffic offences are in other laws and not included. Only people living in Denmark are counted. So do not compare directly with the Swedish figures.',
     )}
   </Fragment>
   <Fragment slot="source">
     {L('Källa: Danmarks Statistik, Statistikbanken, tabell ', 'Source: Danmarks Statistik, Statbank, table ')}<a href={SOURCES.dstStrfna10.url}>STRFNA10</a>{L(' (lagförda) och ', ' (convicted) and ')}<a href={SOURCES.dstFolk1e.url}>FOLK1E</a>{L(
-      ' (befolkningen). Talen per 1 000 är uträknade här. Åldersjusteringen: ',
-      ' (population). The rates per 1,000 are calculated here. Age adjustment: ',
-    )}<a href={SOURCES.dstIndv2024.url}>{L('Indvandrere i Danmark 2024', 'Indvandrere i Danmark 2024')}</a>{L(', avsnitt 6.2.', ', section 6.2.')}
+      ` (befolkningen). Talen per 1 000 är uträknade här. Åldersjusteringen: kapitel ${chapter('kap12').num}.`,
+      ` (population). The rates per 1,000 are calculated here. Age adjustment: chapter ${chapter('kap12').num}.`,
+    )}
   </Fragment>
   <SubChart
     slot="after"

@@ -29,7 +29,8 @@ import { barFmt as barFmtIn, type BarFormat } from '../src/lib/charts/bar';
 import { dotFmt as dotFmtIn, type DotFormat } from '../src/lib/charts/dot';
 import { fmt as fmtIn, type ValueFormat } from '../src/lib/charts/line';
 import { buildKap11, DK_ORDER, groupLabel as dkGroupLabel, ratioToAll } from '../src/lib/chapters/kap11';
-import { loadDkGuilty, loadDkPopulation } from '../src/lib/data';
+import { loadDkGuilty, loadDkIndex, loadDkPopulation } from '../src/lib/data';
+import { ADJ_LABEL, buildKap12, groupLabel as dk12GroupLabel } from '../src/lib/chapters/kap12';
 import { tablePageContent as tablePageContentIn } from '../src/lib/tablePageContent';
 import { tablePage as tablePageIn, tablePages } from '../src/lib/dataPages';
 import { formatCell as formatCellIn } from '../src/lib/tables';
@@ -332,6 +333,23 @@ const kap5 = buildKap5(bra2005);
     add(K, o === 'straffelov' ? 'Rubriken och inledningen' : 'Andra diagrammets rubrik', `Barn till invandrare, icke-västliga, gånger befolkningen ${k.lastYear}`, formatTimes(ratioToAll(k, o, 'eftk_ikkevest', k.lastYear)), 'Kvot mellan talen per 1 000 ovan', CALC, URL);
   }
   add(K, 'Inledningen', `Barn till invandrare, icke-västliga, gånger befolkningen ${k.firstYear}`, formatTimes(ratioToAll(k, 'straffelov', 'eftk_ikkevest', k.firstYear)), 'Kvot mellan talen per 1 000 ovan', CALC, URL);
+}
+
+// ---------- Chapter 5.2 (Denmark, crime index) ----------
+{
+  const K = '5.2 Kriminalitetsindex, Danmark';
+  const URL = 'https://www.dst.dk/da/Statistik/udgivelser/VisPub?cid=54707';
+  const k12 = buildKap12(loadDkIndex());
+  for (const r of k12.rows.filter((x) => x.offence === 'alle' && x.table !== '6.9')) {
+    // The age-adjusted value is in both 6.5 and 6.7; list it once, from 6.5.
+    if (r.table === '6.7' && r.adjustment === 'alder') continue;
+    const where = r.sex === 'man' ? 'Diagram, män' : 'Andra diagrammet, kvinnor';
+    add(K, where, `${dk12GroupLabel(r.group, 'sv')}, ${ADJ_LABEL[r.adjustment].sv.toLowerCase()}, ${r.year}`, r.index === null ? 'saknas' : formatNumber(r.index), `Indvandrere i Danmark 2025, tabell ${r.table}, s. ${r.page}`, STATED, URL);
+  }
+  for (const s of ['man', 'kvinnor'] as const) {
+    const r = k12.rows.find((x) => x.sex === s && x.group === 'eftk_ikkevest' && x.adjustment === 'alder' && x.offence === 'straffelov')!;
+    add(K, 'Läs så här', `Barn till invandrare, icke-västliga, ${s === 'man' ? 'män' : 'kvinnor'}, strafflagen, ålder`, formatNumber(r.index!), `Indvandrere i Danmark 2025, tabell 6.9, s. ${r.page}`, STATED, URL);
+  }
 }
 
 writeFileSync('docs/sifferkontroll.csv', toCsv(main));

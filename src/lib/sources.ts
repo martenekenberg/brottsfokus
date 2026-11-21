@@ -48,9 +48,9 @@ export const SOURCES = {
     label: 'Danmarks Statistik, Statistikbanken, tabell FOLK1E: Befolkningen den 1. i kvartalet efter herkomst og alder',
     url: 'https://www.statistikbanken.dk/FOLK1E',
   },
-  dstIndv2024: {
-    label: 'Danmarks Statistik, Indvandrere i Danmark 2024',
-    url: 'https://www.dst.dk/pubfile/52300/Indv2024',
+  dstIndv2025: {
+    label: 'Danmarks Statistik, Indvandrere i Danmark 2025',
+    url: 'https://www.dst.dk/da/Statistik/udgivelser/VisPub?cid=54707',
   },
   scbCitizens: {
     label: 'SCB, Utländska medborgare i Sverige',

@@ -73,6 +73,12 @@ const labels: Omit<ChapterInfo, 'num'>[] = [
     kicker: { sv: 'Lagförda i Danmark', en: 'Convicted in Denmark' },
     nextLabel: { sv: 'Lagförda i Danmark', en: 'Convicted in Denmark' },
   },
+  {
+    id: 'kap12',
+    navLabel: { sv: 'Justerat för ålder', en: 'Adjusted for age' },
+    kicker: { sv: 'Justerat för ålder och sociala förhållanden', en: 'Adjusted for age and social factors' },
+    nextLabel: { sv: 'Justerat för ålder och sociala förhållanden', en: 'Adjusted for age and social factors' },
+  },
 ];
 
 /** All chapters in reading order: part by part, in each part's order. */

@@ -7,9 +7,10 @@ import { chapter, chapterHref } from './chapters';
 import { buildKap1Data } from './chapters/kap1';
 import { buildKap3 } from './chapters/kap3';
 import { buildKap11 } from './chapters/kap11';
+import { buildKap12 } from './chapters/kap12';
 import { cohorts as backmanCohorts } from './chapters/kap9';
 import { birthYears } from './chapters/kap10';
-import { loadBirthCohorts, loadCohorts, loadDkGuilty, loadDkPopulation, loadPopulation, loadPrison, loadSuspectsByBackground } from './data';
+import { loadBirthCohorts, loadCohorts, loadDkGuilty, loadDkIndex, loadDkPopulation, loadPopulation, loadPrison, loadSuspectsByBackground } from './data';
 import { tr, type Lang } from './i18n';
 import { SOURCES } from './sources';
 
@@ -148,6 +149,19 @@ export function chapterFacts(id: string, lang: Lang): ChapterFacts {
             href: SOURCES.dstStrfna10.url,
             covers: L(`Lagförda ${firstYear}–${lastYear}`, `Convicted ${firstYear}–${lastYear}`),
             published: L('Varje år', 'Every year'),
+          },
+        ],
+      };
+    }
+    case 'kap12': {
+      const { year } = buildKap12(loadDkIndex());
+      return {
+        studies: [
+          {
+            study: L('Danmarks Statistik, Indvandrere i Danmark 2025', 'Danmarks Statistik, Indvandrere i Danmark 2025'),
+            href: SOURCES.dstIndv2025.url,
+            covers: L(`Lagförda ${year}`, `Convicted in ${year}`),
+            published: '2025',
           },
         ],
       };

@@ -19,6 +19,7 @@ export const TERMS: Record<string, Text> = {
   befolkningen: { sv: 'Jämförelse med befolkningen', en: 'Comparison with the population' },
   'ursprung-dk': { sv: 'Ursprung i Danmark', en: 'Origin in Denmark' },
   'lagford-dk': { sv: 'Lagförd i Danmark', en: 'Convicted in Denmark' },
+  'index-dk': { sv: 'Kriminalitetsindex', en: 'Crime index' },
 };
 
 interface Related {
@@ -92,6 +93,13 @@ const RELATED: Record<string, Related> = {
       { id: 'kap1', note: { sv: 'misstänkta i Sverige, efter bakgrund', en: 'suspected in Sweden, by background' } },
     ],
     terms: ['ursprung-dk', 'lagford-dk', 'befolkningen'],
+  },
+  kap12: {
+    chapters: [
+      { id: 'kap11', note: { sv: 'samma grupper år för år, utan justering', en: 'the same groups year by year, unadjusted' } },
+      { id: 'kap2', note: { sv: 'Brås justerade överrisker för Sverige, 2015–2018', en: 'Brå’s adjusted excess risks for Sweden, 2015–2018' } },
+    ],
+    terms: ['index-dk', 'ursprung-dk', 'lagford-dk'],
   },
   kap8: {
     chapters: [

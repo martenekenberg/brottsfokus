@@ -1,0 +1,126 @@
+---
+// Chapter 5.2: Danmarks Statistik's crime index, unadjusted and adjusted for age and other factors.
+// Loads its own data and stops the build if its headlines no longer match the data.
+import Chapter from '../Chapter.astro';
+import Legend from '../Legend.astro';
+import BarChart from '../charts/BarChart.astro';
+import SubChart from '../SubChart.astro';
+import { tr, type Lang } from '../../lib/i18n';
+import { loadDkIndex } from '../../lib/data';
+import { ADJ_KIND, ADJ_LABEL, ADJ_ORDER, buildKap12, buildKap12Spec, indexAt, INDEX_ORDER, pageOf } from '../../lib/chapters/kap12';
+import { chapter } from '../../lib/chapters';
+import { BAR_COLORS } from '../../lib/charts/bar';
+import { round } from '../../lib/calc';
+import { tablePage } from '../../lib/dataPages';
+import { formatNumber } from '../../lib/format';
+import { SOURCES } from '../../lib/sources';
+
+interface Props {
+  lang: Lang;
+}
+const { lang } = Astro.props;
+const L = (sv: string, en: string) => tr(lang, sv, en);
+const n = (v: number) => formatNumber(v, 0, lang);
+
+const k = buildKap12(loadDkIndex());
+const year = k.year;
+const idx = (s: 'man' | 'kvinnor', g: Parameters<typeof indexAt>[2], a: Parameters<typeof indexAt>[3], o: Parameters<typeof indexAt>[4] = 'alle') => indexAt(k, s, g, a, o);
+const further = ['alder_socio', 'alder_utb', 'alder_ink'] as const;
+const range = (s: 'man' | 'kvinnor', g: Parameters<typeof indexAt>[2]) => {
+  const vals = further.map((a) => idx(s, g, a));
+  return { min: Math.min(...vals), max: Math.max(...vals) };
+};
+
+// The headline says descendants from non-Western countries were convicted 2.5 times as often as average, taking age
+// into account, for men and for women. Stop the build if either no longer rounds to 2.5.
+for (const s of ['man', 'kvinnor'] as const) {
+  if (round(idx(s, 'eftk_ikkevest', 'alder') / 100, 1) !== 2.5) throw new Error(`Chapter 5.2 headline no longer matches the data (${s})`);
+}
+// The intro says the index stays at least twice the average with every further adjustment, for both sexes,
+// and that the age adjustment lowers it.
+for (const s of ['man', 'kvinnor'] as const) {
+  if (range(s, 'eftk_ikkevest').min < 200) throw new Error(`Chapter 5.2 intro: "at least twice" no longer holds (${s})`);
+  if (!(idx(s, 'eftk_ikkevest', 'alder') < idx(s, 'eftk_ikkevest', 'ingen'))) throw new Error(`Chapter 5.2 intro: age adjustment no longer lowers the index (${s})`);
+}
+// The note says people of Danish origin are below average with every adjustment.
+for (const s of ['man', 'kvinnor'] as const) {
+  if (ADJ_ORDER.some((a) => idx(s, 'dansk', a) >= 100)) throw new Error(`Chapter 5.2 note: Danish origin is no longer below 100 (${s})`);
+}
+
+const menRange = range('man', 'eftk_ikkevest');
+const womenRange = range('kvinnor', 'eftk_ikkevest');
+const immRange = range('man', 'indv_ikkevest');
+const legend = [
+  ...ADJ_ORDER.map((a) => ({ label: ADJ_LABEL[a][lang], color: BAR_COLORS[ADJ_KIND[a]].fill, mark: 'bar' as const })),
+  { label: L('Genomsnittet = 100', 'Average = 100'), color: '#121212', mark: 'dash' as const },
+];
+const p65 = pageOf(k, '6.5');
+const p67 = pageOf(k, '6.7');
+const p69 = pageOf(k, '6.9');
+/** An index as "times the average": 253 -> 2,5. */
+const times = (v: number) => formatNumber(v / 100, 1, lang);
+---
+
+<Chapter
+  id="kap12"
+  lang={lang}
+  tableHref={tablePage('kap12', lang).path}
+  title={L(
+    `Med hänsyn till ålder lagfördes barn till invandrare från icke-västliga länder 2,5 gånger så ofta som genomsnittet i Danmark ${year}`,
+    `Taking age into account, descendants of immigrants from non-Western countries in Denmark were convicted 2.5 times as often as average in ${year}`,
+  )}
+>
+  <p slot="intro">
+    {L(
+      `Danmarks Statistiks kriminalitetsindex, där genomsnittet för alla män och för alla kvinnor 15–79 år är 100. För män som är barn till invandrare från icke-västliga länder var indexet ${n(idx('man', 'eftk_ikkevest', 'ingen'))} utan justering och ${n(idx('man', 'eftk_ikkevest', 'alder'))} med hänsyn till ålder. Med hänsyn också till egen sysselsättning, familjens utbildning eller familjens inkomst låg det mellan ${n(menRange.min)} och ${n(menRange.max)}, alltså minst dubbelt så högt som genomsnittet. För kvinnor i samma grupp låg det mellan ${n(womenRange.min)} och ${n(womenRange.max)}.`,
+      `Danmarks Statistik’s crime index, where the average for all men and for all women aged 15–79 is 100. For men who are descendants of immigrants from non-Western countries, the index was ${n(idx('man', 'eftk_ikkevest', 'ingen'))} unadjusted and ${n(idx('man', 'eftk_ikkevest', 'alder'))} taking age into account. Taking own employment status, family education or family income into account as well, it was between ${n(menRange.min)} and ${n(menRange.max)}, at least twice the average. For women in the same group it was between ${n(womenRange.min)} and ${n(womenRange.max)}.`,
+    )}
+  </p>
+  <Legend slot="legend" items={legend} />
+  <p class="chart-heading">{L(`Män, ${year}`, `Men, ${year}`)}</p>
+  <BarChart spec={buildKap12Spec(k, 'man', lang)} />
+  <Fragment slot="note">
+    {L(
+      `Indexet räknar alla lagföringar, även trafikbrott och brott mot särskilda lagar, så det är inte samma mått som i kapitel ${chapter('kap11').num}. Bara för brott mot strafflagen, med hänsyn till ålder, var indexet ${n(idx('man', 'eftk_ikkevest', 'alder', 'straffelov'))} för män och ${n(idx('kvinnor', 'eftk_ikkevest', 'alder', 'straffelov'))} för kvinnor i gruppen. Varje justering görs tillsammans med ålder, en i taget, inte alla på en gång. En justering visar hur mycket av skillnaden som hänger ihop med förhållandet, inte vad som orsakar den. För invandrare från icke-västliga länder sjönk indexet för män från ${n(idx('man', 'indv_ikkevest', 'ingen'))} till mellan ${n(immRange.min)} och ${n(immRange.max)} med justeringarna. Personer med dansk ursprung låg under 100 med alla justeringar.`,
+      `The index counts all convictions, including traffic offences and offences against special laws, so it is not the same measure as in chapter ${chapter('kap11').num}. For criminal code offences only, taking age into account, the index was ${n(idx('man', 'eftk_ikkevest', 'alder', 'straffelov'))} for men and ${n(idx('kvinnor', 'eftk_ikkevest', 'alder', 'straffelov'))} for women in the group. Each adjustment is made together with age, one at a time, not all at once. An adjustment shows how much of the difference goes together with that factor, not what causes it. For immigrants from non-Western countries, the index for men fell from ${n(idx('man', 'indv_ikkevest', 'ingen'))} to between ${n(immRange.min)} and ${n(immRange.max)} with the adjustments. People of Danish origin were below 100 with every adjustment.`,
+    )}
+  </Fragment>
+  <Fragment slot="source">
+    {L('Källa: Danmarks Statistik, ', 'Source: Danmarks Statistik, ')}<a href={SOURCES.dstIndv2025.url}>Indvandrere i Danmark 2025</a>{L(
+      `, tabell 6.5 (s. ${p65}), 6.7 (s. ${p67}) och 6.9 (s. ${p69}). Siffror för ${year}.`,
+      `, tables 6.5 (p. ${p65}), 6.7 (p. ${p67}) and 6.9 (p. ${p69}). Figures for ${year}.`,
+    )}
+  </Fragment>
+  <SubChart
+    slot="after"
+    id="kap12-kvinnor"
+    lang={lang}
+    title={L(
+      `Kvinnor: barn till invandrare från icke-västliga länder låg på ${n(idx('kvinnor', 'eftk_ikkevest', 'alder'))} med hänsyn till ålder, ${times(idx('kvinnor', 'eftk_ikkevest', 'alder'))} gånger genomsnittet för alla kvinnor`,
+      `Women: descendants of immigrants from non-Western countries were at ${n(idx('kvinnor', 'eftk_ikkevest', 'alder'))} taking age into account, ${times(idx('kvinnor', 'eftk_ikkevest', 'alder'))} times the average for all women`,
+    )}
+  >
+    <Legend slot="legend" items={legend} />
+    <BarChart spec={buildKap12Spec(k, 'kvinnor', lang)} />
+    <Fragment slot="note">
+      {L(
+        'Samma index för kvinnor, där genomsnittet för alla kvinnor 15–79 år är 100. Betydligt färre kvinnor än män lagförs, så indexen bygger på mindre tal och kan ändras mer mellan åren.',
+        'The same index for women, where the average for all women aged 15–79 is 100. Far fewer women than men are convicted, so the indices rest on smaller numbers and can change more from year to year.',
+      )}
+    </Fragment>
+    <Fragment slot="source">
+      {L('Källa: Danmarks Statistik, ', 'Source: Danmarks Statistik, ')}<a href={SOURCES.dstIndv2025.url}>Indvandrere i Danmark 2025</a>{L(
+        `, tabell 6.5 och 6.7 (s. ${p65} och ${p67}).`,
+        `, tables 6.5 and 6.7 (pp. ${p65} and ${p67}).`,
+      )}
+    </Fragment>
+  </SubChart>
+</Chapter>
+
+<style>
+  .chart-heading {
+    margin: 0;
+    font-size: 14px;
+    font-weight: 600;
+  }
+</style>

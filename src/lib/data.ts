@@ -561,3 +561,49 @@ export function loadDkPopulation(): DkPopulationRow[] {
   }
   return rows;
 }
+
+// ---------- dst_kriminalitetsindeks.csv (chapter 5.2, Denmark) ----------
+
+/** Danmarks Statistik's index groups (the whole population is 100 by definition and not in the file). */
+export const DK_INDEX_GROUPS = ['indv_vest', 'eftk_vest', 'indv_ikkevest', 'eftk_ikkevest', 'dansk'] as const;
+export type DkIndexGroup = (typeof DK_INDEX_GROUPS)[number];
+/** What the index takes into account: nothing, age, or age plus one more factor. */
+export const DK_ADJUSTMENTS = ['ingen', 'alder', 'alder_socio', 'alder_utb', 'alder_ink'] as const;
+export type DkAdjustment = (typeof DK_ADJUSTMENTS)[number];
+export const DK_INDEX_OFFENCES = ['alle', 'straffelov', 'vold', 'ejendom', 'faerdsel', 'saerlove'] as const;
+export type DkIndexOffence = (typeof DK_INDEX_OFFENCES)[number];
+
+export interface DkIndexRow {
+  year: number;
+  /** Table in Indvandrere i Danmark 2025: 6.5, 6.7 or 6.9. */
+  table: '6.5' | '6.7' | '6.9';
+  sex: 'man' | 'kvinnor';
+  adjustment: DkAdjustment;
+  offence: DkIndexOffence;
+  group: DkIndexGroup;
+  /** Index, the average for all men or all women aged 15–79 = 100. Null where Danmarks Statistik prints ".." (fewer than ten convicted). */
+  index: number | null;
+  page: number;
+}
+
+export function loadDkIndex(): DkIndexRow[] {
+  const file = 'dst_kriminalitetsindeks.csv';
+  const rows = readCsv(file, ['year', 'table', 'sex', 'adjustment', 'offence', 'group', 'index', 'page']).map((r) => ({
+    year: required(r.year, 'year'),
+    table: oneOf(r.table, ['6.5', '6.7', '6.9'] as const, `${file} table`),
+    sex: oneOf(r.sex, ['man', 'kvinnor'] as const, `${file} sex`),
+    adjustment: oneOf(r.adjustment, DK_ADJUSTMENTS, `${file} adjustment`),
+    offence: oneOf(r.offence, DK_INDEX_OFFENCES, `${file} offence`),
+    group: oneOf(r.group, DK_INDEX_GROUPS, `${file} group`),
+    index: num(r.index),
+    page: required(r.page, `${file} page`),
+  }));
+  unique(rows, (r) => `${r.table}/${r.sex}/${r.adjustment}/${r.offence}/${r.group}`, file);
+  // The age-adjusted index for all decisions is printed in all three tables. Stop the build if a copy differs,
+  // which would mean a value was misread from the PDF.
+  for (const r of rows.filter((x) => x.adjustment === 'alder' && x.offence === 'alle')) {
+    const other = rows.filter((x) => x.adjustment === 'alder' && x.offence === 'alle' && x.sex === r.sex && x.group === r.group);
+    if (other.some((x) => x.index !== r.index)) throw new Error(`${file}: tables disagree on the age-adjusted index for ${r.sex}, ${r.group}`);
+  }
+  return rows;
+}

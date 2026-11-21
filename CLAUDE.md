@@ -67,6 +67,7 @@ All files are UTF-8 CSV with a header row. Values use a dot as the decimal separ
 | `dodligt_vald.csv` | 4.2 | Brå 2025:5: shares Brå states in the text or prints on a figure (pp. 9–14, 76–79). |
 | `backman_lagforda_fore_25.csv` | 2.1 | Bäckman et al. 2021, tables 1 and 2 (CC BY 4.0). |
 | `dst_lagforda_herkomst.csv`, `dst_befolkning_herkomst.csv` | 5.1 | Danmarks Statistik, Statbank tables STRFNA10 (people aged 15–79 found guilty, by origin, criminal code and violence) and FOLK1E (population aged 15–79 on 1 January, by origin). Written by `python3 scripts/dst_fetch.py`; the loader stops the build if the groups do not add up to the total. |
+| `dst_kriminalitetsindeks.csv` | 5.2 | Danmarks Statistik, Indvandrere i Danmark 2025, tables 6.5, 6.7 and 6.9 (pp. 112, 115, 118): crime index for 2024 (all men or all women aged 15–79 = 100), unadjusted and adjusted for age, and for age plus employment, family education or family income; by offence adjusted for age. Machine-read from the PDF (`docs/kallor/Indvandrere_i_Danmark_2025.pdf`); empty = ".." in the report. The loader stops the build if the age-adjusted value differs between the three tables. Update by hand when a new edition is published. |
 | `bra_fodelsekohorter.csv` | 2.1 | Brå 2025:21 Excel tables 1 and 4: share of each birth year convicted before age 25 and 20, by sex and background (from birth year 1984). |
 
 Calculated values (shares, averages) are computed in code from these files. Keep each calculation in one small, named function so it can be checked. Rules:
@@ -126,7 +127,7 @@ A front page plus one page per part (owner's decision, 19 November 2026). The pa
 | 2. Lagförda och dömda | `/lagforda-och-domda/` | `/en/convictions/` | 2.1 Lagförda före 25 års ålder, 2.2 Våldtäkt |
 | 3. Fängelse och utvisning | `/fangelse-och-utvisning/` | `/en/prison-and-deportation/` | 3.1 Fängelse, 3.2 Utvisning |
 | 4. Brottsoffer | `/brottsoffer/` | `/en/victims/` | 4.1 Utsatta för brott, 4.2 Dödligt våld |
-| 5. Danmark | `/danmark/` | `/en/denmark/` | 5.1 Lagförda i Danmark (5.2, the age-adjusted index, planned) |
+| 5. Danmark | `/danmark/` | `/en/denmark/` | 5.1 Lagförda i Danmark, 5.2 Justerat för ålder och sociala förhållanden |
 | Frågor och svar | `/fragor-och-svar/` | `/en/faq/` | Questions on terms and sources (`src/lib/faq.ts`), then every chapter's short answer grouped by part with a link to its chapter. FAQPage markup |
 | Metod och begrepp | `/metod/` | `/en/method/` | Short definitions in a grid, and the "Källor" list |
 | Om sidan | `/om/` | `/en/about/` | Why the site exists, how data is chosen, who runs it (a private person who works with data analysis; no name, owner's decision November 2026), how the work is done (editorial points, including checks against the source when data changes), errors and corrections (with the dated "Rättelser" list), cookies and visitor statistics |
@@ -192,6 +193,8 @@ Numbered by part (see "Page structure"). The ids (`kap1` and so on) are the old 
 
 5.1 **Lagförda i Danmark, 2008–2025** (`kap11`). Added at the owner's request, November 2026. Line chart per 1,000 residents aged 15–79 for Danmarks Statistik's five origin groups plus the whole population (dashed), criminal code offences; second chart for crimes of violence. Swedish copy says "barn till invandrare" for Danish "efterkommere", English says "descendants" as Danmarks Statistik does. The Danish groups differ from Brå's and the page says the figures cannot be compared directly with the Swedish ones.
 
+5.2 **Justerat för ålder och sociala förhållanden, 2024** (`kap12`). Grouped bars per origin group: Danmarks Statistik's crime index unadjusted, adjusted for age, and for age plus own employment, family education or family income, with a dashed line at 100. Men in the main chart, women in the second. The index counts all convictions, including traffic offences, unlike 5.1; the note says so and gives the criminal code value from table 6.9.
+
 Every headline that makes a claim about the data has a check in its chapter component (`src/components/chapters/`) that stops the build if the data no longer supports it. Add one for every new headline.
 
 ## Charts
@@ -232,7 +235,7 @@ Every headline that makes a claim about the data has a check in its chapter comp
 - Bäckman et al. 2021: https://doi.org/10.1080/2578983X.2021.1900038
 - Brå 2025:21: https://bra.se/rapporter/arkiv/2025-12-02-fodelsekohortstatistik
 - Danmarks Statistik, Statbank: https://www.statistikbanken.dk/STRFNA10 and https://www.statistikbanken.dk/FOLK1E
-- Danmarks Statistik, Indvandrere i Danmark 2024 (chapter 6.2, age-adjusted index): https://www.dst.dk/pubfile/52300/Indv2024
+- Danmarks Statistik, Indvandrere i Danmark 2025 (section 6.2, crime index): https://www.dst.dk/da/Statistik/udgivelser/VisPub?cid=54707
 
 A "Källor" list with all links goes in the Metod section.
 

@@ -18,6 +18,7 @@ import {
   loadCohorts,
   loadBirthCohorts,
   loadDkGuilty,
+  loadDkIndex,
   loadDkPopulation,
 } from './data';
 import { chapter } from './chapters';
@@ -36,6 +37,7 @@ import { deportTables, fact, kap7Csv, notRegisteredSentence, suppressedGroups, t
 import { backgroundTables, flagged, kap6Csv, pooled, regionTables, yearTables } from './chapters/kap6';
 import { kap4Tables } from './chapters/kap4Tables';
 import { buildKap11, kap11Tables, rateAt, ratioToAll } from './chapters/kap11';
+import { buildKap12, indexAt, kap12Tables, pageOf } from './chapters/kap12';
 import { kap5Csv, kap5Tables } from './chapters/kap5Tables';
 import { formatNumber } from './format';
 import { tr, type Lang } from './i18n';
@@ -1063,7 +1065,66 @@ function kap11(lang: Lang): TablePageContent {
   };
 }
 
-const BUILDERS: Record<string, (lang: Lang) => TablePageContent> = { kap1, kap2, kap3, kap4, kap5, kap6, kap7, kap8, kap9, kap10, kap11 };
+function kap12(lang: Lang): TablePageContent {
+  const T = <X,>(sv: X, en: X): X => tr(lang, sv, en);
+  const n = (v: number) => formatNumber(v, 0, lang);
+  const k = buildKap12(loadDkIndex());
+  const tables = kap12Tables(k, lang);
+  const [adjMen, adjWomen, offMen, offWomen] = tables;
+  const y = k.year;
+  const i = (s: 'man' | 'kvinnor', a: Parameters<typeof indexAt>[3], o: Parameters<typeof indexAt>[4] = 'alle') => indexAt(k, s, 'eftk_ikkevest', a, o);
+  const pages = T(`tabell 6.5, 6.7 och 6.9 (s. ${pageOf(k, '6.5')}, ${pageOf(k, '6.7')} och ${pageOf(k, '6.9')})`, `tables 6.5, 6.7 and 6.9 (pp. ${pageOf(k, '6.5')}, ${pageOf(k, '6.7')} and ${pageOf(k, '6.9')})`);
+  return {
+    chapterId: 'kap12',
+    lang,
+    h1: T(`Kriminalitetsindex i Danmark efter ursprung, justerat för ålder och sociala förhållanden, ${y}`, `Crime index in Denmark by origin, adjusted for age and social factors, ${y}`),
+    shortTitle: T(`Danmarks kriminalitetsindex ${y}: tabell`, `Denmark’s crime index ${y}: table`),
+    description: T(
+      `Danmarks Statistiks kriminalitetsindex ${y} för män och kvinnor efter ursprung, utan justering och justerat för ålder, sysselsättning, familjens utbildning och familjens inkomst, och efter typ av brott. Tabell och CSV-fil.`,
+      `Danmarks Statistik’s crime index for ${y}, men and women by origin, unadjusted and adjusted for age, employment, family education and family income, and by type of offence. Table and CSV file.`,
+    ),
+    datasetDescription: T(
+      `Kriminalitetsindex för personer 15–79 år i Danmark ${y}, efter kön och Danmarks Statistiks grupper för ursprung. Genomsnittet för alla män respektive alla kvinnor är 100. Utan justering, justerat för ålder, och justerat för ålder tillsammans med egen sysselsättning, familjens utbildning eller familjens inkomst. Också efter typ av brott, justerat för ålder. Från Indvandrere i Danmark 2025, ${pages}.`,
+      `Crime index for people aged 15–79 in Denmark, ${y}, by sex and Danmarks Statistik’s origin groups. The average for all men and for all women is 100. Unadjusted, adjusted for age, and adjusted for age together with own employment status, family education or family income. Also by type of offence, adjusted for age. From Indvandrere i Danmark 2025, ${pages}.`,
+    ),
+    temporalCoverage: `${y}/${y}`,
+    keywords: T(
+      ['Danmark', 'kriminalitetsindex', 'åldersjusterat', 'invandrare', 'efterkommere', 'Danmarks Statistik'],
+      ['Denmark', 'crime index', 'age-adjusted', 'immigrants', 'descendants', 'Danmarks Statistik'],
+    ),
+    variableMeasured: [...new Set(tables.flatMap((t) => t.columns).map((c) => c.label))],
+    sources: [SOURCES.dstIndv2025],
+    credit: 'Danmarks Statistik',
+    terms: T(
+      'Danmarks Statistik låter alla använda sina data fritt, också kommersiellt, om Danmarks Statistik anges som källa.',
+      'Danmarks Statistik lets anyone use its data freely, also commercially, if Danmarks Statistik is named as the source.',
+    ),
+    lead: T(
+      `Med hänsyn till ålder hade män som är barn till invandrare från icke-västliga länder ett kriminalitetsindex på ${n(i('man', 'alder'))} år ${y}, där alla män är 100. Utan justering var det ${n(i('man', 'ingen'))}. ` +
+        `För kvinnor i samma grupp var det ${n(i('kvinnor', 'alder'))} med hänsyn till ålder. Källa: Danmarks Statistik, Indvandrere i Danmark 2025.`,
+      `Taking age into account, men who are descendants of immigrants from non-Western countries had a crime index of ${n(i('man', 'alder'))} in ${y}, where all men are 100. Unadjusted, it was ${n(i('man', 'ingen'))}. ` +
+        `For women in the same group it was ${n(i('kvinnor', 'alder'))} taking age into account. Source: Danmarks Statistik, Indvandrere i Danmark 2025.`,
+    ),
+    note: T(
+      'Indexet räknar alla lagföringar under året, även trafikbrott och brott mot särskilda lagar, utom i tabellerna efter typ av brott. ' +
+        'Varje justering görs tillsammans med ålder, en i taget. En justering visar hur mycket av skillnaden som hänger ihop med förhållandet, inte vad som orsakar den. ' +
+        'Grupperna är Danmarks Statistiks och skiljer sig från Brås. Streck (–) betyder att Danmarks Statistik inte anger något värde, eftersom färre än tio personer i gruppen lagfördes. ' +
+        'Siffrorna är avlästa ur rapporten (PDF) och kontrollerade mot den: indexet justerat för ålder står i alla tre tabellerna och är detsamma i alla.',
+      'The index counts all convictions during the year, including traffic offences and offences against special laws, except in the tables by type of offence. ' +
+        'Each adjustment is made together with age, one at a time. An adjustment shows how much of the difference goes together with that factor, not what causes it. ' +
+        'The groups are Danmarks Statistik’s and differ from Brå’s. A dash (–) means that Danmarks Statistik gives no value, because fewer than ten people in the group were convicted. ' +
+        'The figures were read from the report (PDF) and checked against it: the age-adjusted index appears in all three tables and is the same in each.',
+    ),
+    sections: [
+      { heading: T('Utan och med justering', 'Unadjusted and adjusted'), tables: [adjMen, adjWomen] },
+      { heading: T('Efter typ av brott, justerat för ålder', 'By type of offence, adjusted for age'), tables: [offMen, offWomen] },
+    ],
+    csv: tablesToCsv(tables, lang),
+    dataFiles: ['dst_kriminalitetsindeks.csv'],
+  };
+}
+
+const BUILDERS: Record<string, (lang: Lang) => TablePageContent> = { kap1, kap2, kap3, kap4, kap5, kap6, kap7, kap8, kap9, kap10, kap11, kap12 };
 const cache = new Map<string, TablePageContent>();
 
 /** The text and tables for one table page in one language. */

@@ -31,6 +31,10 @@
     "date": "2026-11-21",
     "sha256": "48256c1fb9cba12d13703cafa5bb015a8e14f13bd20ed49719fc952f3a72adc1"
   },
+  "dst_kriminalitetsindeks.csv": {
+    "date": "2026-11-21",
+    "sha256": "83a3963698f28e851205e2a619e20e67adcad114cbfc481305b06bed333b4efa"
+  },
   "dst_lagforda_herkomst.csv": {
     "date": "2026-11-21",
     "sha256": "7f50953ba04bc7e21e9a703835ae60061e42ca3ebd3eb0552755b33733d1c0e0"

@@ -4,6 +4,7 @@
 // Item 10 of the SEO plan, November 2026.
 import type { Lang } from './i18n';
 import { DK_CSV, DK_OFFENCE_CSV, DK_ORDER, DK_STYLE, OFFENCE_NAME } from './chapters/kap11';
+import { kap12DictionaryColumns } from './chapters/kap12';
 import type { DkOffence } from './data';
 
 type Text = { sv: string; en: string };
@@ -178,6 +179,14 @@ const DICTIONARY: Record<string, Column[]> = {
         en: `Number of residents aged 15–79 on 1 January (FOLK1E), ${DK_STYLE[g].label.en.toLowerCase().replace('danish', 'Danish').replace('non-western', 'non-Western').replace('western', 'Western')}.`,
       }, COUNT),
     ),
+  ],
+  // 5.2 Kriminalitetsindex (Danmarks Statistik, Indvandrere i Danmark 2025, tables 6.5, 6.7 and 6.9)
+  kap12: [
+    col('grupp', 'group', 'string', {
+      sv: 'Grupp efter ursprung, enligt Danmarks Statistik: barn till invandrare (efterkommere) och invandrare från icke-västliga och västliga länder, och dansk ursprung.',
+      en: 'Group by origin, according to Danmarks Statistik: descendants and immigrants from non-Western and Western countries, and Danish origin.',
+    }),
+    ...kap12DictionaryColumns().map((c) => col(c.name.sv, c.name.en, 'integer', c.description, { sv: 'index (genomsnitt = 100)', en: 'index (average = 100)' })),
   ],
 };
 

@@ -89,6 +89,15 @@ const terms = (lang: Lang) => [
     ),
   },
   {
+    id: 'index-dk',
+    title: tr(lang, 'Kriminalitetsindex', 'Crime index'),
+    text: tr(
+      lang,
+      `Danmarks Statistiks mått i kapitel ${chapter('kap12').num}. Genomsnittet för alla män, eller alla kvinnor, 15–79 år är 100. Ett index på 245 betyder att gruppen lagfördes 2,45 gånger så ofta som genomsnittet. Justerat för ålder betyder att Danmarks Statistik räknar som om gruppen hade samma åldrar som befolkningen.`,
+      `Danmarks Statistik’s measure in chapter ${chapter('kap12').num}. The average for all men, or all women, aged 15–79 is 100. An index of 245 means the group was convicted 2.45 times as often as average. Adjusted for age means Danmarks Statistik calculates as if the group had the same ages as the population.`,
+    ),
+  },
+  {
     id: 'lagford-dk',
     title: tr(lang, 'Lagförd i Danmark', 'Convicted in Denmark'),
     text: tr(
@@ -148,8 +157,8 @@ const sources = [
     url: 'https://www.statistikbanken.dk/FOLK1E',
   },
   {
-    label: 'Danmarks Statistik, Indvandrere i Danmark 2024',
-    url: 'https://www.dst.dk/pubfile/52300/Indv2024',
+    label: 'Danmarks Statistik, Indvandrere i Danmark 2025',
+    url: 'https://www.dst.dk/da/Statistik/udgivelser/VisPub?cid=54707',
   },
   {
     label: 'SCB, Utländska medborgare i Sverige',
