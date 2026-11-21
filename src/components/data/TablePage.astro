@@ -5,7 +5,8 @@
 import DataLayout from '../../layouts/DataLayout.astro';
 import DataTableView from './DataTableView.astro';
 import { columnIn, dataDictionary } from '../../lib/dataDictionary';
-import { chapter, chapterHref } from '../../lib/chapters';
+import { chapter, chapterHref, MERGED } from '../../lib/chapters';
+import { partOf } from '../../lib/parts';
 import { tablePage, tablePages, tablesIndexPath } from '../../lib/dataPages';
 import { dataDate } from '../../lib/dataDates';
 import { IN_LANGUAGE, tr, type Lang } from '../../lib/i18n';
@@ -41,7 +42,7 @@ const dataset = {
   isBasedOn: p.sources.map((s) => s.url),
   dateModified: updated,
   temporalCoverage: p.temporalCoverage,
-  spatialCoverage: { '@type': 'Place', name: tr(lang, 'Sverige', 'Sweden') },
+  spatialCoverage: { '@type': 'Place', name: partOf(MERGED[p.chapterId] ?? p.chapterId).country?.[lang] ?? tr(lang, 'Sverige', 'Sweden') },
   variableMeasured: p.variableMeasured,
   distribution: [
     { '@type': 'DataDownload', encodingFormat: 'text/csv', contentUrl: absoluteUrl(page.csvPath) },

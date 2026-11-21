@@ -505,3 +505,105 @@ export function loadBirthCohorts(): KohortRow[] {
   }));
   return unique(rows, (r) => `${r.measure}/${r.birthYear}/${r.sex}/${r.group}`, file);
 }
+
+// ---------- dst_lagforda_herkomst.csv and dst_befolkning_herkomst.csv (chapter 5.1, Denmark) ----------
+
+/** Danmarks Statistik's origin groups: everyone, Danish origin, and immigrants and descendants from Western and non-Western countries. */
+export const DK_GROUPS = ['alla', 'dansk', 'indv_vest', 'indv_ikkevest', 'eftk_vest', 'eftk_ikkevest'] as const;
+export type DkGroup = (typeof DK_GROUPS)[number];
+export const DK_OFFENCES = ['straffelov', 'vold'] as const;
+export type DkOffence = (typeof DK_OFFENCES)[number];
+
+export interface DkGuiltyRow {
+  year: number;
+  offence: DkOffence;
+  group: DkGroup;
+  /** People aged 15–79 found guilty during the year (Statbank table STRFNA10). */
+  persons: number;
+}
+
+export function loadDkGuilty(): DkGuiltyRow[] {
+  const file = 'dst_lagforda_herkomst.csv';
+  const rows = readCsv(file, ['year', 'offence', 'group', 'persons', 'source']).map((r) => ({
+    year: required(r.year, 'year'),
+    offence: oneOf(r.offence, DK_OFFENCES, `${file} offence`),
+    group: oneOf(r.group, DK_GROUPS, `${file} group`),
+    persons: required(r.persons, `${file} persons`),
+  }));
+  unique(rows, (r) => `${r.year}/${r.offence}/${r.group}`, file);
+  // The five groups must add up to everyone, or a group is missing or mistyped.
+  for (const r of rows.filter((x) => x.group === 'alla')) {
+    const sum = rows.filter((x) => x.year === r.year && x.offence === r.offence && x.group !== 'alla').reduce((a, x) => a + x.persons, 0);
+    if (sum !== r.persons) throw new Error(`${file} ${r.year} ${r.offence}: groups add up to ${sum}, not ${r.persons}`);
+  }
+  return rows;
+}
+
+export interface DkPopulationRow {
+  /** Population on 1 January of this year. */
+  year: number;
+  group: DkGroup;
+  /** People aged 15–79 (Statbank table FOLK1E, first quarter). */
+  population: number;
+}
+
+export function loadDkPopulation(): DkPopulationRow[] {
+  const file = 'dst_befolkning_herkomst.csv';
+  const rows = readCsv(file, ['year', 'group', 'population_15_79', 'source']).map((r) => ({
+    year: required(r.year, 'year'),
+    group: oneOf(r.group, DK_GROUPS, `${file} group`),
+    population: required(r.population_15_79, `${file} population_15_79`),
+  }));
+  unique(rows, (r) => `${r.year}/${r.group}`, file);
+  for (const r of rows.filter((x) => x.group === 'alla')) {
+    const sum = rows.filter((x) => x.year === r.year && x.group !== 'alla').reduce((a, x) => a + x.population, 0);
+    if (sum !== r.population) throw new Error(`${file} ${r.year}: groups add up to ${sum}, not ${r.population}`);
+  }
+  return rows;
+}
+
+// ---------- dst_kriminalitetsindeks.csv (chapter 5.2, Denmark) ----------
+
+/** Danmarks Statistik's index groups (the whole population is 100 by definition and not in the file). */
+export const DK_INDEX_GROUPS = ['indv_vest', 'eftk_vest', 'indv_ikkevest', 'eftk_ikkevest', 'dansk'] as const;
+export type DkIndexGroup = (typeof DK_INDEX_GROUPS)[number];
+/** What the index takes into account: nothing, age, or age plus one more factor. */
+export const DK_ADJUSTMENTS = ['ingen', 'alder', 'alder_socio', 'alder_utb', 'alder_ink'] as const;
+export type DkAdjustment = (typeof DK_ADJUSTMENTS)[number];
+export const DK_INDEX_OFFENCES = ['alle', 'straffelov', 'vold', 'ejendom', 'faerdsel', 'saerlove'] as const;
+export type DkIndexOffence = (typeof DK_INDEX_OFFENCES)[number];
+
+export interface DkIndexRow {
+  year: number;
+  /** Table in Indvandrere i Danmark 2025: 6.5, 6.7 or 6.9. */
+  table: '6.5' | '6.7' | '6.9';
+  sex: 'man' | 'kvinnor';
+  adjustment: DkAdjustment;
+  offence: DkIndexOffence;
+  group: DkIndexGroup;
+  /** Index, the average for all men or all women aged 15–79 = 100. Null where Danmarks Statistik prints ".." (fewer than ten convicted). */
+  index: number | null;
+  page: number;
+}
+
+export function loadDkIndex(): DkIndexRow[] {
+  const file = 'dst_kriminalitetsindeks.csv';
+  const rows = readCsv(file, ['year', 'table', 'sex', 'adjustment', 'offence', 'group', 'index', 'page']).map((r) => ({
+    year: required(r.year, 'year'),
+    table: oneOf(r.table, ['6.5', '6.7', '6.9'] as const, `${file} table`),
+    sex: oneOf(r.sex, ['man', 'kvinnor'] as const, `${file} sex`),
+    adjustment: oneOf(r.adjustment, DK_ADJUSTMENTS, `${file} adjustment`),
+    offence: oneOf(r.offence, DK_INDEX_OFFENCES, `${file} offence`),
+    group: oneOf(r.group, DK_INDEX_GROUPS, `${file} group`),
+    index: num(r.index),
+    page: required(r.page, `${file} page`),
+  }));
+  unique(rows, (r) => `${r.table}/${r.sex}/${r.adjustment}/${r.offence}/${r.group}`, file);
+  // The age-adjusted index for all decisions is printed in all three tables. Stop the build if a copy differs,
+  // which would mean a value was misread from the PDF.
+  for (const r of rows.filter((x) => x.adjustment === 'alder' && x.offence === 'alle')) {
+    const other = rows.filter((x) => x.adjustment === 'alder' && x.offence === 'alle' && x.sex === r.sex && x.group === r.group);
+    if (other.some((x) => x.index !== r.index)) throw new Error(`${file}: tables disagree on the age-adjusted index for ${r.sex}, ${r.group}`);
+  }
+  return rows;
+}

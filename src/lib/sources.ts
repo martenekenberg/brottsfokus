@@ -40,6 +40,18 @@ export const SOURCES = {
     label: 'SCB, Sveriges befolkning i sammandrag 1960–2025',
     url: 'https://www.scb.se/hitta-statistik/statistik-efter-amne/befolkning-och-levnadsforhallanden/befolkningens-sammansattning-och-utveckling/befolkningsstatistik/pong/tabell-och-diagram/sveriges-befolkning-i-sammandrag-1960-2025-korrigerad-2026-06-18/',
   },
+  dstStrfna10: {
+    label: 'Danmarks Statistik, Statistikbanken, tabell STRFNA10: Skyldige personer efter overtrædelsens art og herkomst',
+    url: 'https://www.statistikbanken.dk/STRFNA10',
+  },
+  dstFolk1e: {
+    label: 'Danmarks Statistik, Statistikbanken, tabell FOLK1E: Befolkningen den 1. i kvartalet efter herkomst og alder',
+    url: 'https://www.statistikbanken.dk/FOLK1E',
+  },
+  dstIndv2025: {
+    label: 'Danmarks Statistik, Indvandrere i Danmark 2025',
+    url: 'https://www.dst.dk/da/Statistik/udgivelser/VisPub?cid=54707',
+  },
   scbCitizens: {
     label: 'SCB, Utländska medborgare i Sverige',
     url: 'https://www.scb.se/hitta-statistik/sverige-i-siffror/manniskorna-i-sverige/utlandska-medborgare-i-sverige/',

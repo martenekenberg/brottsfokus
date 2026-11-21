@@ -9048,3 +9048,649 @@ Sida,Tabell,Rad,Kolumn,Värde på sidan
 /data/fodelsear/,Kvinnor: andel lagförda före 20 års ålder (%),2003,Inrikesfödda med en utrikesfödd förälder,"5,5"
 /data/fodelsear/,Kvinnor: andel lagförda före 20 års ålder (%),2003,Inrikesfödda med två utrikesfödda föräldrar,"5,2"
 /data/fodelsear/,Kvinnor: andel lagförda före 20 års ålder (%),2003,Utrikesfödda,"5,8"
+/data/danmark-lagforda/,"Lagförda för brott mot strafflagen per 1 000 invånare 15–79 år, efter ursprung, 2008–2025.",2008,Barn till invandrare från icke-västliga länder,"33,2"
+/data/danmark-lagforda/,"Lagförda för brott mot strafflagen per 1 000 invånare 15–79 år, efter ursprung, 2008–2025.",2008,Invandrare från icke-västliga länder,"15,2"
+/data/danmark-lagforda/,"Lagförda för brott mot strafflagen per 1 000 invånare 15–79 år, efter ursprung, 2008–2025.",2008,Barn till invandrare från västliga länder,"10,8"
+/data/danmark-lagforda/,"Lagförda för brott mot strafflagen per 1 000 invånare 15–79 år, efter ursprung, 2008–2025.",2008,Invandrare från västliga länder,"4,7"
+/data/danmark-lagforda/,"Lagförda för brott mot strafflagen per 1 000 invånare 15–79 år, efter ursprung, 2008–2025.",2008,Dansk ursprung,"5,3"
+/data/danmark-lagforda/,"Lagförda för brott mot strafflagen per 1 000 invånare 15–79 år, efter ursprung, 2008–2025.",2008,Hela befolkningen 15–79 år,"6,0"
+/data/danmark-lagforda/,"Lagförda för brott mot strafflagen per 1 000 invånare 15–79 år, efter ursprung, 2008–2025.",2009,Barn till invandrare från icke-västliga länder,"35,3"
+/data/danmark-lagforda/,"Lagförda för brott mot strafflagen per 1 000 invånare 15–79 år, efter ursprung, 2008–2025.",2009,Invandrare från icke-västliga länder,"15,9"
+/data/danmark-lagforda/,"Lagförda för brott mot strafflagen per 1 000 invånare 15–79 år, efter ursprung, 2008–2025.",2009,Barn till invandrare från västliga länder,"12,6"
+/data/danmark-lagforda/,"Lagförda för brott mot strafflagen per 1 000 invånare 15–79 år, efter ursprung, 2008–2025.",2009,Invandrare från västliga länder,"5,3"
+/data/danmark-lagforda/,"Lagförda för brott mot strafflagen per 1 000 invånare 15–79 år, efter ursprung, 2008–2025.",2009,Dansk ursprung,"5,7"
+/data/danmark-lagforda/,"Lagförda för brott mot strafflagen per 1 000 invånare 15–79 år, efter ursprung, 2008–2025.",2009,Hela befolkningen 15–79 år,"6,5"
+/data/danmark-lagforda/,"Lagförda för brott mot strafflagen per 1 000 invånare 15–79 år, efter ursprung, 2008–2025.",2010,Barn till invandrare från icke-västliga länder,"41,3"
+/data/danmark-lagforda/,"Lagförda för brott mot strafflagen per 1 000 invånare 15–79 år, efter ursprung, 2008–2025.",2010,Invandrare från icke-västliga länder,"16,1"
+/data/danmark-lagforda/,"Lagförda för brott mot strafflagen per 1 000 invånare 15–79 år, efter ursprung, 2008–2025.",2010,Barn till invandrare från västliga länder,"11,0"
+/data/danmark-lagforda/,"Lagförda för brott mot strafflagen per 1 000 invånare 15–79 år, efter ursprung, 2008–2025.",2010,Invandrare från västliga länder,"5,6"
+/data/danmark-lagforda/,"Lagförda för brott mot strafflagen per 1 000 invånare 15–79 år, efter ursprung, 2008–2025.",2010,Dansk ursprung,"6,1"
+/data/danmark-lagforda/,"Lagförda för brott mot strafflagen per 1 000 invånare 15–79 år, efter ursprung, 2008–2025.",2010,Hela befolkningen 15–79 år,"6,9"
+/data/danmark-lagforda/,"Lagförda för brott mot strafflagen per 1 000 invånare 15–79 år, efter ursprung, 2008–2025.",2011,Barn till invandrare från icke-västliga länder,"37,6"
+/data/danmark-lagforda/,"Lagförda för brott mot strafflagen per 1 000 invånare 15–79 år, efter ursprung, 2008–2025.",2011,Invandrare från icke-västliga länder,"16,4"
+/data/danmark-lagforda/,"Lagförda för brott mot strafflagen per 1 000 invånare 15–79 år, efter ursprung, 2008–2025.",2011,Barn till invandrare från västliga länder,"12,6"
+/data/danmark-lagforda/,"Lagförda för brott mot strafflagen per 1 000 invånare 15–79 år, efter ursprung, 2008–2025.",2011,Invandrare från västliga länder,"5,4"
+/data/danmark-lagforda/,"Lagförda för brott mot strafflagen per 1 000 invånare 15–79 år, efter ursprung, 2008–2025.",2011,Dansk ursprung,"6,0"
+/data/danmark-lagforda/,"Lagförda för brott mot strafflagen per 1 000 invånare 15–79 år, efter ursprung, 2008–2025.",2011,Hela befolkningen 15–79 år,"6,9"
+/data/danmark-lagforda/,"Lagförda för brott mot strafflagen per 1 000 invånare 15–79 år, efter ursprung, 2008–2025.",2012,Barn till invandrare från icke-västliga länder,"36,7"
+/data/danmark-lagforda/,"Lagförda för brott mot strafflagen per 1 000 invånare 15–79 år, efter ursprung, 2008–2025.",2012,Invandrare från icke-västliga länder,"15,3"
+/data/danmark-lagforda/,"Lagförda för brott mot strafflagen per 1 000 invånare 15–79 år, efter ursprung, 2008–2025.",2012,Barn till invandrare från västliga länder,"13,4"
+/data/danmark-lagforda/,"Lagförda för brott mot strafflagen per 1 000 invånare 15–79 år, efter ursprung, 2008–2025.",2012,Invandrare från västliga länder,"5,2"
+/data/danmark-lagforda/,"Lagförda för brott mot strafflagen per 1 000 invånare 15–79 år, efter ursprung, 2008–2025.",2012,Dansk ursprung,"5,8"
+/data/danmark-lagforda/,"Lagförda för brott mot strafflagen per 1 000 invånare 15–79 år, efter ursprung, 2008–2025.",2012,Hela befolkningen 15–79 år,"6,7"
+/data/danmark-lagforda/,"Lagförda för brott mot strafflagen per 1 000 invånare 15–79 år, efter ursprung, 2008–2025.",2013,Barn till invandrare från icke-västliga länder,"33,3"
+/data/danmark-lagforda/,"Lagförda för brott mot strafflagen per 1 000 invånare 15–79 år, efter ursprung, 2008–2025.",2013,Invandrare från icke-västliga länder,"13,8"
+/data/danmark-lagforda/,"Lagförda för brott mot strafflagen per 1 000 invånare 15–79 år, efter ursprung, 2008–2025.",2013,Barn till invandrare från västliga länder,"13,5"
+/data/danmark-lagforda/,"Lagförda för brott mot strafflagen per 1 000 invånare 15–79 år, efter ursprung, 2008–2025.",2013,Invandrare från västliga länder,"5,1"
+/data/danmark-lagforda/,"Lagförda för brott mot strafflagen per 1 000 invånare 15–79 år, efter ursprung, 2008–2025.",2013,Dansk ursprung,"5,3"
+/data/danmark-lagforda/,"Lagförda för brott mot strafflagen per 1 000 invånare 15–79 år, efter ursprung, 2008–2025.",2013,Hela befolkningen 15–79 år,"6,1"
+/data/danmark-lagforda/,"Lagförda för brott mot strafflagen per 1 000 invånare 15–79 år, efter ursprung, 2008–2025.",2014,Barn till invandrare från icke-västliga länder,"31,2"
+/data/danmark-lagforda/,"Lagförda för brott mot strafflagen per 1 000 invånare 15–79 år, efter ursprung, 2008–2025.",2014,Invandrare från icke-västliga länder,"12,7"
+/data/danmark-lagforda/,"Lagförda för brott mot strafflagen per 1 000 invånare 15–79 år, efter ursprung, 2008–2025.",2014,Barn till invandrare från västliga länder,"9,0"
+/data/danmark-lagforda/,"Lagförda för brott mot strafflagen per 1 000 invånare 15–79 år, efter ursprung, 2008–2025.",2014,Invandrare från västliga länder,"5,0"
+/data/danmark-lagforda/,"Lagförda för brott mot strafflagen per 1 000 invånare 15–79 år, efter ursprung, 2008–2025.",2014,Dansk ursprung,"4,9"
+/data/danmark-lagforda/,"Lagförda för brott mot strafflagen per 1 000 invånare 15–79 år, efter ursprung, 2008–2025.",2014,Hela befolkningen 15–79 år,"5,7"
+/data/danmark-lagforda/,"Lagförda för brott mot strafflagen per 1 000 invånare 15–79 år, efter ursprung, 2008–2025.",2015,Barn till invandrare från icke-västliga länder,"29,9"
+/data/danmark-lagforda/,"Lagförda för brott mot strafflagen per 1 000 invånare 15–79 år, efter ursprung, 2008–2025.",2015,Invandrare från icke-västliga länder,"11,5"
+/data/danmark-lagforda/,"Lagförda för brott mot strafflagen per 1 000 invånare 15–79 år, efter ursprung, 2008–2025.",2015,Barn till invandrare från västliga länder,"10,7"
+/data/danmark-lagforda/,"Lagförda för brott mot strafflagen per 1 000 invånare 15–79 år, efter ursprung, 2008–2025.",2015,Invandrare från västliga länder,"4,7"
+/data/danmark-lagforda/,"Lagförda för brott mot strafflagen per 1 000 invånare 15–79 år, efter ursprung, 2008–2025.",2015,Dansk ursprung,"4,6"
+/data/danmark-lagforda/,"Lagförda för brott mot strafflagen per 1 000 invånare 15–79 år, efter ursprung, 2008–2025.",2015,Hela befolkningen 15–79 år,"5,4"
+/data/danmark-lagforda/,"Lagförda för brott mot strafflagen per 1 000 invånare 15–79 år, efter ursprung, 2008–2025.",2016,Barn till invandrare från icke-västliga länder,"27,8"
+/data/danmark-lagforda/,"Lagförda för brott mot strafflagen per 1 000 invånare 15–79 år, efter ursprung, 2008–2025.",2016,Invandrare från icke-västliga länder,"10,7"
+/data/danmark-lagforda/,"Lagförda för brott mot strafflagen per 1 000 invånare 15–79 år, efter ursprung, 2008–2025.",2016,Barn till invandrare från västliga länder,"9,6"
+/data/danmark-lagforda/,"Lagförda för brott mot strafflagen per 1 000 invånare 15–79 år, efter ursprung, 2008–2025.",2016,Invandrare från västliga länder,"4,0"
+/data/danmark-lagforda/,"Lagförda för brott mot strafflagen per 1 000 invånare 15–79 år, efter ursprung, 2008–2025.",2016,Dansk ursprung,"4,3"
+/data/danmark-lagforda/,"Lagförda för brott mot strafflagen per 1 000 invånare 15–79 år, efter ursprung, 2008–2025.",2016,Hela befolkningen 15–79 år,"5,1"
+/data/danmark-lagforda/,"Lagförda för brott mot strafflagen per 1 000 invånare 15–79 år, efter ursprung, 2008–2025.",2017,Barn till invandrare från icke-västliga länder,"27,4"
+/data/danmark-lagforda/,"Lagförda för brott mot strafflagen per 1 000 invånare 15–79 år, efter ursprung, 2008–2025.",2017,Invandrare från icke-västliga länder,"9,8"
+/data/danmark-lagforda/,"Lagförda för brott mot strafflagen per 1 000 invånare 15–79 år, efter ursprung, 2008–2025.",2017,Barn till invandrare från västliga länder,"8,6"
+/data/danmark-lagforda/,"Lagförda för brott mot strafflagen per 1 000 invånare 15–79 år, efter ursprung, 2008–2025.",2017,Invandrare från västliga länder,"3,4"
+/data/danmark-lagforda/,"Lagförda för brott mot strafflagen per 1 000 invånare 15–79 år, efter ursprung, 2008–2025.",2017,Dansk ursprung,"3,8"
+/data/danmark-lagforda/,"Lagförda för brott mot strafflagen per 1 000 invånare 15–79 år, efter ursprung, 2008–2025.",2017,Hela befolkningen 15–79 år,"4,6"
+/data/danmark-lagforda/,"Lagförda för brott mot strafflagen per 1 000 invånare 15–79 år, efter ursprung, 2008–2025.",2018,Barn till invandrare från icke-västliga länder,"24,2"
+/data/danmark-lagforda/,"Lagförda för brott mot strafflagen per 1 000 invånare 15–79 år, efter ursprung, 2008–2025.",2018,Invandrare från icke-västliga länder,"9,8"
+/data/danmark-lagforda/,"Lagförda för brott mot strafflagen per 1 000 invånare 15–79 år, efter ursprung, 2008–2025.",2018,Barn till invandrare från västliga länder,"8,7"
+/data/danmark-lagforda/,"Lagförda för brott mot strafflagen per 1 000 invånare 15–79 år, efter ursprung, 2008–2025.",2018,Invandrare från västliga länder,"3,6"
+/data/danmark-lagforda/,"Lagförda för brott mot strafflagen per 1 000 invånare 15–79 år, efter ursprung, 2008–2025.",2018,Dansk ursprung,"3,8"
+/data/danmark-lagforda/,"Lagförda för brott mot strafflagen per 1 000 invånare 15–79 år, efter ursprung, 2008–2025.",2018,Hela befolkningen 15–79 år,"4,6"
+/data/danmark-lagforda/,"Lagförda för brott mot strafflagen per 1 000 invånare 15–79 år, efter ursprung, 2008–2025.",2019,Barn till invandrare från icke-västliga länder,"24,3"
+/data/danmark-lagforda/,"Lagförda för brott mot strafflagen per 1 000 invånare 15–79 år, efter ursprung, 2008–2025.",2019,Invandrare från icke-västliga länder,"9,1"
+/data/danmark-lagforda/,"Lagförda för brott mot strafflagen per 1 000 invånare 15–79 år, efter ursprung, 2008–2025.",2019,Barn till invandrare från västliga länder,"8,9"
+/data/danmark-lagforda/,"Lagförda för brott mot strafflagen per 1 000 invånare 15–79 år, efter ursprung, 2008–2025.",2019,Invandrare från västliga länder,"3,4"
+/data/danmark-lagforda/,"Lagförda för brott mot strafflagen per 1 000 invånare 15–79 år, efter ursprung, 2008–2025.",2019,Dansk ursprung,"4,0"
+/data/danmark-lagforda/,"Lagförda för brott mot strafflagen per 1 000 invånare 15–79 år, efter ursprung, 2008–2025.",2019,Hela befolkningen 15–79 år,"4,7"
+/data/danmark-lagforda/,"Lagförda för brott mot strafflagen per 1 000 invånare 15–79 år, efter ursprung, 2008–2025.",2020,Barn till invandrare från icke-västliga länder,"25,1"
+/data/danmark-lagforda/,"Lagförda för brott mot strafflagen per 1 000 invånare 15–79 år, efter ursprung, 2008–2025.",2020,Invandrare från icke-västliga länder,"9,6"
+/data/danmark-lagforda/,"Lagförda för brott mot strafflagen per 1 000 invånare 15–79 år, efter ursprung, 2008–2025.",2020,Barn till invandrare från västliga länder,"8,9"
+/data/danmark-lagforda/,"Lagförda för brott mot strafflagen per 1 000 invånare 15–79 år, efter ursprung, 2008–2025.",2020,Invandrare från västliga länder,"4,1"
+/data/danmark-lagforda/,"Lagförda för brott mot strafflagen per 1 000 invånare 15–79 år, efter ursprung, 2008–2025.",2020,Dansk ursprung,"4,3"
+/data/danmark-lagforda/,"Lagförda för brott mot strafflagen per 1 000 invånare 15–79 år, efter ursprung, 2008–2025.",2020,Hela befolkningen 15–79 år,"5,1"
+/data/danmark-lagforda/,"Lagförda för brott mot strafflagen per 1 000 invånare 15–79 år, efter ursprung, 2008–2025.",2021,Barn till invandrare från icke-västliga länder,"24,4"
+/data/danmark-lagforda/,"Lagförda för brott mot strafflagen per 1 000 invånare 15–79 år, efter ursprung, 2008–2025.",2021,Invandrare från icke-västliga länder,"9,2"
+/data/danmark-lagforda/,"Lagförda för brott mot strafflagen per 1 000 invånare 15–79 år, efter ursprung, 2008–2025.",2021,Barn till invandrare från västliga länder,"9,6"
+/data/danmark-lagforda/,"Lagförda för brott mot strafflagen per 1 000 invånare 15–79 år, efter ursprung, 2008–2025.",2021,Invandrare från västliga länder,"4,0"
+/data/danmark-lagforda/,"Lagförda för brott mot strafflagen per 1 000 invånare 15–79 år, efter ursprung, 2008–2025.",2021,Dansk ursprung,"4,0"
+/data/danmark-lagforda/,"Lagförda för brott mot strafflagen per 1 000 invånare 15–79 år, efter ursprung, 2008–2025.",2021,Hela befolkningen 15–79 år,"4,8"
+/data/danmark-lagforda/,"Lagförda för brott mot strafflagen per 1 000 invånare 15–79 år, efter ursprung, 2008–2025.",2022,Barn till invandrare från icke-västliga länder,"23,0"
+/data/danmark-lagforda/,"Lagförda för brott mot strafflagen per 1 000 invånare 15–79 år, efter ursprung, 2008–2025.",2022,Invandrare från icke-västliga länder,"8,5"
+/data/danmark-lagforda/,"Lagförda för brott mot strafflagen per 1 000 invånare 15–79 år, efter ursprung, 2008–2025.",2022,Barn till invandrare från västliga länder,"7,2"
+/data/danmark-lagforda/,"Lagförda för brott mot strafflagen per 1 000 invånare 15–79 år, efter ursprung, 2008–2025.",2022,Invandrare från västliga länder,"4,4"
+/data/danmark-lagforda/,"Lagförda för brott mot strafflagen per 1 000 invånare 15–79 år, efter ursprung, 2008–2025.",2022,Dansk ursprung,"4,0"
+/data/danmark-lagforda/,"Lagförda för brott mot strafflagen per 1 000 invånare 15–79 år, efter ursprung, 2008–2025.",2022,Hela befolkningen 15–79 år,"4,8"
+/data/danmark-lagforda/,"Lagförda för brott mot strafflagen per 1 000 invånare 15–79 år, efter ursprung, 2008–2025.",2023,Barn till invandrare från icke-västliga länder,"22,4"
+/data/danmark-lagforda/,"Lagförda för brott mot strafflagen per 1 000 invånare 15–79 år, efter ursprung, 2008–2025.",2023,Invandrare från icke-västliga länder,"9,1"
+/data/danmark-lagforda/,"Lagförda för brott mot strafflagen per 1 000 invånare 15–79 år, efter ursprung, 2008–2025.",2023,Barn till invandrare från västliga länder,"10,0"
+/data/danmark-lagforda/,"Lagförda för brott mot strafflagen per 1 000 invånare 15–79 år, efter ursprung, 2008–2025.",2023,Invandrare från västliga länder,"5,6"
+/data/danmark-lagforda/,"Lagförda för brott mot strafflagen per 1 000 invånare 15–79 år, efter ursprung, 2008–2025.",2023,Dansk ursprung,"4,6"
+/data/danmark-lagforda/,"Lagförda för brott mot strafflagen per 1 000 invånare 15–79 år, efter ursprung, 2008–2025.",2023,Hela befolkningen 15–79 år,"5,4"
+/data/danmark-lagforda/,"Lagförda för brott mot strafflagen per 1 000 invånare 15–79 år, efter ursprung, 2008–2025.",2024,Barn till invandrare från icke-västliga länder,"20,9"
+/data/danmark-lagforda/,"Lagförda för brott mot strafflagen per 1 000 invånare 15–79 år, efter ursprung, 2008–2025.",2024,Invandrare från icke-västliga länder,"8,5"
+/data/danmark-lagforda/,"Lagförda för brott mot strafflagen per 1 000 invånare 15–79 år, efter ursprung, 2008–2025.",2024,Barn till invandrare från västliga länder,"10,1"
+/data/danmark-lagforda/,"Lagförda för brott mot strafflagen per 1 000 invånare 15–79 år, efter ursprung, 2008–2025.",2024,Invandrare från västliga länder,"5,2"
+/data/danmark-lagforda/,"Lagförda för brott mot strafflagen per 1 000 invånare 15–79 år, efter ursprung, 2008–2025.",2024,Dansk ursprung,"4,5"
+/data/danmark-lagforda/,"Lagförda för brott mot strafflagen per 1 000 invånare 15–79 år, efter ursprung, 2008–2025.",2024,Hela befolkningen 15–79 år,"5,2"
+/data/danmark-lagforda/,"Lagförda för brott mot strafflagen per 1 000 invånare 15–79 år, efter ursprung, 2008–2025.",2025,Barn till invandrare från icke-västliga länder,"20,4"
+/data/danmark-lagforda/,"Lagförda för brott mot strafflagen per 1 000 invånare 15–79 år, efter ursprung, 2008–2025.",2025,Invandrare från icke-västliga länder,"8,4"
+/data/danmark-lagforda/,"Lagförda för brott mot strafflagen per 1 000 invånare 15–79 år, efter ursprung, 2008–2025.",2025,Barn till invandrare från västliga länder,"9,7"
+/data/danmark-lagforda/,"Lagförda för brott mot strafflagen per 1 000 invånare 15–79 år, efter ursprung, 2008–2025.",2025,Invandrare från västliga länder,"5,0"
+/data/danmark-lagforda/,"Lagförda för brott mot strafflagen per 1 000 invånare 15–79 år, efter ursprung, 2008–2025.",2025,Dansk ursprung,"4,3"
+/data/danmark-lagforda/,"Lagförda för brott mot strafflagen per 1 000 invånare 15–79 år, efter ursprung, 2008–2025.",2025,Hela befolkningen 15–79 år,"5,1"
+/data/danmark-lagforda/,"Lagförda för våldsbrott per 1 000 invånare 15–79 år, efter ursprung, 2008–2025.",2008,Barn till invandrare från icke-västliga länder,"11,2"
+/data/danmark-lagforda/,"Lagförda för våldsbrott per 1 000 invånare 15–79 år, efter ursprung, 2008–2025.",2008,Invandrare från icke-västliga länder,"4,0"
+/data/danmark-lagforda/,"Lagförda för våldsbrott per 1 000 invånare 15–79 år, efter ursprung, 2008–2025.",2008,Barn till invandrare från västliga länder,"3,2"
+/data/danmark-lagforda/,"Lagförda för våldsbrott per 1 000 invånare 15–79 år, efter ursprung, 2008–2025.",2008,Invandrare från västliga länder,"1,0"
+/data/danmark-lagforda/,"Lagförda för våldsbrott per 1 000 invånare 15–79 år, efter ursprung, 2008–2025.",2008,Dansk ursprung,"1,4"
+/data/danmark-lagforda/,"Lagförda för våldsbrott per 1 000 invånare 15–79 år, efter ursprung, 2008–2025.",2008,Hela befolkningen 15–79 år,"1,6"
+/data/danmark-lagforda/,"Lagförda för våldsbrott per 1 000 invånare 15–79 år, efter ursprung, 2008–2025.",2009,Barn till invandrare från icke-västliga länder,"11,1"
+/data/danmark-lagforda/,"Lagförda för våldsbrott per 1 000 invånare 15–79 år, efter ursprung, 2008–2025.",2009,Invandrare från icke-västliga länder,"4,2"
+/data/danmark-lagforda/,"Lagförda för våldsbrott per 1 000 invånare 15–79 år, efter ursprung, 2008–2025.",2009,Barn till invandrare från västliga länder,"2,4"
+/data/danmark-lagforda/,"Lagförda för våldsbrott per 1 000 invånare 15–79 år, efter ursprung, 2008–2025.",2009,Invandrare från västliga länder,"1,0"
+/data/danmark-lagforda/,"Lagförda för våldsbrott per 1 000 invånare 15–79 år, efter ursprung, 2008–2025.",2009,Dansk ursprung,"1,4"
+/data/danmark-lagforda/,"Lagförda för våldsbrott per 1 000 invånare 15–79 år, efter ursprung, 2008–2025.",2009,Hela befolkningen 15–79 år,"1,6"
+/data/danmark-lagforda/,"Lagförda för våldsbrott per 1 000 invånare 15–79 år, efter ursprung, 2008–2025.",2010,Barn till invandrare från icke-västliga länder,"12,5"
+/data/danmark-lagforda/,"Lagförda för våldsbrott per 1 000 invånare 15–79 år, efter ursprung, 2008–2025.",2010,Invandrare från icke-västliga länder,"4,2"
+/data/danmark-lagforda/,"Lagförda för våldsbrott per 1 000 invånare 15–79 år, efter ursprung, 2008–2025.",2010,Barn till invandrare från västliga länder,"3,0"
+/data/danmark-lagforda/,"Lagförda för våldsbrott per 1 000 invånare 15–79 år, efter ursprung, 2008–2025.",2010,Invandrare från västliga länder,"0,9"
+/data/danmark-lagforda/,"Lagförda för våldsbrott per 1 000 invånare 15–79 år, efter ursprung, 2008–2025.",2010,Dansk ursprung,"1,5"
+/data/danmark-lagforda/,"Lagförda för våldsbrott per 1 000 invånare 15–79 år, efter ursprung, 2008–2025.",2010,Hela befolkningen 15–79 år,"1,8"
+/data/danmark-lagforda/,"Lagförda för våldsbrott per 1 000 invånare 15–79 år, efter ursprung, 2008–2025.",2011,Barn till invandrare från icke-västliga länder,"9,7"
+/data/danmark-lagforda/,"Lagförda för våldsbrott per 1 000 invånare 15–79 år, efter ursprung, 2008–2025.",2011,Invandrare från icke-västliga länder,"3,9"
+/data/danmark-lagforda/,"Lagförda för våldsbrott per 1 000 invånare 15–79 år, efter ursprung, 2008–2025.",2011,Barn till invandrare från västliga länder,"3,1"
+/data/danmark-lagforda/,"Lagförda för våldsbrott per 1 000 invånare 15–79 år, efter ursprung, 2008–2025.",2011,Invandrare från västliga länder,"0,8"
+/data/danmark-lagforda/,"Lagförda för våldsbrott per 1 000 invånare 15–79 år, efter ursprung, 2008–2025.",2011,Dansk ursprung,"1,4"
+/data/danmark-lagforda/,"Lagförda för våldsbrott per 1 000 invånare 15–79 år, efter ursprung, 2008–2025.",2011,Hela befolkningen 15–79 år,"1,6"
+/data/danmark-lagforda/,"Lagförda för våldsbrott per 1 000 invånare 15–79 år, efter ursprung, 2008–2025.",2012,Barn till invandrare från icke-västliga länder,"9,7"
+/data/danmark-lagforda/,"Lagförda för våldsbrott per 1 000 invånare 15–79 år, efter ursprung, 2008–2025.",2012,Invandrare från icke-västliga länder,"3,5"
+/data/danmark-lagforda/,"Lagförda för våldsbrott per 1 000 invånare 15–79 år, efter ursprung, 2008–2025.",2012,Barn till invandrare från västliga länder,"2,8"
+/data/danmark-lagforda/,"Lagförda för våldsbrott per 1 000 invånare 15–79 år, efter ursprung, 2008–2025.",2012,Invandrare från västliga länder,"0,9"
+/data/danmark-lagforda/,"Lagförda för våldsbrott per 1 000 invånare 15–79 år, efter ursprung, 2008–2025.",2012,Dansk ursprung,"1,4"
+/data/danmark-lagforda/,"Lagförda för våldsbrott per 1 000 invånare 15–79 år, efter ursprung, 2008–2025.",2012,Hela befolkningen 15–79 år,"1,6"
+/data/danmark-lagforda/,"Lagförda för våldsbrott per 1 000 invånare 15–79 år, efter ursprung, 2008–2025.",2013,Barn till invandrare från icke-västliga länder,"8,2"
+/data/danmark-lagforda/,"Lagförda för våldsbrott per 1 000 invånare 15–79 år, efter ursprung, 2008–2025.",2013,Invandrare från icke-västliga länder,"3,0"
+/data/danmark-lagforda/,"Lagförda för våldsbrott per 1 000 invånare 15–79 år, efter ursprung, 2008–2025.",2013,Barn till invandrare från västliga länder,"2,4"
+/data/danmark-lagforda/,"Lagförda för våldsbrott per 1 000 invånare 15–79 år, efter ursprung, 2008–2025.",2013,Invandrare från västliga länder,"0,8"
+/data/danmark-lagforda/,"Lagförda för våldsbrott per 1 000 invånare 15–79 år, efter ursprung, 2008–2025.",2013,Dansk ursprung,"1,2"
+/data/danmark-lagforda/,"Lagförda för våldsbrott per 1 000 invånare 15–79 år, efter ursprung, 2008–2025.",2013,Hela befolkningen 15–79 år,"1,4"
+/data/danmark-lagforda/,"Lagförda för våldsbrott per 1 000 invånare 15–79 år, efter ursprung, 2008–2025.",2014,Barn till invandrare från icke-västliga länder,"7,9"
+/data/danmark-lagforda/,"Lagförda för våldsbrott per 1 000 invånare 15–79 år, efter ursprung, 2008–2025.",2014,Invandrare från icke-västliga länder,"2,6"
+/data/danmark-lagforda/,"Lagförda för våldsbrott per 1 000 invånare 15–79 år, efter ursprung, 2008–2025.",2014,Barn till invandrare från västliga länder,"1,8"
+/data/danmark-lagforda/,"Lagförda för våldsbrott per 1 000 invånare 15–79 år, efter ursprung, 2008–2025.",2014,Invandrare från västliga länder,"0,8"
+/data/danmark-lagforda/,"Lagförda för våldsbrott per 1 000 invånare 15–79 år, efter ursprung, 2008–2025.",2014,Dansk ursprung,"1,0"
+/data/danmark-lagforda/,"Lagförda för våldsbrott per 1 000 invånare 15–79 år, efter ursprung, 2008–2025.",2014,Hela befolkningen 15–79 år,"1,2"
+/data/danmark-lagforda/,"Lagförda för våldsbrott per 1 000 invånare 15–79 år, efter ursprung, 2008–2025.",2015,Barn till invandrare från icke-västliga länder,"7,3"
+/data/danmark-lagforda/,"Lagförda för våldsbrott per 1 000 invånare 15–79 år, efter ursprung, 2008–2025.",2015,Invandrare från icke-västliga länder,"2,7"
+/data/danmark-lagforda/,"Lagförda för våldsbrott per 1 000 invånare 15–79 år, efter ursprung, 2008–2025.",2015,Barn till invandrare från västliga länder,"2,3"
+/data/danmark-lagforda/,"Lagförda för våldsbrott per 1 000 invånare 15–79 år, efter ursprung, 2008–2025.",2015,Invandrare från västliga länder,"0,7"
+/data/danmark-lagforda/,"Lagförda för våldsbrott per 1 000 invånare 15–79 år, efter ursprung, 2008–2025.",2015,Dansk ursprung,"1,1"
+/data/danmark-lagforda/,"Lagförda för våldsbrott per 1 000 invånare 15–79 år, efter ursprung, 2008–2025.",2015,Hela befolkningen 15–79 år,"1,2"
+/data/danmark-lagforda/,"Lagförda för våldsbrott per 1 000 invånare 15–79 år, efter ursprung, 2008–2025.",2016,Barn till invandrare från icke-västliga länder,"7,1"
+/data/danmark-lagforda/,"Lagförda för våldsbrott per 1 000 invånare 15–79 år, efter ursprung, 2008–2025.",2016,Invandrare från icke-västliga länder,"2,6"
+/data/danmark-lagforda/,"Lagförda för våldsbrott per 1 000 invånare 15–79 år, efter ursprung, 2008–2025.",2016,Barn till invandrare från västliga länder,"2,2"
+/data/danmark-lagforda/,"Lagförda för våldsbrott per 1 000 invånare 15–79 år, efter ursprung, 2008–2025.",2016,Invandrare från västliga länder,"0,7"
+/data/danmark-lagforda/,"Lagförda för våldsbrott per 1 000 invånare 15–79 år, efter ursprung, 2008–2025.",2016,Dansk ursprung,"1,0"
+/data/danmark-lagforda/,"Lagförda för våldsbrott per 1 000 invånare 15–79 år, efter ursprung, 2008–2025.",2016,Hela befolkningen 15–79 år,"1,2"
+/data/danmark-lagforda/,"Lagförda för våldsbrott per 1 000 invånare 15–79 år, efter ursprung, 2008–2025.",2017,Barn till invandrare från icke-västliga länder,"8,7"
+/data/danmark-lagforda/,"Lagförda för våldsbrott per 1 000 invånare 15–79 år, efter ursprung, 2008–2025.",2017,Invandrare från icke-västliga länder,"2,9"
+/data/danmark-lagforda/,"Lagförda för våldsbrott per 1 000 invånare 15–79 år, efter ursprung, 2008–2025.",2017,Barn till invandrare från västliga länder,"2,3"
+/data/danmark-lagforda/,"Lagförda för våldsbrott per 1 000 invånare 15–79 år, efter ursprung, 2008–2025.",2017,Invandrare från västliga länder,"0,7"
+/data/danmark-lagforda/,"Lagförda för våldsbrott per 1 000 invånare 15–79 år, efter ursprung, 2008–2025.",2017,Dansk ursprung,"1,1"
+/data/danmark-lagforda/,"Lagförda för våldsbrott per 1 000 invånare 15–79 år, efter ursprung, 2008–2025.",2017,Hela befolkningen 15–79 år,"1,3"
+/data/danmark-lagforda/,"Lagförda för våldsbrott per 1 000 invånare 15–79 år, efter ursprung, 2008–2025.",2018,Barn till invandrare från icke-västliga länder,"8,1"
+/data/danmark-lagforda/,"Lagförda för våldsbrott per 1 000 invånare 15–79 år, efter ursprung, 2008–2025.",2018,Invandrare från icke-västliga länder,"3,0"
+/data/danmark-lagforda/,"Lagförda för våldsbrott per 1 000 invånare 15–79 år, efter ursprung, 2008–2025.",2018,Barn till invandrare från västliga länder,"2,8"
+/data/danmark-lagforda/,"Lagförda för våldsbrott per 1 000 invånare 15–79 år, efter ursprung, 2008–2025.",2018,Invandrare från västliga länder,"0,6"
+/data/danmark-lagforda/,"Lagförda för våldsbrott per 1 000 invånare 15–79 år, efter ursprung, 2008–2025.",2018,Dansk ursprung,"1,1"
+/data/danmark-lagforda/,"Lagförda för våldsbrott per 1 000 invånare 15–79 år, efter ursprung, 2008–2025.",2018,Hela befolkningen 15–79 år,"1,3"
+/data/danmark-lagforda/,"Lagförda för våldsbrott per 1 000 invånare 15–79 år, efter ursprung, 2008–2025.",2019,Barn till invandrare från icke-västliga länder,"8,1"
+/data/danmark-lagforda/,"Lagförda för våldsbrott per 1 000 invånare 15–79 år, efter ursprung, 2008–2025.",2019,Invandrare från icke-västliga länder,"2,6"
+/data/danmark-lagforda/,"Lagförda för våldsbrott per 1 000 invånare 15–79 år, efter ursprung, 2008–2025.",2019,Barn till invandrare från västliga länder,"2,8"
+/data/danmark-lagforda/,"Lagförda för våldsbrott per 1 000 invånare 15–79 år, efter ursprung, 2008–2025.",2019,Invandrare från västliga länder,"0,6"
+/data/danmark-lagforda/,"Lagförda för våldsbrott per 1 000 invånare 15–79 år, efter ursprung, 2008–2025.",2019,Dansk ursprung,"1,1"
+/data/danmark-lagforda/,"Lagförda för våldsbrott per 1 000 invånare 15–79 år, efter ursprung, 2008–2025.",2019,Hela befolkningen 15–79 år,"1,3"
+/data/danmark-lagforda/,"Lagförda för våldsbrott per 1 000 invånare 15–79 år, efter ursprung, 2008–2025.",2020,Barn till invandrare från icke-västliga länder,"8,8"
+/data/danmark-lagforda/,"Lagförda för våldsbrott per 1 000 invånare 15–79 år, efter ursprung, 2008–2025.",2020,Invandrare från icke-västliga länder,"2,7"
+/data/danmark-lagforda/,"Lagförda för våldsbrott per 1 000 invånare 15–79 år, efter ursprung, 2008–2025.",2020,Barn till invandrare från västliga länder,"2,6"
+/data/danmark-lagforda/,"Lagförda för våldsbrott per 1 000 invånare 15–79 år, efter ursprung, 2008–2025.",2020,Invandrare från västliga länder,"0,8"
+/data/danmark-lagforda/,"Lagförda för våldsbrott per 1 000 invånare 15–79 år, efter ursprung, 2008–2025.",2020,Dansk ursprung,"1,2"
+/data/danmark-lagforda/,"Lagförda för våldsbrott per 1 000 invånare 15–79 år, efter ursprung, 2008–2025.",2020,Hela befolkningen 15–79 år,"1,5"
+/data/danmark-lagforda/,"Lagförda för våldsbrott per 1 000 invånare 15–79 år, efter ursprung, 2008–2025.",2021,Barn till invandrare från icke-västliga länder,"7,1"
+/data/danmark-lagforda/,"Lagförda för våldsbrott per 1 000 invånare 15–79 år, efter ursprung, 2008–2025.",2021,Invandrare från icke-västliga länder,"2,5"
+/data/danmark-lagforda/,"Lagförda för våldsbrott per 1 000 invånare 15–79 år, efter ursprung, 2008–2025.",2021,Barn till invandrare från västliga länder,"3,1"
+/data/danmark-lagforda/,"Lagförda för våldsbrott per 1 000 invånare 15–79 år, efter ursprung, 2008–2025.",2021,Invandrare från västliga länder,"0,7"
+/data/danmark-lagforda/,"Lagförda för våldsbrott per 1 000 invånare 15–79 år, efter ursprung, 2008–2025.",2021,Dansk ursprung,"1,1"
+/data/danmark-lagforda/,"Lagförda för våldsbrott per 1 000 invånare 15–79 år, efter ursprung, 2008–2025.",2021,Hela befolkningen 15–79 år,"1,3"
+/data/danmark-lagforda/,"Lagförda för våldsbrott per 1 000 invånare 15–79 år, efter ursprung, 2008–2025.",2022,Barn till invandrare från icke-västliga länder,"6,7"
+/data/danmark-lagforda/,"Lagförda för våldsbrott per 1 000 invånare 15–79 år, efter ursprung, 2008–2025.",2022,Invandrare från icke-västliga länder,"2,2"
+/data/danmark-lagforda/,"Lagförda för våldsbrott per 1 000 invånare 15–79 år, efter ursprung, 2008–2025.",2022,Barn till invandrare från västliga länder,"2,1"
+/data/danmark-lagforda/,"Lagförda för våldsbrott per 1 000 invånare 15–79 år, efter ursprung, 2008–2025.",2022,Invandrare från västliga länder,"0,8"
+/data/danmark-lagforda/,"Lagförda för våldsbrott per 1 000 invånare 15–79 år, efter ursprung, 2008–2025.",2022,Dansk ursprung,"1,1"
+/data/danmark-lagforda/,"Lagförda för våldsbrott per 1 000 invånare 15–79 år, efter ursprung, 2008–2025.",2022,Hela befolkningen 15–79 år,"1,3"
+/data/danmark-lagforda/,"Lagförda för våldsbrott per 1 000 invånare 15–79 år, efter ursprung, 2008–2025.",2023,Barn till invandrare från icke-västliga länder,"6,8"
+/data/danmark-lagforda/,"Lagförda för våldsbrott per 1 000 invånare 15–79 år, efter ursprung, 2008–2025.",2023,Invandrare från icke-västliga länder,"2,2"
+/data/danmark-lagforda/,"Lagförda för våldsbrott per 1 000 invånare 15–79 år, efter ursprung, 2008–2025.",2023,Barn till invandrare från västliga länder,"2,6"
+/data/danmark-lagforda/,"Lagförda för våldsbrott per 1 000 invånare 15–79 år, efter ursprung, 2008–2025.",2023,Invandrare från västliga länder,"0,9"
+/data/danmark-lagforda/,"Lagförda för våldsbrott per 1 000 invånare 15–79 år, efter ursprung, 2008–2025.",2023,Dansk ursprung,"1,2"
+/data/danmark-lagforda/,"Lagförda för våldsbrott per 1 000 invånare 15–79 år, efter ursprung, 2008–2025.",2023,Hela befolkningen 15–79 år,"1,4"
+/data/danmark-lagforda/,"Lagförda för våldsbrott per 1 000 invånare 15–79 år, efter ursprung, 2008–2025.",2024,Barn till invandrare från icke-västliga länder,"5,7"
+/data/danmark-lagforda/,"Lagförda för våldsbrott per 1 000 invånare 15–79 år, efter ursprung, 2008–2025.",2024,Invandrare från icke-västliga länder,"2,0"
+/data/danmark-lagforda/,"Lagförda för våldsbrott per 1 000 invånare 15–79 år, efter ursprung, 2008–2025.",2024,Barn till invandrare från västliga länder,"2,8"
+/data/danmark-lagforda/,"Lagförda för våldsbrott per 1 000 invånare 15–79 år, efter ursprung, 2008–2025.",2024,Invandrare från västliga länder,"0,7"
+/data/danmark-lagforda/,"Lagförda för våldsbrott per 1 000 invånare 15–79 år, efter ursprung, 2008–2025.",2024,Dansk ursprung,"1,1"
+/data/danmark-lagforda/,"Lagförda för våldsbrott per 1 000 invånare 15–79 år, efter ursprung, 2008–2025.",2024,Hela befolkningen 15–79 år,"1,3"
+/data/danmark-lagforda/,"Lagförda för våldsbrott per 1 000 invånare 15–79 år, efter ursprung, 2008–2025.",2025,Barn till invandrare från icke-västliga länder,"6,1"
+/data/danmark-lagforda/,"Lagförda för våldsbrott per 1 000 invånare 15–79 år, efter ursprung, 2008–2025.",2025,Invandrare från icke-västliga länder,"1,8"
+/data/danmark-lagforda/,"Lagförda för våldsbrott per 1 000 invånare 15–79 år, efter ursprung, 2008–2025.",2025,Barn till invandrare från västliga länder,"2,4"
+/data/danmark-lagforda/,"Lagförda för våldsbrott per 1 000 invånare 15–79 år, efter ursprung, 2008–2025.",2025,Invandrare från västliga länder,"0,7"
+/data/danmark-lagforda/,"Lagförda för våldsbrott per 1 000 invånare 15–79 år, efter ursprung, 2008–2025.",2025,Dansk ursprung,"1,1"
+/data/danmark-lagforda/,"Lagförda för våldsbrott per 1 000 invånare 15–79 år, efter ursprung, 2008–2025.",2025,Hela befolkningen 15–79 år,"1,3"
+/data/danmark-lagforda/,"Antal lagförda för brott mot strafflagen, 15–79 år, efter ursprung, 2008–2025.",2008,Barn till invandrare från icke-västliga länder,1 087
+/data/danmark-lagforda/,"Antal lagförda för brott mot strafflagen, 15–79 år, efter ursprung, 2008–2025.",2008,Invandrare från icke-västliga länder,3 431
+/data/danmark-lagforda/,"Antal lagförda för brott mot strafflagen, 15–79 år, efter ursprung, 2008–2025.",2008,Barn till invandrare från västliga länder,98
+/data/danmark-lagforda/,"Antal lagförda för brott mot strafflagen, 15–79 år, efter ursprung, 2008–2025.",2008,Invandrare från västliga länder,646
+/data/danmark-lagforda/,"Antal lagförda för brott mot strafflagen, 15–79 år, efter ursprung, 2008–2025.",2008,Dansk ursprung,20 270
+/data/danmark-lagforda/,"Antal lagförda för brott mot strafflagen, 15–79 år, efter ursprung, 2008–2025.",2008,Hela befolkningen 15–79 år,25 532
+/data/danmark-lagforda/,"Antal lagförda för brott mot strafflagen, 15–79 år, efter ursprung, 2008–2025.",2009,Barn till invandrare från icke-västliga länder,1 294
+/data/danmark-lagforda/,"Antal lagförda för brott mot strafflagen, 15–79 år, efter ursprung, 2008–2025.",2009,Invandrare från icke-västliga länder,3 707
+/data/danmark-lagforda/,"Antal lagförda för brott mot strafflagen, 15–79 år, efter ursprung, 2008–2025.",2009,Barn till invandrare från västliga länder,116
+/data/danmark-lagforda/,"Antal lagförda för brott mot strafflagen, 15–79 år, efter ursprung, 2008–2025.",2009,Invandrare från västliga länder,782
+/data/danmark-lagforda/,"Antal lagförda för brott mot strafflagen, 15–79 år, efter ursprung, 2008–2025.",2009,Dansk ursprung,22 107
+/data/danmark-lagforda/,"Antal lagförda för brott mot strafflagen, 15–79 år, efter ursprung, 2008–2025.",2009,Hela befolkningen 15–79 år,28 006
+/data/danmark-lagforda/,"Antal lagförda för brott mot strafflagen, 15–79 år, efter ursprung, 2008–2025.",2010,Barn till invandrare från icke-västliga länder,1 681
+/data/danmark-lagforda/,"Antal lagförda för brott mot strafflagen, 15–79 år, efter ursprung, 2008–2025.",2010,Invandrare från icke-västliga länder,3 861
+/data/danmark-lagforda/,"Antal lagförda för brott mot strafflagen, 15–79 år, efter ursprung, 2008–2025.",2010,Barn till invandrare från västliga länder,102
+/data/danmark-lagforda/,"Antal lagförda för brott mot strafflagen, 15–79 år, efter ursprung, 2008–2025.",2010,Invandrare från västliga länder,870
+/data/danmark-lagforda/,"Antal lagförda för brott mot strafflagen, 15–79 år, efter ursprung, 2008–2025.",2010,Dansk ursprung,23 459
+/data/danmark-lagforda/,"Antal lagförda för brott mot strafflagen, 15–79 år, efter ursprung, 2008–2025.",2010,Hela befolkningen 15–79 år,29 973
+/data/danmark-lagforda/,"Antal lagförda för brott mot strafflagen, 15–79 år, efter ursprung, 2008–2025.",2011,Barn till invandrare från icke-västliga länder,1 692
+/data/danmark-lagforda/,"Antal lagförda för brott mot strafflagen, 15–79 år, efter ursprung, 2008–2025.",2011,Invandrare från icke-västliga länder,4 028
+/data/danmark-lagforda/,"Antal lagförda för brott mot strafflagen, 15–79 år, efter ursprung, 2008–2025.",2011,Barn till invandrare från västliga länder,123
+/data/danmark-lagforda/,"Antal lagförda för brott mot strafflagen, 15–79 år, efter ursprung, 2008–2025.",2011,Invandrare från västliga länder,881
+/data/danmark-lagforda/,"Antal lagförda för brott mot strafflagen, 15–79 år, efter ursprung, 2008–2025.",2011,Dansk ursprung,23 269
+/data/danmark-lagforda/,"Antal lagförda för brott mot strafflagen, 15–79 år, efter ursprung, 2008–2025.",2011,Hela befolkningen 15–79 år,29 993
+/data/danmark-lagforda/,"Antal lagförda för brott mot strafflagen, 15–79 år, efter ursprung, 2008–2025.",2012,Barn till invandrare från icke-västliga länder,1 820
+/data/danmark-lagforda/,"Antal lagförda för brott mot strafflagen, 15–79 år, efter ursprung, 2008–2025.",2012,Invandrare från icke-västliga länder,3 841
+/data/danmark-lagforda/,"Antal lagförda för brott mot strafflagen, 15–79 år, efter ursprung, 2008–2025.",2012,Barn till invandrare från västliga länder,135
+/data/danmark-lagforda/,"Antal lagförda för brott mot strafflagen, 15–79 år, efter ursprung, 2008–2025.",2012,Invandrare från västliga länder,887
+/data/danmark-lagforda/,"Antal lagförda för brott mot strafflagen, 15–79 år, efter ursprung, 2008–2025.",2012,Dansk ursprung,22 528
+/data/danmark-lagforda/,"Antal lagförda för brott mot strafflagen, 15–79 år, efter ursprung, 2008–2025.",2012,Hela befolkningen 15–79 år,29 211
+/data/danmark-lagforda/,"Antal lagförda för brott mot strafflagen, 15–79 år, efter ursprung, 2008–2025.",2013,Barn till invandrare från icke-västliga länder,1 805
+/data/danmark-lagforda/,"Antal lagförda för brott mot strafflagen, 15–79 år, efter ursprung, 2008–2025.",2013,Invandrare från icke-västliga länder,3 542
+/data/danmark-lagforda/,"Antal lagförda för brott mot strafflagen, 15–79 år, efter ursprung, 2008–2025.",2013,Barn till invandrare från västliga länder,139
+/data/danmark-lagforda/,"Antal lagförda för brott mot strafflagen, 15–79 år, efter ursprung, 2008–2025.",2013,Invandrare från västliga länder,913
+/data/danmark-lagforda/,"Antal lagförda för brott mot strafflagen, 15–79 år, efter ursprung, 2008–2025.",2013,Dansk ursprung,20 630
+/data/danmark-lagforda/,"Antal lagförda för brott mot strafflagen, 15–79 år, efter ursprung, 2008–2025.",2013,Hela befolkningen 15–79 år,27 029
+/data/danmark-lagforda/,"Antal lagförda för brott mot strafflagen, 15–79 år, efter ursprung, 2008–2025.",2014,Barn till invandrare från icke-västliga länder,1 845
+/data/danmark-lagforda/,"Antal lagförda för brott mot strafflagen, 15–79 år, efter ursprung, 2008–2025.",2014,Invandrare från icke-västliga länder,3 401
+/data/danmark-lagforda/,"Antal lagförda för brott mot strafflagen, 15–79 år, efter ursprung, 2008–2025.",2014,Barn till invandrare från västliga länder,96
+/data/danmark-lagforda/,"Antal lagförda för brott mot strafflagen, 15–79 år, efter ursprung, 2008–2025.",2014,Invandrare från västliga länder,951
+/data/danmark-lagforda/,"Antal lagförda för brott mot strafflagen, 15–79 år, efter ursprung, 2008–2025.",2014,Dansk ursprung,19 188
+/data/danmark-lagforda/,"Antal lagförda för brott mot strafflagen, 15–79 år, efter ursprung, 2008–2025.",2014,Hela befolkningen 15–79 år,25 481
+/data/danmark-lagforda/,"Antal lagförda för brott mot strafflagen, 15–79 år, efter ursprung, 2008–2025.",2015,Barn till invandrare från icke-västliga länder,1 921
+/data/danmark-lagforda/,"Antal lagförda för brott mot strafflagen, 15–79 år, efter ursprung, 2008–2025.",2015,Invandrare från icke-västliga länder,3 251
+/data/danmark-lagforda/,"Antal lagförda för brott mot strafflagen, 15–79 år, efter ursprung, 2008–2025.",2015,Barn till invandrare från västliga länder,117
+/data/danmark-lagforda/,"Antal lagförda för brott mot strafflagen, 15–79 år, efter ursprung, 2008–2025.",2015,Invandrare från västliga länder,950
+/data/danmark-lagforda/,"Antal lagförda för brott mot strafflagen, 15–79 år, efter ursprung, 2008–2025.",2015,Dansk ursprung,18 061
+/data/danmark-lagforda/,"Antal lagförda för brott mot strafflagen, 15–79 år, efter ursprung, 2008–2025.",2015,Hela befolkningen 15–79 år,24 300
+/data/danmark-lagforda/,"Antal lagförda för brott mot strafflagen, 15–79 år, efter ursprung, 2008–2025.",2016,Barn till invandrare från icke-västliga länder,1 933
+/data/danmark-lagforda/,"Antal lagförda för brott mot strafflagen, 15–79 år, efter ursprung, 2008–2025.",2016,Invandrare från icke-västliga länder,3 187
+/data/danmark-lagforda/,"Antal lagförda för brott mot strafflagen, 15–79 år, efter ursprung, 2008–2025.",2016,Barn till invandrare från västliga länder,107
+/data/danmark-lagforda/,"Antal lagförda för brott mot strafflagen, 15–79 år, efter ursprung, 2008–2025.",2016,Invandrare från västliga länder,852
+/data/danmark-lagforda/,"Antal lagförda för brott mot strafflagen, 15–79 år, efter ursprung, 2008–2025.",2016,Dansk ursprung,16 962
+/data/danmark-lagforda/,"Antal lagförda för brott mot strafflagen, 15–79 år, efter ursprung, 2008–2025.",2016,Hela befolkningen 15–79 år,23 041
+/data/danmark-lagforda/,"Antal lagförda för brott mot strafflagen, 15–79 år, efter ursprung, 2008–2025.",2017,Barn till invandrare från icke-västliga länder,2 054
+/data/danmark-lagforda/,"Antal lagförda för brott mot strafflagen, 15–79 år, efter ursprung, 2008–2025.",2017,Invandrare från icke-västliga länder,3 054
+/data/danmark-lagforda/,"Antal lagförda för brott mot strafflagen, 15–79 år, efter ursprung, 2008–2025.",2017,Barn till invandrare från västliga länder,98
+/data/danmark-lagforda/,"Antal lagförda för brott mot strafflagen, 15–79 år, efter ursprung, 2008–2025.",2017,Invandrare från västliga länder,775
+/data/danmark-lagforda/,"Antal lagförda för brott mot strafflagen, 15–79 år, efter ursprung, 2008–2025.",2017,Dansk ursprung,14 959
+/data/danmark-lagforda/,"Antal lagförda för brott mot strafflagen, 15–79 år, efter ursprung, 2008–2025.",2017,Hela befolkningen 15–79 år,20 940
+/data/danmark-lagforda/,"Antal lagförda för brott mot strafflagen, 15–79 år, efter ursprung, 2008–2025.",2018,Barn till invandrare från icke-västliga länder,1 938
+/data/danmark-lagforda/,"Antal lagförda för brott mot strafflagen, 15–79 år, efter ursprung, 2008–2025.",2018,Invandrare från icke-västliga länder,3 112
+/data/danmark-lagforda/,"Antal lagförda för brott mot strafflagen, 15–79 år, efter ursprung, 2008–2025.",2018,Barn till invandrare från västliga länder,102
+/data/danmark-lagforda/,"Antal lagförda för brott mot strafflagen, 15–79 år, efter ursprung, 2008–2025.",2018,Invandrare från västliga länder,844
+/data/danmark-lagforda/,"Antal lagförda för brott mot strafflagen, 15–79 år, efter ursprung, 2008–2025.",2018,Dansk ursprung,14 953
+/data/danmark-lagforda/,"Antal lagförda för brott mot strafflagen, 15–79 år, efter ursprung, 2008–2025.",2018,Hela befolkningen 15–79 år,20 949
+/data/danmark-lagforda/,"Antal lagförda för brott mot strafflagen, 15–79 år, efter ursprung, 2008–2025.",2019,Barn till invandrare från icke-västliga länder,2 060
+/data/danmark-lagforda/,"Antal lagförda för brott mot strafflagen, 15–79 år, efter ursprung, 2008–2025.",2019,Invandrare från icke-västliga länder,2 956
+/data/danmark-lagforda/,"Antal lagförda för brott mot strafflagen, 15–79 år, efter ursprung, 2008–2025.",2019,Barn till invandrare från västliga länder,107
+/data/danmark-lagforda/,"Antal lagförda för brott mot strafflagen, 15–79 år, efter ursprung, 2008–2025.",2019,Invandrare från västliga länder,813
+/data/danmark-lagforda/,"Antal lagförda för brott mot strafflagen, 15–79 år, efter ursprung, 2008–2025.",2019,Dansk ursprung,15 584
+/data/danmark-lagforda/,"Antal lagförda för brott mot strafflagen, 15–79 år, efter ursprung, 2008–2025.",2019,Hela befolkningen 15–79 år,21 520
+/data/danmark-lagforda/,"Antal lagförda för brott mot strafflagen, 15–79 år, efter ursprung, 2008–2025.",2020,Barn till invandrare från icke-västliga länder,2 246
+/data/danmark-lagforda/,"Antal lagförda för brott mot strafflagen, 15–79 år, efter ursprung, 2008–2025.",2020,Invandrare från icke-västliga länder,3 142
+/data/danmark-lagforda/,"Antal lagförda för brott mot strafflagen, 15–79 år, efter ursprung, 2008–2025.",2020,Barn till invandrare från västliga länder,109
+/data/danmark-lagforda/,"Antal lagförda för brott mot strafflagen, 15–79 år, efter ursprung, 2008–2025.",2020,Invandrare från västliga länder,982
+/data/danmark-lagforda/,"Antal lagförda för brott mot strafflagen, 15–79 år, efter ursprung, 2008–2025.",2020,Dansk ursprung,16 949
+/data/danmark-lagforda/,"Antal lagförda för brott mot strafflagen, 15–79 år, efter ursprung, 2008–2025.",2020,Hela befolkningen 15–79 år,23 428
+/data/danmark-lagforda/,"Antal lagförda för brott mot strafflagen, 15–79 år, efter ursprung, 2008–2025.",2021,Barn till invandrare från icke-västliga länder,2 294
+/data/danmark-lagforda/,"Antal lagförda för brott mot strafflagen, 15–79 år, efter ursprung, 2008–2025.",2021,Invandrare från icke-västliga länder,3 076
+/data/danmark-lagforda/,"Antal lagförda för brott mot strafflagen, 15–79 år, efter ursprung, 2008–2025.",2021,Barn till invandrare från västliga länder,121
+/data/danmark-lagforda/,"Antal lagförda för brott mot strafflagen, 15–79 år, efter ursprung, 2008–2025.",2021,Invandrare från västliga länder,989
+/data/danmark-lagforda/,"Antal lagförda för brott mot strafflagen, 15–79 år, efter ursprung, 2008–2025.",2021,Dansk ursprung,15 803
+/data/danmark-lagforda/,"Antal lagförda för brott mot strafflagen, 15–79 år, efter ursprung, 2008–2025.",2021,Hela befolkningen 15–79 år,22 283
+/data/danmark-lagforda/,"Antal lagförda för brott mot strafflagen, 15–79 år, efter ursprung, 2008–2025.",2022,Barn till invandrare från icke-västliga länder,2 258
+/data/danmark-lagforda/,"Antal lagförda för brott mot strafflagen, 15–79 år, efter ursprung, 2008–2025.",2022,Invandrare från icke-västliga länder,3 024
+/data/danmark-lagforda/,"Antal lagförda för brott mot strafflagen, 15–79 år, efter ursprung, 2008–2025.",2022,Barn till invandrare från västliga länder,95
+/data/danmark-lagforda/,"Antal lagförda för brott mot strafflagen, 15–79 år, efter ursprung, 2008–2025.",2022,Invandrare från västliga länder,1 164
+/data/danmark-lagforda/,"Antal lagförda för brott mot strafflagen, 15–79 år, efter ursprung, 2008–2025.",2022,Dansk ursprung,15 876
+/data/danmark-lagforda/,"Antal lagförda för brott mot strafflagen, 15–79 år, efter ursprung, 2008–2025.",2022,Hela befolkningen 15–79 år,22 417
+/data/danmark-lagforda/,"Antal lagförda för brott mot strafflagen, 15–79 år, efter ursprung, 2008–2025.",2023,Barn till invandrare från icke-västliga länder,2 301
+/data/danmark-lagforda/,"Antal lagförda för brott mot strafflagen, 15–79 år, efter ursprung, 2008–2025.",2023,Invandrare från icke-västliga länder,3 460
+/data/danmark-lagforda/,"Antal lagförda för brott mot strafflagen, 15–79 år, efter ursprung, 2008–2025.",2023,Barn till invandrare från västliga länder,139
+/data/danmark-lagforda/,"Antal lagförda för brott mot strafflagen, 15–79 år, efter ursprung, 2008–2025.",2023,Invandrare från västliga länder,1 538
+/data/danmark-lagforda/,"Antal lagförda för brott mot strafflagen, 15–79 år, efter ursprung, 2008–2025.",2023,Dansk ursprung,18 077
+/data/danmark-lagforda/,"Antal lagförda för brott mot strafflagen, 15–79 år, efter ursprung, 2008–2025.",2023,Hela befolkningen 15–79 år,25 515
+/data/danmark-lagforda/,"Antal lagförda för brott mot strafflagen, 15–79 år, efter ursprung, 2008–2025.",2024,Barn till invandrare från icke-västliga länder,2 230
+/data/danmark-lagforda/,"Antal lagförda för brott mot strafflagen, 15–79 år, efter ursprung, 2008–2025.",2024,Invandrare från icke-västliga länder,3 366
+/data/danmark-lagforda/,"Antal lagförda för brott mot strafflagen, 15–79 år, efter ursprung, 2008–2025.",2024,Barn till invandrare från västliga länder,146
+/data/danmark-lagforda/,"Antal lagförda för brott mot strafflagen, 15–79 år, efter ursprung, 2008–2025.",2024,Invandrare från västliga länder,1 477
+/data/danmark-lagforda/,"Antal lagförda för brott mot strafflagen, 15–79 år, efter ursprung, 2008–2025.",2024,Dansk ursprung,17 423
+/data/danmark-lagforda/,"Antal lagförda för brott mot strafflagen, 15–79 år, efter ursprung, 2008–2025.",2024,Hela befolkningen 15–79 år,24 642
+/data/danmark-lagforda/,"Antal lagförda för brott mot strafflagen, 15–79 år, efter ursprung, 2008–2025.",2025,Barn till invandrare från icke-västliga länder,2 255
+/data/danmark-lagforda/,"Antal lagförda för brott mot strafflagen, 15–79 år, efter ursprung, 2008–2025.",2025,Invandrare från icke-västliga länder,3 512
+/data/danmark-lagforda/,"Antal lagförda för brott mot strafflagen, 15–79 år, efter ursprung, 2008–2025.",2025,Barn till invandrare från västliga länder,146
+/data/danmark-lagforda/,"Antal lagförda för brott mot strafflagen, 15–79 år, efter ursprung, 2008–2025.",2025,Invandrare från västliga länder,1 458
+/data/danmark-lagforda/,"Antal lagförda för brott mot strafflagen, 15–79 år, efter ursprung, 2008–2025.",2025,Dansk ursprung,16 749
+/data/danmark-lagforda/,"Antal lagförda för brott mot strafflagen, 15–79 år, efter ursprung, 2008–2025.",2025,Hela befolkningen 15–79 år,24 120
+/data/danmark-lagforda/,"Antal lagförda för våldsbrott, 15–79 år, efter ursprung, 2008–2025.",2008,Barn till invandrare från icke-västliga länder,368
+/data/danmark-lagforda/,"Antal lagförda för våldsbrott, 15–79 år, efter ursprung, 2008–2025.",2008,Invandrare från icke-västliga länder,912
+/data/danmark-lagforda/,"Antal lagförda för våldsbrott, 15–79 år, efter ursprung, 2008–2025.",2008,Barn till invandrare från västliga länder,29
+/data/danmark-lagforda/,"Antal lagförda för våldsbrott, 15–79 år, efter ursprung, 2008–2025.",2008,Invandrare från västliga länder,132
+/data/danmark-lagforda/,"Antal lagförda för våldsbrott, 15–79 år, efter ursprung, 2008–2025.",2008,Dansk ursprung,5 438
+/data/danmark-lagforda/,"Antal lagförda för våldsbrott, 15–79 år, efter ursprung, 2008–2025.",2008,Hela befolkningen 15–79 år,6 879
+/data/danmark-lagforda/,"Antal lagförda för våldsbrott, 15–79 år, efter ursprung, 2008–2025.",2009,Barn till invandrare från icke-västliga länder,406
+/data/danmark-lagforda/,"Antal lagförda för våldsbrott, 15–79 år, efter ursprung, 2008–2025.",2009,Invandrare från icke-västliga länder,980
+/data/danmark-lagforda/,"Antal lagförda för våldsbrott, 15–79 år, efter ursprung, 2008–2025.",2009,Barn till invandrare från västliga länder,22
+/data/danmark-lagforda/,"Antal lagförda för våldsbrott, 15–79 år, efter ursprung, 2008–2025.",2009,Invandrare från västliga länder,154
+/data/danmark-lagforda/,"Antal lagförda för våldsbrott, 15–79 år, efter ursprung, 2008–2025.",2009,Dansk ursprung,5 446
+/data/danmark-lagforda/,"Antal lagförda för våldsbrott, 15–79 år, efter ursprung, 2008–2025.",2009,Hela befolkningen 15–79 år,7 008
+/data/danmark-lagforda/,"Antal lagförda för våldsbrott, 15–79 år, efter ursprung, 2008–2025.",2010,Barn till invandrare från icke-västliga länder,507
+/data/danmark-lagforda/,"Antal lagförda för våldsbrott, 15–79 år, efter ursprung, 2008–2025.",2010,Invandrare från icke-västliga länder,1 010
+/data/danmark-lagforda/,"Antal lagförda för våldsbrott, 15–79 år, efter ursprung, 2008–2025.",2010,Barn till invandrare från västliga länder,28
+/data/danmark-lagforda/,"Antal lagförda för våldsbrott, 15–79 år, efter ursprung, 2008–2025.",2010,Invandrare från västliga länder,146
+/data/danmark-lagforda/,"Antal lagförda för våldsbrott, 15–79 år, efter ursprung, 2008–2025.",2010,Dansk ursprung,6 009
+/data/danmark-lagforda/,"Antal lagförda för våldsbrott, 15–79 år, efter ursprung, 2008–2025.",2010,Hela befolkningen 15–79 år,7 700
+/data/danmark-lagforda/,"Antal lagförda för våldsbrott, 15–79 år, efter ursprung, 2008–2025.",2011,Barn till invandrare från icke-västliga länder,437
+/data/danmark-lagforda/,"Antal lagförda för våldsbrott, 15–79 år, efter ursprung, 2008–2025.",2011,Invandrare från icke-västliga länder,956
+/data/danmark-lagforda/,"Antal lagförda för våldsbrott, 15–79 år, efter ursprung, 2008–2025.",2011,Barn till invandrare från västliga länder,30
+/data/danmark-lagforda/,"Antal lagförda för våldsbrott, 15–79 år, efter ursprung, 2008–2025.",2011,Invandrare från västliga länder,133
+/data/danmark-lagforda/,"Antal lagförda för våldsbrott, 15–79 år, efter ursprung, 2008–2025.",2011,Dansk ursprung,5 565
+/data/danmark-lagforda/,"Antal lagförda för våldsbrott, 15–79 år, efter ursprung, 2008–2025.",2011,Hela befolkningen 15–79 år,7 121
+/data/danmark-lagforda/,"Antal lagförda för våldsbrott, 15–79 år, efter ursprung, 2008–2025.",2012,Barn till invandrare från icke-västliga länder,483
+/data/danmark-lagforda/,"Antal lagförda för våldsbrott, 15–79 år, efter ursprung, 2008–2025.",2012,Invandrare från icke-västliga länder,864
+/data/danmark-lagforda/,"Antal lagförda för våldsbrott, 15–79 år, efter ursprung, 2008–2025.",2012,Barn till invandrare från västliga länder,28
+/data/danmark-lagforda/,"Antal lagförda för våldsbrott, 15–79 år, efter ursprung, 2008–2025.",2012,Invandrare från västliga länder,153
+/data/danmark-lagforda/,"Antal lagförda för våldsbrott, 15–79 år, efter ursprung, 2008–2025.",2012,Dansk ursprung,5 265
+/data/danmark-lagforda/,"Antal lagförda för våldsbrott, 15–79 år, efter ursprung, 2008–2025.",2012,Hela befolkningen 15–79 år,6 793
+/data/danmark-lagforda/,"Antal lagförda för våldsbrott, 15–79 år, efter ursprung, 2008–2025.",2013,Barn till invandrare från icke-västliga länder,447
+/data/danmark-lagforda/,"Antal lagförda för våldsbrott, 15–79 år, efter ursprung, 2008–2025.",2013,Invandrare från icke-västliga länder,762
+/data/danmark-lagforda/,"Antal lagförda för våldsbrott, 15–79 år, efter ursprung, 2008–2025.",2013,Barn till invandrare från västliga länder,25
+/data/danmark-lagforda/,"Antal lagförda för våldsbrott, 15–79 år, efter ursprung, 2008–2025.",2013,Invandrare från västliga länder,143
+/data/danmark-lagforda/,"Antal lagförda för våldsbrott, 15–79 år, efter ursprung, 2008–2025.",2013,Dansk ursprung,4 604
+/data/danmark-lagforda/,"Antal lagförda för våldsbrott, 15–79 år, efter ursprung, 2008–2025.",2013,Hela befolkningen 15–79 år,5 981
+/data/danmark-lagforda/,"Antal lagförda för våldsbrott, 15–79 år, efter ursprung, 2008–2025.",2014,Barn till invandrare från icke-västliga länder,466
+/data/danmark-lagforda/,"Antal lagförda för våldsbrott, 15–79 år, efter ursprung, 2008–2025.",2014,Invandrare från icke-västliga länder,698
+/data/danmark-lagforda/,"Antal lagförda för våldsbrott, 15–79 år, efter ursprung, 2008–2025.",2014,Barn till invandrare från västliga länder,19
+/data/danmark-lagforda/,"Antal lagförda för våldsbrott, 15–79 år, efter ursprung, 2008–2025.",2014,Invandrare från västliga länder,143
+/data/danmark-lagforda/,"Antal lagförda för våldsbrott, 15–79 år, efter ursprung, 2008–2025.",2014,Dansk ursprung,4 033
+/data/danmark-lagforda/,"Antal lagförda för våldsbrott, 15–79 år, efter ursprung, 2008–2025.",2014,Hela befolkningen 15–79 år,5 359
+/data/danmark-lagforda/,"Antal lagförda för våldsbrott, 15–79 år, efter ursprung, 2008–2025.",2015,Barn till invandrare från icke-västliga länder,471
+/data/danmark-lagforda/,"Antal lagförda för våldsbrott, 15–79 år, efter ursprung, 2008–2025.",2015,Invandrare från icke-västliga länder,750
+/data/danmark-lagforda/,"Antal lagförda för våldsbrott, 15–79 år, efter ursprung, 2008–2025.",2015,Barn till invandrare från västliga länder,25
+/data/danmark-lagforda/,"Antal lagförda för våldsbrott, 15–79 år, efter ursprung, 2008–2025.",2015,Invandrare från västliga länder,146
+/data/danmark-lagforda/,"Antal lagförda för våldsbrott, 15–79 år, efter ursprung, 2008–2025.",2015,Dansk ursprung,4 126
+/data/danmark-lagforda/,"Antal lagförda för våldsbrott, 15–79 år, efter ursprung, 2008–2025.",2015,Hela befolkningen 15–79 år,5 518
+/data/danmark-lagforda/,"Antal lagförda för våldsbrott, 15–79 år, efter ursprung, 2008–2025.",2016,Barn till invandrare från icke-västliga länder,494
+/data/danmark-lagforda/,"Antal lagförda för våldsbrott, 15–79 år, efter ursprung, 2008–2025.",2016,Invandrare från icke-västliga länder,774
+/data/danmark-lagforda/,"Antal lagförda för våldsbrott, 15–79 år, efter ursprung, 2008–2025.",2016,Barn till invandrare från västliga länder,24
+/data/danmark-lagforda/,"Antal lagförda för våldsbrott, 15–79 år, efter ursprung, 2008–2025.",2016,Invandrare från västliga länder,147
+/data/danmark-lagforda/,"Antal lagförda för våldsbrott, 15–79 år, efter ursprung, 2008–2025.",2016,Dansk ursprung,4 036
+/data/danmark-lagforda/,"Antal lagförda för våldsbrott, 15–79 år, efter ursprung, 2008–2025.",2016,Hela befolkningen 15–79 år,5 475
+/data/danmark-lagforda/,"Antal lagförda för våldsbrott, 15–79 år, efter ursprung, 2008–2025.",2017,Barn till invandrare från icke-västliga länder,651
+/data/danmark-lagforda/,"Antal lagförda för våldsbrott, 15–79 år, efter ursprung, 2008–2025.",2017,Invandrare från icke-västliga länder,899
+/data/danmark-lagforda/,"Antal lagförda för våldsbrott, 15–79 år, efter ursprung, 2008–2025.",2017,Barn till invandrare från västliga länder,26
+/data/danmark-lagforda/,"Antal lagförda för våldsbrott, 15–79 år, efter ursprung, 2008–2025.",2017,Invandrare från västliga länder,164
+/data/danmark-lagforda/,"Antal lagförda för våldsbrott, 15–79 år, efter ursprung, 2008–2025.",2017,Dansk ursprung,4 274
+/data/danmark-lagforda/,"Antal lagförda för våldsbrott, 15–79 år, efter ursprung, 2008–2025.",2017,Hela befolkningen 15–79 år,6 014
+/data/danmark-lagforda/,"Antal lagförda för våldsbrott, 15–79 år, efter ursprung, 2008–2025.",2018,Barn till invandrare från icke-västliga länder,644
+/data/danmark-lagforda/,"Antal lagförda för våldsbrott, 15–79 år, efter ursprung, 2008–2025.",2018,Invandrare från icke-västliga länder,955
+/data/danmark-lagforda/,"Antal lagförda för våldsbrott, 15–79 år, efter ursprung, 2008–2025.",2018,Barn till invandrare från västliga länder,33
+/data/danmark-lagforda/,"Antal lagförda för våldsbrott, 15–79 år, efter ursprung, 2008–2025.",2018,Invandrare från västliga länder,148
+/data/danmark-lagforda/,"Antal lagförda för våldsbrott, 15–79 år, efter ursprung, 2008–2025.",2018,Dansk ursprung,4 318
+/data/danmark-lagforda/,"Antal lagförda för våldsbrott, 15–79 år, efter ursprung, 2008–2025.",2018,Hela befolkningen 15–79 år,6 098
+/data/danmark-lagforda/,"Antal lagförda för våldsbrott, 15–79 år, efter ursprung, 2008–2025.",2019,Barn till invandrare från icke-västliga länder,689
+/data/danmark-lagforda/,"Antal lagförda för våldsbrott, 15–79 år, efter ursprung, 2008–2025.",2019,Invandrare från icke-västliga länder,845
+/data/danmark-lagforda/,"Antal lagförda för våldsbrott, 15–79 år, efter ursprung, 2008–2025.",2019,Barn till invandrare från västliga länder,34
+/data/danmark-lagforda/,"Antal lagförda för våldsbrott, 15–79 år, efter ursprung, 2008–2025.",2019,Invandrare från västliga länder,146
+/data/danmark-lagforda/,"Antal lagförda för våldsbrott, 15–79 år, efter ursprung, 2008–2025.",2019,Dansk ursprung,4 345
+/data/danmark-lagforda/,"Antal lagförda för våldsbrott, 15–79 år, efter ursprung, 2008–2025.",2019,Hela befolkningen 15–79 år,6 059
+/data/danmark-lagforda/,"Antal lagförda för våldsbrott, 15–79 år, efter ursprung, 2008–2025.",2020,Barn till invandrare från icke-västliga länder,790
+/data/danmark-lagforda/,"Antal lagförda för våldsbrott, 15–79 år, efter ursprung, 2008–2025.",2020,Invandrare från icke-västliga länder,901
+/data/danmark-lagforda/,"Antal lagförda för våldsbrott, 15–79 år, efter ursprung, 2008–2025.",2020,Barn till invandrare från västliga länder,32
+/data/danmark-lagforda/,"Antal lagförda för våldsbrott, 15–79 år, efter ursprung, 2008–2025.",2020,Invandrare från västliga länder,192
+/data/danmark-lagforda/,"Antal lagförda för våldsbrott, 15–79 år, efter ursprung, 2008–2025.",2020,Dansk ursprung,4 773
+/data/danmark-lagforda/,"Antal lagförda för våldsbrott, 15–79 år, efter ursprung, 2008–2025.",2020,Hela befolkningen 15–79 år,6 688
+/data/danmark-lagforda/,"Antal lagförda för våldsbrott, 15–79 år, efter ursprung, 2008–2025.",2021,Barn till invandrare från icke-västliga länder,671
+/data/danmark-lagforda/,"Antal lagförda för våldsbrott, 15–79 år, efter ursprung, 2008–2025.",2021,Invandrare från icke-västliga länder,834
+/data/danmark-lagforda/,"Antal lagförda för våldsbrott, 15–79 år, efter ursprung, 2008–2025.",2021,Barn till invandrare från västliga länder,39
+/data/danmark-lagforda/,"Antal lagförda för våldsbrott, 15–79 år, efter ursprung, 2008–2025.",2021,Invandrare från västliga länder,184
+/data/danmark-lagforda/,"Antal lagförda för våldsbrott, 15–79 år, efter ursprung, 2008–2025.",2021,Dansk ursprung,4 193
+/data/danmark-lagforda/,"Antal lagförda för våldsbrott, 15–79 år, efter ursprung, 2008–2025.",2021,Hela befolkningen 15–79 år,5 921
+/data/danmark-lagforda/,"Antal lagförda för våldsbrott, 15–79 år, efter ursprung, 2008–2025.",2022,Barn till invandrare från icke-västliga länder,663
+/data/danmark-lagforda/,"Antal lagförda för våldsbrott, 15–79 år, efter ursprung, 2008–2025.",2022,Invandrare från icke-västliga länder,762
+/data/danmark-lagforda/,"Antal lagförda för våldsbrott, 15–79 år, efter ursprung, 2008–2025.",2022,Barn till invandrare från västliga länder,28
+/data/danmark-lagforda/,"Antal lagförda för våldsbrott, 15–79 år, efter ursprung, 2008–2025.",2022,Invandrare från västliga länder,209
+/data/danmark-lagforda/,"Antal lagförda för våldsbrott, 15–79 år, efter ursprung, 2008–2025.",2022,Dansk ursprung,4 277
+/data/danmark-lagforda/,"Antal lagförda för våldsbrott, 15–79 år, efter ursprung, 2008–2025.",2022,Hela befolkningen 15–79 år,5 939
+/data/danmark-lagforda/,"Antal lagförda för våldsbrott, 15–79 år, efter ursprung, 2008–2025.",2023,Barn till invandrare från icke-västliga länder,697
+/data/danmark-lagforda/,"Antal lagförda för våldsbrott, 15–79 år, efter ursprung, 2008–2025.",2023,Invandrare från icke-västliga länder,839
+/data/danmark-lagforda/,"Antal lagförda för våldsbrott, 15–79 år, efter ursprung, 2008–2025.",2023,Barn till invandrare från västliga länder,36
+/data/danmark-lagforda/,"Antal lagförda för våldsbrott, 15–79 år, efter ursprung, 2008–2025.",2023,Invandrare från västliga länder,240
+/data/danmark-lagforda/,"Antal lagförda för våldsbrott, 15–79 år, efter ursprung, 2008–2025.",2023,Dansk ursprung,4 711
+/data/danmark-lagforda/,"Antal lagförda för våldsbrott, 15–79 år, efter ursprung, 2008–2025.",2023,Hela befolkningen 15–79 år,6 523
+/data/danmark-lagforda/,"Antal lagförda för våldsbrott, 15–79 år, efter ursprung, 2008–2025.",2024,Barn till invandrare från icke-västliga länder,606
+/data/danmark-lagforda/,"Antal lagförda för våldsbrott, 15–79 år, efter ursprung, 2008–2025.",2024,Invandrare från icke-västliga länder,783
+/data/danmark-lagforda/,"Antal lagförda för våldsbrott, 15–79 år, efter ursprung, 2008–2025.",2024,Barn till invandrare från västliga länder,41
+/data/danmark-lagforda/,"Antal lagförda för våldsbrott, 15–79 år, efter ursprung, 2008–2025.",2024,Invandrare från västliga länder,187
+/data/danmark-lagforda/,"Antal lagförda för våldsbrott, 15–79 år, efter ursprung, 2008–2025.",2024,Dansk ursprung,4 275
+/data/danmark-lagforda/,"Antal lagförda för våldsbrott, 15–79 år, efter ursprung, 2008–2025.",2024,Hela befolkningen 15–79 år,5 892
+/data/danmark-lagforda/,"Antal lagförda för våldsbrott, 15–79 år, efter ursprung, 2008–2025.",2025,Barn till invandrare från icke-västliga länder,679
+/data/danmark-lagforda/,"Antal lagförda för våldsbrott, 15–79 år, efter ursprung, 2008–2025.",2025,Invandrare från icke-västliga länder,743
+/data/danmark-lagforda/,"Antal lagförda för våldsbrott, 15–79 år, efter ursprung, 2008–2025.",2025,Barn till invandrare från västliga länder,36
+/data/danmark-lagforda/,"Antal lagförda för våldsbrott, 15–79 år, efter ursprung, 2008–2025.",2025,Invandrare från västliga länder,194
+/data/danmark-lagforda/,"Antal lagförda för våldsbrott, 15–79 år, efter ursprung, 2008–2025.",2025,Dansk ursprung,4 301
+/data/danmark-lagforda/,"Antal lagförda för våldsbrott, 15–79 år, efter ursprung, 2008–2025.",2025,Hela befolkningen 15–79 år,5 953
+/data/danmark-lagforda/,"Befolkningen 15–79 år den 1 januari, efter ursprung, 2008–2026. Antal personer.",2008,Barn till invandrare från icke-västliga länder,30 801
+/data/danmark-lagforda/,"Befolkningen 15–79 år den 1 januari, efter ursprung, 2008–2026. Antal personer.",2008,Invandrare från icke-västliga länder,221 503
+/data/danmark-lagforda/,"Befolkningen 15–79 år den 1 januari, efter ursprung, 2008–2026. Antal personer.",2008,Barn till invandrare från västliga länder,8 831
+/data/danmark-lagforda/,"Befolkningen 15–79 år den 1 januari, efter ursprung, 2008–2026. Antal personer.",2008,Invandrare från västliga länder,131 093
+/data/danmark-lagforda/,"Befolkningen 15–79 år den 1 januari, efter ursprung, 2008–2026. Antal personer.",2008,Dansk ursprung,3 848 606
+/data/danmark-lagforda/,"Befolkningen 15–79 år den 1 januari, efter ursprung, 2008–2026. Antal personer.",2008,Hela befolkningen 15–79 år,4 240 834
+/data/danmark-lagforda/,"Befolkningen 15–79 år den 1 januari, efter ursprung, 2008–2026. Antal personer.",2009,Barn till invandrare från icke-västliga länder,34 745
+/data/danmark-lagforda/,"Befolkningen 15–79 år den 1 januari, efter ursprung, 2008–2026. Antal personer.",2009,Invandrare från icke-västliga länder,230 349
+/data/danmark-lagforda/,"Befolkningen 15–79 år den 1 januari, efter ursprung, 2008–2026. Antal personer.",2009,Barn till invandrare från västliga länder,9 270
+/data/danmark-lagforda/,"Befolkningen 15–79 år den 1 januari, efter ursprung, 2008–2026. Antal personer.",2009,Invandrare från västliga länder,144 471
+/data/danmark-lagforda/,"Befolkningen 15–79 år den 1 januari, efter ursprung, 2008–2026. Antal personer.",2009,Dansk ursprung,3 857 674
+/data/danmark-lagforda/,"Befolkningen 15–79 år den 1 januari, efter ursprung, 2008–2026. Antal personer.",2009,Hela befolkningen 15–79 år,4 276 509
+/data/danmark-lagforda/,"Befolkningen 15–79 år den 1 januari, efter ursprung, 2008–2026. Antal personer.",2010,Barn till invandrare från icke-västliga länder,38 511
+/data/danmark-lagforda/,"Befolkningen 15–79 år den 1 januari, efter ursprung, 2008–2026. Antal personer.",2010,Invandrare från icke-västliga länder,237 069
+/data/danmark-lagforda/,"Befolkningen 15–79 år den 1 januari, efter ursprung, 2008–2026. Antal personer.",2010,Barn till invandrare från västliga länder,9 129
+/data/danmark-lagforda/,"Befolkningen 15–79 år den 1 januari, efter ursprung, 2008–2026. Antal personer.",2010,Invandrare från västliga länder,150 383
+/data/danmark-lagforda/,"Befolkningen 15–79 år den 1 januari, efter ursprung, 2008–2026. Antal personer.",2010,Dansk ursprung,3 870 818
+/data/danmark-lagforda/,"Befolkningen 15–79 år den 1 januari, efter ursprung, 2008–2026. Antal personer.",2010,Hela befolkningen 15–79 år,4 305 910
+/data/danmark-lagforda/,"Befolkningen 15–79 år den 1 januari, efter ursprung, 2008–2026. Antal personer.",2011,Barn till invandrare från icke-västliga länder,42 811
+/data/danmark-lagforda/,"Befolkningen 15–79 år den 1 januari, efter ursprung, 2008–2026. Antal personer.",2011,Invandrare från icke-västliga länder,243 395
+/data/danmark-lagforda/,"Befolkningen 15–79 år den 1 januari, efter ursprung, 2008–2026. Antal personer.",2011,Barn till invandrare från västliga länder,9 460
+/data/danmark-lagforda/,"Befolkningen 15–79 år den 1 januari, efter ursprung, 2008–2026. Antal personer.",2011,Invandrare från västliga länder,158 460
+/data/danmark-lagforda/,"Befolkningen 15–79 år den 1 januari, efter ursprung, 2008–2026. Antal personer.",2011,Dansk ursprung,3 882 910
+/data/danmark-lagforda/,"Befolkningen 15–79 år den 1 januari, efter ursprung, 2008–2026. Antal personer.",2011,Hela befolkningen 15–79 år,4 337 036
+/data/danmark-lagforda/,"Befolkningen 15–79 år den 1 januari, efter ursprung, 2008–2026. Antal personer.",2012,Barn till invandrare från icke-västliga länder,47 224
+/data/danmark-lagforda/,"Befolkningen 15–79 år den 1 januari, efter ursprung, 2008–2026. Antal personer.",2012,Invandrare från icke-västliga länder,247 748
+/data/danmark-lagforda/,"Befolkningen 15–79 år den 1 januari, efter ursprung, 2008–2026. Antal personer.",2012,Barn till invandrare från västliga länder,10 017
+/data/danmark-lagforda/,"Befolkningen 15–79 år den 1 januari, efter ursprung, 2008–2026. Antal personer.",2012,Invandrare från västliga länder,166 514
+/data/danmark-lagforda/,"Befolkningen 15–79 år den 1 januari, efter ursprung, 2008–2026. Antal personer.",2012,Dansk ursprung,3 892 192
+/data/danmark-lagforda/,"Befolkningen 15–79 år den 1 januari, efter ursprung, 2008–2026. Antal personer.",2012,Hela befolkningen 15–79 år,4 363 695
+/data/danmark-lagforda/,"Befolkningen 15–79 år den 1 januari, efter ursprung, 2008–2026. Antal personer.",2013,Barn till invandrare från icke-västliga länder,51 956
+/data/danmark-lagforda/,"Befolkningen 15–79 år den 1 januari, efter ursprung, 2008–2026. Antal personer.",2013,Invandrare från icke-västliga länder,252 742
+/data/danmark-lagforda/,"Befolkningen 15–79 år den 1 januari, efter ursprung, 2008–2026. Antal personer.",2013,Barn till invandrare från västliga länder,10 180
+/data/danmark-lagforda/,"Befolkningen 15–79 år den 1 januari, efter ursprung, 2008–2026. Antal personer.",2013,Invandrare från västliga länder,175 726
+/data/danmark-lagforda/,"Befolkningen 15–79 år den 1 januari, efter ursprung, 2008–2026. Antal personer.",2013,Dansk ursprung,3 901 745
+/data/danmark-lagforda/,"Befolkningen 15–79 år den 1 januari, efter ursprung, 2008–2026. Antal personer.",2013,Hela befolkningen 15–79 år,4 392 349
+/data/danmark-lagforda/,"Befolkningen 15–79 år den 1 januari, efter ursprung, 2008–2026. Antal personer.",2014,Barn till invandrare från icke-västliga länder,56 565
+/data/danmark-lagforda/,"Befolkningen 15–79 år den 1 januari, efter ursprung, 2008–2026. Antal personer.",2014,Invandrare från icke-västliga länder,261 340
+/data/danmark-lagforda/,"Befolkningen 15–79 år den 1 januari, efter ursprung, 2008–2026. Antal personer.",2014,Barn till invandrare från västliga länder,10 479
+/data/danmark-lagforda/,"Befolkningen 15–79 år den 1 januari, efter ursprung, 2008–2026. Antal personer.",2014,Invandrare från västliga länder,185 403
+/data/danmark-lagforda/,"Befolkningen 15–79 år den 1 januari, efter ursprung, 2008–2026. Antal personer.",2014,Dansk ursprung,3 909 887
+/data/danmark-lagforda/,"Befolkningen 15–79 år den 1 januari, efter ursprung, 2008–2026. Antal personer.",2014,Hela befolkningen 15–79 år,4 423 674
+/data/danmark-lagforda/,"Befolkningen 15–79 år den 1 januari, efter ursprung, 2008–2026. Antal personer.",2015,Barn till invandrare från icke-västliga länder,61 585
+/data/danmark-lagforda/,"Befolkningen 15–79 år den 1 januari, efter ursprung, 2008–2026. Antal personer.",2015,Invandrare från icke-västliga länder,273 233
+/data/danmark-lagforda/,"Befolkningen 15–79 år den 1 januari, efter ursprung, 2008–2026. Antal personer.",2015,Barn till invandrare från västliga länder,10 770
+/data/danmark-lagforda/,"Befolkningen 15–79 år den 1 januari, efter ursprung, 2008–2026. Antal personer.",2015,Invandrare från västliga länder,195 422
+/data/danmark-lagforda/,"Befolkningen 15–79 år den 1 januari, efter ursprung, 2008–2026. Antal personer.",2015,Dansk ursprung,3 916 649
+/data/danmark-lagforda/,"Befolkningen 15–79 år den 1 januari, efter ursprung, 2008–2026. Antal personer.",2015,Hela befolkningen 15–79 år,4 457 659
+/data/danmark-lagforda/,"Befolkningen 15–79 år den 1 januari, efter ursprung, 2008–2026. Antal personer.",2016,Barn till invandrare från icke-västliga länder,66 956
+/data/danmark-lagforda/,"Befolkningen 15–79 år den 1 januari, efter ursprung, 2008–2026. Antal personer.",2016,Invandrare från icke-västliga länder,291 842
+/data/danmark-lagforda/,"Befolkningen 15–79 år den 1 januari, efter ursprung, 2008–2026. Antal personer.",2016,Barn till invandrare från västliga länder,11 019
+/data/danmark-lagforda/,"Befolkningen 15–79 år den 1 januari, efter ursprung, 2008–2026. Antal personer.",2016,Invandrare från västliga länder,209 921
+/data/danmark-lagforda/,"Befolkningen 15–79 år den 1 januari, efter ursprung, 2008–2026. Antal personer.",2016,Dansk ursprung,3 923 481
+/data/danmark-lagforda/,"Befolkningen 15–79 år den 1 januari, efter ursprung, 2008–2026. Antal personer.",2016,Hela befolkningen 15–79 år,4 503 219
+/data/danmark-lagforda/,"Befolkningen 15–79 år den 1 januari, efter ursprung, 2008–2026. Antal personer.",2017,Barn till invandrare från icke-västliga länder,72 270
+/data/danmark-lagforda/,"Befolkningen 15–79 år den 1 januari, efter ursprung, 2008–2026. Antal personer.",2017,Invandrare från icke-västliga länder,305 840
+/data/danmark-lagforda/,"Befolkningen 15–79 år den 1 januari, efter ursprung, 2008–2026. Antal personer.",2017,Barn till invandrare från västliga länder,11 265
+/data/danmark-lagforda/,"Befolkningen 15–79 år den 1 januari, efter ursprung, 2008–2026. Antal personer.",2017,Invandrare från västliga länder,220 942
+/data/danmark-lagforda/,"Befolkningen 15–79 år den 1 januari, efter ursprung, 2008–2026. Antal personer.",2017,Dansk ursprung,3 927 163
+/data/danmark-lagforda/,"Befolkningen 15–79 år den 1 januari, efter ursprung, 2008–2026. Antal personer.",2017,Hela befolkningen 15–79 år,4 537 480
+/data/danmark-lagforda/,"Befolkningen 15–79 år den 1 januari, efter ursprung, 2008–2026. Antal personer.",2018,Barn till invandrare från icke-västliga länder,77 459
+/data/danmark-lagforda/,"Befolkningen 15–79 år den 1 januari, efter ursprung, 2008–2026. Antal personer.",2018,Invandrare från icke-västliga länder,315 318
+/data/danmark-lagforda/,"Befolkningen 15–79 år den 1 januari, efter ursprung, 2008–2026. Antal personer.",2018,Barn till invandrare från västliga länder,11 580
+/data/danmark-lagforda/,"Befolkningen 15–79 år den 1 januari, efter ursprung, 2008–2026. Antal personer.",2018,Invandrare från västliga länder,230 524
+/data/danmark-lagforda/,"Befolkningen 15–79 år den 1 januari, efter ursprung, 2008–2026. Antal personer.",2018,Dansk ursprung,3 929 045
+/data/danmark-lagforda/,"Befolkningen 15–79 år den 1 januari, efter ursprung, 2008–2026. Antal personer.",2018,Hela befolkningen 15–79 år,4 563 926
+/data/danmark-lagforda/,"Befolkningen 15–79 år den 1 januari, efter ursprung, 2008–2026. Antal personer.",2019,Barn till invandrare från icke-västliga länder,82 484
+/data/danmark-lagforda/,"Befolkningen 15–79 år den 1 januari, efter ursprung, 2008–2026. Antal personer.",2019,Invandrare från icke-västliga länder,322 596
+/data/danmark-lagforda/,"Befolkningen 15–79 år den 1 januari, efter ursprung, 2008–2026. Antal personer.",2019,Barn till invandrare från västliga länder,11 830
+/data/danmark-lagforda/,"Befolkningen 15–79 år den 1 januari, efter ursprung, 2008–2026. Antal personer.",2019,Invandrare från västliga länder,238 224
+/data/danmark-lagforda/,"Befolkningen 15–79 år den 1 januari, efter ursprung, 2008–2026. Antal personer.",2019,Dansk ursprung,3 929 731
+/data/danmark-lagforda/,"Befolkningen 15–79 år den 1 januari, efter ursprung, 2008–2026. Antal personer.",2019,Hela befolkningen 15–79 år,4 584 865
+/data/danmark-lagforda/,"Befolkningen 15–79 år den 1 januari, efter ursprung, 2008–2026. Antal personer.",2020,Barn till invandrare från icke-västliga länder,87 176
+/data/danmark-lagforda/,"Befolkningen 15–79 år den 1 januari, efter ursprung, 2008–2026. Antal personer.",2020,Invandrare från icke-västliga länder,327 604
+/data/danmark-lagforda/,"Befolkningen 15–79 år den 1 januari, efter ursprung, 2008–2026. Antal personer.",2020,Barn till invandrare från västliga länder,12 086
+/data/danmark-lagforda/,"Befolkningen 15–79 år den 1 januari, efter ursprung, 2008–2026. Antal personer.",2020,Invandrare från västliga länder,239 755
+/data/danmark-lagforda/,"Befolkningen 15–79 år den 1 januari, efter ursprung, 2008–2026. Antal personer.",2020,Dansk ursprung,3 930 698
+/data/danmark-lagforda/,"Befolkningen 15–79 år den 1 januari, efter ursprung, 2008–2026. Antal personer.",2020,Hela befolkningen 15–79 år,4 597 319
+/data/danmark-lagforda/,"Befolkningen 15–79 år den 1 januari, efter ursprung, 2008–2026. Antal personer.",2021,Barn till invandrare från icke-västliga länder,91 784
+/data/danmark-lagforda/,"Befolkningen 15–79 år den 1 januari, efter ursprung, 2008–2026. Antal personer.",2021,Invandrare från icke-västliga länder,329 552
+/data/danmark-lagforda/,"Befolkningen 15–79 år den 1 januari, efter ursprung, 2008–2026. Antal personer.",2021,Barn till invandrare från västliga länder,12 388
+/data/danmark-lagforda/,"Befolkningen 15–79 år den 1 januari, efter ursprung, 2008–2026. Antal personer.",2021,Invandrare från västliga länder,241 772
+/data/danmark-lagforda/,"Befolkningen 15–79 år den 1 januari, efter ursprung, 2008–2026. Antal personer.",2021,Dansk ursprung,3 933 659
+/data/danmark-lagforda/,"Befolkningen 15–79 år den 1 januari, efter ursprung, 2008–2026. Antal personer.",2021,Hela befolkningen 15–79 år,4 609 155
+/data/danmark-lagforda/,"Befolkningen 15–79 år den 1 januari, efter ursprung, 2008–2026. Antal personer.",2022,Barn till invandrare från icke-västliga länder,96 115
+/data/danmark-lagforda/,"Befolkningen 15–79 år den 1 januari, efter ursprung, 2008–2026. Antal personer.",2022,Invandrare från icke-västliga länder,337 666
+/data/danmark-lagforda/,"Befolkningen 15–79 år den 1 januari, efter ursprung, 2008–2026. Antal personer.",2022,Barn till invandrare från västliga länder,12 716
+/data/danmark-lagforda/,"Befolkningen 15–79 år den 1 januari, efter ursprung, 2008–2026. Antal personer.",2022,Invandrare från västliga länder,256 457
+/data/danmark-lagforda/,"Befolkningen 15–79 år den 1 januari, efter ursprung, 2008–2026. Antal personer.",2022,Dansk ursprung,3 933 147
+/data/danmark-lagforda/,"Befolkningen 15–79 år den 1 januari, efter ursprung, 2008–2026. Antal personer.",2022,Hela befolkningen 15–79 år,4 636 101
+/data/danmark-lagforda/,"Befolkningen 15–79 år den 1 januari, efter ursprung, 2008–2026. Antal personer.",2023,Barn till invandrare från icke-västliga länder,100 532
+/data/danmark-lagforda/,"Befolkningen 15–79 år den 1 januari, efter ursprung, 2008–2026. Antal personer.",2023,Invandrare från icke-västliga länder,369 861
+/data/danmark-lagforda/,"Befolkningen 15–79 år den 1 januari, efter ursprung, 2008–2026. Antal personer.",2023,Barn till invandrare från västliga länder,13 695
+/data/danmark-lagforda/,"Befolkningen 15–79 år den 1 januari, efter ursprung, 2008–2026. Antal personer.",2023,Invandrare från västliga länder,271 692
+/data/danmark-lagforda/,"Befolkningen 15–79 år den 1 januari, efter ursprung, 2008–2026. Antal personer.",2023,Dansk ursprung,3 925 084
+/data/danmark-lagforda/,"Befolkningen 15–79 år den 1 januari, efter ursprung, 2008–2026. Antal personer.",2023,Hela befolkningen 15–79 år,4 680 864
+/data/danmark-lagforda/,"Befolkningen 15–79 år den 1 januari, efter ursprung, 2008–2026. Antal personer.",2024,Barn till invandrare från icke-västliga länder,104 571
+/data/danmark-lagforda/,"Befolkningen 15–79 år den 1 januari, efter ursprung, 2008–2026. Antal personer.",2024,Invandrare från icke-västliga länder,387 327
+/data/danmark-lagforda/,"Befolkningen 15–79 år den 1 januari, efter ursprung, 2008–2026. Antal personer.",2024,Barn till invandrare från västliga länder,14 141
+/data/danmark-lagforda/,"Befolkningen 15–79 år den 1 januari, efter ursprung, 2008–2026. Antal personer.",2024,Invandrare från västliga länder,280 411
+/data/danmark-lagforda/,"Befolkningen 15–79 år den 1 januari, efter ursprung, 2008–2026. Antal personer.",2024,Dansk ursprung,3 916 657
+/data/danmark-lagforda/,"Befolkningen 15–79 år den 1 januari, efter ursprung, 2008–2026. Antal personer.",2024,Hela befolkningen 15–79 år,4 703 107
+/data/danmark-lagforda/,"Befolkningen 15–79 år den 1 januari, efter ursprung, 2008–2026. Antal personer.",2025,Barn till invandrare från icke-västliga länder,108 700
+/data/danmark-lagforda/,"Befolkningen 15–79 år den 1 januari, efter ursprung, 2008–2026. Antal personer.",2025,Invandrare från icke-västliga länder,408 448
+/data/danmark-lagforda/,"Befolkningen 15–79 år den 1 januari, efter ursprung, 2008–2026. Antal personer.",2025,Barn till invandrare från västliga länder,14 770
+/data/danmark-lagforda/,"Befolkningen 15–79 år den 1 januari, efter ursprung, 2008–2026. Antal personer.",2025,Invandrare från västliga länder,286 065
+/data/danmark-lagforda/,"Befolkningen 15–79 år den 1 januari, efter ursprung, 2008–2026. Antal personer.",2025,Dansk ursprung,3 903 821
+/data/danmark-lagforda/,"Befolkningen 15–79 år den 1 januari, efter ursprung, 2008–2026. Antal personer.",2025,Hela befolkningen 15–79 år,4 721 804
+/data/danmark-lagforda/,"Befolkningen 15–79 år den 1 januari, efter ursprung, 2008–2026. Antal personer.",2026,Barn till invandrare från icke-västliga länder,112 868
+/data/danmark-lagforda/,"Befolkningen 15–79 år den 1 januari, efter ursprung, 2008–2026. Antal personer.",2026,Invandrare från icke-västliga länder,429 792
+/data/danmark-lagforda/,"Befolkningen 15–79 år den 1 januari, efter ursprung, 2008–2026. Antal personer.",2026,Barn till invandrare från västliga länder,15 480
+/data/danmark-lagforda/,"Befolkningen 15–79 år den 1 januari, efter ursprung, 2008–2026. Antal personer.",2026,Invandrare från västliga länder,291 539
+/data/danmark-lagforda/,"Befolkningen 15–79 år den 1 januari, efter ursprung, 2008–2026. Antal personer.",2026,Dansk ursprung,3 888 494
+/data/danmark-lagforda/,"Befolkningen 15–79 år den 1 januari, efter ursprung, 2008–2026. Antal personer.",2026,Hela befolkningen 15–79 år,4 738 173
+/data/danmark-kriminalitetsindex/,"Kriminalitetsindex för män 2024, alla lagföringar, utan justering och justerat för olika förhållanden. Alla män 15–79 år = 100.",barn_till_invandrare_icke_vastliga,Inte justerat,316
+/data/danmark-kriminalitetsindex/,"Kriminalitetsindex för män 2024, alla lagföringar, utan justering och justerat för olika förhållanden. Alla män 15–79 år = 100.",barn_till_invandrare_icke_vastliga,Ålder,245
+/data/danmark-kriminalitetsindex/,"Kriminalitetsindex för män 2024, alla lagföringar, utan justering och justerat för olika förhållanden. Alla män 15–79 år = 100.",barn_till_invandrare_icke_vastliga,Ålder och egen sysselsättning,242
+/data/danmark-kriminalitetsindex/,"Kriminalitetsindex för män 2024, alla lagföringar, utan justering och justerat för olika förhållanden. Alla män 15–79 år = 100.",barn_till_invandrare_icke_vastliga,Ålder och familjens utbildning,203
+/data/danmark-kriminalitetsindex/,"Kriminalitetsindex för män 2024, alla lagföringar, utan justering och justerat för olika förhållanden. Alla män 15–79 år = 100.",barn_till_invandrare_icke_vastliga,Ålder och familjens inkomst,219
+/data/danmark-kriminalitetsindex/,"Kriminalitetsindex för män 2024, alla lagföringar, utan justering och justerat för olika förhållanden. Alla män 15–79 år = 100.",invandrare_icke_vastliga,Inte justerat,149
+/data/danmark-kriminalitetsindex/,"Kriminalitetsindex för män 2024, alla lagföringar, utan justering och justerat för olika förhållanden. Alla män 15–79 år = 100.",invandrare_icke_vastliga,Ålder,137
+/data/danmark-kriminalitetsindex/,"Kriminalitetsindex för män 2024, alla lagföringar, utan justering och justerat för olika förhållanden. Alla män 15–79 år = 100.",invandrare_icke_vastliga,Ålder och egen sysselsättning,124
+/data/danmark-kriminalitetsindex/,"Kriminalitetsindex för män 2024, alla lagföringar, utan justering och justerat för olika förhållanden. Alla män 15–79 år = 100.",invandrare_icke_vastliga,Ålder och familjens utbildning,123
+/data/danmark-kriminalitetsindex/,"Kriminalitetsindex för män 2024, alla lagföringar, utan justering och justerat för olika förhållanden. Alla män 15–79 år = 100.",invandrare_icke_vastliga,Ålder och familjens inkomst,119
+/data/danmark-kriminalitetsindex/,"Kriminalitetsindex för män 2024, alla lagföringar, utan justering och justerat för olika förhållanden. Alla män 15–79 år = 100.",barn_till_invandrare_vastliga,Inte justerat,127
+/data/danmark-kriminalitetsindex/,"Kriminalitetsindex för män 2024, alla lagföringar, utan justering och justerat för olika förhållanden. Alla män 15–79 år = 100.",barn_till_invandrare_vastliga,Ålder,116
+/data/danmark-kriminalitetsindex/,"Kriminalitetsindex för män 2024, alla lagföringar, utan justering och justerat för olika förhållanden. Alla män 15–79 år = 100.",barn_till_invandrare_vastliga,Ålder och egen sysselsättning,115
+/data/danmark-kriminalitetsindex/,"Kriminalitetsindex för män 2024, alla lagföringar, utan justering och justerat för olika förhållanden. Alla män 15–79 år = 100.",barn_till_invandrare_vastliga,Ålder och familjens utbildning,117
+/data/danmark-kriminalitetsindex/,"Kriminalitetsindex för män 2024, alla lagföringar, utan justering och justerat för olika förhållanden. Alla män 15–79 år = 100.",barn_till_invandrare_vastliga,Ålder och familjens inkomst,111
+/data/danmark-kriminalitetsindex/,"Kriminalitetsindex för män 2024, alla lagföringar, utan justering och justerat för olika förhållanden. Alla män 15–79 år = 100.",invandrare_vastliga,Inte justerat,97
+/data/danmark-kriminalitetsindex/,"Kriminalitetsindex för män 2024, alla lagföringar, utan justering och justerat för olika förhållanden. Alla män 15–79 år = 100.",invandrare_vastliga,Ålder,86
+/data/danmark-kriminalitetsindex/,"Kriminalitetsindex för män 2024, alla lagföringar, utan justering och justerat för olika förhållanden. Alla män 15–79 år = 100.",invandrare_vastliga,Ålder och egen sysselsättning,81
+/data/danmark-kriminalitetsindex/,"Kriminalitetsindex för män 2024, alla lagföringar, utan justering och justerat för olika förhållanden. Alla män 15–79 år = 100.",invandrare_vastliga,Ålder och familjens utbildning,96
+/data/danmark-kriminalitetsindex/,"Kriminalitetsindex för män 2024, alla lagföringar, utan justering och justerat för olika förhållanden. Alla män 15–79 år = 100.",invandrare_vastliga,Ålder och familjens inkomst,84
+/data/danmark-kriminalitetsindex/,"Kriminalitetsindex för män 2024, alla lagföringar, utan justering och justerat för olika förhållanden. Alla män 15–79 år = 100.",dansk_ursprung,Inte justerat,89
+/data/danmark-kriminalitetsindex/,"Kriminalitetsindex för män 2024, alla lagföringar, utan justering och justerat för olika förhållanden. Alla män 15–79 år = 100.",dansk_ursprung,Ålder,92
+/data/danmark-kriminalitetsindex/,"Kriminalitetsindex för män 2024, alla lagföringar, utan justering och justerat för olika förhållanden. Alla män 15–79 år = 100.",dansk_ursprung,Ålder och egen sysselsättning,93
+/data/danmark-kriminalitetsindex/,"Kriminalitetsindex för män 2024, alla lagföringar, utan justering och justerat för olika förhållanden. Alla män 15–79 år = 100.",dansk_ursprung,Ålder och familjens utbildning,93
+/data/danmark-kriminalitetsindex/,"Kriminalitetsindex för män 2024, alla lagföringar, utan justering och justerat för olika förhållanden. Alla män 15–79 år = 100.",dansk_ursprung,Ålder och familjens inkomst,94
+/data/danmark-kriminalitetsindex/,"Kriminalitetsindex för kvinnor 2024, alla lagföringar, utan justering och justerat för olika förhållanden. Alla kvinnor 15–79 år = 100.",barn_till_invandrare_icke_vastliga,Inte justerat,290
+/data/danmark-kriminalitetsindex/,"Kriminalitetsindex för kvinnor 2024, alla lagföringar, utan justering och justerat för olika förhållanden. Alla kvinnor 15–79 år = 100.",barn_till_invandrare_icke_vastliga,Ålder,253
+/data/danmark-kriminalitetsindex/,"Kriminalitetsindex för kvinnor 2024, alla lagföringar, utan justering och justerat för olika förhållanden. Alla kvinnor 15–79 år = 100.",barn_till_invandrare_icke_vastliga,Ålder och egen sysselsättning,257
+/data/danmark-kriminalitetsindex/,"Kriminalitetsindex för kvinnor 2024, alla lagföringar, utan justering och justerat för olika förhållanden. Alla kvinnor 15–79 år = 100.",barn_till_invandrare_icke_vastliga,Ålder och familjens utbildning,215
+/data/danmark-kriminalitetsindex/,"Kriminalitetsindex för kvinnor 2024, alla lagföringar, utan justering och justerat för olika förhållanden. Alla kvinnor 15–79 år = 100.",barn_till_invandrare_icke_vastliga,Ålder och familjens inkomst,222
+/data/danmark-kriminalitetsindex/,"Kriminalitetsindex för kvinnor 2024, alla lagföringar, utan justering och justerat för olika förhållanden. Alla kvinnor 15–79 år = 100.",invandrare_icke_vastliga,Inte justerat,118
+/data/danmark-kriminalitetsindex/,"Kriminalitetsindex för kvinnor 2024, alla lagföringar, utan justering och justerat för olika förhållanden. Alla kvinnor 15–79 år = 100.",invandrare_icke_vastliga,Ålder,103
+/data/danmark-kriminalitetsindex/,"Kriminalitetsindex för kvinnor 2024, alla lagföringar, utan justering och justerat för olika förhållanden. Alla kvinnor 15–79 år = 100.",invandrare_icke_vastliga,Ålder och egen sysselsättning,94
+/data/danmark-kriminalitetsindex/,"Kriminalitetsindex för kvinnor 2024, alla lagföringar, utan justering och justerat för olika förhållanden. Alla kvinnor 15–79 år = 100.",invandrare_icke_vastliga,Ålder och familjens utbildning,92
+/data/danmark-kriminalitetsindex/,"Kriminalitetsindex för kvinnor 2024, alla lagföringar, utan justering och justerat för olika förhållanden. Alla kvinnor 15–79 år = 100.",invandrare_icke_vastliga,Ålder och familjens inkomst,91
+/data/danmark-kriminalitetsindex/,"Kriminalitetsindex för kvinnor 2024, alla lagföringar, utan justering och justerat för olika förhållanden. Alla kvinnor 15–79 år = 100.",barn_till_invandrare_vastliga,Inte justerat,140
+/data/danmark-kriminalitetsindex/,"Kriminalitetsindex för kvinnor 2024, alla lagföringar, utan justering och justerat för olika förhållanden. Alla kvinnor 15–79 år = 100.",barn_till_invandrare_vastliga,Ålder,136
+/data/danmark-kriminalitetsindex/,"Kriminalitetsindex för kvinnor 2024, alla lagföringar, utan justering och justerat för olika förhållanden. Alla kvinnor 15–79 år = 100.",barn_till_invandrare_vastliga,Ålder och egen sysselsättning,137
+/data/danmark-kriminalitetsindex/,"Kriminalitetsindex för kvinnor 2024, alla lagföringar, utan justering och justerat för olika förhållanden. Alla kvinnor 15–79 år = 100.",barn_till_invandrare_vastliga,Ålder och familjens utbildning,135
+/data/danmark-kriminalitetsindex/,"Kriminalitetsindex för kvinnor 2024, alla lagföringar, utan justering och justerat för olika förhållanden. Alla kvinnor 15–79 år = 100.",barn_till_invandrare_vastliga,Ålder och familjens inkomst,130
+/data/danmark-kriminalitetsindex/,"Kriminalitetsindex för kvinnor 2024, alla lagföringar, utan justering och justerat för olika förhållanden. Alla kvinnor 15–79 år = 100.",invandrare_vastliga,Inte justerat,104
+/data/danmark-kriminalitetsindex/,"Kriminalitetsindex för kvinnor 2024, alla lagföringar, utan justering och justerat för olika förhållanden. Alla kvinnor 15–79 år = 100.",invandrare_vastliga,Ålder,90
+/data/danmark-kriminalitetsindex/,"Kriminalitetsindex för kvinnor 2024, alla lagföringar, utan justering och justerat för olika förhållanden. Alla kvinnor 15–79 år = 100.",invandrare_vastliga,Ålder och egen sysselsättning,86
+/data/danmark-kriminalitetsindex/,"Kriminalitetsindex för kvinnor 2024, alla lagföringar, utan justering och justerat för olika förhållanden. Alla kvinnor 15–79 år = 100.",invandrare_vastliga,Ålder och familjens utbildning,99
+/data/danmark-kriminalitetsindex/,"Kriminalitetsindex för kvinnor 2024, alla lagföringar, utan justering och justerat för olika förhållanden. Alla kvinnor 15–79 år = 100.",invandrare_vastliga,Ålder och familjens inkomst,92
+/data/danmark-kriminalitetsindex/,"Kriminalitetsindex för kvinnor 2024, alla lagföringar, utan justering och justerat för olika förhållanden. Alla kvinnor 15–79 år = 100.",dansk_ursprung,Inte justerat,93
+/data/danmark-kriminalitetsindex/,"Kriminalitetsindex för kvinnor 2024, alla lagföringar, utan justering och justerat för olika förhållanden. Alla kvinnor 15–79 år = 100.",dansk_ursprung,Ålder,95
+/data/danmark-kriminalitetsindex/,"Kriminalitetsindex för kvinnor 2024, alla lagföringar, utan justering och justerat för olika förhållanden. Alla kvinnor 15–79 år = 100.",dansk_ursprung,Ålder och egen sysselsättning,97
+/data/danmark-kriminalitetsindex/,"Kriminalitetsindex för kvinnor 2024, alla lagföringar, utan justering och justerat för olika förhållanden. Alla kvinnor 15–79 år = 100.",dansk_ursprung,Ålder och familjens utbildning,97
+/data/danmark-kriminalitetsindex/,"Kriminalitetsindex för kvinnor 2024, alla lagföringar, utan justering och justerat för olika förhållanden. Alla kvinnor 15–79 år = 100.",dansk_ursprung,Ålder och familjens inkomst,97
+/data/danmark-kriminalitetsindex/,"Kriminalitetsindex för män 2024 efter typ av brott, justerat för ålder. Alla män 15–79 år = 100.",barn_till_invandrare_icke_vastliga,Strafflagen,264
+/data/danmark-kriminalitetsindex/,"Kriminalitetsindex för män 2024 efter typ av brott, justerat för ålder. Alla män 15–79 år = 100.",barn_till_invandrare_icke_vastliga,Våldsbrott,278
+/data/danmark-kriminalitetsindex/,"Kriminalitetsindex för män 2024 efter typ av brott, justerat för ålder. Alla män 15–79 år = 100.",barn_till_invandrare_icke_vastliga,Egendomsbrott,235
+/data/danmark-kriminalitetsindex/,"Kriminalitetsindex för män 2024 efter typ av brott, justerat för ålder. Alla män 15–79 år = 100.",barn_till_invandrare_icke_vastliga,Trafikbrott,257
+/data/danmark-kriminalitetsindex/,"Kriminalitetsindex för män 2024 efter typ av brott, justerat för ålder. Alla män 15–79 år = 100.",barn_till_invandrare_icke_vastliga,Särskilda lagar,269
+/data/danmark-kriminalitetsindex/,"Kriminalitetsindex för män 2024 efter typ av brott, justerat för ålder. Alla män 15–79 år = 100.",invandrare_icke_vastliga,Strafflagen,151
+/data/danmark-kriminalitetsindex/,"Kriminalitetsindex för män 2024 efter typ av brott, justerat för ålder. Alla män 15–79 år = 100.",invandrare_icke_vastliga,Våldsbrott,152
+/data/danmark-kriminalitetsindex/,"Kriminalitetsindex för män 2024 efter typ av brott, justerat för ålder. Alla män 15–79 år = 100.",invandrare_icke_vastliga,Egendomsbrott,157
+/data/danmark-kriminalitetsindex/,"Kriminalitetsindex för män 2024 efter typ av brott, justerat för ålder. Alla män 15–79 år = 100.",invandrare_icke_vastliga,Trafikbrott,137
+/data/danmark-kriminalitetsindex/,"Kriminalitetsindex för män 2024 efter typ av brott, justerat för ålder. Alla män 15–79 år = 100.",invandrare_icke_vastliga,Särskilda lagar,134
+/data/danmark-kriminalitetsindex/,"Kriminalitetsindex för män 2024 efter typ av brott, justerat för ålder. Alla män 15–79 år = 100.",barn_till_invandrare_vastliga,Strafflagen,142
+/data/danmark-kriminalitetsindex/,"Kriminalitetsindex för män 2024 efter typ av brott, justerat för ålder. Alla män 15–79 år = 100.",barn_till_invandrare_vastliga,Våldsbrott,157
+/data/danmark-kriminalitetsindex/,"Kriminalitetsindex för män 2024 efter typ av brott, justerat för ålder. Alla män 15–79 år = 100.",barn_till_invandrare_vastliga,Egendomsbrott,145
+/data/danmark-kriminalitetsindex/,"Kriminalitetsindex för män 2024 efter typ av brott, justerat för ålder. Alla män 15–79 år = 100.",barn_till_invandrare_vastliga,Trafikbrott,112
+/data/danmark-kriminalitetsindex/,"Kriminalitetsindex för män 2024 efter typ av brott, justerat för ålder. Alla män 15–79 år = 100.",barn_till_invandrare_vastliga,Särskilda lagar,121
+/data/danmark-kriminalitetsindex/,"Kriminalitetsindex för män 2024 efter typ av brott, justerat för ålder. Alla män 15–79 år = 100.",invandrare_vastliga,Strafflagen,81
+/data/danmark-kriminalitetsindex/,"Kriminalitetsindex för män 2024 efter typ av brott, justerat för ålder. Alla män 15–79 år = 100.",invandrare_vastliga,Våldsbrott,43
+/data/danmark-kriminalitetsindex/,"Kriminalitetsindex för män 2024 efter typ av brott, justerat för ålder. Alla män 15–79 år = 100.",invandrare_vastliga,Egendomsbrott,108
+/data/danmark-kriminalitetsindex/,"Kriminalitetsindex för män 2024 efter typ av brott, justerat för ålder. Alla män 15–79 år = 100.",invandrare_vastliga,Trafikbrott,88
+/data/danmark-kriminalitetsindex/,"Kriminalitetsindex för män 2024 efter typ av brott, justerat för ålder. Alla män 15–79 år = 100.",invandrare_vastliga,Särskilda lagar,78
+/data/danmark-kriminalitetsindex/,"Kriminalitetsindex för män 2024 efter typ av brott, justerat för ålder. Alla män 15–79 år = 100.",dansk_ursprung,Strafflagen,88
+/data/danmark-kriminalitetsindex/,"Kriminalitetsindex för män 2024 efter typ av brott, justerat för ålder. Alla män 15–79 år = 100.",dansk_ursprung,Våldsbrott,90
+/data/danmark-kriminalitetsindex/,"Kriminalitetsindex för män 2024 efter typ av brott, justerat för ålder. Alla män 15–79 år = 100.",dansk_ursprung,Egendomsbrott,87
+/data/danmark-kriminalitetsindex/,"Kriminalitetsindex för män 2024 efter typ av brott, justerat för ålder. Alla män 15–79 år = 100.",dansk_ursprung,Trafikbrott,92
+/data/danmark-kriminalitetsindex/,"Kriminalitetsindex för män 2024 efter typ av brott, justerat för ålder. Alla män 15–79 år = 100.",dansk_ursprung,Särskilda lagar,91
+/data/danmark-kriminalitetsindex/,"Kriminalitetsindex för kvinnor 2024 efter typ av brott, justerat för ålder. Alla kvinnor 15–79 år = 100.",barn_till_invandrare_icke_vastliga,Strafflagen,198
+/data/danmark-kriminalitetsindex/,"Kriminalitetsindex för kvinnor 2024 efter typ av brott, justerat för ålder. Alla kvinnor 15–79 år = 100.",barn_till_invandrare_icke_vastliga,Våldsbrott,155
+/data/danmark-kriminalitetsindex/,"Kriminalitetsindex för kvinnor 2024 efter typ av brott, justerat för ålder. Alla kvinnor 15–79 år = 100.",barn_till_invandrare_icke_vastliga,Egendomsbrott,198
+/data/danmark-kriminalitetsindex/,"Kriminalitetsindex för kvinnor 2024 efter typ av brott, justerat för ålder. Alla kvinnor 15–79 år = 100.",barn_till_invandrare_icke_vastliga,Trafikbrott,286
+/data/danmark-kriminalitetsindex/,"Kriminalitetsindex för kvinnor 2024 efter typ av brott, justerat för ålder. Alla kvinnor 15–79 år = 100.",barn_till_invandrare_icke_vastliga,Särskilda lagar,203
+/data/danmark-kriminalitetsindex/,"Kriminalitetsindex för kvinnor 2024 efter typ av brott, justerat för ålder. Alla kvinnor 15–79 år = 100.",invandrare_icke_vastliga,Strafflagen,159
+/data/danmark-kriminalitetsindex/,"Kriminalitetsindex för kvinnor 2024 efter typ av brott, justerat för ålder. Alla kvinnor 15–79 år = 100.",invandrare_icke_vastliga,Våldsbrott,147
+/data/danmark-kriminalitetsindex/,"Kriminalitetsindex för kvinnor 2024 efter typ av brott, justerat för ålder. Alla kvinnor 15–79 år = 100.",invandrare_icke_vastliga,Egendomsbrott,159
+/data/danmark-kriminalitetsindex/,"Kriminalitetsindex för kvinnor 2024 efter typ av brott, justerat för ålder. Alla kvinnor 15–79 år = 100.",invandrare_icke_vastliga,Trafikbrott,88
+/data/danmark-kriminalitetsindex/,"Kriminalitetsindex för kvinnor 2024 efter typ av brott, justerat för ålder. Alla kvinnor 15–79 år = 100.",invandrare_icke_vastliga,Särskilda lagar,121
+/data/danmark-kriminalitetsindex/,"Kriminalitetsindex för kvinnor 2024 efter typ av brott, justerat för ålder. Alla kvinnor 15–79 år = 100.",barn_till_invandrare_vastliga,Strafflagen,170
+/data/danmark-kriminalitetsindex/,"Kriminalitetsindex för kvinnor 2024 efter typ av brott, justerat för ålder. Alla kvinnor 15–79 år = 100.",barn_till_invandrare_vastliga,Våldsbrott,saknas
+/data/danmark-kriminalitetsindex/,"Kriminalitetsindex för kvinnor 2024 efter typ av brott, justerat för ålder. Alla kvinnor 15–79 år = 100.",barn_till_invandrare_vastliga,Egendomsbrott,157
+/data/danmark-kriminalitetsindex/,"Kriminalitetsindex för kvinnor 2024 efter typ av brott, justerat för ålder. Alla kvinnor 15–79 år = 100.",barn_till_invandrare_vastliga,Trafikbrott,127
+/data/danmark-kriminalitetsindex/,"Kriminalitetsindex för kvinnor 2024 efter typ av brott, justerat för ålder. Alla kvinnor 15–79 år = 100.",barn_till_invandrare_vastliga,Särskilda lagar,144
+/data/danmark-kriminalitetsindex/,"Kriminalitetsindex för kvinnor 2024 efter typ av brott, justerat för ålder. Alla kvinnor 15–79 år = 100.",invandrare_vastliga,Strafflagen,100
+/data/danmark-kriminalitetsindex/,"Kriminalitetsindex för kvinnor 2024 efter typ av brott, justerat för ålder. Alla kvinnor 15–79 år = 100.",invandrare_vastliga,Våldsbrott,55
+/data/danmark-kriminalitetsindex/,"Kriminalitetsindex för kvinnor 2024 efter typ av brott, justerat för ålder. Alla kvinnor 15–79 år = 100.",invandrare_vastliga,Egendomsbrott,111
+/data/danmark-kriminalitetsindex/,"Kriminalitetsindex för kvinnor 2024 efter typ av brott, justerat för ålder. Alla kvinnor 15–79 år = 100.",invandrare_vastliga,Trafikbrott,82
+/data/danmark-kriminalitetsindex/,"Kriminalitetsindex för kvinnor 2024 efter typ av brott, justerat för ålder. Alla kvinnor 15–79 år = 100.",invandrare_vastliga,Särskilda lagar,115
+/data/danmark-kriminalitetsindex/,"Kriminalitetsindex för kvinnor 2024 efter typ av brott, justerat för ålder. Alla kvinnor 15–79 år = 100.",dansk_ursprung,Strafflagen,89
+/data/danmark-kriminalitetsindex/,"Kriminalitetsindex för kvinnor 2024 efter typ av brott, justerat för ålder. Alla kvinnor 15–79 år = 100.",dansk_ursprung,Våldsbrott,95
+/data/danmark-kriminalitetsindex/,"Kriminalitetsindex för kvinnor 2024 efter typ av brott, justerat för ålder. Alla kvinnor 15–79 år = 100.",dansk_ursprung,Egendomsbrott,88
+/data/danmark-kriminalitetsindex/,"Kriminalitetsindex för kvinnor 2024 efter typ av brott, justerat för ålder. Alla kvinnor 15–79 år = 100.",dansk_ursprung,Trafikbrott,97
+/data/danmark-kriminalitetsindex/,"Kriminalitetsindex för kvinnor 2024 efter typ av brott, justerat för ålder. Alla kvinnor 15–79 år = 100.",dansk_ursprung,Särskilda lagar,92

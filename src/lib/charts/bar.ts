@@ -4,7 +4,7 @@
 // Orange = a second group. Lighter shades = an earlier period or a standardised value.
 // Pure function: data + width in, SVG markup out. Runs at build time and in the browser.
 import { scaleLinear } from 'd3';
-import { formatPct, formatTimes } from '../format';
+import { formatNumber, formatPct, formatTimes } from '../format';
 import type { Lang } from '../i18n';
 import { esc, FONT } from './svg';
 
@@ -15,20 +15,22 @@ export interface Bar {
   kind: BarKind;
 }
 
-export type BarKind = 'focus' | 'focusMid' | 'focusLight' | 'second' | 'secondLight' | 'comparison';
+export type BarKind = 'focus' | 'focusMid' | 'focusLight' | 'focusPale' | 'second' | 'secondLight' | 'comparison';
 
 /** Fill and text colour per bar kind. Text colours pass 4.5:1 on white. */
 export const BAR_COLORS: Record<BarKind, { fill: string; text: string }> = {
   focus: { fill: '#1D4E89', text: '#1D4E89' },
   focusMid: { fill: '#4F78A8', text: '#1D4E89' },
   focusLight: { fill: '#9DB3CF', text: '#1D4E89' },
+  // The palest blue, for a fourth shade (chapter 5.2). Its value text stays dark blue.
+  focusPale: { fill: '#CBD8E8', text: '#1D4E89' },
   second: { fill: '#C2410C', text: '#C2410C' },
   secondLight: { fill: '#E7A98C', text: '#C2410C' },
   comparison: { fill: '#FFFFFF', text: '#5C5C5C' },
 };
 
-/** pct1 = 22,5 %, pct2 = 0,14 %, x1 = 2,5×, pctSource = as many decimals as the source gives (22 %, 1,2 %). */
-export type BarFormat = 'pct1' | 'pct2' | 'x1' | 'pctSource';
+/** pct1 = 22,5 %, pct2 = 0,14 %, x1 = 2,5×, pctSource = as many decimals as the source gives (22 %, 1,2 %), int = 245 (an index). */
+export type BarFormat = 'pct1' | 'pct2' | 'x1' | 'pctSource' | 'int';
 
 export interface BarGroup {
   label: string;
@@ -55,6 +57,7 @@ const C = { ink: '#121212', muted: '#5C5C5C', rule: '#E3E3E3' };
 
 export function barFmt(v: number, f: BarFormat = 'pct1', lang: Lang): string {
   if (f === 'x1') return formatTimes(v, 1, lang);
+  if (f === 'int') return formatNumber(v, 0, lang);
   if (f === 'pctSource') return formatPct(v, Number.isInteger(v) ? 0 : 1, lang);
   return formatPct(v, f === 'pct2' ? 2 : 1, lang);
 }

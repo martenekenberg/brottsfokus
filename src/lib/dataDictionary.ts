@@ -3,6 +3,9 @@
 // tests/dataDictionary.test.ts checks that the columns match each CSV file's header exactly, in order.
 // Item 10 of the SEO plan, November 2026.
 import type { Lang } from './i18n';
+import { DK_CSV, DK_OFFENCE_CSV, DK_ORDER, DK_STYLE, OFFENCE_NAME } from './chapters/kap11';
+import { kap12DictionaryColumns } from './chapters/kap12';
+import type { DkOffence } from './data';
 
 type Text = { sv: string; en: string };
 /** Types as in the Frictionless Table Schema. */
@@ -150,6 +153,40 @@ const DICTIONARY: Record<string, Column[]> = {
     col('kon', 'sex', 'string', { sv: 'Kön: samtliga, man eller kvinnor.', en: 'Sex: everyone, men or women.' }),
     col('bakgrund', 'background', 'string', { sv: 'Födelsebakgrund (från födelseår 1984), eller alla.', en: 'Birth background (from birth year 1984), or everyone.' }),
     col('andel_pct', 'share_pct', 'number', { sv: 'Andel av alla folkbokförda födda det året som lagförts minst en gång före den åldern.', en: 'Share of everyone registered in Sweden and born that year who was convicted at least once before that age.' }, PCT),
+  ],
+  // 5.1 Lagförda i Danmark (Danmarks Statistik, STRFNA10 and FOLK1E)
+  kap11: [
+    col('ar', 'year', 'integer', { sv: 'År. För befolkningen: den 1 januari det året.', en: 'Year. For the population: 1 January of that year.' }),
+    ...(['straffelov', 'vold'] as DkOffence[]).flatMap((o) =>
+      DK_ORDER.map((g) =>
+        col(`${DK_OFFENCE_CSV[o].sv}_${DK_CSV[g].sv}_per1000`, `${DK_OFFENCE_CSV[o].en}_${DK_CSV[g].en}_per1000`, 'number', {
+          sv: `Lagförda för ${OFFENCE_NAME[o].sv} under året per 1 000 invånare 15–79 år, ${DK_STYLE[g].label.sv.toLowerCase().replace('dansk', 'med dansk')}. Uträknat: antal delat med medelvärdet av befolkningen den 1 januari samma år och året efter.`,
+          en: `People convicted of ${OFFENCE_NAME[o].en} during the year per 1,000 residents aged 15–79, ${DK_STYLE[g].label.en.replace(/^(Immigrants|Descendants|Whole)/, (m) => m.toLowerCase())}. Calculated: the number divided by the mean of the population on 1 January of the year and of the next year.`,
+        }, PER1000),
+      ),
+    ),
+    ...(['straffelov', 'vold'] as DkOffence[]).flatMap((o) =>
+      DK_ORDER.map((g) =>
+        col(`${DK_OFFENCE_CSV[o].sv}_${DK_CSV[g].sv}_antal`, `${DK_OFFENCE_CSV[o].en}_${DK_CSV[g].en}_count`, 'integer', {
+          sv: `Antal personer 15–79 år som lagförts för ${OFFENCE_NAME[o].sv} under året (STRFNA10).`,
+          en: `Number of people aged 15–79 convicted of ${OFFENCE_NAME[o].en} during the year (STRFNA10).`,
+        }, COUNT),
+      ),
+    ),
+    ...DK_ORDER.map((g) =>
+      col(`befolkning_1jan_${DK_CSV[g].sv}`, `population_1jan_${DK_CSV[g].en}`, 'integer', {
+        sv: `Antal invånare 15–79 år den 1 januari (FOLK1E), ${DK_STYLE[g].label.sv.toLowerCase()}.`,
+        en: `Number of residents aged 15–79 on 1 January (FOLK1E), ${DK_STYLE[g].label.en.toLowerCase().replace('danish', 'Danish').replace('non-western', 'non-Western').replace('western', 'Western')}.`,
+      }, COUNT),
+    ),
+  ],
+  // 5.2 Kriminalitetsindex (Danmarks Statistik, Indvandrere i Danmark 2025, tables 6.5, 6.7 and 6.9)
+  kap12: [
+    col('grupp', 'group', 'string', {
+      sv: 'Grupp efter ursprung, enligt Danmarks Statistik: barn till invandrare (efterkommere) och invandrare från icke-västliga och västliga länder, och dansk ursprung.',
+      en: 'Group by origin, according to Danmarks Statistik: descendants and immigrants from non-Western and Western countries, and Danish origin.',
+    }),
+    ...kap12DictionaryColumns().map((c) => col(c.name.sv, c.name.en, 'integer', c.description, { sv: 'index (genomsnitt = 100)', en: 'index (average = 100)' })),
   ],
 };
 

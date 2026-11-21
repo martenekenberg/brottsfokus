@@ -78,6 +78,34 @@ const terms = (lang: Lang) => [
       'Where possible, a group’s share is shown next to its share of the population, according to SCB or Brå’s own population figures.',
     ),
   },
+  {
+    // Part 5 (Denmark), added November 2026. Danmarks Statistik's own groups, in its own words.
+    id: 'ursprung-dk',
+    title: tr(lang, 'Ursprung i Danmark', 'Origin in Denmark'),
+    text: tr(
+      lang,
+      `Kapitel ${chapter('kap11').num} använder Danmarks Statistiks grupper. Invandrare är födda utomlands, och ingen förälder är både dansk medborgare och född i Danmark. Barn till invandrare (efterkommere) är födda i Danmark, och ingen förälder är både dansk medborgare och född i Danmark. Alla andra har dansk ursprung, även den som har en utrikesfödd förälder. Västliga länder är EU, Norden, Storbritannien, Schweiz, USA, Kanada, Australien och Nya Zeeland med några småstater. Övriga är icke-västliga.`,
+      `Chapter ${chapter('kap11').num} uses Danmarks Statistik’s groups. Immigrants were born abroad, and neither parent is both a Danish citizen and born in Denmark. Descendants (efterkommere) were born in Denmark, and neither parent is both a Danish citizen and born in Denmark. Everyone else is of Danish origin, including people with one foreign-born parent. Western countries are the EU, the Nordic countries, the United Kingdom, Switzerland, the United States, Canada, Australia and New Zealand, with a few small states. All others are non-Western.`,
+    ),
+  },
+  {
+    id: 'index-dk',
+    title: tr(lang, 'Kriminalitetsindex', 'Crime index'),
+    text: tr(
+      lang,
+      `Danmarks Statistiks mått i kapitel ${chapter('kap12').num}. Genomsnittet för alla män, eller alla kvinnor, 15–79 år är 100. Ett index på 245 betyder att gruppen lagfördes 2,45 gånger så ofta som genomsnittet. Justerat för ålder betyder att Danmarks Statistik räknar som om gruppen hade samma åldrar som befolkningen.`,
+      `Danmarks Statistik’s measure in chapter ${chapter('kap12').num}. The average for all men, or all women, aged 15–79 is 100. An index of 245 means the group was convicted 2.45 times as often as average. Adjusted for age means Danmarks Statistik calculates as if the group had the same ages as the population.`,
+    ),
+  },
+  {
+    id: 'lagford-dk',
+    title: tr(lang, 'Lagförd i Danmark', 'Convicted in Denmark'),
+    text: tr(
+      lang,
+      'Danmarks Statistik räknar personer som under året fått en fällande dom, böter eller ett beslut att avstå från åtal. Bara personer som bodde i Danmark den 1 januari eller den 31 december räknas, så turister och asylsökande utan dansk folkbokföring finns inte med.',
+      'Danmarks Statistik counts people who during the year received a guilty verdict, a fine or a decision to waive prosecution. Only people who lived in Denmark on 1 January or 31 December are counted, so tourists and asylum seekers without a Danish registration are not included.',
+    ),
+  },
 ];
 const sources = [
   {
@@ -119,6 +147,18 @@ const sources = [
   {
     label: 'SCB, Sveriges befolkning i sammandrag 1960–2025',
     url: 'https://www.scb.se/hitta-statistik/statistik-efter-amne/befolkning-och-levnadsforhallanden/befolkningens-sammansattning-och-utveckling/befolkningsstatistik/pong/tabell-och-diagram/sveriges-befolkning-i-sammandrag-1960-2025-korrigerad-2026-06-18/',
+  },
+  {
+    label: 'Danmarks Statistik, Statistikbanken, tabell STRFNA10 (skyldige personer efter herkomst)',
+    url: 'https://www.statistikbanken.dk/STRFNA10',
+  },
+  {
+    label: 'Danmarks Statistik, Statistikbanken, tabell FOLK1E (befolkningen efter herkomst och ålder)',
+    url: 'https://www.statistikbanken.dk/FOLK1E',
+  },
+  {
+    label: 'Danmarks Statistik, Indvandrere i Danmark 2025',
+    url: 'https://www.dst.dk/da/Statistik/udgivelser/VisPub?cid=54707',
   },
   {
     label: 'SCB, Utländska medborgare i Sverige',

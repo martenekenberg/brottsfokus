@@ -14,6 +14,8 @@ import Kap6 from './chapters/Kap6.astro';
 import Kap7 from './chapters/Kap7.astro';
 import Kap8 from './chapters/Kap8.astro';
 import Kap9 from './chapters/Kap9.astro';
+import Kap11 from './chapters/Kap11.astro';
+import Kap12 from './chapters/Kap12.astro';
 import { chapter } from '../lib/chapters';
 import { part, parts, type PartId } from '../lib/parts';
 import { partCoverage, partDatasetIds, partMeta, partSourceUrls } from '../lib/partMeta';
@@ -27,7 +29,7 @@ interface Props {
 const { partId, lang } = Astro.props;
 const p = part(partId);
 const path = p.path[lang];
-const COMPONENTS: Record<string, typeof Kap1> = { kap1: Kap1, kap2: Kap2, kap3: Kap3, kap4: Kap4, kap5: Kap5, kap6: Kap6, kap7: Kap7, kap8: Kap8, kap9: Kap9 };
+const COMPONENTS: Record<string, typeof Kap1> = { kap1: Kap1, kap2: Kap2, kap3: Kap3, kap4: Kap4, kap5: Kap5, kap6: Kap6, kap7: Kap7, kap8: Kap8, kap9: Kap9, kap11: Kap11, kap12: Kap12 };
 const toc = p.chapters.map((id) => {
   const c = chapter(id);
   return { num: c.num, label: c.kicker[lang], href: `#${id}` };
@@ -62,7 +64,7 @@ const articleLd = {
   dateModified: site.updated,
   image: site.shareImage[lang],
   temporalCoverage: `${coverage.first}/${coverage.last}`,
-  spatialCoverage: { '@type': 'Place', name: tr(lang, 'Sverige', 'Sweden') },
+  spatialCoverage: { '@type': 'Place', name: p.country?.[lang] ?? tr(lang, 'Sverige', 'Sweden') },
   // The tables the charts are drawn from (Dataset markup on the table pages), and the original sources.
   isBasedOn: [...partDatasetIds(partId, lang).map((id) => ({ '@id': id })), ...citations],
 };

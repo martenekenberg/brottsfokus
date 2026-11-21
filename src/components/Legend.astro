@@ -2,8 +2,8 @@
 export interface LegendItem {
   label: string;
   color: string;
-  /** dot = filled circle, line = solid line, dash = dashed line */
-  mark: 'dot' | 'line' | 'dash';
+  /** dot = filled circle, bar = filled square, line = solid line, dash = dashed line */
+  mark: 'dot' | 'bar' | 'line' | 'dash';
   /** Thinner line for secondary series. */
   thin?: boolean;
 }
@@ -21,7 +21,7 @@ const { items } = Astro.props;
       <li>
         <span
           class:list={['mark', it.mark, { thin: it.thin }]}
-          style={it.mark === 'dot' ? `background:${it.color}` : `border-color:${it.color}`}
+          style={it.mark === 'dot' || it.mark === 'bar' ? `background:${it.color}` : `border-color:${it.color}`}
           aria-hidden="true"
         />
         <span>{it.label}</span>
@@ -53,6 +53,10 @@ const { items } = Astro.props;
     width: 12px;
     height: 12px;
     border-radius: 50%;
+  }
+  .bar {
+    width: 14px;
+    height: 12px;
   }
   .line,
   .dash {
