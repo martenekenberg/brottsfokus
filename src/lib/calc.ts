@@ -123,3 +123,22 @@ export function shareOfTotalPct(part: number, parts: number[]): number {
   if (total <= 0) throw new Error('shareOfTotalPct: total must be positive');
   return (part / total) * 100;
 }
+
+/**
+ * Population during a year, for the Danish rates (chapter 5.1).
+ * Rule: the mean of the population on 1 January of the year and on 1 January of the next year.
+ * Danmarks Statistik counts everyone who lived in Denmark on 1 January and/or 31 December, so the
+ * mean of the two dates is the closest match the open tables allow.
+ */
+export function meanPopulation(start: number, end: number): number {
+  return (start + end) / 2;
+}
+
+/**
+ * People found guilty per 1,000 residents in the group (not rounded; round when shown).
+ * Rule: persons / population * 1000.
+ */
+export function per1000(persons: number, population: number): number {
+  if (population <= 0) throw new Error('per1000: population must be positive');
+  return (persons / population) * 1000;
+}

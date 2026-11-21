@@ -505,3 +505,59 @@ export function loadBirthCohorts(): KohortRow[] {
   }));
   return unique(rows, (r) => `${r.measure}/${r.birthYear}/${r.sex}/${r.group}`, file);
 }
+
+// ---------- dst_lagforda_herkomst.csv and dst_befolkning_herkomst.csv (chapter 5.1, Denmark) ----------
+
+/** Danmarks Statistik's origin groups: everyone, Danish origin, and immigrants and descendants from Western and non-Western countries. */
+export const DK_GROUPS = ['alla', 'dansk', 'indv_vest', 'indv_ikkevest', 'eftk_vest', 'eftk_ikkevest'] as const;
+export type DkGroup = (typeof DK_GROUPS)[number];
+export const DK_OFFENCES = ['straffelov', 'vold'] as const;
+export type DkOffence = (typeof DK_OFFENCES)[number];
+
+export interface DkGuiltyRow {
+  year: number;
+  offence: DkOffence;
+  group: DkGroup;
+  /** People aged 15–79 found guilty during the year (Statbank table STRFNA10). */
+  persons: number;
+}
+
+export function loadDkGuilty(): DkGuiltyRow[] {
+  const file = 'dst_lagforda_herkomst.csv';
+  const rows = readCsv(file, ['year', 'offence', 'group', 'persons', 'source']).map((r) => ({
+    year: required(r.year, 'year'),
+    offence: oneOf(r.offence, DK_OFFENCES, `${file} offence`),
+    group: oneOf(r.group, DK_GROUPS, `${file} group`),
+    persons: required(r.persons, `${file} persons`),
+  }));
+  unique(rows, (r) => `${r.year}/${r.offence}/${r.group}`, file);
+  // The five groups must add up to everyone, or a group is missing or mistyped.
+  for (const r of rows.filter((x) => x.group === 'alla')) {
+    const sum = rows.filter((x) => x.year === r.year && x.offence === r.offence && x.group !== 'alla').reduce((a, x) => a + x.persons, 0);
+    if (sum !== r.persons) throw new Error(`${file} ${r.year} ${r.offence}: groups add up to ${sum}, not ${r.persons}`);
+  }
+  return rows;
+}
+
+export interface DkPopulationRow {
+  /** Population on 1 January of this year. */
+  year: number;
+  group: DkGroup;
+  /** People aged 15–79 (Statbank table FOLK1E, first quarter). */
+  population: number;
+}
+
+export function loadDkPopulation(): DkPopulationRow[] {
+  const file = 'dst_befolkning_herkomst.csv';
+  const rows = readCsv(file, ['year', 'group', 'population_15_79', 'source']).map((r) => ({
+    year: required(r.year, 'year'),
+    group: oneOf(r.group, DK_GROUPS, `${file} group`),
+    population: required(r.population_15_79, `${file} population_15_79`),
+  }));
+  unique(rows, (r) => `${r.year}/${r.group}`, file);
+  for (const r of rows.filter((x) => x.group === 'alla')) {
+    const sum = rows.filter((x) => x.year === r.year && x.group !== 'alla').reduce((a, x) => a + x.population, 0);
+    if (sum !== r.population) throw new Error(`${file} ${r.year}: groups add up to ${sum}, not ${r.population}`);
+  }
+  return rows;
+}

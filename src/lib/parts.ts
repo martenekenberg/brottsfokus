@@ -1,9 +1,9 @@
-// The site's four parts, each its own page, plus the Metod and Om sidan pages.
+// The site's five parts, each its own page, plus the Metod and Om sidan pages.
 // Decided by the owner on 19 November 2026: a front page plus one page per part.
 // The order of `chapters` is the order on the page and gives each chapter its number ("1.2").
 import type { Lang } from './i18n';
 
-export type PartId = 'misstankta' | 'lagforda' | 'fangelse' | 'brottsoffer';
+export type PartId = 'misstankta' | 'lagforda' | 'fangelse' | 'brottsoffer' | 'danmark';
 
 export interface PartInfo {
   id: PartId;
@@ -16,6 +16,8 @@ export interface PartInfo {
    * data no longer supports it.
    */
   card: Record<Lang, string>;
+  /** The country the part's figures are about. Sweden unless stated. */
+  country?: Record<Lang, string>;
   /** Chapter ids, in page order. */
   chapters: string[];
   /**
@@ -96,6 +98,26 @@ export const parts: PartInfo[] = [
       description: {
         sv: 'Hur ofta personer med utländsk och svensk bakgrund uppger att de utsatts för brott, och bakgrund bland offer och gärningspersoner vid dödligt våld. Siffror från Brå för åren {period}, med källor och tabeller.',
         en: 'How often people with a foreign and a Swedish background say they were victims of crime, and the background of homicide victims and perpetrators. Figures from Brå for {period}, with sources and tables.',
+      },
+    },
+  },
+  {
+    // Added at the owner's request, 21 November 2026. Card copy still to be approved by the owner.
+    id: 'danmark',
+    num: 5,
+    path: { sv: '/danmark/', en: '/en/denmark/' },
+    title: { sv: 'Danmark', en: 'Denmark' },
+    country: { sv: 'Danmark', en: 'Denmark' },
+    card: {
+      sv: 'Barn till invandrare från icke-västliga länder lagfördes för brott fyra gånger så ofta som befolkningen i Danmark, enligt Danmarks Statistik. Danska siffror, för jämförelse.',
+      en: 'In Denmark, descendants of immigrants from non-Western countries were convicted of crimes four times as often as the population, according to Danmarks Statistik. Danish figures, for comparison.',
+    },
+    chapters: ['kap11'],
+    meta: {
+      title: { sv: 'Brott och ursprung i Danmark, {period}', en: 'Crime and origin in Denmark, {period}' },
+      description: {
+        sv: 'Hur vanligt det är att lagföras för brott i Danmark efter ursprung, {period}: invandrare och barn till invandrare från västliga och icke-västliga länder, jämfört med befolkningen. Siffror från Danmarks Statistik, med källor och tabeller.',
+        en: 'How common it is to be convicted of crime in Denmark by origin, {period}: immigrants and descendants from Western and non-Western countries, compared with the population. Figures from Danmarks Statistik, with sources and tables.',
       },
     },
   },

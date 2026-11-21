@@ -28,6 +28,8 @@ import { buildKap5 as buildKap5In } from '../src/lib/chapters/kap5';
 import { barFmt as barFmtIn, type BarFormat } from '../src/lib/charts/bar';
 import { dotFmt as dotFmtIn, type DotFormat } from '../src/lib/charts/dot';
 import { fmt as fmtIn, type ValueFormat } from '../src/lib/charts/line';
+import { buildKap11, DK_ORDER, groupLabel as dkGroupLabel, ratioToAll } from '../src/lib/chapters/kap11';
+import { loadDkGuilty, loadDkPopulation } from '../src/lib/data';
 import { tablePageContent as tablePageContentIn } from '../src/lib/tablePageContent';
 import { tablePage as tablePageIn, tablePages } from '../src/lib/dataPages';
 import { formatCell as formatCellIn } from '../src/lib/tables';
@@ -310,6 +312,26 @@ const kap5 = buildKap5(bra2005);
     const where = r.measure === 'fore25' ? 'Diagram, före 25 år' : 'Andra diagrammet, före 20 år';
     add(K, where, `Födda ${r.birthYear}, ${name[r.group]}`, fmt(r.pct, 'pct1'), `Brå 2025:21 tabell ${r.measure === 'fore25' ? '1' : '4 (kolumnen 20 år)'}`, STATED, URL);
   }
+}
+
+// ---------- Chapter 5.1 (Denmark) ----------
+{
+  const K = '5.1 Lagförda i Danmark';
+  const k = buildKap11(loadDkGuilty(), loadDkPopulation());
+  const URL = 'https://www.statistikbanken.dk/STRFNA10';
+  for (const o of ['straffelov', 'vold'] as const) {
+    const where = o === 'straffelov' ? 'Diagram, brott mot strafflagen' : 'Andra diagrammet, våldsbrott';
+    for (const g of DK_ORDER) {
+      for (const y of [k.firstYear, k.lastYear]) {
+        const i = k.years.indexOf(y);
+        const jan = (yy: number) => k.populationJan1.get(yy)![g];
+        add(K, where, `${dkGroupLabel(g, 'sv')}, ${y}, per 1 000`, fmt(k.rates[o][g][i], 'num1'),
+          `STRFNA10: ${formatNumber(k.persons[o][g][i])} lagförda / medel av FOLK1E 1 jan ${y} (${formatNumber(jan(y))}) och ${y + 1} (${formatNumber(jan(y + 1))})`, CALC, URL);
+      }
+    }
+    add(K, o === 'straffelov' ? 'Rubriken och inledningen' : 'Andra diagrammets rubrik', `Barn till invandrare, icke-västliga, gånger befolkningen ${k.lastYear}`, formatTimes(ratioToAll(k, o, 'eftk_ikkevest', k.lastYear)), 'Kvot mellan talen per 1 000 ovan', CALC, URL);
+  }
+  add(K, 'Inledningen', `Barn till invandrare, icke-västliga, gånger befolkningen ${k.firstYear}`, formatTimes(ratioToAll(k, 'straffelov', 'eftk_ikkevest', k.firstYear)), 'Kvot mellan talen per 1 000 ovan', CALC, URL);
 }
 
 writeFileSync('docs/sifferkontroll.csv', toCsv(main));

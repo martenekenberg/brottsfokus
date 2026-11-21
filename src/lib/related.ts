@@ -17,6 +17,8 @@ export const TERMS: Record<string, Text> = {
   utsatt: { sv: 'Utsatt för brott', en: 'Victim of crime' },
   overrisk: { sv: 'Överrisk', en: 'Excess risk' },
   befolkningen: { sv: 'Jämförelse med befolkningen', en: 'Comparison with the population' },
+  'ursprung-dk': { sv: 'Ursprung i Danmark', en: 'Origin in Denmark' },
+  'lagford-dk': { sv: 'Lagförd i Danmark', en: 'Convicted in Denmark' },
 };
 
 interface Related {
@@ -53,6 +55,7 @@ const RELATED: Record<string, Related> = {
     chapters: [
       { id: 'kap1', note: { sv: 'misstänkta, efter samma slags bakgrundsgrupper', en: 'suspects, by the same kind of background groups' } },
       { id: 'kap3', note: { sv: 'intagna i fängelse, efter medborgarskap', en: 'prisoners, by citizenship' } },
+      { id: 'kap11', note: { sv: 'lagförda i Danmark, efter Danmarks Statistiks grupper', en: 'convicted in Denmark, by Danmarks Statistik’s groups' } },
     ],
     terms: ['misstankt', 'bakgrund', 'invandrare'],
   },
@@ -82,6 +85,13 @@ const RELATED: Record<string, Related> = {
       { id: 'kap1', note: { sv: 'misstänkta för brott, efter bakgrund', en: 'suspects of crime, by background' } },
     ],
     terms: ['utsatt', 'bakgrund'],
+  },
+  kap11: {
+    chapters: [
+      { id: 'kap9', note: { sv: 'lagförda i Sverige före 25 års ålder, efter bakgrund', en: 'convicted in Sweden before age 25, by background' } },
+      { id: 'kap1', note: { sv: 'misstänkta i Sverige, efter bakgrund', en: 'suspected in Sweden, by background' } },
+    ],
+    terms: ['ursprung-dk', 'lagford-dk', 'befolkningen'],
   },
   kap8: {
     chapters: [

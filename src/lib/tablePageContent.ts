@@ -17,6 +17,8 @@ import {
   loadHomicide,
   loadCohorts,
   loadBirthCohorts,
+  loadDkGuilty,
+  loadDkPopulation,
 } from './data';
 import { chapter } from './chapters';
 import { buildKap1Data, crimeById, crimeName, type GroupId } from './chapters/kap1';
@@ -33,6 +35,7 @@ import { homicideItem, homicideTables, kap8Csv } from './chapters/kap8';
 import { deportTables, fact, kap7Csv, notRegisteredSentence, suppressedGroups, totalRow } from './chapters/kap7';
 import { backgroundTables, flagged, kap6Csv, pooled, regionTables, yearTables } from './chapters/kap6';
 import { kap4Tables } from './chapters/kap4Tables';
+import { buildKap11, kap11Tables, rateAt, ratioToAll } from './chapters/kap11';
 import { kap5Csv, kap5Tables } from './chapters/kap5Tables';
 import { formatNumber } from './format';
 import { tr, type Lang } from './i18n';
@@ -987,7 +990,80 @@ function kap10(lang: Lang): TablePageContent {
   };
 }
 
-const BUILDERS: Record<string, (lang: Lang) => TablePageContent> = { kap1, kap2, kap3, kap4, kap5, kap6, kap7, kap8, kap9, kap10 };
+function kap11(lang: Lang): TablePageContent {
+  const T = <X,>(sv: X, en: X): X => tr(lang, sv, en);
+  const n1 = (v: number) => formatNumber(v, 1, lang);
+  const n0 = (v: number) => formatNumber(v, 0, lang);
+  const k = buildKap11(loadDkGuilty(), loadDkPopulation());
+  const tables = kap11Tables(k, lang);
+  const [rateLaw, rateViolence, countLaw, countViolence, popTable] = tables;
+  const first = k.firstYear;
+  const last = k.lastYear;
+  const period = `${first}–${last}`;
+  const r = (g: Parameters<typeof rateAt>[2], y: number) => rateAt(k, 'straffelov', g, y);
+  const countAt = (y: number) => k.persons.straffelov.eftk_ikkevest[k.years.indexOf(y)];
+  // The note says the number convicted rose while the rate fell. Stop the build if that no longer holds.
+  if (!(countAt(last) > countAt(first)) || !(r('eftk_ikkevest', last) < r('eftk_ikkevest', first))) {
+    throw new Error('Chapter 5.1 table page: the note on counts and rates no longer matches the data');
+  }
+  const variables = [...new Set(tables.flatMap((t) => t.columns).map((c) => c.label))];
+
+  return {
+    chapterId: 'kap11',
+    lang,
+    h1: T(`Lagförda för brott i Danmark efter ursprung, ${period}`, `People convicted of crime in Denmark by origin, ${period}`),
+    shortTitle: T(`Lagförda i Danmark ${period}: tabell`, `Convicted in Denmark ${period}: table`),
+    description: T(
+      `Lagförda för brott mot strafflagen och för våldsbrott i Danmark ${period}, per 1 000 invånare 15–79 år, efter ursprung enligt Danmarks Statistik. Tabell och CSV-fil.`,
+      `People convicted of criminal code offences and crimes of violence in Denmark, ${period}, per 1,000 residents aged 15–79, by origin according to Danmarks Statistik. Table and CSV file.`,
+    ),
+    datasetDescription: T(
+      `Antal personer 15–79 år som lagförts för brott mot strafflagen och för våldsbrott i Danmark under året, ${period}, efter Danmarks Statistiks grupper för ursprung: dansk ursprung, och invandrare och barn till invandrare från västliga och icke-västliga länder. Med befolkningen 15–79 år den 1 januari och uträknade tal per 1 000 invånare. Inte justerat för ålder eller kön.`,
+      `Number of people aged 15–79 convicted of criminal code offences and crimes of violence in Denmark during the year, ${period}, by Danmarks Statistik’s origin groups: Danish origin, and immigrants and descendants from Western and non-Western countries. With the population aged 15–79 on 1 January and calculated rates per 1,000 residents. Not adjusted for age or sex.`,
+    ),
+    temporalCoverage: `${first}/${last}`,
+    keywords: T(
+      ['Danmark', 'lagförda', 'brott', 'invandrare', 'efterkommere', 'Danmarks Statistik', 'STRFNA10'],
+      ['Denmark', 'convictions', 'crime', 'immigrants', 'descendants', 'Danmarks Statistik', 'STRFNA10'],
+    ),
+    variableMeasured: variables,
+    sources: [SOURCES.dstStrfna10, SOURCES.dstFolk1e],
+    credit: 'Danmarks Statistik',
+    terms: T(
+      'Danmarks Statistik låter alla använda sina data fritt, också kommersiellt, om Danmarks Statistik anges som källa.',
+      'Danmarks Statistik lets anyone use its data freely, also commercially, if Danmarks Statistik is named as the source.',
+    ),
+    lead: T(
+      `År ${last} lagfördes ${n1(r('eftk_ikkevest', last))} per 1 000 barn till invandrare från icke-västliga länder i Danmark för brott mot strafflagen, ${n1(ratioToAll(k, 'straffelov', 'eftk_ikkevest', last))} gånger så många som i hela befolkningen (${n1(r('alla', last))} per 1 000). ` +
+        `Bland invandrare från icke-västliga länder var talet ${n1(r('indv_ikkevest', last))}, och bland personer med dansk ursprung ${n1(r('dansk', last))}. Källa: Danmarks Statistik.`,
+      `In ${last}, ${n1(r('eftk_ikkevest', last))} per 1,000 descendants of immigrants from non-Western countries in Denmark were convicted of a criminal code offence, ${n1(ratioToAll(k, 'straffelov', 'eftk_ikkevest', last))} times the rate in the whole population (${n1(r('alla', last))} per 1,000). ` +
+        `Among immigrants from non-Western countries the rate was ${n1(r('indv_ikkevest', last))}, and among people of Danish origin ${n1(r('dansk', last))}. Source: Danmarks Statistik.`,
+    ),
+    note: T(
+      'Lagförd betyder en fällande dom, böter eller beslut att avstå från åtal. Bara personer 15–79 år som bodde i Danmark den 1 januari eller den 31 december räknas. ' +
+        'Inte justerat för ålder eller kön, och barn till invandrare är i genomsnitt mycket yngre än befolkningen. ' +
+        'Grupperna är Danmarks Statistiks och skiljer sig från Brås: dansk ursprung omfattar också den som har en utrikesfödd förälder, om den andra föräldern är dansk medborgare född i Danmark. ' +
+        'De flesta narkotikabrott och alla trafikbrott står i andra lagar och ingår inte. ' +
+        `Talen per 1 000 är uträknade här: antal lagförda delat med medelvärdet av befolkningen den 1 januari samma år och året efter, gånger 1 000. Danmarks Statistik räknar själv med hur stor del av året varje person bodde i landet, så dess egna tal kan skilja sig något. ` +
+        `Antalet lagförda barn till invandrare från icke-västliga länder steg från ${n0(countAt(first))} år ${first} till ${n0(countAt(last))} år ${last}, samtidigt som talet per 1 000 sjönk, eftersom gruppen växte.`,
+      'Convicted means a guilty verdict, a fine or a decision to waive prosecution. Only people aged 15–79 who lived in Denmark on 1 January or 31 December are counted. ' +
+        'Not adjusted for age or sex, and descendants of immigrants are on average much younger than the population. ' +
+        'The groups are Danmarks Statistik’s and differ from Brå’s: Danish origin also includes people with one foreign-born parent, if the other parent is a Danish citizen born in Denmark. ' +
+        'Most drug offences and all traffic offences are in other laws and are not included. ' +
+        `The rates per 1,000 are calculated here: the number convicted divided by the mean of the population on 1 January of the year and of the next year, times 1,000. Danmarks Statistik itself weights each person by the part of the year they lived in the country, so its own figures can differ slightly. ` +
+        `The number of convicted descendants from non-Western countries rose from ${n0(countAt(first))} in ${first} to ${n0(countAt(last))} in ${last}, while the rate per 1,000 fell, because the group grew.`,
+    ),
+    sections: [
+      { heading: T('Per 1 000 invånare', 'Per 1,000 residents'), tables: [rateLaw, rateViolence] },
+      { heading: T('Antal lagförda', 'Number convicted'), tables: [countLaw, countViolence], collapsed: true },
+      { heading: T('Befolkningen', 'Population'), tables: [popTable], collapsed: true },
+    ],
+    csv: tablesToCsv(tables, lang),
+    dataFiles: ['dst_lagforda_herkomst.csv', 'dst_befolkning_herkomst.csv'],
+  };
+}
+
+const BUILDERS: Record<string, (lang: Lang) => TablePageContent> = { kap1, kap2, kap3, kap4, kap5, kap6, kap7, kap8, kap9, kap10, kap11 };
 const cache = new Map<string, TablePageContent>();
 
 /** The text and tables for one table page in one language. */

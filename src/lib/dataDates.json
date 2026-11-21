@@ -27,6 +27,14 @@
     "date": "2026-11-18",
     "sha256": "8a8e2340c7ed0116b0712e0222849888a39122982083d0962ce50d78d46c3083"
   },
+  "dst_befolkning_herkomst.csv": {
+    "date": "2026-11-21",
+    "sha256": "48256c1fb9cba12d13703cafa5bb015a8e14f13bd20ed49719fc952f3a72adc1"
+  },
+  "dst_lagforda_herkomst.csv": {
+    "date": "2026-11-21",
+    "sha256": "7f50953ba04bc7e21e9a703835ae60061e42ca3ebd3eb0552755b33733d1c0e0"
+  },
   "intagna_medborgarskap.csv": {
     "date": "2026-11-19",
     "sha256": "b611f76afe9353bc8c690df0d8b381885bd79a2a3dd56de67c806bd74ce590d4"

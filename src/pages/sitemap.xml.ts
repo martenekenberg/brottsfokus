@@ -17,7 +17,7 @@ interface Entry {
 export function GET() {
   const entries: Entry[] = [
     { paths: { sv: localePath('sv', '/'), en: localePath('en', '/') }, date: site.updated },
-    // The four part pages, Metod and Om sidan. Their copy changes with deploys, like the front page.
+    // The part pages, Metod and Om sidan. Their copy changes with deploys, like the front page.
     ...pagePairs.map((paths): Entry => ({ paths, date: site.updated })),
     { paths: { sv: tablesIndexPath('sv'), en: tablesIndexPath('en') }, date: dataDate() },
     ...tablePages.map((p): Entry => {
