@@ -129,7 +129,7 @@ export const parts: PartInfo[] = [
     },
   },
   {
-    // Added at the owner's request, 26 November 2026. Card copy is a draft for the owner to approve.
+    // Added at the owner's request, 26 November 2026. Card copy approved by the owner, 26 November 2026.
     id: 'finland',
     num: 6,
     path: { sv: '/finland/', en: '/en/finland/', fi: '/fi/suomi/' },
@@ -151,7 +151,7 @@ export const parts: PartInfo[] = [
     },
   },
   {
-    // Added at the owner's request, 26 November 2026. Card copy is a draft for the owner to approve.
+    // Added at the owner's request, 26 November 2026. Card copy approved by the owner, 26 November 2026.
     id: 'norge',
     num: 7,
     path: { sv: '/norge/', en: '/en/norway/', nb: '/nb/norge/' },
