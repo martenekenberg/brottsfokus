@@ -29,9 +29,10 @@ import { barFmt as barFmtIn, type BarFormat } from '../src/lib/charts/bar';
 import { dotFmt as dotFmtIn, type DotFormat } from '../src/lib/charts/dot';
 import { fmt as fmtIn, type ValueFormat } from '../src/lib/charts/line';
 import { buildKap11, DK_ORDER, groupLabel as dkGroupLabel, ratioToAll } from '../src/lib/chapters/kap11';
-import { loadDkGuilty, loadDkIndex, loadDkPopulation, loadFiSuspects } from '../src/lib/data';
+import { loadDkGuilty, loadDkIndex, loadDkPopulation, loadFiSuspects, loadNoCharged } from '../src/lib/data';
 import { buildKap13, FI_CHART, fiLabel, fiPersons, fiRatio } from '../src/lib/chapters/kap13';
 import { AGE_GROUPS, AGES, ageLabel, ageRatio, ageYear, shown } from '../src/lib/chapters/kap14';
+import { buildNo, countryLabel, NO_CATEGORY_LABEL, NO_REGION_LABEL } from '../src/lib/chapters/kap15';
 import { ADJ_LABEL, buildKap12, groupLabel as dk12GroupLabel } from '../src/lib/chapters/kap12';
 import { tablePageContent as tablePageContentIn } from '../src/lib/tablePageContent';
 import { tablePage as tablePageIn, tablePages } from '../src/lib/dataPages';
@@ -383,6 +384,25 @@ const kap5 = buildKap5(bra2005);
       for (const o of ['utl_fodd_utl', 'utl_fodd_fi'] as const) {
         if (shown(k, s, a, o)) add(K2, where === 'Diagram, män' ? 'Rubriken och inledningen' : 'Andra diagrammets rubrik', `${fiLabel(o, 'sv')}, ${s === 'man' ? 'män' : 'kvinnor'} ${ageLabel(a, 'sv')}, gånger finländsk bakgrund`, formatTimes(ageRatio(k, s, a, o)), 'Kvot mellan talen per 1 000 ovan', CALC, URL);
       }
+    }
+  }
+}
+
+// ---------- Chapters 7.1 and 7.2 (Norway) ----------
+{
+  const URL = 'https://www.ssb.no/sosiale-forhold-og-kriminalitet/kriminalitet-og-rettsvesen/statistikk/etterforskede-lovbrudd/artikler/siktelser-og-siktede-personer-etter-innvandringsbakgrunn';
+  const d = buildNo(loadNoCharged());
+  const name = (r: (typeof d.rows)[number]) => {
+    const cat = r.category === 'ovrige' || r.category === 'innvandrere' || r.category === 'norskfodte' ? NO_CATEGORY_LABEL[r.category].sv : r.category;
+    if (r.level === 'bakgrunn') return cat;
+    if (r.level === 'region') return `${cat}, ${NO_REGION_LABEL[r.group as keyof typeof NO_REGION_LABEL].sv}`;
+    return `${cat}, ${countryLabel(r.group, 'sv')}`;
+  };
+  for (const r of d.rows.filter((x) => x.per1000 !== null)) {
+    const K = r.level === 'land' ? '7.2 Efter födelseland, Norge' : '7.1 Misstänkta i Norge';
+    add(K, 'Diagram och text', `${name(r)}, per 1 000, ${d.period}`, fmt(r.per1000!, 'num1'), `SSB tabell 3, flik "Tab 3 siktede per 1 000" (gånger övriga: ${formatNumber(r.ratio!, 2)})`, STATED, URL);
+    if (r.men15_24Per1000 !== null && r.level !== 'land') {
+      add(K, 'Andra diagrammet, män 15–24 år', `${name(r)}, män 15–24 år, per 1 000`, fmt(r.men15_24Per1000, 'num1'), `SSB tabell 3, kolumn N (gånger övriga: ${formatNumber(r.men15_24Ratio!, 2)})`, STATED, URL);
     }
   }
 }

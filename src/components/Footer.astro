@@ -10,15 +10,15 @@ interface Props {
 }
 const { lang, path = localePath(linkLang(lang), '/') } = Astro.props;
 // On a country page the table pages are in English, which the link text says.
-const tablesLabel = tr(lang, 'Tabeller och CSV-filer', 'Tables and CSV files', { da: 'Tabeller og CSV-filer (på engelsk)', fi: 'Taulukot ja CSV-tiedostot (englanniksi)' });
+const tablesLabel = tr(lang, 'Tabeller och CSV-filer', 'Tables and CSV files', { da: 'Tabeller og CSV-filer (på engelsk)', fi: 'Taulukot ja CSV-tiedostot (englanniksi)', nb: 'Tabeller og CSV-filer (på engelsk)' });
 ---
 
 <footer class="site-footer">
-  <span>{tr(lang, 'Brottsfokus · Sammanställning av offentlig statistik', 'Brottsfokus · A compilation of official statistics', { da: 'Brottsfokus · En samling af officiel statistik', fi: 'Brottsfokus · Koonti virallisista tilastoista' })}</span>
+  <span>{tr(lang, 'Brottsfokus · Sammanställning av offentlig statistik', 'Brottsfokus · A compilation of official statistics', { da: 'Brottsfokus · En samling af officiel statistik', fi: 'Brottsfokus · Koonti virallisista tilastoista', nb: 'Brottsfokus · En samling offentlig statistikk' })}</span>
   <div class="links">
     <a href={tablesIndexPath(lang)} hreflang={isLocal(lang) ? 'en' : undefined}>{tablesLabel}</a>
     <LanguageMenu path={path} lang={lang} />
-    <a href="#top">{tr(lang, 'Till början ↑', 'Back to top ↑', { da: 'Til toppen ↑', fi: 'Alkuun ↑' })}</a>
+    <a href="#top">{tr(lang, 'Till början ↑', 'Back to top ↑', { da: 'Til toppen ↑', fi: 'Alkuun ↑', nb: 'Til toppen ↑' })}</a>
   </div>
 </footer>
 

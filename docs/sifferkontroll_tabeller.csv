@@ -10568,3 +10568,321 @@ Sida,Tabell,Rad,Kolumn,Värde på sidan
 /data/finland-alder/,"Antal kvinnor misstänkta för brott mot strafflagen 2025, efter ålder och bakgrund. Varje person räknas en gång.",Alla åldrar,"Finländsk bakgrund, födda i Finland",29 993
 /data/finland-alder/,"Antal kvinnor misstänkta för brott mot strafflagen 2025, efter ålder och bakgrund. Varje person räknas en gång.",Alla åldrar,"Utländsk bakgrund, födda utomlands",4 186
 /data/finland-alder/,"Antal kvinnor misstänkta för brott mot strafflagen 2025, efter ålder och bakgrund. Varje person räknas en gång.",Alla åldrar,"Utländsk bakgrund, födda i Finland",656
+/data/norge-misstankta/,"Misstänkta (siktade) i Norge efter invandringsbakgrund, årligt genomsnitt 2021–2023.",Övriga befolkningen,"Antal, årligt genomsnitt",40 700
+/data/norge-misstankta/,"Misstänkta (siktade) i Norge efter invandringsbakgrund, årligt genomsnitt 2021–2023.",Övriga befolkningen,Per 1 000 invånare,"9,3"
+/data/norge-misstankta/,"Misstänkta (siktade) i Norge efter invandringsbakgrund, årligt genomsnitt 2021–2023.",Övriga befolkningen,Gånger övriga befolkningen,"1,00"
+/data/norge-misstankta/,"Misstänkta (siktade) i Norge efter invandringsbakgrund, årligt genomsnitt 2021–2023.",Övriga befolkningen,"Män 15–24 år, antal",9 594
+/data/norge-misstankta/,"Misstänkta (siktade) i Norge efter invandringsbakgrund, årligt genomsnitt 2021–2023.",Övriga befolkningen,"Män 15–24 år, per 1 000","34,9"
+/data/norge-misstankta/,"Misstänkta (siktade) i Norge efter invandringsbakgrund, årligt genomsnitt 2021–2023.",Övriga befolkningen,"Män 15–24 år, gånger övriga","1,00"
+/data/norge-misstankta/,"Misstänkta (siktade) i Norge efter invandringsbakgrund, årligt genomsnitt 2021–2023.",Invandrare,"Antal, årligt genomsnitt",13 615
+/data/norge-misstankta/,"Misstänkta (siktade) i Norge efter invandringsbakgrund, årligt genomsnitt 2021–2023.",Invandrare,Per 1 000 invånare,"16,4"
+/data/norge-misstankta/,"Misstänkta (siktade) i Norge efter invandringsbakgrund, årligt genomsnitt 2021–2023.",Invandrare,Gånger övriga befolkningen,"1,77"
+/data/norge-misstankta/,"Misstänkta (siktade) i Norge efter invandringsbakgrund, årligt genomsnitt 2021–2023.",Invandrare,"Män 15–24 år, antal",2 496
+/data/norge-misstankta/,"Misstänkta (siktade) i Norge efter invandringsbakgrund, årligt genomsnitt 2021–2023.",Invandrare,"Män 15–24 år, per 1 000","58,6"
+/data/norge-misstankta/,"Misstänkta (siktade) i Norge efter invandringsbakgrund, årligt genomsnitt 2021–2023.",Invandrare,"Män 15–24 år, gånger övriga","1,68"
+/data/norge-misstankta/,"Misstänkta (siktade) i Norge efter invandringsbakgrund, årligt genomsnitt 2021–2023.","Barn till två invandrare, födda i Norge","Antal, årligt genomsnitt",2 944
+/data/norge-misstankta/,"Misstänkta (siktade) i Norge efter invandringsbakgrund, årligt genomsnitt 2021–2023.","Barn till två invandrare, födda i Norge",Per 1 000 invånare,"14,3"
+/data/norge-misstankta/,"Misstänkta (siktade) i Norge efter invandringsbakgrund, årligt genomsnitt 2021–2023.","Barn till två invandrare, födda i Norge",Gånger övriga befolkningen,"1,55"
+/data/norge-misstankta/,"Misstänkta (siktade) i Norge efter invandringsbakgrund, årligt genomsnitt 2021–2023.","Barn till två invandrare, födda i Norge","Män 15–24 år, antal",1 282
+/data/norge-misstankta/,"Misstänkta (siktade) i Norge efter invandringsbakgrund, årligt genomsnitt 2021–2023.","Barn till två invandrare, födda i Norge","Män 15–24 år, per 1 000","64,0"
+/data/norge-misstankta/,"Misstänkta (siktade) i Norge efter invandringsbakgrund, årligt genomsnitt 2021–2023.","Barn till två invandrare, födda i Norge","Män 15–24 år, gånger övriga","1,83"
+/data/norge-misstankta/,"Invandrare efter landbakgrund: misstänkta (siktade) i Norge, årligt genomsnitt 2021–2023.","Norden, EU/EFTA, Storbritannien, Nordamerika och Oceanien","Antal, årligt genomsnitt",4 978
+/data/norge-misstankta/,"Invandrare efter landbakgrund: misstänkta (siktade) i Norge, årligt genomsnitt 2021–2023.","Norden, EU/EFTA, Storbritannien, Nordamerika och Oceanien",Per 1 000 invånare,"13,5"
+/data/norge-misstankta/,"Invandrare efter landbakgrund: misstänkta (siktade) i Norge, årligt genomsnitt 2021–2023.","Norden, EU/EFTA, Storbritannien, Nordamerika och Oceanien",Gånger övriga befolkningen,"1,45"
+/data/norge-misstankta/,"Invandrare efter landbakgrund: misstänkta (siktade) i Norge, årligt genomsnitt 2021–2023.","Norden, EU/EFTA, Storbritannien, Nordamerika och Oceanien","Män 15–24 år, antal",580
+/data/norge-misstankta/,"Invandrare efter landbakgrund: misstänkta (siktade) i Norge, årligt genomsnitt 2021–2023.","Norden, EU/EFTA, Storbritannien, Nordamerika och Oceanien","Män 15–24 år, per 1 000","38,9"
+/data/norge-misstankta/,"Invandrare efter landbakgrund: misstänkta (siktade) i Norge, årligt genomsnitt 2021–2023.","Norden, EU/EFTA, Storbritannien, Nordamerika och Oceanien","Män 15–24 år, gånger övriga","1,11"
+/data/norge-misstankta/,"Invandrare efter landbakgrund: misstänkta (siktade) i Norge, årligt genomsnitt 2021–2023.","Övriga Europa, Afrika, Asien och Latinamerika","Antal, årligt genomsnitt",8 637
+/data/norge-misstankta/,"Invandrare efter landbakgrund: misstänkta (siktade) i Norge, årligt genomsnitt 2021–2023.","Övriga Europa, Afrika, Asien och Latinamerika",Per 1 000 invånare,"18,7"
+/data/norge-misstankta/,"Invandrare efter landbakgrund: misstänkta (siktade) i Norge, årligt genomsnitt 2021–2023.","Övriga Europa, Afrika, Asien och Latinamerika",Gånger övriga befolkningen,"2,02"
+/data/norge-misstankta/,"Invandrare efter landbakgrund: misstänkta (siktade) i Norge, årligt genomsnitt 2021–2023.","Övriga Europa, Afrika, Asien och Latinamerika","Män 15–24 år, antal",1 916
+/data/norge-misstankta/,"Invandrare efter landbakgrund: misstänkta (siktade) i Norge, årligt genomsnitt 2021–2023.","Övriga Europa, Afrika, Asien och Latinamerika","Män 15–24 år, per 1 000","69,2"
+/data/norge-misstankta/,"Invandrare efter landbakgrund: misstänkta (siktade) i Norge, årligt genomsnitt 2021–2023.","Övriga Europa, Afrika, Asien och Latinamerika","Män 15–24 år, gånger övriga","1,98"
+/data/norge-misstankta/,"Invandrare efter landbakgrund: misstänkta (siktade) i Norge, årligt genomsnitt 2021–2023.",Europa utanför EU/EFTA och Storbritannien,"Antal, årligt genomsnitt",1 181
+/data/norge-misstankta/,"Invandrare efter landbakgrund: misstänkta (siktade) i Norge, årligt genomsnitt 2021–2023.",Europa utanför EU/EFTA och Storbritannien,Per 1 000 invånare,"15,1"
+/data/norge-misstankta/,"Invandrare efter landbakgrund: misstänkta (siktade) i Norge, årligt genomsnitt 2021–2023.",Europa utanför EU/EFTA och Storbritannien,Gånger övriga befolkningen,"1,64"
+/data/norge-misstankta/,"Invandrare efter landbakgrund: misstänkta (siktade) i Norge, årligt genomsnitt 2021–2023.",Europa utanför EU/EFTA och Storbritannien,"Män 15–24 år, antal",152
+/data/norge-misstankta/,"Invandrare efter landbakgrund: misstänkta (siktade) i Norge, årligt genomsnitt 2021–2023.",Europa utanför EU/EFTA och Storbritannien,"Män 15–24 år, per 1 000","48,2"
+/data/norge-misstankta/,"Invandrare efter landbakgrund: misstänkta (siktade) i Norge, årligt genomsnitt 2021–2023.",Europa utanför EU/EFTA och Storbritannien,"Män 15–24 år, gånger övriga","1,38"
+/data/norge-misstankta/,"Invandrare efter landbakgrund: misstänkta (siktade) i Norge, årligt genomsnitt 2021–2023.",Afrika,"Antal, årligt genomsnitt",2 562
+/data/norge-misstankta/,"Invandrare efter landbakgrund: misstänkta (siktade) i Norge, årligt genomsnitt 2021–2023.",Afrika,Per 1 000 invånare,"24,8"
+/data/norge-misstankta/,"Invandrare efter landbakgrund: misstänkta (siktade) i Norge, årligt genomsnitt 2021–2023.",Afrika,Gånger övriga befolkningen,"2,68"
+/data/norge-misstankta/,"Invandrare efter landbakgrund: misstänkta (siktade) i Norge, årligt genomsnitt 2021–2023.",Afrika,"Män 15–24 år, antal",663
+/data/norge-misstankta/,"Invandrare efter landbakgrund: misstänkta (siktade) i Norge, årligt genomsnitt 2021–2023.",Afrika,"Män 15–24 år, per 1 000","80,5"
+/data/norge-misstankta/,"Invandrare efter landbakgrund: misstänkta (siktade) i Norge, årligt genomsnitt 2021–2023.",Afrika,"Män 15–24 år, gånger övriga","2,31"
+/data/norge-misstankta/,"Invandrare efter landbakgrund: misstänkta (siktade) i Norge, årligt genomsnitt 2021–2023.",Asien,"Antal, årligt genomsnitt",4 526
+/data/norge-misstankta/,"Invandrare efter landbakgrund: misstänkta (siktade) i Norge, årligt genomsnitt 2021–2023.",Asien,Per 1 000 invånare,"17,7"
+/data/norge-misstankta/,"Invandrare efter landbakgrund: misstänkta (siktade) i Norge, årligt genomsnitt 2021–2023.",Asien,Gånger övriga befolkningen,"1,92"
+/data/norge-misstankta/,"Invandrare efter landbakgrund: misstänkta (siktade) i Norge, årligt genomsnitt 2021–2023.",Asien,"Män 15–24 år, antal",1 048
+/data/norge-misstankta/,"Invandrare efter landbakgrund: misstänkta (siktade) i Norge, årligt genomsnitt 2021–2023.",Asien,"Män 15–24 år, per 1 000","67,9"
+/data/norge-misstankta/,"Invandrare efter landbakgrund: misstänkta (siktade) i Norge, årligt genomsnitt 2021–2023.",Asien,"Män 15–24 år, gånger övriga","1,95"
+/data/norge-misstankta/,"Invandrare efter landbakgrund: misstänkta (siktade) i Norge, årligt genomsnitt 2021–2023.",Latinamerika och Karibien,"Antal, årligt genomsnitt",368
+/data/norge-misstankta/,"Invandrare efter landbakgrund: misstänkta (siktade) i Norge, årligt genomsnitt 2021–2023.",Latinamerika och Karibien,Per 1 000 invånare,"14,2"
+/data/norge-misstankta/,"Invandrare efter landbakgrund: misstänkta (siktade) i Norge, årligt genomsnitt 2021–2023.",Latinamerika och Karibien,Gånger övriga befolkningen,"1,54"
+/data/norge-misstankta/,"Invandrare efter landbakgrund: misstänkta (siktade) i Norge, årligt genomsnitt 2021–2023.",Latinamerika och Karibien,"Män 15–24 år, antal",53
+/data/norge-misstankta/,"Invandrare efter landbakgrund: misstänkta (siktade) i Norge, årligt genomsnitt 2021–2023.",Latinamerika och Karibien,"Män 15–24 år, per 1 000","62,1"
+/data/norge-misstankta/,"Invandrare efter landbakgrund: misstänkta (siktade) i Norge, årligt genomsnitt 2021–2023.",Latinamerika och Karibien,"Män 15–24 år, gånger övriga","1,78"
+/data/norge-misstankta/,"Barn till två invandrare, födda i Norge efter landbakgrund: misstänkta (siktade) i Norge, årligt genomsnitt 2021–2023.","Norden, EU/EFTA, Storbritannien, Nordamerika och Oceanien","Antal, årligt genomsnitt",231
+/data/norge-misstankta/,"Barn till två invandrare, födda i Norge efter landbakgrund: misstänkta (siktade) i Norge, årligt genomsnitt 2021–2023.","Norden, EU/EFTA, Storbritannien, Nordamerika och Oceanien",Per 1 000 invånare,"4,7"
+/data/norge-misstankta/,"Barn till två invandrare, födda i Norge efter landbakgrund: misstänkta (siktade) i Norge, årligt genomsnitt 2021–2023.","Norden, EU/EFTA, Storbritannien, Nordamerika och Oceanien",Gånger övriga befolkningen,"0,51"
+/data/norge-misstankta/,"Barn till två invandrare, födda i Norge efter landbakgrund: misstänkta (siktade) i Norge, årligt genomsnitt 2021–2023.","Norden, EU/EFTA, Storbritannien, Nordamerika och Oceanien","Män 15–24 år, antal",56
+/data/norge-misstankta/,"Barn till två invandrare, födda i Norge efter landbakgrund: misstänkta (siktade) i Norge, årligt genomsnitt 2021–2023.","Norden, EU/EFTA, Storbritannien, Nordamerika och Oceanien","Män 15–24 år, per 1 000","32,2"
+/data/norge-misstankta/,"Barn till två invandrare, födda i Norge efter landbakgrund: misstänkta (siktade) i Norge, årligt genomsnitt 2021–2023.","Norden, EU/EFTA, Storbritannien, Nordamerika och Oceanien","Män 15–24 år, gånger övriga","0,92"
+/data/norge-misstankta/,"Barn till två invandrare, födda i Norge efter landbakgrund: misstänkta (siktade) i Norge, årligt genomsnitt 2021–2023.","Övriga Europa, Afrika, Asien och Latinamerika","Antal, årligt genomsnitt",2 713
+/data/norge-misstankta/,"Barn till två invandrare, födda i Norge efter landbakgrund: misstänkta (siktade) i Norge, årligt genomsnitt 2021–2023.","Övriga Europa, Afrika, Asien och Latinamerika",Per 1 000 invånare,"17,3"
+/data/norge-misstankta/,"Barn till två invandrare, födda i Norge efter landbakgrund: misstänkta (siktade) i Norge, årligt genomsnitt 2021–2023.","Övriga Europa, Afrika, Asien och Latinamerika",Gånger övriga befolkningen,"1,87"
+/data/norge-misstankta/,"Barn till två invandrare, födda i Norge efter landbakgrund: misstänkta (siktade) i Norge, årligt genomsnitt 2021–2023.","Övriga Europa, Afrika, Asien och Latinamerika","Män 15–24 år, antal",1 225
+/data/norge-misstankta/,"Barn till två invandrare, födda i Norge efter landbakgrund: misstänkta (siktade) i Norge, årligt genomsnitt 2021–2023.","Övriga Europa, Afrika, Asien och Latinamerika","Män 15–24 år, per 1 000","67,0"
+/data/norge-misstankta/,"Barn till två invandrare, födda i Norge efter landbakgrund: misstänkta (siktade) i Norge, årligt genomsnitt 2021–2023.","Övriga Europa, Afrika, Asien och Latinamerika","Män 15–24 år, gånger övriga","1,92"
+/data/norge-misstankta/,"Barn till två invandrare, födda i Norge efter landbakgrund: misstänkta (siktade) i Norge, årligt genomsnitt 2021–2023.",Europa utanför EU/EFTA och Storbritannien,"Antal, årligt genomsnitt",322
+/data/norge-misstankta/,"Barn till två invandrare, födda i Norge efter landbakgrund: misstänkta (siktade) i Norge, årligt genomsnitt 2021–2023.",Europa utanför EU/EFTA och Storbritannien,Per 1 000 invånare,"15,0"
+/data/norge-misstankta/,"Barn till två invandrare, födda i Norge efter landbakgrund: misstänkta (siktade) i Norge, årligt genomsnitt 2021–2023.",Europa utanför EU/EFTA och Storbritannien,Gånger övriga befolkningen,"1,62"
+/data/norge-misstankta/,"Barn till två invandrare, födda i Norge efter landbakgrund: misstänkta (siktade) i Norge, årligt genomsnitt 2021–2023.",Europa utanför EU/EFTA och Storbritannien,"Män 15–24 år, antal",150
+/data/norge-misstankta/,"Barn till två invandrare, födda i Norge efter landbakgrund: misstänkta (siktade) i Norge, årligt genomsnitt 2021–2023.",Europa utanför EU/EFTA och Storbritannien,"Män 15–24 år, per 1 000","58,9"
+/data/norge-misstankta/,"Barn till två invandrare, födda i Norge efter landbakgrund: misstänkta (siktade) i Norge, årligt genomsnitt 2021–2023.",Europa utanför EU/EFTA och Storbritannien,"Män 15–24 år, gånger övriga","1,69"
+/data/norge-misstankta/,"Barn till två invandrare, födda i Norge efter landbakgrund: misstänkta (siktade) i Norge, årligt genomsnitt 2021–2023.",Afrika,"Antal, årligt genomsnitt",748
+/data/norge-misstankta/,"Barn till två invandrare, födda i Norge efter landbakgrund: misstänkta (siktade) i Norge, årligt genomsnitt 2021–2023.",Afrika,Per 1 000 invånare,"17,9"
+/data/norge-misstankta/,"Barn till två invandrare, födda i Norge efter landbakgrund: misstänkta (siktade) i Norge, årligt genomsnitt 2021–2023.",Afrika,Gånger övriga befolkningen,"1,93"
+/data/norge-misstankta/,"Barn till två invandrare, födda i Norge efter landbakgrund: misstänkta (siktade) i Norge, årligt genomsnitt 2021–2023.",Afrika,"Män 15–24 år, antal",366
+/data/norge-misstankta/,"Barn till två invandrare, födda i Norge efter landbakgrund: misstänkta (siktade) i Norge, årligt genomsnitt 2021–2023.",Afrika,"Män 15–24 år, per 1 000","95,2"
+/data/norge-misstankta/,"Barn till två invandrare, födda i Norge efter landbakgrund: misstänkta (siktade) i Norge, årligt genomsnitt 2021–2023.",Afrika,"Män 15–24 år, gånger övriga","2,73"
+/data/norge-misstankta/,"Barn till två invandrare, födda i Norge efter landbakgrund: misstänkta (siktade) i Norge, årligt genomsnitt 2021–2023.",Asien,"Antal, årligt genomsnitt",1 564
+/data/norge-misstankta/,"Barn till två invandrare, födda i Norge efter landbakgrund: misstänkta (siktade) i Norge, årligt genomsnitt 2021–2023.",Asien,Per 1 000 invånare,"17,5"
+/data/norge-misstankta/,"Barn till två invandrare, födda i Norge efter landbakgrund: misstänkta (siktade) i Norge, årligt genomsnitt 2021–2023.",Asien,Gånger övriga befolkningen,"1,89"
+/data/norge-misstankta/,"Barn till två invandrare, födda i Norge efter landbakgrund: misstänkta (siktade) i Norge, årligt genomsnitt 2021–2023.",Asien,"Män 15–24 år, antal",680
+/data/norge-misstankta/,"Barn till två invandrare, födda i Norge efter landbakgrund: misstänkta (siktade) i Norge, årligt genomsnitt 2021–2023.",Asien,"Män 15–24 år, per 1 000","59,3"
+/data/norge-misstankta/,"Barn till två invandrare, födda i Norge efter landbakgrund: misstänkta (siktade) i Norge, årligt genomsnitt 2021–2023.",Asien,"Män 15–24 år, gånger övriga","1,70"
+/data/norge-misstankta/,"Barn till två invandrare, födda i Norge efter landbakgrund: misstänkta (siktade) i Norge, årligt genomsnitt 2021–2023.",Latinamerika och Karibien,"Antal, årligt genomsnitt",80
+/data/norge-misstankta/,"Barn till två invandrare, födda i Norge efter landbakgrund: misstänkta (siktade) i Norge, årligt genomsnitt 2021–2023.",Latinamerika och Karibien,Per 1 000 invånare,"20,7"
+/data/norge-misstankta/,"Barn till två invandrare, födda i Norge efter landbakgrund: misstänkta (siktade) i Norge, årligt genomsnitt 2021–2023.",Latinamerika och Karibien,Gånger övriga befolkningen,"2,24"
+/data/norge-misstankta/,"Barn till två invandrare, födda i Norge efter landbakgrund: misstänkta (siktade) i Norge, årligt genomsnitt 2021–2023.",Latinamerika och Karibien,"Män 15–24 år, antal",30
+/data/norge-misstankta/,"Barn till två invandrare, födda i Norge efter landbakgrund: misstänkta (siktade) i Norge, årligt genomsnitt 2021–2023.",Latinamerika och Karibien,"Män 15–24 år, per 1 000","68,1"
+/data/norge-misstankta/,"Barn till två invandrare, födda i Norge efter landbakgrund: misstänkta (siktade) i Norge, årligt genomsnitt 2021–2023.",Latinamerika och Karibien,"Män 15–24 år, gånger övriga","1,95"
+/data/norge-fodelseland/,"Invandrare efter land: misstänkta (siktade) i Norge, årligt genomsnitt 2021–2023.",Palestina,"Antal, årligt genomsnitt",145
+/data/norge-fodelseland/,"Invandrare efter land: misstänkta (siktade) i Norge, årligt genomsnitt 2021–2023.",Palestina,Per 1 000 invånare,"42,4"
+/data/norge-fodelseland/,"Invandrare efter land: misstänkta (siktade) i Norge, årligt genomsnitt 2021–2023.",Palestina,Gånger övriga befolkningen,"4,58"
+/data/norge-fodelseland/,"Invandrare efter land: misstänkta (siktade) i Norge, årligt genomsnitt 2021–2023.",Palestina,"Män 15–24 år, antal",56
+/data/norge-fodelseland/,"Invandrare efter land: misstänkta (siktade) i Norge, årligt genomsnitt 2021–2023.",Palestina,"Män 15–24 år, per 1 000","123,2"
+/data/norge-fodelseland/,"Invandrare efter land: misstänkta (siktade) i Norge, årligt genomsnitt 2021–2023.",Palestina,"Män 15–24 år, gånger övriga","3,53"
+/data/norge-fodelseland/,"Invandrare efter land: misstänkta (siktade) i Norge, årligt genomsnitt 2021–2023.",Somalia,"Antal, årligt genomsnitt",905
+/data/norge-fodelseland/,"Invandrare efter land: misstänkta (siktade) i Norge, årligt genomsnitt 2021–2023.",Somalia,Per 1 000 invånare,"32,2"
+/data/norge-fodelseland/,"Invandrare efter land: misstänkta (siktade) i Norge, årligt genomsnitt 2021–2023.",Somalia,Gånger övriga befolkningen,"3,48"
+/data/norge-fodelseland/,"Invandrare efter land: misstänkta (siktade) i Norge, årligt genomsnitt 2021–2023.",Somalia,"Män 15–24 år, antal",271
+/data/norge-fodelseland/,"Invandrare efter land: misstänkta (siktade) i Norge, årligt genomsnitt 2021–2023.",Somalia,"Män 15–24 år, per 1 000","97,3"
+/data/norge-fodelseland/,"Invandrare efter land: misstänkta (siktade) i Norge, årligt genomsnitt 2021–2023.",Somalia,"Män 15–24 år, gånger övriga","2,79"
+/data/norge-fodelseland/,"Invandrare efter land: misstänkta (siktade) i Norge, årligt genomsnitt 2021–2023.",Afghanistan,"Antal, årligt genomsnitt",573
+/data/norge-fodelseland/,"Invandrare efter land: misstänkta (siktade) i Norge, årligt genomsnitt 2021–2023.",Afghanistan,Per 1 000 invånare,"31,5"
+/data/norge-fodelseland/,"Invandrare efter land: misstänkta (siktade) i Norge, årligt genomsnitt 2021–2023.",Afghanistan,Gånger övriga befolkningen,"3,40"
+/data/norge-fodelseland/,"Invandrare efter land: misstänkta (siktade) i Norge, årligt genomsnitt 2021–2023.",Afghanistan,"Män 15–24 år, antal",243
+/data/norge-fodelseland/,"Invandrare efter land: misstänkta (siktade) i Norge, årligt genomsnitt 2021–2023.",Afghanistan,"Män 15–24 år, per 1 000","69,1"
+/data/norge-fodelseland/,"Invandrare efter land: misstänkta (siktade) i Norge, årligt genomsnitt 2021–2023.",Afghanistan,"Män 15–24 år, gånger övriga","1,98"
+/data/norge-fodelseland/,"Invandrare efter land: misstänkta (siktade) i Norge, årligt genomsnitt 2021–2023.",Syrien,"Antal, årligt genomsnitt",1 037
+/data/norge-fodelseland/,"Invandrare efter land: misstänkta (siktade) i Norge, årligt genomsnitt 2021–2023.",Syrien,Per 1 000 invånare,"30,1"
+/data/norge-fodelseland/,"Invandrare efter land: misstänkta (siktade) i Norge, årligt genomsnitt 2021–2023.",Syrien,Gånger övriga befolkningen,"3,25"
+/data/norge-fodelseland/,"Invandrare efter land: misstänkta (siktade) i Norge, årligt genomsnitt 2021–2023.",Syrien,"Män 15–24 år, antal",341
+/data/norge-fodelseland/,"Invandrare efter land: misstänkta (siktade) i Norge, årligt genomsnitt 2021–2023.",Syrien,"Män 15–24 år, per 1 000","83,9"
+/data/norge-fodelseland/,"Invandrare efter land: misstänkta (siktade) i Norge, årligt genomsnitt 2021–2023.",Syrien,"Män 15–24 år, gånger övriga","2,40"
+/data/norge-fodelseland/,"Invandrare efter land: misstänkta (siktade) i Norge, årligt genomsnitt 2021–2023.",Irak,"Antal, årligt genomsnitt",672
+/data/norge-fodelseland/,"Invandrare efter land: misstänkta (siktade) i Norge, årligt genomsnitt 2021–2023.",Irak,Per 1 000 invånare,"28,8"
+/data/norge-fodelseland/,"Invandrare efter land: misstänkta (siktade) i Norge, årligt genomsnitt 2021–2023.",Irak,Gånger övriga befolkningen,"3,12"
+/data/norge-fodelseland/,"Invandrare efter land: misstänkta (siktade) i Norge, årligt genomsnitt 2021–2023.",Irak,"Män 15–24 år, antal",134
+/data/norge-fodelseland/,"Invandrare efter land: misstänkta (siktade) i Norge, årligt genomsnitt 2021–2023.",Irak,"Män 15–24 år, per 1 000","109,1"
+/data/norge-fodelseland/,"Invandrare efter land: misstänkta (siktade) i Norge, årligt genomsnitt 2021–2023.",Irak,"Män 15–24 år, gånger övriga","3,13"
+/data/norge-fodelseland/,"Invandrare efter land: misstänkta (siktade) i Norge, årligt genomsnitt 2021–2023.",Kosovo,"Antal, årligt genomsnitt",283
+/data/norge-fodelseland/,"Invandrare efter land: misstänkta (siktade) i Norge, årligt genomsnitt 2021–2023.",Kosovo,Per 1 000 invånare,"26,8"
+/data/norge-fodelseland/,"Invandrare efter land: misstänkta (siktade) i Norge, årligt genomsnitt 2021–2023.",Kosovo,Gånger övriga befolkningen,"2,89"
+/data/norge-fodelseland/,"Invandrare efter land: misstänkta (siktade) i Norge, årligt genomsnitt 2021–2023.",Kosovo,"Män 15–24 år, antal",saknas
+/data/norge-fodelseland/,"Invandrare efter land: misstänkta (siktade) i Norge, årligt genomsnitt 2021–2023.",Kosovo,"Män 15–24 år, per 1 000",saknas
+/data/norge-fodelseland/,"Invandrare efter land: misstänkta (siktade) i Norge, årligt genomsnitt 2021–2023.",Kosovo,"Män 15–24 år, gånger övriga",saknas
+/data/norge-fodelseland/,"Invandrare efter land: misstänkta (siktade) i Norge, årligt genomsnitt 2021–2023.",Kongo,"Antal, årligt genomsnitt",109
+/data/norge-fodelseland/,"Invandrare efter land: misstänkta (siktade) i Norge, årligt genomsnitt 2021–2023.",Kongo,Per 1 000 invånare,"26,7"
+/data/norge-fodelseland/,"Invandrare efter land: misstänkta (siktade) i Norge, årligt genomsnitt 2021–2023.",Kongo,Gånger övriga befolkningen,"2,89"
+/data/norge-fodelseland/,"Invandrare efter land: misstänkta (siktade) i Norge, årligt genomsnitt 2021–2023.",Kongo,"Män 15–24 år, antal",saknas
+/data/norge-fodelseland/,"Invandrare efter land: misstänkta (siktade) i Norge, årligt genomsnitt 2021–2023.",Kongo,"Män 15–24 år, per 1 000",saknas
+/data/norge-fodelseland/,"Invandrare efter land: misstänkta (siktade) i Norge, årligt genomsnitt 2021–2023.",Kongo,"Män 15–24 år, gånger övriga",saknas
+/data/norge-fodelseland/,"Invandrare efter land: misstänkta (siktade) i Norge, årligt genomsnitt 2021–2023.",Sudan,"Antal, årligt genomsnitt",127
+/data/norge-fodelseland/,"Invandrare efter land: misstänkta (siktade) i Norge, årligt genomsnitt 2021–2023.",Sudan,Per 1 000 invånare,"25,1"
+/data/norge-fodelseland/,"Invandrare efter land: misstänkta (siktade) i Norge, årligt genomsnitt 2021–2023.",Sudan,Gånger övriga befolkningen,"2,72"
+/data/norge-fodelseland/,"Invandrare efter land: misstänkta (siktade) i Norge, årligt genomsnitt 2021–2023.",Sudan,"Män 15–24 år, antal",35
+/data/norge-fodelseland/,"Invandrare efter land: misstänkta (siktade) i Norge, årligt genomsnitt 2021–2023.",Sudan,"Män 15–24 år, per 1 000","105,1"
+/data/norge-fodelseland/,"Invandrare efter land: misstänkta (siktade) i Norge, årligt genomsnitt 2021–2023.",Sudan,"Män 15–24 år, gånger övriga","3,01"
+/data/norge-fodelseland/,"Invandrare efter land: misstänkta (siktade) i Norge, årligt genomsnitt 2021–2023.",Eritrea,"Antal, årligt genomsnitt",564
+/data/norge-fodelseland/,"Invandrare efter land: misstänkta (siktade) i Norge, årligt genomsnitt 2021–2023.",Eritrea,Per 1 000 invånare,"23,3"
+/data/norge-fodelseland/,"Invandrare efter land: misstänkta (siktade) i Norge, årligt genomsnitt 2021–2023.",Eritrea,Gånger övriga befolkningen,"2,52"
+/data/norge-fodelseland/,"Invandrare efter land: misstänkta (siktade) i Norge, årligt genomsnitt 2021–2023.",Eritrea,"Män 15–24 år, antal",155
+/data/norge-fodelseland/,"Invandrare efter land: misstänkta (siktade) i Norge, årligt genomsnitt 2021–2023.",Eritrea,"Män 15–24 år, per 1 000","61,7"
+/data/norge-fodelseland/,"Invandrare efter land: misstänkta (siktade) i Norge, årligt genomsnitt 2021–2023.",Eritrea,"Män 15–24 år, gånger övriga","1,77"
+/data/norge-fodelseland/,"Invandrare efter land: misstänkta (siktade) i Norge, årligt genomsnitt 2021–2023.",Litauen,"Antal, årligt genomsnitt",928
+/data/norge-fodelseland/,"Invandrare efter land: misstänkta (siktade) i Norge, årligt genomsnitt 2021–2023.",Litauen,Per 1 000 invånare,"22,1"
+/data/norge-fodelseland/,"Invandrare efter land: misstänkta (siktade) i Norge, årligt genomsnitt 2021–2023.",Litauen,Gånger övriga befolkningen,"2,39"
+/data/norge-fodelseland/,"Invandrare efter land: misstänkta (siktade) i Norge, årligt genomsnitt 2021–2023.",Litauen,"Män 15–24 år, antal",108
+/data/norge-fodelseland/,"Invandrare efter land: misstänkta (siktade) i Norge, årligt genomsnitt 2021–2023.",Litauen,"Män 15–24 år, per 1 000","53,3"
+/data/norge-fodelseland/,"Invandrare efter land: misstänkta (siktade) i Norge, årligt genomsnitt 2021–2023.",Litauen,"Män 15–24 år, gånger övriga","1,53"
+/data/norge-fodelseland/,"Invandrare efter land: misstänkta (siktade) i Norge, årligt genomsnitt 2021–2023.",Iran,"Antal, årligt genomsnitt",403
+/data/norge-fodelseland/,"Invandrare efter land: misstänkta (siktade) i Norge, årligt genomsnitt 2021–2023.",Iran,Per 1 000 invånare,"20,8"
+/data/norge-fodelseland/,"Invandrare efter land: misstänkta (siktade) i Norge, årligt genomsnitt 2021–2023.",Iran,Gånger övriga befolkningen,"2,25"
+/data/norge-fodelseland/,"Invandrare efter land: misstänkta (siktade) i Norge, årligt genomsnitt 2021–2023.",Iran,"Män 15–24 år, antal",61
+/data/norge-fodelseland/,"Invandrare efter land: misstänkta (siktade) i Norge, årligt genomsnitt 2021–2023.",Iran,"Män 15–24 år, per 1 000","79,4"
+/data/norge-fodelseland/,"Invandrare efter land: misstänkta (siktade) i Norge, årligt genomsnitt 2021–2023.",Iran,"Män 15–24 år, gånger övriga","2,27"
+/data/norge-fodelseland/,"Invandrare efter land: misstänkta (siktade) i Norge, årligt genomsnitt 2021–2023.",Lettland,"Antal, årligt genomsnitt",247
+/data/norge-fodelseland/,"Invandrare efter land: misstänkta (siktade) i Norge, årligt genomsnitt 2021–2023.",Lettland,Per 1 000 invånare,"20,8"
+/data/norge-fodelseland/,"Invandrare efter land: misstänkta (siktade) i Norge, årligt genomsnitt 2021–2023.",Lettland,Gånger övriga befolkningen,"2,25"
+/data/norge-fodelseland/,"Invandrare efter land: misstänkta (siktade) i Norge, årligt genomsnitt 2021–2023.",Lettland,"Män 15–24 år, antal",saknas
+/data/norge-fodelseland/,"Invandrare efter land: misstänkta (siktade) i Norge, årligt genomsnitt 2021–2023.",Lettland,"Män 15–24 år, per 1 000",saknas
+/data/norge-fodelseland/,"Invandrare efter land: misstänkta (siktade) i Norge, årligt genomsnitt 2021–2023.",Lettland,"Män 15–24 år, gånger övriga",saknas
+/data/norge-fodelseland/,"Invandrare efter land: misstänkta (siktade) i Norge, årligt genomsnitt 2021–2023.",Marocko,"Antal, årligt genomsnitt",123
+/data/norge-fodelseland/,"Invandrare efter land: misstänkta (siktade) i Norge, årligt genomsnitt 2021–2023.",Marocko,Per 1 000 invånare,"19,4"
+/data/norge-fodelseland/,"Invandrare efter land: misstänkta (siktade) i Norge, årligt genomsnitt 2021–2023.",Marocko,Gånger övriga befolkningen,"2,09"
+/data/norge-fodelseland/,"Invandrare efter land: misstänkta (siktade) i Norge, årligt genomsnitt 2021–2023.",Marocko,"Män 15–24 år, antal",saknas
+/data/norge-fodelseland/,"Invandrare efter land: misstänkta (siktade) i Norge, årligt genomsnitt 2021–2023.",Marocko,"Män 15–24 år, per 1 000",saknas
+/data/norge-fodelseland/,"Invandrare efter land: misstänkta (siktade) i Norge, årligt genomsnitt 2021–2023.",Marocko,"Män 15–24 år, gånger övriga",saknas
+/data/norge-fodelseland/,"Invandrare efter land: misstänkta (siktade) i Norge, årligt genomsnitt 2021–2023.",Etiopien,"Antal, årligt genomsnitt",167
+/data/norge-fodelseland/,"Invandrare efter land: misstänkta (siktade) i Norge, årligt genomsnitt 2021–2023.",Etiopien,Per 1 000 invånare,"18,5"
+/data/norge-fodelseland/,"Invandrare efter land: misstänkta (siktade) i Norge, årligt genomsnitt 2021–2023.",Etiopien,Gånger övriga befolkningen,"2,00"
+/data/norge-fodelseland/,"Invandrare efter land: misstänkta (siktade) i Norge, årligt genomsnitt 2021–2023.",Etiopien,"Män 15–24 år, antal",40
+/data/norge-fodelseland/,"Invandrare efter land: misstänkta (siktade) i Norge, årligt genomsnitt 2021–2023.",Etiopien,"Män 15–24 år, per 1 000","71,6"
+/data/norge-fodelseland/,"Invandrare efter land: misstänkta (siktade) i Norge, årligt genomsnitt 2021–2023.",Etiopien,"Män 15–24 år, gånger övriga","2,05"
+/data/norge-fodelseland/,"Invandrare efter land: misstänkta (siktade) i Norge, årligt genomsnitt 2021–2023.",Ryssland,"Antal, årligt genomsnitt",347
+/data/norge-fodelseland/,"Invandrare efter land: misstänkta (siktade) i Norge, årligt genomsnitt 2021–2023.",Ryssland,Per 1 000 invånare,"18,2"
+/data/norge-fodelseland/,"Invandrare efter land: misstänkta (siktade) i Norge, årligt genomsnitt 2021–2023.",Ryssland,Gånger övriga befolkningen,"1,97"
+/data/norge-fodelseland/,"Invandrare efter land: misstänkta (siktade) i Norge, årligt genomsnitt 2021–2023.",Ryssland,"Män 15–24 år, antal",86
+/data/norge-fodelseland/,"Invandrare efter land: misstänkta (siktade) i Norge, årligt genomsnitt 2021–2023.",Ryssland,"Män 15–24 år, per 1 000","81,9"
+/data/norge-fodelseland/,"Invandrare efter land: misstänkta (siktade) i Norge, årligt genomsnitt 2021–2023.",Ryssland,"Män 15–24 år, gånger övriga","2,35"
+/data/norge-fodelseland/,"Invandrare efter land: misstänkta (siktade) i Norge, årligt genomsnitt 2021–2023.",Rumänien,"Antal, årligt genomsnitt",288
+/data/norge-fodelseland/,"Invandrare efter land: misstänkta (siktade) i Norge, årligt genomsnitt 2021–2023.",Rumänien,Per 1 000 invånare,"17,9"
+/data/norge-fodelseland/,"Invandrare efter land: misstänkta (siktade) i Norge, årligt genomsnitt 2021–2023.",Rumänien,Gånger övriga befolkningen,"1,93"
+/data/norge-fodelseland/,"Invandrare efter land: misstänkta (siktade) i Norge, årligt genomsnitt 2021–2023.",Rumänien,"Män 15–24 år, antal",33
+/data/norge-fodelseland/,"Invandrare efter land: misstänkta (siktade) i Norge, årligt genomsnitt 2021–2023.",Rumänien,"Män 15–24 år, per 1 000","50,8"
+/data/norge-fodelseland/,"Invandrare efter land: misstänkta (siktade) i Norge, årligt genomsnitt 2021–2023.",Rumänien,"Män 15–24 år, gånger övriga","1,46"
+/data/norge-fodelseland/,"Invandrare efter land: misstänkta (siktade) i Norge, årligt genomsnitt 2021–2023.",Bulgarien,"Antal, årligt genomsnitt",123
+/data/norge-fodelseland/,"Invandrare efter land: misstänkta (siktade) i Norge, årligt genomsnitt 2021–2023.",Bulgarien,Per 1 000 invånare,"16,3"
+/data/norge-fodelseland/,"Invandrare efter land: misstänkta (siktade) i Norge, årligt genomsnitt 2021–2023.",Bulgarien,Gånger övriga befolkningen,"1,76"
+/data/norge-fodelseland/,"Invandrare efter land: misstänkta (siktade) i Norge, årligt genomsnitt 2021–2023.",Bulgarien,"Män 15–24 år, antal",saknas
+/data/norge-fodelseland/,"Invandrare efter land: misstänkta (siktade) i Norge, årligt genomsnitt 2021–2023.",Bulgarien,"Män 15–24 år, per 1 000",saknas
+/data/norge-fodelseland/,"Invandrare efter land: misstänkta (siktade) i Norge, årligt genomsnitt 2021–2023.",Bulgarien,"Män 15–24 år, gånger övriga",saknas
+/data/norge-fodelseland/,"Invandrare efter land: misstänkta (siktade) i Norge, årligt genomsnitt 2021–2023.",Polen,"Antal, årligt genomsnitt",1 713
+/data/norge-fodelseland/,"Invandrare efter land: misstänkta (siktade) i Norge, årligt genomsnitt 2021–2023.",Polen,Per 1 000 invånare,"16,3"
+/data/norge-fodelseland/,"Invandrare efter land: misstänkta (siktade) i Norge, årligt genomsnitt 2021–2023.",Polen,Gånger övriga befolkningen,"1,76"
+/data/norge-fodelseland/,"Invandrare efter land: misstänkta (siktade) i Norge, årligt genomsnitt 2021–2023.",Polen,"Män 15–24 år, antal",187
+/data/norge-fodelseland/,"Invandrare efter land: misstänkta (siktade) i Norge, årligt genomsnitt 2021–2023.",Polen,"Män 15–24 år, per 1 000","42,6"
+/data/norge-fodelseland/,"Invandrare efter land: misstänkta (siktade) i Norge, årligt genomsnitt 2021–2023.",Polen,"Män 15–24 år, gånger övriga","1,22"
+/data/norge-fodelseland/,"Invandrare efter land: misstänkta (siktade) i Norge, årligt genomsnitt 2021–2023.",Pakistan,"Antal, årligt genomsnitt",356
+/data/norge-fodelseland/,"Invandrare efter land: misstänkta (siktade) i Norge, årligt genomsnitt 2021–2023.",Pakistan,Per 1 000 invånare,"16,2"
+/data/norge-fodelseland/,"Invandrare efter land: misstänkta (siktade) i Norge, årligt genomsnitt 2021–2023.",Pakistan,Gånger övriga befolkningen,"1,75"
+/data/norge-fodelseland/,"Invandrare efter land: misstänkta (siktade) i Norge, årligt genomsnitt 2021–2023.",Pakistan,"Män 15–24 år, antal",44
+/data/norge-fodelseland/,"Invandrare efter land: misstänkta (siktade) i Norge, årligt genomsnitt 2021–2023.",Pakistan,"Män 15–24 år, per 1 000","78,2"
+/data/norge-fodelseland/,"Invandrare efter land: misstänkta (siktade) i Norge, årligt genomsnitt 2021–2023.",Pakistan,"Män 15–24 år, gånger övriga","2,24"
+/data/norge-fodelseland/,"Invandrare efter land: misstänkta (siktade) i Norge, årligt genomsnitt 2021–2023.",Turkiet,"Antal, årligt genomsnitt",220
+/data/norge-fodelseland/,"Invandrare efter land: misstänkta (siktade) i Norge, årligt genomsnitt 2021–2023.",Turkiet,Per 1 000 invånare,"16,0"
+/data/norge-fodelseland/,"Invandrare efter land: misstänkta (siktade) i Norge, årligt genomsnitt 2021–2023.",Turkiet,Gånger övriga befolkningen,"1,73"
+/data/norge-fodelseland/,"Invandrare efter land: misstänkta (siktade) i Norge, årligt genomsnitt 2021–2023.",Turkiet,"Män 15–24 år, antal",saknas
+/data/norge-fodelseland/,"Invandrare efter land: misstänkta (siktade) i Norge, årligt genomsnitt 2021–2023.",Turkiet,"Män 15–24 år, per 1 000",saknas
+/data/norge-fodelseland/,"Invandrare efter land: misstänkta (siktade) i Norge, årligt genomsnitt 2021–2023.",Turkiet,"Män 15–24 år, gånger övriga",saknas
+/data/norge-fodelseland/,"Invandrare efter land: misstänkta (siktade) i Norge, årligt genomsnitt 2021–2023.",Island,"Antal, årligt genomsnitt",92
+/data/norge-fodelseland/,"Invandrare efter land: misstänkta (siktade) i Norge, årligt genomsnitt 2021–2023.",Island,Per 1 000 invånare,"13,3"
+/data/norge-fodelseland/,"Invandrare efter land: misstänkta (siktade) i Norge, årligt genomsnitt 2021–2023.",Island,Gånger övriga befolkningen,"1,44"
+/data/norge-fodelseland/,"Invandrare efter land: misstänkta (siktade) i Norge, årligt genomsnitt 2021–2023.",Island,"Män 15–24 år, antal",saknas
+/data/norge-fodelseland/,"Invandrare efter land: misstänkta (siktade) i Norge, årligt genomsnitt 2021–2023.",Island,"Män 15–24 år, per 1 000",saknas
+/data/norge-fodelseland/,"Invandrare efter land: misstänkta (siktade) i Norge, årligt genomsnitt 2021–2023.",Island,"Män 15–24 år, gånger övriga",saknas
+/data/norge-fodelseland/,"Invandrare efter land: misstänkta (siktade) i Norge, årligt genomsnitt 2021–2023.",Serbien,"Antal, årligt genomsnitt",92
+/data/norge-fodelseland/,"Invandrare efter land: misstänkta (siktade) i Norge, årligt genomsnitt 2021–2023.",Serbien,Per 1 000 invånare,"11,5"
+/data/norge-fodelseland/,"Invandrare efter land: misstänkta (siktade) i Norge, årligt genomsnitt 2021–2023.",Serbien,Gånger övriga befolkningen,"1,25"
+/data/norge-fodelseland/,"Invandrare efter land: misstänkta (siktade) i Norge, årligt genomsnitt 2021–2023.",Serbien,"Män 15–24 år, antal",saknas
+/data/norge-fodelseland/,"Invandrare efter land: misstänkta (siktade) i Norge, årligt genomsnitt 2021–2023.",Serbien,"Män 15–24 år, per 1 000",saknas
+/data/norge-fodelseland/,"Invandrare efter land: misstänkta (siktade) i Norge, årligt genomsnitt 2021–2023.",Serbien,"Män 15–24 år, gånger övriga",saknas
+/data/norge-fodelseland/,"Invandrare efter land: misstänkta (siktade) i Norge, årligt genomsnitt 2021–2023.",Vietnam,"Antal, årligt genomsnitt",154
+/data/norge-fodelseland/,"Invandrare efter land: misstänkta (siktade) i Norge, årligt genomsnitt 2021–2023.",Vietnam,Per 1 000 invånare,"10,7"
+/data/norge-fodelseland/,"Invandrare efter land: misstänkta (siktade) i Norge, årligt genomsnitt 2021–2023.",Vietnam,Gånger övriga befolkningen,"1,15"
+/data/norge-fodelseland/,"Invandrare efter land: misstänkta (siktade) i Norge, årligt genomsnitt 2021–2023.",Vietnam,"Män 15–24 år, antal",saknas
+/data/norge-fodelseland/,"Invandrare efter land: misstänkta (siktade) i Norge, årligt genomsnitt 2021–2023.",Vietnam,"Män 15–24 år, per 1 000",saknas
+/data/norge-fodelseland/,"Invandrare efter land: misstänkta (siktade) i Norge, årligt genomsnitt 2021–2023.",Vietnam,"Män 15–24 år, gånger övriga",saknas
+/data/norge-fodelseland/,"Invandrare efter land: misstänkta (siktade) i Norge, årligt genomsnitt 2021–2023.",Sverige,"Antal, årligt genomsnitt",383
+/data/norge-fodelseland/,"Invandrare efter land: misstänkta (siktade) i Norge, årligt genomsnitt 2021–2023.",Sverige,Per 1 000 invånare,"10,7"
+/data/norge-fodelseland/,"Invandrare efter land: misstänkta (siktade) i Norge, årligt genomsnitt 2021–2023.",Sverige,Gånger övriga befolkningen,"1,15"
+/data/norge-fodelseland/,"Invandrare efter land: misstänkta (siktade) i Norge, årligt genomsnitt 2021–2023.",Sverige,"Män 15–24 år, antal",saknas
+/data/norge-fodelseland/,"Invandrare efter land: misstänkta (siktade) i Norge, årligt genomsnitt 2021–2023.",Sverige,"Män 15–24 år, per 1 000",saknas
+/data/norge-fodelseland/,"Invandrare efter land: misstänkta (siktade) i Norge, årligt genomsnitt 2021–2023.",Sverige,"Män 15–24 år, gånger övriga",saknas
+/data/norge-fodelseland/,"Invandrare efter land: misstänkta (siktade) i Norge, årligt genomsnitt 2021–2023.",Thailand,"Antal, årligt genomsnitt",194
+/data/norge-fodelseland/,"Invandrare efter land: misstänkta (siktade) i Norge, årligt genomsnitt 2021–2023.",Thailand,Per 1 000 invånare,"8,9"
+/data/norge-fodelseland/,"Invandrare efter land: misstänkta (siktade) i Norge, årligt genomsnitt 2021–2023.",Thailand,Gånger övriga befolkningen,"0,96"
+/data/norge-fodelseland/,"Invandrare efter land: misstänkta (siktade) i Norge, årligt genomsnitt 2021–2023.",Thailand,"Män 15–24 år, antal",51
+/data/norge-fodelseland/,"Invandrare efter land: misstänkta (siktade) i Norge, årligt genomsnitt 2021–2023.",Thailand,"Män 15–24 år, per 1 000","35,9"
+/data/norge-fodelseland/,"Invandrare efter land: misstänkta (siktade) i Norge, årligt genomsnitt 2021–2023.",Thailand,"Män 15–24 år, gånger övriga","1,03"
+/data/norge-fodelseland/,"Invandrare efter land: misstänkta (siktade) i Norge, årligt genomsnitt 2021–2023.",Danmark,"Antal, årligt genomsnitt",157
+/data/norge-fodelseland/,"Invandrare efter land: misstänkta (siktade) i Norge, årligt genomsnitt 2021–2023.",Danmark,Per 1 000 invånare,"8,4"
+/data/norge-fodelseland/,"Invandrare efter land: misstänkta (siktade) i Norge, årligt genomsnitt 2021–2023.",Danmark,Gånger övriga befolkningen,"0,90"
+/data/norge-fodelseland/,"Invandrare efter land: misstänkta (siktade) i Norge, årligt genomsnitt 2021–2023.",Danmark,"Män 15–24 år, antal",saknas
+/data/norge-fodelseland/,"Invandrare efter land: misstänkta (siktade) i Norge, årligt genomsnitt 2021–2023.",Danmark,"Män 15–24 år, per 1 000",saknas
+/data/norge-fodelseland/,"Invandrare efter land: misstänkta (siktade) i Norge, årligt genomsnitt 2021–2023.",Danmark,"Män 15–24 år, gånger övriga",saknas
+/data/norge-fodelseland/,"Invandrare efter land: misstänkta (siktade) i Norge, årligt genomsnitt 2021–2023.",Tyskland,"Antal, årligt genomsnitt",194
+/data/norge-fodelseland/,"Invandrare efter land: misstänkta (siktade) i Norge, årligt genomsnitt 2021–2023.",Tyskland,Per 1 000 invånare,"7,5"
+/data/norge-fodelseland/,"Invandrare efter land: misstänkta (siktade) i Norge, årligt genomsnitt 2021–2023.",Tyskland,Gånger övriga befolkningen,"0,81"
+/data/norge-fodelseland/,"Invandrare efter land: misstänkta (siktade) i Norge, årligt genomsnitt 2021–2023.",Tyskland,"Män 15–24 år, antal",saknas
+/data/norge-fodelseland/,"Invandrare efter land: misstänkta (siktade) i Norge, årligt genomsnitt 2021–2023.",Tyskland,"Män 15–24 år, per 1 000",saknas
+/data/norge-fodelseland/,"Invandrare efter land: misstänkta (siktade) i Norge, årligt genomsnitt 2021–2023.",Tyskland,"Män 15–24 år, gånger övriga",saknas
+/data/norge-fodelseland/,"Invandrare efter land: misstänkta (siktade) i Norge, årligt genomsnitt 2021–2023.",Ukraina,"Antal, årligt genomsnitt",112
+/data/norge-fodelseland/,"Invandrare efter land: misstänkta (siktade) i Norge, årligt genomsnitt 2021–2023.",Ukraina,Per 1 000 invånare,"6,8"
+/data/norge-fodelseland/,"Invandrare efter land: misstänkta (siktade) i Norge, årligt genomsnitt 2021–2023.",Ukraina,Gånger övriga befolkningen,"0,73"
+/data/norge-fodelseland/,"Invandrare efter land: misstänkta (siktade) i Norge, årligt genomsnitt 2021–2023.",Ukraina,"Män 15–24 år, antal",saknas
+/data/norge-fodelseland/,"Invandrare efter land: misstänkta (siktade) i Norge, årligt genomsnitt 2021–2023.",Ukraina,"Män 15–24 år, per 1 000",saknas
+/data/norge-fodelseland/,"Invandrare efter land: misstänkta (siktade) i Norge, årligt genomsnitt 2021–2023.",Ukraina,"Män 15–24 år, gånger övriga",saknas
+/data/norge-fodelseland/,"Invandrare efter land: misstänkta (siktade) i Norge, årligt genomsnitt 2021–2023.",Storbritannien,"Antal, årligt genomsnitt",99
+/data/norge-fodelseland/,"Invandrare efter land: misstänkta (siktade) i Norge, årligt genomsnitt 2021–2023.",Storbritannien,Per 1 000 invånare,"6,2"
+/data/norge-fodelseland/,"Invandrare efter land: misstänkta (siktade) i Norge, årligt genomsnitt 2021–2023.",Storbritannien,Gånger övriga befolkningen,"0,67"
+/data/norge-fodelseland/,"Invandrare efter land: misstänkta (siktade) i Norge, årligt genomsnitt 2021–2023.",Storbritannien,"Män 15–24 år, antal",saknas
+/data/norge-fodelseland/,"Invandrare efter land: misstänkta (siktade) i Norge, årligt genomsnitt 2021–2023.",Storbritannien,"Män 15–24 år, per 1 000",saknas
+/data/norge-fodelseland/,"Invandrare efter land: misstänkta (siktade) i Norge, årligt genomsnitt 2021–2023.",Storbritannien,"Män 15–24 år, gånger övriga",saknas
+/data/norge-fodelseland/,"Invandrare efter land: misstänkta (siktade) i Norge, årligt genomsnitt 2021–2023.",Filippinerna,"Antal, årligt genomsnitt",130
+/data/norge-fodelseland/,"Invandrare efter land: misstänkta (siktade) i Norge, årligt genomsnitt 2021–2023.",Filippinerna,Per 1 000 invånare,"5,6"
+/data/norge-fodelseland/,"Invandrare efter land: misstänkta (siktade) i Norge, årligt genomsnitt 2021–2023.",Filippinerna,Gånger övriga befolkningen,"0,60"
+/data/norge-fodelseland/,"Invandrare efter land: misstänkta (siktade) i Norge, årligt genomsnitt 2021–2023.",Filippinerna,"Män 15–24 år, antal",saknas
+/data/norge-fodelseland/,"Invandrare efter land: misstänkta (siktade) i Norge, årligt genomsnitt 2021–2023.",Filippinerna,"Män 15–24 år, per 1 000",saknas
+/data/norge-fodelseland/,"Invandrare efter land: misstänkta (siktade) i Norge, årligt genomsnitt 2021–2023.",Filippinerna,"Män 15–24 år, gånger övriga",saknas
+/data/norge-fodelseland/,"Barn till två invandrare, födda i Norge efter land: misstänkta (siktade) i Norge, årligt genomsnitt 2021–2023.",Marocko,"Antal, årligt genomsnitt",180
+/data/norge-fodelseland/,"Barn till två invandrare, födda i Norge efter land: misstänkta (siktade) i Norge, årligt genomsnitt 2021–2023.",Marocko,Per 1 000 invånare,"37,9"
+/data/norge-fodelseland/,"Barn till två invandrare, födda i Norge efter land: misstänkta (siktade) i Norge, årligt genomsnitt 2021–2023.",Marocko,Gånger övriga befolkningen,"4,09"
+/data/norge-fodelseland/,"Barn till två invandrare, födda i Norge efter land: misstänkta (siktade) i Norge, årligt genomsnitt 2021–2023.",Marocko,"Män 15–24 år, antal",78
+/data/norge-fodelseland/,"Barn till två invandrare, födda i Norge efter land: misstänkta (siktade) i Norge, årligt genomsnitt 2021–2023.",Marocko,"Män 15–24 år, per 1 000","107,9"
+/data/norge-fodelseland/,"Barn till två invandrare, födda i Norge efter land: misstänkta (siktade) i Norge, årligt genomsnitt 2021–2023.",Marocko,"Män 15–24 år, gånger övriga","3,09"
+/data/norge-fodelseland/,"Barn till två invandrare, födda i Norge efter land: misstänkta (siktade) i Norge, årligt genomsnitt 2021–2023.",Pakistan,"Antal, årligt genomsnitt",550
+/data/norge-fodelseland/,"Barn till två invandrare, födda i Norge efter land: misstänkta (siktade) i Norge, årligt genomsnitt 2021–2023.",Pakistan,Per 1 000 invånare,"30,3"
+/data/norge-fodelseland/,"Barn till två invandrare, födda i Norge efter land: misstänkta (siktade) i Norge, årligt genomsnitt 2021–2023.",Pakistan,Gånger övriga befolkningen,"3,28"
+/data/norge-fodelseland/,"Barn till två invandrare, födda i Norge efter land: misstänkta (siktade) i Norge, årligt genomsnitt 2021–2023.",Pakistan,"Män 15–24 år, antal",201
+/data/norge-fodelseland/,"Barn till två invandrare, födda i Norge efter land: misstänkta (siktade) i Norge, årligt genomsnitt 2021–2023.",Pakistan,"Män 15–24 år, per 1 000","83,5"
+/data/norge-fodelseland/,"Barn till två invandrare, födda i Norge efter land: misstänkta (siktade) i Norge, årligt genomsnitt 2021–2023.",Pakistan,"Män 15–24 år, gånger övriga","2,39"
+/data/norge-fodelseland/,"Barn till två invandrare, födda i Norge efter land: misstänkta (siktade) i Norge, årligt genomsnitt 2021–2023.",Irak,"Antal, årligt genomsnitt",260
+/data/norge-fodelseland/,"Barn till två invandrare, födda i Norge efter land: misstänkta (siktade) i Norge, årligt genomsnitt 2021–2023.",Irak,Per 1 000 invånare,"22,2"
+/data/norge-fodelseland/,"Barn till två invandrare, födda i Norge efter land: misstänkta (siktade) i Norge, årligt genomsnitt 2021–2023.",Irak,Gånger övriga befolkningen,"2,40"
+/data/norge-fodelseland/,"Barn till två invandrare, födda i Norge efter land: misstänkta (siktade) i Norge, årligt genomsnitt 2021–2023.",Irak,"Män 15–24 år, antal",144
+/data/norge-fodelseland/,"Barn till två invandrare, födda i Norge efter land: misstänkta (siktade) i Norge, årligt genomsnitt 2021–2023.",Irak,"Män 15–24 år, per 1 000","81,6"
+/data/norge-fodelseland/,"Barn till två invandrare, födda i Norge efter land: misstänkta (siktade) i Norge, årligt genomsnitt 2021–2023.",Irak,"Män 15–24 år, gånger övriga","2,34"
+/data/norge-fodelseland/,"Barn till två invandrare, födda i Norge efter land: misstänkta (siktade) i Norge, årligt genomsnitt 2021–2023.",Kosovo,"Antal, årligt genomsnitt",136
+/data/norge-fodelseland/,"Barn till två invandrare, födda i Norge efter land: misstänkta (siktade) i Norge, årligt genomsnitt 2021–2023.",Kosovo,Per 1 000 invånare,"21,4"
+/data/norge-fodelseland/,"Barn till två invandrare, födda i Norge efter land: misstänkta (siktade) i Norge, årligt genomsnitt 2021–2023.",Kosovo,Gånger övriga befolkningen,"2,32"
+/data/norge-fodelseland/,"Barn till två invandrare, födda i Norge efter land: misstänkta (siktade) i Norge, årligt genomsnitt 2021–2023.",Kosovo,"Män 15–24 år, antal",67
+/data/norge-fodelseland/,"Barn till två invandrare, födda i Norge efter land: misstänkta (siktade) i Norge, årligt genomsnitt 2021–2023.",Kosovo,"Män 15–24 år, per 1 000","64,5"
+/data/norge-fodelseland/,"Barn till två invandrare, födda i Norge efter land: misstänkta (siktade) i Norge, årligt genomsnitt 2021–2023.",Kosovo,"Män 15–24 år, gånger övriga","1,85"
+/data/norge-fodelseland/,"Barn till två invandrare, födda i Norge efter land: misstänkta (siktade) i Norge, årligt genomsnitt 2021–2023.",Iran,"Antal, årligt genomsnitt",109
+/data/norge-fodelseland/,"Barn till två invandrare, födda i Norge efter land: misstänkta (siktade) i Norge, årligt genomsnitt 2021–2023.",Iran,Per 1 000 invånare,"21,0"
+/data/norge-fodelseland/,"Barn till två invandrare, födda i Norge efter land: misstänkta (siktade) i Norge, årligt genomsnitt 2021–2023.",Iran,Gånger övriga befolkningen,"2,27"
+/data/norge-fodelseland/,"Barn till två invandrare, födda i Norge efter land: misstänkta (siktade) i Norge, årligt genomsnitt 2021–2023.",Iran,"Män 15–24 år, antal",47
+/data/norge-fodelseland/,"Barn till två invandrare, födda i Norge efter land: misstänkta (siktade) i Norge, årligt genomsnitt 2021–2023.",Iran,"Män 15–24 år, per 1 000","57,6"
+/data/norge-fodelseland/,"Barn till två invandrare, födda i Norge efter land: misstänkta (siktade) i Norge, årligt genomsnitt 2021–2023.",Iran,"Män 15–24 år, gånger övriga","1,65"
+/data/norge-fodelseland/,"Barn till två invandrare, födda i Norge efter land: misstänkta (siktade) i Norge, årligt genomsnitt 2021–2023.",Turkiet,"Antal, årligt genomsnitt",157
+/data/norge-fodelseland/,"Barn till två invandrare, födda i Norge efter land: misstänkta (siktade) i Norge, årligt genomsnitt 2021–2023.",Turkiet,Per 1 000 invånare,"21,0"
+/data/norge-fodelseland/,"Barn till två invandrare, födda i Norge efter land: misstänkta (siktade) i Norge, årligt genomsnitt 2021–2023.",Turkiet,Gånger övriga befolkningen,"2,26"
+/data/norge-fodelseland/,"Barn till två invandrare, födda i Norge efter land: misstänkta (siktade) i Norge, årligt genomsnitt 2021–2023.",Turkiet,"Män 15–24 år, antal",77
+/data/norge-fodelseland/,"Barn till två invandrare, födda i Norge efter land: misstänkta (siktade) i Norge, årligt genomsnitt 2021–2023.",Turkiet,"Män 15–24 år, per 1 000","61,9"
+/data/norge-fodelseland/,"Barn till två invandrare, födda i Norge efter land: misstänkta (siktade) i Norge, årligt genomsnitt 2021–2023.",Turkiet,"Män 15–24 år, gånger övriga","1,77"
+/data/norge-fodelseland/,"Barn till två invandrare, födda i Norge efter land: misstänkta (siktade) i Norge, årligt genomsnitt 2021–2023.",Somalia,"Antal, årligt genomsnitt",308
+/data/norge-fodelseland/,"Barn till två invandrare, födda i Norge efter land: misstänkta (siktade) i Norge, årligt genomsnitt 2021–2023.",Somalia,Per 1 000 invånare,"19,9"
+/data/norge-fodelseland/,"Barn till två invandrare, födda i Norge efter land: misstänkta (siktade) i Norge, årligt genomsnitt 2021–2023.",Somalia,Gånger övriga befolkningen,"2,15"
+/data/norge-fodelseland/,"Barn till två invandrare, födda i Norge efter land: misstänkta (siktade) i Norge, årligt genomsnitt 2021–2023.",Somalia,"Män 15–24 år, antal",171
+/data/norge-fodelseland/,"Barn till två invandrare, födda i Norge efter land: misstänkta (siktade) i Norge, årligt genomsnitt 2021–2023.",Somalia,"Män 15–24 år, per 1 000","99,1"
+/data/norge-fodelseland/,"Barn till två invandrare, födda i Norge efter land: misstänkta (siktade) i Norge, årligt genomsnitt 2021–2023.",Somalia,"Män 15–24 år, gånger övriga","2,84"
+/data/norge-fodelseland/,"Barn till två invandrare, födda i Norge efter land: misstänkta (siktade) i Norge, årligt genomsnitt 2021–2023.",Vietnam,"Antal, årligt genomsnitt",106
+/data/norge-fodelseland/,"Barn till två invandrare, födda i Norge efter land: misstänkta (siktade) i Norge, årligt genomsnitt 2021–2023.",Vietnam,Per 1 000 invånare,"11,1"
+/data/norge-fodelseland/,"Barn till två invandrare, födda i Norge efter land: misstänkta (siktade) i Norge, årligt genomsnitt 2021–2023.",Vietnam,Gånger övriga befolkningen,"1,20"
+/data/norge-fodelseland/,"Barn till två invandrare, födda i Norge efter land: misstänkta (siktade) i Norge, årligt genomsnitt 2021–2023.",Vietnam,"Män 15–24 år, antal",34
+/data/norge-fodelseland/,"Barn till två invandrare, födda i Norge efter land: misstänkta (siktade) i Norge, årligt genomsnitt 2021–2023.",Vietnam,"Män 15–24 år, per 1 000","21,3"
+/data/norge-fodelseland/,"Barn till två invandrare, födda i Norge efter land: misstänkta (siktade) i Norge, årligt genomsnitt 2021–2023.",Vietnam,"Män 15–24 år, gånger övriga","0,61"

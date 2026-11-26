@@ -16,13 +16,13 @@ const labels: Omit<ChapterInfo, 'num'>[] = [
   {
     id: 'kap1',
     navLabel: { sv: 'Över tid', en: 'Over time' },
-    kicker: { sv: 'Misstänkta över tid', en: 'Suspects over time', da: 'Mistænkte i Sverige over tid', fi: 'Epäillyt Ruotsissa ajan mittaan' },
+    kicker: { sv: 'Misstänkta över tid', en: 'Suspects over time', da: 'Mistænkte i Sverige over tid', fi: 'Epäillyt Ruotsissa ajan mittaan', nb: 'Mistenkte i Sverige over tid' },
     nextLabel: { sv: 'Över tid', en: 'Over time' },
   },
   {
     id: 'kap2',
     navLabel: { sv: 'Födelseområde', en: 'Birth region' },
-    kicker: { sv: 'Födelseområde', en: 'Birth region', da: 'Fødeområde, Sverige', fi: 'Syntymäalue, Ruotsi' },
+    kicker: { sv: 'Födelseområde', en: 'Birth region', da: 'Fødeområde, Sverige', fi: 'Syntymäalue, Ruotsi', nb: 'Fødeområde, Sverige' },
     nextLabel: { sv: 'Födelseområde', en: 'Birth region' },
   },
   {
@@ -64,13 +64,13 @@ const labels: Omit<ChapterInfo, 'num'>[] = [
   {
     id: 'kap9',
     navLabel: { sv: 'Före 25 år', en: 'Before 25' },
-    kicker: { sv: 'Lagförda före 25 års ålder', en: 'Convicted before age 25', da: 'Dømt i Sverige før 25 år', fi: 'Tuomitut Ruotsissa ennen 25 vuoden ikää' },
+    kicker: { sv: 'Lagförda före 25 års ålder', en: 'Convicted before age 25', da: 'Dømt i Sverige før 25 år', fi: 'Tuomitut Ruotsissa ennen 25 vuoden ikää', nb: 'Domfelt i Sverige før 25 år' },
     nextLabel: { sv: 'Lagförda före 25 års ålder', en: 'Convicted before age 25' },
   },
   {
     id: 'kap11',
     navLabel: { sv: 'Lagförda i Danmark', en: 'Convicted in Denmark' },
-    kicker: { sv: 'Lagförda i Danmark', en: 'Convicted in Denmark', da: 'Dømte i Danmark', fi: 'Tuomitut Tanskassa' },
+    kicker: { sv: 'Lagförda i Danmark', en: 'Convicted in Denmark', da: 'Dømte i Danmark', fi: 'Tuomitut Tanskassa', nb: 'Domfelte i Danmark' },
     nextLabel: { sv: 'Lagförda i Danmark', en: 'Convicted in Denmark', da: 'Dømte i Danmark', fi: 'Tuomitut Tanskassa' },
   },
   {
@@ -82,7 +82,7 @@ const labels: Omit<ChapterInfo, 'num'>[] = [
   {
     id: 'kap13',
     navLabel: { sv: 'Misstänkta i Finland', en: 'Suspects in Finland' },
-    kicker: { sv: 'Misstänkta i Finland', en: 'Suspects in Finland', da: 'Mistænkte i Finland', fi: 'Rikoksesta epäillyt Suomessa' },
+    kicker: { sv: 'Misstänkta i Finland', en: 'Suspects in Finland', da: 'Mistænkte i Finland', fi: 'Rikoksesta epäillyt Suomessa', nb: 'Mistenkte i Finland' },
     nextLabel: { sv: 'Misstänkta i Finland', en: 'Suspects in Finland', da: 'Mistænkte i Finland', fi: 'Rikoksesta epäillyt Suomessa' },
   },
   {
@@ -90,6 +90,18 @@ const labels: Omit<ChapterInfo, 'num'>[] = [
     navLabel: { sv: 'Efter ålder', en: 'By age' },
     kicker: { sv: 'Efter ålder', en: 'By age', fi: 'Ikäryhmittäin' },
     nextLabel: { sv: 'Efter ålder', en: 'By age', fi: 'Ikäryhmittäin' },
+  },
+  {
+    id: 'kap15',
+    navLabel: { sv: 'Misstänkta i Norge', en: 'Charged in Norway' },
+    kicker: { sv: 'Misstänkta i Norge', en: 'Charged in Norway', da: 'Sigtede i Norge', fi: 'Syytetyt Norjassa', nb: 'Siktede i Norge' },
+    nextLabel: { sv: 'Misstänkta i Norge', en: 'Charged in Norway', da: 'Sigtede i Norge', fi: 'Syytetyt Norjassa', nb: 'Siktede i Norge' },
+  },
+  {
+    id: 'kap16',
+    navLabel: { sv: 'Efter land', en: 'By country' },
+    kicker: { sv: 'Efter födelseland', en: 'By country of birth', nb: 'Etter landbakgrunn' },
+    nextLabel: { sv: 'Efter födelseland', en: 'By country of birth', nb: 'Etter landbakgrunn' },
   },
 ];
 
@@ -136,7 +148,7 @@ export function nextLink(id: string, lang: Lang): { href: string; label: string 
   if (np) return { href: partPath(np, lang), label: pick(np.title, lang) };
   return {
     href: methodPath[linkLang(lang)],
-    label: tr(lang, 'Metod och begrepp', 'Method and terms', { da: 'Metode og begreber (på engelsk)', fi: 'Menetelmät ja käsitteet (englanniksi)' }),
+    label: tr(lang, 'Metod och begrepp', 'Method and terms', { da: 'Metode og begreber (på engelsk)', fi: 'Menetelmät ja käsitteet (englanniksi)', nb: 'Metode og begreper (på engelsk)' }),
   };
 }
 

@@ -38,16 +38,16 @@ const related = relatedLinks(id, lang);
   {
     hasNote && (
       <div class="note">
-        <strong>{tr(lang, 'Läs så här. ', 'How to read this. ', { da: 'Sådan skal tallene læses. ', fi: 'Näin luvut luetaan. ' })}</strong>
+        <strong>{tr(lang, 'Läs så här. ', 'How to read this. ', { da: 'Sådan skal tallene læses. ', fi: 'Näin luvut luetaan. ', nb: 'Slik leser du tallene. ' })}</strong>
         <slot name="note" />
       </div>
     )
   }
   <p class="source"><slot name="source" /></p>
-  {tableHref && <a class="table-link" href={tableHref} hreflang={isLocal(lang) ? 'en' : undefined}>{tr(lang, 'Siffrorna i tabell och som CSV-fil', 'The figures as a table and CSV file', { da: 'Tallene som tabel og CSV-fil (på engelsk)', fi: 'Luvut taulukkona ja CSV-tiedostona (englanniksi)' })}</a>}
+  {tableHref && <a class="table-link" href={tableHref} hreflang={isLocal(lang) ? 'en' : undefined}>{tr(lang, 'Siffrorna i tabell och som CSV-fil', 'The figures as a table and CSV file', { da: 'Tallene som tabel og CSV-fil (på engelsk)', fi: 'Luvut taulukkona ja CSV-tiedostona (englanniksi)', nb: 'Tallene som tabell og CSV-fil (på engelsk)' })}</a>}
   <slot name="after" />
-  <nav class="related" aria-label={tr(lang, `Läs också, kapitel ${c.num}`, `See also, chapter ${c.num}`, { da: `Læs også, kapitel ${c.num}`, fi: `Lue myös, luku ${c.num}` })}>
-    <p class="related-title">{tr(lang, 'Läs också', 'See also', { da: 'Læs også (på engelsk)', fi: 'Lue myös (englanniksi)' })}</p>
+  <nav class="related" aria-label={tr(lang, `Läs också, kapitel ${c.num}`, `See also, chapter ${c.num}`, { da: `Læs også, kapitel ${c.num}`, fi: `Lue myös, luku ${c.num}`, nb: `Les også, kapittel ${c.num}` })}>
+    <p class="related-title">{tr(lang, 'Läs också', 'See also', { da: 'Læs også (på engelsk)', fi: 'Lue myös (englanniksi)', nb: 'Les også (på engelsk)' })}</p>
     {
       related.chapters.length > 0 && (
         <ul>
@@ -60,7 +60,7 @@ const related = relatedLinks(id, lang);
       )
     }
     <p class="related-terms">
-      {tr(lang, 'Begrepp: ', 'Terms: ', { da: 'Begreber: ', fi: 'Käsitteet: ' })}
+      {tr(lang, 'Begrepp: ', 'Terms: ', { da: 'Begreber: ', fi: 'Käsitteet: ', nb: 'Begreper: ' })}
       {related.terms.map((t, i) => (
         <>
           {i > 0 && ', '}
@@ -69,7 +69,7 @@ const related = relatedLinks(id, lang);
       ))}
     </p>
   </nav>
-  <a class="next" href={next.href}>{tr(lang, 'Nästa: ', 'Next: ', { da: 'Næste: ', fi: 'Seuraavaksi: ' })}{next.label} →</a>
+  <a class="next" href={next.href}>{tr(lang, 'Nästa: ', 'Next: ', { da: 'Næste: ', fi: 'Seuraavaksi: ', nb: 'Neste: ' })}{next.label} →</a>
 </section>
 
 <style>

@@ -125,6 +125,25 @@ const terms = (lang: Lang) => [
       'Statistics Finland counts people the police suspect of an offence that has been solved. Each person is counted once a year, by their most serious offence, and only people with a Finnish personal identity code are counted. Asylum seekers are not part of the population. The rates per resident are Statistics Finland’s own.',
     ),
   },
+  {
+    // Part 7 (Norway), added November 2026. SSB's own terms.
+    id: 'siktet-no',
+    title: tr(lang, 'Misstänkt (siktad) i Norge', 'Charged in Norway'),
+    text: tr(
+      lang,
+      `Kapitel ${chapter('kap15').num} och ${chapter('kap16').num} räknar siktade personer: de som polisen eller åklagaren i sitt slutliga beslut anser har begått ett lovbrott. Det är inte en dom. Alla lovbrott räknas, även trafikbrott, och varje person räknas en gång per år. SSB redovisar ett årligt genomsnitt för 2021–2023.`,
+      `Chapters ${chapter('kap15').num} and ${chapter('kap16').num} count people charged: those the police or prosecution, in their final decision, find to have committed an offence. It is not a conviction. All offences are counted, including traffic offences, and each person is counted once a year. Statistics Norway reports a yearly average for 2021–2023.`,
+    ),
+  },
+  {
+    id: 'bakgrunn-no',
+    title: tr(lang, 'Invandringsbakgrund i Norge', 'Immigrant background in Norway'),
+    text: tr(
+      lang,
+      'SSB:s grupper. Invandrare är födda utomlands med två föräldrar födda utomlands. Barn till två invandrare (norskfødte med innvandrerforeldre) är födda i Norge med två föräldrar födda utomlands. Övriga befolkningen är alla andra som bor i Norge, också den som har en förälder född utomlands, och är jämförelsegruppen. Det liknar Brås indelning, men Brå jämför oftast med hela befolkningen.',
+      'Statistics Norway’s groups. Immigrants were born abroad to two parents born abroad. The Norwegian-born to immigrant parents (norskfødte med innvandrerforeldre) were born in Norway to two parents born abroad. The rest of the population is everyone else living in Norway, including people with one parent born abroad, and is the comparison group. This is close to Brå’s grouping, but Brå usually compares with the whole population.',
+    ),
+  },
 ];
 const sources = [
   {
@@ -182,6 +201,10 @@ const sources = [
   {
     label: 'Statistikcentralen (Tilastokeskus), StatFin, tabell 13zk (misstänkta för brott efter bakgrund, kön och ålder)',
     url: 'https://pxdata.stat.fi/PxWeb/pxweb/sv/StatFin/StatFin__rpk/13zk.px/',
+  },
+  {
+    label: 'SSB (Statistisk sentralbyrå), Siktelser og siktede personer etter innvandringsbakgrunn, tabell 3 (Excel)',
+    url: 'https://www.ssb.no/sosiale-forhold-og-kriminalitet/kriminalitet-og-rettsvesen/statistikk/etterforskede-lovbrudd/artikler/siktelser-og-siktede-personer-etter-innvandringsbakgrunn',
   },
   {
     label: 'SCB, Utländska medborgare i Sverige',

@@ -20,13 +20,13 @@ const base = linkLang(lang);
 const frontPage = localePath(base, '/');
 const items = [
   ...parts.map((p) => ({ id: p.id as string, num: String(p.num), label: pick(p.title, lang), href: partPath(p, lang) })),
-  { id: 'faq', num: '', label: tr(lang, 'Frågor', 'Q&A', { da: 'Spørgsmål', fi: 'Kysymykset' }), href: faqPath[base] },
-  { id: 'metod', num: '', label: tr(lang, 'Metod', 'Method', { da: 'Metode', fi: 'Menetelmä' }), href: methodPath[base] },
-  { id: 'om', num: '', label: tr(lang, 'Om sidan', 'About', { da: 'Om siden', fi: 'Tietoa sivustosta' }), href: aboutPath[base] },
+  { id: 'faq', num: '', label: tr(lang, 'Frågor', 'Q&A', { da: 'Spørgsmål', fi: 'Kysymykset', nb: 'Spørsmål' }), href: faqPath[base] },
+  { id: 'metod', num: '', label: tr(lang, 'Metod', 'Method', { da: 'Metode', fi: 'Menetelmä', nb: 'Metode' }), href: methodPath[base] },
+  { id: 'om', num: '', label: tr(lang, 'Om sidan', 'About', { da: 'Om siden', fi: 'Tietoa sivustosta', nb: 'Om siden' }), href: aboutPath[base] },
 ];
 ---
 
-<nav aria-label={tr(lang, 'Huvudmeny', 'Main menu', { da: 'Hovedmenu', fi: 'Päävalikko' })} class:list={['chapter-nav', { 'is-compact': !home }]} data-chapter-nav>
+<nav aria-label={tr(lang, 'Huvudmeny', 'Main menu', { da: 'Hovedmenu', fi: 'Päävalikko', nb: 'Hovedmeny' })} class:list={['chapter-nav', { 'is-compact': !home }]} data-chapter-nav>
   <div class="row">
     {
       home ? (

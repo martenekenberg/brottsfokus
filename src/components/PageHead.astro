@@ -20,6 +20,7 @@ const localNote = isLocal(lang)
   ? tr(lang, '', '', {
       da: 'Denne side er oversat til dansk. Resten af Brottsfokus findes på svensk og engelsk, og links til andre sider fører til den engelske udgave.',
       fi: 'Tämä sivu on käännetty suomeksi. Muu Brottsfokus on ruotsiksi ja englanniksi, ja linkit muille sivuille vievät englanninkieliseen versioon.',
+      nb: 'Denne siden er oversatt til norsk. Resten av Brottsfokus er på svensk og engelsk, og lenker til andre sider går til den engelske versjonen.',
     })
   : '';
 ---
@@ -34,7 +35,7 @@ const localNote = isLocal(lang)
   {intro && <p class="intro">{intro}</p>}
   {
     toc.length > 0 && (
-      <ol class="toc" aria-label={tr(lang, 'Kapitel på sidan', 'Chapters on this page', { da: 'Kapitler på siden', fi: 'Sivun luvut' })}>
+      <ol class="toc" aria-label={tr(lang, 'Kapitel på sidan', 'Chapters on this page', { da: 'Kapitler på siden', fi: 'Sivun luvut', nb: 'Kapitler på siden' })}>
         {toc.map((t) => (
           <li>
             <a href={t.href}>

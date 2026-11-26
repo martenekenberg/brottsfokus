@@ -23,11 +23,11 @@ const hasLegend = Astro.slots.has('legend');
   {hasLegend && <slot name="legend" />}
   <slot />
   <div class="note">
-    <strong>{tr(lang, 'Läs så här. ', 'How to read this. ', { da: 'Sådan skal tallene læses. ', fi: 'Näin luvut luetaan. ' })}</strong>
+    <strong>{tr(lang, 'Läs så här. ', 'How to read this. ', { da: 'Sådan skal tallene læses. ', fi: 'Näin luvut luetaan. ', nb: 'Slik leser du tallene. ' })}</strong>
     <slot name="note" />
   </div>
   <p class="source"><slot name="source" /></p>
-  {tableHref && <a class="table-link" href={tableHref} hreflang={isLocal(lang) ? 'en' : undefined}>{tr(lang, 'Siffrorna i tabell och som CSV-fil', 'The figures as a table and CSV file', { da: 'Tallene som tabel og CSV-fil (på engelsk)', fi: 'Luvut taulukkona ja CSV-tiedostona (englanniksi)' })}</a>}
+  {tableHref && <a class="table-link" href={tableHref} hreflang={isLocal(lang) ? 'en' : undefined}>{tr(lang, 'Siffrorna i tabell och som CSV-fil', 'The figures as a table and CSV file', { da: 'Tallene som tabel og CSV-fil (på engelsk)', fi: 'Luvut taulukkona ja CSV-tiedostona (englanniksi)', nb: 'Tallene som tabell og CSV-fil (på engelsk)' })}</a>}
 </div>
 
 <style>

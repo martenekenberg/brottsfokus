@@ -7,6 +7,7 @@ import { DK_CSV, DK_OFFENCE_CSV, DK_ORDER, DK_STYLE, OFFENCE_NAME } from './chap
 import { kap12DictionaryColumns } from './chapters/kap12';
 import { FI_CSV, FI_LABEL, FI_SEX_CSV, FI_TABLE } from './chapters/kap13';
 import { AGE_GROUPS } from './chapters/kap14';
+import { NO_COLUMNS, NO_CSV_LEAD } from './chapters/kap15';
 import type { FiOrigin, FiSex } from './data';
 import type { DkOffence } from './data';
 
@@ -229,7 +230,28 @@ const DICTIONARY: Record<string, Column[]> = {
       ),
     ),
   ],
+  // 7.1 and 7.2 Misstänkta i Norge (SSB, table 3)
+  kap15: noDictionary({ sv: 'Grupp: Alla, eller landgrupp eller världsdel enligt SSB.', en: 'Group: All, or country group or world region according to Statistics Norway.' }),
+  kap16: noDictionary({ sv: 'Land (landbakgrund) enligt SSB.', en: 'Country (country background) according to Statistics Norway.' }),
 };
+
+/** The Norway table pages share their columns: category, group, then SSB's numbers. */
+function noDictionary(group: Text): Column[] {
+  const descriptions: Record<string, Text> = {
+    persons: { sv: 'Antal siktade personer, årligt genomsnitt.', en: 'Number of people charged, yearly average.' },
+    per1000: { sv: 'Siktade per 1 000 invånare i gruppen, alla åldrar (SSB:s tal).', en: 'People charged per 1,000 residents in the group, all ages (Statistics Norway’s rate).' },
+    ratio: { sv: 'Gruppens tal delat med övriga befolkningens (SSB:s kvot).', en: 'The group’s rate divided by the rest of the population’s (Statistics Norway’s ratio).' },
+    men15_24Persons: { sv: 'Antal siktade män 15–24 år, årligt genomsnitt. Tomt där SSB inte redovisar talet.', en: 'Number of men aged 15–24 charged, yearly average. Empty where Statistics Norway gives no figure.' },
+    men15_24Per1000: { sv: 'Siktade män 15–24 år per 1 000 män 15–24 år i gruppen (SSB:s tal).', en: 'Men aged 15–24 charged per 1,000 men aged 15–24 in the group (Statistics Norway’s rate).' },
+    men15_24Ratio: { sv: 'Tal för män 15–24 år delat med övriga befolkningens män 15–24 år (SSB:s kvot).', en: 'Rate for men aged 15–24 divided by that of men aged 15–24 in the rest of the population (Statistics Norway’s ratio).' },
+  };
+  const unit = (key: string): Text => (key.endsWith('Persons') || key === 'persons' ? COUNT : key.toLowerCase().endsWith('ratio') ? TIMES : PER1000);
+  return [
+    col(NO_CSV_LEAD[0].sv, NO_CSV_LEAD[0].en, 'string', { sv: 'Invandrare, barn till två invandrare födda i Norge, eller övriga befolkningen.', en: 'Immigrants, Norwegian-born to immigrant parents, or the rest of the population.' }),
+    col(NO_CSV_LEAD[1].sv, NO_CSV_LEAD[1].en, 'string', group),
+    ...NO_COLUMNS.map((c) => col(c.csv.sv, c.csv.en, 'number', descriptions[c.key as string], unit(c.key as string))),
+  ];
+}
 
 /** The columns of one table page's CSV file. */
 export function dataDictionary(chapterId: string): Column[] {

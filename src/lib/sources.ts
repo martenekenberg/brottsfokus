@@ -56,6 +56,10 @@ export const SOURCES = {
     label: 'Statistikcentralen (Tilastokeskus), StatFin, tabell 13zk: Rikoksiin syylliseksi epäillyt syntyperän mukaan',
     url: 'https://pxdata.stat.fi/PxWeb/pxweb/sv/StatFin/StatFin__rpk/13zk.px/',
   },
+  ssbSiktede: {
+    label: 'SSB (Statistisk sentralbyrå), Siktelser og siktede personer etter innvandringsbakgrunn, tabell 3',
+    url: 'https://www.ssb.no/sosiale-forhold-og-kriminalitet/kriminalitet-og-rettsvesen/statistikk/etterforskede-lovbrudd/artikler/siktelser-og-siktede-personer-etter-innvandringsbakgrunn',
+  },
   scbCitizens: {
     label: 'SCB, Utländska medborgare i Sverige',
     url: 'https://www.scb.se/hitta-statistik/sverige-i-siffror/manniskorna-i-sverige/utlandska-medborgare-i-sverige/',

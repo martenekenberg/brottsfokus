@@ -7,7 +7,7 @@
 // too, because the menu on those pages lists every part.
 import { ALL_LANGS, isLocal, type BaseLang, type Lang, type Text } from './i18n';
 
-export type PartId = 'misstankta' | 'lagforda' | 'fangelse' | 'brottsoffer' | 'danmark' | 'finland';
+export type PartId = 'misstankta' | 'lagforda' | 'fangelse' | 'brottsoffer' | 'danmark' | 'finland' | 'norge';
 
 export interface PartInfo {
   id: PartId;
@@ -37,7 +37,7 @@ export const parts: PartInfo[] = [
     id: 'misstankta',
     num: 1,
     path: { sv: '/misstankta/', en: '/en/suspects/' },
-    title: { sv: 'Misstänkta för brott', en: 'Suspected of crime', da: 'Mistænkt for kriminalitet', fi: 'Rikoksesta epäillyt' },
+    title: { sv: 'Misstänkta för brott', en: 'Suspected of crime', da: 'Mistænkt for kriminalitet', fi: 'Rikoksesta epäillyt', nb: 'Mistenkt for lovbrudd' },
     card: {
       sv: 'Utrikesfödda och barn till invandrare misstänktes oftare för brott, i Brås studier från 1985 till 2018.',
       en: 'People born abroad and children of immigrants were suspected of crime more often, in Brå’s studies from 1985 to 2018.',
@@ -55,7 +55,7 @@ export const parts: PartInfo[] = [
     id: 'lagforda',
     num: 2,
     path: { sv: '/lagforda-och-domda/', en: '/en/convictions/' },
-    title: { sv: 'Lagförda och dömda', en: 'Convicted', da: 'Dømte', fi: 'Tuomitut' },
+    title: { sv: 'Lagförda och dömda', en: 'Convicted', da: 'Dømte', fi: 'Tuomitut', nb: 'Domfelte' },
     card: {
       sv: 'Utrikesfödda och barn till två invandrare lagfördes nästan dubbelt så ofta före 25 års ålder, och drygt hälften av de dömda för våldtäkt 2000–2020 var utrikesfödda.',
       en: 'People born abroad and children of two immigrants were convicted nearly twice as often before age 25, and just over half of those convicted of rape in 2000–2020 were born abroad.',
@@ -74,7 +74,7 @@ export const parts: PartInfo[] = [
     id: 'fangelse',
     num: 3,
     path: { sv: '/fangelse-och-utvisning/', en: '/en/prison-and-deportation/' },
-    title: { sv: 'Fängelse och utvisning', en: 'Prison and deportation', da: 'Fængsel og udvisning', fi: 'Vankila ja maasta karkottaminen' },
+    title: { sv: 'Fängelse och utvisning', en: 'Prison and deportation', da: 'Fængsel og udvisning', fi: 'Vankila ja maasta karkottaminen', nb: 'Fengsel og utvisning' },
     card: {
       sv: 'Bland dem som togs in i fängelse 2025 var andelen utan svenskt medborgarskap nästan tre gånger så stor som i befolkningen. Under hälften av de utvisningsdömda hade utvisats.',
       en: 'Among people taken into prison in 2025, the share without Swedish citizenship was nearly three times that in the population. Less than half of those sentenced to deportation had been deported.',
@@ -92,7 +92,7 @@ export const parts: PartInfo[] = [
     id: 'brottsoffer',
     num: 4,
     path: { sv: '/brottsoffer/', en: '/en/victims/' },
-    title: { sv: 'Brottsoffer', en: 'Victims of crime', da: 'Ofre for kriminalitet', fi: 'Rikoksen uhrit' },
+    title: { sv: 'Brottsoffer', en: 'Victims of crime', da: 'Ofre for kriminalitet', fi: 'Rikoksen uhrit', nb: 'Ofre for lovbrudd' },
     card: {
       sv: 'Personer med utländsk bakgrund uppgav oftare att de utsatts för de flesta brott. Vid dödligt våld var deras andel av både offer och gärningspersoner mer än dubbelt så stor som i befolkningen.',
       en: 'People with a foreign background more often said they had been victims of most crimes. In homicides, their share of both victims and perpetrators was more than twice that of the population.',
@@ -111,7 +111,7 @@ export const parts: PartInfo[] = [
     id: 'danmark',
     num: 5,
     path: { sv: '/danmark/', en: '/en/denmark/', da: '/da/danmark/' },
-    title: { sv: 'Danmark', en: 'Denmark', da: 'Danmark', fi: 'Tanska' },
+    title: { sv: 'Danmark', en: 'Denmark', da: 'Danmark', fi: 'Tanska', nb: 'Danmark' },
     country: { sv: 'Danmark', en: 'Denmark', da: 'Danmark' },
     card: {
       sv: 'Barn till invandrare från icke-västliga länder lagfördes för brott fyra gånger så ofta som befolkningen i Danmark, enligt Danmarks Statistik. Danska siffror, för jämförelse.',
@@ -133,7 +133,7 @@ export const parts: PartInfo[] = [
     id: 'finland',
     num: 6,
     path: { sv: '/finland/', en: '/en/finland/', fi: '/fi/suomi/' },
-    title: { sv: 'Finland', en: 'Finland', da: 'Finland', fi: 'Suomi' },
+    title: { sv: 'Finland', en: 'Finland', da: 'Finland', fi: 'Suomi', nb: 'Finland' },
     country: { sv: 'Finland', en: 'Finland', fi: 'Suomi' },
     card: {
       sv: 'Personer med utländsk bakgrund som är födda utomlands misstänktes för brott 1,4 gånger så ofta som befolkningen i Finland 2025, enligt Statistikcentralen. Finska siffror, för jämförelse.',
@@ -147,6 +147,28 @@ export const parts: PartInfo[] = [
         sv: 'Hur vanligt det är att misstänkas för brott i Finland efter bakgrund, {period}: personer med utländsk och finländsk bakgrund, födda i Finland och utomlands, jämfört med befolkningen och efter ålder. Siffror från Statistikcentralen, med källor och tabeller.',
         en: 'How common it is to be suspected of crime in Finland by origin, {period}: people with a foreign and a Finnish background, born in Finland and abroad, compared with the population and by age. Figures from Statistics Finland, with sources and tables.',
         fi: 'Kuinka yleistä on tulla epäillyksi rikoksesta Suomessa syntyperän mukaan, {period}: ulkomaalais- ja suomalaistaustaiset, Suomessa ja ulkomailla syntyneet, verrattuna koko väestöön ja ikäryhmittäin. Tilastokeskuksen lukuja ja lähteet.',
+      },
+    },
+  },
+  {
+    // Added at the owner's request, 26 November 2026. Card copy is a draft for the owner to approve.
+    id: 'norge',
+    num: 7,
+    path: { sv: '/norge/', en: '/en/norway/', nb: '/nb/norge/' },
+    title: { sv: 'Norge', en: 'Norway', da: 'Norge', fi: 'Norja', nb: 'Norge' },
+    country: { sv: 'Norge', en: 'Norway', nb: 'Norge' },
+    card: {
+      sv: 'Invandrare misstänktes för brott 1,8 gånger så ofta som övriga befolkningen i Norge 2021–2023, enligt SSB. Norska siffror, för jämförelse.',
+      en: 'In Norway, immigrants were charged with offences 1.8 times as often as the rest of the population in 2021–2023, according to Statistics Norway. Norwegian figures, for comparison.',
+      nb: 'Innvandrere ble siktet for lovbrudd 1,8 ganger så ofte som befolkningen ellers i Norge i 2021–2023, ifølge SSB. Norske tall, til sammenligning med Sverige.',
+    },
+    chapters: ['kap15', 'kap16'],
+    meta: {
+      title: { sv: 'Brott och invandringsbakgrund i Norge, {period}', en: 'Crime and immigrant background in Norway, {period}', nb: 'Lovbrudd og innvandringsbakgrunn i Norge, {period}' },
+      description: {
+        sv: 'Hur vanligt det är att misstänkas (siktas) för brott i Norge efter invandringsbakgrund och landbakgrund, {period}, jämfört med övriga befolkningen, också för män 15–24 år. Siffror från SSB, med källor och tabeller.',
+        en: 'How common it is to be charged with an offence in Norway by immigrant background and country background, {period}, compared with the rest of the population, also for men aged 15–24. Figures from Statistics Norway, with sources and tables.',
+        nb: 'Hvor vanlig det er å bli siktet for lovbrudd i Norge etter innvandringsbakgrunn og landbakgrunn, {period}, sammenlignet med befolkningen ellers, også for menn 15–24 år. Tall fra SSB, med kilder.',
       },
     },
   },

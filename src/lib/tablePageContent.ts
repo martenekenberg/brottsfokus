@@ -21,6 +21,7 @@ import {
   loadDkIndex,
   loadDkPopulation,
   loadFiSuspects,
+  loadNoCharged,
 } from './data';
 import { chapter } from './chapters';
 import { buildKap1Data, crimeById, crimeName, type GroupId } from './chapters/kap1';
@@ -41,6 +42,7 @@ import { buildKap11, kap11Tables, rateAt, ratioToAll } from './chapters/kap11';
 import { buildKap12, indexAt, kap12Tables, pageOf } from './chapters/kap12';
 import { buildKap13, fiPersons, fiRate, fiRatio, kap13Tables } from './chapters/kap13';
 import { ageRatio, ageYear, kap14Tables, MIN_PERSONS } from './chapters/kap14';
+import { buildNo, catRow, countriesByRate, countryLabel, kap15Tables, kap16Tables, need, noCsv } from './chapters/kap15';
 import { kap5Csv, kap5Tables } from './chapters/kap5Tables';
 import { formatNumber } from './format';
 import { tr, type BaseLang as Lang } from './i18n';
@@ -1248,7 +1250,111 @@ function kap14(lang: Lang): TablePageContent {
   };
 }
 
-const BUILDERS: Record<string, (lang: Lang) => TablePageContent> = { kap1, kap2, kap3, kap4, kap5, kap6, kap7, kap8, kap9, kap10, kap11, kap12, kap13, kap14 };
+const NO_TERMS = {
+  sv: 'SSB låter alla använda sina data fritt enligt CC BY 4.0, om SSB anges som källa.',
+  en: 'Statistics Norway lets anyone use its data freely under CC BY 4.0, if Statistics Norway (SSB) is named as the source.',
+};
+
+/** What the Norwegian figures count, for the notes on both Norway table pages. */
+function noCountNote(lang: Lang, notResident: number): string {
+  const n0 = (v: number) => formatNumber(v, 0, lang);
+  return tr(
+    lang,
+    'Siktade: personer som polisen eller åklagaren i sitt slutliga beslut anser har begått ett lovbrott. Det är inte en dom. Alla lovbrott räknas, även trafikbrott, och varje person räknas en gång per år. Antalen är årliga genomsnitt och kan därför ha decimaler hos SSB; här är de avrundade till heltal. ' +
+      `Talen per 1 000 invånare och gånger övriga befolkningen är SSB:s egna. Personer som inte bor i Norge (i genomsnitt ${n0(notResident)} om året) har inget tal per invånare. ` +
+      'Invandrare är födda utomlands med två föräldrar födda utomlands. Barn till två invandrare (norskfødte med innvandrerforeldre) är födda i Norge med två föräldrar födda utomlands. Övriga befolkningen är alla andra som bor i Norge, också den som har en förälder född utomlands. ' +
+      'Tomma celler: SSB redovisar inte små tal. Talen gäller alla åldrar, utom kolumnerna för män 15–24 år, och är inte justerade för ålder.',
+    'Charged: people the police or prosecution, in their final decision, find to have committed an offence. It is not a conviction. All offences are counted, including traffic offences, and each person is counted once a year. The numbers are yearly averages, so SSB gives them with decimals; here they are rounded to whole numbers. ' +
+      `The rates per 1,000 residents and the times the rest of the population are SSB’s own. People not living in Norway (on average ${n0(notResident)} a year) have no rate. ` +
+      'Immigrants were born abroad to two parents born abroad. The Norwegian-born to immigrant parents (norskfødte med innvandrerforeldre) were born in Norway to two parents born abroad. The rest of the population is everyone else living in Norway, including people with one parent born abroad. ' +
+      'Empty cells: SSB does not report small numbers. The rates cover all ages, except the columns for men aged 15–24, and are not adjusted for age.',
+  );
+}
+
+function kap15(lang: Lang): TablePageContent {
+  const T = <X,>(sv: X, en: X): X => tr(lang, sv, en);
+  const n1 = (v: number) => formatNumber(v, 1, lang);
+  const d = buildNo(loadNoCharged());
+  const tables = kap15Tables(d, lang);
+  const [cats, imm, nor] = tables;
+  const p = d.period;
+  const rate = (c: 'ovrige' | 'innvandrere' | 'norskfodte') => need(catRow(d, c).per1000, c);
+  const ratio = (c: 'innvandrere' | 'norskfodte') => need(catRow(d, c).ratio, c);
+  const notResident = need(d.rows.find((r) => r.category === 'ikke_bosatt')?.persons ?? null, 'not resident');
+  return {
+    chapterId: 'kap15',
+    lang,
+    h1: T(`Misstänkta (siktade) för brott i Norge efter invandringsbakgrund, ${p}`, `People charged with offences in Norway by immigrant background, ${p}`),
+    shortTitle: T(`Misstänkta i Norge ${p}: tabell`, `Charged in Norway ${p}: table`),
+    description: T(
+      `Siktade i Norge, årligt genomsnitt ${p}, per 1 000 invånare och i antal, för invandrare, barn till två invandrare och övriga befolkningen, efter landgrupp och världsdel, också för män 15–24 år. Från SSB. Tabell och CSV-fil.`,
+      `People charged in Norway, yearly average ${p}, per 1,000 residents and in numbers, for immigrants, the Norwegian-born to immigrant parents and the rest of the population, by country group and world region, also for men aged 15–24. From Statistics Norway. Table and CSV file.`,
+    ),
+    datasetDescription: T(
+      `Personer siktade för lovbrott i Norge, årligt genomsnitt ${p}, efter SSB:s grupper för invandringsbakgrund och landbakgrund (två landgrupper och fyra världsdelar). Antal, SSB:s tal per 1 000 invånare och SSB:s kvot mot övriga befolkningen, för alla och för män 15–24 år.`,
+      `People charged with offences in Norway, yearly average ${p}, by Statistics Norway’s groups for immigrant background and country background (two country groups and four world regions). Numbers, Statistics Norway’s rates per 1,000 residents and its ratio to the rest of the population, for everyone and for men aged 15–24.`,
+    ),
+    temporalCoverage: '2021/2023',
+    keywords: T(['Norge', 'siktade', 'brott', 'invandrare', 'SSB'], ['Norway', 'charged', 'crime', 'immigrants', 'Statistics Norway']),
+    variableMeasured: [...new Set(tables.flatMap((t) => t.columns).map((c) => c.label))],
+    sources: [SOURCES.ssbSiktede],
+    credit: 'SSB',
+    terms: T(NO_TERMS.sv, NO_TERMS.en),
+    lead: T(
+      `I Norge siktades i genomsnitt ${n1(rate('innvandrere'))} per 1 000 invandrare om året ${p}, ${n1(ratio('innvandrere'))} gånger så många som i övriga befolkningen (${n1(rate('ovrige'))} per 1 000). Bland barn till två invandrare födda i Norge var talet ${n1(rate('norskfodte'))}. Källa: SSB.`,
+      `In Norway, on average ${n1(rate('innvandrere'))} per 1,000 immigrants a year were charged with an offence in ${p}, ${n1(ratio('innvandrere'))} times the rate in the rest of the population (${n1(rate('ovrige'))} per 1,000). Among the Norwegian-born to immigrant parents the rate was ${n1(rate('norskfodte'))}. Source: Statistics Norway.`,
+    ),
+    note: noCountNote(lang, notResident),
+    sections: [
+      { heading: T('Efter invandringsbakgrund', 'By immigrant background'), tables: [cats] },
+      { heading: T('Efter landbakgrund', 'By country background'), tables: [imm, nor] },
+    ],
+    csv: noCsv(d, 'kap15', lang),
+    dataFiles: ['ssb_siktede.csv'],
+  };
+}
+
+function kap16(lang: Lang): TablePageContent {
+  const T = <X,>(sv: X, en: X): X => tr(lang, sv, en);
+  const n1 = (v: number) => formatNumber(v, 1, lang);
+  const d = buildNo(loadNoCharged());
+  const tables = kap16Tables(d, lang);
+  const p = d.period;
+  const imm = countriesByRate(d, 'innvandrere');
+  const top = imm[0];
+  const bottom = imm[imm.length - 1];
+  const notResident = need(d.rows.find((r) => r.category === 'ikke_bosatt')?.persons ?? null, 'not resident');
+  return {
+    chapterId: 'kap16',
+    lang,
+    h1: T(`Misstänkta (siktade) för brott i Norge efter födelseland, ${p}`, `People charged with offences in Norway by country of birth, ${p}`),
+    shortTitle: T(`Misstänkta i Norge efter land ${p}: tabell`, `Charged in Norway by country ${p}: table`),
+    description: T(
+      `Siktade i Norge, årligt genomsnitt ${p}, per 1 000 invånare och i antal, för invandrare och barn till två invandrare efter land. Från SSB. Tabell och CSV-fil.`,
+      `People charged in Norway, yearly average ${p}, per 1,000 residents and in numbers, for immigrants and the Norwegian-born to immigrant parents by country. From Statistics Norway. Table and CSV file.`,
+    ),
+    datasetDescription: T(
+      `Personer siktade för lovbrott i Norge, årligt genomsnitt ${p}, för invandrare och barn till två invandrare efter landbakgrund, för de länder SSB redovisar. Antal, SSB:s tal per 1 000 invånare och SSB:s kvot mot övriga befolkningen, för alla och för män 15–24 år.`,
+      `People charged with offences in Norway, yearly average ${p}, for immigrants and the Norwegian-born to immigrant parents by country background, for the countries Statistics Norway reports. Numbers, Statistics Norway’s rates per 1,000 residents and its ratio to the rest of the population, for everyone and for men aged 15–24.`,
+    ),
+    temporalCoverage: '2021/2023',
+    keywords: T(['Norge', 'siktade', 'födelseland', 'invandrare', 'SSB'], ['Norway', 'charged', 'country of birth', 'immigrants', 'Statistics Norway']),
+    variableMeasured: [...new Set(tables.flatMap((t) => t.columns).map((c) => c.label))],
+    sources: [SOURCES.ssbSiktede],
+    credit: 'SSB',
+    terms: T(NO_TERMS.sv, NO_TERMS.en),
+    lead: T(
+      `Bland invandrare i Norge var talet ${p} högst för dem från ${countryLabel(top.group, lang)}, ${n1(top.per1000 as number)} per 1 000 om året eller ${n1(top.ratio as number)} gånger övriga befolkningens, och lägst för dem från ${countryLabel(bottom.group, lang)}, ${n1(bottom.per1000 as number)}. Källa: SSB.`,
+      `Among immigrants in Norway in ${p}, the rate was highest for those from ${countryLabel(top.group, lang)}, ${n1(top.per1000 as number)} per 1,000 a year or ${n1(top.ratio as number)} times the rest of the population’s, and lowest for those from ${countryLabel(bottom.group, lang)}, ${n1(bottom.per1000 as number)}. Source: Statistics Norway.`,
+    ),
+    note: `${noCountNote(lang, notResident)} ${T('SSB redovisar bara länder med många invandrare i Norge.', 'Statistics Norway reports only countries with many immigrants in Norway.')}`,
+    sections: [{ heading: T('Efter land', 'By country'), tables }],
+    csv: noCsv(d, 'kap16', lang),
+    dataFiles: ['ssb_siktede.csv'],
+  };
+}
+
+const BUILDERS: Record<string, (lang: Lang) => TablePageContent> = { kap1, kap2, kap3, kap4, kap5, kap6, kap7, kap8, kap9, kap10, kap11, kap12, kap13, kap14, kap15, kap16 };
 const cache = new Map<string, TablePageContent>();
 
 /** The text and tables for one table page in one language. */

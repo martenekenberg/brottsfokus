@@ -98,8 +98,8 @@ export function llmsTxt(
     '',
     `> ${site.description.sv}`,
     '',
-    'Sidan sammanställer offentlig statistik och forskning från Brå, SCB, Lunds universitet och Stockholms universitet, och för jämförelse från Danmarks Statistik och Statistikcentralen i Finland. Varje siffra har en källa. ' +
-      'Sidan drar inga egna slutsatser och tar inte ställning. Det finns också en engelsk version under /en/, och delarna om Danmark och Finland finns också på danska (/da/) och finska (/fi/).',
+    'Sidan sammanställer offentlig statistik och forskning från Brå, SCB, Lunds universitet och Stockholms universitet, och för jämförelse från Danmarks Statistik, Statistikcentralen i Finland och SSB i Norge. Varje siffra har en källa. ' +
+      'Sidan drar inga egna slutsatser och tar inte ställning. Det finns också en engelsk version under /en/, och delarna om Danmark, Finland och Norge finns också på danska (/da/), finska (/fi/) och norska (/nb/).',
     '',
     'Viktigt när siffrorna används:',
     '',
@@ -114,6 +114,7 @@ export function llmsTxt(
     '- Statistiken över lagförda efter födelseår räknar bara den som var folkbokförd i Sverige vid 15 års ålder.',
     '- Delen om Danmark bygger på Danmarks Statistiks egna grupper, som inte är desamma som Brås. De danska siffrorna kan inte jämföras direkt med de svenska.',
     '- Delen om Finland räknar misstänkta för brott som polisen klarat upp, en gång per person och år, efter Statistikcentralens grupper. Talen i alla åldrar är inte justerade för ålder; jämförelsen efter ålder finns i kapitel 6.2.',
+    '- Delen om Norge räknar siktade (personer som polisen eller åklagaren anser har begått ett lovbrott, inte domar), alla lovbrott, årligt genomsnitt 2021–2023, och jämför med övriga befolkningen, inte hela befolkningen.',
     '',
     '## Delar',
     '',

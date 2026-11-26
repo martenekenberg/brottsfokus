@@ -670,3 +670,75 @@ export function loadFiSuspects(): FiSuspectRow[] {
   }
   return rows;
 }
+
+// ---------- ssb_siktede.csv (part 7, Norway) ----------
+
+/** SSB's rows: the immigrant categories, the country groups and world regions, and single countries. */
+export const NO_LEVELS = ['bakgrunn', 'region', 'land'] as const;
+export const NO_CATEGORIES = ['alle', 'ikke_bosatt', 'ovrige', 'innvandrere', 'norskfodte'] as const;
+export type NoCategory = (typeof NO_CATEGORIES)[number];
+export const NO_REGIONS = ['landgruppe1', 'landgruppe2', 'europa_ovrig', 'afrika', 'asia', 'latinamerika'] as const;
+export type NoRegion = (typeof NO_REGIONS)[number];
+
+export interface NoChargedRow {
+  period: string;
+  level: (typeof NO_LEVELS)[number];
+  category: NoCategory;
+  /** The category itself, a region code, or the country's Norwegian name. */
+  group: string;
+  /** People charged, yearly average over the period (SSB gives thirds, e.g. 157.33). */
+  persons: number | null;
+  /** SSB's rate per 1,000 residents in the group. Null for groups without a population, or where SSB blanks small numbers. */
+  per1000: number | null;
+  /** SSB's ratio to the rest of the population ("øvrige bosatte"). */
+  ratio: number | null;
+  men15_24Persons: number | null;
+  men15_24Per1000: number | null;
+  men15_24Ratio: number | null;
+}
+
+export function loadNoCharged(): NoChargedRow[] {
+  const file = 'ssb_siktede.csv';
+  const cols = ['period', 'level', 'category', 'group', 'label_no', 'persons', 'per1000', 'ratio', 'men15_24_persons', 'men15_24_per1000', 'men15_24_ratio', 'source'];
+  const rows: NoChargedRow[] = readCsv(file, cols).map((r) => ({
+    period: r.period,
+    level: oneOf(r.level, NO_LEVELS, `${file} level`),
+    category: oneOf(r.category, NO_CATEGORIES, `${file} category`),
+    group: r.group,
+    persons: num(r.persons),
+    per1000: num(r.per1000),
+    ratio: num(r.ratio),
+    men15_24Persons: num(r.men15_24_persons),
+    men15_24Per1000: num(r.men15_24_per1000),
+    men15_24Ratio: num(r.men15_24_ratio),
+  }));
+  unique(rows, (r) => `${r.level}/${r.category}/${r.group}`, file);
+  if (new Set(rows.map((r) => r.period)).size !== 1) throw new Error(`${file}: the file should hold one period`);
+  for (const r of rows.filter((x) => x.level === 'region')) oneOf(r.group, NO_REGIONS, `${file} region`);
+  const get = (level: NoChargedRow['level'], category: NoCategory, group: string) => {
+    const r = rows.find((x) => x.level === level && x.category === category && x.group === group);
+    if (!r) throw new Error(`${file}: no row for ${level}, ${category}, ${group}`);
+    return r;
+  };
+  const persons = (r: NoChargedRow) => r.persons ?? 0;
+  // The groups must add up (to within SSB's rounding of yearly averages, 0.02), or a row is missing or misread.
+  const near = (a: number, b: number, what: string) => {
+    if (Math.abs(a - b) > 0.02) throw new Error(`${file}: ${what} add up to ${a}, not ${b}`);
+  };
+  near(['ikke_bosatt', 'ovrige', 'innvandrere', 'norskfodte'].reduce((s, c) => s + persons(get('bakgrunn', c as NoCategory, c)), 0), persons(get('bakgrunn', 'alle', 'alle')), 'the categories');
+  for (const c of ['innvandrere', 'norskfodte'] as const) {
+    near(persons(get('region', c, 'landgruppe1')) + persons(get('region', c, 'landgruppe2')), persons(get('bakgrunn', c, c)), `${c}: the two country groups`);
+    near(['europa_ovrig', 'afrika', 'asia', 'latinamerika'].reduce((s, g) => s + persons(get('region', c, g)), 0), persons(get('region', c, 'landgruppe2')), `${c}: the four regions`);
+  }
+  // SSB's ratio must equal the group's rate divided by the rest of the population's, or a column was misread.
+  const base = get('bakgrunn', 'ovrige', 'ovrige');
+  for (const r of rows) {
+    for (const [rate, ratio, baseRate] of [[r.per1000, r.ratio, base.per1000], [r.men15_24Per1000, r.men15_24Ratio, base.men15_24Per1000]] as const) {
+      if ((rate === null) !== (ratio === null)) throw new Error(`${file} ${r.group}: rate and ratio must both be given or both be empty`);
+      if (rate !== null && ratio !== null && baseRate !== null && Math.abs(rate / baseRate - ratio) > 0.0005) {
+        throw new Error(`${file} ${r.group}: SSB's ratio ${ratio} does not match ${rate} / ${baseRate}`);
+      }
+    }
+  }
+  return rows;
+}

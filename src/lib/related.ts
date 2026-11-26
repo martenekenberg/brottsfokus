@@ -15,12 +15,14 @@ export const TERMS: Record<string, Text> = {
   medborgarskap: { sv: 'Medborgarskap', en: 'Citizenship' },
   utsatt: { sv: 'Utsatt för brott', en: 'Victim of crime' },
   overrisk: { sv: 'Överrisk', en: 'Excess risk' },
-  befolkningen: { sv: 'Jämförelse med befolkningen', en: 'Comparison with the population', da: 'Sammenligning med befolkningen', fi: 'Vertailu koko väestöön' },
+  befolkningen: { sv: 'Jämförelse med befolkningen', en: 'Comparison with the population', da: 'Sammenligning med befolkningen', fi: 'Vertailu koko väestöön', nb: 'Sammenligning med befolkningen' },
   'ursprung-dk': { sv: 'Ursprung i Danmark', en: 'Origin in Denmark', da: 'Herkomst i Danmark' },
   'lagford-dk': { sv: 'Lagförd i Danmark', en: 'Convicted in Denmark', da: 'Dømt i Danmark' },
   'index-dk': { sv: 'Kriminalitetsindex', en: 'Crime index', da: 'Kriminalitetsindeks' },
   'bakgrund-fi': { sv: 'Bakgrund i Finland', en: 'Origin in Finland', fi: 'Syntyperä Suomessa' },
   'misstankt-fi': { sv: 'Misstänkt i Finland', en: 'Suspected in Finland', fi: 'Rikoksesta epäilty Suomessa' },
+  'siktet-no': { sv: 'Misstänkt (siktad) i Norge', en: 'Charged in Norway', nb: 'Siktet i Norge' },
+  'bakgrunn-no': { sv: 'Invandringsbakgrund i Norge', en: 'Immigrant background in Norway', nb: 'Innvandringsbakgrunn i Norge' },
 };
 
 interface Related {
@@ -117,6 +119,21 @@ const RELATED: Record<string, Related> = {
       { id: 'kap2', note: { sv: 'Brås justerade överrisker för Sverige, 2015–2018', en: 'Brå’s adjusted excess risks for Sweden, 2015–2018', fi: 'Brån vakioidut ylisuuret riskit Ruotsissa, 2015–2018' } },
     ],
     terms: ['bakgrund-fi', 'misstankt-fi'],
+  },
+  kap15: {
+    chapters: [
+      { id: 'kap1', note: { sv: 'misstänkta i Sverige, efter bakgrund', en: 'suspected in Sweden, by background', nb: 'mistenkte i Sverige etter bakgrunn' } },
+      { id: 'kap13', note: { sv: 'misstänkta i Finland, efter bakgrund', en: 'suspected in Finland, by origin', nb: 'mistenkte i Finland etter bakgrunn' } },
+      { id: 'kap11', note: { sv: 'lagförda i Danmark, efter ursprung', en: 'convicted in Denmark, by origin', nb: 'domfelte i Danmark etter opprinnelse' } },
+    ],
+    terms: ['siktet-no', 'bakgrunn-no', 'befolkningen'],
+  },
+  kap16: {
+    chapters: [
+      { id: 'kap15', note: { sv: 'samma källa, efter invandringsbakgrund och världsdel', en: 'the same source, by immigrant background and world region', nb: 'samme kilde, etter innvandringsbakgrunn og verdensdel' } },
+      { id: 'kap2', note: { sv: 'misstänkta i Sverige efter födelseland, 2015–2018', en: 'suspected in Sweden by country of birth, 2015–2018', nb: 'mistenkte i Sverige etter fødeland, 2015–2018' } },
+    ],
+    terms: ['siktet-no', 'bakgrunn-no'],
   },
   kap8: {
     chapters: [

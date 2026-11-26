@@ -19,6 +19,8 @@ import Kap11 from './chapters/Kap11.astro';
 import Kap12 from './chapters/Kap12.astro';
 import Kap13 from './chapters/Kap13.astro';
 import Kap14 from './chapters/Kap14.astro';
+import Kap15 from './chapters/Kap15.astro';
+import Kap16 from './chapters/Kap16.astro';
 import { chapter } from '../lib/chapters';
 import { part, parts, type PartId } from '../lib/parts';
 import { partCoverage, partDatasetIds, partMeta, partSourceUrls } from '../lib/partMeta';
@@ -36,7 +38,7 @@ if (path === undefined) throw new Error(`Part ${partId} has no ${lang} page`);
 // Chapters 1–9 are written in Swedish and English only; the country chapters also in their own language.
 const COMPONENTS: Record<string, (props: { lang: Lang }) => unknown> = {
   kap1: Kap1, kap2: Kap2, kap3: Kap3, kap4: Kap4, kap5: Kap5, kap6: Kap6, kap7: Kap7, kap8: Kap8, kap9: Kap9,
-  kap11: Kap11, kap12: Kap12, kap13: Kap13, kap14: Kap14,
+  kap11: Kap11, kap12: Kap12, kap13: Kap13, kap14: Kap14, kap15: Kap15, kap16: Kap16,
 } as Record<string, (props: { lang: Lang }) => unknown>;
 const toc = p.chapters.map((id) => {
   const c = chapter(id);
@@ -91,7 +93,7 @@ const articleLd = {
   <div class="wrap">
     <ChapterNav current={partId} lang={lang} />
     <PageHead
-      kicker={tr(lang, `Del ${p.num} av ${parts.length}`, `Part ${p.num} of ${parts.length}`, { da: `Del ${p.num} af ${parts.length}`, fi: `Osa ${p.num}/${parts.length}` })}
+      kicker={tr(lang, `Del ${p.num} av ${parts.length}`, `Part ${p.num} of ${parts.length}`, { da: `Del ${p.num} af ${parts.length}`, fi: `Osa ${p.num}/${parts.length}`, nb: `Del ${p.num} av ${parts.length}` })}
       title={pick(p.title, lang)}
       intro={pick(p.card, lang)}
       toc={toc}

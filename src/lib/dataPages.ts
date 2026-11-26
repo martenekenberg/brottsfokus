@@ -93,6 +93,16 @@ export const tablePages: TablePage[] = [
     slug: { sv: 'finland-alder', en: 'finland-age' },
     name: { sv: 'Misstänkta i Finland efter ålder', en: 'Suspects in Finland by age' },
   },
+  {
+    chapterId: 'kap15',
+    slug: { sv: 'norge-misstankta', en: 'norway-charged' },
+    name: { sv: 'Misstänkta i Norge', en: 'Charged in Norway' },
+  },
+  {
+    chapterId: 'kap16',
+    slug: { sv: 'norge-fodelseland', en: 'norway-country' },
+    name: { sv: 'Misstänkta i Norge efter födelseland', en: 'Charged in Norway by country' },
+  },
 ];
 
 /** The table index page: /data/ in Swedish, /en/data/ in English. Country pages link to the English one. */

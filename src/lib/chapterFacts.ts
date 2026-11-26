@@ -9,9 +9,10 @@ import { buildKap3 } from './chapters/kap3';
 import { buildKap11 } from './chapters/kap11';
 import { buildKap12 } from './chapters/kap12';
 import { buildKap13 } from './chapters/kap13';
+import { buildNo } from './chapters/kap15';
 import { cohorts as backmanCohorts } from './chapters/kap9';
 import { birthYears } from './chapters/kap10';
-import { loadBirthCohorts, loadCohorts, loadDkGuilty, loadDkIndex, loadDkPopulation, loadFiSuspects, loadPopulation, loadPrison, loadSuspectsByBackground } from './data';
+import { loadBirthCohorts, loadCohorts, loadDkGuilty, loadDkIndex, loadDkPopulation, loadFiSuspects, loadNoCharged, loadPopulation, loadPrison, loadSuspectsByBackground } from './data';
 import { tr, type Lang, type LocalTexts } from './i18n';
 import { SOURCES } from './sources';
 
@@ -162,6 +163,20 @@ export function chapterFacts(id: string, lang: Lang): ChapterFacts {
             study: L('Danmarks Statistik, Indvandrere i Danmark 2025', 'Danmarks Statistik, Indvandrere i Danmark 2025', { da: 'Danmarks Statistik, Indvandrere i Danmark 2025' }),
             href: SOURCES.dstIndv2025.url,
             covers: L(`Lagförda ${year}`, `Convicted in ${year}`, { da: `Dømte i ${year}` }),
+            published: '2025',
+          },
+        ],
+      };
+    }
+    case 'kap15':
+    case 'kap16': {
+      const { period } = buildNo(loadNoCharged());
+      return {
+        studies: [
+          {
+            study: L('SSB, Siktelser og siktede personer etter innvandringsbakgrunn', 'Statistics Norway (SSB), Siktelser og siktede personer etter innvandringsbakgrunn', { nb: 'SSB, Siktelser og siktede personer etter innvandringsbakgrunn' }),
+            href: SOURCES.ssbSiktede.url,
+            covers: L(`Siktade, årligt genomsnitt ${period}`, `Charged, yearly average ${period}`, { nb: `Siktede, årlig gjennomsnitt ${period}` }),
             published: '2025',
           },
         ],

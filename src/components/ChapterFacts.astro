@@ -13,10 +13,10 @@ const facts = chapterFacts(id, lang);
 const L = (sv: string, en: string) => tr(lang, sv, en, LOCAL[sv]);
 // The panel's headings in the country languages.
 const LOCAL: Record<string, LocalTexts<string>> = {
-  'Om uppgifterna': { da: 'Om tallene', fi: 'Tiedoista' },
-  Studie: { da: 'Kilde', fi: 'Lähde' },
-  'Uppgifterna avser': { da: 'Tallene dækker', fi: 'Luvut koskevat' },
-  Publicerad: { da: 'Udgivet', fi: 'Julkaistu' },
+  'Om uppgifterna': { da: 'Om tallene', fi: 'Tiedoista', nb: 'Om tallene' },
+  Studie: { da: 'Kilde', fi: 'Lähde', nb: 'Kilde' },
+  'Uppgifterna avser': { da: 'Tallene dækker', fi: 'Luvut koskevat', nb: 'Tallene gjelder' },
+  Publicerad: { da: 'Udgivet', fi: 'Julkaistu', nb: 'Publisert' },
 };
 ---
 
