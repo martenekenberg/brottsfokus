@@ -3,7 +3,7 @@
 import type { NtuRow, NtuSex } from '../data';
 import type { BarChartSpec } from '../charts/bar';
 import { formatPct } from '../format';
-import { tr, type Lang } from '../i18n';
+import { tr, type BaseLang as Lang } from '../i18n';
 import { dataLabel } from '../labels';
 import { csvNumber, longCsv, type DataTable } from '../tables';
 

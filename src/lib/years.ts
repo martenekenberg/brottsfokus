@@ -1,4 +1,4 @@
-import type { Lang } from './i18n';
+import type { BaseLang as Lang } from './i18n';
 
 /**
  * Years as short ranges: [2014, 2015, 2018, 2019, 2020] -> "2014–2015 och 2018–2020" (sv)

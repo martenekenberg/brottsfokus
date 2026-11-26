@@ -1,0 +1,65 @@
+---
+// Language menu: every language this page exists in, each in its own name ("Svenska · English · Dansk").
+// The current language is shown but not linked. Most pages are in Swedish and English; the country
+// part pages also have a version in that country's language (src/lib/parts.ts).
+import { pageVersions } from '../lib/dataPages';
+import { HTML_LANG, LANG_NAME, tr, type Lang } from '../lib/i18n';
+
+interface Props {
+  /** This page's path in its language. */
+  path: string;
+  lang: Lang;
+}
+const { path, lang } = Astro.props;
+const versions = pageVersions(path, lang);
+---
+
+<nav class="lang-menu" aria-label={tr(lang, 'Språk', 'Language', { da: 'Sprog', fi: 'Kieli', nb: 'Språk' })}>
+  <ul>
+    {
+      versions.map((v) => (
+        <li>
+          {v.lang === lang ? (
+            <span class="current" aria-current="page" lang={HTML_LANG[v.lang]}>{LANG_NAME[v.lang]}</span>
+          ) : (
+            <a href={v.path} hreflang={HTML_LANG[v.lang]} lang={HTML_LANG[v.lang]}>{LANG_NAME[v.lang]}</a>
+          )}
+        </li>
+      ))
+    }
+  </ul>
+</nav>
+
+<style>
+  .lang-menu ul {
+    display: flex;
+    flex-wrap: wrap;
+    margin: 0;
+    padding: 0;
+    list-style: none;
+  }
+  .lang-menu li {
+    display: inline-flex;
+    align-items: center;
+  }
+  /* A thin divider between the names. */
+  .lang-menu li + li::before {
+    content: '';
+    width: 1px;
+    height: 14px;
+    margin: 0 10px;
+    background: var(--rule);
+  }
+  .lang-menu a,
+  .current {
+    display: inline-flex;
+    align-items: center;
+    min-height: 44px;
+  }
+  .lang-menu a {
+    color: var(--ink);
+  }
+  .current {
+    font-weight: 600;
+  }
+</style>

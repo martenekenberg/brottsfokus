@@ -6,7 +6,7 @@ import ChapterFacts from './ChapterFacts.astro';
 import ShortAnswer from './ShortAnswer.astro';
 import { chapterShortAnswers } from '../lib/shortAnswers';
 import { relatedLinks } from '../lib/related';
-import { tr, type Lang } from '../lib/i18n';
+import { isLocal, pick, tr, type Lang } from '../lib/i18n';
 
 interface Props {
   id: string;
@@ -27,7 +27,7 @@ const related = relatedLinks(id, lang);
 ---
 
 <section id={id} class="chapter" aria-labelledby={`${id}-h`}>
-  <p class="kicker">{c.num ? `${c.num} · ${c.kicker[lang]}` : c.kicker[lang]}</p>
+  <p class="kicker">{c.num ? `${c.num} · ${pick(c.kicker, lang)}` : pick(c.kicker, lang)}</p>
   <h2 id={`${id}-h`}>{title}</h2>
   <div class="intro"><slot name="intro" /></div>
   {answers.length > 0 && <div class="answers">{answers.map((a) => <ShortAnswer item={a} lang={lang} />)}</div>}
@@ -38,16 +38,16 @@ const related = relatedLinks(id, lang);
   {
     hasNote && (
       <div class="note">
-        <strong>{tr(lang, 'Läs så här. ', 'How to read this. ')}</strong>
+        <strong>{tr(lang, 'Läs så här. ', 'How to read this. ', { da: 'Sådan skal tallene læses. ', fi: 'Näin luvut luetaan. ', nb: 'Slik leser du tallene. ' })}</strong>
         <slot name="note" />
       </div>
     )
   }
   <p class="source"><slot name="source" /></p>
-  {tableHref && <a class="table-link" href={tableHref}>{tr(lang, 'Siffrorna i tabell och som CSV-fil', 'The figures as a table and CSV file')}</a>}
+  {tableHref && <a class="table-link" href={tableHref} hreflang={isLocal(lang) ? 'en' : undefined}>{tr(lang, 'Siffrorna i tabell och som CSV-fil', 'The figures as a table and CSV file', { da: 'Tallene som tabel og CSV-fil (på engelsk)', fi: 'Luvut taulukkona ja CSV-tiedostona (englanniksi)', nb: 'Tallene som tabell og CSV-fil (på engelsk)' })}</a>}
   <slot name="after" />
-  <nav class="related" aria-label={tr(lang, `Läs också, kapitel ${c.num}`, `See also, chapter ${c.num}`)}>
-    <p class="related-title">{tr(lang, 'Läs också', 'See also')}</p>
+  <nav class="related" aria-label={tr(lang, `Läs också, kapitel ${c.num}`, `See also, chapter ${c.num}`, { da: `Læs også, kapitel ${c.num}`, fi: `Lue myös, luku ${c.num}`, nb: `Les også, kapittel ${c.num}` })}>
+    <p class="related-title">{tr(lang, 'Läs också', 'See also', { da: 'Læs også (på engelsk)', fi: 'Lue myös (englanniksi)', nb: 'Les også (på engelsk)' })}</p>
     {
       related.chapters.length > 0 && (
         <ul>
@@ -60,7 +60,7 @@ const related = relatedLinks(id, lang);
       )
     }
     <p class="related-terms">
-      {tr(lang, 'Begrepp: ', 'Terms: ')}
+      {tr(lang, 'Begrepp: ', 'Terms: ', { da: 'Begreber: ', fi: 'Käsitteet: ', nb: 'Begreper: ' })}
       {related.terms.map((t, i) => (
         <>
           {i > 0 && ', '}
@@ -69,7 +69,7 @@ const related = relatedLinks(id, lang);
       ))}
     </p>
   </nav>
-  <a class="next" href={next.href}>{tr(lang, 'Nästa: ', 'Next: ')}{next.label} →</a>
+  <a class="next" href={next.href}>{tr(lang, 'Nästa: ', 'Next: ', { da: 'Næste: ', fi: 'Seuraavaksi: ', nb: 'Neste: ' })}{next.label} →</a>
 </section>
 
 <style>

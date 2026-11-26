@@ -4,7 +4,7 @@
 import BarChart from '../charts/BarChart.astro';
 import { buildKap6Spec, sharedMax, GROUP_LABEL } from '../../lib/chapters/kap6';
 import type { NtuRow } from '../../lib/data';
-import { tr, type Lang } from '../../lib/i18n';
+import { tr, type BaseLang as Lang } from '../../lib/i18n';
 
 interface Props {
   rows: NtuRow[];

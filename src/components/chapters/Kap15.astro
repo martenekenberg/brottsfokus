@@ -1,0 +1,130 @@
+---
+// Chapter 7.1: people charged in Norway by immigrant background, yearly average 2021–2023 (SSB, table 3).
+// Copy in Swedish, English and Norwegian (the Norwegian page, /nb/norge/).
+// Loads its own data and stops the build if its headlines no longer match the data.
+import Chapter from '../Chapter.astro';
+import Legend from '../Legend.astro';
+import BarChart from '../charts/BarChart.astro';
+import SubChart from '../SubChart.astro';
+import { pick, tr, type Lang } from '../../lib/i18n';
+import { loadNoCharged } from '../../lib/data';
+import { buildKap15Spec, buildNo, catRow, need, NO_CATEGORY_LABEL, rateOf, ratioOf, row } from '../../lib/chapters/kap15';
+import type { NoRegion } from '../../lib/data';
+import { BAR_COLORS } from '../../lib/charts/bar';
+import { round } from '../../lib/calc';
+import { tablePage } from '../../lib/dataPages';
+import { formatNumber } from '../../lib/format';
+import { SOURCES } from '../../lib/sources';
+
+interface Props {
+  lang: Lang;
+}
+const { lang } = Astro.props;
+const L = (sv: string, en: string, nb: string) => tr(lang, sv, en, { nb });
+const n1 = (v: number) => formatNumber(v, 1, lang);
+const n0 = (v: number) => formatNumber(v, 0, lang);
+
+const d = buildNo(loadNoCharged());
+const p = d.period;
+const rate = (c: 'ovrige' | 'innvandrere' | 'norskfodte', m: 'all' | 'men15_24' = 'all') => need(rateOf(catRow(d, c), m), `${c} ${m}`);
+const ratio = (c: 'innvandrere' | 'norskfodte', m: 'all' | 'men15_24' = 'all') => need(ratioOf(catRow(d, c), m), `${c} ${m} ratio`);
+const regions: NoRegion[] = ['landgruppe1', 'europa_ovrig', 'afrika', 'asia', 'latinamerika'];
+const regionRate = (g: NoRegion) => need(rateOf(row(d, 'region', 'innvandrere', g), 'all'), g);
+const regionRatio = (g: NoRegion) => need(ratioOf(row(d, 'region', 'innvandrere', g), 'all'), g);
+const notResident = need(row(d, 'bakgrunn', 'ikke_bosatt', 'ikke_bosatt').persons, 'people not resident');
+
+// Headline: immigrants 1.8 times the rest of the population (SSB's ratio). Stop the build if it no longer rounds to 1.8.
+if (round(ratio('innvandrere'), 1) !== 1.8) throw new Error(`Chapter 7.1 headline no longer matches the data (${ratio('innvandrere')})`);
+// The part card (src/lib/parts.ts) names the period 2021–2023.
+if (p !== '2021–2023') throw new Error(`Chapter 7.1: the data now covers ${p}; update the Norway card in src/lib/parts.ts`);
+// Intro: among immigrants, Africa is the highest of the regions and the first country group the lowest.
+const sorted = [...regions].sort((a, b) => regionRate(b) - regionRate(a));
+if (sorted[0] !== 'afrika' || sorted[sorted.length - 1] !== 'landgruppe1') throw new Error('Chapter 7.1 intro: the order of the regions no longer matches');
+// Second chart: men aged 15–24, Norwegian-born to immigrant parents 1.8 times, immigrants 1.7 times.
+if (round(ratio('norskfodte', 'men15_24'), 1) !== 1.8 || round(ratio('innvandrere', 'men15_24'), 1) !== 1.7) {
+  throw new Error('Chapter 7.1 men 15–24 headline no longer matches the data');
+}
+// The second chart's note says the gap for the Norwegian-born is larger among men aged 15–24 than across all ages.
+if (!(ratio('norskfodte', 'men15_24') > ratio('norskfodte'))) throw new Error('Chapter 7.1 men 15–24 note no longer matches the data');
+
+const legend = [
+  { label: pick(NO_CATEGORY_LABEL.innvandrere, lang), color: BAR_COLORS.focus.fill, mark: 'bar' as const },
+  { label: pick(NO_CATEGORY_LABEL.norskfodte, lang), color: BAR_COLORS.second.fill, mark: 'bar' as const },
+  { label: pick(NO_CATEGORY_LABEL.ovrige, lang), color: '#121212', mark: 'dash' as const },
+];
+const timesWord = (v: number) => formatNumber(v, 1, lang);
+---
+
+<Chapter
+  id="kap15"
+  lang={lang}
+  tableHref={tablePage('kap15', lang).path}
+  title={L(
+    `Invandrare misstänktes för brott 1,8 gånger så ofta som övriga befolkningen i Norge, i genomsnitt ${p}`,
+    `In Norway, immigrants were charged with offences 1.8 times as often as the rest of the population, on average in ${p}`,
+    `Innvandrere ble siktet for lovbrudd 1,8 ganger så ofte som befolkningen ellers, i gjennomsnitt ${p}`,
+  )}
+>
+  <p slot="intro">
+    {L(
+      `Personer som polisen eller åklagaren ansåg hade begått minst ett lovbrott under året (siktade), per 1 000 invånare, årligt genomsnitt ${p}: ${n1(rate('innvandrere'))} bland invandrare, ${n1(rate('norskfodte'))} bland barn till två invandrare födda i Norge och ${n1(rate('ovrige'))} i övriga befolkningen. Barn till två invandrare låg ${timesWord(ratio('norskfodte'))} gånger så högt som övriga befolkningen. Bland invandrare var talet högst för dem från Afrika, ${n1(regionRate('afrika'))} per 1 000 eller ${timesWord(regionRatio('afrika'))} gånger övriga befolkningens, och lägst för dem från Norden, EU/EFTA, Storbritannien, Nordamerika och Oceanien, ${n1(regionRate('landgruppe1'))}.`,
+      `People the police or prosecution found had committed at least one offence during the year (charged), per 1,000 residents, yearly average ${p}: ${n1(rate('innvandrere'))} among immigrants, ${n1(rate('norskfodte'))} among the Norwegian-born to immigrant parents and ${n1(rate('ovrige'))} in the rest of the population. The Norwegian-born to immigrant parents were ${timesWord(ratio('norskfodte'))} times as high as the rest of the population. Among immigrants, the rate was highest for those from Africa, ${n1(regionRate('afrika'))} per 1,000 or ${timesWord(regionRatio('afrika'))} times the rest of the population’s, and lowest for those from the Nordic countries, EU/EFTA, the UK, North America and Oceania, ${n1(regionRate('landgruppe1'))}.`,
+      `Personer som politiet eller påtalemyndigheten mente hadde begått minst ett lovbrudd i løpet av året (siktede), per 1000 innbyggere, årlig gjennomsnitt ${p}: ${n1(rate('innvandrere'))} blant innvandrere, ${n1(rate('norskfodte'))} blant norskfødte med innvandrerforeldre og ${n1(rate('ovrige'))} i befolkningen ellers. Norskfødte med innvandrerforeldre lå ${timesWord(ratio('norskfodte'))} ganger så høyt som befolkningen ellers. Blant innvandrere var tallet høyest for dem fra Afrika, ${n1(regionRate('afrika'))} per 1000 eller ${timesWord(regionRatio('afrika'))} ganger befolkningen ellers, og lavest for dem fra Norden, EU/EFTA, Storbritannia, Nord-Amerika og Oseania, ${n1(regionRate('landgruppe1'))}.`,
+    )}
+  </p>
+  <Legend slot="legend" items={legend} />
+  <p class="chart-heading">{L(`Alla åldrar, ${p}`, `All ages, ${p}`, `Alle aldre, ${p}`)}</p>
+  <BarChart spec={buildKap15Spec(d, 'all', lang)} />
+  <Fragment slot="note">
+    {L(
+      `Siktad är ett steg i en norsk brottsutredning: polisen eller åklagaren anser i sitt slutliga beslut att personen har begått lovbrottet. Det är inte en dom. Alla lovbrott räknas, även trafikbrott, och varje person räknas en gång per år. Talen gäller alla åldrar och är inte justerade för ålder eller kön. Barn till två invandrare är i genomsnitt mycket unga, vilket drar ned deras tal; jämförelsen för män 15–24 år nedan tar delvis hänsyn till det. Personer som inte bor i Norge (i genomsnitt ${n0(notResident)} om året) har inget tal per invånare och ingår inte. Grupperna är SSB:s: barn till två invandrare är födda i Norge med två föräldrar födda utomlands, och övriga befolkningen omfattar också den som har en förälder född i Norge. Jämför inte direkt med de svenska siffrorna. I diagrammet betyder EU/EFTA, Nordamerika m.fl. Norden, EU/EFTA, Storbritannien, Nordamerika och Oceanien, och övriga länder resten av världen.`,
+      `Charged is a step in a Norwegian criminal investigation: in its final decision, the police or prosecution find that the person committed the offence. It is not a conviction. All offences are counted, including traffic offences, and each person is counted once a year. The rates cover all ages and are not adjusted for age or sex. The Norwegian-born to immigrant parents are on average very young, which pulls their rate down; the comparison for men aged 15–24 below partly takes this into account. People not living in Norway (on average ${n0(notResident)} a year) have no rate and are not included. The groups are SSB’s: the Norwegian-born to immigrant parents were born in Norway to two parents born abroad, and the rest of the population also includes people with one parent born in Norway. Do not compare directly with the Swedish figures. In the chart, EU/EFTA, North America etc. means the Nordic countries, EU/EFTA, the UK, North America and Oceania, and other countries means the rest of the world.`,
+      `Siktet betyr at politiet eller påtalemyndigheten i sin endelige avgjørelse mener at personen har begått lovbruddet. Det er ikke en dom. Alle lovbrudd telles, også trafikkovertredelser, og hver person telles én gang per år. Tallene gjelder alle aldre og er ikke justert for alder eller kjønn. Norskfødte med innvandrerforeldre er i gjennomsnitt svært unge, noe som trekker tallet deres ned; sammenligningen for menn 15–24 år nedenfor tar delvis hensyn til dette. Personer som ikke er bosatt i Norge (i gjennomsnitt ${n0(notResident)} per år) har ikke noe tall per innbygger og er ikke med. Gruppene er SSBs: norskfødte med innvandrerforeldre er født i Norge av to foreldre født i utlandet, og befolkningen ellers omfatter også dem som har én forelder født i Norge. Tallene kan ikke sammenlignes direkte med de svenske. I diagrammet betyr EU/EFTA, Nord-Amerika mfl. Norden, EU/EFTA, Storbritannia, Nord-Amerika og Oseania, og andre land resten av verden.`,
+    )}
+  </Fragment>
+  <Fragment slot="source">
+    {L('Källa: SSB (Statistisk sentralbyrå), ', 'Source: Statistics Norway (SSB), ', 'Kilde: SSB, ')}<a href={SOURCES.ssbSiktede.url}>Siktelser og siktede personer etter innvandringsbakgrunn</a>{L(
+      `, tabell 3. Årligt genomsnitt ${p}. Talen per 1 000 och gånger övriga befolkningen är SSB:s egna.`,
+      `, table 3. Yearly average ${p}. The rates per 1,000 and the times the rest of the population are SSB’s own.`,
+      `, tabell 3. Årlig gjennomsnitt ${p}. Tallene per 1000 og ganger befolkningen ellers er SSBs egne.`,
+    )}
+  </Fragment>
+  <SubChart
+    slot="after"
+    id="kap15-menn"
+    lang={lang}
+    title={L(
+      `Män 15–24 år: barn till två invandrare misstänktes 1,8 gånger och invandrare 1,7 gånger så ofta som övriga män i samma ålder`,
+      `Men aged 15–24: the Norwegian-born to immigrant parents were charged 1.8 times and immigrants 1.7 times as often as other men of the same age`,
+      `Menn 15–24 år: norskfødte med innvandrerforeldre ble siktet 1,8 ganger og innvandrere 1,7 ganger så ofte som andre menn i samme alder`,
+    )}
+  >
+    <Fragment slot="intro">
+      {L(
+        `Samma mått för män 15–24 år: ${n1(rate('norskfodte', 'men15_24'))} per 1 000 bland barn till två invandrare, ${n1(rate('innvandrere', 'men15_24'))} bland invandrare och ${n1(rate('ovrige', 'men15_24'))} i övriga befolkningen.`,
+        `The same measure for men aged 15–24: ${n1(rate('norskfodte', 'men15_24'))} per 1,000 among the Norwegian-born to immigrant parents, ${n1(rate('innvandrere', 'men15_24'))} among immigrants and ${n1(rate('ovrige', 'men15_24'))} in the rest of the population.`,
+        `Det samme målet for menn 15–24 år: ${n1(rate('norskfodte', 'men15_24'))} per 1000 blant norskfødte med innvandrerforeldre, ${n1(rate('innvandrere', 'men15_24'))} blant innvandrere og ${n1(rate('ovrige', 'men15_24'))} i befolkningen ellers.`,
+      )}
+    </Fragment>
+    <Legend slot="legend" items={legend} />
+    <BarChart spec={buildKap15Spec(d, 'men15_24', lang)} />
+    <Fragment slot="note">
+      {L(
+        'När man jämför män i samma ålder blir skillnaden för barn till två invandrare större än i alla åldrar, eftersom de unga inte längre jämförs med en äldre befolkning. Jämförelsen tar inte hänsyn till annat, som inkomst eller bostadsort. SSB anger inget tal där gruppen är för liten.',
+        'Comparing men of the same age makes the gap for the Norwegian-born to immigrant parents larger than across all ages, because the young are no longer compared with an older population. The comparison takes nothing else into account, such as income or where people live. SSB gives no rate where the group is too small.',
+        'Når menn i samme alder sammenlignes, blir forskjellen for norskfødte med innvandrerforeldre større enn for alle aldre, fordi de unge ikke lenger sammenlignes med en eldre befolkning. Sammenligningen tar ikke hensyn til andre forhold, som inntekt eller bosted. SSB oppgir ikke tall der gruppen er for liten.',
+      )}
+    </Fragment>
+    <Fragment slot="source">
+      {L('Källa: SSB, ', 'Source: Statistics Norway (SSB), ', 'Kilde: SSB, ')}<a href={SOURCES.ssbSiktede.url}>Siktelser og siktede personer etter innvandringsbakgrunn</a>{L(', tabell 3.', ', table 3.', ', tabell 3.')}
+    </Fragment>
+  </SubChart>
+</Chapter>
+
+<style>
+  .chart-heading {
+    margin: 0;
+    font-size: 14px;
+    font-weight: 600;
+  }
+</style>

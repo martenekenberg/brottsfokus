@@ -1,7 +1,7 @@
 // "Frågor och svar": common questions about the terms and the sources, written for the page and
 // its FAQPage markup. The questions with numbers are the chapters' short answers (src/lib/shortAnswers.ts).
 import { chapter, chapterHref } from './chapters';
-import { tr, type Lang } from './i18n';
+import { tr, type BaseLang as Lang } from './i18n';
 import { methodPath } from './parts';
 import { shortAnswers, type Segment } from './shortAnswers';
 

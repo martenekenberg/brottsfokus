@@ -3,7 +3,7 @@
 import { loadPopulation, loadPrison, loadTableB6 } from './data';
 import { buildKap3, shortReportName } from './chapters/kap3';
 import { formatNumber } from './format';
-import { tr, type Lang } from './i18n';
+import { tr, type BaseLang as Lang } from './i18n';
 import type { KeyFigure } from '../components/KeyFigures.astro';
 
 /** Brå's yearly prison reports used in chapter 3, for the source list under Metod. */

@@ -1,0 +1,114 @@
+---
+// Chapter 7.2: people charged in Norway by country background, yearly average 2021–2023 (SSB, table 3).
+// Copy in Swedish, English and Norwegian (the Norwegian page, /nb/norge/).
+// Loads its own data and stops the build if its headlines no longer match the data.
+import Chapter from '../Chapter.astro';
+import Legend from '../Legend.astro';
+import BarChart from '../charts/BarChart.astro';
+import SubChart from '../SubChart.astro';
+import { pick, tr, type Lang } from '../../lib/i18n';
+import { loadNoCharged } from '../../lib/data';
+import { buildKap16Spec, buildNo, countriesByRate, countryLabel, need, NO_CATEGORY_LABEL } from '../../lib/chapters/kap15';
+import { BAR_COLORS } from '../../lib/charts/bar';
+import { round } from '../../lib/calc';
+import { tablePage } from '../../lib/dataPages';
+import { formatNumber } from '../../lib/format';
+import { SOURCES } from '../../lib/sources';
+
+interface Props {
+  lang: Lang;
+}
+const { lang } = Astro.props;
+const L = (sv: string, en: string, nb: string) => tr(lang, sv, en, { nb });
+const n1 = (v: number) => formatNumber(v, 1, lang);
+
+const d = buildNo(loadNoCharged());
+const p = d.period;
+const imm = countriesByRate(d, 'innvandrere');
+const nor = countriesByRate(d, 'norskfodte');
+const r = (row: (typeof imm)[number]) => need(row.ratio, `${row.group} ratio`);
+const names = (rows: typeof imm) => rows.map((x) => `${countryLabel(x.group, lang)} (${n1(r(x))})`);
+const list = (items: string[]) => items.slice(0, -1).join(', ') + L(' och ', ' and ', ' og ') + items[items.length - 1];
+
+// Headline: among immigrants, from 0.6 to 4.6 times the rest of the population, depending on country background.
+const immMin = r(imm[imm.length - 1]);
+const immMax = r(imm[0]);
+if (round(immMin, 1) !== 0.6 || round(immMax, 1) !== 4.6) throw new Error(`Chapter 7.2 headline no longer matches the data (${immMin}–${immMax})`);
+// Second chart: Norwegian-born to immigrant parents, from 1.2 to 4.1 times.
+const norMin = r(nor[nor.length - 1]);
+const norMax = r(nor[0]);
+if (round(norMin, 1) !== 1.2 || round(norMax, 1) !== 4.1) throw new Error(`Chapter 7.2 second headline no longer matches the data (${norMin}–${norMax})`);
+// Intro: some countries are below the rest of the population.
+const below = imm.filter((x) => r(x) < 1);
+if (below.length < 2) throw new Error('Chapter 7.2 intro: fewer than two countries below the rest of the population');
+
+const legend = (c: 'innvandrere' | 'norskfodte') => [
+  { label: pick(NO_CATEGORY_LABEL[c], lang), color: BAR_COLORS[c === 'innvandrere' ? 'focus' : 'second'].fill, mark: 'bar' as const },
+  { label: pick(NO_CATEGORY_LABEL.ovrige, lang), color: '#121212', mark: 'dash' as const },
+];
+---
+
+<Chapter
+  id="kap16"
+  lang={lang}
+  tableHref={tablePage('kap16', lang).path}
+  title={L(
+    `Bland invandrare i Norge varierade talet från ${n1(immMin)} till ${n1(immMax)} gånger övriga befolkningens, beroende på födelseland, ${p}`,
+    `Among immigrants in Norway, the rate ranged from ${n1(immMin)} to ${n1(immMax)} times the rest of the population’s, depending on country of birth, ${p}`,
+    `Blant innvandrere varierte tallet fra ${n1(immMin)} til ${n1(immMax)} ganger befolkningen ellers, avhengig av landbakgrunn, ${p}`,
+  )}
+>
+  <p slot="intro">
+    {L(
+      `Siktade per 1 000 invånare, årligt genomsnitt ${p}, för de länder SSB redovisar. Gånger övriga befolkningen inom parentes. Högst: ${list(names(imm.slice(0, 3)))}. Lägst: ${list(names(imm.slice(-3).reverse()))}. ${below.length} länder låg under övriga befolkningen.`,
+      `People charged per 1,000 residents, yearly average ${p}, for the countries SSB reports. Times the rest of the population in brackets. Highest: ${list(names(imm.slice(0, 3)))}. Lowest: ${list(names(imm.slice(-3).reverse()))}. ${below.length} countries were below the rest of the population.`,
+      `Siktede per 1000 innbyggere, årlig gjennomsnitt ${p}, for landene SSB oppgir. Ganger befolkningen ellers i parentes. Høyest: ${list(names(imm.slice(0, 3)))}. Lavest: ${list(names(imm.slice(-3).reverse()))}. ${below.length} land lå under befolkningen ellers.`,
+    )}
+  </p>
+  <Legend slot="legend" items={legend('innvandrere')} />
+  <BarChart spec={buildKap16Spec(d, 'innvandrere', lang)} />
+  <Fragment slot="note">
+    {L(
+      'SSB redovisar bara länder med många invandrare i Norge. Talen gäller alla åldrar och är inte justerade för ålder eller kön, och grupperna har mycket olika åldrar och skäl till att de kom till Norge. Små grupper kan ändras mycket mellan perioder. Alla lovbrott räknas, även trafikbrott.',
+      'SSB reports only countries with many immigrants in Norway. The rates cover all ages and are not adjusted for age or sex, and the groups differ a lot in age and in why they came to Norway. Small groups can change a lot between periods. All offences are counted, including traffic offences.',
+      'SSB oppgir bare land med mange innvandrere i Norge. Tallene gjelder alle aldre og er ikke justert for alder eller kjønn, og gruppene er svært ulike i alder og i hvorfor de kom til Norge. Små grupper kan endre seg mye mellom perioder. Alle lovbrudd telles, også trafikkovertredelser.',
+    )}
+  </Fragment>
+  <Fragment slot="source">
+    {L('Källa: SSB (Statistisk sentralbyrå), ', 'Source: Statistics Norway (SSB), ', 'Kilde: SSB, ')}<a href={SOURCES.ssbSiktede.url}>Siktelser og siktede personer etter innvandringsbakgrunn</a>{L(
+      `, tabell 3. Årligt genomsnitt ${p}.`,
+      `, table 3. Yearly average ${p}.`,
+      `, tabell 3. Årlig gjennomsnitt ${p}.`,
+    )}
+  </Fragment>
+  <SubChart
+    slot="after"
+    id="kap16-norskfodte"
+    lang={lang}
+    title={L(
+      `Barn till två invandrare: från ${n1(norMin)} till ${n1(norMax)} gånger övriga befolkningens tal, beroende på föräldrarnas födelseland`,
+      `Norwegian-born to immigrant parents: from ${n1(norMin)} to ${n1(norMax)} times the rest of the population’s rate, depending on the parents’ country of birth`,
+      `Norskfødte med innvandrerforeldre: fra ${n1(norMin)} til ${n1(norMax)} ganger befolkningen ellers, avhengig av foreldrenes landbakgrunn`,
+    )}
+  >
+    <Fragment slot="intro">
+      {L(
+        `SSB redovisar ${nor.length} länder för barn till två invandrare. Högst: ${list(names(nor.slice(0, 2)))}. Lägst: ${countryLabel(nor[nor.length - 1].group, lang)} (${n1(norMin)}).`,
+        `SSB reports ${nor.length} countries for the Norwegian-born to immigrant parents. Highest: ${list(names(nor.slice(0, 2)))}. Lowest: ${countryLabel(nor[nor.length - 1].group, lang)} (${n1(norMin)}).`,
+        `SSB oppgir ${nor.length} land for norskfødte med innvandrerforeldre. Høyest: ${list(names(nor.slice(0, 2)))}. Lavest: ${countryLabel(nor[nor.length - 1].group, lang)} (${n1(norMin)}).`,
+      )}
+    </Fragment>
+    <Legend slot="legend" items={legend('norskfodte')} />
+    <BarChart spec={buildKap16Spec(d, 'norskfodte', lang)} />
+    <Fragment slot="note">
+      {L(
+        'Landbakgrund är föräldrarnas födelseland. Barn till två invandrare är i genomsnitt mycket unga, så talen i alla åldrar säger lite om hur vanligt det är bland vuxna. Talen för män 15–24 år finns i tabellen.',
+        'Country background is the parents’ country of birth. The Norwegian-born to immigrant parents are on average very young, so rates across all ages say little about how common it is among adults. The rates for men aged 15–24 are in the table.',
+        'Landbakgrunn er foreldrenes fødeland. Norskfødte med innvandrerforeldre er i gjennomsnitt svært unge, så tall for alle aldre sier lite om hvor vanlig det er blant voksne. Tallene for menn 15–24 år står i tabellen.',
+      )}
+    </Fragment>
+    <Fragment slot="source">
+      {L('Källa: SSB, ', 'Source: Statistics Norway (SSB), ', 'Kilde: SSB, ')}<a href={SOURCES.ssbSiktede.url}>Siktelser og siktede personer etter innvandringsbakgrunn</a>{L(', tabell 3.', ', table 3.', ', tabell 3.')}
+    </Fragment>
+  </SubChart>
+</Chapter>

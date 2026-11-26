@@ -20,6 +20,8 @@ import {
   loadDkGuilty,
   loadDkIndex,
   loadDkPopulation,
+  loadFiSuspects,
+  loadNoCharged,
 } from './data';
 import { chapter } from './chapters';
 import { buildKap1Data, crimeById, crimeName, type GroupId } from './chapters/kap1';
@@ -38,9 +40,12 @@ import { backgroundTables, flagged, kap6Csv, pooled, regionTables, yearTables } 
 import { kap4Tables } from './chapters/kap4Tables';
 import { buildKap11, kap11Tables, rateAt, ratioToAll } from './chapters/kap11';
 import { buildKap12, indexAt, kap12Tables, pageOf } from './chapters/kap12';
+import { buildKap13, fiPersons, fiRate, fiRatio, kap13Tables } from './chapters/kap13';
+import { ageRatio, ageYear, kap14Tables, MIN_PERSONS } from './chapters/kap14';
+import { buildNo, catRow, countriesByRate, countryLabel, kap15Tables, kap16Tables, need, noCsv } from './chapters/kap15';
 import { kap5Csv, kap5Tables } from './chapters/kap5Tables';
 import { formatNumber } from './format';
-import { tr, type Lang } from './i18n';
+import { tr, type BaseLang as Lang } from './i18n';
 import { dataLabel } from './labels';
 import { SOURCES } from './sources';
 import { tablesToCsv, type DataTable } from './tables';
@@ -1124,7 +1129,232 @@ function kap12(lang: Lang): TablePageContent {
   };
 }
 
-const BUILDERS: Record<string, (lang: Lang) => TablePageContent> = { kap1, kap2, kap3, kap4, kap5, kap6, kap7, kap8, kap9, kap10, kap11, kap12 };
+const FI_TERMS = {
+  sv: 'Statistikcentralen låter alla använda sina data fritt enligt CC BY 4.0, om Statistikcentralen anges som källa.',
+  en: 'Statistics Finland lets anyone use its data freely under CC BY 4.0, if Statistics Finland is named as the source.',
+};
+
+/** What the Finnish figures count, for the notes on both Finland table pages. */
+function fiCountNote(lang: Lang): string {
+  return tr(
+    lang,
+    'Misstänkta för brott mot strafflagen som polisen har klarat upp. Varje person räknas en gång per år, efter sitt allvarligaste brott, och bara personer med finsk personbeteckning räknas. Asylsökande ingår inte i befolkningen. ' +
+      'Utländsk bakgrund betyder att båda föräldrarna, eller den enda kända föräldern, är födda utomlands; den som har en förälder född i Finland har finländsk bakgrund. ' +
+      'Talen per 1 000 är Statistikcentralens tal per 10 000 invånare i gruppen, delade med 10. Statistikcentralen anger dem med en decimal, så här har de två.',
+    'People suspected of criminal code offences the police have solved. Each person is counted once a year, by their most serious offence, and only people with a Finnish personal identity code are counted. Asylum seekers are not part of the population. ' +
+      'A foreign background means that both parents, or the only known parent, were born abroad; anyone with a parent born in Finland has a Finnish background. ' +
+      'The rates per 1,000 are Statistics Finland’s rates per 10,000 residents in the group, divided by 10. Statistics Finland gives them to one decimal, so here they have two.',
+  );
+}
+
+function kap13(lang: Lang): TablePageContent {
+  const T = <X,>(sv: X, en: X): X => tr(lang, sv, en);
+  const n1 = (v: number) => formatNumber(v, 1, lang);
+  const n0 = (v: number) => formatNumber(v, 0, lang);
+  const k = buildKap13(loadFiSuspects());
+  const tables = kap13Tables(k, lang);
+  const [all, men, women, counts] = tables;
+  const { firstYear: first, lastYear: last } = k;
+  const period = `${first}–${last}`;
+  const r = (o: Parameters<typeof fiRate>[2]) => fiRate(k, last, o);
+  return {
+    chapterId: 'kap13',
+    lang,
+    h1: T(`Misstänkta för brott i Finland efter bakgrund, ${period}`, `People suspected of crime in Finland by origin, ${period}`),
+    shortTitle: T(`Misstänkta i Finland ${period}: tabell`, `Suspects in Finland ${period}: table`),
+    description: T(
+      `Misstänkta för brott mot strafflagen i Finland ${period}, per 1 000 invånare och i antal, efter finländsk och utländsk bakgrund och födelseland, enligt Statistikcentralen. Tabell och CSV-fil.`,
+      `People suspected of criminal code offences in Finland, ${period}, per 1,000 residents and in numbers, by Finnish and foreign background and country of birth, according to Statistics Finland. Table and CSV file.`,
+    ),
+    datasetDescription: T(
+      `Personer misstänkta för brott mot strafflagen i Finland under året, ${period}, efter Statistikcentralens grupper för bakgrund: finländsk och utländsk bakgrund, födda i Finland eller utomlands. Antal och Statistikcentralens tal per invånare, för båda könen och för män och kvinnor, alla åldrar. Inte justerat för ålder.`,
+      `People suspected of criminal code offences in Finland during the year, ${period}, by Statistics Finland’s origin groups: Finnish and foreign background, born in Finland or abroad. Numbers and Statistics Finland’s rates per resident, for both sexes and for men and women, all ages. Not adjusted for age.`,
+    ),
+    temporalCoverage: `${first}/${last}`,
+    keywords: T(
+      ['Finland', 'misstänkta', 'brott', 'utländsk bakgrund', 'Statistikcentralen', '13zk'],
+      ['Finland', 'suspects', 'crime', 'foreign background', 'Statistics Finland', '13zk'],
+    ),
+    variableMeasured: [...new Set(tables.flatMap((t) => t.columns).map((c) => c.label))],
+    sources: [SOURCES.tk13zk],
+    credit: T('Statistikcentralen', 'Statistics Finland'),
+    terms: T(FI_TERMS.sv, FI_TERMS.en),
+    lead: T(
+      `År ${last} misstänktes ${n1(r('utl_fodd_utl'))} per 1 000 personer med utländsk bakgrund födda utomlands i Finland för brott mot strafflagen, ${n1(fiRatio(k, last, 'utl_fodd_utl'))} gånger så många som i hela befolkningen (${n1(r('alla'))} per 1 000). ` +
+        `Bland personer med utländsk bakgrund födda i Finland var talet ${n1(r('utl_fodd_fi'))}, och bland personer med finländsk bakgrund födda i Finland ${n1(r('fi_fodd_fi'))}. Källa: Statistikcentralen.`,
+      `In ${last}, ${n1(r('utl_fodd_utl'))} per 1,000 people with a foreign background born abroad in Finland were suspected of a criminal code offence, ${n1(fiRatio(k, last, 'utl_fodd_utl'))} times the rate in the whole population (${n1(r('alla'))} per 1,000). ` +
+        `Among people with a foreign background born in Finland the rate was ${n1(r('utl_fodd_fi'))}, and among people with a Finnish background born in Finland ${n1(r('fi_fodd_fi'))}. Source: Statistics Finland.`,
+    ),
+    note: T(
+      `${fiCountNote('sv')} Talen gäller alla åldrar och är inte justerade för ålder; personer med utländsk bakgrund födda i Finland är i genomsnitt mycket unga. ` +
+        `Personer med okänd bakgrund (${n0(fiPersons(k, last, 'okand'))} år ${last}) har inget tal per invånare, eftersom de inte finns i befolkningen. De räknas med i hela befolkningens tal.`,
+      `${fiCountNote('en')} The rates cover all ages and are not adjusted for age; people with a foreign background born in Finland are on average very young. ` +
+        `People whose origin is unknown (${n0(fiPersons(k, last, 'okand'))} in ${last}) have no rate, because they are not in the population. They are counted in the whole population’s rate.`,
+    ),
+    sections: [
+      { heading: T('Per 1 000 invånare', 'Per 1,000 residents'), tables: [all] },
+      { heading: T('Män och kvinnor, per 1 000', 'Men and women, per 1,000'), tables: [men, women], collapsed: true },
+      { heading: T('Antal misstänkta', 'Number of suspects'), tables: [counts], collapsed: true },
+    ],
+    csv: tablesToCsv(tables, lang),
+    dataFiles: ['tk_misstankta_ursprung.csv'],
+  };
+}
+
+function kap14(lang: Lang): TablePageContent {
+  const T = <X,>(sv: X, en: X): X => tr(lang, sv, en);
+  const n1 = (v: number) => formatNumber(v, 1, lang);
+  const k = buildKap13(loadFiSuspects());
+  const y = ageYear(k);
+  const tables = kap14Tables(k, lang);
+  const [men, women, menCount, womenCount] = tables;
+  const rr = (a: '21-24') => ageRatio(k, 'man', a, 'utl_fodd_fi');
+  return {
+    chapterId: 'kap14',
+    lang,
+    h1: T(`Misstänkta för brott i Finland efter ålder och bakgrund, ${y}`, `People suspected of crime in Finland by age and origin, ${y}`),
+    shortTitle: T(`Misstänkta i Finland efter ålder ${y}: tabell`, `Suspects in Finland by age ${y}: table`),
+    description: T(
+      `Misstänkta för brott mot strafflagen i Finland ${y}, per 1 000 i varje åldersgrupp och i antal, för män och kvinnor efter finländsk och utländsk bakgrund. Tabell och CSV-fil.`,
+      `People suspected of criminal code offences in Finland, ${y}, per 1,000 in each age group and in numbers, for men and women by Finnish and foreign background. Table and CSV file.`,
+    ),
+    datasetDescription: T(
+      `Män och kvinnor misstänkta för brott mot strafflagen i Finland ${y}, efter åldersgrupp och Statistikcentralens grupper för bakgrund: finländsk bakgrund födda i Finland, och utländsk bakgrund födda utomlands eller i Finland. Antal och Statistikcentralens tal per invånare i samma grupp och ålder.`,
+      `Men and women suspected of criminal code offences in Finland, ${y}, by age group and Statistics Finland’s origin groups: Finnish background born in Finland, and foreign background born abroad or in Finland. Numbers and Statistics Finland’s rates per resident of the same group and age.`,
+    ),
+    temporalCoverage: `${y}/${y}`,
+    keywords: T(
+      ['Finland', 'misstänkta', 'ålder', 'utländsk bakgrund', 'Statistikcentralen', '13zk'],
+      ['Finland', 'suspects', 'age', 'foreign background', 'Statistics Finland', '13zk'],
+    ),
+    variableMeasured: [...new Set(tables.flatMap((t) => t.columns).map((c) => c.label))],
+    sources: [SOURCES.tk13zk],
+    credit: T('Statistikcentralen', 'Statistics Finland'),
+    terms: T(FI_TERMS.sv, FI_TERMS.en),
+    lead: T(
+      `Bland män 21–24 år i Finland misstänktes ${n1(fiRate(k, y, 'utl_fodd_fi', 'man', '21-24'))} per 1 000 med utländsk bakgrund födda i Finland för brott mot strafflagen ${y}, ${n1(rr('21-24'))} gånger så många som bland jämnåriga med finländsk bakgrund födda i Finland (${n1(fiRate(k, y, 'fi_fodd_fi', 'man', '21-24'))}). Källa: Statistikcentralen.`,
+      `Among men aged 21–24 in Finland, ${n1(fiRate(k, y, 'utl_fodd_fi', 'man', '21-24'))} per 1,000 with a foreign background born in Finland were suspected of a criminal code offence in ${y}, ${n1(rr('21-24'))} times the rate among men of the same age with a Finnish background born in Finland (${n1(fiRate(k, y, 'fi_fodd_fi', 'man', '21-24'))}). Source: Statistics Finland.`,
+    ),
+    note: T(
+      `${fiCountNote('sv')} Jämförelsen inom samma ålder och kön tar inte hänsyn till annat, som inkomst eller utbildning. ` +
+        `I diagrammet visas inte tal som bygger på färre än ${MIN_PERSONS} misstänkta, eftersom de är osäkra. Här finns alla, med antalet misstänkta. Under 15 år är man inte straffmyndig i Finland, och den åldern är inte med.`,
+      `${fiCountNote('en')} The comparison within the same age and sex takes nothing else into account, such as income or education. ` +
+        `The chart leaves out rates based on fewer than ${MIN_PERSONS} suspects, because they are uncertain. All are here, with the number of suspects. People under 15 cannot be held criminally responsible in Finland, and that age is not included.`,
+    ),
+    sections: [
+      { heading: T('Per 1 000 i samma ålder', 'Per 1,000 of the same age'), tables: [men, women] },
+      { heading: T('Antal misstänkta', 'Number of suspects'), tables: [menCount, womenCount], collapsed: true },
+    ],
+    csv: tablesToCsv(tables, lang),
+    dataFiles: ['tk_misstankta_ursprung.csv'],
+  };
+}
+
+const NO_TERMS = {
+  sv: 'SSB låter alla använda sina data fritt enligt CC BY 4.0, om SSB anges som källa.',
+  en: 'Statistics Norway lets anyone use its data freely under CC BY 4.0, if Statistics Norway (SSB) is named as the source.',
+};
+
+/** What the Norwegian figures count, for the notes on both Norway table pages. */
+function noCountNote(lang: Lang, notResident: number): string {
+  const n0 = (v: number) => formatNumber(v, 0, lang);
+  return tr(
+    lang,
+    'Siktade: personer som polisen eller åklagaren i sitt slutliga beslut anser har begått ett lovbrott. Det är inte en dom. Alla lovbrott räknas, även trafikbrott, och varje person räknas en gång per år. Antalen är årliga genomsnitt och kan därför ha decimaler hos SSB; här är de avrundade till heltal. ' +
+      `Talen per 1 000 invånare och gånger övriga befolkningen är SSB:s egna. Personer som inte bor i Norge (i genomsnitt ${n0(notResident)} om året) har inget tal per invånare. ` +
+      'Invandrare är födda utomlands med två föräldrar födda utomlands. Barn till två invandrare (norskfødte med innvandrerforeldre) är födda i Norge med två föräldrar födda utomlands. Övriga befolkningen är alla andra som bor i Norge, också den som har en förälder född utomlands. ' +
+      'Tomma celler: SSB redovisar inte små tal. Talen gäller alla åldrar, utom kolumnerna för män 15–24 år, och är inte justerade för ålder.',
+    'Charged: people the police or prosecution, in their final decision, find to have committed an offence. It is not a conviction. All offences are counted, including traffic offences, and each person is counted once a year. The numbers are yearly averages, so SSB gives them with decimals; here they are rounded to whole numbers. ' +
+      `The rates per 1,000 residents and the times the rest of the population are SSB’s own. People not living in Norway (on average ${n0(notResident)} a year) have no rate. ` +
+      'Immigrants were born abroad to two parents born abroad. The Norwegian-born to immigrant parents (norskfødte med innvandrerforeldre) were born in Norway to two parents born abroad. The rest of the population is everyone else living in Norway, including people with one parent born abroad. ' +
+      'Empty cells: SSB does not report small numbers. The rates cover all ages, except the columns for men aged 15–24, and are not adjusted for age.',
+  );
+}
+
+function kap15(lang: Lang): TablePageContent {
+  const T = <X,>(sv: X, en: X): X => tr(lang, sv, en);
+  const n1 = (v: number) => formatNumber(v, 1, lang);
+  const d = buildNo(loadNoCharged());
+  const tables = kap15Tables(d, lang);
+  const [cats, imm, nor] = tables;
+  const p = d.period;
+  const rate = (c: 'ovrige' | 'innvandrere' | 'norskfodte') => need(catRow(d, c).per1000, c);
+  const ratio = (c: 'innvandrere' | 'norskfodte') => need(catRow(d, c).ratio, c);
+  const notResident = need(d.rows.find((r) => r.category === 'ikke_bosatt')?.persons ?? null, 'not resident');
+  return {
+    chapterId: 'kap15',
+    lang,
+    h1: T(`Misstänkta (siktade) för brott i Norge efter invandringsbakgrund, ${p}`, `People charged with offences in Norway by immigrant background, ${p}`),
+    shortTitle: T(`Misstänkta i Norge ${p}: tabell`, `Charged in Norway ${p}: table`),
+    description: T(
+      `Siktade i Norge, årligt genomsnitt ${p}, per 1 000 invånare och i antal, för invandrare, barn till två invandrare och övriga befolkningen, efter landgrupp och världsdel, också för män 15–24 år. Från SSB. Tabell och CSV-fil.`,
+      `People charged in Norway, yearly average ${p}, per 1,000 residents and in numbers, for immigrants, the Norwegian-born to immigrant parents and the rest of the population, by country group and world region, also for men aged 15–24. From Statistics Norway. Table and CSV file.`,
+    ),
+    datasetDescription: T(
+      `Personer siktade för lovbrott i Norge, årligt genomsnitt ${p}, efter SSB:s grupper för invandringsbakgrund och landbakgrund (två landgrupper och fyra världsdelar). Antal, SSB:s tal per 1 000 invånare och SSB:s kvot mot övriga befolkningen, för alla och för män 15–24 år.`,
+      `People charged with offences in Norway, yearly average ${p}, by Statistics Norway’s groups for immigrant background and country background (two country groups and four world regions). Numbers, Statistics Norway’s rates per 1,000 residents and its ratio to the rest of the population, for everyone and for men aged 15–24.`,
+    ),
+    temporalCoverage: '2021/2023',
+    keywords: T(['Norge', 'siktade', 'brott', 'invandrare', 'SSB'], ['Norway', 'charged', 'crime', 'immigrants', 'Statistics Norway']),
+    variableMeasured: [...new Set(tables.flatMap((t) => t.columns).map((c) => c.label))],
+    sources: [SOURCES.ssbSiktede],
+    credit: 'SSB',
+    terms: T(NO_TERMS.sv, NO_TERMS.en),
+    lead: T(
+      `I Norge siktades i genomsnitt ${n1(rate('innvandrere'))} per 1 000 invandrare om året ${p}, ${n1(ratio('innvandrere'))} gånger så många som i övriga befolkningen (${n1(rate('ovrige'))} per 1 000). Bland barn till två invandrare födda i Norge var talet ${n1(rate('norskfodte'))}. Källa: SSB.`,
+      `In Norway, on average ${n1(rate('innvandrere'))} per 1,000 immigrants a year were charged with an offence in ${p}, ${n1(ratio('innvandrere'))} times the rate in the rest of the population (${n1(rate('ovrige'))} per 1,000). Among the Norwegian-born to immigrant parents the rate was ${n1(rate('norskfodte'))}. Source: Statistics Norway.`,
+    ),
+    note: noCountNote(lang, notResident),
+    sections: [
+      { heading: T('Efter invandringsbakgrund', 'By immigrant background'), tables: [cats] },
+      { heading: T('Efter landbakgrund', 'By country background'), tables: [imm, nor] },
+    ],
+    csv: noCsv(d, 'kap15', lang),
+    dataFiles: ['ssb_siktede.csv'],
+  };
+}
+
+function kap16(lang: Lang): TablePageContent {
+  const T = <X,>(sv: X, en: X): X => tr(lang, sv, en);
+  const n1 = (v: number) => formatNumber(v, 1, lang);
+  const d = buildNo(loadNoCharged());
+  const tables = kap16Tables(d, lang);
+  const p = d.period;
+  const imm = countriesByRate(d, 'innvandrere');
+  const top = imm[0];
+  const bottom = imm[imm.length - 1];
+  const notResident = need(d.rows.find((r) => r.category === 'ikke_bosatt')?.persons ?? null, 'not resident');
+  return {
+    chapterId: 'kap16',
+    lang,
+    h1: T(`Misstänkta (siktade) för brott i Norge efter födelseland, ${p}`, `People charged with offences in Norway by country of birth, ${p}`),
+    shortTitle: T(`Misstänkta i Norge efter land ${p}: tabell`, `Charged in Norway by country ${p}: table`),
+    description: T(
+      `Siktade i Norge, årligt genomsnitt ${p}, per 1 000 invånare och i antal, för invandrare och barn till två invandrare efter land. Från SSB. Tabell och CSV-fil.`,
+      `People charged in Norway, yearly average ${p}, per 1,000 residents and in numbers, for immigrants and the Norwegian-born to immigrant parents by country. From Statistics Norway. Table and CSV file.`,
+    ),
+    datasetDescription: T(
+      `Personer siktade för lovbrott i Norge, årligt genomsnitt ${p}, för invandrare och barn till två invandrare efter landbakgrund, för de länder SSB redovisar. Antal, SSB:s tal per 1 000 invånare och SSB:s kvot mot övriga befolkningen, för alla och för män 15–24 år.`,
+      `People charged with offences in Norway, yearly average ${p}, for immigrants and the Norwegian-born to immigrant parents by country background, for the countries Statistics Norway reports. Numbers, Statistics Norway’s rates per 1,000 residents and its ratio to the rest of the population, for everyone and for men aged 15–24.`,
+    ),
+    temporalCoverage: '2021/2023',
+    keywords: T(['Norge', 'siktade', 'födelseland', 'invandrare', 'SSB'], ['Norway', 'charged', 'country of birth', 'immigrants', 'Statistics Norway']),
+    variableMeasured: [...new Set(tables.flatMap((t) => t.columns).map((c) => c.label))],
+    sources: [SOURCES.ssbSiktede],
+    credit: 'SSB',
+    terms: T(NO_TERMS.sv, NO_TERMS.en),
+    lead: T(
+      `Bland invandrare i Norge var talet ${p} högst för dem från ${countryLabel(top.group, lang)}, ${n1(top.per1000 as number)} per 1 000 om året eller ${n1(top.ratio as number)} gånger övriga befolkningens, och lägst för dem från ${countryLabel(bottom.group, lang)}, ${n1(bottom.per1000 as number)}. Källa: SSB.`,
+      `Among immigrants in Norway in ${p}, the rate was highest for those from ${countryLabel(top.group, lang)}, ${n1(top.per1000 as number)} per 1,000 a year or ${n1(top.ratio as number)} times the rest of the population’s, and lowest for those from ${countryLabel(bottom.group, lang)}, ${n1(bottom.per1000 as number)}. Source: Statistics Norway.`,
+    ),
+    note: `${noCountNote(lang, notResident)} ${T('SSB redovisar bara länder med många invandrare i Norge.', 'Statistics Norway reports only countries with many immigrants in Norway.')}`,
+    sections: [{ heading: T('Efter land', 'By country'), tables }],
+    csv: noCsv(d, 'kap16', lang),
+    dataFiles: ['ssb_siktede.csv'],
+  };
+}
+
+const BUILDERS: Record<string, (lang: Lang) => TablePageContent> = { kap1, kap2, kap3, kap4, kap5, kap6, kap7, kap8, kap9, kap10, kap11, kap12, kap13, kap14, kap15, kap16 };
 const cache = new Map<string, TablePageContent>();
 
 /** The text and tables for one table page in one language. */

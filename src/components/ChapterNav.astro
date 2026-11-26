@@ -3,8 +3,8 @@
 // On the front page, once the big headline has scrolled out of view, a small site title slides in
 // at the left, so the headline appears to shrink into the bar. On other pages the small title always
 // shows. The bar never changes height, so the page does not jump.
-import { aboutPath, faqPath, methodPath, parts, type PartId } from '../lib/parts';
-import { localePath, tr, type Lang } from '../lib/i18n';
+import { aboutPath, faqPath, methodPath, partPath, parts, type PartId } from '../lib/parts';
+import { linkLang, localePath, pick, tr, type Lang } from '../lib/i18n';
 
 interface Props {
   /** True on the front page only. */
@@ -14,16 +14,19 @@ interface Props {
   lang: Lang;
 }
 const { home = false, current, lang } = Astro.props;
-const frontPage = localePath(lang, '/');
+// On a country page (Danish, Finnish, Norwegian) the labels are in that language, and the links lead to the
+// English pages, except the country's own part page.
+const base = linkLang(lang);
+const frontPage = localePath(base, '/');
 const items = [
-  ...parts.map((p) => ({ id: p.id as string, num: String(p.num), label: p.title[lang], href: p.path[lang] })),
-  { id: 'faq', num: '', label: tr(lang, 'Frågor', 'Q&A'), href: faqPath[lang] },
-  { id: 'metod', num: '', label: tr(lang, 'Metod', 'Method'), href: methodPath[lang] },
-  { id: 'om', num: '', label: tr(lang, 'Om sidan', 'About'), href: aboutPath[lang] },
+  ...parts.map((p) => ({ id: p.id as string, num: String(p.num), label: pick(p.title, lang), href: partPath(p, lang) })),
+  { id: 'faq', num: '', label: tr(lang, 'Frågor', 'Q&A', { da: 'Spørgsmål', fi: 'Kysymykset', nb: 'Spørsmål' }), href: faqPath[base] },
+  { id: 'metod', num: '', label: tr(lang, 'Metod', 'Method', { da: 'Metode', fi: 'Menetelmä', nb: 'Metode' }), href: methodPath[base] },
+  { id: 'om', num: '', label: tr(lang, 'Om sidan', 'About', { da: 'Om siden', fi: 'Tietoa sivustosta', nb: 'Om siden' }), href: aboutPath[base] },
 ];
 ---
 
-<nav aria-label={tr(lang, 'Huvudmeny', 'Main menu')} class:list={['chapter-nav', { 'is-compact': !home }]} data-chapter-nav>
+<nav aria-label={tr(lang, 'Huvudmeny', 'Main menu', { da: 'Hovedmenu', fi: 'Päävalikko', nb: 'Hovedmeny' })} class:list={['chapter-nav', { 'is-compact': !home }]} data-chapter-nav>
   <div class="row">
     {
       home ? (

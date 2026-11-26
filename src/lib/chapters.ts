@@ -1,28 +1,28 @@
 // Chapter list, shared by the chapter kickers, the part pages, the table pages and the "Next" links.
 // Which part a chapter is in, and its number ("1.2"), come from src/lib/parts.ts.
-import type { Lang } from './i18n';
-import { aboutPath, methodPath, parts, partOf } from './parts';
+import { linkLang, pick, tr, type Lang, type Text } from './i18n';
+import { aboutPath, methodPath, parts, partOf, partPath } from './parts';
 
 export interface ChapterInfo {
   id: string;
   /** Part number and place in the part, e.g. "1.2". */
   num: string;
-  navLabel: Record<Lang, string>;
-  kicker: Record<Lang, string>;
-  nextLabel: Record<Lang, string>;
+  navLabel: Text;
+  kicker: Text;
+  nextLabel: Text;
 }
 
 const labels: Omit<ChapterInfo, 'num'>[] = [
   {
     id: 'kap1',
     navLabel: { sv: 'Över tid', en: 'Over time' },
-    kicker: { sv: 'Misstänkta över tid', en: 'Suspects over time' },
+    kicker: { sv: 'Misstänkta över tid', en: 'Suspects over time', da: 'Mistænkte i Sverige over tid', fi: 'Epäillyt Ruotsissa ajan mittaan', nb: 'Mistenkte i Sverige over tid' },
     nextLabel: { sv: 'Över tid', en: 'Over time' },
   },
   {
     id: 'kap2',
     navLabel: { sv: 'Födelseområde', en: 'Birth region' },
-    kicker: { sv: 'Födelseområde', en: 'Birth region' },
+    kicker: { sv: 'Födelseområde', en: 'Birth region', da: 'Fødeområde, Sverige', fi: 'Syntymäalue, Ruotsi', nb: 'Fødeområde, Sverige' },
     nextLabel: { sv: 'Födelseområde', en: 'Birth region' },
   },
   {
@@ -64,20 +64,44 @@ const labels: Omit<ChapterInfo, 'num'>[] = [
   {
     id: 'kap9',
     navLabel: { sv: 'Före 25 år', en: 'Before 25' },
-    kicker: { sv: 'Lagförda före 25 års ålder', en: 'Convicted before age 25' },
+    kicker: { sv: 'Lagförda före 25 års ålder', en: 'Convicted before age 25', da: 'Dømt i Sverige før 25 år', fi: 'Tuomitut Ruotsissa ennen 25 vuoden ikää', nb: 'Domfelt i Sverige før 25 år' },
     nextLabel: { sv: 'Lagförda före 25 års ålder', en: 'Convicted before age 25' },
   },
   {
     id: 'kap11',
     navLabel: { sv: 'Lagförda i Danmark', en: 'Convicted in Denmark' },
-    kicker: { sv: 'Lagförda i Danmark', en: 'Convicted in Denmark' },
-    nextLabel: { sv: 'Lagförda i Danmark', en: 'Convicted in Denmark' },
+    kicker: { sv: 'Lagförda i Danmark', en: 'Convicted in Denmark', da: 'Dømte i Danmark', fi: 'Tuomitut Tanskassa', nb: 'Domfelte i Danmark' },
+    nextLabel: { sv: 'Lagförda i Danmark', en: 'Convicted in Denmark', da: 'Dømte i Danmark', fi: 'Tuomitut Tanskassa' },
   },
   {
     id: 'kap12',
     navLabel: { sv: 'Justerat för ålder', en: 'Adjusted for age' },
-    kicker: { sv: 'Justerat för ålder och sociala förhållanden', en: 'Adjusted for age and social factors' },
-    nextLabel: { sv: 'Justerat för ålder och sociala förhållanden', en: 'Adjusted for age and social factors' },
+    kicker: { sv: 'Justerat för ålder och sociala förhållanden', en: 'Adjusted for age and social factors', da: 'Justeret for alder og sociale forhold', fi: 'Tanska: iän ja sosiaalisten tekijöiden mukaan vakioituna' },
+    nextLabel: { sv: 'Justerat för ålder och sociala förhållanden', en: 'Adjusted for age and social factors', da: 'Justeret for alder og sociale forhold' },
+  },
+  {
+    id: 'kap13',
+    navLabel: { sv: 'Misstänkta i Finland', en: 'Suspects in Finland' },
+    kicker: { sv: 'Misstänkta i Finland', en: 'Suspects in Finland', da: 'Mistænkte i Finland', fi: 'Rikoksesta epäillyt Suomessa', nb: 'Mistenkte i Finland' },
+    nextLabel: { sv: 'Misstänkta i Finland', en: 'Suspects in Finland', da: 'Mistænkte i Finland', fi: 'Rikoksesta epäillyt Suomessa' },
+  },
+  {
+    id: 'kap14',
+    navLabel: { sv: 'Efter ålder', en: 'By age' },
+    kicker: { sv: 'Efter ålder', en: 'By age', fi: 'Ikäryhmittäin' },
+    nextLabel: { sv: 'Efter ålder', en: 'By age', fi: 'Ikäryhmittäin' },
+  },
+  {
+    id: 'kap15',
+    navLabel: { sv: 'Misstänkta i Norge', en: 'Charged in Norway' },
+    kicker: { sv: 'Misstänkta i Norge', en: 'Charged in Norway', da: 'Sigtede i Norge', fi: 'Syytetyt Norjassa', nb: 'Siktede i Norge' },
+    nextLabel: { sv: 'Misstänkta i Norge', en: 'Charged in Norway', da: 'Sigtede i Norge', fi: 'Syytetyt Norjassa', nb: 'Siktede i Norge' },
+  },
+  {
+    id: 'kap16',
+    navLabel: { sv: 'Efter land', en: 'By country' },
+    kicker: { sv: 'Efter födelseland', en: 'By country of birth', nb: 'Etter landbakgrunn' },
+    nextLabel: { sv: 'Efter födelseland', en: 'By country of birth', nb: 'Etter landbakgrunn' },
   },
 ];
 
@@ -103,10 +127,10 @@ export function chapter(id: string): ChapterInfo {
   return c;
 }
 
-/** Link to a chapter on its part's page, e.g. "/misstankta/#kap2". */
+/** Link to a chapter on its part's page, e.g. "/misstankta/#kap2". From a country page, chapters on other pages link to the English page. */
 export function chapterHref(id: string, lang: Lang): string {
   const c = chapter(id);
-  return `${partOf(c.id).path[lang]}#${c.id}`;
+  return `${partPath(partOf(c.id), lang)}#${c.id}`;
 }
 
 /**
@@ -118,11 +142,14 @@ export function nextLink(id: string, lang: Lang): { href: string; label: string 
   const i = p.chapters.indexOf(id);
   if (i < p.chapters.length - 1) {
     const next = chapter(p.chapters[i + 1]);
-    return { href: `#${next.id}`, label: next.nextLabel[lang] };
+    return { href: `#${next.id}`, label: pick(next.nextLabel, lang) };
   }
   const np = parts[parts.indexOf(p) + 1];
-  if (np) return { href: np.path[lang], label: np.title[lang] };
-  return { href: methodPath[lang], label: lang === 'sv' ? 'Metod och begrepp' : 'Method and terms' };
+  if (np) return { href: partPath(np, lang), label: pick(np.title, lang) };
+  return {
+    href: methodPath[linkLang(lang)],
+    label: tr(lang, 'Metod och begrepp', 'Method and terms', { da: 'Metode og begreber (på engelsk)', fi: 'Menetelmät ja käsitteet (englanniksi)', nb: 'Metode og begreper (på engelsk)' }),
+  };
 }
 
 export { aboutPath, methodPath };

@@ -4,7 +4,7 @@
 import { round, shareOfTotalPct } from '../calc';
 import type { SuspicionGroup, SuspicionRow } from '../data';
 import { fmt, type LineChartSpec, type LineSeries } from '../charts/line';
-import { tr, type Lang } from '../i18n';
+import { tr, type BaseLang as Lang } from '../i18n';
 import { dataLabel } from '../labels';
 import type { DataTable } from '../tables';
 import { GROUPS } from './kap1';

@@ -5,10 +5,8 @@ import { meanPopulation, per1000, ratioToComparison } from '../calc';
 import type { DkGroup, DkGuiltyRow, DkOffence, DkPopulationRow } from '../data';
 import type { LineChartSpec, LineSeries } from '../charts/line';
 import { formatNumber } from '../format';
-import { tr, type Lang } from '../i18n';
+import { pick, tr, type BaseLang, type Lang, type Text } from '../i18n';
 import type { DataTable } from '../tables';
-
-type Text = Record<Lang, string>;
 
 export interface Kap11 {
   years: number[];
@@ -27,7 +25,6 @@ export interface Kap11 {
 interface GroupStyle {
   label: Text;
   endLabel: Text;
-  endLabelShort: Text;
   color: string;
   textColor: string;
   strokeWidth: number;
@@ -39,49 +36,43 @@ export const DK_ORDER: DkGroup[] = ['eftk_ikkevest', 'indv_ikkevest', 'eftk_vest
 
 export const DK_STYLE: Record<DkGroup, GroupStyle> = {
   eftk_ikkevest: {
-    label: { sv: 'Barn till invandrare från icke-västliga länder', en: 'Descendants of immigrants from non-Western countries' },
-    endLabel: { sv: 'barn till inv., icke-västliga', en: 'descendants, non-Western' },
-    endLabelShort: { sv: '', en: '' },
+    label: { sv: 'Barn till invandrare från icke-västliga länder', en: 'Descendants of immigrants from non-Western countries', da: 'Efterkommere fra ikke-vestlige lande' },
+    endLabel: { sv: 'barn till inv., icke-västliga', en: 'descendants, non-Western', da: 'efterkommere, ikke-vestlige' },
     color: '#C2410C',
     textColor: '#C2410C',
     strokeWidth: 2.5,
   },
   indv_ikkevest: {
-    label: { sv: 'Invandrare från icke-västliga länder', en: 'Immigrants from non-Western countries' },
-    endLabel: { sv: 'invandrare, icke-västliga', en: 'immigrants, non-Western' },
-    endLabelShort: { sv: '', en: '' },
+    label: { sv: 'Invandrare från icke-västliga länder', en: 'Immigrants from non-Western countries', da: 'Indvandrere fra ikke-vestlige lande' },
+    endLabel: { sv: 'invandrare, icke-västliga', en: 'immigrants, non-Western', da: 'indvandrere, ikke-vestlige' },
     color: '#1D4E89',
     textColor: '#1D4E89',
     strokeWidth: 2.5,
   },
   eftk_vest: {
-    label: { sv: 'Barn till invandrare från västliga länder', en: 'Descendants of immigrants from Western countries' },
-    endLabel: { sv: 'barn till inv., västliga', en: 'descendants, Western' },
-    endLabelShort: { sv: '', en: '' },
+    label: { sv: 'Barn till invandrare från västliga länder', en: 'Descendants of immigrants from Western countries', da: 'Efterkommere fra vestlige lande' },
+    endLabel: { sv: 'barn till inv., västliga', en: 'descendants, Western', da: 'efterkommere, vestlige' },
     color: '#6B3FA0',
     textColor: '#6B3FA0',
     strokeWidth: 2,
   },
   indv_vest: {
-    label: { sv: 'Invandrare från västliga länder', en: 'Immigrants from Western countries' },
-    endLabel: { sv: 'invandrare, västliga', en: 'immigrants, Western' },
-    endLabelShort: { sv: '', en: '' },
+    label: { sv: 'Invandrare från västliga länder', en: 'Immigrants from Western countries', da: 'Indvandrere fra vestlige lande' },
+    endLabel: { sv: 'invandrare, västliga', en: 'immigrants, Western', da: 'indvandrere, vestlige' },
     color: '#0F766E',
     textColor: '#0F766E',
     strokeWidth: 2,
   },
   dansk: {
-    label: { sv: 'Dansk ursprung', en: 'Danish origin' },
-    endLabel: { sv: 'dansk ursprung', en: 'Danish origin' },
-    endLabelShort: { sv: '', en: '' },
+    label: { sv: 'Dansk ursprung', en: 'Danish origin', da: 'Dansk oprindelse' },
+    endLabel: { sv: 'dansk ursprung', en: 'Danish origin', da: 'dansk oprindelse' },
     color: '#121212',
     textColor: '#121212',
     strokeWidth: 2,
   },
   alla: {
-    label: { sv: 'Hela befolkningen 15–79 år', en: 'Whole population aged 15–79' },
-    endLabel: { sv: 'hela befolkningen', en: 'whole population' },
-    endLabelShort: { sv: '', en: '' },
+    label: { sv: 'Hela befolkningen 15–79 år', en: 'Whole population aged 15–79', da: 'Hele befolkningen 15–79 år' },
+    endLabel: { sv: 'hela befolkningen', en: 'whole population', da: 'hele befolkningen' },
     color: '#8A8A8A',
     textColor: '#5C5C5C',
     strokeWidth: 2,
@@ -90,12 +81,12 @@ export const DK_STYLE: Record<DkGroup, GroupStyle> = {
 };
 
 export const OFFENCE_NAME: Record<DkOffence, Text> = {
-  straffelov: { sv: 'brott mot strafflagen', en: 'criminal code offences' },
-  vold: { sv: 'våldsbrott', en: 'crimes of violence' },
+  straffelov: { sv: 'brott mot strafflagen', en: 'criminal code offences', da: 'overtrædelser af straffeloven' },
+  vold: { sv: 'våldsbrott', en: 'crimes of violence', da: 'voldsforbrydelser' },
 };
 
 export function groupLabel(g: DkGroup, lang: Lang): string {
-  return DK_STYLE[g].label[lang];
+  return pick(DK_STYLE[g].label, lang);
 }
 
 export function buildKap11(guilty: DkGuiltyRow[], pop: DkPopulationRow[]): Kap11 {
@@ -149,16 +140,15 @@ export function rateAt(k: Kap11, o: DkOffence, g: DkGroup, year: number): number
 
 /** The line chart for one offence: every group per 1,000, the whole population dashed. */
 export function buildKap11Spec(k: Kap11, o: DkOffence, lang: Lang): LineChartSpec {
-  const L = (sv: string, en: string) => tr(lang, sv, en);
   const last = k.lastYear;
-  const n1 = (v: number, l: Lang) => formatNumber(v, 1, l);
+  const n1 = (v: number) => formatNumber(v, 1, lang);
   const series: LineSeries[] = DK_ORDER.map((g) => {
     const s = DK_STYLE[g];
     return {
       id: g,
-      label: s.label[lang],
-      endLabel: s.endLabel[lang],
-      endLabelShort: s.endLabelShort[lang],
+      label: pick(s.label, lang),
+      endLabel: pick(s.endLabel, lang),
+      endLabelShort: '',
       color: s.color,
       textColor: s.textColor,
       strokeWidth: s.strokeWidth,
@@ -177,17 +167,23 @@ export function buildKap11Spec(k: Kap11, o: DkOffence, lang: Lang): LineChartSpe
     years: k.years,
     series,
     yFormat: 'num1',
-    ariaLabel: L(
+    ariaLabel: tr(
+      lang,
       `Linjediagram. Lagförda för ${OFFENCE_NAME[o].sv} i Danmark per 1 000 invånare 15–79 år, efter ursprung, ${k.firstYear} till ${last}. ` +
-        `År ${last}: ${n1(top, 'sv')} bland barn till invandrare från icke-västliga länder och ${n1(all, 'sv')} i hela befolkningen.`,
+        `År ${last}: ${n1(top)} bland barn till invandrare från icke-västliga länder och ${n1(all)} i hela befolkningen.`,
       `Line chart. People convicted of ${OFFENCE_NAME[o].en} in Denmark per 1,000 residents aged 15–79, by origin, ${k.firstYear} to ${last}. ` +
-        `In ${last}: ${n1(top, 'en')} among descendants of immigrants from non-Western countries and ${n1(all, 'en')} in the whole population.`,
+        `In ${last}: ${n1(top)} among descendants of immigrants from non-Western countries and ${n1(all)} in the whole population.`,
+      {
+        da:
+          `Kurvediagram. Dømte for ${OFFENCE_NAME[o].da} i Danmark pr. 1.000 indbyggere 15–79 år, efter herkomst, ${k.firstYear} til ${last}. ` +
+          `I ${last}: ${n1(top)} blandt efterkommere fra ikke-vestlige lande og ${n1(all)} i hele befolkningen.`,
+      },
     ),
   };
 }
 
 /** Column name parts in the CSV files, per group and offence. */
-export const DK_CSV: Record<DkGroup, Text> = {
+export const DK_CSV: Record<DkGroup, Record<BaseLang, string>> = {
   alla: { sv: 'hela_befolkningen', en: 'whole_population' },
   dansk: { sv: 'dansk_ursprung', en: 'danish_origin' },
   indv_vest: { sv: 'invandrare_vastliga', en: 'immigrants_western' },
@@ -195,10 +191,10 @@ export const DK_CSV: Record<DkGroup, Text> = {
   eftk_vest: { sv: 'barn_till_invandrare_vastliga', en: 'descendants_western' },
   eftk_ikkevest: { sv: 'barn_till_invandrare_icke_vastliga', en: 'descendants_non_western' },
 };
-export const DK_OFFENCE_CSV: Record<DkOffence, Text> = { straffelov: { sv: 'strafflagen', en: 'criminal_code' }, vold: { sv: 'vald', en: 'violence' } };
+export const DK_OFFENCE_CSV: Record<DkOffence, Record<BaseLang, string>> = { straffelov: { sv: 'strafflagen', en: 'criminal_code' }, vold: { sv: 'vald', en: 'violence' } };
 
 /** The tables on the chapter 5.1 table page, from the same values as the charts. */
-export function kap11Tables(k: Kap11, lang: Lang): DataTable[] {
+export function kap11Tables(k: Kap11, lang: BaseLang): DataTable[] {
   const T = (sv: string, en: string) => tr(lang, sv, en);
   const period = `${k.firstYear}–${k.lastYear}`;
   const yearRows = (cells: (i: number) => (number | null)[]) => k.years.map((y, i) => ({ key: String(y), cells: cells(i) }));

@@ -3,7 +3,7 @@
 import type { SuspectsRow } from '../data';
 import { ratioToComparison } from '../calc';
 import { fmt, type LineChartSpec, type LineSeries } from '../charts/line';
-import { tr, missingText, type Lang } from '../i18n';
+import { tr, missingText, type BaseLang as Lang } from '../i18n';
 import { dataLabel } from '../labels';
 
 export type GroupId = 'sv2' | 'sv1' | 'u2' | 'utr' | 'tot';

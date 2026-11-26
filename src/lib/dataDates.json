@@ -59,6 +59,14 @@
     "date": "2026-11-13",
     "sha256": "c7a779f30e1bc54b93dcd3fd9a5628573fd08266f72b44046b7f7bba2bc5c1ed"
   },
+  "ssb_siktede.csv": {
+    "date": "2026-11-26",
+    "sha256": "37923534e0ffb7c8198b23c902383d8ec0eb3f5cd842db4d1c897f66198e4e5a"
+  },
+  "tk_misstankta_ursprung.csv": {
+    "date": "2026-11-26",
+    "sha256": "c5b887523f0a57fa4d6dca0d5d382e930b4c54f3d4c32630506a0487ba136011"
+  },
   "utvisning_b1.csv": {
     "date": "2026-11-18",
     "sha256": "66286b9707ac1f7cf6422382098222b533484a8b3676966e2a149fd5b81bbe7c"

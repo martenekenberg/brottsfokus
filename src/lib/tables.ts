@@ -2,7 +2,7 @@
 // A table holds raw numbers; formatting happens only when it is shown.
 import { round } from './calc';
 import { formatNumber } from './format';
-import type { Lang } from './i18n';
+import type { BaseLang as Lang } from './i18n';
 
 export interface NumberColumn {
   kind: 'number';

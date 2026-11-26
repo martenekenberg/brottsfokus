@@ -3,7 +3,7 @@ import type { PopulationRow, RapeStudyRow } from '../data';
 import { complementPct, round, studyPopulationSharePct, swedishBornTwoForeignParents } from '../calc';
 import type { BarChartSpec } from '../charts/bar';
 import { formatPct } from '../format';
-import { tr, type Lang } from '../i18n';
+import { tr, type BaseLang as Lang } from '../i18n';
 import { dataLabel } from '../labels';
 
 function pick(rows: RapeStudyRow[], chart: RapeStudyRow['chart'], id: string): RapeStudyRow {

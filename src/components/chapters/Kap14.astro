@@ -1,0 +1,132 @@
+---
+// Chapter 6.2: people suspected of crime in Finland by age and origin, men and women, in the latest year
+// (Statistics Finland, table 13zk). Copy in Swedish, English and Finnish (the Finnish page, /fi/suomi/).
+// Loads its own data and stops the build if its headlines no longer match the data.
+import Chapter from '../Chapter.astro';
+import Legend from '../Legend.astro';
+import BarChart from '../charts/BarChart.astro';
+import SubChart from '../SubChart.astro';
+import { tr, type Lang } from '../../lib/i18n';
+import { loadFiSuspects } from '../../lib/data';
+import { buildKap13, fiLabel } from '../../lib/chapters/kap13';
+import { AGE_GROUPS, AGE_KIND, AGES, ageRatio, ageYear, buildKap14Spec, MIN_PERSONS, shown, type Sex } from '../../lib/chapters/kap14';
+import { BAR_COLORS } from '../../lib/charts/bar';
+import { round } from '../../lib/calc';
+import { tablePage } from '../../lib/dataPages';
+import { formatNumber } from '../../lib/format';
+import { SOURCES } from '../../lib/sources';
+
+interface Props {
+  lang: Lang;
+}
+const { lang } = Astro.props;
+const L = (sv: string, en: string, fi: string) => tr(lang, sv, en, { fi });
+const n1 = (v: number) => formatNumber(v, 1, lang);
+
+const k = buildKap13(loadFiSuspects());
+const y = ageYear(k);
+type Age = (typeof AGES)[number];
+const young: Age[] = ['18-20', '21-24', '25-29'];
+const ratios = (sex: Sex, o: 'utl_fodd_fi' | 'utl_fodd_utl', ages: Age[]) => ages.map((a) => ageRatio(k, sex, a, o));
+const span = (vals: number[]) => ({ min: Math.min(...vals), max: Math.max(...vals) });
+
+// Headline (men): ages 18–29, foreign background born in Finland, 1.3 to 1.6 times men with a Finnish background.
+const menYoung = span(ratios('man', 'utl_fodd_fi', young));
+if (round(menYoung.min, 1) !== 1.3 || round(menYoung.max, 1) !== 1.6) throw new Error(`Chapter 6.2 headline no longer matches the data (${menYoung.min}–${menYoung.max})`);
+// Intro: in each of those ages that group is the highest of the three.
+for (const a of young) {
+  if (!(ageRatio(k, 'man', a, 'utl_fodd_fi') > 1 && ageRatio(k, 'man', a, 'utl_fodd_fi') > ageRatio(k, 'man', a, 'utl_fodd_utl'))) {
+    throw new Error(`Chapter 6.2 intro: men with a foreign background born in Finland are no longer highest at ${a}`);
+  }
+}
+// Intro: men born abroad were lower than men with a Finnish background under 21, and higher from 21.
+const under21: Age[] = ['15-17', '18-20'];
+const from21 = AGES.filter((a) => !under21.includes(a));
+if (under21.some((a) => ageRatio(k, 'man', a, 'utl_fodd_utl') >= 1) || from21.some((a) => ageRatio(k, 'man', a, 'utl_fodd_utl') <= 1)) {
+  throw new Error('Chapter 6.2 intro: the pattern for men born abroad no longer holds');
+}
+const menAbroad = span(ratios('man', 'utl_fodd_utl', from21));
+// Women: ages 18–29, foreign background born in Finland, 1.2 to 1.3 times; born abroad lower at 18–39 and higher from 40.
+const womenYoung = span(ratios('kvinnor', 'utl_fodd_fi', young));
+if (round(womenYoung.min, 1) !== 1.2 || round(womenYoung.max, 1) !== 1.3) throw new Error(`Chapter 6.2 women's headline no longer matches the data (${womenYoung.min}–${womenYoung.max})`);
+const women1839: Age[] = ['18-20', '21-24', '25-29', '30-39'];
+const women40: Age[] = ['40-49', '50-59', '60-69', '70-'];
+if (women1839.some((a) => ageRatio(k, 'kvinnor', a, 'utl_fodd_utl') >= 1) || women40.some((a) => ageRatio(k, 'kvinnor', a, 'utl_fodd_utl') <= 1)) {
+  throw new Error("Chapter 6.2 women's note: the pattern for women born abroad no longer holds");
+}
+// The note says the rates left out of the charts are among people with a foreign background born in Finland, at older ages.
+const hidden = (['man', 'kvinnor'] as Sex[]).flatMap((s) => AGES.flatMap((a) => AGE_GROUPS.filter((o) => !shown(k, s, a, o)).map((o) => ({ s, a, o }))));
+if (hidden.some((h) => h.o !== 'utl_fodd_fi' || AGES.indexOf(h.a) < AGES.indexOf('30-39'))) {
+  throw new Error('Chapter 6.2 note: a rate left out of the chart is not where the note says');
+}
+
+// The comparison group is an outlined grey bar, as in the chart (CLAUDE.md, "Visual grammar").
+const legend = AGE_GROUPS.map((o) => ({ label: fiLabel(o, lang), color: BAR_COLORS[AGE_KIND[o]].fill, mark: AGE_KIND[o] === 'comparison' ? ('outline' as const) : ('bar' as const) }));
+---
+
+<Chapter
+  id="kap14"
+  lang={lang}
+  tableHref={tablePage('kap14', lang).path}
+  title={L(
+    `Män 18–29 år med utländsk bakgrund födda i Finland misstänktes ${n1(menYoung.min)} till ${n1(menYoung.max)} gånger så ofta som jämnåriga med finländsk bakgrund ${y}`,
+    `Men aged 18–29 with a foreign background born in Finland were suspected ${n1(menYoung.min)} to ${n1(menYoung.max)} times as often as men of the same age with a Finnish background in ${y}`,
+    `Suomessa syntyneitä 18–29-vuotiaita ulkomaalaistaustaisia miehiä epäiltiin ${n1(menYoung.min)}–${n1(menYoung.max)} kertaa niin usein kuin samanikäisiä suomalaistaustaisia vuonna ${y}`,
+  )}
+>
+  <p slot="intro">
+    {L(
+      `Misstänkta för minst ett brott mot strafflagen ${y}, per 1 000 män i varje åldersgrupp. Att jämföra inom samma ålder tar bort det mesta av skillnaden i ålder mellan grupperna. I åldrarna 18–29 år låg män med utländsk bakgrund födda i Finland högst av de tre grupperna. Män med utländsk bakgrund födda utomlands misstänktes mer sällan än män med finländsk bakgrund före 21 års ålder, och från 21 år ${n1(menAbroad.min)} till ${n1(menAbroad.max)} gånger så ofta.`,
+      `Suspected of at least one criminal code offence in ${y}, per 1,000 men in each age group. Comparing people of the same age removes most of the age difference between the groups. At ages 18–29, men with a foreign background born in Finland had the highest rate of the three groups. Men with a foreign background born abroad were suspected less often than men with a Finnish background before age 21, and from 21 ${n1(menAbroad.min)} to ${n1(menAbroad.max)} times as often.`,
+      `Vähintään yhdestä rikoslain rikoksesta vuonna ${y} epäillyt 1 000 samanikäistä miestä kohden. Kun verrataan samanikäisiä, ryhmien ikäerot eivät juuri vaikuta. 18–29-vuotiailla luku oli suurin Suomessa syntyneillä ulkomaalaistaustaisilla miehillä. Ulkomailla syntyneitä ulkomaalaistaustaisia miehiä epäiltiin alle 21-vuotiaina harvemmin kuin suomalaistaustaisia ja 21 vuoden iästä alkaen ${n1(menAbroad.min)}–${n1(menAbroad.max)} kertaa niin usein.`,
+    )}
+  </p>
+  <Legend slot="legend" items={legend} />
+  <p class="chart-heading">{L(`Män, ${y}`, `Men, ${y}`, `Miehet, ${y}`)}</p>
+  <BarChart spec={buildKap14Spec(k, 'man', lang)} />
+  <Fragment slot="note">
+    {L(
+      `Där färre än ${MIN_PERSONS} personer i en grupp misstänktes visas talet inte, eftersom det då blir osäkert. Det gäller de äldre åldrarna bland personer med utländsk bakgrund födda i Finland, som är en ung grupp. Talen finns i tabellen. Jämförelsen tar hänsyn till ålder och kön, men inte till annat, som inkomst eller utbildning. Bara brott som polisen har klarat upp räknas.`,
+      `Where fewer than ${MIN_PERSONS} people in a group were suspected, the rate is not shown, because it is then uncertain. This applies to the older ages among people with a foreign background born in Finland, who are a young group. The figures are in the table. The comparison takes age and sex into account, but nothing else, such as income or education. Only offences the police have solved are counted.`,
+      `Jos ryhmässä oli alle ${MIN_PERSONS} epäiltyä, lukua ei näytetä, koska se on silloin epävarma. Tämä koskee vanhempia ikäryhmiä Suomessa syntyneillä ulkomaalaistaustaisilla, jotka ovat nuori ryhmä. Luvut ovat taulukossa. Vertailussa otetaan huomioon ikä ja sukupuoli, mutta ei muita tekijöitä, kuten tuloja tai koulutusta. Mukana ovat vain poliisin selvittämät rikokset.`,
+    )}
+  </Fragment>
+  <Fragment slot="source">
+    {L('Källa: Statistikcentralen, StatFin, tabell ', 'Source: Statistics Finland, StatFin, table ', 'Lähde: Tilastokeskus, StatFin, taulukko ')}<a href={SOURCES.tk13zk.url}>13zk</a>{L(
+      `. Siffror för ${y}, omräknade till per 1 000.`,
+      `. Figures for ${y}, shown per 1,000.`,
+      `. Vuoden ${y} luvut, muunnettuina 1 000 asukasta kohden.`,
+    )}
+  </Fragment>
+  <SubChart
+    slot="after"
+    id="kap14-kvinnor"
+    lang={lang}
+    title={L(
+      `Kvinnor 18–29 år med utländsk bakgrund födda i Finland misstänktes ${n1(womenYoung.min)} till ${n1(womenYoung.max)} gånger så ofta som jämnåriga med finländsk bakgrund`,
+      `Women aged 18–29 with a foreign background born in Finland were suspected ${n1(womenYoung.min)} to ${n1(womenYoung.max)} times as often as women of the same age with a Finnish background`,
+      `Suomessa syntyneitä 18–29-vuotiaita ulkomaalaistaustaisia naisia epäiltiin ${n1(womenYoung.min)}–${n1(womenYoung.max)} kertaa niin usein kuin samanikäisiä suomalaistaustaisia`,
+    )}
+  >
+    <Legend slot="legend" items={legend} />
+    <BarChart spec={buildKap14Spec(k, 'kvinnor', lang)} />
+    <Fragment slot="note">
+      {L(
+        'Samma jämförelse för kvinnor, som misstänks mycket mer sällan än män. Kvinnor med utländsk bakgrund födda utomlands misstänktes mer sällan än kvinnor med finländsk bakgrund i åldrarna 18–39 år, och oftare från 40 år.',
+        'The same comparison for women, who are suspected far less often than men. Women with a foreign background born abroad were suspected less often than women with a Finnish background at ages 18–39, and more often from 40.',
+        'Sama vertailu naisista, joita epäillään paljon harvemmin kuin miehiä. Ulkomailla syntyneitä ulkomaalaistaustaisia naisia epäiltiin 18–39-vuotiaina harvemmin kuin suomalaistaustaisia ja 40 vuoden iästä alkaen useammin.',
+      )}
+    </Fragment>
+    <Fragment slot="source">
+      {L('Källa: Statistikcentralen, StatFin, tabell ', 'Source: Statistics Finland, StatFin, table ', 'Lähde: Tilastokeskus, StatFin, taulukko ')}<a href={SOURCES.tk13zk.url}>13zk</a>.
+    </Fragment>
+  </SubChart>
+</Chapter>
+
+<style>
+  .chart-heading {
+    margin: 0;
+    font-size: 14px;
+    font-weight: 600;
+  }
+</style>

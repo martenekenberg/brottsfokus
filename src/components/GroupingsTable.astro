@@ -3,7 +3,7 @@
 // and the biggest difference is where people born in Sweden with one foreign-born parent end up.
 // Chapter numbers and links come from the chapter list, so they follow any renumbering.
 import { chapter, chapterHref } from '../lib/chapters';
-import { tr, type Lang } from '../lib/i18n';
+import { tr, type BaseLang as Lang } from '../lib/i18n';
 
 interface Props {
   lang: Lang;
@@ -109,6 +109,26 @@ const rows = [
     ),
     compared: L('Hela befolkningen 15–79 år (i 5.2 alla män eller alla kvinnor)', 'The whole population aged 15–79 (in 5.2 all men or all women)'),
     oneParent: L('Dansk ursprung, om den andra föräldern är dansk medborgare född i Danmark', 'Danish origin, if the other parent is a Danish citizen born in Denmark'),
+  },
+  {
+    ids: ['kap13', 'kap14'],
+    source: L('Statistikcentralen', 'Statistics Finland'),
+    groups: L(
+      'Finland, inte Sverige. Finländsk och utländsk bakgrund, födda i Finland eller utomlands.',
+      'Finland, not Sweden. Finnish and foreign background, born in Finland or abroad.',
+    ),
+    compared: L('Hela befolkningen (i 6.2 finländsk bakgrund födda i Finland, samma ålder)', 'The whole population (in 6.2 Finnish background born in Finland, same age)'),
+    oneParent: L('Finländsk bakgrund', 'Finnish background'),
+  },
+  {
+    ids: ['kap15', 'kap16'],
+    source: L('SSB', 'Statistics Norway'),
+    groups: L(
+      'Norge, inte Sverige. Invandrare, barn till två invandrare födda i Norge, och övriga befolkningen.',
+      'Norway, not Sweden. Immigrants, Norwegian-born to immigrant parents, and the rest of the population.',
+    ),
+    compared: L('Övriga befolkningen', 'The rest of the population'),
+    oneParent: L('Övriga befolkningen', 'The rest of the population'),
   },
 ];
 const head = {

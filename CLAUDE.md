@@ -4,7 +4,7 @@ Instructions for Claude Code. Read this whole file before writing any code.
 
 ## What we are building
 
-A public, static website in Swedish called **Brottsfokus** (formerly "Brott och bakgrund"), at https://brottsfokus.xyz/, with a full English copy at https://brottsfokus.xyz/en/. It presents official Swedish statistics and research on crime and background (country of birth, parents' country of birth, citizenship) in the style of a quality newspaper's data journalism: minimal, light theme only, factual and neutral.
+A public, static website in Swedish called **Brottsfokus** (formerly "Brott och bakgrund"), at https://brottsfokus.xyz/, with a full English copy at https://brottsfokus.xyz/en/. The country parts are also translated into the country's language: Denmark in Danish (/da/danmark/), Finland in Finnish (/fi/suomi/), Norway in Norwegian Bokmål (/nb/norge/). It presents official Swedish statistics and research on crime and background (country of birth, parents' country of birth, citizenship) in the style of a quality newspaper's data journalism: minimal, light theme only, factual and neutral.
 
 Core principles, in priority order:
 
@@ -68,6 +68,8 @@ All files are UTF-8 CSV with a header row. Values use a dot as the decimal separ
 | `backman_lagforda_fore_25.csv` | 2.1 | Bäckman et al. 2021, tables 1 and 2 (CC BY 4.0). |
 | `dst_lagforda_herkomst.csv`, `dst_befolkning_herkomst.csv` | 5.1 | Danmarks Statistik, Statbank tables STRFNA10 (people aged 15–79 found guilty, by origin, criminal code and violence) and FOLK1E (population aged 15–79 on 1 January, by origin). Written by `python3 scripts/dst_fetch.py`; the loader stops the build if the groups do not add up to the total. |
 | `dst_kriminalitetsindeks.csv` | 5.2 | Danmarks Statistik, Indvandrere i Danmark 2025, tables 6.5, 6.7 and 6.9 (pp. 112, 115, 118): crime index for 2024 (all men or all women aged 15–79 = 100), unadjusted and adjusted for age, and for age plus employment, family education or family income; by offence adjusted for age. Machine-read from the PDF (`docs/kallor/Indvandrere_i_Danmark_2025.pdf`); empty = ".." in the report. The loader stops the build if the age-adjusted value differs between the three tables. Update by hand when a new edition is published. |
+| `tk_misstankta_ursprung.csv` | 6.1, 6.2 | Statistics Finland, StatFin table 13zk: people suspected of solved criminal code offences, each counted once a year by the most aggravated offence, by origin (Finnish or foreign background, born in Finland or abroad), sex and age, with Statistics Finland's rate per 10,000. Written by `python3 scripts/tk_fetch.py`; the loader stops the build if the groups do not add up or the rates and counts do not fit together. Unknown origin has no rate (empty). |
+| `ssb_siktede.csv` | 7.1, 7.2 | SSB, "Siktelser og siktede personer etter innvandringsbakgrunn", table 3 (Excel attached to the article, kept in `docs/kallor/ssb_siktede_2021_2023_tabell3.xlsx`): people charged, yearly average 2021–2023, by immigrant category, country group, world region and country, for everyone and men aged 15–24, with SSB's rate per 1,000 and ratio to the rest of the population. Written by `python3 scripts/ssb_read.py`; the loader stops the build if the groups do not add up or a ratio does not match its rates. Empty = SSB blanks small numbers. Update by hand when SSB publishes a new edition. |
 | `bra_fodelsekohorter.csv` | 2.1 | Brå 2025:21 Excel tables 1 and 4: share of each birth year convicted before age 25 and 20, by sex and background (from birth year 1984). |
 
 Calculated values (shares, averages) are computed in code from these files. Keep each calculation in one small, named function so it can be checked. Rules:
@@ -76,6 +78,8 @@ Calculated values (shares, averages) are computed in code from these files. Keep
 - Swedish-born with two foreign-born parents = `utlandsk_bakgrund - utrikes_fodda`.
 - Population comparison for the rape study 2000–2015 = mean of 2000, 2005, 2010, 2015.
 - Danish rates (5.1) = `persons / mean(population 1 January this year, 1 January next year) * 1000` (`per1000`, `meanPopulation`). Danmarks Statistik weights each person by the part of the year they lived in Denmark; the mean of the two dates is the closest the open tables allow.
+- Finnish rates (6.1, 6.2) = Statistics Finland's rate per 10,000 / 10 (`per1000FromPer10000`). Ratios are computed from those rates.
+- Norwegian figures (7.1, 7.2): SSB's own rates and ratios, nothing recalculated.
 - Share without Swedish citizenship from counts (prison) = `persons_without / persons * 100`, whole percent (`shareWithoutPctFromCounts`). Tests check that Brå's table 8 and 12 counts give Brå's stated share in every case where Brå states one (21 for new prisoners, 3 for 1 October), and the loader stops the build if a row's stated share and counts disagree.
 
 ## Design system
@@ -127,13 +131,15 @@ A front page plus one page per part (owner's decision, 19 November 2026). The pa
 | 2. Lagförda och dömda | `/lagforda-och-domda/` | `/en/convictions/` | 2.1 Lagförda före 25 års ålder, 2.2 Våldtäkt |
 | 3. Fängelse och utvisning | `/fangelse-och-utvisning/` | `/en/prison-and-deportation/` | 3.1 Fängelse, 3.2 Utvisning |
 | 4. Brottsoffer | `/brottsoffer/` | `/en/victims/` | 4.1 Utsatta för brott, 4.2 Dödligt våld |
-| 5. Danmark | `/danmark/` | `/en/denmark/` | 5.1 Lagförda i Danmark, 5.2 Justerat för ålder och sociala förhållanden |
+| 5. Danmark | `/danmark/` (+ `/da/danmark/`) | `/en/denmark/` | 5.1 Lagförda i Danmark, 5.2 Justerat för ålder och sociala förhållanden |
+| 6. Finland | `/finland/` (+ `/fi/suomi/`) | `/en/finland/` | 6.1 Misstänkta i Finland, 6.2 Efter ålder |
+| 7. Norge | `/norge/` (+ `/nb/norge/`) | `/en/norway/` | 7.1 Misstänkta i Norge, 7.2 Efter födelseland |
 | Frågor och svar | `/fragor-och-svar/` | `/en/faq/` | Questions on terms and sources (`src/lib/faq.ts`), then every chapter's short answer grouped by part with a link to its chapter. FAQPage markup |
 | Metod och begrepp | `/metod/` | `/en/method/` | Short definitions in a grid, and the "Källor" list |
 | Om sidan | `/om/` | `/en/about/` | Why the site exists, how data is chosen, who runs it (a private person who works with data analysis; no name, owner's decision November 2026), how the work is done (editorial points, including checks against the source when data changes), errors and corrections (with the dated "Rättelser" list), cookies and visitor statistics |
 
 1. **Masthead** (front page only): kicker "Offentlig statistik och forskning", date and sources line, h1 "Brottsfokus", intro paragraph, and a smaller line on where the figures come from with a link to `/data/`. Other pages have a smaller page header (`src/components/PageHead.astro`) with kicker, h1, intro, the page's chapters and a language link.
-2. **Menu** (`src/components/ChapterNav.astro`): thick top rule, thin bottom rule, links to the five parts, Frågor (Q&A), Metod and Om sidan. One row on desktop, one horizontally scrollable row on mobile with a fade at the right edge while there is more to scroll. The current page is underlined. Sticky at the top while scrolling; on the front page a small site title slides in once the big headline has scrolled away, on other pages it always shows. Touch targets at least 44px.
+2. **Menu** (`src/components/ChapterNav.astro`): thick top rule, thin bottom rule, links to the seven parts, Frågor (Q&A), Metod and Om sidan. One row on desktop, one horizontally scrollable row on mobile with a fade at the right edge while there is more to scroll. The current page is underlined. Sticky at the top while scrolling; on the front page a small site title slides in once the big headline has scrolled away, on other pages it always shows. Touch targets at least 44px.
 3. **Key figures** (front page): three figures in a grid (2,5×, 3,2×, 22 %), each with a one-line explanation and its source.
 4. **Part cards** (front page): part number, part name, one sentence (owner approves the copy) and the part's chapters as links. The sentence leads with the gap, like the chapter headlines, and is also the part page's intro. Where it names a year or period, a chapter check stops the build when the data moves on (3.1, 2.2). Card copy approved by the owner, 20 November 2026.
 5. **Chapters**, one component each in `src/components/chapters/`, each with the same pattern:
@@ -165,6 +171,17 @@ The English site has the same pages, charts, tables and CSV files under `/en/`, 
 - Pages are rendered from `src/components/MainPage.astro` (front page), `src/components/PartPage.astro` (part pages), `src/components/InfoPage.astro` (Metod, Om sidan) and `src/components/data/TablePage.astro`, all in both languages. Language links between pages with different slugs go through `alternatePath` in `src/lib/dataPages.ts`. `/llms.txt` lists the English table pages in an English section; `/sitemap.xml` lists both languages with `hreflang` links.
 - The English copy is a first translation. The owner should read it before it is treated as final.
 
+### Country languages (`/da/`, `/fi/`, `/nb/`)
+
+Added at the owner's request, 26 November 2026. A country part also has a page in the country's own language (`path.da`, `path.fi`, `path.nb` in `src/lib/parts.ts`, rendered by `src/pages/[local]/[part]/index.astro`). Rules:
+
+- Only the part page is translated. Its menu, "Läs också", "Nästa", Metod terms and table links lead to the English pages, and the page says so under the header. The table pages and CSV files stay in Swedish and English.
+- Copy is written as `tr(lang, sv, en, { da, fi, nb })`, or as `{ sv, en, da, fi, nb }` read with `pick(text, lang)`. A text shown on a Danish or Finnish page without a translation stops the build, so a page never mixes languages.
+- Use the statistics office's own terms: Danish "indvandrere", "efterkommere", "dansk oprindelse"; Finnish "suomalaistaustaiset", "ulkomaalaistaustaiset"; Norwegian "innvandrere", "norskfødte med innvandrerforeldre", "befolkningen ellers", "siktet".
+- The language menu (`src/components/LanguageMenu.astro`) lists every language a page exists in, each in its own name, in the page header, the masthead and the footer. The front page cards link to the translations ("Læs på dansk", "Lue suomeksi", "Les på norsk"). `hreflang` links and the sitemap list all versions.
+- Danish number format: decimal comma, full stop as thousands separator (`1.234,5`). Finnish and Norwegian: as Swedish.
+- The Danish, Finnish and Norwegian copy is a first translation by Claude. A native speaker should read it before it is treated as final.
+
 ### Table pages
 
 Each chapter links to a page under `/data/` with its numbers as HTML tables and a CSV file (added at the owner's request, for readers, accessibility and search). `/data/` lists them. Each page has: kicker, factual headline, summary with the key numbers and source, "Läs så här" above the tables, tables, CSV download, terms of use (CC BY 4.0, set in `src/lib/site.ts`), sources, link back to the chart, links to the other table pages, and Dataset markup. Build the tables with the same calculation code as the charts. `npm run sifferkontroll` lists every table value in `docs/sifferkontroll_tabeller.csv`. Each page's text and tables are defined once in `src/lib/tablePageContent.ts`; the HTML page, the CSV file and a Markdown copy (`/data/<slug>.md`) are generated from it. `/llms.txt` lists the Markdown copies with each page's summary and the main caveats. Every CSV column is described in `src/lib/dataDictionary.ts` (name in both languages, type, unit, meaning); `tests/dataDictionary.test.ts` fails if a CSV header and the dictionary differ, so update the dictionary when a CSV column changes. The dictionary is shown on each table page ("Kolumnerna i CSV-filen"), in its Markdown copy and in `/data/datapackage.json` and `/en/data/datapackage.json` (Frictionless Tabular Data Package, `src/lib/dataPackage.ts`).
@@ -195,6 +212,14 @@ Numbered by part (see "Page structure"). The ids (`kap1` and so on) are the old 
 
 5.2 **Justerat för ålder och sociala förhållanden, 2024** (`kap12`). Grouped bars per origin group: Danmarks Statistik's crime index unadjusted, adjusted for age, and for age plus own employment, family education or family income, with a dashed line at 100. Men in the main chart, women in the second. The index counts all convictions, including traffic offences, unlike 5.1; the note says so and gives the criminal code value from table 6.9.
 
+6.1 **Misstänkta i Finland, 2000–2025** (`kap13`). Added at the owner's request, 26 November 2026. Line chart per 1,000 residents of all ages: foreign background born abroad (blue), foreign background born in Finland (orange), Finnish background born in Finland (black), whole population (dashed). Statistics Finland's background regions (table 13z4) were left out: the regions do not match any standard grouping and could not be labelled reliably.
+
+6.2 **Efter ålder, 2025** (`kap14`). Grouped bars per age group, men in the main chart, women in the second, with Finnish background born in Finland as the outlined comparison bar. Rates based on fewer than 20 suspects are left out of the charts (`MIN_PERSONS`) and kept in the table.
+
+7.1 **Misstänkta i Norge, 2021–2023** (`kap15`). Added at the owner's request, 26 November 2026. Grouped bars per 1,000 for immigrants (blue) and Norwegian-born to immigrant parents (orange) by SSB's country groups and world regions, with the rest of the population as a dashed line; second chart for men aged 15–24. Swedish copy says "misstänkta (siktade)", English "charged". The comparison group is the rest of the population, not the whole population, as SSB reports it.
+
+7.2 **Efter födelseland, 2021–2023** (`kap16`). Bars per country for immigrants, highest first, and for Norwegian-born to immigrant parents in a second chart, with the rest of the population as a dashed line.
+
 Every headline that makes a claim about the data has a check in its chapter component (`src/components/chapters/`) that stops the build if the data no longer supports it. Add one for every new headline.
 
 ## Charts
@@ -217,6 +242,8 @@ Every headline that makes a claim about the data has a check in its chapter comp
 - 4.1 is a survey of people aged 16–84 and includes crimes never reported.
 - 4.2: perpetrators are missing in unsolved cases, most often in criminal milieus. Only people with a Swedish personal identity number are included.
 - 5.1 (Denmark): not adjusted for age or sex; Danmarks Statistik's groups (one foreign-born parent counts as Danish origin if the other is a Danish citizen born in Denmark); most drug offences and all traffic offences are outside the criminal code; only people living in Denmark are counted.
+- 6.1–6.2 (Finland): suspects in solved offences only, counted once a year; only people with a Finnish personal identity code; asylum seekers are not in the population; 6.1 is all ages and not adjusted for age.
+- 7.1–7.2 (Norway): people charged, not convicted; all offences including traffic; a yearly average for 2021–2023; compared with the rest of the population; not adjusted for age except the men 15–24 chart; people not living in Norway have no rate.
 - Brå's birth-cohort statistics (2.1) count only people registered in Sweden at age 15 and when convicted. "Lagförd" includes district court judgments later overturned.
 
 ## Sources
@@ -236,13 +263,15 @@ Every headline that makes a claim about the data has a check in its chapter comp
 - Brå 2025:21: https://bra.se/rapporter/arkiv/2025-12-02-fodelsekohortstatistik
 - Danmarks Statistik, Statbank: https://www.statistikbanken.dk/STRFNA10 and https://www.statistikbanken.dk/FOLK1E
 - Danmarks Statistik, Indvandrere i Danmark 2025 (section 6.2, crime index): https://www.dst.dk/da/Statistik/udgivelser/VisPub?cid=54707
+- Statistics Finland, StatFin table 13zk: https://pxdata.stat.fi/PxWeb/pxweb/sv/StatFin/StatFin__rpk/13zk.px/
+- SSB, Siktelser og siktede personer etter innvandringsbakgrunn (table 3): https://www.ssb.no/sosiale-forhold-og-kriminalitet/kriminalitet-og-rettsvesen/statistikk/etterforskede-lovbrudd/artikler/siktelser-og-siktede-personer-etter-innvandringsbakgrunn
 
 A "Källor" list with all links goes in the Metod section.
 
 ## Working rules
 
-- Site copy is in Swedish (`/`) and English (`/en/`). Code, comments and commit messages are in English.
-- No em dashes in site copy, in either language. Use commas, colons or full stops.
+- Site copy is in Swedish (`/`) and English (`/en/`), and the country parts also in Danish, Finnish and Norwegian. Code, comments and commit messages are in English.
+- No em dashes in site copy, in any language. Use commas, colons or full stops.
 - Don't add new data sources, chapters or claims without asking me first.
 - Keep the build passing and commit in small steps with clear messages.
 - After changing a file in `data/`, run `npm run datadates` and `npm run sifferkontroll`, and commit the results.

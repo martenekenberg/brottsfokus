@@ -6,7 +6,7 @@ import Legend from '../Legend.astro';
 import { buildCohortLineSpec, GROUP_LABEL, SEX_LABEL, type Table } from '../../lib/chapters/kap9';
 import { GROUPS } from '../../lib/chapters/kap1';
 import type { CohortRow } from '../../lib/data';
-import type { Lang } from '../../lib/i18n';
+import type { BaseLang as Lang } from '../../lib/i18n';
 
 interface Props {
   rows: CohortRow[];

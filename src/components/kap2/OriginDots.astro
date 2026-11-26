@@ -3,7 +3,7 @@
 // crime type and measure. Without JavaScript the default view is shown and the controls stay hidden.
 import DotChart from '../charts/DotChart.astro';
 import { buildKap2Spec, chartHeading, crimeFor, crimeLabel, VIEW_LABEL, type Kap2Data, type View } from '../../lib/chapters/kap2';
-import { tr, type Lang } from '../../lib/i18n';
+import { tr, type BaseLang as Lang } from '../../lib/i18n';
 
 interface Props {
   data: Kap2Data;
@@ -94,7 +94,7 @@ const views: View[] = ['region', 'land', 'moder'];
     type View,
   } from '../../lib/chapters/kap2';
   import { dotFmt } from '../../lib/charts/dot';
-  import { tr, type Lang } from '../../lib/i18n';
+  import { tr, type BaseLang as Lang } from '../../lib/i18n';
 
   document.querySelectorAll<HTMLElement>('[data-kap2]').forEach((root) => {
     const lang = (root.dataset.lang ?? 'sv') as Lang;

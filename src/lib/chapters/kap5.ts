@@ -2,7 +2,7 @@
 import type { Bra2005Row } from '../data';
 import type { BarChartSpec } from '../charts/bar';
 import { formatPct, formatTimes } from '../format';
-import { tr, type Lang } from '../i18n';
+import { tr, type BaseLang as Lang } from '../i18n';
 import { dataLabel } from '../labels';
 
 function value(rows: Bra2005Row[], chart: string, groupId: string, series: string): number {

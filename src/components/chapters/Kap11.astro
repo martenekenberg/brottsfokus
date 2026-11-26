@@ -5,7 +5,7 @@ import Chapter from '../Chapter.astro';
 import Legend from '../Legend.astro';
 import LineChart from '../charts/LineChart.astro';
 import SubChart from '../SubChart.astro';
-import { tr, type Lang } from '../../lib/i18n';
+import { pick, tr, type Lang } from '../../lib/i18n';
 import { loadDkGuilty, loadDkPopulation } from '../../lib/data';
 import { buildKap11, buildKap11Spec, DK_ORDER, DK_STYLE, rateAt, ratioToAll } from '../../lib/chapters/kap11';
 import { tablePage } from '../../lib/dataPages';
@@ -18,7 +18,8 @@ interface Props {
   lang: Lang;
 }
 const { lang } = Astro.props;
-const L = (sv: string, en: string) => tr(lang, sv, en);
+// Copy in Swedish, English and Danish (the Danish page, /da/danmark/).
+const L = (sv: string, en: string, da: string) => tr(lang, sv, en, { da });
 const n1 = (v: number) => formatNumber(v, 1, lang);
 
 const k = buildKap11(loadDkGuilty(), loadDkPopulation());
@@ -45,7 +46,7 @@ if (!(rate('eftk_ikkevest', last) < rate('eftk_ikkevest', first)) || !(ratioLast
 // The second chart's headline says "nearly five times as often": from 4.5 up to, but not including, 5.
 if (!(violenceRatio >= 4.5 && violenceRatio < 5)) throw new Error(`Chapter 5.1 violence headline no longer matches the data (${violenceRatio})`);
 
-const legend = DK_ORDER.map((g) => ({ label: DK_STYLE[g].label[lang], color: DK_STYLE[g].color, mark: DK_STYLE[g].dashed ? ('dash' as const) : ('line' as const) }));
+const legend = DK_ORDER.map((g) => ({ label: pick(DK_STYLE[g].label, lang), color: DK_STYLE[g].color, mark: DK_STYLE[g].dashed ? ('dash' as const) : ('line' as const) }));
 const times = (v: number) => formatNumber(v, 1, lang);
 ---
 
@@ -56,12 +57,14 @@ const times = (v: number) => formatNumber(v, 1, lang);
   title={L(
     `Barn till invandrare från icke-västliga länder lagfördes för brott fyra gånger så ofta som befolkningen i Danmark ${last}`,
     `In Denmark, descendants of immigrants from non-Western countries were convicted of crimes four times as often as the population in ${last}`,
+    `Efterkommere fra ikke-vestlige lande blev dømt for kriminalitet fire gange så ofte som befolkningen i Danmark i ${last}`,
   )}
 >
   <p slot="intro">
     {L(
       `Lagförda för minst ett brott mot strafflagen under året, per 1 000 invånare 15–79 år. År ${last}: ${n1(rate('eftk_ikkevest', last))} bland barn till invandrare från icke-västliga länder, ${n1(rate('indv_ikkevest', last))} bland invandrare från icke-västliga länder och ${n1(rate('alla', last))} i hela befolkningen. För barn till invandrare från icke-västliga länder har talet minskat sedan ${first}, då det var ${n1(rate('eftk_ikkevest', first))} per 1 000, ${times(ratioFirst)} gånger befolkningens.`,
       `Convicted of at least one criminal code offence during the year, per 1,000 residents aged 15–79. In ${last}: ${n1(rate('eftk_ikkevest', last))} among descendants of immigrants from non-Western countries, ${n1(rate('indv_ikkevest', last))} among immigrants from non-Western countries and ${n1(rate('alla', last))} in the whole population. For descendants from non-Western countries the rate has fallen since ${first}, when it was ${n1(rate('eftk_ikkevest', first))} per 1,000, ${times(ratioFirst)} times the population’s.`,
+      `Dømt for mindst én overtrædelse af straffeloven i løbet af året, pr. 1.000 indbyggere 15–79 år. I ${last}: ${n1(rate('eftk_ikkevest', last))} blandt efterkommere fra ikke-vestlige lande, ${n1(rate('indv_ikkevest', last))} blandt indvandrere fra ikke-vestlige lande og ${n1(rate('alla', last))} i hele befolkningen. For efterkommere fra ikke-vestlige lande er tallet faldet siden ${first}, hvor det var ${n1(rate('eftk_ikkevest', first))} pr. 1.000, ${times(ratioFirst)} gange befolkningens.`,
     )}
   </p>
   <Legend slot="legend" items={legend} />
@@ -70,12 +73,14 @@ const times = (v: number) => formatNumber(v, 1, lang);
     {L(
       'Lagförd betyder här en fällande dom, böter eller beslut att avstå från åtal. Inte justerat för ålder eller kön: barn till invandrare är i genomsnitt mycket yngre än befolkningen, och unga lagförs oftare. Med hänsyn till ålder blir skillnaderna mindre, men de finns kvar (se nästa kapitel). Grupperna är Danmarks Statistiks och skiljer sig från Brås, och de flesta narkotikabrott och alla trafikbrott står i andra lagar och ingår inte. Bara personer som bodde i Danmark räknas. Jämför därför inte direkt med de svenska siffrorna.',
       'Convicted here means a guilty verdict, a fine or a decision to waive prosecution. Not adjusted for age or sex: descendants of immigrants are on average much younger than the population, and young people are convicted more often. Taking age into account makes the differences smaller, but they remain (see the next chapter). The groups are Danmarks Statistik’s and differ from Brå’s, and most drug offences and all traffic offences are in other laws and not included. Only people living in Denmark are counted. So do not compare directly with the Swedish figures.',
+      'Dømt betyder her en fældende dom, en bøde eller et tiltalefrafald. Ikke justeret for alder eller køn: efterkommere er i gennemsnit meget yngre end befolkningen, og unge bliver oftere dømt. Når der tages højde for alder, bliver forskellene mindre, men de forsvinder ikke (se næste kapitel). Grupperne er Danmarks Statistiks og er ikke de samme som dem, det svenske Brottsförebyggande rådet (Brå) bruger, og de fleste narkotikaforbrydelser og alle færdselsforseelser står i andre love og er ikke med. Kun personer, der boede i Danmark, tælles med. Sammenlign derfor ikke direkte med de svenske tal.',
     )}
   </Fragment>
   <Fragment slot="source">
-    {L('Källa: Danmarks Statistik, Statistikbanken, tabell ', 'Source: Danmarks Statistik, Statbank, table ')}<a href={SOURCES.dstStrfna10.url}>STRFNA10</a>{L(' (lagförda) och ', ' (convicted) and ')}<a href={SOURCES.dstFolk1e.url}>FOLK1E</a>{L(
+    {L('Källa: Danmarks Statistik, Statistikbanken, tabell ', 'Source: Danmarks Statistik, Statbank, table ', 'Kilde: Danmarks Statistik, Statistikbanken, tabel ')}<a href={SOURCES.dstStrfna10.url}>STRFNA10</a>{L(' (lagförda) och ', ' (convicted) and ', ' (dømte) og ')}<a href={SOURCES.dstFolk1e.url}>FOLK1E</a>{L(
       ` (befolkningen). Talen per 1 000 är uträknade här. Åldersjusteringen: kapitel ${chapter('kap12').num}.`,
       ` (population). The rates per 1,000 are calculated here. Age adjustment: chapter ${chapter('kap12').num}.`,
+      ` (befolkningen). Tallene pr. 1.000 er beregnet her. Aldersjusteringen: kapitel ${chapter('kap12').num}.`,
     )}
   </Fragment>
   <SubChart
@@ -85,12 +90,14 @@ const times = (v: number) => formatNumber(v, 1, lang);
     title={L(
       `Våldsbrott: barn till invandrare från icke-västliga länder lagfördes nästan fem gånger så ofta som befolkningen ${last}`,
       `Crimes of violence: descendants of immigrants from non-Western countries were convicted nearly five times as often as the population in ${last}`,
+      `Voldsforbrydelser: efterkommere fra ikke-vestlige lande blev dømt næsten fem gange så ofte som befolkningen i ${last}`,
     )}
   >
     <Fragment slot="intro">
       {L(
         `Lagförda för minst ett våldsbrott under året, per 1 000 invånare 15–79 år. År ${last}: ${n1(rateAt(k, 'vold', 'eftk_ikkevest', last))} bland barn till invandrare från icke-västliga länder och ${n1(rateAt(k, 'vold', 'alla', last))} i hela befolkningen.`,
         `Convicted of at least one crime of violence during the year, per 1,000 residents aged 15–79. In ${last}: ${n1(rateAt(k, 'vold', 'eftk_ikkevest', last))} among descendants of immigrants from non-Western countries and ${n1(rateAt(k, 'vold', 'alla', last))} in the whole population.`,
+        `Dømt for mindst én voldsforbrydelse i løbet af året, pr. 1.000 indbyggere 15–79 år. I ${last}: ${n1(rateAt(k, 'vold', 'eftk_ikkevest', last))} blandt efterkommere fra ikke-vestlige lande og ${n1(rateAt(k, 'vold', 'alla', last))} i hele befolkningen.`,
       )}
     </Fragment>
     <Legend slot="legend" items={legend} />
@@ -99,10 +106,11 @@ const times = (v: number) => formatNumber(v, 1, lang);
       {L(
         'Våldsbrott enligt Danmarks Statistiks indelning av strafflagen, bland annat misshandel, våld mot tjänsteman, hot och dödligt våld. Inte justerat för ålder eller kön. Grupperna med västlig bakgrund är små, så deras tal kan ändras mycket mellan åren.',
         'Crimes of violence as Danmarks Statistik groups the criminal code, including assault, violence against public servants, threats and homicide. Not adjusted for age or sex. The groups with a Western background are small, so their rates can change a lot from year to year.',
+        'Voldsforbrydelser efter Danmarks Statistiks inddeling af straffeloven, blandt andet vold, vold mod tjenestemand, trusler og drab. Ikke justeret for alder eller køn. Grupperne med vestlig baggrund er små, så deres tal kan ændre sig meget fra år til år.',
       )}
     </Fragment>
     <Fragment slot="source">
-      {L('Källa: Danmarks Statistik, Statistikbanken, tabell ', 'Source: Danmarks Statistik, Statbank, table ')}<a href={SOURCES.dstStrfna10.url}>STRFNA10</a>{L(' och ', ' and ')}<a href={SOURCES.dstFolk1e.url}>FOLK1E</a>.
+      {L('Källa: Danmarks Statistik, Statistikbanken, tabell ', 'Source: Danmarks Statistik, Statbank, table ', 'Kilde: Danmarks Statistik, Statistikbanken, tabel ')}<a href={SOURCES.dstStrfna10.url}>STRFNA10</a>{L(' och ', ' and ', ' og ')}<a href={SOURCES.dstFolk1e.url}>FOLK1E</a>.
     </Fragment>
   </SubChart>
 </Chapter>

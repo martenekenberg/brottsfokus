@@ -4,11 +4,9 @@
 import type { DkAdjustment, DkIndexGroup, DkIndexOffence, DkIndexRow } from '../data';
 import type { BarChartSpec, BarKind } from '../charts/bar';
 import { formatNumber } from '../format';
-import { tr, type Lang } from '../i18n';
+import { pick, tr, type BaseLang, type Lang, type Text } from '../i18n';
 import type { DataTable } from '../tables';
 import { DK_CSV, DK_STYLE } from './kap11';
-
-type Text = Record<Lang, string>;
 export type Sex = 'man' | 'kvinnor';
 
 /** Shown order, as in chapter 5.1. */
@@ -17,11 +15,11 @@ export const ADJ_ORDER: DkAdjustment[] = ['ingen', 'alder', 'alder_socio', 'alde
 export const OFFENCE_ORDER: DkIndexOffence[] = ['alle', 'straffelov', 'vold', 'ejendom', 'faerdsel', 'saerlove'];
 
 export const ADJ_LABEL: Record<DkAdjustment, Text> = {
-  ingen: { sv: 'Inte justerat', en: 'Not adjusted' },
-  alder: { sv: 'Ålder', en: 'Age' },
-  alder_socio: { sv: 'Ålder och egen sysselsättning', en: 'Age and own employment status' },
-  alder_utb: { sv: 'Ålder och familjens utbildning', en: 'Age and family education' },
-  alder_ink: { sv: 'Ålder och familjens inkomst', en: 'Age and family income' },
+  ingen: { sv: 'Inte justerat', en: 'Not adjusted', da: 'Ikke justeret' },
+  alder: { sv: 'Ålder', en: 'Age', da: 'Alder' },
+  alder_socio: { sv: 'Ålder och egen sysselsättning', en: 'Age and own employment status', da: 'Alder og egen beskæftigelse' },
+  alder_utb: { sv: 'Ålder och familjens utbildning', en: 'Age and family education', da: 'Alder og familiens uddannelse' },
+  alder_ink: { sv: 'Ålder och familjens inkomst', en: 'Age and family income', da: 'Alder og familiens indkomst' },
 };
 export const ADJ_KIND: Record<DkAdjustment, BarKind> = {
   ingen: 'second',
@@ -30,7 +28,7 @@ export const ADJ_KIND: Record<DkAdjustment, BarKind> = {
   alder_utb: 'focusLight',
   alder_ink: 'focusPale',
 };
-const ADJ_CSV: Record<DkAdjustment, Text> = {
+const ADJ_CSV: Record<DkAdjustment, Record<BaseLang, string>> = {
   ingen: { sv: 'ej_justerat', en: 'not_adjusted' },
   alder: { sv: 'alder', en: 'age' },
   alder_socio: { sv: 'alder_sysselsattning', en: 'age_employment' },
@@ -45,7 +43,7 @@ export const OFFENCE_LABEL: Record<DkIndexOffence, Text> = {
   faerdsel: { sv: 'Trafikbrott', en: 'Traffic offences' },
   saerlove: { sv: 'Särskilda lagar', en: 'Special laws' },
 };
-const OFFENCE_CSV: Record<DkIndexOffence, Text> = {
+const OFFENCE_CSV: Record<DkIndexOffence, Record<BaseLang, string>> = {
   alle: { sv: 'alla', en: 'all' },
   straffelov: { sv: 'strafflagen', en: 'criminal_code' },
   vold: { sv: 'vald', en: 'violence' },
@@ -88,35 +86,40 @@ export function pageOf(k: Kap12, table: DkIndexRow['table']): number {
 }
 
 export function groupLabel(g: DkIndexGroup, lang: Lang): string {
-  return DK_STYLE[g].label[lang];
+  return pick(DK_STYLE[g].label, lang);
 }
 
 /** Grouped bars: one group per origin, one bar per adjustment, a dashed line at 100. */
 export function buildKap12Spec(k: Kap12, sex: Sex, lang: Lang): BarChartSpec {
-  const L = (sv: string, en: string) => tr(lang, sv, en);
   const v = (g: DkIndexGroup, a: DkAdjustment) => indexAt(k, sex, g, a);
-  const who = sex === 'man' ? L('män', 'men') : L('kvinnor', 'women');
-  const n = (x: number, l: Lang) => formatNumber(x, 0, l);
+  const man = sex === 'man';
+  const n = (x: number) => formatNumber(x, 0, lang);
   return {
     lang,
     format: 'int',
     hideBarLabels: true,
-    ref: { value: 100, label: sex === 'man' ? L('Alla män = 100', 'All men = 100') : L('Alla kvinnor = 100', 'All women = 100') },
+    ref: { value: 100, label: man ? tr(lang, 'Alla män = 100', 'All men = 100', { da: 'Alle mænd = 100' }) : tr(lang, 'Alla kvinnor = 100', 'All women = 100', { da: 'Alle kvinder = 100' }) },
     groups: INDEX_ORDER.map((g) => ({
       label: groupLabel(g, lang),
-      bars: ADJ_ORDER.map((a) => ({ label: ADJ_LABEL[a][lang], value: v(g, a), kind: ADJ_KIND[a] })),
+      bars: ADJ_ORDER.map((a) => ({ label: pick(ADJ_LABEL[a], lang), value: v(g, a), kind: ADJ_KIND[a] })),
     })),
-    ariaLabel: L(
-      `Stapeldiagram. Danmarks Statistiks kriminalitetsindex för ${who} ${k.year}, där alla ${who} 15–79 år är 100, efter ursprung, utan justering och justerat för ålder och andra förhållanden. ` +
-        `Barn till invandrare från icke-västliga länder: ${n(v('eftk_ikkevest', 'ingen'), 'sv')} utan justering och ${n(v('eftk_ikkevest', 'alder'), 'sv')} justerat för ålder.`,
-      `Bar chart. Danmarks Statistik’s crime index for ${who}, ${k.year}, where all ${who} aged 15–79 are 100, by origin, unadjusted and adjusted for age and other factors. ` +
-        `Descendants of immigrants from non-Western countries: ${n(v('eftk_ikkevest', 'ingen'), 'en')} unadjusted and ${n(v('eftk_ikkevest', 'alder'), 'en')} adjusted for age.`,
+    ariaLabel: tr(
+      lang,
+      `Stapeldiagram. Danmarks Statistiks kriminalitetsindex för ${man ? 'män' : 'kvinnor'} ${k.year}, där alla ${man ? 'män' : 'kvinnor'} 15–79 år är 100, efter ursprung, utan justering och justerat för ålder och andra förhållanden. ` +
+        `Barn till invandrare från icke-västliga länder: ${n(v('eftk_ikkevest', 'ingen'))} utan justering och ${n(v('eftk_ikkevest', 'alder'))} justerat för ålder.`,
+      `Bar chart. Danmarks Statistik’s crime index for ${man ? 'men' : 'women'}, ${k.year}, where all ${man ? 'men' : 'women'} aged 15–79 are 100, by origin, unadjusted and adjusted for age and other factors. ` +
+        `Descendants of immigrants from non-Western countries: ${n(v('eftk_ikkevest', 'ingen'))} unadjusted and ${n(v('eftk_ikkevest', 'alder'))} adjusted for age.`,
+      {
+        da:
+          `Søjlediagram. Danmarks Statistiks kriminalitetsindeks for ${man ? 'mænd' : 'kvinder'} i ${k.year}, hvor alle ${man ? 'mænd' : 'kvinder'} 15–79 år er 100, efter herkomst, ikke justeret og justeret for alder og andre forhold. ` +
+          `Efterkommere fra ikke-vestlige lande: ${n(v('eftk_ikkevest', 'ingen'))} ikke justeret og ${n(v('eftk_ikkevest', 'alder'))} justeret for alder.`,
+      },
     ),
   };
 }
 
 /** The tables on the chapter 5.2 table page: one row per group, the same values as the charts. */
-export function kap12Tables(k: Kap12, lang: Lang): DataTable[] {
+export function kap12Tables(k: Kap12, lang: BaseLang): DataTable[] {
   const T = (sv: string, en: string) => tr(lang, sv, en);
   const sexCsv = (s: Sex) => T(s === 'man' ? 'man' : 'kvinnor', s === 'man' ? 'men' : 'women');
   const adjTable = (s: Sex): DataTable => ({
