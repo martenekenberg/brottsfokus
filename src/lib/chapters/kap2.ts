@@ -3,7 +3,7 @@
 import type { B6Row, OriginRow } from '../data';
 import { dotFmt, type DotChartSpec, type DotRow } from '../charts/dot';
 import { formatNumber } from '../format';
-import { missingText, tr, type Lang } from '../i18n';
+import { missingText, tr, type BaseLang as Lang } from '../i18n';
 import { dataLabel } from '../labels';
 
 export type View = 'region' | 'land' | 'moder';

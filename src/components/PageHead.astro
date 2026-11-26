@@ -1,8 +1,9 @@
 ---
 // Header for the part pages and the Metod and Om sidan pages: kicker, headline, short intro,
-// an optional list of the page's chapters, and a link to the same page in the other language.
-import { alternatePath } from '../lib/dataPages';
-import { HTML_LANG, otherLang, tr, type Lang } from '../lib/i18n';
+// an optional list of the page's chapters, and the language menu. On a country page in Danish, Finnish or
+// Norwegian, a line says that the rest of the site is in Swedish and English.
+import LanguageMenu from './LanguageMenu.astro';
+import { isLocal, tr, type Lang } from '../lib/i18n';
 
 interface Props {
   kicker: string;
@@ -15,19 +16,25 @@ interface Props {
   lang: Lang;
 }
 const { kicker, title, intro, toc = [], path, lang } = Astro.props;
-const switchLang = otherLang(lang);
+const localNote = isLocal(lang)
+  ? tr(lang, '', '', {
+      da: 'Denne side er oversat til dansk. Resten af Brottsfokus findes på svensk og engelsk, og links til andre sider fører til den engelske udgave.',
+      fi: 'Tämä sivu on käännetty suomeksi. Muu Brottsfokus on ruotsiksi ja englanniksi, ja linkit muille sivuille vievät englanninkieliseen versioon.',
+    })
+  : '';
 ---
 
 <header class="page-head" id="top">
   <div class="meta">
     <span class="label">{kicker}</span>
-    <a class="switch" href={alternatePath(path, lang)} hreflang={HTML_LANG[switchLang]}>{tr(lang, 'English', 'Svenska')}</a>
+    <LanguageMenu path={path} lang={lang} />
   </div>
+  {localNote && <p class="local-note">{localNote}</p>}
   <h1>{title}</h1>
   {intro && <p class="intro">{intro}</p>}
   {
     toc.length > 0 && (
-      <ol class="toc" aria-label={tr(lang, 'Kapitel på sidan', 'Chapters on this page')}>
+      <ol class="toc" aria-label={tr(lang, 'Kapitel på sidan', 'Chapters on this page', { da: 'Kapitler på siden', fi: 'Sivun luvut' })}>
         {toc.map((t) => (
           <li>
             <a href={t.href}>
@@ -62,11 +69,11 @@ const switchLang = otherLang(lang);
     text-transform: uppercase;
     color: var(--second);
   }
-  .switch {
-    display: inline-flex;
-    align-items: center;
-    min-height: 44px;
-    color: var(--ink);
+  .local-note {
+    margin: 0;
+    font-size: 14px;
+    line-height: 1.5;
+    color: var(--text-muted);
   }
   h1 {
     margin: 0;

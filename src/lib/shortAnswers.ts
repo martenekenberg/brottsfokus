@@ -26,7 +26,7 @@ import {
   loadTableB6,
 } from './data';
 import { formatNumber } from './format';
-import { tr, type Lang } from './i18n';
+import { isLocal, tr, type BaseLang as Lang, type Lang as AnyLang } from './i18n';
 import { dataLabel } from './labels';
 import { methodPath } from './parts';
 import { SOURCES } from './sources';
@@ -359,6 +359,11 @@ export function shortAnswers(lang: Lang): ShortAnswerItem[] {
 }
 
 /** The short answers shown in one chapter. */
-export function chapterShortAnswers(chapterId: string, lang: Lang): ShortAnswerItem[] {
+export function chapterShortAnswers(chapterId: string, lang: AnyLang): ShortAnswerItem[] {
+  // The short answers are written in Swedish and English only. A chapter on a country page must have none.
+  if (isLocal(lang)) {
+    if (shortAnswers('sv').some((a) => a.chapterId === chapterId)) throw new Error(`Chapter ${chapterId} has short answers, which have no ${lang} translation`);
+    return [];
+  }
   return shortAnswers(lang).filter((a) => a.chapterId === chapterId);
 }

@@ -1,18 +1,21 @@
 // Number formatting for the page text and charts.
 // Swedish: decimal comma, space as thousands separator, a non-breaking space before "%".
 // English: decimal point, comma as thousands separator, no space before "%".
-// Both use "×" for multipliers.
+// Danish: decimal comma, full stop as thousands separator ("1.234,5"), a space before "%".
+// Finnish and Norwegian: as Swedish.
+// All use "×" for multipliers.
 
 import { round } from './calc';
 import type { Lang } from './i18n';
 
-const NBSP = ' ';
+const NBSP = '\u00a0';
+const THOUSANDS: Record<Lang, string> = { sv: NBSP, en: ',', da: '.', fi: NBSP, nb: NBSP };
 
 function fixed(value: number, decimals: number, lang: Lang): string {
   const en = lang === 'en';
   // Round first: toFixed alone turns 1.95 into "1.9".
   const parts = round(value, decimals).toFixed(decimals).split('.');
-  const int = parts[0].replace(/\B(?=(\d{3})+(?!\d))/g, en ? ',' : NBSP);
+  const int = parts[0].replace(/\B(?=(\d{3})+(?!\d))/g, THOUSANDS[lang]);
   const sign = int.startsWith('-') ? (en ? '-' : '−') : '';
   const body = sign ? int.slice(1) : int;
   const dec = en ? '.' : ',';

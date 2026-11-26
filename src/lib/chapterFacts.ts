@@ -8,10 +8,11 @@ import { buildKap1Data } from './chapters/kap1';
 import { buildKap3 } from './chapters/kap3';
 import { buildKap11 } from './chapters/kap11';
 import { buildKap12 } from './chapters/kap12';
+import { buildKap13 } from './chapters/kap13';
 import { cohorts as backmanCohorts } from './chapters/kap9';
 import { birthYears } from './chapters/kap10';
-import { loadBirthCohorts, loadCohorts, loadDkGuilty, loadDkIndex, loadDkPopulation, loadPopulation, loadPrison, loadSuspectsByBackground } from './data';
-import { tr, type Lang } from './i18n';
+import { loadBirthCohorts, loadCohorts, loadDkGuilty, loadDkIndex, loadDkPopulation, loadFiSuspects, loadPopulation, loadPrison, loadSuspectsByBackground } from './data';
+import { tr, type Lang, type LocalTexts } from './i18n';
 import { SOURCES } from './sources';
 
 export interface StudyFact {
@@ -41,7 +42,7 @@ function cohortSpan(first: string, last: string): string {
 }
 
 export function chapterFacts(id: string, lang: Lang): ChapterFacts {
-  const L = (sv: string, en: string) => tr(lang, sv, en);
+  const L = (sv: string, en: string, local?: LocalTexts<string>) => tr(lang, sv, en, local);
   const bra = (report: string) => L(`Brå rapport ${report}`, `Brå report ${report}`);
   switch (id) {
     case 'kap1': {
@@ -145,10 +146,10 @@ export function chapterFacts(id: string, lang: Lang): ChapterFacts {
       return {
         studies: [
           {
-            study: L('Danmarks Statistik, Statistikbanken', 'Danmarks Statistik, Statbank'),
+            study: L('Danmarks Statistik, Statistikbanken', 'Danmarks Statistik, Statbank', { da: 'Danmarks Statistik, Statistikbanken' }),
             href: SOURCES.dstStrfna10.url,
-            covers: L(`Lagförda ${firstYear}–${lastYear}`, `Convicted ${firstYear}–${lastYear}`),
-            published: L('Varje år', 'Every year'),
+            covers: L(`Lagförda ${firstYear}–${lastYear}`, `Convicted ${firstYear}–${lastYear}`, { da: `Dømte ${firstYear}–${lastYear}` }),
+            published: L('Varje år', 'Every year', { da: 'Hvert år' }),
           },
         ],
       };
@@ -158,10 +159,25 @@ export function chapterFacts(id: string, lang: Lang): ChapterFacts {
       return {
         studies: [
           {
-            study: L('Danmarks Statistik, Indvandrere i Danmark 2025', 'Danmarks Statistik, Indvandrere i Danmark 2025'),
+            study: L('Danmarks Statistik, Indvandrere i Danmark 2025', 'Danmarks Statistik, Indvandrere i Danmark 2025', { da: 'Danmarks Statistik, Indvandrere i Danmark 2025' }),
             href: SOURCES.dstIndv2025.url,
-            covers: L(`Lagförda ${year}`, `Convicted in ${year}`),
+            covers: L(`Lagförda ${year}`, `Convicted in ${year}`, { da: `Dømte i ${year}` }),
             published: '2025',
+          },
+        ],
+      };
+    }
+    case 'kap13':
+    case 'kap14': {
+      const { firstYear, lastYear } = buildKap13(loadFiSuspects());
+      const years = id === 'kap13' ? `${firstYear}–${lastYear}` : String(lastYear);
+      return {
+        studies: [
+          {
+            study: L('Statistikcentralen, StatFin', 'Statistics Finland, StatFin', { fi: 'Tilastokeskus, StatFin' }),
+            href: SOURCES.tk13zk.url,
+            covers: L(`Misstänkta ${years}`, `Suspects ${years}`, { fi: `Epäillyt ${years}` }),
+            published: L('Varje år', 'Every year', { fi: 'Vuosittain' }),
           },
         ],
       };

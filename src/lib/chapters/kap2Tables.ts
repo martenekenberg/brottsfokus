@@ -1,6 +1,6 @@
 // Tables and CSV for the chapter 2 table page. Build time only.
 import type { B6Row } from '../data';
-import { tr, type Lang } from '../i18n';
+import { tr, type BaseLang as Lang } from '../i18n';
 import { dataLabel } from '../labels';
 import { csvNumber, longCsv, type Column, type DataTable } from '../tables';
 import { crimeLabel, type Kap2Crime, type Kap2Data, type View } from './kap2';

@@ -4,7 +4,7 @@
 import type { B6Row, RiskFactorRow } from '../data';
 import type { BarChartSpec, BarKind } from '../charts/bar';
 import { formatTimes } from '../format';
-import { tr, type Lang } from '../i18n';
+import { tr, type BaseLang as Lang } from '../i18n';
 import { dataLabel } from '../labels';
 import type { DataTable } from '../tables';
 

@@ -1,7 +1,7 @@
 ---
 // A second chart inside a chapter, with the same pattern as the chapter itself:
 // heading, short intro, legend, chart, "Läs så här" box and source line.
-import { tr, type Lang } from '../lib/i18n';
+import { isLocal, tr, type Lang } from '../lib/i18n';
 
 interface Props {
   /** Anchor, so the chart can be linked to. */
@@ -23,11 +23,11 @@ const hasLegend = Astro.slots.has('legend');
   {hasLegend && <slot name="legend" />}
   <slot />
   <div class="note">
-    <strong>{tr(lang, 'Läs så här. ', 'How to read this. ')}</strong>
+    <strong>{tr(lang, 'Läs så här. ', 'How to read this. ', { da: 'Sådan skal tallene læses. ', fi: 'Näin luvut luetaan. ' })}</strong>
     <slot name="note" />
   </div>
   <p class="source"><slot name="source" /></p>
-  {tableHref && <a class="table-link" href={tableHref}>{tr(lang, 'Siffrorna i tabell och som CSV-fil', 'The figures as a table and CSV file')}</a>}
+  {tableHref && <a class="table-link" href={tableHref} hreflang={isLocal(lang) ? 'en' : undefined}>{tr(lang, 'Siffrorna i tabell och som CSV-fil', 'The figures as a table and CSV file', { da: 'Tallene som tabel og CSV-fil (på engelsk)', fi: 'Luvut taulukkona ja CSV-tiedostona (englanniksi)' })}</a>}
 </div>
 
 <style>

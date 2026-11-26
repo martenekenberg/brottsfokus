@@ -6,7 +6,7 @@ import type { BarChartSpec } from '../charts/bar';
 import { fmt, type LineChartSpec, type LineSeries } from '../charts/line';
 import { GROUPS } from './kap1';
 import { formatPct } from '../format';
-import { tr, type Lang } from '../i18n';
+import { tr, type BaseLang as Lang } from '../i18n';
 import { csvNumber, longCsv, type DataTable } from '../tables';
 
 export type Sex = 'man' | 'kvinna';

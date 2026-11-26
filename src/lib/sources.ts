@@ -52,6 +52,10 @@ export const SOURCES = {
     label: 'Danmarks Statistik, Indvandrere i Danmark 2025',
     url: 'https://www.dst.dk/da/Statistik/udgivelser/VisPub?cid=54707',
   },
+  tk13zk: {
+    label: 'Statistikcentralen (Tilastokeskus), StatFin, tabell 13zk: Rikoksiin syylliseksi epäillyt syntyperän mukaan',
+    url: 'https://pxdata.stat.fi/PxWeb/pxweb/sv/StatFin/StatFin__rpk/13zk.px/',
+  },
   scbCitizens: {
     label: 'SCB, Utländska medborgare i Sverige',
     url: 'https://www.scb.se/hitta-statistik/sverige-i-siffror/manniskorna-i-sverige/utlandska-medborgare-i-sverige/',

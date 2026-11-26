@@ -1,11 +1,10 @@
 // "Läs också": links from each chapter to related chapters, with a short note on how they
 // relate, and to the terms on Metod that the chapter relies on (item 8 of the SEO plan, November 2026).
 // The chapter that "Nästa" already points to is left out, so no link appears twice.
+// On a country page the links lead to the English pages, so the labels say so.
 import { chapter, chapterHref, nextLink } from './chapters';
-import { tr, type Lang } from './i18n';
+import { linkLang, pick, type Lang, type Text } from './i18n';
 import { methodPath } from './parts';
-
-type Text = { sv: string; en: string };
 
 /** Terms on Metod, by the anchor they have there ("begrepp-<id>"). tests/related.test.ts checks they exist. */
 export const TERMS: Record<string, Text> = {
@@ -16,10 +15,12 @@ export const TERMS: Record<string, Text> = {
   medborgarskap: { sv: 'Medborgarskap', en: 'Citizenship' },
   utsatt: { sv: 'Utsatt för brott', en: 'Victim of crime' },
   overrisk: { sv: 'Överrisk', en: 'Excess risk' },
-  befolkningen: { sv: 'Jämförelse med befolkningen', en: 'Comparison with the population' },
-  'ursprung-dk': { sv: 'Ursprung i Danmark', en: 'Origin in Denmark' },
-  'lagford-dk': { sv: 'Lagförd i Danmark', en: 'Convicted in Denmark' },
-  'index-dk': { sv: 'Kriminalitetsindex', en: 'Crime index' },
+  befolkningen: { sv: 'Jämförelse med befolkningen', en: 'Comparison with the population', da: 'Sammenligning med befolkningen', fi: 'Vertailu koko väestöön' },
+  'ursprung-dk': { sv: 'Ursprung i Danmark', en: 'Origin in Denmark', da: 'Herkomst i Danmark' },
+  'lagford-dk': { sv: 'Lagförd i Danmark', en: 'Convicted in Denmark', da: 'Dømt i Danmark' },
+  'index-dk': { sv: 'Kriminalitetsindex', en: 'Crime index', da: 'Kriminalitetsindeks' },
+  'bakgrund-fi': { sv: 'Bakgrund i Finland', en: 'Origin in Finland', fi: 'Syntyperä Suomessa' },
+  'misstankt-fi': { sv: 'Misstänkt i Finland', en: 'Suspected in Finland', fi: 'Rikoksesta epäilty Suomessa' },
 };
 
 interface Related {
@@ -89,17 +90,33 @@ const RELATED: Record<string, Related> = {
   },
   kap11: {
     chapters: [
-      { id: 'kap9', note: { sv: 'lagförda i Sverige före 25 års ålder, efter bakgrund', en: 'convicted in Sweden before age 25, by background' } },
-      { id: 'kap1', note: { sv: 'misstänkta i Sverige, efter bakgrund', en: 'suspected in Sweden, by background' } },
+      { id: 'kap9', note: { sv: 'lagförda i Sverige före 25 års ålder, efter bakgrund', en: 'convicted in Sweden before age 25, by background', da: 'dømt i Sverige før 25 år efter baggrund', fi: 'tuomitut Ruotsissa ennen 25 vuoden ikää taustan mukaan' } },
+      { id: 'kap1', note: { sv: 'misstänkta i Sverige, efter bakgrund', en: 'suspected in Sweden, by background', da: 'mistænkt i Sverige efter baggrund', fi: 'epäillyt Ruotsissa taustan mukaan' } },
+      { id: 'kap13', note: { sv: 'misstänkta i Finland, efter bakgrund', en: 'suspected in Finland, by origin', da: 'mistænkt i Finland efter herkomst' } },
     ],
     terms: ['ursprung-dk', 'lagford-dk', 'befolkningen'],
   },
   kap12: {
     chapters: [
-      { id: 'kap11', note: { sv: 'samma grupper år för år, utan justering', en: 'the same groups year by year, unadjusted' } },
-      { id: 'kap2', note: { sv: 'Brås justerade överrisker för Sverige, 2015–2018', en: 'Brå’s adjusted excess risks for Sweden, 2015–2018' } },
+      { id: 'kap11', note: { sv: 'samma grupper år för år, utan justering', en: 'the same groups year by year, unadjusted', da: 'de samme grupper år for år, ikke justeret' } },
+      { id: 'kap2', note: { sv: 'Brås justerade överrisker för Sverige, 2015–2018', en: 'Brå’s adjusted excess risks for Sweden, 2015–2018', da: 'Brås justerede overrisici for Sverige, 2015–2018', fi: 'Brån vakioidut ylisuuret riskit Ruotsissa, 2015–2018' } },
     ],
     terms: ['index-dk', 'ursprung-dk', 'lagford-dk'],
+  },
+  kap13: {
+    chapters: [
+      { id: 'kap1', note: { sv: 'misstänkta i Sverige, efter bakgrund', en: 'suspected in Sweden, by background', fi: 'epäillyt Ruotsissa taustan mukaan' } },
+      { id: 'kap11', note: { sv: 'lagförda i Danmark, efter ursprung', en: 'convicted in Denmark, by origin', fi: 'tuomitut Tanskassa syntyperän mukaan' } },
+    ],
+    terms: ['bakgrund-fi', 'misstankt-fi', 'befolkningen'],
+  },
+  kap14: {
+    chapters: [
+      { id: 'kap13', note: { sv: 'samma grupper år för år, alla åldrar', en: 'the same groups year by year, all ages', fi: 'samat ryhmät vuosittain, kaikki ikäryhmät' } },
+      { id: 'kap12', note: { sv: 'Danmark, justerat för ålder', en: 'Denmark, adjusted for age', fi: 'Tanska, iän mukaan vakioituna' } },
+      { id: 'kap2', note: { sv: 'Brås justerade överrisker för Sverige, 2015–2018', en: 'Brå’s adjusted excess risks for Sweden, 2015–2018', fi: 'Brån vakioidut ylisuuret riskit Ruotsissa, 2015–2018' } },
+    ],
+    terms: ['bakgrund-fi', 'misstankt-fi'],
   },
   kap8: {
     chapters: [
@@ -122,8 +139,8 @@ export function relatedLinks(id: string, lang: Lang): RelatedLinks {
   return {
     chapters: r.chapters
       .filter((c) => c.id !== id && !nextHref.endsWith(`#${c.id}`))
-      .map((c) => ({ href: chapterHref(c.id, lang), num: chapter(c.id).num, label: chapter(c.id).kicker[lang], note: c.note[lang] })),
-    terms: r.terms.map((t) => ({ href: `${methodPath[lang]}#begrepp-${t}`, label: tr(lang, TERMS[t].sv, TERMS[t].en) })),
+      .map((c) => ({ href: chapterHref(c.id, lang), num: chapter(c.id).num, label: pick(chapter(c.id).kicker, lang), note: pick(c.note, lang) })),
+    terms: r.terms.map((t) => ({ href: `${methodPath[linkLang(lang)]}#begrepp-${t}`, label: pick(TERMS[t], lang) })),
   };
 }
 

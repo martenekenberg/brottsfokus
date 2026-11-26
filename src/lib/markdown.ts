@@ -3,7 +3,7 @@ import { chapter, chapterHref } from './chapters';
 import { aboutPath, faqPath, methodPath, parts, type PartInfo } from './parts';
 import { columnIn, dataDictionary } from './dataDictionary';
 import { type TablePageUrls } from './dataPages';
-import { tr, type Lang } from './i18n';
+import { LANG_NAME, LOCAL_LANGS, tr, type BaseLang as Lang } from './i18n';
 import { site, absoluteUrl, dayMonthYear } from './site';
 import { formatCell, type DataTable } from './tables';
 import type { TablePageContent } from './tablePageContent';
@@ -98,8 +98,8 @@ export function llmsTxt(
     '',
     `> ${site.description.sv}`,
     '',
-    'Sidan sammanställer offentlig statistik och forskning från Brå, SCB, Lunds universitet och Stockholms universitet, och för jämförelse från Danmarks Statistik. Varje siffra har en källa. ' +
-      'Sidan drar inga egna slutsatser och tar inte ställning. Det finns också en engelsk version under /en/.',
+    'Sidan sammanställer offentlig statistik och forskning från Brå, SCB, Lunds universitet och Stockholms universitet, och för jämförelse från Danmarks Statistik och Statistikcentralen i Finland. Varje siffra har en källa. ' +
+      'Sidan drar inga egna slutsatser och tar inte ställning. Det finns också en engelsk version under /en/, och delarna om Danmark och Finland finns också på danska (/da/) och finska (/fi/).',
     '',
     'Viktigt när siffrorna används:',
     '',
@@ -113,6 +113,7 @@ export function llmsTxt(
     '- Vid dödligt våld saknas gärningspersoner i de fall som inte klarats upp, vilket är vanligast vid dödligt våld i kriminell miljö.',
     '- Statistiken över lagförda efter födelseår räknar bara den som var folkbokförd i Sverige vid 15 års ålder.',
     '- Delen om Danmark bygger på Danmarks Statistiks egna grupper, som inte är desamma som Brås. De danska siffrorna kan inte jämföras direkt med de svenska.',
+    '- Delen om Finland räknar misstänkta för brott som polisen klarat upp, en gång per person och år, efter Statistikcentralens grupper. Talen i alla åldrar är inte justerade för ålder; jämförelsen efter ålder finns i kapitel 6.2.',
     '',
     '## Delar',
     '',
@@ -130,6 +131,14 @@ export function llmsTxt(
     '',
     ...parts.map((p) => `- [${p.title.en}](${absoluteUrl(p.path.en)}): ${p.card.en} Chapters: ${partChapters(p, 'en')}.`),
     ...en.map(({ page, content }) => `- [${content.h1}](${absoluteUrl(page.mdPath)}): ${content.lead}`),
+    '',
+    '## Other languages',
+    '',
+    'The country parts are also translated into the country’s own language. The rest of the site is in Swedish and English.',
+    '',
+    ...parts.flatMap((p) =>
+      LOCAL_LANGS.filter((l) => p.path[l] !== undefined).map((l) => `- [${p.title[l]}](${absoluteUrl(p.path[l] as string)}) (${LANG_NAME[l]}): ${p.card[l]}`),
+    ),
     '',
     '## Optional',
     '',

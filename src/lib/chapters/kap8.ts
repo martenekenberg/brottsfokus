@@ -2,7 +2,7 @@
 // (Brå 2025:5). Shared by the main page, the table page and the number checklist.
 import type { HomicideRow } from '../data';
 import { barFmt, type BarChartSpec } from '../charts/bar';
-import { tr, type Lang } from '../i18n';
+import { tr, type BaseLang as Lang } from '../i18n';
 import { dataLabel } from '../labels';
 import { csvNumber, longCsv, type DataTable } from '../tables';
 

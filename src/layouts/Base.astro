@@ -4,8 +4,9 @@ import '@fontsource-variable/newsreader/opsz.css';
 import '../styles/global.css';
 import Analytics from '@vercel/analytics/astro';
 import { site, absoluteUrl } from '../lib/site';
-import { alternatePath } from '../lib/dataPages';
-import { HTML_LANG, IN_LANGUAGE, localePath, OG_LOCALE, otherLang as oppositeLang, tr, type Lang } from '../lib/i18n';
+import { pageVersions } from '../lib/dataPages';
+import { parts, partLangs } from '../lib/parts';
+import { ALL_LANGS, HTML_LANG, IN_LANGUAGE, linkLang, localePath, OG_LOCALE, tr, type Lang } from '../lib/i18n';
 
 interface Props {
   title: string;
@@ -31,13 +32,15 @@ const mainCitations = [
   'https://www.scb.se/hitta-statistik/sverige-i-siffror/manniskorna-i-sverige/utlandska-medborgare-i-sverige/',
 ];
 
-const { title, description, lang, path = localePath(lang, '/'), citations = mainCitations, jsonLdNodes = [], updated = site.updated, markdownPath } = Astro.props;
+const { title, description, lang, path = localePath(linkLang(lang), '/'), citations = mainCitations, jsonLdNodes = [], updated = site.updated, markdownPath } = Astro.props;
 const pageUrl = absoluteUrl(path);
-// The same page in the other language, and the Swedish version for search engines that choose by default.
-const otherLang: Lang = oppositeLang(lang);
-const otherUrl = absoluteUrl(alternatePath(path, lang));
-const swedishUrl = lang === 'sv' ? pageUrl : otherUrl;
-const englishUrl = lang === 'en' ? pageUrl : otherUrl;
+// The page in every language it exists in (Swedish and English, and a country language for some part pages),
+// and the Swedish version for search engines that choose by default.
+const versions = pageVersions(path, lang).map((v) => ({ ...v, url: absoluteUrl(v.path) }));
+const swedishUrl = versions.find((v) => v.lang === 'sv')?.url ?? pageUrl;
+const otherVersions = versions.filter((v) => v.lang !== lang);
+// The country pages share the English image: it has no text in their language.
+const shareImage = site.shareImage[linkLang(lang)];
 const siteName = site.name;
 
 // Structured data. Describes only what the page shows: who publishes it, when it
@@ -53,7 +56,8 @@ const jsonLd = {
       name: siteName,
       alternateName: site.formerName,
       url: site.url,
-      inLanguage: [IN_LANGUAGE.sv, IN_LANGUAGE.en],
+      // Swedish and English, and the country languages that have a page.
+      inLanguage: ALL_LANGS.filter((l) => parts.some((p) => partLangs(p).includes(l))).map((l) => IN_LANGUAGE[l]),
       publisher: { '@id': publisher['@id'] },
     },
     publisher,
@@ -67,7 +71,7 @@ const jsonLd = {
       dateModified: updated,
       isPartOf: { '@id': `${site.url}#website` },
       publisher: { '@id': publisher['@id'] },
-      primaryImageOfPage: site.shareImage[lang],
+      primaryImageOfPage: shareImage,
       citation: citations,
     },
     ...jsonLdNodes,
@@ -83,8 +87,7 @@ const jsonLd = {
     <title>{title}</title>
     <meta name="description" content={description} />
     <link rel="canonical" href={pageUrl} />
-    <link rel="alternate" hreflang={HTML_LANG.sv} href={swedishUrl} />
-    <link rel="alternate" hreflang={HTML_LANG.en} href={englishUrl} />
+    {versions.map((v) => <link rel="alternate" hreflang={HTML_LANG[v.lang]} href={v.url} />)}
     <link rel="alternate" hreflang="x-default" href={swedishUrl} />
     {markdownPath && <link rel="alternate" type="text/markdown" href={markdownPath} />}
     <meta name="theme-color" content="#ffffff" />
@@ -93,16 +96,19 @@ const jsonLd = {
     <meta property="og:type" content="website" />
     <meta property="og:site_name" content={siteName} />
     <meta property="og:locale" content={OG_LOCALE[lang]} />
-    <meta property="og:locale:alternate" content={OG_LOCALE[otherLang]} />
+    {otherVersions.map((v) => <meta property="og:locale:alternate" content={OG_LOCALE[v.lang]} />)}
     <meta property="og:url" content={pageUrl} />
     <meta property="og:title" content={title} />
     <meta property="og:description" content={description} />
-    <meta property="og:image" content={site.shareImage[lang]} />
+    <meta property="og:image" content={shareImage} />
     <meta property="og:image:width" content="1200" />
     <meta property="og:image:height" content="630" />
     <meta
       property="og:image:alt"
-      content={tr(lang, `${siteName}: officiell statistik om brott och bakgrund`, `${siteName}: official statistics on crime and background`)}
+      content={tr(lang, `${siteName}: officiell statistik om brott och bakgrund`, `${siteName}: official statistics on crime and background`, {
+        da: `${siteName}: officiel statistik om kriminalitet og baggrund`,
+        fi: `${siteName}: virallisia tilastoja rikollisuudesta ja taustasta`,
+      })}
     />
     <meta name="twitter:card" content="summary_large_image" />
 

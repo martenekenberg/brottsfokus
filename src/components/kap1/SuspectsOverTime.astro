@@ -3,7 +3,7 @@
 // Without JavaScript the default view (brott totalt, per 1 000) is shown and the controls stay hidden.
 import LineChart from '../charts/LineChart.astro';
 import { buildKap1Spec, chartHeading, crimeById, crimeName, GROUPS, type Kap1Data } from '../../lib/chapters/kap1';
-import { tr, type Lang } from '../../lib/i18n';
+import { tr, type BaseLang as Lang } from '../../lib/i18n';
 
 interface Props {
   data: Kap1Data;
@@ -72,7 +72,7 @@ const legend = [
 
 <script>
   import { buildKap1Spec, chartHeading, crimeById, type Kap1Data, type Mode } from '../../lib/chapters/kap1';
-  import type { Lang } from '../../lib/i18n';
+  import type { BaseLang as Lang } from '../../lib/i18n';
 
   document.querySelectorAll<HTMLElement>('[data-kap1]').forEach((root) => {
     const lang = (root.dataset.lang ?? 'sv') as Lang;

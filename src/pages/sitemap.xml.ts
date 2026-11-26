@@ -2,12 +2,12 @@ import { absoluteUrl, site } from '../lib/site';
 import { tablePage, tablePages, tablesIndexPath } from '../lib/dataPages';
 import { dataDate } from '../lib/dataDates';
 import { tablePageContent } from '../lib/tablePageContent';
-import { localePath, type Lang } from '../lib/i18n';
+import { ALL_LANGS, HTML_LANG, localePath, type Lang, type Text } from '../lib/i18n';
 import { pagePairs } from '../lib/parts';
 
 interface Entry {
-  /** The page in each language. */
-  paths: Record<Lang, string>;
+  /** The page in each language it exists in: Swedish and English, and a country language for some part pages. */
+  paths: Text;
   date: string;
 }
 
@@ -32,13 +32,14 @@ export function GET() {
 
   const urls = entries
     .map(({ paths, date }) => {
-      const links = (['sv', 'en'] as Lang[])
-        .map((lang) => `    <xhtml:link rel="alternate" hreflang="${lang}" href="${absoluteUrl(paths[lang])}"/>`)
+      const langs = ALL_LANGS.filter((l): l is Lang => paths[l] !== undefined);
+      const links = langs
+        .map((lang) => `    <xhtml:link rel="alternate" hreflang="${HTML_LANG[lang]}" href="${absoluteUrl(paths[lang] as string)}"/>`)
         .join('\n');
-      return (['sv', 'en'] as Lang[])
+      return langs
         .map(
           (lang) =>
-            `  <url>\n    <loc>${absoluteUrl(paths[lang])}</loc>\n    <lastmod>${date}</lastmod>\n${links}\n  </url>`,
+            `  <url>\n    <loc>${absoluteUrl(paths[lang] as string)}</loc>\n    <lastmod>${date}</lastmod>\n${links}\n  </url>`,
         )
         .join('\n');
     })

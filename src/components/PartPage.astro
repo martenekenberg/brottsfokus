@@ -1,6 +1,7 @@
 ---
 // One part of the site (for example "Misstänkta för brott") with its chapters.
-// Rendered by src/pages/[part]/index.astro and src/pages/en/[part]/index.astro.
+// Rendered by src/pages/[part]/index.astro and src/pages/en/[part]/index.astro, and for the country parts
+// in their own language by src/pages/[local]/[part]/index.astro (Danish, Finnish).
 import Base from '../layouts/Base.astro';
 import ChapterNav from './ChapterNav.astro';
 import PageHead from './PageHead.astro';
@@ -16,11 +17,13 @@ import Kap8 from './chapters/Kap8.astro';
 import Kap9 from './chapters/Kap9.astro';
 import Kap11 from './chapters/Kap11.astro';
 import Kap12 from './chapters/Kap12.astro';
+import Kap13 from './chapters/Kap13.astro';
+import Kap14 from './chapters/Kap14.astro';
 import { chapter } from '../lib/chapters';
 import { part, parts, type PartId } from '../lib/parts';
 import { partCoverage, partDatasetIds, partMeta, partSourceUrls } from '../lib/partMeta';
 import { site, absoluteUrl } from '../lib/site';
-import { IN_LANGUAGE, localePath, tr, type Lang } from '../lib/i18n';
+import { IN_LANGUAGE, isLocal, linkLang, localePath, pick, tr, type Lang } from '../lib/i18n';
 
 interface Props {
   partId: PartId;
@@ -29,10 +32,15 @@ interface Props {
 const { partId, lang } = Astro.props;
 const p = part(partId);
 const path = p.path[lang];
-const COMPONENTS: Record<string, typeof Kap1> = { kap1: Kap1, kap2: Kap2, kap3: Kap3, kap4: Kap4, kap5: Kap5, kap6: Kap6, kap7: Kap7, kap8: Kap8, kap9: Kap9, kap11: Kap11, kap12: Kap12 };
+if (path === undefined) throw new Error(`Part ${partId} has no ${lang} page`);
+// Chapters 1–9 are written in Swedish and English only; the country chapters also in their own language.
+const COMPONENTS: Record<string, (props: { lang: Lang }) => unknown> = {
+  kap1: Kap1, kap2: Kap2, kap3: Kap3, kap4: Kap4, kap5: Kap5, kap6: Kap6, kap7: Kap7, kap8: Kap8, kap9: Kap9,
+  kap11: Kap11, kap12: Kap12, kap13: Kap13, kap14: Kap14,
+} as Record<string, (props: { lang: Lang }) => unknown>;
 const toc = p.chapters.map((id) => {
   const c = chapter(id);
-  return { num: c.num, label: c.kicker[lang], href: `#${id}` };
+  return { num: c.num, label: pick(c.kicker, lang), href: `#${id}` };
 });
 
 // Search title and description, with the years the part covers (src/lib/partMeta.ts).
@@ -45,15 +53,15 @@ const pageUrl = absoluteUrl(path);
 const breadcrumbLd = {
   '@type': 'BreadcrumbList',
   itemListElement: [
-    { '@type': 'ListItem', position: 1, name: site.name, item: absoluteUrl(localePath(lang, '/')) },
-    { '@type': 'ListItem', position: 2, name: p.title[lang], item: pageUrl },
+    { '@type': 'ListItem', position: 1, name: site.name, item: absoluteUrl(localePath(linkLang(lang), '/')) },
+    { '@type': 'ListItem', position: 2, name: pick(p.title, lang), item: pageUrl },
   ],
 };
 // Author and publisher are the site itself, since the person behind it is anonymous.
 const articleLd = {
   '@type': 'Article',
   '@id': `${pageUrl}#article`,
-  headline: p.title[lang],
+  headline: pick(p.title, lang),
   description: meta.description,
   url: pageUrl,
   inLanguage: IN_LANGUAGE[lang],
@@ -62,9 +70,11 @@ const articleLd = {
   author: { '@id': `${site.url}#publisher` },
   publisher: { '@id': `${site.url}#publisher` },
   dateModified: site.updated,
-  image: site.shareImage[lang],
+  image: site.shareImage[linkLang(lang)],
   temporalCoverage: `${coverage.first}/${coverage.last}`,
-  spatialCoverage: { '@type': 'Place', name: p.country?.[lang] ?? tr(lang, 'Sverige', 'Sweden') },
+  spatialCoverage: { '@type': 'Place', name: p.country ? pick(p.country, lang) : tr(lang, 'Sverige', 'Sweden') },
+  // A translated country page says which page it was translated from.
+  ...(isLocal(lang) ? { translationOfWork: { '@id': `${absoluteUrl(p.path.sv)}#article` } } : {}),
   // The tables the charts are drawn from (Dataset markup on the table pages), and the original sources.
   isBasedOn: [...partDatasetIds(partId, lang).map((id) => ({ '@id': id })), ...citations],
 };
@@ -81,9 +91,9 @@ const articleLd = {
   <div class="wrap">
     <ChapterNav current={partId} lang={lang} />
     <PageHead
-      kicker={tr(lang, `Del ${p.num} av ${parts.length}`, `Part ${p.num} of ${parts.length}`)}
-      title={p.title[lang]}
-      intro={p.card[lang]}
+      kicker={tr(lang, `Del ${p.num} av ${parts.length}`, `Part ${p.num} of ${parts.length}`, { da: `Del ${p.num} af ${parts.length}`, fi: `Osa ${p.num}/${parts.length}` })}
+      title={pick(p.title, lang)}
+      intro={pick(p.card, lang)}
       toc={toc}
       path={path}
       lang={lang}

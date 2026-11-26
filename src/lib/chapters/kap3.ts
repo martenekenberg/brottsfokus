@@ -4,7 +4,7 @@ import type { PopulationRow, PrisonRow } from '../data';
 import { foreignCitizenSharePct, prisonSeries, round } from '../calc';
 import { formatNumber } from '../format';
 import { yearRanges } from '../years';
-import { tr, type Lang } from '../i18n';
+import { tr, type BaseLang as Lang } from '../i18n';
 import type { DataTable } from '../tables';
 
 export interface Kap3 {

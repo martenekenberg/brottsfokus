@@ -3,7 +3,7 @@
 // Build time only (reads the data files through the table page content).
 import { MERGED } from './chapters';
 import { tablePage, tablePages } from './dataPages';
-import { type Lang } from './i18n';
+import { linkLang, pick, type Lang } from './i18n';
 import { part, type PartId } from './parts';
 import { absoluteUrl } from './site';
 import { tablePageContent } from './tablePageContent';
@@ -35,15 +35,15 @@ export function partMeta(partId: PartId, lang: Lang): { title: string; descripti
     return out;
   };
   const m = part(partId).meta;
-  return { title: fill(m.title[lang]), description: fill(m.description[lang]) };
+  return { title: fill(pick(m.title, lang)), description: fill(pick(m.description, lang)) };
 }
 
 /** Source URLs of the part's table pages, without repeats, in chapter order. */
 export function partSourceUrls(partId: PartId, lang: Lang): string[] {
-  return [...new Set(partTablePages(partId).flatMap((t) => tablePageContent(t.chapterId, lang).sources.map((s) => s.url)))];
+  return [...new Set(partTablePages(partId).flatMap((t) => tablePageContent(t.chapterId, linkLang(lang)).sources.map((s) => s.url)))];
 }
 
-/** The Dataset nodes (on the table pages) that the part's charts are drawn from. */
+/** The Dataset nodes (on the table pages) that the part's charts are drawn from. Country pages point to the English table pages. */
 export function partDatasetIds(partId: PartId, lang: Lang): string[] {
-  return partTablePages(partId).map((t) => `${absoluteUrl(tablePage(t.chapterId, lang).path)}#dataset`);
+  return partTablePages(partId).map((t) => `${absoluteUrl(tablePage(t.chapterId, linkLang(lang)).path)}#dataset`);
 }

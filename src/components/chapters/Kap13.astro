@@ -1,0 +1,83 @@
+---
+// Chapter 6.1: people suspected of crime in Finland, by origin, 2000 onwards (Statistics Finland, table 13zk).
+// Copy in Swedish, English and Finnish (the Finnish page, /fi/suomi/).
+// Loads its own data and stops the build if its headlines no longer match the data.
+import Chapter from '../Chapter.astro';
+import Legend from '../Legend.astro';
+import LineChart from '../charts/LineChart.astro';
+import { pick, tr, type Lang } from '../../lib/i18n';
+import { loadFiSuspects } from '../../lib/data';
+import { buildKap13, buildKap13Spec, fiRate, fiRatio, FI_CHART, FI_STYLE } from '../../lib/chapters/kap13';
+import { tablePage } from '../../lib/dataPages';
+import { formatNumber } from '../../lib/format';
+import { round } from '../../lib/calc';
+import { SOURCES } from '../../lib/sources';
+import { chapter } from '../../lib/chapters';
+
+interface Props {
+  lang: Lang;
+}
+const { lang } = Astro.props;
+const L = (sv: string, en: string, fi: string) => tr(lang, sv, en, { fi });
+const n1 = (v: number) => formatNumber(v, 1, lang);
+
+const k = buildKap13(loadFiSuspects());
+const { firstYear: first, lastYear: last } = k;
+const spec = buildKap13Spec(k, lang);
+const ratioLast = fiRatio(k, last, 'utl_fodd_utl');
+const ratioFirst = fiRatio(k, first, 'utl_fodd_utl');
+const r = (o: Parameters<typeof fiRate>[2], y: number) => fiRate(k, y, o);
+
+// The headline says people with a foreign background born abroad were suspected 1.4 times as often as the
+// population in the last year. Stop the build if the ratio no longer rounds to 1.4.
+if (round(ratioLast, 1) !== 1.4) throw new Error(`Chapter 6.1 headline no longer matches the data (${ratioLast})`);
+// The part card (src/lib/parts.ts) names the year 2025. Stop the build when newer data arrives, so the card is updated.
+if (last !== 2025) throw new Error(`Chapter 6.1: the data now runs to ${last}; update the Finland card in src/lib/parts.ts`);
+// The intro says the gap for those born abroad has shrunk since the first year, and that the rate for those
+// with a foreign background born in Finland has risen and is above the population's in the last year.
+if (!(ratioLast < ratioFirst)) throw new Error('Chapter 6.1 intro: the gap for people born abroad no longer shrank');
+if (!(r('utl_fodd_fi', last) > r('utl_fodd_fi', first)) || !(r('utl_fodd_fi', last) > r('alla', last))) {
+  throw new Error('Chapter 6.1 intro: the rate for people with a foreign background born in Finland no longer matches');
+}
+
+const legend = FI_CHART.map((g) => {
+  const s = FI_STYLE[g as keyof typeof FI_STYLE];
+  return { label: pick(s.label, lang), color: s.color, mark: s.dashed ? ('dash' as const) : ('line' as const) };
+});
+const ageChapter = chapter('kap14').num;
+---
+
+<Chapter
+  id="kap13"
+  lang={lang}
+  tableHref={tablePage('kap13', lang).path}
+  title={L(
+    `Personer med utländsk bakgrund födda utomlands misstänktes för brott 1,4 gånger så ofta som befolkningen i Finland ${last}`,
+    `In Finland, people with a foreign background born abroad were suspected of crime 1.4 times as often as the population in ${last}`,
+    `Ulkomailla syntyneitä ulkomaalaistaustaisia epäiltiin rikoksesta 1,4 kertaa niin usein kuin koko väestöä Suomessa vuonna ${last}`,
+  )}
+>
+  <p slot="intro">
+    {L(
+      `Misstänkta för minst ett brott mot strafflagen under året, per 1 000 invånare i alla åldrar. År ${last}: ${n1(r('utl_fodd_utl', last))} bland personer med utländsk bakgrund födda utomlands, ${n1(r('utl_fodd_fi', last))} bland dem med utländsk bakgrund födda i Finland, ${n1(r('fi_fodd_fi', last))} bland dem med finländsk bakgrund födda i Finland och ${n1(r('alla', last))} i hela befolkningen. För dem som är födda utomlands har skillnaden mot befolkningen minskat sedan ${first}, då talet var ${n1(ratioFirst)} gånger befolkningens. För dem med utländsk bakgrund födda i Finland har talet stigit, från ${n1(r('utl_fodd_fi', first))} per 1 000 år ${first}.`,
+      `Suspected of at least one criminal code offence during the year, per 1,000 residents of all ages. In ${last}: ${n1(r('utl_fodd_utl', last))} among people with a foreign background born abroad, ${n1(r('utl_fodd_fi', last))} among those with a foreign background born in Finland, ${n1(r('fi_fodd_fi', last))} among those with a Finnish background born in Finland and ${n1(r('alla', last))} in the whole population. For those born abroad, the gap to the population has shrunk since ${first}, when their rate was ${n1(ratioFirst)} times the population’s. For those with a foreign background born in Finland, the rate has risen, from ${n1(r('utl_fodd_fi', first))} per 1,000 in ${first}.`,
+      `Vähintään yhdestä rikoslain rikoksesta vuoden aikana epäillyt 1 000 asukasta kohden, kaikki ikäryhmät. Vuonna ${last}: ${n1(r('utl_fodd_utl', last))} ulkomailla syntyneillä ulkomaalaistaustaisilla, ${n1(r('utl_fodd_fi', last))} Suomessa syntyneillä ulkomaalaistaustaisilla, ${n1(r('fi_fodd_fi', last))} Suomessa syntyneillä suomalaistaustaisilla ja ${n1(r('alla', last))} koko väestössä. Ulkomailla syntyneiden ero koko väestöön on kaventunut vuodesta ${first}, jolloin heidän lukunsa oli ${n1(ratioFirst)}-kertainen koko väestöön verrattuna. Suomessa syntyneillä ulkomaalaistaustaisilla luku on noussut: vuonna ${first} se oli ${n1(r('utl_fodd_fi', first))} 1 000 asukasta kohden.`,
+    )}
+  </p>
+  <Legend slot="legend" items={legend} />
+  <LineChart spec={spec} />
+  <Fragment slot="note">
+    {L(
+      `Bara brott som polisen har klarat upp räknas, och varje person räknas en gång per år. Bara personer med finsk personbeteckning räknas, och asylsökande ingår inte i befolkningen. Talen gäller alla åldrar och är inte justerade för ålder eller kön. Personer med utländsk bakgrund födda i Finland är i genomsnitt mycket unga, och barn misstänks sällan, vilket drar ned deras tal. Kapitel ${ageChapter} jämför inom samma ålder. Utländsk bakgrund betyder att båda föräldrarna, eller den enda kända föräldern, är födda utomlands. Det liknar Brås indelning, men lagarna och polisens arbete skiljer sig mellan länderna, så jämför inte direkt med de svenska siffrorna.`,
+      `Only offences the police have solved are counted, and each person is counted once a year. Only people with a Finnish personal identity code are counted, and asylum seekers are not part of the population. The rates cover all ages and are not adjusted for age or sex. People with a foreign background born in Finland are on average very young, and children are rarely suspected, which pulls their rate down. Chapter ${ageChapter} compares people of the same age. A foreign background means that both parents, or the only known parent, were born abroad. This is close to Brå’s grouping, but the laws and police work differ between the countries, so do not compare directly with the Swedish figures.`,
+      `Mukana ovat vain poliisin selvittämät rikokset, ja jokainen henkilö lasketaan kerran vuodessa. Mukana ovat vain henkilöt, joilla on suomalainen henkilötunnus, eivätkä turvapaikanhakijat kuulu väestöön. Luvut koskevat kaikkia ikäryhmiä, eikä niitä ole vakioitu iän tai sukupuolen mukaan. Suomessa syntyneet ulkomaalaistaustaiset ovat keskimäärin hyvin nuoria, ja lapsia epäillään harvoin, mikä laskee heidän lukuaan. Luvussa ${ageChapter} verrataan samanikäisiä. Ulkomaalaistaustainen tarkoittaa, että molemmat vanhemmat tai ainoa tunnettu vanhempi on syntynyt ulkomailla. Jako on lähellä ruotsalaisen Brån (Brottsförebyggande rådet) jakoa, mutta lait ja poliisin työ eroavat maiden välillä, joten lukuja ei pidä verrata suoraan ruotsalaisiin.`,
+    )}
+  </Fragment>
+  <Fragment slot="source">
+    {L('Källa: Statistikcentralen, StatFin, tabell ', 'Source: Statistics Finland, StatFin, table ', 'Lähde: Tilastokeskus, StatFin, taulukko ')}<a href={SOURCES.tk13zk.url}>13zk</a>{L(
+      '. Statistikcentralens tal per 10 000 invånare, här omräknade till per 1 000.',
+      '. Statistics Finland’s rates per 10,000 residents, shown here per 1,000.',
+      '. Tilastokeskuksen luvut 10 000 asukasta kohden, tässä muunnettuina 1 000 asukasta kohden.',
+    )}
+  </Fragment>
+</Chapter>

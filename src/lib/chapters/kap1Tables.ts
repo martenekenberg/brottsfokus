@@ -1,6 +1,6 @@
 // Tables and CSV for the chapter 1 table page. Build time only.
 import { ratioToComparison } from '../calc';
-import { tr, type Lang } from '../i18n';
+import { tr, type BaseLang as Lang } from '../i18n';
 import { csvNumber, longCsv, type DataTable } from '../tables';
 import { crimeName, GROUPS, type GroupId, type Kap1Crime, type Kap1Data } from './kap1';
 import { countColumn, shareColumn, type SuspicionShares } from './kap1Shares';

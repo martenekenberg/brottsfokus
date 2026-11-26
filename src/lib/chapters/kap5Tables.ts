@@ -1,6 +1,6 @@
 // Tables and CSV for the chapter 5 table page (Brå 2005:17). Build time only.
 import type { Bra2005Row } from '../data';
-import { tr, type Lang } from '../i18n';
+import { tr, type BaseLang as Lang } from '../i18n';
 import { dataLabel } from '../labels';
 import { csvNumber, longCsv, type DataTable } from '../tables';
 

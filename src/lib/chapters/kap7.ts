@@ -5,7 +5,7 @@ import type { DeportDimension, DeportFact, DeportRow } from '../data';
 import type { BarChartSpec } from '../charts/bar';
 import { formatNumber, formatPct } from '../format';
 import { round } from '../calc';
-import { tr, type Lang } from '../i18n';
+import { tr, type BaseLang as Lang } from '../i18n';
 import { dataLabel } from '../labels';
 import { csvNumber, longCsv, type DataTable } from '../tables';
 

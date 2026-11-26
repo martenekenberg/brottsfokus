@@ -607,3 +607,66 @@ export function loadDkIndex(): DkIndexRow[] {
   }
   return rows;
 }
+
+// ---------- tk_misstankta_ursprung.csv (part 6, Finland) ----------
+
+/** Statistics Finland's origin groups (StatFin 13zk). "fi" and "utl" are the sums of their two subgroups. */
+export const FI_ORIGINS = ['alla', 'fi', 'fi_fodd_fi', 'fi_fodd_utl', 'utl', 'utl_fodd_utl', 'utl_fodd_fi', 'okand'] as const;
+export type FiOrigin = (typeof FI_ORIGINS)[number];
+export const FI_SEXES = ['alla', 'man', 'kvinnor'] as const;
+export type FiSex = (typeof FI_SEXES)[number];
+export const FI_AGES = ['alla', '0-14', '15-17', '18-20', '21-24', '25-29', '30-39', '40-49', '50-59', '60-69', '70-'] as const;
+export type FiAge = (typeof FI_AGES)[number];
+
+export interface FiSuspectRow {
+  year: number;
+  sex: FiSex;
+  age: FiAge;
+  origin: FiOrigin;
+  /** People suspected of a solved criminal code offence during the year, each counted once (most aggravated offence). */
+  persons: number;
+  /** Statistics Finland's rate per 10,000 residents in the same group. Null for unknown origin, which has no population. */
+  per10000: number | null;
+}
+
+export function loadFiSuspects(): FiSuspectRow[] {
+  const file = 'tk_misstankta_ursprung.csv';
+  const rows = readCsv(file, ['year', 'sex', 'age', 'origin', 'persons', 'per10000', 'source']).map((r) => ({
+    year: required(r.year, 'year'),
+    sex: oneOf(r.sex, FI_SEXES, `${file} sex`),
+    age: oneOf(r.age, FI_AGES, `${file} age`),
+    origin: oneOf(r.origin, FI_ORIGINS, `${file} origin`),
+    persons: required(r.persons, `${file} persons`),
+    per10000: num(r.per10000),
+  }));
+  unique(rows, (r) => `${r.year}/${r.sex}/${r.age}/${r.origin}`, file);
+  const index = new Map(rows.map((r) => [`${r.year}/${r.sex}/${r.age}/${r.origin}`, r]));
+  const get = (r: FiSuspectRow, origin: FiOrigin) => {
+    const x = index.get(`${r.year}/${r.sex}/${r.age}/${origin}`);
+    if (!x) throw new Error(`${file} ${r.year} ${r.sex} ${r.age}: no row for ${origin}`);
+    return x;
+  };
+  for (const r of rows) {
+    // Every group but "unknown origin" has a rate; "unknown" has none.
+    if ((r.origin === 'okand') !== (r.per10000 === null)) throw new Error(`${file} ${r.year} ${r.sex} ${r.age} ${r.origin}: rate should ${r.origin === 'okand' ? 'be empty' : 'be given'}`);
+    if (r.origin !== 'alla') continue;
+    // The groups must add up to everyone, and the subgroups to their group, or a row is missing or mistyped.
+    const sums: [FiOrigin, FiOrigin[]][] = [
+      ['alla', ['fi', 'utl', 'okand']],
+      ['fi', ['fi_fodd_fi', 'fi_fodd_utl']],
+      ['utl', ['utl_fodd_utl', 'utl_fodd_fi']],
+    ];
+    for (const [whole, partsOf] of sums) {
+      const sum = partsOf.reduce((a, o) => a + get(r, o).persons, 0);
+      if (sum !== get(r, whole).persons) throw new Error(`${file} ${r.year} ${r.sex} ${r.age}: ${partsOf.join(' + ')} = ${sum}, not ${get(r, whole).persons}`);
+    }
+    // The rates imply each group's population (persons / rate). For the whole country, the two groups' populations
+    // must add up to everyone's, which shows the rates and counts belong together.
+    if (r.sex === 'alla' && r.age === 'alla') {
+      const implied = (o: FiOrigin) => (get(r, o).persons / (get(r, o).per10000 as number)) * 10000;
+      const diff = Math.abs(implied('fi') + implied('utl') - implied('alla')) / implied('alla');
+      if (diff > 0.005) throw new Error(`${file} ${r.year}: rates and counts do not fit together (${(diff * 100).toFixed(2)} %)`);
+    }
+  }
+  return rows;
+}

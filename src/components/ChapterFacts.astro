@@ -2,7 +2,7 @@
 // "Om uppgifterna": which study a chapter shows, which years its figures cover and when it was published.
 // One row per study. Facts are in src/lib/chapterFacts.ts.
 import { chapterFacts } from '../lib/chapterFacts';
-import { tr, type Lang } from '../lib/i18n';
+import { tr, type Lang, type LocalTexts } from '../lib/i18n';
 
 interface Props {
   id: string;
@@ -10,7 +10,14 @@ interface Props {
 }
 const { id, lang } = Astro.props;
 const facts = chapterFacts(id, lang);
-const L = (sv: string, en: string) => tr(lang, sv, en);
+const L = (sv: string, en: string) => tr(lang, sv, en, LOCAL[sv]);
+// The panel's headings in the country languages.
+const LOCAL: Record<string, LocalTexts<string>> = {
+  'Om uppgifterna': { da: 'Om tallene', fi: 'Tiedoista' },
+  Studie: { da: 'Kilde', fi: 'Lähde' },
+  'Uppgifterna avser': { da: 'Tallene dækker', fi: 'Luvut koskevat' },
+  Publicerad: { da: 'Udgivet', fi: 'Julkaistu' },
+};
 ---
 
 <div class="facts">

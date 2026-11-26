@@ -1,9 +1,13 @@
 ---
 // Front page: one card per part, with its name, one sentence (owner approves the copy in
-// src/lib/parts.ts) and its chapters as links.
+// src/lib/parts.ts) and its chapters as links. A country part also links to its page in the country's
+// language, with the link text in that language.
 import { chapter } from '../lib/chapters';
 import { parts } from '../lib/parts';
-import { tr, type Lang } from '../lib/i18n';
+import { HTML_LANG, LOCAL_LANGS, tr, type BaseLang as Lang, type LocalLang } from '../lib/i18n';
+
+/** "Read in Danish", written in the language itself, as language links usually are. */
+const READ_IN: Record<LocalLang, string> = { da: 'Læs på dansk', fi: 'Lue suomeksi', nb: 'Les på norsk' };
 
 interface Props {
   lang: Lang;
@@ -20,6 +24,11 @@ const { lang } = Astro.props;
           <a href={p.path[lang]}>{p.title[lang]}</a>
         </h2>
         <p class="text">{p.card[lang]}</p>
+        {LOCAL_LANGS.filter((l) => p.path[l] !== undefined).map((l) => (
+          <a class="local" href={p.path[l]} hreflang={HTML_LANG[l]} lang={HTML_LANG[l]}>
+            {READ_IN[l]} →
+          </a>
+        ))}
         <ul aria-label={tr(lang, `Kapitel i ${p.title.sv.toLowerCase()}`, `Chapters in ${p.title.en.toLowerCase()}`)}>
           {p.chapters.map((id) => {
             const c = chapter(id);
@@ -39,6 +48,14 @@ const { lang } = Astro.props;
 </section>
 
 <style>
+  .local {
+    align-self: flex-start;
+    display: inline-flex;
+    align-items: center;
+    min-height: 44px;
+    margin-top: -8px;
+    font-size: 14px;
+  }
   .parts {
     display: grid;
     /* Two by two on wide screens, one column on phones. */

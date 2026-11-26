@@ -2,9 +2,12 @@
 // unit and meaning. Shown on each table page, in its Markdown copy and in /data/datapackage.json.
 // tests/dataDictionary.test.ts checks that the columns match each CSV file's header exactly, in order.
 // Item 10 of the SEO plan, November 2026.
-import type { Lang } from './i18n';
+import type { BaseLang as Lang } from './i18n';
 import { DK_CSV, DK_OFFENCE_CSV, DK_ORDER, DK_STYLE, OFFENCE_NAME } from './chapters/kap11';
 import { kap12DictionaryColumns } from './chapters/kap12';
+import { FI_CSV, FI_LABEL, FI_SEX_CSV, FI_TABLE } from './chapters/kap13';
+import { AGE_GROUPS } from './chapters/kap14';
+import type { FiOrigin, FiSex } from './data';
 import type { DkOffence } from './data';
 
 type Text = { sv: string; en: string };
@@ -187,6 +190,44 @@ const DICTIONARY: Record<string, Column[]> = {
       en: 'Group by origin, according to Danmarks Statistik: descendants and immigrants from non-Western and Western countries, and Danish origin.',
     }),
     ...kap12DictionaryColumns().map((c) => col(c.name.sv, c.name.en, 'integer', c.description, { sv: 'index (genomsnitt = 100)', en: 'index (average = 100)' })),
+  ],
+  // 6.1 Misstänkta i Finland (Statistics Finland, StatFin 13zk)
+  kap13: [
+    col('ar', 'year', 'integer', { sv: 'År då brottet klarades upp.', en: 'Year the offence was solved.' }),
+    ...(['alla', 'man', 'kvinnor'] as FiSex[]).flatMap((s) =>
+      FI_TABLE.map((o) =>
+        col(`${FI_SEX_CSV[s].sv}_${FI_CSV[o].sv}_per1000`, `${FI_SEX_CSV[s].en}_${FI_CSV[o].en}_per1000`, 'number', {
+          sv: `Misstänkta för brott mot strafflagen under året per 1 000 invånare, alla åldrar, ${s === 'alla' ? 'båda könen' : s === 'man' ? 'män' : 'kvinnor'}: ${FI_LABEL[o].sv.toLowerCase()}. Statistikcentralens tal per 10 000, delat med 10.`,
+          en: `People suspected of criminal code offences during the year per 1,000 residents, all ages, ${s === 'alla' ? 'both sexes' : s === 'man' ? 'men' : 'women'}: ${FI_LABEL[o].en.replace(/^(Whole|Foreign)/, (m) => m.toLowerCase())}. Statistics Finland’s rate per 10,000, divided by 10.`,
+        }, PER1000),
+      ),
+    ),
+    ...([...FI_TABLE, 'okand'] as FiOrigin[]).map((o) =>
+      col(`antal_${FI_CSV[o].sv}`, `count_${FI_CSV[o].en}`, 'integer', {
+        sv: `Antal misstänkta för brott mot strafflagen under året, alla åldrar, båda könen: ${FI_LABEL[o].sv.toLowerCase()}. Varje person räknas en gång.`,
+        en: `Number of people suspected of criminal code offences during the year, all ages, both sexes: ${FI_LABEL[o].en.replace(/^(Whole|Foreign)/, (m) => m.toLowerCase())}. Each person is counted once.`,
+      }, COUNT),
+    ),
+  ],
+  // 6.2 Misstänkta i Finland efter ålder (Statistics Finland, StatFin 13zk)
+  kap14: [
+    col('alder', 'age', 'string', { sv: 'Åldersgrupp, eller alla åldrar.', en: 'Age group, or all ages.' }),
+    ...(['man', 'kvinnor'] as FiSex[]).flatMap((s) =>
+      AGE_GROUPS.map((o) =>
+        col(`${FI_SEX_CSV[s].sv}_${FI_CSV[o].sv}_per1000`, `${FI_SEX_CSV[s].en}_${FI_CSV[o].en}_per1000`, 'number', {
+          sv: `${s === 'man' ? 'Män' : 'Kvinnor'} misstänkta för brott mot strafflagen per 1 000 i samma åldersgrupp: ${FI_LABEL[o].sv.toLowerCase()}. Statistikcentralens tal per 10 000, delat med 10.`,
+          en: `${s === 'man' ? 'Men' : 'Women'} suspected of criminal code offences per 1,000 in the same age group: ${FI_LABEL[o].en.replace(/^Foreign/, 'foreign')}. Statistics Finland’s rate per 10,000, divided by 10.`,
+        }, PER1000),
+      ),
+    ),
+    ...(['man', 'kvinnor'] as FiSex[]).flatMap((s) =>
+      AGE_GROUPS.map((o) =>
+        col(`${FI_SEX_CSV[s].sv}_${FI_CSV[o].sv}_antal`, `${FI_SEX_CSV[s].en}_${FI_CSV[o].en}_count`, 'integer', {
+          sv: `Antal ${s === 'man' ? 'män' : 'kvinnor'} misstänkta för brott mot strafflagen i åldersgruppen: ${FI_LABEL[o].sv.toLowerCase()}.`,
+          en: `Number of ${s === 'man' ? 'men' : 'women'} suspected of criminal code offences in the age group: ${FI_LABEL[o].en.replace(/^Foreign/, 'foreign')}.`,
+        }, COUNT),
+      ),
+    ),
   ],
 };
 

@@ -1,0 +1,21 @@
+---
+// The country part pages in the country's own language: /da/danmark/, /fi/suomi/ (src/lib/parts.ts).
+// Only these pages are translated; the rest of the site is in Swedish and English.
+import PartPage from '../../../components/PartPage.astro';
+import { LOCAL_LANGS } from '../../../lib/i18n';
+import { localParts } from '../../../lib/parts';
+
+export function getStaticPaths() {
+  return LOCAL_LANGS.flatMap((lang) =>
+    localParts(lang).map((p) => {
+      const path = p.path[lang] as string;
+      const [, local, slug] = path.split('/');
+      if (local !== lang) throw new Error(`Part ${p.id}: the ${lang} page must live under /${lang}/`);
+      return { params: { local, part: slug }, props: { partId: p.id, lang } };
+    }),
+  );
+}
+const { partId, lang } = Astro.props;
+---
+
+<PartPage partId={partId} lang={lang} />

@@ -142,3 +142,11 @@ export function per1000(persons: number, population: number): number {
   if (population <= 0) throw new Error('per1000: population must be positive');
   return (persons / population) * 1000;
 }
+
+/**
+ * A rate per 10,000 (as Statistics Finland gives it) as a rate per 1,000, the unit used on the rest of the site.
+ * Rule: per10000 / 10. Not rounded; round when shown.
+ */
+export function per1000FromPer10000(per10000: number): number {
+  return per10000 / 10;
+}

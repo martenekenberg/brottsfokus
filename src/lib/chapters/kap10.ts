@@ -2,7 +2,7 @@
 // (Brå 2025:21, tables 1 and 4). Shared by the main page, the table page and the number checklist.
 import type { KohortGroup, KohortRow } from '../data';
 import { fmt, type LineChartSpec, type LineSeries } from '../charts/line';
-import { tr, type Lang } from '../i18n';
+import { tr, type BaseLang as Lang } from '../i18n';
 import { csvNumber, longCsv, type DataTable } from '../tables';
 import { GROUPS } from './kap1';
 

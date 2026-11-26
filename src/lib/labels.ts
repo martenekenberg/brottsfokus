@@ -1,7 +1,7 @@
 // English names for the labels that come from the data files (crime types, birth regions,
 // countries, groups). The data files are Swedish, so the keys are the Swedish names.
 // tests/i18n.test.ts fails if a label in a data file has no English name here.
-import type { Lang } from './i18n';
+import type { BaseLang as Lang } from './i18n';
 
 const EN: Record<string, string> = {
   // Crime types (Brå). Penal Code chapters are kept as references.

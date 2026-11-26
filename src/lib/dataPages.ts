@@ -1,14 +1,14 @@
 // The table pages, one per chapter that has one. Used by the chapter links,
 // the table index page, the sitemap and the language links.
-import { localePath, type Lang } from './i18n';
+import { ALL_LANGS, isLocal, linkLang, localePath, type BaseLang, type Lang } from './i18n';
 import { pagePairs } from './parts';
 
 export interface TablePage {
   chapterId: string;
   /** URL part for each language, e.g. "misstankta-over-tid" and "suspects-over-time". */
-  slug: Record<Lang, string>;
+  slug: Record<BaseLang, string>;
   /** Short name, used in lists and breadcrumbs. */
-  name: Record<Lang, string>;
+  name: Record<BaseLang, string>;
 }
 
 /** A table page in one language, with its URLs. */
@@ -83,15 +83,26 @@ export const tablePages: TablePage[] = [
     slug: { sv: 'danmark-kriminalitetsindex', en: 'denmark-crime-index' },
     name: { sv: 'Danmarks kriminalitetsindex', en: 'Denmark’s crime index' },
   },
+  {
+    chapterId: 'kap13',
+    slug: { sv: 'finland-misstankta', en: 'finland-suspects' },
+    name: { sv: 'Misstänkta i Finland', en: 'Suspects in Finland' },
+  },
+  {
+    chapterId: 'kap14',
+    slug: { sv: 'finland-alder', en: 'finland-age' },
+    name: { sv: 'Misstänkta i Finland efter ålder', en: 'Suspects in Finland by age' },
+  },
 ];
 
-/** The table index page: /data/ in Swedish, /en/data/ in English. */
+/** The table index page: /data/ in Swedish, /en/data/ in English. Country pages link to the English one. */
 export function tablesIndexPath(lang: Lang): string {
-  return localePath(lang, '/data/');
+  return localePath(linkLang(lang), '/data/');
 }
 
-/** URLs of one table page in a language. */
-export function tablePage(chapterId: string, lang: Lang): TablePageUrls {
+/** URLs of one table page in a language. The table pages are in Swedish and English; country pages link to the English ones. */
+export function tablePage(chapterId: string, anyLang: Lang): TablePageUrls {
+  const lang = linkLang(anyLang);
   const p = tablePages.find((x) => x.chapterId === chapterId);
   if (!p) throw new Error(`No table page for ${chapterId}`);
   const slug = p.slug[lang];
@@ -107,11 +118,26 @@ export function tablePage(chapterId: string, lang: Lang): TablePageUrls {
 }
 
 /**
+ * Every language a page exists in, with its path there, in menu order. Part pages can also have a
+ * country-language version; all other pages are in Swedish and English only.
+ */
+export function pageVersions(path: string, lang: Lang): { lang: Lang; path: string }[] {
+  for (const pair of pagePairs) {
+    if (path === pair[lang]) return ALL_LANGS.filter((l) => pair[l] !== undefined).map((l) => ({ lang: l, path: pair[l] as string }));
+  }
+  if (isLocal(lang)) throw new Error(`No page ${path} in ${lang}`);
+  return [
+    { lang: 'sv', path: lang === 'sv' ? path : alternatePath(path, lang) },
+    { lang: 'en', path: lang === 'en' ? path : alternatePath(path, lang) },
+  ];
+}
+
+/**
  * The same page in the other language, for language links. Paths without a table
  * page only change the language prefix. Returns null if the path is not in the other language.
  */
-export function alternatePath(path: string, lang: Lang): string {
-  const other: Lang = lang === 'sv' ? 'en' : 'sv';
+export function alternatePath(path: string, lang: BaseLang): string {
+  const other: BaseLang = lang === 'sv' ? 'en' : 'sv';
   // Part pages, Metod and Om sidan have their own slug in each language.
   for (const pair of pagePairs) {
     if (path === pair[lang]) return pair[other];

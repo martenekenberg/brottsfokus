@@ -9,7 +9,7 @@ import KeyFigures from './KeyFigures.astro';
 import PartCards from './PartCards.astro';
 import Footer from './Footer.astro';
 import { site, monthYear } from '../lib/site';
-import { localePath, tr, type Lang } from '../lib/i18n';
+import { localePath, tr, type BaseLang as Lang } from '../lib/i18n';
 import { buildKeyFigures } from '../lib/keyFigures';
 import { chapters, MERGED } from '../lib/chapters';
 import { aboutPath, methodPath, partOf } from '../lib/parts';
@@ -52,7 +52,7 @@ const partPaths: Record<string, string> = Object.fromEntries(
   <div class="wrap">
     <Masthead
       updated={monthYear(site.updated, lang)}
-      sources={L('Brå, SCB, Lunds och Stockholms universitet, Danmarks Statistik', 'Brå, SCB, Lund and Stockholm universities, Danmarks Statistik')}
+      sources={L('Brå, SCB, Lunds och Stockholms universitet, Danmarks Statistik, Statistikcentralen', 'Brå, SCB, Lund and Stockholm universities, Danmarks Statistik, Statistics Finland')}
       lang={lang}
     />
     <ChapterNav home lang={lang} />

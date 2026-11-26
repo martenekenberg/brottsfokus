@@ -1,7 +1,7 @@
 // Tables and CSV for the chapter 4 table page. Build time only.
 import type { PopulationRow, RapeStudyRow } from '../data';
 import { complementPct, populationSharePct, studyPopulationSharePct, swedishBornTwoForeignParents } from '../calc';
-import { tr, type Lang } from '../i18n';
+import { tr, type BaseLang as Lang } from '../i18n';
 import { dataLabel } from '../labels';
 import { csvNumber, longCsv, type DataTable } from '../tables';
 

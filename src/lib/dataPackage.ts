@@ -4,7 +4,7 @@
 import { dataDate } from './dataDates';
 import { dataDictionary } from './dataDictionary';
 import { tablePage, tablePages, tablesIndexPath } from './dataPages';
-import { tr, type Lang } from './i18n';
+import { tr, type BaseLang as Lang } from './i18n';
 import { site, absoluteUrl } from './site';
 import { tablePageContent } from './tablePageContent';
 
